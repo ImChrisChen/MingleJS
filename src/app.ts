@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: chrischen * Date: 2020/9/16 * Time: 12:05 上午 */class App {    private readonly el: HTMLElement;    constructor(el) {        this.el = el    }    private getAttributes() {        this.el.attributes    }}export {    App}
