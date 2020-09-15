@@ -128,7 +128,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600181574361</updated>
-      <workItem from="1600181577746" duration="8982000" />
+      <workItem from="1600181577746" duration="9375000" />
     </task>
     <servers />
   </component>
@@ -160,5 +160,9 @@
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600187862878" />
+    <state x="1414" y="513" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1600190600244">
+      <screen x="0" y="23" width="3008" height="1582" />
+    </state>
+    <state x="1414" y="513" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600190600244" />
   </component>
 </project>
