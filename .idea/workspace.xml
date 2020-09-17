@@ -26,13 +26,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment=".gitignore">
+      <change afterPath="$PROJECT_DIR$/utils/formatValue.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/main.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hello.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hello.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/form/select/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/form/select/select.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/layout/menu/LayoutMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/layout/menu/LayoutMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/view/popover/popover.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/view/popover/popover.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/relationMap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/relationMap.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,9 +49,9 @@
         <option value="JavaScript File" />
         <option value="Copy of Sass File" />
         <option value="Less File" />
-        <option value="TypeScript File" />
         <option value="HTML File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -206,30 +210,35 @@
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
     <state x="1296" y="148" key="#dev/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600255336451" />
-    <state x="1226" y="23" key="CommitChangelistDialog2" timestamp="1600259075755">
-      <screen x="0" y="23" width="2560" height="1057" />
+    <state x="1441" y="23" key="CommitChangelistDialog2" timestamp="1600352841350">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600259075755" />
-    <state width="1509" height="324" key="GridCell.Tab.0.bottom" timestamp="1600351181611">
+    <state x="1441" y="23" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600352841350" />
+    <state x="602" y="57" key="DiffContextDialog" timestamp="1600352839821">
+      <screen x="0" y="23" width="3008" height="1582" />
+    </state>
+    <state x="602" y="57" key="DiffContextDialog/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600352839821" />
+    <state width="1509" height="324" key="GridCell.Tab.0.bottom" timestamp="1600357824040">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1099" height="351" key="GridCell.Tab.0.bottom/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600267987535" />
-    <state width="1509" height="324" key="GridCell.Tab.0.bottom/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600351181611" />
-    <state width="1509" height="324" key="GridCell.Tab.0.center" timestamp="1600351181611">
+    <state width="1509" height="324" key="GridCell.Tab.0.bottom/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
+    <state width="1509" height="324" key="GridCell.Tab.0.center" timestamp="1600357824040">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1099" height="351" key="GridCell.Tab.0.center/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600267987534" />
-    <state width="1509" height="324" key="GridCell.Tab.0.center/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600351181611" />
-    <state width="1509" height="324" key="GridCell.Tab.0.left" timestamp="1600351181610">
+    <state width="1509" height="324" key="GridCell.Tab.0.center/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
+    <state width="1509" height="324" key="GridCell.Tab.0.left" timestamp="1600357824040">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1099" height="351" key="GridCell.Tab.0.left/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600267987533" />
-    <state width="1509" height="324" key="GridCell.Tab.0.left/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600351181610" />
-    <state width="1509" height="324" key="GridCell.Tab.0.right" timestamp="1600351181611">
+    <state width="1509" height="324" key="GridCell.Tab.0.left/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
+    <state width="1509" height="324" key="GridCell.Tab.0.right" timestamp="1600357824040">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1099" height="351" key="GridCell.Tab.0.right/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600267987535" />
-    <state width="1509" height="324" key="GridCell.Tab.0.right/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600351181611" />
+    <state width="1509" height="324" key="GridCell.Tab.0.right/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
     <state x="1075" y="370" key="IDE.errors.dialog" timestamp="1600186915049">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
@@ -242,15 +251,16 @@
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1511" y="700" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600348271102" />
-    <state x="1227" y="175" width="757" height="706" key="find.popup" timestamp="1600258714186">
-      <screen x="0" y="23" width="2560" height="1057" />
+    <state x="1442" y="250" width="890" height="1057" key="find.popup" timestamp="1600356611302">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1227" y="175" width="757" height="706" key="find.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600258714186" />
-    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup" timestamp="1600347928141">
+    <state x="1442" y="250" width="890" height="1057" key="find.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600356611302" />
+    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup" timestamp="1600359379005">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600264558797" />
-    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600347928141" />
+    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600359379005" />
     <state x="1203" y="350" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1600264603624">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
