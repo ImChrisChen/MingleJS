@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/9/17 * Time: 11:38 上午 */import * as React from "react";export default class LayoutMenu extends React.Component<any, any> {    render() {        console.log(this.props);        return <div>        </div>    }}
