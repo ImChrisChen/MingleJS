@@ -1,1 +1,1 @@
-import './src/App'
+import './src/App'import 'antd/dist/antd.css'import './src/App.scss'
