@@ -26,13 +26,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/src/component/data/table/Table.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/component/form/radio/Radio.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/form/select/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/form/select/select.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/relationMap.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/relationMap.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +47,8 @@
         <option value="Copy of Sass File" />
         <option value="Less File" />
         <option value="HTML File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -104,7 +105,8 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="$USER_HOME$/.nvm/versions/node/v6.5.0/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.配色方案字体" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
+    <property name="settings.editor.splitter.proportion" value="0.18176061" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
@@ -247,38 +249,39 @@
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1392" y="604" key="Github.Dialog.Accounts.Choose/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600359992648" />
-    <state width="1787" height="292" key="GridCell.Tab.0.bottom" timestamp="1600437786772">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state width="1509" height="429" key="GridCell.Tab.0.bottom" timestamp="1600455958246">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1319" height="332" key="GridCell.Tab.0.bottom/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409411661" />
     <state width="1787" height="292" key="GridCell.Tab.0.bottom/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600437786772" />
-    <state width="1509" height="324" key="GridCell.Tab.0.bottom/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
-    <state width="1787" height="292" key="GridCell.Tab.0.center" timestamp="1600437786771">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state width="1509" height="429" key="GridCell.Tab.0.bottom/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600455958246" />
+    <state width="1509" height="429" key="GridCell.Tab.0.center" timestamp="1600455958245">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1319" height="332" key="GridCell.Tab.0.center/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409411659" />
     <state width="1787" height="292" key="GridCell.Tab.0.center/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600437786771" />
-    <state width="1509" height="324" key="GridCell.Tab.0.center/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
-    <state width="1787" height="292" key="GridCell.Tab.0.left" timestamp="1600437786770">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state width="1509" height="429" key="GridCell.Tab.0.center/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600455958245" />
+    <state width="1509" height="429" key="GridCell.Tab.0.left" timestamp="1600455958245">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1319" height="332" key="GridCell.Tab.0.left/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409411659" />
     <state width="1787" height="292" key="GridCell.Tab.0.left/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600437786770" />
-    <state width="1509" height="324" key="GridCell.Tab.0.left/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
-    <state width="1787" height="292" key="GridCell.Tab.0.right" timestamp="1600437786772">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state width="1509" height="429" key="GridCell.Tab.0.left/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600455958245" />
+    <state width="1509" height="429" key="GridCell.Tab.0.right" timestamp="1600455958246">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state width="1319" height="332" key="GridCell.Tab.0.right/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409411660" />
     <state width="1787" height="292" key="GridCell.Tab.0.right/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600437786772" />
-    <state width="1509" height="324" key="GridCell.Tab.0.right/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600357824040" />
+    <state width="1509" height="429" key="GridCell.Tab.0.right/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600455958246" />
     <state x="1075" y="370" key="IDE.errors.dialog" timestamp="1600186915049">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1075" y="370" key="IDE.errors.dialog/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600186915049" />
-    <state x="1090" y="283" key="SettingsEditor" timestamp="1600418204066">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state x="1078" y="313" width="1580" height="1072" key="SettingsEditor" timestamp="1600452484523">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1090" y="283" key="SettingsEditor/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600418204066" />
+    <state x="1078" y="313" width="1580" height="1072" key="SettingsEditor/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600452484523" />
     <state width="629" height="500" key="SwitcherDM" timestamp="1600408910570">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
@@ -306,12 +309,12 @@
     <state x="1227" y="175" width="757" height="706" key="find.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600258714186" />
     <state x="1227" y="226" width="758" height="947" key="find.popup/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600427276428" />
     <state x="1442" y="250" width="890" height="1057" key="find.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600356611302" />
-    <state x="1014" y="128" width="856" height="1314" key="search.everywhere.popup" timestamp="1600438353171">
-      <screen x="0" y="23" width="2560" height="1417" />
+    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup" timestamp="1600455492596">
+      <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600407265764" />
     <state x="1014" y="128" width="856" height="1314" key="search.everywhere.popup/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600438353171" />
-    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600359379005" />
+    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600455492596" />
     <state x="1203" y="350" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1600264603624">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
