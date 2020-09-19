@@ -108,8 +108,10 @@
 		//	"forceConsistentCasingInFileNames": true
 		/* Disallow inconsistently-cased references to the same file. */
 	},
+	//	全局引入,不需要导入模块
 	"include": [
 		"./src/**/*"
+		//		"utils/util.ts"
 	],
 	"exclude": [
 		"node_modules"
