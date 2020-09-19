@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: chrischen * Date: 2020/9/19 * Time: 4:02 下午 */import React from 'react';import { Spin } from 'antd';export default class Loading extends React.Component<any, any> {    render() {        return <Spin wrapperClassName="loading-wrap" className="loading"/>;    }}

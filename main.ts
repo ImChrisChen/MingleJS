@@ -1,1 +1,1 @@
-import './src/App'import 'antd/dist/antd.css'import './src/App.scss'
+import 'antd/dist/antd.css';import './src/App.scss';import App from './src/App';new App();
