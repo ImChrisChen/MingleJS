@@ -25,19 +25,17 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="feat:构建工具库代码，添加部分组件">
-      <change afterPath="$PROJECT_DIR$/src/component/data/chart/line/line.tsx" afterDir="false" />
+    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="feat: 通用处理组件加载的钩子">
+      <change afterPath="$PROJECT_DIR$/src/component/data/chart/column/column.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/form/select/select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/form/select/select.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/layout/menu/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/layout/menu/menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/tips/loading/loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/tips/loading/loading.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/data/chart/line/line.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/data/chart/line/line.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/relation-map.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/relation-map.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +50,8 @@
         <option value="Less File" />
         <option value="HTML File" />
         <option value="JSX file" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -192,7 +190,7 @@
       <workItem from="1600407540227" duration="1869000" />
       <workItem from="1600415743496" duration="14507000" />
       <workItem from="1600484457542" duration="55185000" />
-      <workItem from="1600573244729" duration="5831000" />
+      <workItem from="1600573244729" duration="9785000" />
     </task>
     <task id="LOCAL-00001" summary=".gitignore">
       <created>1600253474526</created>
@@ -257,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600547223427</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: 通用处理组件加载的钩子">
+      <created>1600583787764</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1600583787764</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +281,9 @@
     <MESSAGE value="feat: tsconfig.json 和webpack.config.js 配置别名" />
     <MESSAGE value="feat: 递归查找组件" />
     <MESSAGE value="feat:构建工具库代码，添加部分组件" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:构建工具库代码，添加部分组件" />
+    <MESSAGE value="feat: 调整代码结构" />
+    <MESSAGE value="feat: 通用处理组件加载的钩子" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 通用处理组件加载的钩子" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1367" y="144" key="#JSON" timestamp="1600527587222">
@@ -287,12 +294,12 @@
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
     <state x="1296" y="148" key="#dev/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600255336451" />
-    <state x="734" y="23" width="1505" height="957" key="CommitChangelistDialog2" timestamp="1600547223318">
+    <state x="734" y="23" width="1505" height="957" key="CommitChangelistDialog2" timestamp="1600585408949">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409397683" />
     <state x="984" y="160" width="1505" height="957" key="CommitChangelistDialog2/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600421189705" />
-    <state x="734" y="23" width="1637" height="1302" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600547223318" />
+    <state x="734" y="23" width="1637" height="1302" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600585408949" />
     <state x="512" y="53" key="DiffContextDialog" timestamp="1600421185878">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
@@ -340,12 +347,12 @@
     </state>
     <state width="629" height="500" key="SwitcherDM/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600408910570" />
     <state width="750" height="749" key="SwitcherDM/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600533849893" />
-    <state x="1300" y="288" key="Vcs.Push.Dialog.v2" timestamp="1600547235195">
+    <state x="1300" y="288" key="Vcs.Push.Dialog.v2" timestamp="1600583790215">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1106" y="200" key="Vcs.Push.Dialog.v2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409399188" />
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600421191621" />
-    <state x="1300" y="288" key="Vcs.Push.Dialog.v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600547235195" />
+    <state x="1300" y="288" key="Vcs.Push.Dialog.v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600583790215" />
     <state x="1286" y="475" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600396495992">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
@@ -368,12 +375,12 @@
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1509" y="325" width="1005" height="1465" key="run.anything.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600576367714" />
-    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup" timestamp="1600583039541">
+    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup" timestamp="1600586763862">
       <screen x="0" y="23" width="3008" height="1582" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600407265764" />
     <state x="1014" y="128" width="856" height="1314" key="search.everywhere.popup/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600438353171" />
-    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600583039541" />
+    <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600586763862" />
     <state x="1203" y="350" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1600264603624">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
