@@ -10,6 +10,7 @@
 	"author": "chrischen",
 	"license": "ISC",
 	"devDependencies": {
+		"@antv/g2": "^4.0.15",
 		"@babel/core": "^7.11.6",
 		"@babel/plugin-transform-runtime": "^7.11.5",
 		"@babel/polyfill": "^7.11.5",
