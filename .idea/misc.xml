@@ -6,7 +6,7 @@
     <list size="0" />
   </component>
   <component name="JavaScriptSettings">
-    <option name="languageLevel" value="ES6" />
+    <option name="languageLevel" value="JSX" />
   </component>
   <component name="MarkdownNavigator.ProfileManager" plain-text-search-scope="项目文件" />
   <component name="MarkdownProjectSettings" wasCopied="true">
