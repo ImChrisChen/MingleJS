@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { getComponent } from '@utils/relation-map';
 import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
+import $ from 'jquery'
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -31,11 +32,11 @@ export default class App {
     }
 
     async init() {
-        for(const element of this.elements) {
+        for (const element of this.elements) {
 
             let container: HTMLElement, containerWrap: HTMLElement;
 
-            if(element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 element.setAttribute('type', 'hidden');
 
                 let elementWrap: HTMLElement = document.createElement('div');
@@ -54,13 +55,13 @@ export default class App {
             }
 
             let componentNames: string = element.getAttribute('data-fn') ?? '';
-            if(!componentNames) continue;
+            if (!componentNames) continue;
 
             containerWrap.setAttribute('data-component-container', componentNames);
 
-            for(const componentName of componentNames.split(' ')) {
+            for (const componentName of componentNames.split(' ')) {
 
-                if(componentName.startsWith('self-')) {
+                if (componentName.startsWith('self-')) {
                     console.error(`${ componentName } 模块不属于MingleJS`);
                     continue;
                 }
@@ -69,7 +70,7 @@ export default class App {
 
                 // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
                 let elChildren: Array<HTMLElement> = [];
-                if(element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
+                if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
                     elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
                 }
                 this.modules.push({ Component, element, container, elChildren });
@@ -105,15 +106,22 @@ export default class App {
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
 
-        if(element.tagName === 'INPUT') {
+        if (element.tagName === 'INPUT') {
 
-            // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
-            element.onchange = function (e) {
+            $(element).on('change', function (e) {
                 console.log('input值变化重新触发 解析模块');
                 let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
                 render(<Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container);
                 console.log('e', e);
-            };
+            })
+
+            // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
+            // element.addEventListener('change', function (e) {
+            //     console.log('input值变化重新触发 解析模块');
+            //     let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
+            //     render(<Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container);
+            //     console.log('e', e);
+            // });
         }
 
         // element.addEventListener('DOMNodeInserted', function () {

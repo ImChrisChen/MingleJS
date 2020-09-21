@@ -17,7 +17,7 @@ const typingsForCssModulesLoaderConf = {
 
 module.exports = {
     mode: 'production',
-    devtool: 'inline',
+    devtool: 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: './main.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),

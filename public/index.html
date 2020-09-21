@@ -11,20 +11,30 @@
 </head>
 <body>
 
+<input
+        data-fn="form-datepicker"
+        data-singledatepicker="false"
+        data-mindate="2016-01-01"
+        data-maxdate="2020-09-21"
+        data-extline="true"
+        data-value=""
+        onchange="demo(value)"
+>
+
 <!--<div data-fn="data-chartcolumn"></div>-->
 <!--<div data-fn="data-chartline"></div>-->
 
 <!--<h1>Hello</h1>-->
-<input type="text" name="pf" value="1" data-fn>
-<form data-fn="form-ajax" action="http://localhost:3000/api/system">
-    <input data-fn="form-select"
-           data-multi="true"
-           data-onload="dataOnload"
-           data-ext-query="pf=<{pf}>"
-           data-label="<h4>pf=<{pf}></h4>"
-    >
-    <button type="submit" class="ant-btn ant-btn-primary">提交</button>
-</form>
+<!--<input type="text" name="pf" value="1" data-fn>-->
+<!--<form data-fn="form-ajax" action="http://localhost:3000/api/system">-->
+<!--    <input data-fn="form-select"-->
+<!--           data-multi="true"-->
+<!--           data-onload="dataOnload"-->
+<!--           data-ext-query="pf=<{pf}>"-->
+<!--           data-label="<h4>pf=<{pf}></h4>"-->
+<!--    >-->
+<!--    <button type="submit" class="ant-btn ant-btn-primary">提交</button>-->
+<!--</form>-->
 
 <!--<input data-fn="form-selecttree">-->
 
@@ -61,6 +71,10 @@
 <script>
     function dataOnload() {
         // alert('FormSelect加载完成');
+    }
+
+    function demo(value) {
+        console.log('触发了事件', value);
     }
 
     function chartonload() {
