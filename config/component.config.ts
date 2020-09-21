@@ -30,5 +30,6 @@ export default {
     // },
     layout: {
         menu: import('@component/layout/menu/menu'),
+        tab : import('@component/layout/tab/tab'),
     },
 };

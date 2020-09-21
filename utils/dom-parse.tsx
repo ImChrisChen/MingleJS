@@ -5,7 +5,7 @@
  * Time: 6:38 下午
  */
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 // 真实DOM => 字符串 (一个)
 export function elementParseStr(el: HTMLElement) {
@@ -26,7 +26,7 @@ export function elementParseVirtualDOM(el: HTMLElement): any {
 }
 
 // 真实DOM 转 ReactDOM (多个)
-export function elementParseAllVirtualDOM(els: Array<HTMLElement>) {
+export function elementParseAllVirtualDOM(els: Array<HTMLElement>): Array<ReactElement> {
     return els.map(el => elementParseVirtualDOM(el));
 }
 
