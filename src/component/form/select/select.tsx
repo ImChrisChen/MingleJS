@@ -8,6 +8,7 @@
 import './select.less';
 import * as React from 'react';
 import { Checkbox, Popover, Select, Typography } from 'antd';
+import { strParseDOMText, strParseVirtualDOM } from '@utils/dom-parse';
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -31,12 +32,18 @@ export default class Selector extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.props.label);
         for(let i = 0; i < 100; i++) {
             const value = `${ i.toString(36) }${ i }`;
             this.state.options.push({
                 // title   : '🤔😄😹',
-                // label   : 'hah是哈哈哈哈🍭',
-                value,
+                // label   : strParseVirtualDOM(this.props.label),
+                label: strParseVirtualDOM(this.props.label),
+
+                //TODO 这里会被放在DOM属性上,如果不是常用的会报错误,改成title,提交比较常用
+                title: strParseDOMText(this.props.label) + i + 100,
+
+                value   : i,
                 disabled: i === 10,
             });
         }
@@ -70,9 +77,13 @@ export default class Selector extends React.Component<any, any> {
                                       onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox>
                         </div>
                     ) }
-                    filterOption={ (input, option: any) =>
-                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    }/>
+                    filterOption={ (input, option) => {
+                        if(!option) return false;
+                        console.log(option.label, option.searchLabelText);
+                        return String(option.value).includes(input) || String(option.title).includes(input);
+                        // console.log(input, option);
+                        // return option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+                    } }/>
             </Popover>
         </>;
     }

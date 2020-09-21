@@ -19,11 +19,6 @@ export function elementParseAllStr(els: Array<HTMLElement>) {
     return els.map(element => elementParseStr(element));
 }
 
-// 字符串 => ReactDOM
-export function strParseVirtualDOM(strHtml: string): any {
-    return <div dangerouslySetInnerHTML={ { __html: strHtml } }/>;
-}
-
 // 真实DOM 转 ReactDOM (一个)
 export function elementParseVirtualDOM(el: HTMLElement): any {
     let strHtml = elementParseStr(el);
@@ -35,6 +30,32 @@ export function elementParseAllVirtualDOM(els: Array<HTMLElement>) {
     return els.map(el => elementParseVirtualDOM(el));
 }
 
+// 字符串 => ReactDOM
+export function strParseVirtualDOM(strHtml: string): any {
+    return <div dangerouslySetInnerHTML={ { __html: strHtml } }/>;
+}
+
+// 字符串 => 真实DOM
+export function strParseDOM(strHtml: string): NodeListOf<ChildNode> {
+
+    let container = document.createElement('div');
+
+    container.innerHTML = strHtml;
+
+    return container.childNodes;
+
+}
+
+// 字符串 => DOM中的innerText
+export function strParseDOMText(strHtml: string): string {
+
+    let container = document.createElement('div');
+
+    container.innerHTML = strHtml;
+
+    return container.innerText;
+
+}
 
 class VNode {
     // 构造函数

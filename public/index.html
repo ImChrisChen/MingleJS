@@ -15,11 +15,13 @@
 <!--<div data-fn="data-chartline"></div>-->
 
 <!--<h1>Hello</h1>-->
+<input type="text" name="pf" value="1" data-fn>
 <form data-fn="form-ajax" action="http://localhost:3000/api/system">
     <input data-fn="form-select"
            data-multi="true"
            data-onload="dataOnload"
            data-ext-query="pf=<{pf}>"
+           data-label="<h4>pf=<{pf}></h4>"
     >
     <button type="submit" class="ant-btn ant-btn-primary">提交</button>
 </form>

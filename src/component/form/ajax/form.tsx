@@ -13,10 +13,10 @@ export default class FormAjax extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        this.eventListener();
+        this.init();
     }
 
-    eventListener() {
+    private init() {
         let submitBtn: HTMLElement = this.props.el.querySelector('[type=submit]');
         let form: HTMLFormElement = this.props.el;
         form.onsubmit = async function (e) {

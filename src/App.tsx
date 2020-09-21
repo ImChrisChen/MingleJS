@@ -7,9 +7,24 @@ import { parseDataAttr } from '@utils/parse-data-attr';
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
 
+interface IModules {
+    // { element, Component, container, elChildren }
+    element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
+    elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
+    Component: any                  //  被调用的组件
+    container: HTMLElement          //  组件渲染的React容器
+}
+
+interface IRenderComponent {
+    el: HTMLElement
+    elChildren: Array<HTMLElement> | []
+
+    [propName: string]: any
+}
+
 export default class App {
 
-    private modules: Array<any> = [];
+    private modules: Array<IModules> = [];
 
     constructor(private readonly elements: Array<HTMLElement>) {
         this.init().then(() => this.render());
@@ -21,13 +36,13 @@ export default class App {
             let container: HTMLElement, containerWrap: HTMLElement;
 
             if(element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.setAttribute('type', 'hidden');
 
                 let elementWrap: HTMLElement = document.createElement('div');
                 container = document.createElement('div');
                 element.after(elementWrap);
                 elementWrap.appendChild(element);
                 elementWrap.appendChild(container);
-
                 containerWrap = elementWrap;
 
             } else {
@@ -38,9 +53,9 @@ export default class App {
                 containerWrap = element;
             }
 
-            element.setAttribute('type', 'hidden');
-
             let componentNames: string = element.getAttribute('data-fn') ?? '';
+            if(!componentNames) continue;
+
             containerWrap.setAttribute('data-component-container', componentNames);
 
             for(const componentName of componentNames.split(' ')) {
@@ -51,8 +66,6 @@ export default class App {
                 }
 
                 let Component = await getComponent(componentName);
-
-                if(!Component) continue;
 
                 // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
                 let elChildren: Array<HTMLElement> = [];
@@ -72,28 +85,34 @@ export default class App {
 
             // 组件名必须大写
             render(
-                <Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>,
-                container, () => {
-                    let hooks = element.getAttribute('data-onload');
-                    if(window[hooks]) {
-                        (window[hooks] as any)();
-                    }
+                <Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container,
+                () => {
+                    let hooks = element.getAttribute('data-onload') ?? '';
+                    window[hooks] && window[hooks]();
                 });
 
             this.eventListener(module);
         });
     }
 
-    private eventListener(module) {
-        let { element, Component, container } = module;
+    // renderComponent(Component:ReactElement, props: IRenderComponent) {
+    //     return <Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>;
+    //     return <Compoent></Compoent>
+    // }
+
+    private eventListener(module: IModules) {
+        let { element, Component, container, elChildren } = module;
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
 
         if(element.tagName === 'INPUT') {
-            element['onchange'] = function (e) {
+
+            // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
+            element.onchange = function (e) {
                 console.log('input值变化重新触发 解析模块');
                 let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-                render(<Component el={ element } { ...parseDataAttr(dataset) }/>, container);
+                render(<Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container);
+                console.log('e', e);
             };
         }
 
