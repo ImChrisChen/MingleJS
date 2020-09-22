@@ -26,7 +26,7 @@ async function deep(keys, object) {
         return await object[key];         // 找到模块直接 return 出去
     } else {
         keys.shift();           // 删除第一项
-        return await deep(keys, object[key]);
+        return await deep(keys, object[key]);       // 加载模块
     }
 }
 

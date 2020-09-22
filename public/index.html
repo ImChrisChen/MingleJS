@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+<!--    <title><%= htmlWebpackPlugin.options.title %></title>-->
+    <title>Webpack App</title>
     <style>
         input[data-fn] {
             display : none;
@@ -21,16 +22,21 @@
 <!--        onchange="demo(value)"-->
 <!--&gt;-->
 
-<!--<input data-fn="form-button" data-enum="Apple,Apple;Pear,Pear;Orange,Orange">-->
+<!--<input data-fn="form-button" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
 
-<ul data-fn="layout-tab">
-    <li>hahahah3</li>
-    <li>是哈哈哈</li>
-    <li>😂😂😂😂😂😂😂</li>
-</ul>
+<input data-fn="form-switch" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">
+
+<!--<ul data-fn="layout-tab">-->
+<!--    <li>hahahah3</li>-->
+<!--    <li>是哈哈哈</li>-->
+<!--    <li>😂😂😂😂😂😂😂</li>-->
+<!--</ul>-->
 
 <!--<div data-fn="data-chartcolumn"></div>-->
 <!--<div data-fn="data-chartline"></div>-->
+
+<!--<div data-fn="form-editor"></div>-->
+
 
 <!--<h1>Hello</h1>-->
 <!--<input type="text" name="pf" value="1" data-fn>-->
@@ -71,8 +77,6 @@
 
 <!--<div data-fn="form-select"></div>-->
 
-
-<div id="App"></div>
 
 </body>
 </html>

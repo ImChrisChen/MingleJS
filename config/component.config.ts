@@ -12,6 +12,8 @@ export default {
         datepicker: import('@component/form/datepicker/datepicker'),
         ajax      : import('@component/form/ajax/form'),
         button    : import('@component/form/button/button'),
+        editor    : import('@component/form/editor/editor'),
+        switch    : import('@component/form/switch/switch')
     },
     view  : {
         popover : import('@component/view/popover/popover'),
