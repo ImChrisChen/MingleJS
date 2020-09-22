@@ -8,6 +8,8 @@ import $ from 'jquery'
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
 
+// console.log('哈哈哈哈');
+
 interface IModules {
     // { element, Component, container, elChildren }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的

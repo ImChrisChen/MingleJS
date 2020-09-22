@@ -1,9 +1,10 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 const typingsForCssModulesLoaderConf = {
     loader: 'typings-for-css-modules-loader',
@@ -16,29 +17,30 @@ const typingsForCssModulesLoaderConf = {
 };
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     devtool: 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: './main.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: './mingle.min.js',
+        filename: '[name].min.js',
         // publicPath: '/assets/',
         libraryTarget: 'umd',
     },
-    // optimization: {
-    //     splitChunks: {
-    //         name: false,     // 自动处理文件名
-    //         chunks: 'all',
-    //         minChunks: 1, // 至少 import 1 次的即需要打包
-    //         automaticNameDelimiter: '-',        // 生成名称的隔离符
-    //         cacheGroups: {
-    //             vendors: {
-    //                 test: /react|react-dom|antd/,   // 将这两个第三方模块单独提取打包
-    //                 chunks: 'initial',
-    //             },
-    //         },
-    //     },
-    // },
+    optimization: {
+        removeAvailableModules: true,
+        removeEmptyChunks: true,
+        splitChunks: {
+            name: 'manifest',     // 自动处理文件名
+            chunks: 'async',
+            minChunks: 3, // 至少 import 1 次的即需要打包
+            automaticNameDelimiter: '-',        // 生成名称的隔离符
+            cacheGroups: {
+                vendors: {
+                    test: /react|react-dom|antd/,   // 将这两个第三方模块单独提取打包
+                },
+            },
+        },
+    },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
@@ -64,14 +66,14 @@ module.exports = {
                     { loader: 'css-loader' },
                 ],
             },
-            {
-                test: /\.less$/,
-                use: [
-                    { loader: 'style-loader' },
-                    { loader: 'css-loader' },
-                    { loader: 'less-loader' },
-                ],
-            },
+            // {
+            //     test: /\.less$/,
+            //     use: [
+            //         { loader: 'style-loader' },
+            //         { loader: 'css-loader' },
+            //         { loader: 'less-loader' },
+            //     ],
+            // },
             {
                 test: /\.scss$/,
                 rules: [
@@ -84,19 +86,22 @@ module.exports = {
                 ],
             },
             {
-                test: /\.tsx?$/,
-                use: {
-                    // loader: 'ts-loader',
-                    loader: 'awesome-typescript-loader',
-                },
+                // test: /\.tsx?$/,
+                test: /(.ts)|(.tsx)$/,
+                use: [
+                    { loader: 'awesome-typescript-loader' },
+                    { loader: 'cache-loader' },
+                ],
+                include: path.resolve(__dirname, '/'),
+                exclude: path.resolve(__dirname, 'node_modules/'),
             },
-            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
-            {
-                test: /\.jsx?$/,
-                use: {
-                    loader: 'babel-loader',
-                },
-            },
+            // { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+            // {
+            //     test: /\.jsx?$/,
+            //     use: {
+            //         loader: 'babel-loader',
+            //     },
+            // },
         ],
     },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
@@ -110,18 +115,26 @@ module.exports = {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: '[name].[contenthash].css',
-            disable: process.env.NODE_ENV === 'development',
+            disable: isProduction,
             chunkFilename: '[id].css',
         }),
         
-        new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
+        new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
         
         // 处理html
         new HtmlWebpackPlugin({
             // chunks: ['./dist/mingle.min.js'],
+            title: isProduction ? 'MingleJS Production' : 'MingleJS Development',            // html title
             filename: path.join(__dirname, 'dist/index.html'),
             template: './public/index.html',
         }),
+        
+        // 生产环境可以使用这个
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warning: false,
+        //     },
+        // }),
         
         // webpack 打包性能可视化分析
         // new BundleAnalyzerPlugin({
@@ -142,7 +155,7 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: { '^/api': '' },
             },
-            contentBase: path.join(__dirname, './dist/'),   //发布目录
+            contentBase: path.join(__dirname, './dist'),   //发布目录
             compress: true,             // 是否压缩
             host: '0.0.0.0',            // 局域网ip
             port: 9000,

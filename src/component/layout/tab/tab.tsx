@@ -18,14 +18,13 @@ export default class Tab extends React.Component<any, any> {
 
     renderChild() {
         let elChildren = this.props.elChildren;
+        elChildren.pop();       // TODO 后续优化
         let tabChildren = elementParseAllVirtualDOM(elChildren);
         console.log(elChildren);
-        // elChildren.map(el => el.remove());
         return tabChildren.map((child, index) => <TabPane tab={ index } key={ index }>{ child }</TabPane>);
     }
 
     render() {
-
         return <Tabs defaultActiveKey="1" onChange={ this.handleChange.bind(this) }>
             { ...this.renderChild() }
         </Tabs>;
