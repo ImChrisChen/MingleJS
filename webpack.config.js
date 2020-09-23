@@ -5,6 +5,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const glob = require('glob');
+const marked = require('marked');
+const renderer = new marked.Renderer();
 // const UglifyEsPlugin = require('uglify-es');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -24,7 +26,7 @@ module.exports = {
     mode: 'development',
     devtool: 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
-        app: './main.ts',
+        app: './main.tsx',
         vendoer: [
             'react',
             'react-dom',
@@ -57,7 +59,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
-            '@root': path.resolve(__dirname, '/'),
+            '@root': path.resolve(__dirname, './'),
             '@config': path.resolve(__dirname, 'config'),
             '@docs': path.resolve(__dirname, 'docs'),
             '@src': path.resolve(__dirname, 'src'),
@@ -112,9 +114,24 @@ module.exports = {
                 exclude: path.resolve(__dirname, 'node_modules/'),
             },
             // Markdown 文件解析
+            // {
+            //     test: /.(md|txt)$/,
+            //     use: 'raw-loader',
+            // },
             {
-                test: /.(md|txt)$/,
-                use: 'raw-loader',
+                test: /.md$/,
+                use: [
+                    {
+                        loader: 'html-loader',
+                    },
+                    {
+                        loader: 'markdown-loader',
+                        options: {
+                            pedantic: true,
+                            renderer,
+                        },
+                    },
+                ],
             },
             // { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
             // {

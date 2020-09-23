@@ -11,11 +11,6 @@ import Axios from 'axios';
 export default class FormAjax extends React.Component<any, any> {
     submitBtn;
 
-    constructor(props) {
-        super(props);
-        this.init();
-    }
-
     private init() {
         let submitBtn: HTMLElement = this.props.el.querySelector('[type=submit]');
         let form: HTMLFormElement = this.props.el;
@@ -32,7 +27,8 @@ export default class FormAjax extends React.Component<any, any> {
 
     render() {
         return <>
-            { this.submitBtn }
+            <h1>Form</h1>
+            {/*{ this.submitBtn }*/ }
         </>;
     }
 }

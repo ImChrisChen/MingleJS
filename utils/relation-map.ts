@@ -13,7 +13,7 @@ interface esModule {
 
 import componentMap from '../config/component.config'
 
-async function deep(keys, object) {
+async function deepGetComponent(keys, object) {
 
     let key = keys[0];
 
@@ -23,21 +23,29 @@ async function deep(keys, object) {
 
     // 判断是否是 import 进来的模块
     if (object[key] instanceof Promise) {
-        return await object[key];         // 找到模块直接 return 出去
+        return {
+            // docs: await  object[key]
+            docs     : undefined,
+            component: await object[key]
+        };         // 找到模块直接 return 出去
     } else {
-        keys.shift();           // 删除第一项
-        return await deep(keys, object[key]);       // 加载模块
+        if (object[key]['component']) {
+            return {
+                component: await object[key]['component'],
+                docs     : await object[key]['docs']
+            }
+        } else {
+            keys.shift();           // 删除第一项
+            return await deepGetComponent(keys, object[key]);       // 加载模块
+        }
     }
 }
 
 // TODO 后续可优化成读取目录的形式，不过感觉要配合 命令行生成目录会比较好
 export async function getComponent(keys: string) {
     keys = keys.toLowerCase();
-
-    // let esModule = keys.split('-').reduce((target: object, key) => {
-    //     return target[key];
-    // }, ComponentMap);
-    let esModule = await deep(keys.split('-'), componentMap);
+    let { component: esModule, docs } = await deepGetComponent(keys.split('-'), componentMap);
+    console.log(docs);
     if (!esModule) {
         console.error(`没有${ keys }这个组件`);
         return false;
@@ -45,5 +53,4 @@ export async function getComponent(keys: string) {
 
     return esModule['default'];
 }
-
 
