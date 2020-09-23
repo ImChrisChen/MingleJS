@@ -1,1 +1,53 @@
-/** * Created by WebStorm. * User: MacBook * Date: 2020/9/22 * Time: 7:03 下午 */import React from "react";import MarkdownEditor from '@uiw/react-markdown-editor'; // https://uiwjs.github.io/react-markdown-editor/export default class Editor extends React.Component<any, any> {    state = {        value  : '',        content: '',    }    handleChange(e) {        console.log(e);    }    render() {        let { value } = this.state;        return <>            <div className="container">                <MarkdownEditor                    toolbars={ false }                    height={ 200 } value={ value } onChange={ this.handleChange.bind(this) }/>            </div>        </>;    }}
+/**
+ * Created by WebStorm.
+ * User: MacBook
+ * Date: 2020/9/22
+ * Time: 7:03 下午
+ */
+
+import React from 'react';
+import MarkdownEditor from '@uiw/react-markdown-editor'; // https://gitee.com/uiw/react-markdown-editor
+import { debounce } from '@utils/util';
+import { message } from 'antd';
+
+interface IFormEditorProps {
+    value?: string;
+
+    [key: string]: any
+}
+
+export default class Editor extends React.Component<IFormEditorProps, any> {
+    state = {
+        value  : this.props.value || sessionStorage.getItem('form-editor-value') || `# 哈哈哈哈哈`,
+        options: {
+            lineNumbers  : true,
+            mode         : 'markdown',
+            tabSize      : 2,
+            visibleEditor: true,
+            visible      : true,
+            toolbarsMode : [ '😁' ],
+            width        : '100%',
+            height       : '100%',
+        },
+    };
+
+    handleChange(editor, data, value) {
+        this.setState({ value });
+        sessionStorage.setItem('form-editor-value', value);
+        message.success('保持成功');
+    }
+
+    render() {
+        let { value, options } = this.state;
+        return <>
+            <div className="container">
+                <MarkdownEditor
+                    { ...options }
+                    value={ value }
+                    onChange={ debounce(this.handleChange.bind(this), 3000) }
+                />
+            </div>
+        </>;
+    }
+}
+
