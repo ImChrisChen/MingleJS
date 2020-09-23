@@ -11,18 +11,17 @@ import LayoutMenu from '@component/layout/menu/menu';
 import componentMap from '../../config/component.config';
 import { Route, Switch } from 'react-router';
 import style from './Document.scss';
-
-import FormSelect from '@component/form/select/select';
+// import FormSelect from '@component/form/select/select';
 import FormSelectTree from '@component/form/select/tree/tree';
 import FormSelectButton from '@component/form/button/button';
 import FormDatepicker from '@component/form/datepicker/datepicker';
 import Editor from '@component/form/editor/editor';
-
 // @ts-ignore
-import FormSelectMD from '@component/form/select/select.md'
-console.log(FormSelectMD);
+import FormSelectMD from '@component/form/select/select.md';
 
-console.log(FormSelect);
+// console.log(FormSelectMD);
+
+// console.log(FormSelect);
 
 export class Document extends React.Component<any, any> {
     state: any = {
@@ -93,7 +92,7 @@ export class Document extends React.Component<any, any> {
                     </div>
                 </Switch>
 
-                <Editor value={FormSelectMD}></Editor>
+                <Editor value={ FormSelectMD }></Editor>
 
                 {/*{ ...Routes }*/ }
             </div>

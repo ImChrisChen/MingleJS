@@ -34,7 +34,7 @@ export default class Editor extends React.Component<IFormEditorProps, any> {
     handleChange(editor, data, value) {
         this.setState({ value });
         sessionStorage.setItem('form-editor-value', value);
-        message.success('保持成功');
+        message.success('保存成功');
     }
 
     render() {

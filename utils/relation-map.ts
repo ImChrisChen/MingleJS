@@ -45,7 +45,6 @@ async function deepGetComponent(keys, object) {
 export async function getComponent(keys: string) {
     keys = keys.toLowerCase();
     let { component: esModule, docs } = await deepGetComponent(keys.split('-'), componentMap);
-    console.log(docs);
     if (!esModule) {
         console.error(`没有${ keys }这个组件`);
         return false;
