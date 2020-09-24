@@ -197,7 +197,8 @@ module.exports = {
         new ImageWebpackPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
             // disable: process.env.NODE_ENV !== 'production',         // 开发或者生产环境, development 环境期间禁用
-            disable: !isProduction,         // 开发或者生产环境, development 环境期间禁用
+            // disable: !isProduction,         // 开发或者生产环境, development 环境期间禁用
+            disable: true,         // 开发或者生产环境, development 环境期间禁用
             pngquant: {
                 quality: '10-80',
             },
