@@ -128,9 +128,7 @@ export default class DataTable extends React.Component<any, any> {
         let { data } = tableContent;
         return data.map(item => {
             let fieldStr = parseTpl(this.fieldTpl, item);
-            console.log(fieldStr);
             let fieldJSX = strParseVirtualDOM(fieldStr);
-            console.log(fieldJSX);
             return {
                 ...item,
                 key            : item.id,
