@@ -4,32 +4,42 @@
  * Date: 2020/9/23
  * Time: 11:16 下午
  */
+import { message } from "antd";
 
-import $ from 'jquery';
+export function jsonp(url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+        window['jsonCallBack'] = (result) => {
 
-function jsonp(url, data = {}, fn) {
+            console.log(result);
 
-    if (data.constructor === Function) {
-        fn = data;
-        data = {};
-    }
+            if (result.status) {
+                resolve(result);
+            } else {
+                message.error('接口返回错误')
+                reject(result)
+            }
 
+        };
+        let script: HTMLScriptElement = document.createElement('script');
+
+        if (url.includes('?')) {
+            url = url + '&jsoncallback=jsonCallBack';
+        } else {
+            url = url + '?jsoncallback=jsonCallBack'
+        }
+        console.log(url);
+
+        script.type = 'text/javascript';
+        script.src = url;
+        let body = document.querySelector('body');
+        body?.appendChild(script);
+
+        setTimeout(() => {
+            body?.removeChild(script);
+        }, 500);
+    });
 }
 
-// export function jsonp(url: string): Promise<any> {
-//     return new Promise((resolve, reject) => {
-//         window['jsonCallBack'] = (result) => {
-//             resolve(result);
-//         };
-//         let JSONP = document.createElement('script');
-//         JSONP.type = 'text/javascript';
-//         JSONP.src = `${ url }&callback=jsonCallBack`;
-//         document.getElementsByTagName('head')[0].appendChild(JSONP);
-//         setTimeout(() => {
-//             document.getElementsByTagName('head')[0].removeChild(JSONP);
-//         }, 500);
-//     });
-// }
 //
 // 允许携带cookie
 // axios.defaults.timeout = 6000;

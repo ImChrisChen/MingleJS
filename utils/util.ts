@@ -5,7 +5,7 @@
  * Time: 2:36 上午
  */
 
-export function isStr(v) {
+export function isStr(v): v is string {
     return typeof v === 'string';
 }
 
@@ -13,11 +13,11 @@ export function isEmptyStr(v) {
     return v === '';
 }
 
-export function isBool(v) {
+export function isBool(v): v is boolean {
     return typeof v === 'boolean';
 }
 
-export function isObject(v) {
+export function isObject(v): v is object {
     return typeof v === 'object' && v.constructor === Object;
 }
 
@@ -25,7 +25,7 @@ export function isEmptyObject(v) {
     return JSON.stringify(v) === '{}';
 }
 
-export function isArray(v) {
+export function isArray(v): v is Array<any> {
     return typeof v === 'object' && v.constructor === Array;
 }
 
@@ -37,22 +37,22 @@ export function isNoEmptyArray(v) {
     return isArray(v) && !isEmptyArray(v);
 }
 
-export function isUndefined(v) {
+export function isUndefined(v): v is undefined {
     return typeof v === 'undefined';
 }
 
-export function isFunc(v) {
+export function isFunc(v): v is Function {
     return typeof v === 'function';
 }
 
-export function isDOM(v) {
+export function isDOM(v): v is HTMLElement {
     return (typeof HTMLElement === 'object') ?
         v instanceof HTMLElement :
         v && typeof v === 'object' && v.nodeType === 1 && typeof v.nodeName === 'string';
 }
 
 // 判断是否是Class https://zhuanlan.zhihu.com/p/53385348
-export function isClass(obj, strict?) {
+export function isClass(obj, strict?): obj is ClassDecorator {
     if (typeof obj != 'function') return false;
 
     let str = obj.toString();

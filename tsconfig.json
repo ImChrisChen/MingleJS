@@ -55,7 +55,7 @@
 		/* Base directory to resolve non-absolute module names. */
 		"paths": {
 			"@root/*": [
-				"/*"
+				"./*"
 			],
 			"@config": [
 				"config/*"
@@ -86,6 +86,9 @@
 			],
 			"@utils/*": [
 				"utils/*"
+			],
+			"@mock/*": [
+				"mock/*"
 			]
 		},
 		/* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */

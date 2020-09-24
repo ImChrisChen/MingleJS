@@ -66,6 +66,7 @@ module.exports = {
             '@component': path.resolve(__dirname, 'src/component/'),
             '@interface': path.resolve(__dirname, 'src/interface/'),
             '@services': path.resolve(__dirname, 'src/services/'),
+            '@mock': path.resolve(__dirname, 'src/mock'),
             
             '@public': path.resolve(__dirname, 'public/'),
             
@@ -209,11 +210,12 @@ module.exports = {
     ],
     devServer: {
         proxy: {
-            '/api': {
-                target: 'http://localhost:3000',
-                source: true,
+            '/manage': {
+                // /manage/useful/advPositionCost/header?pf=1'
+                target: 'http://e.aidalan.com/manage',
+                // source: true,
                 changeOrigin: true,
-                pathRewrite: { '^/api': '' },
+                pathRewrite: { '^/manage': '' },
             },
             contentBase: path.resolve(__dirname, 'dist/index.html'),   //静态服务器根目录
             compress: true,             // 是否压缩

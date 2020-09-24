@@ -4,19 +4,36 @@
  * Date: 2020/9/19
  * Time: 11:13 上午
  */
-import { isEmptyStr } from '@utils/util';
+
+import { isDOM, isEmptyStr, isObject } from '@utils/util';
+
+declare type IParseModeData = HTMLElement | object | null;
 
 // 'pf=<{pf}>' => 'pf=ios'
-export function parseTpl(tpl: string): String {
+export function parseTpl(
+    tpl: string,
+    data: IParseModeData = document.querySelector('body')
+): string {
     let fields: Array<string> = getTplFields(tpl);
+    let result = '';
 
-    fields.forEach(field => {
-        let input = document.querySelector(`input[name=${ field }]`);
-        let val = input?.['value'] ?? '';
-        tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));      // 将模版替换为指定的值
-    });
+    // 去body 里面找input
+    if (isDOM(data)) {
+        fields.forEach(field => {
+            let input = document.querySelector(`input[name=${ field }]`);
+            let val = input?.['value'] ?? '';
+            result = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));      // 将模版替换为指定的值
+        });
+    }
 
-    return tpl;
+    if (isObject(data)) {
+        fields.forEach(field => {
+            let val = data[field] ?? '';
+            result = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val))
+        })
+    }
+
+    return result;
 }
 
 // [ 'pf', 'game_id' ];
@@ -31,7 +48,7 @@ export function getTplFields(tpl: string): Array<string> {
 
 export function parseEnum(enumStr: string): Array<object> {
 
-    if(isEmptyStr(enumStr)) return [];
+    if (isEmptyStr(enumStr)) return [];
 
     return enumStr.split(';').reduce((arr: Array<object>, group) => {
         let [ key, val ] = group.split(',');
