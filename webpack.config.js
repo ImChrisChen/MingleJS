@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
+const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
 const marked = require('marked');
 const renderer = new marked.Renderer();
@@ -24,14 +25,14 @@ const typingsForCssModulesLoaderConf = {
 
 module.exports = {
     mode: 'development',
-    devtool: 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
+    devtool: isProduction ? false : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
-        app: './main.tsx',
-        vendoer: [
-            'react',
-            'react-dom',
-            'antd',
-        ],
+        main: './main.tsx',
+        // vendoer: [
+        //     'react',
+        //     'react-dom',
+        //     'antd',
+        // ],
         chart: ['bizcharts'],
     },
     output: {
@@ -39,7 +40,7 @@ module.exports = {
         filename: '[name].min.js',
         // publicPath: '/assets/',
         libraryTarget: 'umd',
-        chunkFilename: '[name].[chunkhash].js',//非入口(non-entry) chunk 文件(关联文件)的名称
+        chunkFilename: '[name].min.js',//非入口(non-entry) chunk 文件(关联文件)的名称
     },
     optimization: {
         removeAvailableModules: true,
@@ -56,6 +57,7 @@ module.exports = {
             },
         },
     },
+    
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
@@ -134,7 +136,7 @@ module.exports = {
                     },
                 ],
             },
-            // { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
             // {
             //     test: /\.jsx?$/,
             //     use: {
@@ -201,10 +203,21 @@ module.exports = {
         new BundleAnalyzerPlugin({
             analyzerMode: 'server',
             analyzerHost: '0.0.0.0',
-            analyzerPort: '9200',
+            // analyzerPort: '9200',
             generateStatsFile: false,
             statsOptions: {
                 source: false,
+            },
+        }),
+        
+        new FileManagerPlugin({
+            onEnd: {
+                copy: [
+                    {
+                        source: './public/index.js',
+                        destination: './dist/index.js',
+                    },
+                ],
             },
         }),
     ],
@@ -220,7 +233,7 @@ module.exports = {
             contentBase: path.resolve(__dirname, 'dist/index.html'),   //静态服务器根目录
             compress: true,             // 是否压缩
             host: '0.0.0.0',            // 局域网ip
-            port: 9000,
+            // port: 9000,
             historyApiFallback: true,
             open: true,     //是否自动打开默认浏览器
             hot: true,      //热更新
