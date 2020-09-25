@@ -4,6 +4,7 @@ import { getComponent } from '@utils/relation-map';
 import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery'
+import { message } from "antd";
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -160,6 +161,27 @@ export default class App {
         //     console.log('DOMSubtreeModified');
         //
         // });
+
+        // 文本节点发生变化时
+        element.addEventListener('DOMCharacterDataModified', function () {
+
+        })
+
+        window.addEventListener('online', function () {
+            message.success('浏览器已获得网络链接');
+        })
+
+        window.addEventListener('offline', function () {
+            message.error('浏览器失去网络链接');
+        })
+
+        window.addEventListener('copy', function () {
+            message.success('复制成功');
+        })
+
+        window.addEventListener('cut', function (event) {
+            message.success('剪切成功');
+        })
 
     }
 

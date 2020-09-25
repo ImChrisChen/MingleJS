@@ -75,17 +75,8 @@ export function parseDataAttr(dataAttrs: ElementDataAttrs): object {
                         newDataSet[propsName] = JSON.parse(val);
                     break;
 
-                // case type === Function:
-                //     break
-                //
-                // case type === undefined:
-                //     break
-                //
-                // case type === null:
-                //     break
-                //
-                // default:
-                //     break
+                default:
+                    break
             }
 
         }
