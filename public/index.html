@@ -24,7 +24,7 @@
 <!--        onchange="demo(value)"-->
 <!--&gt;-->
 
-<!--<input data-fn="form-button" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
+<input data-fn="form-button" data-enum="Apple,Apple;Pear,Pear;Orange,Orange">
 
 <!--<input data-fn="form-switch" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
 
@@ -36,7 +36,9 @@
 <!--    <li>😂😂😂😂😂😂😂</li>-->
 <!--</ul>-->
 
-<!--<input data-fn="form-input" data-maxlength="6" data-prefix="😂" data-size="middle">-->
+<input data-fn="form-input" value="谁 撒地方" data-size="middle" data-prefix="😹"
+       data-allowClear="true"
+       data-width="200px"/>
 
 <!--<div data-fn="data-chartcolumn"></div>-->
 <!--<div data-fn="data-chartline"></div>-->
@@ -82,13 +84,13 @@
 <!--     style="width: 100%;">-->
 <!--</div>-->
 
-<input data-fn="form-button"
-       data-enum="1,IOS;2,Android"
-       hook:beforeLoad="beforeLoad"
-       hook:load="load"
-       hook:beforeUpdate="beforeUpdate"
-       hook:update="update"
-       style="width: 100%;"/>
+<!--<input data-fn="form-button"-->
+<!--       data-enum="1,IOS;2,Android"-->
+<!--       hook:beforeLoad="beforeLoad"-->
+<!--       hook:load="load"-->
+<!--       hook:beforeUpdate="beforeUpdate"-->
+<!--       hook:update="update"-->
+<!--       style="width: 100%;"/>-->
 
 <!--<div data-fn="view-popover">哈啥哈</div>-->
 
@@ -103,7 +105,7 @@
 </html>
 <script>
     function beforeLoad() {
-        console('beforeLoad');
+        console.log('beforeLoad');
     }
 
     function load() {
@@ -118,15 +120,4 @@
         console.log('beforeUpdate');
     }
 
-    function dataOnload() {
-        // console.log('FormSelect加载完成');
-    }
-
-    function demo(value) {
-        console.log('触发了事件', value);
-    }
-
-    function chartonload() {
-        console.log('DataChart组件加载完成');
-    }
 </script>

@@ -25,7 +25,7 @@ const property = {
     },
     pageSizeOptions : {
         name: 'pageSizeOptions',
-        type: 'string[]'
+        type: 'string[]',
     },
     urlData         : {
         type: 'string',
@@ -33,24 +33,36 @@ const property = {
     },
     maxLength       : {
         name: 'maxLength',
-        type: 'number'
-    }
-}
+        type: 'number',
+    },
+    size            : {
+        name: 'size',
+        type: 'string',
+    },
+    prefix          : {
+        name: 'prefix',
+        type: 'string',
+    },
+    allowClear      : {
+        name: 'allowClear',
+        type: 'boolean',
+    },
+};
 
 // 对象属性值统一成小写,因为在dataset中只能获取到小写的值，这里提供一层映射关系
 function formatKeys(property) {
     for (let key in property) {
-        if (!property.hasOwnProperty(key)) continue
+        if (!property.hasOwnProperty(key)) continue;
 
         let val = property[key];
         let newKey = key.toLowerCase();
 
         if (newKey !== key) {       // 大小写转换了
             property[newKey] = val;
-            delete property[key]
+            delete property[key];
         }
     }
-    return property
+    return property;
 }
 
 export default formatKeys(property);

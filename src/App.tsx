@@ -10,8 +10,6 @@ import { isFunc } from '@utils/util';
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
 
-// console.log('哈哈哈哈');
-
 interface IModules {
     // { element, Component, container, elChildren }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
@@ -20,16 +18,6 @@ interface IModules {
     container: HTMLElement          //  组件渲染的React容器
     hooks: object
 }
-
-interface IRenderComponent {
-    el: HTMLElement
-    elChildren: Array<HTMLElement> | []
-
-    [propName: string]: any
-}
-
-// 渲染模式
-type TRenderMode = 'load' | 'reload';
 
 // 组件生命周期
 enum Hooks {
@@ -55,11 +43,13 @@ export default class App {
             let hooks: object = {};
             attrs.forEach(({ name, value: fnName }) => {
                 let [ , hookName ] = name.split('hook:');
-                if (hookName && isFunc(window[fnName])) hooks[hookName] = window[fnName];
+                if (hookName && isFunc(window[fnName])) {
+                    hooks[hookName] = window[fnName];
+                }
             });
 
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.setAttribute('type', 'hidden');
+                // element.setAttribute('type', 'hidden');
 
                 let elementWrap: HTMLElement = document.createElement('div');
                 container = document.createElement('div');
@@ -105,21 +95,15 @@ export default class App {
         this.modules.forEach(module => {
             // 组件初始化
             this.renderComponent(module, function (hooks) {
-                console.log('-----------beforeLoad');
-                console.log(hooks);
+                // console.log('-----------beforeLoad');
                 hooks['beforeLoad']?.();
             }, function (hooks) {
-                console.log('--------------load');
+                // console.log('--------------load');
                 hooks['load']?.();
             });
             this.eventListener(module);
         });
     }
-
-    // renderComponent(Component:ReactElement, props: IRenderComponent) {
-    //     return <Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>;
-    //     return <Compoent></Compoent>
-    // }
 
     private eventListener(module: IModules) {
         let { element } = module;
@@ -130,7 +114,7 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                console.log('input值变化重新触发 解析模块');
+                console.log(e.target['value']);
                 this.renderComponent(module, function (hooks) {
                     console.log('-----------------beforeUpdate');
                     hooks['beforeUpdate']?.();
@@ -203,15 +187,13 @@ export default class App {
         let { element, Component, container, elChildren, hooks } = module;
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
-        console.log(1);
         // 组件名必须大写
-        render(<Component el={ element }
-                          value={ element['value'] ?? '' }
-                          elChildren={ elChildren }
-                          { ...parseDataAttr(dataset) }/>, container, () => {
-                callback(hooks);
-                console.log(2);
-            },
+        render(<Component
+                el={ element }
+                value={ element['value'] }
+                elChildren={ elChildren }
+                { ...parseDataAttr(dataset) }
+            />, container, () => callback(hooks),
         );
 
 
