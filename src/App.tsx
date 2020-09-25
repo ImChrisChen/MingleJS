@@ -17,6 +17,7 @@ interface IModules {
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
     hooks: object
+    style: string
 }
 
 // 组件生命周期
@@ -35,18 +36,31 @@ export default class App {
         this.init().then(() => this.render());
     }
 
+    formatHooks(attributes: NamedNodeMap): object {
+        let hooks: object = {};
+        Array.from(attributes).forEach(({ name, value: fnName }) => {
+            let [ , hookName ] = name.split('hook:');
+            if (hookName && isFunc(window[fnName])) {
+                hooks[hookName] = window[fnName];
+            }
+        });
+        return hooks;
+    }
+
+    formatInLineStyle(attributes: NamedNodeMap): string {
+        if (attributes['style']) {
+            let { _, value } = attributes?.['style'];
+            return value;
+        }
+        return '';
+    }
+
     async init() {
         for (const element of this.elements) {
 
             let container: HTMLElement, containerWrap: HTMLElement;
-            let attrs = Array.from(element.attributes);
-            let hooks: object = {};
-            attrs.forEach(({ name, value: fnName }) => {
-                let [ , hookName ] = name.split('hook:');
-                if (hookName && isFunc(window[fnName])) {
-                    hooks[hookName] = window[fnName];
-                }
-            });
+            let attributes = element.attributes;
+
 
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 // element.setAttribute('type', 'hidden');
@@ -85,7 +99,10 @@ export default class App {
                 if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
                     elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
                 }
-                this.modules.push({ Component, element, container, elChildren, hooks });
+
+                let hooks = this.formatHooks(attributes);
+                let style = this.formatInLineStyle(attributes);
+                this.modules.push({ style, Component, element, container, elChildren, hooks });
             }
 
         }
@@ -184,14 +201,27 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, Component, container, elChildren, hooks } = module;
+        let { element, Component, container, elChildren, hooks, style } = module;
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
+
+        let [ match ] = style.match(/-(.)/) ?? [];
+        if (match) {
+            let arr = match.split('');
+            arr.shift();
+
+            let str = arr.join('').toUpperCase();
+
+            let res = style.replace(/-(.)/g, str);
+            console.log(res);
+        }
+
         // 组件名必须大写
         render(<Component
                 el={ element }
                 value={ element['value'] }
                 elChildren={ elChildren }
+                style={ style }
                 { ...parseDataAttr(dataset) }
             />, container, () => callback(hooks),
         );

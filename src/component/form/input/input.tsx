@@ -9,9 +9,15 @@ import { Input } from 'antd';
 import { InputProps } from 'antd/es/input';
 import { trigger } from '@utils/trigger';
 
-export default class FormInput extends React.Component<any, any> {
+interface IComponentProps extends InputProps {
+    el: HTMLInputElement
 
-    constructor(props: InputProps) {
+    [key: string]: any
+}
+
+export default class FormInput extends React.Component<IComponentProps, any> {
+
+    constructor(props: IComponentProps) {
         super(props);
     }
 
@@ -25,11 +31,14 @@ export default class FormInput extends React.Component<any, any> {
     }
 
     render() {
-        let { el, elChildren, ...dealProps } = this.props;
+        let { el, elChildren, style, ...dealProps } = this.props;
+
+        // style.split();
+
+        console.log(dealProps);
         return <>
             <Input
                 { ...dealProps }
-                style={ { width: '200px' } }
                 onChange={ this.handleChange.bind(this) }
             />
         </>;
