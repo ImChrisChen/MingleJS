@@ -30,6 +30,10 @@ const property = {
     urlData         : {
         type: 'string',
         name: 'urlData',
+    },
+    maxLength       : {
+        name: 'maxLength',
+        type: 'number'
     }
 }
 
@@ -46,7 +50,6 @@ function formatKeys(property) {
             delete property[key]
         }
     }
-    console.log(property);
     return property
 }
 

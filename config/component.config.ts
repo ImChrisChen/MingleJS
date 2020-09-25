@@ -34,6 +34,9 @@ export default {
         },
         switch    : {
             component: import('@component/form/switch/switch')
+        },
+        input     : {
+            component: import('@component/form/input/input')
         }
     },
     view  : {
