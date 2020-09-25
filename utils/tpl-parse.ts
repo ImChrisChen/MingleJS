@@ -15,25 +15,24 @@ export function parseTpl(
     data: IParseModeData = document.querySelector('body')
 ): string {
     let fields: Array<string> = getTplFields(tpl);
-    let result = '';
 
     // 去body 里面找input
     if (isDOM(data)) {
         fields.forEach(field => {
             let input = document.querySelector(`input[name=${ field }]`);
             let val = input?.['value'] ?? '';
-            result = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));      // 将模版替换为指定的值
+            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));      // 将模版替换为指定的值
         });
     }
 
     if (isObject(data)) {
         fields.forEach(field => {
             let val = data[field] ?? '';
-            result = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val))
+            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val))
         })
     }
 
-    return result;
+    return tpl;
 }
 
 // [ 'pf', 'game_id' ];
