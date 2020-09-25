@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--    <title><%= htmlWebpackPlugin.options.title %></title>-->
+    <title>Webpack App</title>
+    <style>
+        input[data-fn] {
+            display : none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="App"></div>
+
+<!--<input-->
+<!--        data-fn="form-datepicker"-->
+<!--        data-singledatepicker="false"-->
+<!--        data-mindate="2016-01-01"-->
+<!--        data-maxdate="2020-09-21"-->
+<!--        data-extline="true"-->
+<!--        data-value=""-->
+<!--        onchange="demo(value)"-->
+<!--&gt;-->
+
+<!--<input data-fn="form-button" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
+
+<!--<input data-fn="form-switch" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
+
+<!--<input data-fn="form-select">-->
+
+<!--<ul data-fn="layout-tab">-->
+<!--    <li>hahahah3</li>-->
+<!--    <li>是哈哈哈</li>-->
+<!--    <li>😂😂😂😂😂😂😂</li>-->
+<!--</ul>-->
+
+<input data-fn="form-input" data-maxlength="6" data-prefix="😂" data-size="middle">
+
+<!--<div data-fn="data-chartcolumn"></div>-->
+<!--<div data-fn="data-chartline"></div>-->
+
+<!--<div data-fn="form-editor"></div>-->
+
+
+<!--<h1>Hello</h1>-->
+<!--<input type="text" name="pf" value="1" data-fn>-->
+<!--<form data-fn="form-ajax" action="http://localhost:3000/api/system">-->
+<!--    <input data-fn="form-select"-->
+<!--           data-multi="true"-->
+<!--           data-onload="dataOnload"-->
+<!--           data-ext-query="pf=<{pf}>"-->
+<!--           data-label="<h4>pf=<{pf}></h4>"-->
+<!--    >-->
+<!--    <button type="submit" class="ant-btn ant-btn-primary">提交</button>-->
+<!--</form>-->
+
+<!--<input data-fn="form-selecttree">-->
+
+<!--<div data-fn="view-dropdown">-->
+<!--    <a href="https://baidu.com">百度1</a>-->
+<!--    <a href="https://baidu.com">百度</a>-->
+<!--</div>-->
+
+<!--<input data-fn="tips-loading">-->
+
+<!--<input data-fn="form-select"-->
+<!--       name="pf"-->
+<!--       data-multi="true"-->
+<!--       data-onload="dataOnload"-->
+<!--&gt;-->
+
+<!--<div data-fn="layout-menu"></div>-->
+
+<!--<div data-fn="data-table"-->
+<!--     data-pageSizeOptions="20,10,100"-->
+<!--     style="width: 100%;">-->
+<!--</div>-->
+
+<!--<div data-fn="view-popover">哈啥哈</div>-->
+
+<!--<input data-fn="functional-backtop">-->
+<!--<input data-fn="layout-menu">-->
+
+
+<!--<div data-fn="form-select"></div>-->
+
+
+</body>
+</html>
+<script>
+    function dataOnload() {
+        // alert('FormSelect加载完成');
+    }
+
+    function demo(value) {
+        console.log('触发了事件', value);
+    }
+
+    function chartonload() {
+        console.log('DataChart组件加载完成');
+    }
+</script>
