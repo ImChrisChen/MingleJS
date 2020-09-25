@@ -36,7 +36,7 @@
 <!--    <li>😂😂😂😂😂😂😂</li>-->
 <!--</ul>-->
 
-<input data-fn="form-input" data-maxlength="6" data-prefix="😂" data-size="middle">
+<!--<input data-fn="form-input" data-maxlength="6" data-prefix="😂" data-size="middle">-->
 
 <!--<div data-fn="data-chartcolumn"></div>-->
 <!--<div data-fn="data-chartline"></div>-->
@@ -75,8 +75,20 @@
 
 <!--<div data-fn="data-table"-->
 <!--     data-pageSizeOptions="20,10,100"-->
+<!--     hook:beforeLoad="beforeLoad"-->
+<!--     hook:load="load"-->
+<!--     hook:beforeUpdate="beforeUpdate"-->
+<!--     hook:update="update"-->
 <!--     style="width: 100%;">-->
 <!--</div>-->
+
+<input data-fn="form-button"
+       data-enum="1,IOS;2,Android"
+       hook:beforeLoad="beforeLoad"
+       hook:load="load"
+       hook:beforeUpdate="beforeUpdate"
+       hook:update="update"
+       style="width: 100%;"/>
 
 <!--<div data-fn="view-popover">哈啥哈</div>-->
 
@@ -90,8 +102,24 @@
 </body>
 </html>
 <script>
+    function beforeLoad() {
+        console('beforeLoad');
+    }
+
+    function load() {
+        console.log('load');
+    }
+
+    function update() {
+        console.log('update');
+    }
+
+    function beforeUpdate() {
+        console.log('beforeUpdate');
+    }
+
     function dataOnload() {
-        // alert('FormSelect加载完成');
+        // console.log('FormSelect加载完成');
     }
 
     function demo(value) {

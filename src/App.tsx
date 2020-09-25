@@ -3,8 +3,9 @@ import { render } from 'react-dom';
 import { getComponent } from '@utils/relation-map';
 import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
-import $ from 'jquery'
-import { message } from "antd";
+import $ from 'jquery';
+import { message } from 'antd';
+import { isFunc } from '@utils/util';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -17,6 +18,7 @@ interface IModules {
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
+    hooks: object
 }
 
 interface IRenderComponent {
@@ -24,6 +26,17 @@ interface IRenderComponent {
     elChildren: Array<HTMLElement> | []
 
     [propName: string]: any
+}
+
+// 渲染模式
+type TRenderMode = 'load' | 'reload';
+
+// 组件生命周期
+enum Hooks {
+    load = 'load',
+    beforeLoad = 'beforeLoad',
+    update = 'update',
+    beforeUpdate = 'beforeUpdate'
 }
 
 export default class App {
@@ -38,6 +51,12 @@ export default class App {
         for (const element of this.elements) {
 
             let container: HTMLElement, containerWrap: HTMLElement;
+            let attrs = Array.from(element.attributes);
+            let hooks: object = {};
+            attrs.forEach(({ name, value: fnName }) => {
+                let [ , hookName ] = name.split('hook:');
+                if (hookName && isFunc(window[fnName])) hooks[hookName] = window[fnName];
+            });
 
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 element.setAttribute('type', 'hidden');
@@ -76,7 +95,7 @@ export default class App {
                 if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
                     elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
                 }
-                this.modules.push({ Component, element, container, elChildren });
+                this.modules.push({ Component, element, container, elChildren, hooks });
             }
 
         }
@@ -84,17 +103,15 @@ export default class App {
 
     async render() {
         this.modules.forEach(module => {
-            let { element, Component, container, elChildren } = module;
-            let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-
-            // 组件名必须大写
-            render(
-                <Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container,
-                () => {
-                    let hooks = element.getAttribute('data-onload') ?? '';
-                    window[hooks] && window[hooks]();
-                });
-
+            // 组件初始化
+            this.renderComponent(module, function (hooks) {
+                console.log('-----------beforeLoad');
+                console.log(hooks);
+                hooks['beforeLoad']?.();
+            }, function (hooks) {
+                console.log('--------------load');
+                hooks['load']?.();
+            });
             this.eventListener(module);
         });
     }
@@ -105,26 +122,23 @@ export default class App {
     // }
 
     private eventListener(module: IModules) {
-        let { element, Component, container, elChildren } = module;
+        let { element } = module;
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
 
         if (element.tagName === 'INPUT') {
 
-            $(element).on('change', function (e) {
-                console.log('input值变化重新触发 解析模块');
-                let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-                render(<Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container);
-                console.log('e', e);
-            })
-
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
-            // element.addEventListener('change', function (e) {
-            //     console.log('input值变化重新触发 解析模块');
-            //     let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-            //     render(<Component el={ element } elChildren={ elChildren } { ...parseDataAttr(dataset) }/>, container);
-            //     console.log('e', e);
-            // });
+            $(element).on('change', (e) => {
+                console.log('input值变化重新触发 解析模块');
+                this.renderComponent(module, function (hooks) {
+                    console.log('-----------------beforeUpdate');
+                    hooks['beforeUpdate']?.();
+                }, function (hooks) {
+                    console.log('---------------update');
+                    hooks['update']?.();
+                });
+            });
         }
 
         // element.addEventListener('DOMNodeInserted', function () {
@@ -165,23 +179,41 @@ export default class App {
         // 文本节点发生变化时
         element.addEventListener('DOMCharacterDataModified', function () {
 
-        })
+        });
 
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
-        })
+        });
 
         window.addEventListener('offline', function () {
             message.error('浏览器失去网络链接');
-        })
+        });
 
         window.addEventListener('copy', function () {
             message.success('复制成功');
-        })
+        });
 
         window.addEventListener('cut', function (event) {
             message.success('剪切成功');
-        })
+        });
+
+    }
+
+    private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
+        let { element, Component, container, elChildren, hooks } = module;
+        let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
+        beforeCallback(hooks);
+        console.log(1);
+        // 组件名必须大写
+        render(<Component el={ element }
+                          value={ element['value'] ?? '' }
+                          elChildren={ elChildren }
+                          { ...parseDataAttr(dataset) }/>, container, () => {
+                callback(hooks);
+                console.log(2);
+            },
+        );
+
 
     }
 

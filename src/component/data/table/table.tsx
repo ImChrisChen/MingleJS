@@ -202,7 +202,7 @@ export default class DataTable extends React.Component<any, any> {
                 // className: style.tableHeaderCell,
                 // width       : 80,
                 onHeaderCell: (column) => {
-                    console.log(column);
+                    // console.log(column);
                 },
                 ellipsis    : true,
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
