@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   // 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
@@ -40,7 +40,7 @@ module.exports = {
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
-        main: './main.tsx',
+        main: './main.tsx',     // https://webpack.js.org/guides/code-splitting/
         // vendoer: [
         //     'react',
         //     'react-dom',
@@ -130,10 +130,10 @@ module.exports = {
                 exclude: path.resolve(__dirname, 'node_modules/'),
             },
             // Markdown 文件解析
-            // {
-            //     test: /.(md|txt)$/,
-            //     use: 'raw-loader',
-            // },
+            {
+                test: /.(md|txt)$/,
+                use: 'raw-loader',
+            },
             {
                 test: /.md$/,
                 use: [

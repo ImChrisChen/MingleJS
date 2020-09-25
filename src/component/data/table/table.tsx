@@ -60,6 +60,12 @@ interface ApiResult<T> {
     data: Array<T>,
 }
 
+interface ITableProps {
+    pagesizeoptions: Array<string>
+
+    [key: string]: any
+}
+
 
 // ! 操作符    https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36
 
@@ -68,48 +74,46 @@ const footer = () => 'Here is footer';
 
 export default class DataTable extends React.Component<any, any> {
 
-    state: any = {
-        // columns: [
-        //     {
-        //         title    : 'Age',
-        //         dataIndex: 'age',
-        //         width    : 150,
-        //         sorter   : {
-        //             compare : (a, b) => a.age - b.age,
-        //             multiple: 2,
-        //         },
-        //     },
-        // ],
-        columns        : [],
+    state: any = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
+        columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
         selectedRowKeys: [],
         loading        : true,
-        size           : 'small',
+        size           : 'small',   // default | middle | small
         showHeader     : true,
+        // summary        : (e, v) => {
+        // },
         // expandable,
         footer,
         title          : undefined,
         bordered       : true,
-        pagination     : {
-            pageSize: 100
+        pagination     : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
+            // current: 0,
+            pageSizeOptions : [ 10, 20, 50, 100, 200 ],
+            pageSize        : 100,
+            onChange        : (page, pageSize) => {    // 页码改变的回调，参数是改变后的页码及每页条数
+                console.log(page, pageSize);
+                this.setState({
+                    pagination: { pageSize, page }
+                })
+            },
+            onShowSizeChange: (page, pageSize) => {    // pageSize 变化的回调
+                this.setState({
+                    pagination: { pageSize, page }
+                })
+            }
         },
         scroll         : {
             y: '100vh'
         }
 
     };
-    fieldTpl!: string
+    private fieldTpl!: string
+    private url: string = this.props.url;
 
-    constructor(props,) {
+    constructor(props: ITableProps) {
         super(props);
-        // for (let i = 0; i < 200; i++) {
-        //     this.state.data.push({
-        //         key    : i,
-        //         name   : `Edward King ${ i }`,
-        //         age    : i,
-        //         address: `London, Park Lane no. ${ i }`,
-        //     });
-        // }
+        console.log(this.props);
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
@@ -177,9 +181,13 @@ export default class DataTable extends React.Component<any, any> {
             }
             return {
                 ...item,
+
+                // antd
                 title    : item.text,
                 dataIndex: item.field,
                 id       : item.field,
+                align    : 'center',
+                render   : text => text,     // 自定义渲染表格中的每一项
                 sorter   : {
                     compare
                 }
@@ -190,7 +198,6 @@ export default class DataTable extends React.Component<any, any> {
     onSelectChange(selectedRowKeys) {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
-
     }
 
     render() {
