@@ -26,13 +26,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/src/component/data/table/table.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/data/table/table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/data/table/table.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/parse-data-attr.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/parse-data-attr.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601015205183</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: 完善表格组件">
+      <created>1601026506331</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1601026506331</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -374,7 +377,9 @@
     <MESSAGE value="feat:实现表格模版解析渲染，完善工具库" />
     <MESSAGE value="feat:底层完善，data-*属性转化 属性转化,可直接在组件this.props中调用html data-xxx的属性，并且区分大小写" />
     <MESSAGE value="fixed: 修复 parseTpl 逻辑" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed: 修复 parseTpl 逻辑" />
+    <MESSAGE value="feat: 完善表格" />
+    <MESSAGE value="feat: 完善表格组件" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 完善表格组件" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1159" y="220" width="940" height="1104" key="#EditorConfig" timestamp="1600594202513">
@@ -394,7 +399,7 @@
       <screen x="0" y="23" width="2560" height="1057" />
     </state>
     <state x="1296" y="148" key="#dev/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600255336451" />
-    <state x="734" y="23" width="1505" height="957" key="CommitChangelistDialog2" timestamp="1601015205015">
+    <state x="734" y="23" width="1505" height="957" key="CommitChangelistDialog2" timestamp="1601026506137">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409397683" />
@@ -402,7 +407,7 @@
     <state x="625" y="23" key="CommitChangelistDialog2/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600786982658" />
     <state x="984" y="160" key="CommitChangelistDialog2/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688609861" />
     <state x="734" y="23" width="1637" height="1302" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697908331" />
-    <state x="734" y="23" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601015205015" />
+    <state x="734" y="23" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601026506137" />
     <state x="512" y="53" key="DiffContextDialog" timestamp="1600421185878">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
@@ -490,14 +495,14 @@
     <state width="750" height="749" key="SwitcherDM/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600695416939" />
     <state width="751" height="761" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601020809907" />
     <state width="751" height="791" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1600928364034" />
-    <state x="1300" y="291" key="Vcs.Push.Dialog.v2" timestamp="1601015209730">
+    <state x="1300" y="291" key="Vcs.Push.Dialog.v2" timestamp="1601026510166">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1106" y="200" key="Vcs.Push.Dialog.v2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409399188" />
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600421191621" />
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600755918507" />
     <state x="1300" y="288" key="Vcs.Push.Dialog.v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697911955" />
-    <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601015209730" />
+    <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601026510166" />
     <state x="1300" y="302" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600852204683" />
     <state x="1286" y="629" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600768554180">
       <screen x="0" y="23" width="2560" height="1417" />

@@ -152,8 +152,12 @@ export default class DataTable extends React.Component<any, any> {
         // let url = 'http://e.aidalan.com/manage/useful/advPositionCost/header?pf=1&jsoncallback';
         let { data }: IApiResult<ITableHeaderItem> = tableHeader;
         return data.map(item => {
+            // let width = parseTpl(item.field, item).length * 10;
+
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
-            if (/<(.*?)>/.test(item.field)) this.fieldTpl = item.field
+            if (/<(.*?)>/.test(item.field)) {
+                this.fieldTpl = item.field
+            }
 
             let compare = function (a, b): number {
                 let result;
@@ -196,14 +200,13 @@ export default class DataTable extends React.Component<any, any> {
                 align       : 'center',
                 render      : text => text,     // 自定义渲染表格中的每一项
                 // className: style.tableHeaderCell,
-                width       : '240px',
+                // width       : 80,
                 onHeaderCell: (column) => {
                     console.log(column);
                 },
                 ellipsis    : true,
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : true,
-                style       : { 'background': item.thColor },
                 sorter      : {
                     compare
                 }
