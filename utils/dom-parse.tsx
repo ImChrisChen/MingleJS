@@ -84,25 +84,25 @@ class VNode {
  利用递归 来遍历DOM元素 生成虚拟DOM
  Vue中的源码使用 栈结构  ，使用栈存储 父元素来实现递归生成
  */
-export function getVNode(node) {
+export function getVNode(node: HTMLElement) {
     let nodeType = node.nodeType;
     let _vnode;
 
-    if(nodeType === 1) {
+    if (nodeType === 1) {
         // 元素
         let nodeName = node.nodeName;//元素名
         let attrs = node.attributes;//属性  伪数组
-        let _attrObj = {};
-        for(let i = 0; i < attrs.length; i++) {//attrs[ i ] 属性节点（nodeType == 2) 是对象
+        let _attrObj: any = {};
+        for (let i = 0; i < attrs.length; i++) {//attrs[ i ] 属性节点（nodeType == 2) 是对象
             _attrObj[attrs[i].nodeName] = attrs[i].nodeValue;
         }
         _vnode = new VNode(nodeName, _attrObj, undefined, nodeType);
         // 考虑node的子元素
-        let childNodes = node.childNodes;
-        for(let i = 0; i < childNodes.length; i++) {
+        let childNodes: any = node.childNodes;
+        for (let i = 0; i < childNodes.length; i++) {
             _vnode.appendChild(getVNode(childNodes[i]));//递归
         }
-    } else if(nodeType === 3) {
+    } else if (nodeType === 3) {
         // 文本节点
         _vnode = new VNode(undefined, undefined, node.nodeValue, nodeType);
     }

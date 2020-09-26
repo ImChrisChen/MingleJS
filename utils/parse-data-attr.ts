@@ -30,7 +30,7 @@ export function parseDataAttr(dataAttrs: ElementDataAttrs): object {
             let type = keyMap[datasetKey].type;
             let propsName = keyMap[datasetKey].name;
 
-            switch (type) {
+            switch(type) {
                 case 'string':            // 模版解析
                     isKeepBeforePropery ?
                         dataset[propsName] = parseTpl(val) :
@@ -56,6 +56,7 @@ export function parseDataAttr(dataAttrs: ElementDataAttrs): object {
                     break;
 
                 case 'object[]':
+                    console.log(val);
                     isKeepBeforePropery ?
                         dataset[propsName] = parseEnum(val) :
                         newDataSet[propsName] = parseEnum(val);
@@ -76,7 +77,7 @@ export function parseDataAttr(dataAttrs: ElementDataAttrs): object {
                     break;
 
                 default:
-                    break
+                    break;
             }
 
         }

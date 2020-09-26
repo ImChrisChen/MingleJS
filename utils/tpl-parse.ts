@@ -12,7 +12,7 @@ declare type IParseModeData = HTMLElement | object | null;
 // 'pf=<{pf}>' => 'pf=ios'
 export function parseTpl(
     tpl: string,
-    data: IParseModeData = document.querySelector('body')
+    data: IParseModeData = document.querySelector('body'),
 ): string {
     let fields: Array<string> = getTplFields(tpl);
 
@@ -28,8 +28,8 @@ export function parseTpl(
     if (isObject(data)) {
         fields.forEach(field => {
             let val = data[field] ?? '';
-            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val))
-        })
+            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));
+        });
     }
 
     return tpl;
@@ -46,14 +46,32 @@ export function getTplFields(tpl: string): Array<string> {
 }
 
 export function parseEnum(enumStr: string): Array<object> {
+    return strToJSON(enumStr, ';', ',');
+}
 
-    if (isEmptyStr(enumStr)) return [];
+export function parseLineStyle(style: string): Array<object> {
+    let res = toCamelCase(style);
+    return strToJSON(res, ';', ':');
+}
 
-    return enumStr.split(';').reduce((arr: Array<object>, group) => {
-        let [ key, val ] = group.split(',');
+function strToJSON(str, rowStplit, cellSplit) {
+    if (isEmptyStr(str)) return [];
+
+    // return str.split(';').reduce((arr: Array<object>, group) => {
+    return str.split(rowStplit).reduce((arr: Array<object>, group) => {
+        // let [ key, val ] = group.split(',');
+        let [ key, val ] = group.split(cellSplit);
         arr.push({ [key]: val });
         return arr;
     }, []);
+}
+
+function toCamelCase(string: string): string {
+    return string.replace(/-(.)/g, function (ret) {
+        console.log(ret);
+        ret = ret.substr(1);
+        return ret.toUpperCase();
+    });
 }
 
 // export function readyUrl(url) {

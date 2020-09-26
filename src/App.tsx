@@ -20,6 +20,16 @@ interface IModules {
     style: string
 }
 
+interface IAttributes extends NamedNodeMap {
+    style?: any | string
+
+    [key: string]: any
+}
+
+interface W extends Window {
+    // [key: string]: any
+}
+
 // 组件生命周期
 enum Hooks {
     load = 'load',
@@ -28,28 +38,29 @@ enum Hooks {
     beforeUpdate = 'beforeUpdate'
 }
 
-export default class App {
 
+export default class App {
     private modules: Array<IModules> = [];
 
     constructor(private readonly elements: Array<HTMLElement>) {
         this.init().then(() => this.render());
     }
 
-    formatHooks(attributes: NamedNodeMap): object {
-        let hooks: object = {};
-        Array.from(attributes).forEach(({ name, value: fnName }) => {
+
+    formatHooks(attributes: IAttributes): object {
+        let hooks: { [key: string]: any } = {};
+        Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
             let [ , hookName ] = name.split('hook:');
-            if (hookName && isFunc(window[fnName])) {
-                hooks[hookName] = window[fnName];
+            if (hookName && isFunc((window as W)[fnName])) {
+                hooks[hookName] = (window as W)[fnName];
             }
         });
         return hooks;
     }
 
-    formatInLineStyle(attributes: NamedNodeMap): string {
+    formatInLineStyle(attributes: IAttributes): string {
         if (attributes['style']) {
-            let { _, value } = attributes?.['style'];
+            let { _, value } = attributes['style'];
             return value;
         }
         return '';
@@ -60,7 +71,6 @@ export default class App {
 
             let container: HTMLElement, containerWrap: HTMLElement;
             let attributes = element.attributes;
-
 
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 // element.setAttribute('type', 'hidden');
@@ -131,7 +141,6 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                console.log(e.target['value']);
                 this.renderComponent(module, function (hooks) {
                     console.log('-----------------beforeUpdate');
                     hooks['beforeUpdate']?.();

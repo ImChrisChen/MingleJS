@@ -33,7 +33,8 @@ export default class Selector extends React.Component<any, any> {
     constructor(props) {
         super(props);
         console.log(this.props.label);
-        for(let i = 0; i < 100; i++) {
+        // let res = strParseVirtualDOM(this.props.label)
+        for (let i = 0; i < 100; i++) {
             const value = `${ i.toString(36) }${ i }`;
             this.state.options.push({
                 // title   : '🤔😄😹',
@@ -78,7 +79,7 @@ export default class Selector extends React.Component<any, any> {
                         </div>
                     ) }
                     filterOption={ (input, option) => {
-                        if(!option) return false;
+                        if (!option) return false;
                         console.log(option.label, option.searchLabelText);
                         return String(option.value).includes(input) || String(option.title).includes(input);
                         // console.log(input, option);
@@ -93,7 +94,7 @@ export default class Selector extends React.Component<any, any> {
 
         let { el } = this.props;
         el.value = value.join(',');
-        if(el.onchange) {
+        if (el.onchange) {
             (el.onchange as Function)();
         }
     }
@@ -109,7 +110,7 @@ export default class Selector extends React.Component<any, any> {
     handleSelectAll(e) {
         let v = e.target.checked;
 
-        if(v) {
+        if (v) {
             let value = this.state.options.map(item => item.value);
             this.setState({ value });
             this.props.el.value = value.join(',');
