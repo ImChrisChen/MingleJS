@@ -6,9 +6,22 @@
 </head>
 <body>
 
-<input data-fn="form-select"
->
-<!--data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"-->
+<form data-fn="form-ajax" action="">
+
+    <input data-fn="form-button"
+           data-optionType="button"
+           data-buttonStyle="solid"
+           data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"
+           value="Apple"
+    />
+
+    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
+
+</form>
+
+<div data-fn="layout-menu"
+     data-menuList='[{"name":"市场后台","children":[{"name":"易投放"}]},{"name":"运营后台"}]'
+></div>
 
 </body>
 </html>

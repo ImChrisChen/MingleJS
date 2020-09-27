@@ -6,28 +6,37 @@
  */
 import React from 'react';
 import { elementParseVirtualDOM } from '@utils/dom-parse';
-import Axios from 'axios';
 
 export default class FormAjax extends React.Component<any, any> {
     submitBtn;
 
+    constructor(props) {
+        super(props);
+        this.init();
+    }
+
     private init() {
-        let submitBtn: HTMLElement = this.props.el.querySelector('[type=submit]');
+        let submitBtn: HTMLElement = this.props.box.querySelector('[type=submit]');
+        let box = this.props.box;
+        console.log(box);
+        console.log(submitBtn);
         let form: HTMLFormElement = this.props.el;
         form.onsubmit = async function (e) {
             e.preventDefault();
+            console.log(e);
 
-            let url: string = form.getAttribute('action') ?? '';
-            let res = await Axios.get(url);
-            console.log(res);
+            // let url: string = form.getAttribute('action') ?? '';
+            // let res = await Axios.get(url);
+            // console.log(res);
+            return false;
         };
 
         this.submitBtn = elementParseVirtualDOM(submitBtn);
+        console.log(this.submitBtn);
     }
 
     render() {
         return <>
-            <h1>Form</h1>
             {/*{ this.submitBtn }*/ }
         </>;
     }

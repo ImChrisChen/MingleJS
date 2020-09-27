@@ -6,7 +6,7 @@ import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
 import { isFunc } from '@utils/util';
-import { parseLineStyle } from "@utils/tpl-parse";
+import { parseLineStyle } from '@utils/tpl-parse';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -17,6 +17,7 @@ interface IModules {
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
+    containerWrap: HTMLElement
     hooks: object
     style: string
 }
@@ -112,7 +113,7 @@ export default class App {
 
                 let hooks = this.formatHooks(attributes);
                 let style = this.formatInLineStyle(attributes);
-                this.modules.push({ style, Component, element, container, elChildren, hooks });
+                this.modules.push({ style, Component, element, container, containerWrap, elChildren, hooks });
             }
 
         }
@@ -210,14 +211,15 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, Component, container, elChildren, hooks, style } = module;
+        let { element, Component, container, elChildren, containerWrap, hooks, style } = module;
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
-        let jsxStyle = parseLineStyle(style)
+        let jsxStyle = parseLineStyle(style);
 
         // 组件名必须大写
         render(<Component
                 el={ element }
+                box={ containerWrap }
                 value={ element['value'] }
                 elChildren={ elChildren }
                 style={ jsxStyle }
