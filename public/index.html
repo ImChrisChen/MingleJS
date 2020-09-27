@@ -1,145 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <link href="./light-mode-theme.css" rel="stylesheet" type="text/css"/>
-    <link href="./dark-mode-theme.css" rel="stylesheet" type="text/css" media="(prefers-color-scheme: dark)"/>
-    <!--    <title><%= htmlWebpackPlugin.options.title %></title>-->
-    <title>Webpack App</title>
-    <style>
-        input[data-fn] {
-            display : none;
-        }
-    </style>
+    <title>Title</title>
 </head>
 <body>
 
-<div id="App"></div>
-
-<!--<input-->
-<!--        data-fn="form-datepicker"-->
-<!--        data-singledatepicker="false"-->
-<!--        data-mindate="2016-01-01"-->
-<!--        data-maxdate="2020-09-21"-->
-<!--        data-extline="true"-->
-<!--        data-value=""-->
-<!--        onchange="demo(value)"-->
-<!--&gt;-->
-
-<input data-fn="form-button"
-       data-optionType="button"
-       data-buttonStyle="solid"
-       data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"/>
-
-<!--<input data-fn="form-switch" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
-
-<!--<input data-fn="form-select">-->
-
-<!--<ul data-fn="layout-tab">-->
-<!--    <li>hahahah3</li>-->
-<!--    <li>是哈哈哈</li>-->
-<!--    <li>😂😂😂😂😂😂😂</li>-->
-<!--</ul>-->
-
-<!--<input data-fn="form-input" value="谁 撒地方" data-size="middle" data-prefix="😹"-->
-<!--       data-allowClear="true"-->
-<!--       style="width: 200px"-->
-<!--/>-->
-
-<div data-fn="data-chartcolumn"
-     style="width: 40%"
-     data-colors='["#6ad6b6"]'
-     data-xaxis='["location"]'
-     data-series='[["count","地域","bar"]]'
-     data-size='{"height": 433}'
-     data-datadirect="y"
+<input data-fn="form-select"
 >
-</div>
-
-<div data-fn="data-chartMap"></div>
-
-<div data-fn="data-chartCoordinate"></div>
-
-<div data-fn="data-chartWorkCloud"></div>
-
-<div data-fn="data-chartline"></div>
-
-<div data-fn="form-editor"></div>
-
-
-<!--<h1>Hello</h1>-->
-<!--<input type="text" name="pf" value="1" data-fn>-->
-<!--<form data-fn="form-ajax" action="http://localhost:3000/api/system">-->
-<!--    <input data-fn="form-select"-->
-<!--           data-multi="true"-->
-<!--           data-onload="dataOnload"-->
-<!--           data-ext-query="pf=<{pf}>"-->
-<!--           data-label="<h4>pf=<{pf}></h4>"-->
-<!--    >-->
-<!--    <button type="submit" class="ant-btn ant-btn-primary">提交</button>-->
-<!--</form>-->
-
-<!--<input data-fn="form-selecttree">-->
-
-<!--<div data-fn="view-dropdown">-->
-<!--    <a href="https://baidu.com">百度1</a>-->
-<!--    <a href="https://baidu.com">百度</a>-->
-<!--</div>-->
-
-<!--<input data-fn="tips-loading">-->
-
-<!--<input data-fn="form-select"-->
-<!--       name="pf"-->
-<!--       data-multi="true"-->
-<!--       data-onload="dataOnload"-->
-<!--&gt;-->
-
-<!--<div data-fn="layout-menu"></div>-->
-
-<!--<div data-fn="data-table"-->
-<!--     data-pageSizeOptions="20,10,100"-->
-<!--     hook:beforeLoad="beforeLoad"-->
-<!--     hook:load="load"-->
-<!--     hook:beforeUpdate="beforeUpdate"-->
-<!--     hook:update="update"-->
-<!--     style="width: 100%;">-->
-<!--</div>-->
-
-<!--<input data-fn="form-button"-->
-<!--       data-enum="1,IOS;2,Android"-->
-<!--       hook:beforeLoad="beforeLoad"-->
-<!--       hook:load="load"-->
-<!--       hook:beforeUpdate="beforeUpdate"-->
-<!--       hook:update="update"-->
-<!--       style="width: 100%;"/>-->
-
-<!--<div data-fn="view-popover">哈啥哈</div>-->
-
-<!--<input data-fn="functional-backtop">-->
-<!--<input data-fn="layout-menu">-->
-
-
-<!--<div data-fn="form-select"></div>-->
-
+<!--data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"-->
 
 </body>
 </html>
-<script>
-    function beforeLoad() {
-        console.log('beforeLoad');
-    }
-
-    function load() {
-        console.log('load');
-    }
-
-    function update() {
-        console.log('update');
-    }
-
-    function beforeUpdate() {
-        console.log('beforeUpdate');
-    }
-
-</script>

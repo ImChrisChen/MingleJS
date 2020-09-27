@@ -1,4 +1,6 @@
-import 'antd/dist/antd.compact.less' // 紧凑模de式
+// import 'antd/dist/antd.compact.less' // 紧凑模de式
+
+import 'antd/dist/antd.css'
 
 import './src/App.scss';
 import React from 'react';
