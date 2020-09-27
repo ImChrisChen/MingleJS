@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+const { getThemeVariables } = require('antd/dist/theme');
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
@@ -100,14 +101,25 @@ module.exports = {
                     { loader: 'css-loader' },
                 ],
             },
-            // {
-            //     test: /\.less$/,
-            //     use: [
-            //         { loader: 'style-loader' },
-            //         { loader: 'css-loader' },
-            //         { loader: 'less-loader' },
-            //     ],
-            // },
+            {
+                test: /\.less$/,
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+                                modifyVars: getThemeVariables({
+                                    // dark: true, // 开启暗黑模式
+                                    compact: true, // 开启紧凑模式
+                                }),
+                                javascriptEnabled: true,
+                            },
+                        },
+                    },
+                ],
+            },
             {
                 test: /\.scss$/,
                 rules: [

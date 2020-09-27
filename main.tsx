@@ -1,4 +1,6 @@
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.compact.less'    // 紧凑模式
+import 'antd/dist/antd.min.css'
+
 import './src/App.scss';
 import React from 'react';
 import App from './src/App';
@@ -18,6 +20,7 @@ console.log(env);
 //     // 类数组转成数组 NodeListOf<HTMLElement>  => Array<HTMLElement>
 //     // };
 // }
+
 
 
 window.onload = function () {

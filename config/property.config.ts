@@ -5,19 +5,24 @@
  * Time: 11:19 上午
  */
 
+interface IPropertyItem {
+    name: string,
+    type: string,
+}
+
+interface IPropertysConfig<T> {
+    [key: string]: T
+}
+
 // 配置dataset 属性的值和类型 name 表示this.props获取的属性值 和 html传入的 data-* 属性一致
-const property = {
-    style: {
-        name: 'style',
-        type: 'string',
-    },
+const property: IPropertysConfig<IPropertyItem> = {
     multi           : {
         name: 'multi',
         type: 'boolean',
     },
     options         : {
         name: 'options',
-        type: 'object',
+        type: 'JSON',
     },
     singledatepicker: {
         name: 'singledatepicker',
@@ -59,10 +64,18 @@ const property = {
         name: 'optionType',
         type: 'string',
     },
+    colors          : {
+        name: 'colors',
+        type: 'JSON'
+    },
+    series          : {
+        name: 'series',
+        type: 'JSON'
+    }
 };
 
 // 对象属性值统一成小写,因为在dataset中只能获取到小写的值，这里提供一层映射关系
-function formatKeys(property) {
+function formatKeys<T>(property: IPropertysConfig<T>): IPropertysConfig<T> {
     for (let key in property) {
         if (!property.hasOwnProperty(key)) continue;
 

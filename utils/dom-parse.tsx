@@ -63,7 +63,7 @@ class VNode {
     private data: any;
     private value: any;
     private type: any;
-    private children: any[];
+    children: any[];
 
     constructor(tag, data, value, type) {
         // tag:用来表述 标签  data：用来描述属性  value：用来描述文本 type：用来描述类型

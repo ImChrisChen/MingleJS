@@ -42,7 +42,7 @@ export default class Editor extends React.Component<IFormEditorProps, any> {
         return <>
             <div className="container">
                 <MarkdownEditor
-                    { ...options }
+                    options={''}
                     value={ value }
                     onChange={ debounce(this.handleChange.bind(this), 3000) }
                 />

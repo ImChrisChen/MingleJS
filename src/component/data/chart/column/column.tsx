@@ -4,12 +4,41 @@
  * Date: 2020/9/20
  * Time: 3:20 下午
  */
-
 import React from 'react';
-// https://github.com/alibaba/BizCharts
-import { Chart, Interval, Tooltip } from 'bizcharts';
+// import { DataSet } from "@antv/data-set/lib/data-set";
 // @ts-ignore
 import areaUser from '@root/mock/chart/areaUser.json';
+import { Chart, Interval, Tooltip } from "bizcharts";
+
+// const dataSet = new DataSet({
+//     state: {
+//         year: '2010'
+//     }
+// })
+//
+// const dataView = dataSet.createView().source(areaUser);
+//
+// dataView.transform({
+//     type: 'filter',
+//     callback (row) {
+//         return row.year === dataSet.state.year
+//     }
+// })
+//
+// 注册自己的主题
+// registerTheme('my-theme', {
+//     defaultColor: '#6DC8EC',
+//     geometries  : {
+//         interval: {
+//             rect: {
+//                 default : { style: { fill: '#6DC8EC', fillOpacity: 0.95 } },
+//                 active  : { style: { stroke: '#5AD8A6', lineWidth: 1 } },
+//                 inactive: { style: { fillOpacity: 0.3, strokeOpacity: 0.3 } },
+//                 selected: {},
+//             }
+//         }
+//     }
+// })
 
 export default class ChartColumn extends React.Component<any, any> {
 
@@ -32,22 +61,64 @@ export default class ChartColumn extends React.Component<any, any> {
     //     { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
     // ];
 
+    constructor(props) {
+        super(props);
+    }
+
     data = areaUser;
 
+    onAfterchangedata(e, g) {
+        console.log(e, g);
+    }
+
+    onBeforerender(e, g) {
+        console.log(e, g);
+    }
+
+    onAfterrender(e, g) {
+        console.log(e, g);
+    }
+
+    onBeforepaint(e, g) {
+        console.log(e, g);
+    }
+
+    onClick(e) {
+        console.log(e);
+    }
+
     render() {
+        console.log(this.props);
         return <>
-            <Chart height={ 300 } padding="auto" data={ this.data } autoFit>
+            <h2 style={ { textAlign: 'center', padding: '10px 20px' } }>地域用户画像</h2>
+            <Chart
+                height={ 300 }
+                padding="auto"
+                data={ this.data }
+                autoFit
+                onClick={ this.onClick.bind(this) }
+                onBeforerender={ this.onBeforerender.bind(this) }
+                onAfterrender={ this.onAfterrender.bind(this) }
+                onBeforepaint={ this.onBeforepaint.bind(this) }
+                onAfterchangedata={ this.onAfterchangedata.bind(this) }
+            >
                 <Interval
-                    adjust={ [
-                        {
-                            type       : 'dodge',
-                            marginRatio: 0,
-                        },
-                    ] }
-                    color="location"
-                    position="count"
-                    shape="count"
-                    size={ 10 }
+                    // adjust={ [
+                    //     {
+                    //         type       : 'dodge',
+                    //         marginRatio: 0,
+                    //     },
+                    // ] }
+                    // color="count"
+                    position="location*count"
+                    // animate={ {
+                    //     enter: {
+                    //         duration: 1000, // enter 动画执行时间
+                    //     },
+                    //     leave: false, // 关闭 leave 销毁动画
+                    // } }
+                    // shape="x"
+                    // size={ 10 }
                 />
                 <Tooltip shared/>
             </Chart>

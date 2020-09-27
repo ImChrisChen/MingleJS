@@ -48,18 +48,31 @@ export default {
         },
     },
     data  : {
-        table      : {
+        table          : {
             component: import('@component/data/table/table'),
             path     : '/data-table'
         },
-        chartline  : {
+        chartline      : {
             component: import('@component/data/chart/line/line'),
             path     : '/data-chartline'
         },
-        chartcolumn: {
+        chartcolumn    : {
             component: import('@component/data/chart/column/column'),
             path     : '/data-chartcolumn'
         },
+        chartCoordinate: {
+            component: import('@component/data/chart/coordinate/Coordinate'),
+            path     : '/data-coordinate'
+        },
+        chartWorkCloud : {
+            component: import('@component/data/chart/wordcloud/wordCloud'),
+            path     : '/data-chartWorkCloud'
+        },
+        chartMap       : {
+            component: import('@component/data/chart/map/map'),
+            path: '/data-chartMap'
+
+        }
     },
     tips  : {
         loading: {

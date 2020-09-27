@@ -27,7 +27,7 @@
 <!--<input data-fn="form-button"-->
 <!--       data-optionType="button"-->
 <!--       data-buttonStyle="solid"-->
-<!--       data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato">-->
+<!--       data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"/>-->
 
 <!--<input data-fn="form-switch" data-enum="Apple,Apple;Pear,Pear;Orange,Orange" onchange="alert(this.value)">-->
 
@@ -39,15 +39,30 @@
 <!--    <li>😂😂😂😂😂😂😂</li>-->
 <!--</ul>-->
 
-<input data-fn="form-input" value="谁 撒地方" data-size="middle" data-prefix="😹"
-       data-allowClear="true"
-       style="width: 200px"
-/>
+<!--<input data-fn="form-input" value="谁 撒地方" data-size="middle" data-prefix="😹"-->
+<!--       data-allowClear="true"-->
+<!--       style="width: 200px"-->
+<!--/>-->
 
-<!--<div data-fn="data-chartcolumn"></div>-->
-<!--<div data-fn="data-chartline"></div>-->
+<div data-fn="data-chartcolumn"
+     style="width: 40%"
+     data-colors='["#6ad6b6"]'
+     data-xaxis='["location"]'
+     data-series='[["count","地域","bar"]]'
+     data-size='{"height": 433}'
+     data-datadirect="y"
+>
+</div>
 
-<!--<div data-fn="form-editor"></div>-->
+<div data-fn="data-chartMap"></div>
+
+<div data-fn="data-chartCoordinate"></div>
+
+<div data-fn="data-chartWorkCloud"></div>
+
+<div data-fn="data-chartline"></div>
+
+<div data-fn="form-editor"></div>
 
 
 <!--<h1>Hello</h1>-->
