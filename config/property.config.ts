@@ -7,6 +7,10 @@
 
 // 配置dataset 属性的值和类型 name 表示this.props获取的属性值 和 html传入的 data-* 属性一致
 const property = {
+    style: {
+        name: 'style',
+        type: 'string',
+    },
     multi           : {
         name: 'multi',
         type: 'boolean',

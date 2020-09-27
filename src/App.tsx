@@ -6,6 +6,7 @@ import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
 import { isFunc } from '@utils/util';
+import { parseLineStyle } from "@utils/tpl-parse";
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -213,24 +214,14 @@ export default class App {
         let { element, Component, container, elChildren, hooks, style } = module;
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
-
-        let [ match ] = style.match(/-(.)/) ?? [];
-        if (match) {
-            let arr = match.split('');
-            arr.shift();
-
-            let str = arr.join('').toUpperCase();
-
-            let res = style.replace(/-(.)/g, str);
-            console.log(res);
-        }
+        let jsxStyle = parseLineStyle(style)
 
         // 组件名必须大写
         render(<Component
                 el={ element }
                 value={ element['value'] }
                 elChildren={ elChildren }
-                style={ style }
+                style={ jsxStyle }
                 { ...parseDataAttr(dataset) }
             />, container, () => callback(hooks),
         );

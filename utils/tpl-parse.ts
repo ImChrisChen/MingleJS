@@ -49,19 +49,24 @@ export function parseEnum(enumStr: string): Array<object> {
     return strToJSON(enumStr, ';', ',');
 }
 
-export function parseLineStyle(style: string): Array<object> {
+export function parseLineStyle(style: string): object {
     let res = toCamelCase(style);
-    return strToJSON(res, ';', ':');
+    let stylesJson = strToJSON(res, ';', ':');
+    return Object.assign({}, ...stylesJson);
 }
 
-function strToJSON(str, rowStplit, cellSplit) {
+function strToJSON(str: string, rowStplit: string, cellSplit: string): Array<object> {
     if (isEmptyStr(str)) return [];
 
     // return str.split(';').reduce((arr: Array<object>, group) => {
     return str.split(rowStplit).reduce((arr: Array<object>, group) => {
         // let [ key, val ] = group.split(',');
         let [ key, val ] = group.split(cellSplit);
-        arr.push({ [key]: val });
+        if (!isEmptyStr(key) && !isEmptyStr(val)) {
+            key = key.trim();
+            val = val.trim();
+            arr.push({ [key]: val });
+        }
         return arr;
     }, []);
 }

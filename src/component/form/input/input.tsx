@@ -31,9 +31,7 @@ export default class FormInput extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        let { el, elChildren, style, ...dealProps } = this.props;
-
-        // style.split();
+        let { el, elChildren, ...dealProps } = this.props;
 
         console.log(dealProps);
         return <>
