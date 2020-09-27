@@ -47,7 +47,6 @@ export default class App {
         this.init().then(() => this.render());
     }
 
-
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
