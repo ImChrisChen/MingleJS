@@ -25,23 +25,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="feat: 添加全局函数">
-      <change afterPath="$PROJECT_DIR$/src/component/data/chart/coordinate/Coordinate.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/data/chart/map/map.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/data/chart/wordcloud/wordCloud.tsx" afterDir="false" />
+    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/component.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/component.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/property.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/property.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/data/chart/column/column.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/data/chart/column/column.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/form/editor/editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/form/editor/editor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dom-parse.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dom-parse.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/parse-data-attr.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/parse-data-attr.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/relation-map.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/relation-map.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +216,7 @@
       <workItem from="1600769924164" duration="15825000" />
       <workItem from="1601091568365" duration="12873000" />
       <workItem from="1601133319855" duration="2425000" />
-      <workItem from="1601172849972" duration="20836000" />
+      <workItem from="1601172849972" duration="22864000" />
     </task>
     <task id="LOCAL-00001" summary=".gitignore">
       <created>1600253474526</created>
@@ -413,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601175235851</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="feat:添加词云，中国地图，仪表盘等数据格式化图表">
+      <created>1601202006562</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1601202006562</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,7 +448,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="引入typescript-ioc，实现依赖注入" />
     <MESSAGE value="feat: webpack 实现代码分割，配置 webpack-bundle-analyzer" />
     <MESSAGE value="feat: 添加部分组件，增加组件调用时的适配层" />
     <MESSAGE value="feat: 底层代码结构修改，添加组件，实现select全选" />
@@ -479,7 +472,8 @@
     <MESSAGE value="config :调整代码" />
     <MESSAGE value="config: 完成 字符串style转化为JSON style" />
     <MESSAGE value="feat: 添加全局函数" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 添加全局函数" />
+    <MESSAGE value="feat:添加词云，中国地图，仪表盘等数据格式化图表" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:添加词云，中国地图，仪表盘等数据格式化图表" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1159" y="220" width="940" height="1104" key="#EditorConfig" timestamp="1600594202513">
@@ -507,7 +501,7 @@
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1081" y="425" width="1143" height="841" key="#部署/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601173650220" />
-    <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2" timestamp="1601176078231">
+    <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2" timestamp="1601202006188">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409397683" />
@@ -515,7 +509,7 @@
     <state x="625" y="23" key="CommitChangelistDialog2/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600786982658" />
     <state x="984" y="160" key="CommitChangelistDialog2/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688609861" />
     <state x="734" y="23" width="1637" height="1302" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697908331" />
-    <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601176078231" />
+    <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202006188" />
     <state x="820" y="23" key="CommitChangelistDialog2/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601107496300" />
     <state x="512" y="53" key="DiffContextDialog" timestamp="1600421185878">
       <screen x="0" y="23" width="2560" height="1417" />
@@ -612,14 +606,14 @@
     <state width="750" height="749" key="SwitcherDM/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600695416939" />
     <state width="751" height="761" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601027206285" />
     <state width="751" height="791" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1600928364034" />
-    <state x="1300" y="291" key="Vcs.Push.Dialog.v2" timestamp="1601175237764">
+    <state x="1300" y="291" key="Vcs.Push.Dialog.v2" timestamp="1601202008163">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1106" y="200" key="Vcs.Push.Dialog.v2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409399188" />
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600421191621" />
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600755918507" />
     <state x="1300" y="288" key="Vcs.Push.Dialog.v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697911955" />
-    <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601175237764" />
+    <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202008163" />
     <state x="1300" y="302" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600852204683" />
     <state x="1452" y="320" key="Vcs.Push.Dialog.v2/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601107498151" />
     <state x="1286" y="629" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600768554180">
@@ -700,7 +694,7 @@
     </state>
     <state x="1509" y="325" width="1005" height="1465" key="run.anything.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600576367714" />
     <state x="1509" y="329" width="1005" height="1486" key="run.anything.popup/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601014343380" />
-    <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup" timestamp="1601201925000">
+    <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup" timestamp="1601202799587">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600407265764" />
@@ -709,7 +703,7 @@
     <state x="1191" y="141" width="1005" height="1487" key="search.everywhere.popup/0.23.3008.1604/-1680.23.1680.1027@0.23.3008.1604" timestamp="1600655527135" />
     <state x="1014" y="128" width="856" height="1314" key="search.everywhere.popup/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688866334" />
     <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600698304517" />
-    <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601201925000" />
+    <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202799587" />
     <state x="1191" y="145" width="1006" height="1548" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600912334166" />
     <state x="1191" y="145" width="1006" height="1548" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1600930629105" />
     <state x="1191" y="145" width="1006" height="1549" key="search.everywhere.popup/3008.192.1920.994/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1601024163265" />
