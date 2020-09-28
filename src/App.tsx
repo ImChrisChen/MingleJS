@@ -17,9 +17,10 @@ interface IModules {
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
-    containerWrap: HTMLElement
-    hooks: object
-    style: string
+    containerWrap: HTMLElement      //  组件根容器
+    hooks: object                   //  钩子
+    style: string                   //  行内样式
+    componentMethod: string         //  组件方法
 }
 
 interface IAttributes extends NamedNodeMap {
@@ -104,7 +105,14 @@ export default class App {
                         if (componentName.startsWith('self-')) {
                             console.error(`${ componentName } 模块不属于MingleJS`);
                         } else {
-                            let Component = await getComponent(componentName);
+
+                            let keysArr = componentName.split('-');
+                            let componentMethod: string = '';
+                            if (keysArr.length === 3) {
+                                componentMethod = keysArr.pop() as string;
+                            }
+
+                            let Component = await getComponent(keysArr);
 
                             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
                             let elChildren: Array<HTMLElement | any> = [];
@@ -133,10 +141,10 @@ export default class App {
                                 container,
                                 containerWrap,
                                 elChildren,
-                                hooks
-                            }
+                                hooks,
+                                componentMethod,
+                            };
                             this.modules.push(module);
-
 
                             this.renderComponent(module, function (hooks) {
                                 // console.log('-----------beforeLoad');
@@ -147,7 +155,7 @@ export default class App {
 
                                 console.log(element);
                                 Array.from($('#temp').children()).forEach(el => {
-                                    $(element).append($(el))
+                                    $(element).append($(el));
                                 });
 
                             });
@@ -159,7 +167,7 @@ export default class App {
 
                 }
             }
-        })
+        });
     }
 
     async render() {
@@ -254,7 +262,7 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, Component, container, elChildren, containerWrap, hooks, style } = module;
+        let { element, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
@@ -263,6 +271,9 @@ export default class App {
         // 组件名必须大写
         render(<Component
                 el={ element }
+                ref={ componentInstance => {        // 组件实例
+                    componentInstance[componentMethod]();
+                } }
                 box={ containerWrap }
                 value={ element['value'] }
                 elChildren={ elChildren }

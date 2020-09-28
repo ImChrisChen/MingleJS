@@ -49,6 +49,7 @@
         "webpack-dev-server": "^3.11.0"
     },
     "dependencies": {
+        "@ant-design/charts": "^1.0.0",
         "@antv/data-set": "^0.11.7",
         "@types/jsonp": "^0.2.0",
         "@types/react": "^16.9.49",

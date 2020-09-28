@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import { elementParseVirtualDOM } from '@utils/dom-parse';
-import { Form } from "antd";
+import { Form } from 'antd';
 
 export default class FormAjax extends React.Component<any, any> {
     submitBtn;

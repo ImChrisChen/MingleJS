@@ -5,16 +5,16 @@
  * Time: 7:35 下午
  */
 
-import { Table } from 'antd';
+import { message, Table } from 'antd';
 import * as React from 'react';
 // @ts-ignore
 import tableHeader from '@root/mock/table/tableHeader.json';
 // @ts-ignore
-import tableContent from '@root/mock/table/tableContent.json'
-import { parseTpl } from "@utils/tpl-parse";
-import { strParseVirtualDOM } from "@utils/dom-parse";
-import style from './table.scss'
-import { ColumnsType } from "antd/es/table";
+import tableContent from '@root/mock/table/tableContent.json';
+import { parseTpl } from '@utils/tpl-parse';
+import { strParseVirtualDOM } from '@utils/dom-parse';
+import style from './table.scss';
+import { ColumnsType } from 'antd/es/table';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -36,18 +36,18 @@ interface ITableHeaderItem {
 interface ITableContentItem {
     [key: string]: any
 
-    "id": 12815468,
-    "adv_position_id": 396598,
-    "pf": 1,
-    "date": "2020-09-23",
-    "game_name": "\u67ab\u4e4b\u6218\u7eaa-SDK\u5e7f\u70b9\u901a-10",
-    "position_name": "gdt-\u67ab\u4e4b\u6218\u7eaaSDK\u5e7f\u70b9\u901a10-17630041-hyc-1",
-    "channel_name": "gdt-\u67ab\u4e4b\u6218\u7eaaSDK\u5e7f\u70b9\u901a10-hyc-17630041",
-    "cost": 1.8,
-    "money_cost": 1.7,
-    "principal_name": "\u9ec4\u6bc5\u8bda",
-    "remark": "\u9ec4\u6bc5\u8bda",
-    "dl_adv_position_id": "1396598"
+    'id': 12815468,
+    'adv_position_id': 396598,
+    'pf': 1,
+    'date': '2020-09-23',
+    'game_name': '\u67ab\u4e4b\u6218\u7eaa-SDK\u5e7f\u70b9\u901a-10',
+    'position_name': 'gdt-\u67ab\u4e4b\u6218\u7eaaSDK\u5e7f\u70b9\u901a10-17630041-hyc-1',
+    'channel_name': 'gdt-\u67ab\u4e4b\u6218\u7eaaSDK\u5e7f\u70b9\u901a10-hyc-17630041',
+    'cost': 1.8,
+    'money_cost': 1.7,
+    'principal_name': '\u9ec4\u6bc5\u8bda',
+    'remark': '\u9ec4\u6bc5\u8bda',
+    'dl_adv_position_id': '1396598'
 }
 
 interface IApiResult<T> {
@@ -92,7 +92,7 @@ export default class DataTable extends React.Component<any, any> {
         // expandable,
         footer,
         title          : function () {
-            return <>我是默认的表格title🤪🤪🤪🤪</>
+            return <>我是默认的表格title🤪🤪🤪🤪</>;
         },
         bordered       : true,
         pagination     : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
@@ -102,21 +102,21 @@ export default class DataTable extends React.Component<any, any> {
             onChange        : (page, pageSize) => {    // 页码改变的回调，参数是改变后的页码及每页条数
                 console.log(page, pageSize);
                 this.setState({
-                    pagination: { pageSize, page }
-                })
+                    pagination: { pageSize, page },
+                });
             },
             onShowSizeChange: (page, pageSize) => {    // pageSize 变化的回调
                 this.setState({
-                    pagination: { pageSize, page }
-                })
-            }
+                    pagination: { pageSize, page },
+                });
+            },
         },
         scroll         : {
-            y: '100vh'
-        }
+            y: '100vh',
+        },
 
     };
-    private fieldTpl!: string
+    private fieldTpl!: string;
     private url: string = this.props.url;
 
     constructor(props: ITableProps) {
@@ -129,8 +129,12 @@ export default class DataTable extends React.Component<any, any> {
                 columns   : tableHeader,
                 dataSource: tableContent,
                 loading   : false,
-            })
-        })
+            });
+        });
+    }
+
+    public open() {
+        message.success('table open');
     }
 
     async getTableContent(): Promise<Array<ITableContentItem>> {
@@ -144,7 +148,7 @@ export default class DataTable extends React.Component<any, any> {
                 name           : '',
                 [this.fieldTpl]: fieldJSX,
                 // [this.fieldTpl]: '12321321'
-            }
+            };
         });
     }
 
@@ -156,36 +160,36 @@ export default class DataTable extends React.Component<any, any> {
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
             if (/<(.*?)>/.test(item.field)) {
-                this.fieldTpl = item.field
+                this.fieldTpl = item.field;
             }
 
             let compare = function (a, b): number {
                 let result;
-                switch (item.field) {
+                switch(item.field) {
                     case 'id':
-                        result = a.id - b.id
-                        break
+                        result = a.id - b.id;
+                        break;
                     case 'adv_position_id':
-                        result = a.adv_position_id - b.adv_position_id
-                        break
+                        result = a.adv_position_id - b.adv_position_id;
+                        break;
                     case 'pf':
-                        result = a.id - b.id
-                        break
+                        result = a.id - b.id;
+                        break;
                     case 'date':
-                        result = new Date(a.date).getTime() - new Date(b.date).getTime()
-                        break
+                        result = new Date(a.date).getTime() - new Date(b.date).getTime();
+                        break;
                     case 'game_name':
-                        result = a.game_name.length - b.game_name.length
-                        break
+                        result = a.game_name.length - b.game_name.length;
+                        break;
                     case 'dl_adv_position_id':
-                        result = parseInt(a.dl_adv_position_id) - parseInt(b.dl_adv_position_id)
-                        break
+                        result = parseInt(a.dl_adv_position_id) - parseInt(b.dl_adv_position_id);
+                        break;
                     default :
-                        result = a - b
-                        break
+                        result = a - b;
+                        break;
                 }
-                return result
-            }
+                return result;
+            };
 
 
             return {
@@ -208,10 +212,10 @@ export default class DataTable extends React.Component<any, any> {
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : true,
                 sorter      : {
-                    compare
-                }
-            }
-        })
+                    compare,
+                },
+            };
+        });
     }
 
     onSelectChange(selectedRowKeys) {
