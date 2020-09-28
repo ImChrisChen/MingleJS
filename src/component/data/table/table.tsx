@@ -36,18 +36,18 @@ interface ITableHeaderItem {
 interface ITableContentItem {
     [key: string]: any
 
-    'id': 12815468,
-    'adv_position_id': 396598,
-    'pf': 1,
-    'date': '2020-09-23',
-    'game_name': '\u67ab\u4e4b\u6218\u7eaa-SDK\u5e7f\u70b9\u901a-10',
-    'position_name': 'gdt-\u67ab\u4e4b\u6218\u7eaaSDK\u5e7f\u70b9\u901a10-17630041-hyc-1',
-    'channel_name': 'gdt-\u67ab\u4e4b\u6218\u7eaaSDK\u5e7f\u70b9\u901a10-hyc-17630041',
-    'cost': 1.8,
-    'money_cost': 1.7,
-    'principal_name': '\u9ec4\u6bc5\u8bda',
-    'remark': '\u9ec4\u6bc5\u8bda',
-    'dl_adv_position_id': '1396598'
+    'id'?: number | string,
+    'adv_position_id'?: number,
+    'pf'?: number,
+    'date'?: string, // '2020-09-23'
+    'game_name'?: string,
+    'position_name'?: string,
+    'channel_name'?: string,
+    'cost'?: number,
+    'money_cost'?: number,
+    'principal_name'?: string,
+    'remark'?: string,
+    'dl_adv_position_id'?: string
 }
 
 interface IApiResult<T> {
@@ -125,12 +125,46 @@ export default class DataTable extends React.Component<any, any> {
             this.getTableHeader(),
             this.getTableContent(),
         ]).then(([ tableHeader, tableContent ]) => {
+
+            let sumItem = this.sum(tableContent);
+            tableContent.unshift(sumItem);
             this.setState({
                 columns   : tableHeader,
                 dataSource: tableContent,
                 loading   : false,
             });
         });
+    }
+
+    sum(list): ITableContentItem {
+        let obj = {
+            cost      : 0,
+            money_cost: 0,
+            key       : 0,
+        };
+        list.forEach((item, index) => {
+            obj.cost += item.cost;
+            obj.money_cost += item.money_cost;
+        });
+        return {
+            // @ts-ignore
+            cost                : obj.cost.toFixed(2),
+            // @ts-ignore
+            money_cost          : obj.money_cost.toFixed(2),
+            key                 : 0,
+            'id'                : '合计',
+            'adv_position_id'   : undefined,
+            'pf'                : undefined,
+            'date'              : '', // '2020-09-23'
+            'game_name'         : '',
+            'position_name'     : '',
+            'channel_name'      : '',
+            // 'cost':'',
+            // 'money_cost'?: number,
+            'principal_name'    : '',
+            'remark'            : '',
+            'dl_adv_position_id': '',
+        };
     }
 
     public open() {
@@ -155,7 +189,7 @@ export default class DataTable extends React.Component<any, any> {
     async getTableHeader(): Promise<Array<ITableHeaderItem>> {
         // let url = 'http://e.aidalan.com/manage/useful/advPositionCost/header?pf=1&jsoncallback';
         let { data }: IApiResult<ITableHeaderItem> = tableHeader;
-        return data.map(item => {
+        return data.map((item, index) => {
             // let width = parseTpl(item.field, item).length * 10;
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
@@ -191,7 +225,6 @@ export default class DataTable extends React.Component<any, any> {
                 return result;
             };
 
-
             return {
                 ...item,
 
@@ -202,7 +235,9 @@ export default class DataTable extends React.Component<any, any> {
                 dataIndex   : item.field,
                 id          : item.field,
                 align       : 'center',
-                render      : text => text,     // 自定义渲染表格中的每一项
+                render      : function (text, item, i) {
+                    return text;
+                },     // 自定义渲染表格中的每一项
                 // className: style.tableHeaderCell,
                 // width       : 80,
                 onHeaderCell: (column) => {
