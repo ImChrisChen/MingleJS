@@ -13,7 +13,7 @@ export default {
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
         },
-        selecttree: {
+        selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree')
         },
@@ -37,7 +37,12 @@ export default {
         },
         input     : {
             component: import('@component/form/input/input')
+        },
+        file      : {
+            component: import('@component/form/file/file'),
+            path     : 'form-file'
         }
+
     },
     view  : {
         popover : {
@@ -70,8 +75,12 @@ export default {
         },
         chartMap       : {
             component: import('@component/data/chart/map/map'),
-            path: '/data-chartMap'
+            path     : '/data-chartMap'
 
+        },
+        list           : {
+            component: import('@component/data/list/list'),
+            path     : 'data-list'
         }
     },
     tips  : {

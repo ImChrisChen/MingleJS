@@ -5,7 +5,7 @@
  * Time: 9:36 下午
  */
 import React from 'react';
-import { Radio } from 'antd';
+import { Form, Radio } from 'antd';
 import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-value';
 
@@ -39,17 +39,20 @@ export default class Button extends React.Component<any, any> {
 
         console.log(formatProps);
 
+        // rules={ [ { required: this.props.required, message: this.props.message } ] }
         return <>
-            <Radio.Group
-                onChange={ this.handleChange.bind(this) }
-                { ...formatProps }
+            <Form.Item label="区域:" >
+                <Radio.Group
+                    onChange={ this.handleChange.bind(this) }
+                    { ...formatProps }
 
-                // options={ options }
-                // size={ size }
-                // optionType={ optionType }
-                // buttonStyle={ buttonStyle }
-                // value={ value }
-            />
+                    // options={ options }
+                    // size={ size }
+                    // optionType={ optionType }
+                    // buttonStyle={ buttonStyle }
+                    // value={ value }
+                />
+            </Form.Item>
         </>;
     }
 }

@@ -6,6 +6,9 @@
  */
 
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value') {
+    if (!Boolean(list)) {
+        return []
+    }
     let options: Array<any> = [];
     list.forEach(item => {
         for (const key in item) {

@@ -12,15 +12,21 @@ import { Link } from 'react-router-dom';
 
 const { SubMenu } = Menu;
 
-interface IMenuState {
+interface IMenuItem {
+    name: string
+    path?: string
+    id?: string
+}
+
+interface IMenuState<T> {
     theme?: string,
-    menuList: Array<object>
+    menuList: Array<T>
     collapsed: boolean,
 }
 
 export default class LayoutMenu extends React.Component<any, any> {
 
-    state: IMenuState = {
+    state: IMenuState<IMenuItem> = {
         collapsed: false,
         theme    : 'light',
         menuList : this.props.menuList,
@@ -54,7 +60,12 @@ export default class LayoutMenu extends React.Component<any, any> {
                                 return <SubMenu key={ 'parent-' + index } icon={ <MailOutlined/> } title={ item.name }>
                                     { children.map(((child, i) => {
                                         return <Menu.Item key={ 'child-' + i }>
-                                            <Link to={ child.path ?? '' }>{ child.name }{ child.path ?? '' }</Link>
+                                            {
+                                                child.path ?
+                                                    <Link
+                                                        to={ child.path ?? '' }>{ child.name }{ child.path ?? '' }</Link> :
+                                                    <span>{ child.name }</span>
+                                            }
                                             {/*<Route exact path="/" component={ Home }/>*/ }
                                             {/*<Route path="/about" component={ About }/>*/ }
                                             {/*<Route path="/topics" component={ Topics }/>*/ }

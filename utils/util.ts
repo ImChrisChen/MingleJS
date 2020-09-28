@@ -51,6 +51,20 @@ export function isDOM(v): v is HTMLElement {
         v && typeof v === 'object' && v.nodeType === 1 && typeof v.nodeName === 'string';
 }
 
+export function DeepEachElement(root, callback?: (el: HTMLElement) => void) {
+    // 这里输出的是根节点
+    if (!root) {
+        return
+    }
+
+    if (root.children.length) {
+        Array.from(root.children).forEach(item => {
+            return DeepEachElement(item, callback)
+        })
+    }
+    callback && callback(root);
+}
+
 // 判断是否是Class https://zhuanlan.zhihu.com/p/53385348
 export function isClass(obj, strict?): obj is ClassDecorator {
     if (typeof obj != 'function') return false;

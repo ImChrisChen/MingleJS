@@ -4,8 +4,8 @@ import 'antd/dist/antd.css'
 
 import './src/App.scss';
 import React from 'react';
-import App from './src/App';
 import { message } from "antd";
+import App from "./src/App";
 // import 'antd/dist/antd.dark.css'
 
 // 判断是否是深色模式
@@ -36,9 +36,8 @@ console.log(env);
 //     // };
 // }
 
-
 window.onload = function () {
-    let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
-    new App(elements);
+    // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
+    new App();
     window['Message'] = message
 };

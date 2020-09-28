@@ -76,6 +76,15 @@ const property: IPropertysConfig<IPropertyItem> = {
         name: 'menuList',
         type: 'JSON',
     },
+    label           : {
+        name: 'label',
+        type: 'string'
+    },
+    required        : {
+        name: 'required',
+        type: 'boolean'
+    }
+
 };
 
 // 对象属性值统一成小写,因为在dataset中只能获取到小写的值，这里提供一层映射关系

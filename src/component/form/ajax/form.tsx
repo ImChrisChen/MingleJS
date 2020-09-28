@@ -6,6 +6,7 @@
  */
 import React from 'react';
 import { elementParseVirtualDOM } from '@utils/dom-parse';
+import { Form } from "antd";
 
 export default class FormAjax extends React.Component<any, any> {
     submitBtn;
@@ -18,8 +19,6 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let submitBtn: HTMLElement = this.props.box.querySelector('[type=submit]');
         let box = this.props.box;
-        console.log(box);
-        console.log(submitBtn);
         let form: HTMLFormElement = this.props.el;
         form.onsubmit = async function (e) {
             e.preventDefault();
@@ -31,13 +30,17 @@ export default class FormAjax extends React.Component<any, any> {
             return false;
         };
 
+        console.log(submitBtn);
         this.submitBtn = elementParseVirtualDOM(submitBtn);
         console.log(this.submitBtn);
     }
 
     render() {
+        // {}
         return <>
-            {/*{ this.submitBtn }*/ }
+            { this.submitBtn }
+            <Form>
+            </Form>
         </>;
     }
 }

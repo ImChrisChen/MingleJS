@@ -5,7 +5,7 @@ import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
-import { isFunc } from '@utils/util';
+import { DeepEachElement, isFunc } from '@utils/util';
 import { parseLineStyle } from '@utils/tpl-parse';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
@@ -44,8 +44,10 @@ enum Hooks {
 export default class App {
     private modules: Array<IModules> = [];
 
-    constructor(private readonly elements: Array<HTMLElement>) {
-        this.init().then(() => this.render());
+    constructor(/*private readonly elements: Array<HTMLElement>*/) {
+        this.init().then(() => {
+
+        });
     }
 
     formatHooks(attributes: IAttributes): object {
@@ -68,55 +70,96 @@ export default class App {
     }
 
     async init() {
-        for (const element of this.elements) {
+        DeepEachElement(document.body, async element => {
+            if (element.attributes['data-fn']) {
+                let container: HTMLElement, containerWrap: HTMLElement;
+                let attributes = element.attributes;
 
-            let container: HTMLElement, containerWrap: HTMLElement;
-            let attributes = element.attributes;
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    // element.setAttribute('type', 'hidden');
 
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                // element.setAttribute('type', 'hidden');
+                    let elementWrap: HTMLElement = document.createElement('div');
+                    container = document.createElement('div');
+                    element.after(elementWrap);
+                    elementWrap.appendChild(element);
+                    elementWrap.appendChild(container);
+                    containerWrap = elementWrap;
 
-                let elementWrap: HTMLElement = document.createElement('div');
-                container = document.createElement('div');
-                element.after(elementWrap);
-                elementWrap.appendChild(element);
-                elementWrap.appendChild(container);
-                containerWrap = elementWrap;
+                } else {
+                    let reactContainer: HTMLElement = document.createElement('div');
+                    element.appendChild(reactContainer);
+                    container = reactContainer;
 
-            } else {
-                let reactContainer: HTMLElement = document.createElement('div');
-                element.appendChild(reactContainer);
-                container = reactContainer;
-
-                containerWrap = element;
-            }
-
-            let componentNames: string = element.getAttribute('data-fn') ?? '';
-            if (!componentNames) continue;
-
-            containerWrap.setAttribute('data-component-container', componentNames);
-
-            for (const componentName of componentNames.split(' ')) {
-
-                if (componentName.startsWith('self-')) {
-                    console.error(`${ componentName } 模块不属于MingleJS`);
-                    continue;
+                    containerWrap = element;
                 }
 
-                let Component = await getComponent(componentName);
+                let componentNames: string = element.getAttribute('data-fn') ?? '';
 
-                // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-                let elChildren: Array<HTMLElement> = [];
-                if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
-                    elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
+                if (componentNames) {
+
+                    containerWrap.setAttribute('data-component-container', componentNames);
+
+                    for (const componentName of componentNames.split(' ')) {
+
+                        if (componentName.startsWith('self-')) {
+                            console.error(`${ componentName } 模块不属于MingleJS`);
+                        } else {
+                            let Component = await getComponent(componentName);
+
+                            // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
+                            let elChildren: Array<HTMLElement | any> = [];
+
+                            if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
+                                // elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
+                                console.log(element.children);
+                                elChildren = Array.from(element.children ?? []);
+                                // elChildren.pop();       // 去掉自己本身
+
+                                console.log(elChildren);
+                                elChildren.forEach(elc => {
+                                    $('#temp').append($(elc));
+                                });
+
+                                // console.log(element.children);
+                                console.log(elChildren);
+                            }
+
+                            let hooks = this.formatHooks(attributes);
+                            let style = this.formatInLineStyle(attributes);
+                            let module = {
+                                style,
+                                Component,
+                                element,
+                                container,
+                                containerWrap,
+                                elChildren,
+                                hooks
+                            }
+                            this.modules.push(module);
+
+
+                            this.renderComponent(module, function (hooks) {
+                                // console.log('-----------beforeLoad');
+                                hooks['beforeLoad']?.();
+                            }, function (hooks) {
+                                // console.log('--------------load');
+                                hooks['load']?.();
+
+                                console.log(element);
+                                Array.from($('#temp').children()).forEach(el => {
+                                    $(element).append($(el))
+                                });
+
+                            });
+                            this.eventListener(module);
+
+                        }
+
+                    }
+
                 }
-
-                let hooks = this.formatHooks(attributes);
-                let style = this.formatInLineStyle(attributes);
-                this.modules.push({ style, Component, element, container, containerWrap, elChildren, hooks });
             }
-
-        }
+        })
     }
 
     async render() {
@@ -216,6 +259,7 @@ export default class App {
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
 
+        console.log(module);
         // 组件名必须大写
         render(<Component
                 el={ element }
