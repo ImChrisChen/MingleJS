@@ -78,16 +78,20 @@ const property: IPropertysConfig<IPropertyItem> = {
     },
     label           : {
         name: 'label',
-        type: 'string'
+        type: 'string',
     },
     required        : {
         name: 'required',
-        type: 'boolean'
+        type: 'boolean',
     },
     tabPosition     : {
         name: 'tabPosition',
-        type: 'string'
-    }
+        type: 'string',
+    },
+    async           : {
+        name: 'async',
+        type: 'boolean',
+    },
 
 };
 
