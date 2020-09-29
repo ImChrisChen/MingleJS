@@ -25,6 +25,8 @@ export default class Button extends React.Component<any, any> {
     handleChange(e: any) {
         let value = e.target.value;
         // this.setState({ value });
+        console.log(value);
+        console.log(this.props.el);
         trigger(this.props.el, value);
     }
 

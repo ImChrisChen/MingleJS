@@ -49,8 +49,6 @@ export async function getComponent(keys: Array<string>) {
         return false;
     }
 
-    console.log(esModule['default']);
-
     return esModule['default'];
 }
 

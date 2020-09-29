@@ -8,5 +8,6 @@
 import $ from 'jquery'
 
 export function trigger(el: HTMLInputElement, value: string | Array<any>): void {
+    console.log(el);
     $(el).val(value).trigger('change');
 }

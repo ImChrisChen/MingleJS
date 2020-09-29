@@ -44,8 +44,11 @@ enum Hooks {
 
 export default class App {
     private modules: Array<IModules> = [];
+    $tempContainer: any;
 
     constructor(/*private readonly elements: Array<HTMLElement>*/) {
+        this.$tempContainer = $(`<div role="mingle-component-working-temp"></div>`);
+        $('body').append(this.$tempContainer)
         this.init().then(() => {
 
         });
@@ -119,17 +122,12 @@ export default class App {
 
                             if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
                                 // elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
-                                console.log(element.children);
                                 elChildren = Array.from(element.children ?? []);
-                                // elChildren.pop();       // 去掉自己本身
+                                elChildren.pop();       // 去掉自己本身
 
-                                console.log(elChildren);
-                                elChildren.forEach(elc => {
-                                    $('#temp').append($(elc));
+                                elChildren.forEach(el => {
+                                    this.$tempContainer.append(el);
                                 });
-
-                                // console.log(element.children);
-                                console.log(elChildren);
                             }
 
                             let hooks = this.formatHooks(attributes);
@@ -146,16 +144,14 @@ export default class App {
                             };
                             this.modules.push(module);
 
-                            this.renderComponent(module, function (hooks) {
+                            this.renderComponent(module, (hooks) => {
                                 // console.log('-----------beforeLoad');
                                 hooks['beforeLoad']?.();
-                            }, function (hooks) {
+                            }, (hooks) => {
                                 // console.log('--------------load');
                                 hooks['load']?.();
-
-                                console.log(element);
-                                Array.from($('#temp').children()).forEach(el => {
-                                    $(element).append($(el));
+                                Array.from(this.$tempContainer.children()).forEach((el: any) => {
+                                    $(element).append(el);
                                 });
 
                             });
@@ -194,10 +190,10 @@ export default class App {
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
                 this.renderComponent(module, function (hooks) {
-                    console.log('-----------------beforeUpdate');
+                    // console.log('-----------------beforeUpdate');
                     hooks['beforeUpdate']?.();
                 }, function (hooks) {
-                    console.log('---------------update');
+                    // console.log('---------------update');
                     hooks['update']?.();
                 });
             });
@@ -267,12 +263,12 @@ export default class App {
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
 
-        console.log(module);
         // 组件名必须大写
         render(<Component
+                role="mnigle-this-container"
                 el={ element }
                 ref={ componentInstance => {        // 组件实例
-                    componentInstance[componentMethod]();
+                    componentMethod && componentInstance[componentMethod]();
                 } }
                 box={ containerWrap }
                 value={ element['value'] }

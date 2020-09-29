@@ -6,11 +6,15 @@
  */
 import React from 'react';
 import { Tabs } from 'antd';
-import { elementParseAllVirtualDOM } from '@utils/dom-parse';
+import $ from 'jquery'
 
 const { TabPane } = Tabs;
 
 export default class Tab extends React.Component<any, any> {
+    constructor(props) {
+        super(props);
+        this.renderChild()
+    }
 
     handleChange() {
 
@@ -18,15 +22,29 @@ export default class Tab extends React.Component<any, any> {
 
     renderChild() {
         let elChildren = this.props.elChildren;
-        elChildren.pop();       // TODO 后续优化
-        let tabChildren = elementParseAllVirtualDOM(elChildren);
         console.log(elChildren);
-        return tabChildren.map((child, index) => <TabPane tab={ index } key={ index }>{ child }</TabPane>);
+        setTimeout(() => {
+            let $tabpanels = $(this.props.el).find('.form-tabpanel');
+            console.log($tabpanels);
+            elChildren.forEach((elChild, index) => {
+                $tabpanels[index].append(elChild)
+            })
+        })
+
+        // let tabChildren = elementParseAllVirtualDOM(elChildren);
+        // return tabChildren.map((child, index) => <TabPane tab={ index } key={ index }>{ child }</TabPane>);
     }
 
     render() {
         return <Tabs defaultActiveKey="1" onChange={ this.handleChange.bind(this) }>
-            { ...this.renderChild() }
+            {
+                this.props.elChildren.map((item, index) => {
+                        return <TabPane className="form-tabpanel" tab="Tab 1" key={ index }>
+                        </TabPane>
+                    }
+                )
+            }
+            {/*{ ...this.renderChild() }*/ }
         </Tabs>;
     }
 }

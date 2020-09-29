@@ -6,6 +6,7 @@ import './src/App.scss';
 import React from 'react';
 import { message } from "antd";
 import App from "./src/App";
+import $ from 'jquery'
 // import 'antd/dist/antd.dark.css'
 
 // 判断是否是深色模式
@@ -40,4 +41,5 @@ window.onload = function () {
     // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
     new App();
     window['Message'] = message
+    window['$'] = $;
 };
