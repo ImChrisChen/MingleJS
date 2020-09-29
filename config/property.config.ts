@@ -83,6 +83,10 @@ const property: IPropertysConfig<IPropertyItem> = {
     required        : {
         name: 'required',
         type: 'boolean'
+    },
+    tabPosition     : {
+        name: 'tabPosition',
+        type: 'string'
     }
 
 };

@@ -6,7 +6,7 @@ import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
 import { DeepEachElement, isFunc } from '@utils/util';
-import { parseLineStyle } from '@utils/tpl-parse';
+import { parseLineStyle, parseTpl } from '@utils/tpl-parse';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -52,25 +52,6 @@ export default class App {
         this.init().then(() => {
 
         });
-    }
-
-    formatHooks(attributes: IAttributes): object {
-        let hooks: { [key: string]: any } = {};
-        Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
-            let [ , hookName ] = name.split('hook:');
-            if (hookName && isFunc((window as W)[fnName])) {
-                hooks[hookName] = (window as W)[fnName];
-            }
-        });
-        return hooks;
-    }
-
-    formatInLineStyle(attributes: IAttributes): string {
-        if (attributes['style']) {
-            let { _, value } = attributes['style'];
-            return value;
-        }
-        return '';
     }
 
     async init() {
@@ -156,14 +137,36 @@ export default class App {
 
                             });
                             this.eventListener(module);
-
                         }
-
                     }
-
                 }
             }
         });
+    }
+
+    // 模版渲染
+    formatInnerHTML(el: HTMLElement,model): string {
+        let innerHTML = el.innerHTML;
+        return parseTpl(innerHTML);
+    }
+
+    formatHooks(attributes: IAttributes): object {
+        let hooks: { [key: string]: any } = {};
+        Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
+            let [ , hookName ] = name.split('hook:');
+            if (hookName && isFunc((window as W)[fnName])) {
+                hooks[hookName] = (window as W)[fnName];
+            }
+        });
+        return hooks;
+    }
+
+    formatInLineStyle(attributes: IAttributes): string {
+        if (attributes['style']) {
+            let { _, value } = attributes['style'];
+            return value;
+        }
+        return '';
     }
 
     async render() {
@@ -274,6 +277,9 @@ export default class App {
                 value={ element['value'] }
                 elChildren={ elChildren }
                 style={ jsxStyle }
+                dataset={
+                    parseDataAttr(dataset)
+                }
                 { ...parseDataAttr(dataset) }
             />, container, () => callback(hooks),
         );

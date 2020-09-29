@@ -25,28 +25,20 @@ export default class Button extends React.Component<any, any> {
     handleChange(e: any) {
         let value = e.target.value;
         // this.setState({ value });
-        console.log(value);
-        console.log(this.props.el);
         trigger(this.props.el, value);
     }
 
     render() {
-        let { style, el, elChildren, ...dealProps } = this.props;
-        console.log(this.props);
-        let formatProps = { ...dealProps };
-        formatProps['options'] = formatEnumOptions(dealProps.enum);
-        // formatProps = { ...formatProps, ...this.state };        // 合并对象
-        let object = Object.assign(this.state, formatProps);
-        console.log(object);
-
-        console.log(formatProps);
-
+        let formatProps = this.props.dataset;
+        formatProps['options'] = formatEnumOptions(formatProps.enum);
+        let attrs = Object.assign(this.state, formatProps);
         // rules={ [ { required: this.props.required, message: this.props.message } ] }
         return <>
-            <Form.Item label="区域:" >
+            <Form.Item label="区域:">
                 <Radio.Group
+
                     onChange={ this.handleChange.bind(this) }
-                    { ...formatProps }
+                    { ...attrs }
 
                     // options={ options }
                     // size={ size }

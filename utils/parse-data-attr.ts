@@ -46,7 +46,6 @@ export function parseDataAttr(dataAttrs: ElementDataAttrs): object {
                     break;
 
                 case 'object[]':
-                    console.log(val);
                     newDataSet[propsName] = parseEnum(val);
                     break;
 
