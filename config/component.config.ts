@@ -76,12 +76,11 @@ export default {
         chartMap       : {
             component: import('@component/data/chart/map/map'),
             path     : '/data-chartMap'
-
         },
         list           : {
             component: import('@component/data/list/list'),
             path     : 'data-list'
-        }
+        },
     },
     tips  : {
         loading: {

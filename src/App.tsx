@@ -145,7 +145,7 @@ export default class App {
     }
 
     // 模版渲染
-    formatInnerHTML(el: HTMLElement,model): string {
+    formatInnerHTML(el: HTMLElement, model): string {
         let innerHTML = el.innerHTML;
         return parseTpl(innerHTML);
     }
@@ -268,7 +268,7 @@ export default class App {
 
         // 组件名必须大写
         render(<Component
-                role="mnigle-this-container"
+                role="mingle-component"
                 el={ element }
                 ref={ componentInstance => {        // 组件实例
                     componentMethod && componentInstance[componentMethod]();

@@ -18,14 +18,14 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let form: HTMLFormElement = this.props.el;
         form.onsubmit = async function (e) {
-            e.preventDefault();
+            // e.preventDefault();
             console.log(e);
 
             message.info('提交表单')
             // let url: string = form.getAttribute('action') ?? '';
             // let res = await Axios.get(url);
             // console.log(res);
-            return false;
+            // return false;
         };
     }
 
