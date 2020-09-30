@@ -7,10 +7,11 @@
 
 import './select.less';
 import * as React from 'react';
-import { Checkbox, Select, Typography } from 'antd';
+import { Checkbox, Form, Select, Typography } from 'antd';
 // @ts-ignore
 import selectJson from '@root/mock/form/select.json';
 import { formatEnumOptions } from '@utils/format-value';
+import { trigger } from "@utils/trigger";
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -40,7 +41,7 @@ export default class Selector extends React.Component<any, any> {
             optionFilterProp: 'children',
             placeholder     : 'Select a person',
             allowClear      : true,
-            mode            : 'multiple',
+            // mode            : 'multiple',
             autoFocus       : true,
             maxTagCount     : 1,
         },
@@ -57,6 +58,7 @@ export default class Selector extends React.Component<any, any> {
     }
 
     formatListKey(list: Array<any>): Array<object> {
+        return []
         let selectTree: Array<object> = [];
         let selectList = list.map(item => {
             let isSuper = selectTree.find((f: object) => f['key'] === item['pid']);
@@ -79,8 +81,8 @@ export default class Selector extends React.Component<any, any> {
     }
 
     async getSelectList() {
-        if (this.props.enum) {
-            return formatEnumOptions(this.props.enum);
+        if (this.props.dataset.enum) {
+            return formatEnumOptions(this.props.dataset.enum);
         } else {
             return this.formatListKey(selectJson);
         }
@@ -90,37 +92,42 @@ export default class Selector extends React.Component<any, any> {
         console.log(this.props);
 
         // 字符串DOM 转化成 ReactDOM  https://zh-hans.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
-        let menuItemSelectedIcon = <div dangerouslySetInnerHTML={ { __html: `<div>😄</div>` } }/>;
+        // let menuItemSelectedIcon = <div dangerouslySetInnerHTML={ { __html: `<div>😄</div>` } }/>;
+        let dealProps = Object.assign(this.state.selectProps, this.props.dataset);
         return <>
-            <Select
-                { ...this.state.selectProps }
-                menuItemSelectedIcon={ menuItemSelectedIcon }
-                onChange={ this.handleChange.bind(this) }
-                onClear={ this.handleClear.bind(this) }
-                onSearch={ this.handleSearch.bind(this) }
-                showSearch
-                style={ { width: '200px' } }
-                dropdownRender={ menu => (
-                    <div>
-                        { menu }
-                        <Checkbox checked={ this.state.checkedAll }
-                                  onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox>
-                    </div>
-                ) }
-                filterOption={ (input, option) => {
-                    if (!option) return false;
-                    // return String(option.value).includes(input) || String(option.title).includes(input);
-                    return String(option.value).includes(input) || String(option.label).includes(input);
-                } }/>
+            <Form.Item label={ this.props.dataset.label }>
+                <Select
+                    { ...dealProps }
+                    // menuItemSelectedIcon={ menuItemSelectedIcon }
+                    onChange={ this.handleChange.bind(this) }
+                    onClear={ this.handleClear.bind(this) }
+                    onSearch={ this.handleSearch.bind(this) }
+                    showSearch
+                    style={ { width: '200px' } }
+                    dropdownRender={ menu => (
+                        <div>
+                            { menu }
+                            <Checkbox checked={ this.state.checkedAll }
+                                      onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox>
+                        </div>
+                    ) }
+                    filterOption={ (input, option) => {
+                        if (!option) return false;
+                        // return String(option.value).includes(input) || String(option.title).includes(input);
+                        return String(option.value).includes(input) || String(option.label).includes(input);
+                    } }/>
+            </Form.Item>
         </>;
     }
 
     handleChange(value, object) {
         console.log(value);
+        trigger(this.props.el, value);
     }
 
     handleClear() {
         this.setState({ checkedAll: false });
+        trigger(this.props.el, '')
     }
 
     handleSearch() {
@@ -133,15 +140,18 @@ export default class Selector extends React.Component<any, any> {
         if (v) {
             let value = this.state.selectProps.options.map(item => item.value);
             this.setState({ value });
-            this.props.el.value = value.join(',');
+            trigger(this.props.el, value.join(','))
         } else {
             this.setState({ value: [] });
-            this.props.el.value = '';
+            trigger(this.props.el, '')
         }
+
+        console.log(v);
 
         this.setState({
             checkedAll: !this.state.checkedAll,
         });
+
     }
 
 }

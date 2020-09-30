@@ -41,7 +41,6 @@ enum Hooks {
     beforeUpdate = 'beforeUpdate'
 }
 
-
 export default class App {
     private modules: Array<IModules> = [];
     $tempContainer: any;
@@ -50,7 +49,7 @@ export default class App {
         this.$tempContainer = $(`<div role="mingle-component-working-temp"></div>`);
         $('body').append(this.$tempContainer)
         this.init().then(() => {
-
+            this.globalEventListener();
         });
     }
 
@@ -107,7 +106,7 @@ export default class App {
                                 elChildren.pop();       // 去掉自己本身
 
                                 elChildren.forEach(el => {
-                                    this.$tempContainer.append(el);
+                                    this.$tempContainer.append(el).hide();
                                 });
                             }
 
@@ -132,7 +131,7 @@ export default class App {
                                 // console.log('--------------load');
                                 hooks['load']?.();
                                 Array.from(this.$tempContainer.children()).forEach((el: any) => {
-                                    $(element).append(el);
+                                    $(element).append(el).show();
                                 });
 
                             });
@@ -238,10 +237,13 @@ export default class App {
         // });
 
         // 文本节点发生变化时
-        element.addEventListener('DOMCharacterDataModified', function () {
+        // element.addEventListener('DOMCharacterDataModified', function () {
+        //
+        // });
 
-        });
+    }
 
+    private globalEventListener() {
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });
@@ -257,7 +259,6 @@ export default class App {
         window.addEventListener('cut', function (event) {
             message.success('剪切成功');
         });
-
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
@@ -266,21 +267,25 @@ export default class App {
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
 
+        let formatDataset = parseDataAttr(dataset);
+        let value: any = element['value'];
+        if (value && value.includes(',')) {
+            value = value.split(',')
+        }
+        formatDataset['value'] = value;
+
         // 组件名必须大写
         render(<Component
                 role="mingle-component"
                 el={ element }
                 ref={ componentInstance => {        // 组件实例
                     componentMethod && componentInstance[componentMethod]();
+                    return componentInstance
                 } }
                 box={ containerWrap }
-                value={ element['value'] }
                 elChildren={ elChildren }
                 style={ jsxStyle }
-                dataset={
-                    parseDataAttr(dataset)
-                }
-                { ...parseDataAttr(dataset) }
+                dataset={ formatDataset }
             />, container, () => callback(hooks),
         );
 

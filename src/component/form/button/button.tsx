@@ -22,9 +22,13 @@ export default class Button extends React.Component<any, any> {
         size       : this.props.el.size ?? 'middle',          // 'large' | 'middle' | 'small'
     };
 
+    constructor(props) {
+        super(props);
+    }
+
     handleChange(e: any) {
         let value = e.target.value;
-        // this.setState({ value });
+        this.setState({ value });
         trigger(this.props.el, value);
     }
 

@@ -8,8 +8,13 @@ import React from 'react';
 import { message } from 'antd';
 import $ from 'jquery';
 
+// import tableData from '@mock/table/tableContent'
+
+interface IFormData {
+    [key: string]: string | any
+}
+
 export default class FormAjax extends React.Component<any, any> {
-    submitBtn;
 
     constructor(props) {
         super(props);
@@ -19,22 +24,31 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let { async } = this.props.dataset;
         let form: HTMLFormElement = this.props.el;
-        form.onsubmit = async function (e) {
-            async && e.preventDefault();
+    }
 
-            let $elements = $(this).find(`[name]`);
-            $elements.each((index, el) => {
-                let name = $(el).attr('name');
-                let value = $(el).val();
-                console.log(name, value);
-            });
-
+    static onFormSubmit(formElement, callback) {
+        formElement.onsubmit = async function (e) {
+            e.preventDefault();
+            // let formData = FormAjax.getFormData(form);
+            callback(FormAjax.getFormData(formElement), e)
             message.info('提交表单');
-            // let url: string = form.getAttribute('action') ?? '';
-            // let res = await Axios.get(url);
-            // console.log(res);
-            // return false;
         };
+    }
+
+    // 获取表单数据
+    static getFormData(formElement): IFormData {
+        let $elements = $(formElement).find(`[name]`);
+        let formData: IFormData = {};
+        $elements.each((index, el) => {
+            let name = $(el).attr('name') ?? '';
+            let value = $(el).val();
+            formData[name] = value;
+        });
+        return formData;
+    }
+
+    static async requestData() {
+
     }
 
     render() {

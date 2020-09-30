@@ -92,7 +92,20 @@ const property: IPropertysConfig<IPropertyItem> = {
         name: 'async',
         type: 'boolean',
     },
+    mode            : {
+        name: 'mode',
+        type: 'string',
+    },
+    placeholder     : {
+        name: 'placeholder',
+        type: 'string'
+    },
 
+    // 组件交互绑定值
+    from: {
+        name: 'from',
+        type: 'string'
+    }
 };
 
 // 对象属性值统一成小写,因为在dataset中只能获取到小写的值，这里提供一层映射关系

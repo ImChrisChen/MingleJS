@@ -15,6 +15,7 @@ import { parseTpl } from '@utils/tpl-parse';
 import { strParseVirtualDOM } from '@utils/dom-parse';
 import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
+import FormAjax from "@component/form/ajax/form";
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -121,11 +122,14 @@ export default class DataTable extends React.Component<any, any> {
 
     constructor(props: ITableProps) {
         super(props);
+
+        let formElement = this.findFormElement(this.props.dataset.from)
+        FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
+
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
         ]).then(([ tableHeader, tableContent ]) => {
-
             let sumItem = this.sum(tableContent);
             tableContent.unshift(sumItem);
             this.setState({
@@ -134,6 +138,14 @@ export default class DataTable extends React.Component<any, any> {
                 loading   : false,
             });
         });
+    }
+
+    findFormElement(from) {
+        return document.querySelector(`#${ from }`)
+    }
+
+    handleFormSubmit(formData, e) {
+        console.log(formData);
     }
 
     sum(list): ITableContentItem {
@@ -199,7 +211,7 @@ export default class DataTable extends React.Component<any, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch(item.field) {
+                switch (item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;

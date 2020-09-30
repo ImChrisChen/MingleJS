@@ -19,30 +19,47 @@
 <!--       data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"/>-->
 
 
-<div data-fn="data-chartline">
-    <!--    <h1>哈哈哈哈哈</h1>-->
-    <!--    <div data-fn="data-table"></div>-->
-</div>
+<!--<div data-fn="data-chartline">-->
+<!--    <h1>哈哈哈哈哈</h1>-->
+<!--    <div data-fn="data-table"></div>-->
+<!--</div>-->
 
 <div data-fn="layout-tab" data-tabPosition="left">
 
-    <form data-fn="form-ajax" data-async="true" action="" style="display: flex">
+    <div class="panel">
+        <form id="game-list" data-fn="form-ajax" data-async="true" action="" style="display: flex">
+            <input data-fn="form-button"
+                   name="pf"
+                   data-optionType="button"
+                   data-buttonStyle="solid"
+                   data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"
+                   value="Orange"
+            />
+            <input data-fn="form-switch" name="switch" data-label="开关：" data-required="true" onchange=""/>
 
-        <input data-fn="form-button"
-               name="pf"
-               data-optionType="button"
-               data-buttonStyle="solid"
-               data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"
-               value="Apple"
-        />
+            <input data-fn="form-select"
+                   data-label="水果:" name="like"
+                   data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"
+                   data-mode="multiple"
+            />
 
-        <input data-fn="form-switch" name="switch" data-label="开关：" data-required="true" onchange=""/>
+            <input data-fn="form-select"
+                   data-placeholder="hahaha"
+                   data-label="平台:" name="pf"
+                   data-enum="1,Android;2,iOS"
+                   data-mode="multiple"
+            />
 
-        <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
+            <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
 
-    </form>
+        </form>
+        <div data-fn="data-table" data-from="game-list">
+        </div>
+    </div>
 
 </div>
+
+<div data-fn="data-chartWorkCloud"></div>
 <!--<div data-fn="layout-tab">-->
 
 <!--<div data-fn="data-table"></div>-->

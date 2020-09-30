@@ -17,7 +17,7 @@ export default class Tab extends React.Component<any, any> {
     }
 
     state: any = {
-        tabPosition: this.props.tabPosition ?? 'top',
+        tabPosition: this.props.dataset.tabPosition ?? 'top',
     }
 
     handleChange() {
@@ -26,10 +26,13 @@ export default class Tab extends React.Component<any, any> {
 
     renderChild() {
         let elChildren = this.props.elChildren;
+        $(elChildren).hide();
+
         setTimeout(() => {
             let $tabpanels = $(this.props.el).find('.form-tabpanel');
             elChildren.forEach((elChild, index) => {
                 $tabpanels[index].append(elChild)
+                $(elChild).show();      //渲染后再显示
             })
         })
     }
