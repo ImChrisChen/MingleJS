@@ -19,7 +19,7 @@ import Editor from '@component/form/editor/editor';
 // @ts-ignore
 import FormSelectMD from '@component/form/select/select.md';
 
-// console.log(FormSelectMD);
+console.log(FormSelectMD);
 
 // console.log(FormSelect);
 
@@ -81,7 +81,7 @@ export class Document extends React.Component<any, any> {
         }
         return <div className={ style.container }>
             <LayoutMenu menuList={ this.state.menuList }/>
-            <div style={ { width: '100%' } }>
+            <div style={ { width: '100%', height: '100%' } }>
                 <h1>Content</h1>
 
                 <Switch>
@@ -92,7 +92,7 @@ export class Document extends React.Component<any, any> {
                     </div>
                 </Switch>
 
-                <Editor value={ FormSelectMD }></Editor>
+                <Editor value={ FormSelectMD }/>
 
                 {/*{ ...Routes }*/ }
             </div>

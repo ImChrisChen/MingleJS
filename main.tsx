@@ -7,7 +7,12 @@ import React from 'react';
 import { message } from 'antd';
 import App from './src/App';
 import $ from 'jquery';
+// https://reactrouter.com/web/guides/quick-start
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import ReactDOM from 'react-dom';
 // import 'antd/dist/antd.dark.css'
+import { Document } from './src/document/Document';
 
 // const isDebug = true;
 //
@@ -21,6 +26,7 @@ import $ from 'jquery';
 
 // 判断是否是深色模式
 const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+
 // 判断是否匹配深色模式
 if (darkMode && darkMode.matches) {
 
@@ -33,23 +39,20 @@ darkMode && darkMode.addEventListener('change', e => {
 
 
 let env = process.env.NODE_ENV;
-console.log(env);
-// if (env !== 'development') {
-//     // docs
-//     ReactDOM.render(
-//         <Router>
-//             <Document/>
-//         </Router>,
-//         document.querySelector('#App'));
-// } else {
-//     // window.onload = function () {
-//     // 类数组转成数组 NodeListOf<HTMLElement>  => Array<HTMLElement>
-//     // };
-// }
 
-window.onload = function () {
-    // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
-    new App();
-    window['Message'] = message;
-    window['$'] = $;
-};
+const isDocument = true;
+
+if (isDocument) {
+    // docs
+    ReactDOM.render(
+        <Router>
+            <Document/>,
+        </Router>, document.querySelector('#App'));
+} else {
+    window.onload = function () {
+        // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
+        new App();
+        window['Message'] = message;
+        window['$'] = $;
+    };
+}

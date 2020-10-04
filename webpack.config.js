@@ -13,15 +13,17 @@ const marked = require('marked');
 const renderer = new marked.Renderer();
 // const UglifyEsPlugin = require('uglify-es');
 
+let env = process.env.NODE_ENV;
+
 //默认生产环境
-if (typeof process.env.NODE_ENV === 'undefined') {
-    process.env.NODE_ENV = 'production';
+if (typeof env === 'undefined') {
+    env = 'production';
 }
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const isProduction = process.env.NODE_ENV === 'production';
-console.log(process.env.NODE_ENV);
+const isProduction = env === 'production';
+console.log(env);
 
 const clc = require('cli-color');
 
@@ -228,7 +230,7 @@ module.exports = {
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: isProduction ? 'static' : 'server',
+            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : 'server'),
             analyzerHost: '0.0.0.0',
             // analyzerPort: '9200',
             generateStatsFile: false,
