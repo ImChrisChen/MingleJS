@@ -45,16 +45,18 @@ export default class App {
     private modules: Array<IModules> = [];
     $tempContainer: any;
 
-    constructor(/*private readonly elements: Array<HTMLElement>*/) {
+    constructor(elementContainer/*private readonly elements: Array<HTMLElement>*/) {
         this.$tempContainer = $(`<div role="mingle-component-working-temp"></div>`);
-        $('body').append(this.$tempContainer);
-        this.init().then(() => {
+        if ($(`[role="mingle-component-working-temp"]`).length === 0) {
+            $('body').append(this.$tempContainer);
+        }
+        this.init(elementContainer).then(() => {
             this.globalEventListener();
         });
     }
 
-    async init() {
-        DeepEachElement(document.body, async element => {
+    async init(elementContainer) {
+        DeepEachElement(elementContainer, async element => {
             if (element.attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;
                 let attributes = element.attributes;

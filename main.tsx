@@ -37,10 +37,9 @@ darkMode && darkMode.addEventListener('change', e => {
     // e.matches true 深色模式
 });
 
-
 let env = process.env.NODE_ENV;
 
-const isDocument = true;
+const isDocument = false;
 
 if (isDocument) {
     // docs
@@ -51,7 +50,7 @@ if (isDocument) {
 } else {
     window.onload = function () {
         // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
-        new App();
+        new App(document.body);
         window['Message'] = message;
         window['$'] = $;
     };

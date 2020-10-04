@@ -7,7 +7,12 @@
         input[data-fn] {
             display : none;
         }
+
+        body {
+            padding : 20px;
+        }
     </style>
+
 </head>
 <body>
 
@@ -26,10 +31,18 @@
 
 <div id="App"></div>
 
-<div style="display: none;" data-fn="layout-tab" data-tabPosition="left">
+<div data-fn="layout-tab" data-tabPosition="left">
 
     <div class="panel">
         <form id="game-list" data-fn="form-ajax" data-async="true" action="" style="display: flex">
+
+            <input data-fn="form-input"
+                   data-label="游戏名称:"
+                   data-placeholder="请输入游戏名称"
+                   name="game_name"
+                   value="彩虹物语"
+            />
+
             <input data-fn="form-button"
                    name="fruits"
                    data-label="水果:"
@@ -66,6 +79,8 @@
 
 </div>
 
+<div data-fn="code-editor"></div>
+
 <!--<div data-fn="data-chartWorkCloud"></div>-->
 <!--<div data-fn="layout-tab">-->
 
@@ -86,7 +101,6 @@
 <!--    <input data-fn="form-switch"/>-->
 <!--    <h1>哈哈哈</h1>-->
 <!--</div>-->
-
 
 </body>
 </html>

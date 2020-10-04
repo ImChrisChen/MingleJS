@@ -19,7 +19,7 @@ import Editor from '@component/form/editor/editor';
 // @ts-ignore
 import FormSelectMD from '@component/form/select/select.md';
 
-console.log(FormSelectMD);
+// console.log(FormSelectMD);
 
 // console.log(FormSelect);
 

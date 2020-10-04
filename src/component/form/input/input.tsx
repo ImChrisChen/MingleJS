@@ -5,7 +5,7 @@
  * Time: 5:49 下午
  */
 import React from 'react';
-import { Input } from 'antd';
+import { Form, Input } from 'antd';
 import { InputProps } from 'antd/es/input';
 import { trigger } from '@utils/trigger';
 
@@ -31,14 +31,13 @@ export default class FormInput extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        let { el, elChildren, ...dealProps } = this.props;
-
-        console.log(dealProps);
         return <>
-            <Input
-                { ...dealProps }
-                onChange={ this.handleChange.bind(this) }
-            />
+            <Form.Item label={ this.props.dataset.label }>
+                <Input
+                    { ...this.props.dataset }
+                    onChange={ this.handleChange.bind(this) }
+                />
+            </Form.Item>
         </>;
     }
 }
