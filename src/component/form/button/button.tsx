@@ -38,7 +38,7 @@ export default class Button extends React.Component<any, any> {
         let attrs = Object.assign(this.state, formatProps);
         // rules={ [ { required: this.props.required, message: this.props.message } ] }
         return <>
-            <Form.Item label="区域:">
+            <Form.Item label={ this.props.dataset.label }>
                 <Radio.Group
 
                     onChange={ this.handleChange.bind(this) }

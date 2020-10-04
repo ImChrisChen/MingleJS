@@ -29,37 +29,42 @@
     <div class="panel">
         <form id="game-list" data-fn="form-ajax" data-async="true" action="" style="display: flex">
             <input data-fn="form-button"
-                   name="pf"
+                   name="fruits"
+                   data-label="水果:"
                    data-optionType="button"
                    data-buttonStyle="solid"
-                   data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"
-                   value="Orange"
+                   data-enum="apple,Apple;pear,Pear;orange,Orange;tomato,Tomato"
+                   value="orange"
             />
+
             <input data-fn="form-switch" name="switch" data-label="开关：" data-required="true" onchange=""/>
 
             <input data-fn="form-select"
-                   data-label="水果:" name="like"
-                   data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"
+                   data-label="水果:"
+                   name="like"
+                   data-enum="apple,Apple;pear,Pear;orange,Orange;tomato,Tomato"
                    data-mode="multiple"
+                   value="apple,orange"
             />
 
             <input data-fn="form-select"
                    data-placeholder="hahaha"
-                   data-label="平台:" name="pf"
-                   data-enum="1,Android;2,iOS"
+                   data-label="平台:"
                    data-mode="multiple"
+                   name="pf"
+                   data-enum="1,Android;2,iOS"
+                   value="1,2"
             />
 
             <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
 
         </form>
-        <div data-fn="data-table" data-from="game-list">
-        </div>
+        <!--        <div data-fn="data-table" data-from="game-list"></div>-->
     </div>
 
 </div>
 
-<div data-fn="data-chartWorkCloud"></div>
+<!--<div data-fn="data-chartWorkCloud"></div>-->
 <!--<div data-fn="layout-tab">-->
 
 <!--<div data-fn="data-table"></div>-->

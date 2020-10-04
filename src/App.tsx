@@ -5,7 +5,7 @@ import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
-import { DeepEachElement, isFunc } from '@utils/util';
+import { DeepEachElement, isEmptyStr, isFunc, isUndefined } from '@utils/util';
 import { parseLineStyle, parseTpl } from '@utils/tpl-parse';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
@@ -47,7 +47,7 @@ export default class App {
 
     constructor(/*private readonly elements: Array<HTMLElement>*/) {
         this.$tempContainer = $(`<div role="mingle-component-working-temp"></div>`);
-        $('body').append(this.$tempContainer)
+        $('body').append(this.$tempContainer);
         this.init().then(() => {
             this.globalEventListener();
         });
@@ -106,7 +106,7 @@ export default class App {
                                 elChildren.pop();       // 去掉自己本身
 
                                 elChildren.forEach(el => {
-                                    this.$tempContainer.append(el).hide();
+                                    // this.$tempContainer.append(el).hide();
                                 });
                             }
 
@@ -131,7 +131,7 @@ export default class App {
                                 // console.log('--------------load');
                                 hooks['load']?.();
                                 Array.from(this.$tempContainer.children()).forEach((el: any) => {
-                                    $(element).append(el).show();
+                                    // $(element).append(el).show();
                                 });
 
                             });
@@ -266,12 +266,27 @@ export default class App {
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
-
         let formatDataset = parseDataAttr(dataset);
-        let value: any = element['value'];
-        if (value && value.includes(',')) {
-            value = value.split(',')
+        let value = element['value'];
+
+        // 表单元素的组件
+        if (!isUndefined(value)) {
+
+            let isMultiple = element.getAttribute('data-mode') === 'multiple';
+
+            // 多选
+            if (isMultiple) {
+                if (isEmptyStr(value)) {
+                    value = [];
+                }
+                if (!isEmptyStr(value) && value.includes(',')) {
+                    value = value.split(',');
+                }
+            } else { // 单选
+
+            }
         }
+
         formatDataset['value'] = value;
 
         // 组件名必须大写
@@ -280,7 +295,7 @@ export default class App {
                 el={ element }
                 ref={ componentInstance => {        // 组件实例
                     componentMethod && componentInstance[componentMethod]();
-                    return componentInstance
+                    return componentInstance;
                 } }
                 box={ containerWrap }
                 elChildren={ elChildren }

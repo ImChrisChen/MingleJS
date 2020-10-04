@@ -1,13 +1,23 @@
 // import 'antd/dist/antd.compact.less' // 紧凑模de式
 
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.css';
 
 import './src/App.scss';
 import React from 'react';
-import { message } from "antd";
-import App from "./src/App";
-import $ from 'jquery'
+import { message } from 'antd';
+import App from './src/App';
+import $ from 'jquery';
 // import 'antd/dist/antd.dark.css'
+
+// const isDebug = true;
+//
+// console.log = (function (oriLogFunc) {
+//     return function (str) {
+//         if (isDebug) {
+//             oriLogFunc.call(console, str);
+//         }
+//     };
+// })(console.log);
 
 // 判断是否是深色模式
 const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
@@ -40,6 +50,6 @@ console.log(env);
 window.onload = function () {
     // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
     new App();
-    window['Message'] = message
+    window['Message'] = message;
     window['$'] = $;
 };
