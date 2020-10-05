@@ -91,11 +91,14 @@ export default {
     //     backtop: import('@component/functional/backtop/BackTop')
     // },
     layout: {
-        menu: {
+        menu  : {
             component: import('@component/layout/menu/menu'),
         },
-        tab : {
+        tab   : {
             component: import('@component/layout/tab/tab'),
+        },
+        window: {
+            component: import('@component/layout/window/window'),
         },
     },
     code  : {
