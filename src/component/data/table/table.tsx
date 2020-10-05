@@ -15,7 +15,7 @@ import { parseTpl } from '@utils/tpl-parse';
 import { strParseVirtualDOM } from '@utils/dom-parse';
 import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
-import FormAjax from "@component/form/ajax/form";
+import FormAjax from '@component/form/ajax/form';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -123,8 +123,10 @@ export default class DataTable extends React.Component<any, any> {
     constructor(props: ITableProps) {
         super(props);
 
-        let formElement = this.findFormElement(this.props.dataset.from)
-        FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
+        let formElement = this.findFormElement(this.props.dataset.from);
+        if (formElement) {
+            FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
+        }
 
         Promise.all([
             this.getTableHeader(),
@@ -141,7 +143,7 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     findFormElement(from) {
-        return document.querySelector(`#${ from }`)
+        return document.querySelector(`#${ from }`);
     }
 
     handleFormSubmit(formData, e) {
@@ -211,7 +213,7 @@ export default class DataTable extends React.Component<any, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch (item.field) {
+                switch(item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;

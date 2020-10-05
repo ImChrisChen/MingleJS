@@ -35,6 +35,8 @@ export default class FormAjax extends React.Component<any, any> {
             let formData: IFormData = FormAjax.getFormData(formElement);
             callback(formData, e);
             message.info('提交表单');
+            // $(formElement).trigger('submit', formData);
+            
         };
     }
 

@@ -1,0 +1,8 @@
+@import "~codemirror/lib/codemirror.css";
+@import "~codemirror/theme/rubyblue.css";
+@import "~codemirror/theme/idea.css";
+
+.code-mirror {
+    width  : 50%;
+    height : 400px;
+}

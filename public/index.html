@@ -34,7 +34,8 @@
 <div data-fn="layout-tab" data-tabPosition="left">
 
     <div class="panel">
-        <form id="game-list" data-fn="form-ajax" data-async="true" action="" style="display: flex">
+        <form id="game-list" data-fn="form-ajax" data-async="true" action="" style="display: flex"
+              onsubmit="handleSubmit()">
 
             <input data-fn="form-input"
                    data-label="游戏名称:"
@@ -71,10 +72,12 @@
                    value="1,2"
             />
 
+<!--            <input data-fn="form-upload"/>-->
+
             <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
 
         </form>
-        <!--        <div data-fn="data-table" data-from="game-list"></div>-->
+        <!--                <div data-fn="data-table" data-from="game-list"></div>-->
     </div>
 
 </div>
@@ -102,5 +105,10 @@
 <!--    <h1>哈哈哈</h1>-->
 <!--</div>-->
 
+<script>
+    function handleSubmit(e) {
+        console.log(e);
+    }
+</script>
 </body>
 </html>
