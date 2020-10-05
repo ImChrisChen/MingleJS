@@ -144,10 +144,10 @@ module.exports = {
                 exclude: path.resolve(__dirname, 'node_modules/'),
             },
             // Markdown 文件解析
-            {
-                test: /.(md|txt)$/,
-                use: 'raw-loader',
-            },
+            // {
+            //     test: /.(md|txt)$/,
+            //     use: 'raw-loader',
+            // },
             {
                 test: /.md$/,
                 use: [

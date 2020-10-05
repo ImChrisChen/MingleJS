@@ -7,12 +7,11 @@ import React from 'react';
 import { message } from 'antd';
 import App from './src/App';
 import $ from 'jquery';
-// https://reactrouter.com/web/guides/quick-start
-import { BrowserRouter as Router } from 'react-router-dom';
-
 import ReactDOM from 'react-dom';
 // import 'antd/dist/antd.dark.css'
 import { Document } from './src/document/Document';
+
+import { BrowserRouter as Router } from 'react-router-dom'; // https://reactrouter.com/web/guides/quick-start
 
 // const isDebug = true;
 //
@@ -45,13 +44,16 @@ if (isDocument) {
     // docs
     ReactDOM.render(
         <Router>
-            <Document/>,
-        </Router>, document.querySelector('#App'));
+            <Document/>
+        </Router>,
+        document.querySelector('#App'),
+    );
 } else {
     window.onload = function () {
         // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
         new App(document.body);
-        window['Message'] = message;
-        window['$'] = $;
     };
 }
+
+window['Message'] = message;
+window['$'] = $;

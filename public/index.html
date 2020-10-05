@@ -9,7 +9,14 @@
         }
 
         body {
-            padding : 20px;
+            padding             : 20px;
+            -webkit-user-select : none; /* Chrome/Safari/Opera */
+            -o-user-select      : none;
+            -moz-user-select    : none; /*火狐 firefox*/
+            -webkit-user-select : none; /*webkit浏览器*/
+            -ms-user-select     : none; /*IE10+*/
+            -khtml-user-select  : none; /*早期的浏览器*/
+            user-select         : none;
         }
     </style>
 
@@ -72,19 +79,19 @@
                    value="1,2"
             />
 
-            <input data-fn="form-file"/>
+            <!--            <input data-fn="form-file"/>-->
 
             <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
 
         </form>
-        <!--                <div data-fn="data-table" data-from="game-list"></div>-->
+        <div data-fn="data-table" data-from="game-list"></div>
     </div>
 
 </div>
 
 <!--<a href="https://baidu.com" data-fn="layout-window">百度</a>-->
 
-<div data-fn="code-editor"></div>
+<!--<div data-fn="code-editor"></div>-->
 
 <!--<div data-fn="data-chartWorkCloud"></div>-->
 <!--<div data-fn="layout-tab">-->

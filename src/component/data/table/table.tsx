@@ -16,6 +16,7 @@ import { strParseVirtualDOM } from '@utils/dom-parse';
 import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
 import FormAjax from '@component/form/ajax/form';
+import { findDOMNode } from 'react-dom';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -123,8 +124,10 @@ export default class DataTable extends React.Component<any, any> {
     constructor(props: ITableProps) {
         super(props);
 
-        let formElement = this.findFormElement(this.props.dataset.from);
-        if (formElement) {
+        $('body').addClass('unable-selection');
+
+        if (this.props.dataset && this.props.dataset.from) {
+            let formElement = this.findFormElement(this.props.dataset.from);
             FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
         }
 
@@ -140,6 +143,48 @@ export default class DataTable extends React.Component<any, any> {
                 loading   : false,
             });
         });
+
+    }
+
+    handleDragSelect() {
+        let $el = $(this.props.el);
+        let el = findDOMNode(this.props.el);
+        console.log(el);
+        $el.on('mousedown', function (e) {
+            let { clientX: startX, clientY: startY } = e;
+            $el.one('mouseup', function (e) {
+                let { clientX: endX, clientY: endY } = e;
+                if (Math.abs(startX - endX) > 100 || Math.abs(startY - endY) > 100) {
+                    console.log('拖拽结束');
+
+                    let $tds = $el.find('td');
+                    Array.from($tds).forEach(td => {
+                        let { top, left } = $(td).offset() as any;
+
+                        // td的x要  大于开始的， 小于结束的 (从左往右)
+                        if (
+                            (left + $(td).width()) > startX
+                            && left < endX
+                        ) {
+                            // td的y要  大于开始的， 小于结束的 (从上往下)
+                            if (
+                                (top + $(td).height()) > startY
+                                && top < endY) {
+                                $(td).css({
+                                    background: 'pink',
+                                });
+                                // $('body').removeClass('unable-selection');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+        this.handleDragSelect();
     }
 
     findFormElement(from) {
