@@ -9,7 +9,7 @@ import React from 'react';
 import { deepEach, isObject } from '@utils/util';
 import LayoutMenu from '@component/layout/menu/menu';
 import componentMap from '../../config/component.config';
-import { Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import style from './Document.scss';
 // import FormSelect from '@component/form/select/select';
 import FormSelectTree from '@component/form/select/tree/tree';
@@ -17,6 +17,9 @@ import FormSelectButton from '@component/form/button/button';
 import FormDatepicker from '@component/form/datepicker/datepicker';
 // @ts-ignore
 import DataTable from '@component/data/table/table';
+import DocumentForm from '@src/document/form';
+import CodeEditor from '@component/code/CodeEditor';
+import { Button } from 'antd';
 
 // console.log(FormSelectMD);
 
@@ -85,12 +88,23 @@ export class Document extends React.Component<any, any> {
                 <h1>Content</h1>
 
                 <Switch>
-                    { <Route path="/form-datepicker" component={ FormDatepicker }/> }
-                    { <Route path="/form-button" component={ FormSelectButton }/> }
-                    { <Route path="/form-select" component={ FormSelectTree }/> }
-                    { <Route path="/data-table" component={ DataTable }/> }
-                    { <Route path="*" component={ DataTable }/> }
+                    <div className="route-content">
+                        <Route path="/form-datepicker" component={ FormDatepicker }/>
+                        <Route path="/form-button" component={ FormSelectButton }/>
+                        <Route path="/form-select" component={ FormSelectTree }/>
+                        <Route path="/data-table" component={ DataTable }/>
+                        <Route exact path="/form" component={ DocumentForm }/>
+                        {/*{ <Route path="*" component={ DataTable }/> }*/ }
+                    </div>
                 </Switch>
+
+                <Button>
+                    <Link to="/form">-----------Form-----------</Link>
+                </Button>
+
+                {/*<CodeEditor dataset={ {*/}
+                {/*    value: `<div data-fn="form-input"></div>`,*/}
+                {/*} }/>*/}
 
                 {/*<Editor value={ FormSelectMD }/>*/ }
 

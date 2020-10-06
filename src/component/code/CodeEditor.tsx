@@ -10,6 +10,7 @@ import React from 'react';
 import { Button } from 'antd';
 import App from '@root/src/App';
 import './CodeEditor.css';
+import $ from 'jquery';
 
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/htmlmixed/htmlmixed');
@@ -30,8 +31,12 @@ export default class CodeEditor extends React.Component<any, any> {
         //            data-enum="apple,Apple;pear,Pear;orange,Orange;tomato,Tomato"
         //            value="orange"
         //     />`,
-        value: `<input data-fn="" />`,
+        value: this.props.dataset.value ?? `<input data-fn="" />`,
     };
+
+    componentDidMount() {
+        this.runCode();
+    }
 
     runCode() {
         let el = $(this.state.value);

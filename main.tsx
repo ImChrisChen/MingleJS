@@ -38,7 +38,7 @@ darkMode && darkMode.addEventListener('change', e => {
 
 let env = process.env.NODE_ENV;
 
-const isDocument = false;
+const isDocument = true;
 
 if (isDocument) {
     // docs

@@ -53,9 +53,8 @@ export function isDOM(v): v is HTMLElement {
 
 export function DeepEachElement(root, callback?: (el: HTMLElement) => void) {
     // 这里输出的是根节点
-    if (!root) {
-        return;
-    }
+    if (!root) return;
+
 
     if (root.children.length) {
         Array.from(root.children).forEach(item => {

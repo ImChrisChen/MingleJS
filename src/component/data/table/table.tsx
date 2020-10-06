@@ -17,6 +17,7 @@ import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
 import FormAjax from '@component/form/ajax/form';
 import { findDOMNode } from 'react-dom';
+import $ from 'jquery'
 
 interface ITableHeaderItem {
     field: string         //  字段名
