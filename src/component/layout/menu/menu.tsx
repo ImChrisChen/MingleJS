@@ -46,6 +46,10 @@ export default class LayoutMenu extends React.Component<any, any> {
                     { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
                 </Button>
 
+                <Button>
+                    <Link to="/form">Form</Link>
+                </Button>
+
                 <Menu
                     defaultSelectedKeys={ [ '1' ] }
                     defaultOpenKeys={ [ 'sub1' ] }

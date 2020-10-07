@@ -27,6 +27,48 @@ export default {
         button    : {
             path     : '/form-button',
             component: import('@component/form/button/button'),
+            props    : {
+                // enum      : {
+                //     el   : 'add',
+                //     value: '1,Android;2,iOS',
+                // },
+                disabled  : {
+                    el   : 'switch',
+                    value: false,
+                },
+                size      : {
+                    el     : 'radio',
+                    options: [
+                        {
+                            label: 'large',
+                            value: 'large',
+                        },
+                        {
+                            label: 'middle',
+                            value: 'middle',
+                        },
+                        {
+                            label: 'small',
+                            value: 'small',
+                        },
+                    ],
+                    value  : 'middle',
+                },
+                optionType: {
+                    el     : 'radio',
+                    options: [
+                        {
+                            label: 'button',
+                            value: 'button',
+                        },
+                        {
+                            label: 'default',
+                            value: 'default',
+                        },
+                    ],
+                    value  : 'button',
+                },
+            },
         },
         editor    : {
             component: import('@component/form/editor/editor'),
@@ -87,9 +129,6 @@ export default {
             component: import('@component/tips/loading/loading'),
         },
     },
-    // functional: {
-    //     backtop: import('@component/functional/backtop/BackTop')
-    // },
     layout: {
         menu  : {
             component: import('@component/layout/menu/menu'),
@@ -100,10 +139,13 @@ export default {
         window: {
             component: import('@component/layout/window/window'),
         },
+        drawer: {
+            component: import('@component/layout/drawer/drawer'),
+        },
     },
     code  : {
         editor: {
-            component: import('@component/code/CodeEditor'),
+            component: import('@component/code/editor/CodeEditor'),
         },
     },
-};
+} as object;
