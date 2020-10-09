@@ -3,6 +3,10 @@
 @import "~codemirror/theme/idea.css";
 
 .code-mirror {
-    /*width  : 50%;*/
-    height : 400px;
+  /*width  : 50%;*/
+  height : 200px;
+}
+
+.code-mirror > .CodeMirror {
+  height : 200px !important;
 }

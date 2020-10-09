@@ -61,8 +61,6 @@ export default class Button extends React.Component<any, any> {
         //         <span>Orange</span>
         //     </label>
         // </div>;
-     
-        console.log(attrs);
 
         return <>
             <Form.Item label={ this.props.dataset.label }>

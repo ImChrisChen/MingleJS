@@ -5,11 +5,13 @@
  * Time: 3:43 下午
  */
 
-import { Button, Col, Drawer, Form, Radio, Row, Select, Switch } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Button, Col, Drawer, Form, Input, Radio, Row, Select, Space, Switch } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
 import CodeEditor from "@component/code/editor/CodeEditor";
+import { FormInstance } from "antd/lib/form";
+
 
 interface IComponentProps {
     el: string
@@ -20,15 +22,22 @@ interface IComponentProps {
     [key: string]: any
 }
 
+
 const { Option } = Select;
 
 export default class LayoutDrawer extends React.Component<any, any> {
-    private template = `<input data-fn="form-button" data-enum="1,Apple;2,iOS" />`;
+    private template = `<input data-fn="form-button" />`;
+    private form: any = React.createRef<FormInstance>();
     state = {
         visible              : true,
         components           : this.getComponents(),
         componentUseHtml     : '',
         currentComponentProps: [],
+        currentComponentName : '',
+        dataEnum             : [
+            { label: 'Android', value: '1' },
+            { label: 'iOS', value: '2' },
+        ]
     };
 
     constructor(props) {
@@ -64,6 +73,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
         return JSON.parse(JSON.stringify(components));
     }
 
+    // 选择组件
     handleChangeComponent(e, v) {
         let props = v.props;
 
@@ -78,7 +88,13 @@ export default class LayoutDrawer extends React.Component<any, any> {
                 value  : v.value,
             });
         }
-        this.setState({ currentComponentProps: arr });
+
+        // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
+        this.setState({
+            currentComponentProps: arr,
+            currentComponentName : e
+        }, () => this.generateCode());
+
     }
 
     handleChangeSelect(index, e) {
@@ -86,7 +102,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = value;
         this.setState({ currentComponentProps })
-        this.generateCode();
+        this.generateCode()
     }
 
     handleChangeSwitch(index, e) {
@@ -104,9 +120,36 @@ export default class LayoutDrawer extends React.Component<any, any> {
     generateCode() {
         let components: Array<IComponentProps> = this.state.currentComponentProps;
         let attrs = components.map(item => `data-${ item.label }="${ item.value }"`).join(' ');
-        let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => v + ' ' + attrs);
-        console.log(componentUseHtml);
+
+        let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => {
+            v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.currentComponentName }"`)      //替换组件名称
+            return v + ' ' + attrs
+        })
         this.setState({ componentUseHtml })
+
+    }
+
+    handleFormListAdd(index, add) {
+        this.handleFormListGetDataEnum(index);
+        add();
+    }
+
+    handleFormListRemove(index, remove, fieldName) {
+        remove(fieldName);
+        this.handleFormListGetDataEnum(index);
+    }
+
+    handleFormListGetDataEnum(index) {
+        let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);            // 把undefined过滤出去
+        console.log(dataEnum);
+
+        let enumStr = dataEnum.map(item => `${ item.value },${ item.label }`).join(';')
+        console.log(enumStr);
+
+        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
+        currentComponentProps[index].value = enumStr;
+        this.setState({ currentComponentProps })
+        this.generateCode();
     }
 
     render() {
@@ -138,7 +181,12 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         </div>
                     }
                 >
-                    <Form layout="vertical" hideRequiredMark>
+                    <Form layout="vertical"
+                          hideRequiredMark
+                          ref={ this.form }
+                          initialValues={ {
+                              dataEnum: this.state.dataEnum
+                          } }>
                         <Row gutter={ 24 }>
                             <Col span={ 18 }>
                                 <Form.Item
@@ -158,7 +206,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                 if (item.el === 'switch') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label }>
+                                            <Form.Item label={ item.label } name={ item.label }>
                                                 <Switch checked={ item.value }
                                                         onChange={ this.handleChangeSwitch.bind(this, key) }/>
                                             </Form.Item>
@@ -167,7 +215,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                 } else if (item.el === 'radio') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label }>
+                                            <Form.Item label={ item.label } name={ item.label }>
                                                 <Radio.Group
                                                     onChange={ this.handleChangeSelect.bind(this, key) }
                                                     options={ item.options }
@@ -176,6 +224,66 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                             </Form.Item>
                                         </Col>
                                     </Row>;
+                                } else if (item.el === 'list') {
+                                    return <Row key={ key }>
+                                        <Col span={ 18 }>
+                                            <Form.Item label={ item.label } name={ item.label }>
+                                                <Form.List name="dataEnum">
+                                                    { (fields, { add, remove }) => {
+                                                        return (
+                                                            <div>
+                                                                { fields.map(field => (
+                                                                    <Space key={ field.key }
+                                                                           style={ {
+                                                                               display     : 'flex',
+                                                                               marginBottom: 8
+                                                                           } }
+                                                                           align="start">
+                                                                        <Form.Item
+                                                                            { ...field }
+                                                                            name={ [ field.name, 'value' ] }
+                                                                            fieldKey={ [ field.fieldKey, 'value' ] }
+                                                                            rules={ [ {
+                                                                                required: true,
+                                                                                message : 'Missing value'
+                                                                            } ] }
+                                                                        >
+                                                                            <Input placeholder="value"/>
+                                                                        </Form.Item>
+                                                                        <Form.Item
+                                                                            { ...field }
+                                                                            name={ [ field.name, 'label' ] }
+                                                                            fieldKey={ [ field.fieldKey, 'label' ] }
+                                                                            rules={ [ {
+                                                                                required: true,
+                                                                                message : 'Missing label'
+                                                                            } ] }
+                                                                        >
+                                                                            <Input placeholder="label"/>
+                                                                        </Form.Item>
+
+                                                                        <MinusCircleOutlined
+                                                                            onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
+                                                                        />
+                                                                    </Space>
+                                                                )) }
+
+                                                                <Form.Item>
+                                                                    <Button
+                                                                        type="dashed"
+                                                                        onClick={ this.handleFormListAdd.bind(this, key, add) }
+                                                                        block
+                                                                    >
+                                                                        <PlusOutlined/> 保存
+                                                                    </Button>
+                                                                </Form.Item>
+                                                            </div>
+                                                        );
+                                                    } }
+                                                </Form.List>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
                                 }
                             })
                         }

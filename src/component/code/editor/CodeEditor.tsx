@@ -18,21 +18,13 @@ require('codemirror/mode/xml/xml');
 
 export default class CodeEditor extends React.Component<any, any> {
 
+    // state = {
+    //     value: this.props.dataset.value ?? `<input data-fn="" />`,
+    // };
+
     constructor(props) {
         super(props);
     }
-
-    state = {
-        // value: `<input data-fn="form-button"
-        //            name="fruits"
-        //            data-label="水果:"
-        //            data-optionType="button"
-        //            data-buttonStyle="solid"
-        //            data-enum="apple,Apple;pear,Pear;orange,Orange;tomato,Tomato"
-        //            value="orange"
-        //     />`,
-        value: this.props.dataset.value ?? `<input data-fn="" />`,
-    };
 
     componentDidMount() {
         this.runCode();
@@ -50,7 +42,6 @@ export default class CodeEditor extends React.Component<any, any> {
     }
 
     render() {
-        console.log(this.props);
         return <>
             <CodeMirror
                 className="code-mirror"

@@ -100,11 +100,13 @@ const property: IPropertysConfig<IPropertyItem> = {
         name: 'placeholder',
         type: 'string'
     },
-
-    // 组件交互绑定值
     from: {
         name: 'from',
         type: 'string'
+    },
+    disabled: {
+        name: 'disabled',
+        type: 'boolean'
     }
 };
 

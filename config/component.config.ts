@@ -29,10 +29,10 @@ export default {
             path     : '/form-button',
             component: import('@component/form/button/button'),
             props    : {
-                // enum      : {
-                //     el   : 'add',
-                //     value: '1,Android;2,iOS',
-                // },
+                enum      : {
+                    el   : 'list',
+                    value: '1,Android;2,iOS',
+                },
                 disabled  : {
                     el   : 'switch',
                     value: false,

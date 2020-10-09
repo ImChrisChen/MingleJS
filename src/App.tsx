@@ -51,7 +51,7 @@ export default class App {
             $('body').append(this.$tempContainer);
         }
         this.init(elementContainer).then(() => {
-            this.globalEventListener();
+            // this.globalEventListener();
         });
     }
 
@@ -245,7 +245,7 @@ export default class App {
 
     }
 
-    private globalEventListener() {
+    static globalEventListener() {
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });

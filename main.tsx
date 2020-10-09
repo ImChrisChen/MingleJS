@@ -55,5 +55,6 @@ if (isDocument) {
     };
 }
 
+App.globalEventListener();
 window['Message'] = message;
 window['$'] = $;
