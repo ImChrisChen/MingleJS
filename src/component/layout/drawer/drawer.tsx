@@ -66,7 +66,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                 components.push({
                     label: key + '-' + k,
                     value: key + '-' + k,
-                    props: v.props,
+                    props: v.dataset,
                 });
             }
         }
@@ -119,7 +119,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
     // 生成代码
     generateCode() {
         let components: Array<IComponentProps> = this.state.currentComponentProps;
-        let attrs = components.map(item => `data-${ item.label }="${ item.value }"`).join(' ');
+        let attrs = components.map(item => `data-${ item.label }="${ item.value || '' }"`).join(' ');
 
         let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => {
             v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.currentComponentName }"`)      //替换组件名称
@@ -149,6 +149,17 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = enumStr;
         this.setState({ currentComponentProps })
+        this.generateCode();
+    }
+
+    handleInputChange(index, e) {
+        let value = e.target.value;
+        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
+        currentComponentProps[index].value = value;
+        this.setState({ currentComponentProps })
+    }
+
+    handleInputBlur() {
         this.generateCode();
     }
 
@@ -186,7 +197,8 @@ export default class LayoutDrawer extends React.Component<any, any> {
                           ref={ this.form }
                           initialValues={ {
                               dataEnum: this.state.dataEnum
-                          } }>
+                          } }
+                    >
                         <Row gutter={ 24 }>
                             <Col span={ 18 }>
                                 <Form.Item
@@ -281,6 +293,18 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                                         );
                                                     } }
                                                 </Form.List>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+                                } else if (item.el === 'input') {
+                                    console.log(item);
+                                    return <Row key={ key }>
+                                        <Col span={ 18 }>
+                                            <Form.Item label={ item.label } name={ item.label }>
+                                                <Input onChange={ this.handleInputChange.bind(this, key) }
+                                                       onBlur={ this.handleInputBlur.bind(this) }
+                                                       value={ item.value }
+                                                />
                                             </Form.Item>
                                         </Col>
                                     </Row>

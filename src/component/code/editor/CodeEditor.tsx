@@ -7,7 +7,7 @@
 
 import { Controlled as CodeMirror } from 'react-codemirror2'; // https://codemirror.net/doc/manual.html#config
 import React from 'react';
-import { Button } from 'antd';
+import { Divider, Space } from 'antd';
 import App from '@root/src/App';
 import './CodeEditor.css';
 import $ from 'jquery';
@@ -86,10 +86,12 @@ export default class CodeEditor extends React.Component<any, any> {
                 } }
             />
 
-            <Button onClick={ this.runCode.bind(this) }>查看效果</Button>
+            {/*<Button onClick={ this.runCode.bind(this) }>查看效果</Button>*/ }
 
+            <Divider/>
+            <Space/>
             <div>
-                <h1>Show Code</h1>
+                <h1>代码演示</h1>
                 <div className="show-code">
 
                 </div>

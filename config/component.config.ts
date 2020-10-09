@@ -28,7 +28,11 @@ export default {
         button    : {
             path     : '/form-button',
             component: import('@component/form/button/button'),
-            props    : {
+            dataset  : {
+                label     : {
+                    el   : 'input',
+                    value: 'form-button',
+                },
                 enum      : {
                     el   : 'list',
                     value: '1,Android;2,iOS',
