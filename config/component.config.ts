@@ -12,7 +12,34 @@ export default {
             component: import('@component/form/select/select'),
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
-            props    : {}
+            dataset  : {
+                label   : {
+                    el   : 'input',
+                    value: 'form-select',
+                },
+                enum    : {
+                    el   : 'list',
+                    value: '',
+                },
+                disabled: {
+                    el   : 'switch',
+                    value: false,
+                },
+                mode    : {
+                    el     : 'radio',
+                    options: [
+                        {
+                            label: 'multiple',
+                            value: 'multiple',
+                        },
+                        {
+                            label: 'tag',       //显示的值
+                            value: 'tag',       //生成的代码的值
+                        },
+                    ],
+                    value  : 'multiple',
+                },
+            },
         },
         selectTree: {
             path     : '/form-selecttree',
@@ -81,9 +108,33 @@ export default {
         },
         switch    : {
             component: import('@component/form/switch/switch'),
+            dataset  : {
+                disabled         : {
+                    el   : 'switch',
+                    value: false,
+                },
+                label            : {
+                    el   : 'input',
+                    value: 'form-switch',
+                },
+                checkedChildren  : {
+                    el   : 'input',
+                    value: '开启',
+                },
+                unCheckedChildren: {
+                    el   : 'input',
+                    value: '关闭',
+                },
+            },
         },
         input     : {
             component: import('@component/form/input/input'),
+            dataset  : {
+                placeholder: {
+                    el   : 'input',
+                    value: '请输入',
+                },
+            },
         },
         file      : {
             component: import('@component/form/file/file'),

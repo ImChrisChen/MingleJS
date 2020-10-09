@@ -9,8 +9,8 @@ import { Button, Col, Drawer, Form, Input, Radio, Row, Select, Space, Switch } f
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
-import CodeEditor from "@component/code/editor/CodeEditor";
-import { FormInstance } from "antd/lib/form";
+import CodeEditor from '@component/code/editor/CodeEditor';
+import { FormInstance } from 'antd/lib/form';
 
 
 interface IComponentProps {
@@ -37,7 +37,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
         dataEnum             : [
             { label: 'Android', value: '1' },
             { label: 'iOS', value: '2' },
-        ]
+        ],
     };
 
     constructor(props) {
@@ -92,7 +92,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
         // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
         this.setState({
             currentComponentProps: arr,
-            currentComponentName : e
+            currentComponentName : e,
         }, () => this.generateCode());
 
     }
@@ -101,19 +101,19 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let value = e.target.value;
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = value;
-        this.setState({ currentComponentProps })
-        this.generateCode()
+        this.setState({ currentComponentProps });
+        this.generateCode();
     }
 
     handleChangeSwitch(index, e) {
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = e;
-        this.setState({ currentComponentProps })
-        this.generateCode()
+        this.setState({ currentComponentProps });
+        this.generateCode();
     }
 
     handleSubmit() {
-        this.generateCode()
+        this.generateCode();
     }
 
     // 生成代码
@@ -122,10 +122,10 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let attrs = components.map(item => `data-${ item.label }="${ item.value || '' }"`).join(' ');
 
         let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => {
-            v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.currentComponentName }"`)      //替换组件名称
-            return v + ' ' + attrs
-        })
-        this.setState({ componentUseHtml })
+            v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.currentComponentName }"`);      //替换组件名称
+            return v + ' ' + attrs;
+        });
+        this.setState({ componentUseHtml });
 
     }
 
@@ -143,12 +143,12 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);            // 把undefined过滤出去
         console.log(dataEnum);
 
-        let enumStr = dataEnum.map(item => `${ item.value },${ item.label }`).join(';')
+        let enumStr = dataEnum.map(item => `${ item.value },${ item.label }`).join(';');
         console.log(enumStr);
 
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = enumStr;
-        this.setState({ currentComponentProps })
+        this.setState({ currentComponentProps });
         this.generateCode();
     }
 
@@ -156,7 +156,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let value = e.target.value;
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = value;
-        this.setState({ currentComponentProps })
+        this.setState({ currentComponentProps });
     }
 
     handleInputBlur() {
@@ -196,17 +196,17 @@ export default class LayoutDrawer extends React.Component<any, any> {
                           hideRequiredMark
                           ref={ this.form }
                           initialValues={ {
-                              dataEnum: this.state.dataEnum
+                              dataEnum: this.state.dataEnum,
                           } }
                     >
                         <Row gutter={ 24 }>
                             <Col span={ 18 }>
                                 <Form.Item
-                                    name="owner"
-                                    label="Owner"
-                                    rules={ [ { required: true, message: 'Please select an owner' } ] }
+                                    name="componentName"
+                                    label="组件名称"
+                                    rules={ [ { required: true, message: '请选择组件' } ] }
                                 >
-                                    <Select placeholder="Please select an owner" options={ this.state.components }
+                                    <Select placeholder="请选择组件" options={ this.state.components }
                                             onChange={ this.handleChangeComponent.bind(this) }>
                                     </Select>
                                 </Form.Item>
@@ -218,7 +218,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                 if (item.el === 'switch') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label } name={ item.label }>
+                                            <Form.Item label={ item.label }>
                                                 <Switch checked={ item.value }
                                                         onChange={ this.handleChangeSwitch.bind(this, key) }/>
                                             </Form.Item>
@@ -227,7 +227,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                 } else if (item.el === 'radio') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label } name={ item.label }>
+                                            <Form.Item label={ item.label }>
                                                 <Radio.Group
                                                     onChange={ this.handleChangeSelect.bind(this, key) }
                                                     options={ item.options }
@@ -248,7 +248,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                                                     <Space key={ field.key }
                                                                            style={ {
                                                                                display     : 'flex',
-                                                                               marginBottom: 8
+                                                                               marginBottom: 8,
                                                                            } }
                                                                            align="start">
                                                                         <Form.Item
@@ -257,7 +257,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                                                             fieldKey={ [ field.fieldKey, 'value' ] }
                                                                             rules={ [ {
                                                                                 required: true,
-                                                                                message : 'Missing value'
+                                                                                message : 'Missing value',
                                                                             } ] }
                                                                         >
                                                                             <Input placeholder="value"/>
@@ -268,7 +268,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                                                             fieldKey={ [ field.fieldKey, 'label' ] }
                                                                             rules={ [ {
                                                                                 required: true,
-                                                                                message : 'Missing label'
+                                                                                message : 'Missing label',
                                                                             } ] }
                                                                         >
                                                                             <Input placeholder="label"/>
@@ -295,52 +295,31 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                                 </Form.List>
                                             </Form.Item>
                                         </Col>
-                                    </Row>
+                                    </Row>;
                                 } else if (item.el === 'input') {
                                     console.log(item);
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label } name={ item.label }>
+                                            <Form.Item label={ item.label }>
                                                 <Input onChange={ this.handleInputChange.bind(this, key) }
                                                        onBlur={ this.handleInputBlur.bind(this) }
                                                        value={ item.value }
                                                 />
                                             </Form.Item>
                                         </Col>
-                                    </Row>
+                                    </Row>;
                                 }
                             })
                         }
-                        <Row hidden={ true } gutter={ 24 }>
-                            <Col span={ 18 }>
-                                <Form.Item
-                                    name="type"
-                                    label="Type"
-                                    rules={ [ { required: true, message: 'Please choose the type' } ] }
-                                >
-                                    <Select placeholder="Please choose the type">
-                                        <Option value="private">Private</Option>
-                                        <Option value="public">Public</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-
-                        </Row>
 
                         <Row gutter={ 16 }>
                             <Col span={ 24 }>
                                 <Form.Item
-                                    name="description"
-                                    label="Description"
-                                    rules={ [
-                                        {
-                                            required: true,
-                                            message : 'please enter url description',
-                                        },
-                                    ] }
+                                    name="generateCode"
+                                    label="对应代码"
                                 >
                                     <CodeEditor dataset={ {
-                                        value: this.state.componentUseHtml
+                                        value: this.state.componentUseHtml,
                                     } }/>
                                 </Form.Item>
                             </Col>

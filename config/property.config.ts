@@ -16,98 +16,106 @@ interface IPropertysConfig<T> {
 
 // 配置dataset 属性的值和类型 name 表示this.props获取的属性值 和 html传入的 data-* 属性一致
 const property: IPropertysConfig<IPropertyItem> = {
-    multi           : {
+    multi            : {
         name: 'multi',
         type: 'boolean',
     },
-    options         : {
+    options          : {
         name: 'options',
         type: 'JSON',
     },
-    singledatepicker: {
+    singledatepicker : {
         name: 'singledatepicker',
         type: 'boolean',
     },
-    enum            : {
+    enum             : {
         name: 'enum',
         type: `object[]`,
     },
-    pageSizeOptions : {
+    pageSizeOptions  : {
         name: 'pageSizeOptions',
         type: 'string[]',
     },
-    urlData         : {
+    urlData          : {
         type: 'string',
         name: 'urlData',
     },
-    maxLength       : {
+    maxLength        : {
         name: 'maxLength',
         type: 'number',
     },
-    size            : {
+    size             : {
         name: 'size',
         type: 'string',
     },
-    prefix          : {
+    prefix           : {
         name: 'prefix',
         type: 'string',
     },
-    allowClear      : {
+    allowClear       : {
         name: 'allowClear',
         type: 'boolean',
     },
-    buttonStyle     : {
+    buttonStyle      : {
         name: 'buttonStyle',
         type: 'string',
     },
-    optionType      : {
+    optionType       : {
         name: 'optionType',
         type: 'string',
     },
-    colors          : {
+    colors           : {
         name: 'colors',
         type: 'JSON',
     },
-    series          : {
+    series           : {
         name: 'series',
         type: 'JSON',
     },
-    menuList        : {
+    menuList         : {
         name: 'menuList',
         type: 'JSON',
     },
-    label           : {
+    label            : {
         name: 'label',
         type: 'string',
     },
-    required        : {
+    required         : {
         name: 'required',
         type: 'boolean',
     },
-    tabPosition     : {
+    tabPosition      : {
         name: 'tabPosition',
         type: 'string',
     },
-    async           : {
+    async            : {
         name: 'async',
         type: 'boolean',
     },
-    mode            : {
+    mode             : {
         name: 'mode',
         type: 'string',
     },
-    placeholder     : {
+    placeholder      : {
         name: 'placeholder',
-        type: 'string'
+        type: 'string',
     },
-    from: {
+    from             : {
         name: 'from',
-        type: 'string'
+        type: 'string',
     },
-    disabled: {
+    disabled         : {
         name: 'disabled',
-        type: 'boolean'
-    }
+        type: 'boolean',
+    },
+    checkedChildren  : {
+        name: 'checkedChildren',
+        type: 'string',
+    },
+    unCheckedChildren: {
+        name: 'unCheckedChildren',
+        type: 'string',
+    },
 };
 
 // 对象属性值统一成小写,因为在dataset中只能获取到小写的值，这里提供一层映射关系

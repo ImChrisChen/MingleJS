@@ -32,7 +32,7 @@ export default class FormSwitch extends React.Component<any, any> {
             <Form.Item label={ this.props.dataset.label } required={ this.props.required }>
                 <Switch
                     onChange={ this.handleChange.bind(this) }
-                    { ...this.state.attr }
+                    { ...this.props.dataset }
                 />
             </Form.Item>
         </>;
