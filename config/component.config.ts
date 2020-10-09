@@ -13,19 +13,19 @@ export default {
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
             dataset  : {
-                label   : {
+                label      : {
                     el   : 'input',
                     value: 'form-select',
                 },
-                enum    : {
+                enum       : {
                     el   : 'list',
                     value: '',
                 },
-                disabled: {
+                disabled   : {
                     el   : 'switch',
                     value: false,
                 },
-                mode    : {
+                mode       : {
                     el     : 'radio',
                     options: [
                         {
@@ -38,6 +38,10 @@ export default {
                         },
                     ],
                     value  : 'multiple',
+                },
+                placeholder: {
+                    el   : 'input',
+                    value: '请选择',
                 },
             },
         },
@@ -133,6 +137,25 @@ export default {
                 placeholder: {
                     el   : 'input',
                     value: '请输入',
+                },
+                type       : {
+                    el     : 'select',
+                    options: [
+                        {
+                            label: 'text',
+                            value: 'text',
+                        },
+                        {
+                            label: 'password',
+                            value: 'password',
+                        },
+                        {
+                            label: 'number',
+                            value: 'number',
+                        },
+                        //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
+                    ],
+                    value  : 'text',
                 },
             },
         },

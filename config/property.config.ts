@@ -116,6 +116,10 @@ const property: IPropertysConfig<IPropertyItem> = {
         name: 'unCheckedChildren',
         type: 'string',
     },
+    text             : {
+        name: 'text',
+        type: 'string',
+    },
 };
 
 // 对象属性值统一成小写,因为在dataset中只能获取到小写的值，这里提供一层映射关系

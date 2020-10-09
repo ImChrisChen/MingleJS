@@ -97,7 +97,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     }
 
-    handleChangeSelect(index, e) {
+    handleChangeRadio(index, e) {
         let value = e.target.value;
         let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
         currentComponentProps[index].value = value;
@@ -160,6 +160,14 @@ export default class LayoutDrawer extends React.Component<any, any> {
     }
 
     handleInputBlur() {
+        this.generateCode();
+    }
+
+    handleChangeSelect(index, e) {
+        console.log(e);
+        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
+        currentComponentProps[index].value = e;
+        this.setState({ currentComponentProps });
         this.generateCode();
     }
 
@@ -229,7 +237,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                         <Col span={ 18 }>
                                             <Form.Item label={ item.label }>
                                                 <Radio.Group
-                                                    onChange={ this.handleChangeSelect.bind(this, key) }
+                                                    onChange={ this.handleChangeRadio.bind(this, key) }
                                                     options={ item.options }
                                                     value={ item.value }
                                                 />
@@ -308,6 +316,17 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                             </Form.Item>
                                         </Col>
                                     </Row>;
+                                } else if (item.el === 'select') {
+                                    return <Row key={ key }>
+                                        <Col span={ 18 }>
+                                            <Form.Item label={ item.label }>
+                                                <Select options={ item.options }
+                                                        onChange={ this.handleChangeSelect.bind(this, key) }
+                                                />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>;
+
                                 }
                             })
                         }
