@@ -39,17 +39,22 @@ export default class CodeEditor extends React.Component<any, any> {
     }
 
     runCode() {
-        let el = $(this.state.value);
+        let el = $(this.props.dataset.value);
         let elementContainer = document.querySelector('.show-code');
         $('.show-code').html('').append(el);
         new App(elementContainer);
     }
 
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+        this.runCode();
+    }
+
     render() {
+        console.log(this.props);
         return <>
             <CodeMirror
                 className="code-mirror"
-                value={ this.state.value }
+                value={ this.props.dataset.value }
                 scroll={ {
                     // x: 50,
                     // y: 50,

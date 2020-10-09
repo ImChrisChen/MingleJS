@@ -12,6 +12,7 @@ export default {
             component: import('@component/form/select/select'),
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
+            props    : {}
         },
         selectTree: {
             path     : '/form-selecttree',

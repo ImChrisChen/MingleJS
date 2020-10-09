@@ -5,18 +5,29 @@
  * Time: 3:43 下午
  */
 
-import { Button, Col, Drawer, Form, Input, Radio, Row, Select, Switch } from 'antd';
+import { Button, Col, Drawer, Form, Radio, Row, Select, Switch } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
+import CodeEditor from "@component/code/editor/CodeEditor";
 
+interface IComponentProps {
+    el: string
+    label: string
+    value: string
+    options: Array<any>
+
+    [key: string]: any
+}
 
 const { Option } = Select;
 
 export default class LayoutDrawer extends React.Component<any, any> {
+    private template = `<input data-fn="form-button" data-enum="1,Apple;2,iOS" />`;
     state = {
         visible              : true,
         components           : this.getComponents(),
+        componentUseHtml     : '',
         currentComponentProps: [],
     };
 
@@ -55,14 +66,13 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     handleChangeComponent(e, v) {
         let props = v.props;
-        console.log(props);
 
-        let arr: Array<object> = [];
+        let arr: Array<IComponentProps> = [];
         for (const k in props) {
             if (!props.hasOwnProperty(k)) continue;
             let v = props[k];
             arr.push({
-                label  : k,       // 
+                label  : k,       //
                 el     : v.el,
                 options: v.options,
                 value  : v.value,
@@ -71,12 +81,32 @@ export default class LayoutDrawer extends React.Component<any, any> {
         this.setState({ currentComponentProps: arr });
     }
 
-    handleChangeSelect(e) {
-        console.log(arguments);
+    handleChangeSelect(index, e) {
+        let value = e.target.value;
+        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
+        currentComponentProps[index].value = value;
+        this.setState({ currentComponentProps })
+        this.generateCode();
     }
 
-    handleChangeSwitch(e) {
-        console.log(e);
+    handleChangeSwitch(index, e) {
+        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
+        currentComponentProps[index].value = e;
+        this.setState({ currentComponentProps })
+        this.generateCode()
+    }
+
+    handleSubmit() {
+        this.generateCode()
+    }
+
+    // 生成代码
+    generateCode() {
+        let components: Array<IComponentProps> = this.state.currentComponentProps;
+        let attrs = components.map(item => `data-${ item.label }="${ item.value }"`).join(' ');
+        let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => v + ' ' + attrs);
+        console.log(componentUseHtml);
+        this.setState({ componentUseHtml })
     }
 
     render() {
@@ -102,7 +132,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                             <Button onClick={ this.onClose } style={ { marginRight: 8 } }>
                                 Cancel
                             </Button>
-                            <Button onClick={ this.onClose } type="primary">
+                            <Button onClick={ this.handleSubmit.bind(this) } type="primary">
                                 Submit
                             </Button>
                         </div>
@@ -126,10 +156,11 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         {
                             ...this.state.currentComponentProps.map((item: any, key) => {
                                 if (item.el === 'switch') {
-                                    return <Row key={ key } onChange={ this.handleChangeSwitch.bind(this) }>
+                                    return <Row key={ key }>
                                         <Col span={ 18 }>
                                             <Form.Item label={ item.label }>
-                                                <Switch checked={ item.value }/>
+                                                <Switch checked={ item.value }
+                                                        onChange={ this.handleChangeSwitch.bind(this, key) }/>
                                             </Form.Item>
                                         </Col>
                                     </Row>;
@@ -138,7 +169,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                         <Col span={ 18 }>
                                             <Form.Item label={ item.label }>
                                                 <Radio.Group
-                                                    onChange={ this.handleChangeSelect.bind(this) }
+                                                    onChange={ this.handleChangeSelect.bind(this, key) }
                                                     options={ item.options }
                                                     value={ item.value }
                                                 />
@@ -148,7 +179,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                 }
                             })
                         }
-                        <Row gutter={ 24 }>
+                        <Row hidden={ true } gutter={ 24 }>
                             <Col span={ 18 }>
                                 <Form.Item
                                     name="type"
@@ -176,7 +207,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                         },
                                     ] }
                                 >
-                                    <Input.TextArea rows={ 4 } placeholder="please enter url description"/>
+                                    <CodeEditor dataset={ {
+                                        value: this.state.componentUseHtml
+                                    } }/>
                                 </Form.Item>
                             </Col>
                         </Row>
