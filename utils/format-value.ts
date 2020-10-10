@@ -45,7 +45,7 @@ export async function componentFormatTree(componentMap) {
                 docs     : await docs,
                 property,
                 path,
-                children : [],
+                // children : [],
             });
         }
         newArr.push({

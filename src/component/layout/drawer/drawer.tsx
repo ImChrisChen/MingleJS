@@ -256,7 +256,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
                 <Drawer
                     title="组件设计器"
-                    width={ 600 }
+                    width={ '60%' }
                     onClose={ this.onClose }
                     visible={ this.state.visible }
                     bodyStyle={ { paddingBottom: 80 } }

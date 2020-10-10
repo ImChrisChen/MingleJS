@@ -51,7 +51,8 @@ export function isDOM(v): v is HTMLElement {
         v && typeof v === 'object' && v.nodeType === 1 && typeof v.nodeName === 'string';
 }
 
-export function arraylastItem<T>(array: Array<T>):T {
+// 获取数组最后一项
+export function arraylastItem<T>(array: Array<T>): T {
     let lastIndex = array.length - 1;
     return array[lastIndex];
 }

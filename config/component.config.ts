@@ -14,7 +14,8 @@ export default {
             component: import('@component/form/select/select'),
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
-            property    : {
+            property : {
+
                 dataset: {
                     label      : {
                         el   : 'input',
@@ -84,7 +85,7 @@ export default {
         button    : {
             path     : '/form-button',
             component: import('@component/form/button/button'),
-            property    : {
+            property : {
                 dataset: {
                     label     : {
                         el   : 'input',
@@ -144,7 +145,7 @@ export default {
         },
         switch    : {
             component: import('@component/form/switch/switch'),
-            property    : {
+            property : {
                 dataset: {
                     disabled         : {
                         el   : 'switch',
@@ -167,7 +168,7 @@ export default {
         },
         input     : {
             component: import('@component/form/input/input'),
-            property    : {
+            property : {
                 dataset: {
                     placeholder: {
                         el   : 'input',

@@ -14,7 +14,7 @@ export default class Tab extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        // this.renderChild();
+        this.renderChild();
     }
 
     state: any = {
@@ -41,7 +41,7 @@ export default class Tab extends React.Component<any, any> {
     }
 
     refCallback(element) {
-        console.log(element);
+
     }
 
     render() {
