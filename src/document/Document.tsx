@@ -19,6 +19,7 @@ import FormDatepicker from '@component/form/datepicker/datepicker';
 import DataTable from '@component/data/table/table';
 // import CodeEditor from '@component/code/editor/CodeEditor';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
+import { componentFormatTree } from "@utils/format-value";
 
 // console.log(FormSelectMD);
 
@@ -36,43 +37,16 @@ export class Document extends React.Component<any, any> {
 
     componentWillMount() {
         console.log('componentWillMount');
-        this.componentFormatArray(componentMap).then(list => {
-
+        componentFormatTree(componentMap).then(list => {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });
-
             this.setState({ menuList: list, routes });
         });
     }
 
-    async componentFormatArray(componentMap) {
-        let newArr: Array<object> = [];
-        for (const key in componentMap) {
-            if (!componentMap.hasOwnProperty(key)) continue;
-            let val = componentMap[key];
-            let children: Array<object> = [];
-
-            for (const k in val) {
-                if (!val.hasOwnProperty(k)) continue;
-
-                let v = val[k];
-                let { component, docs, path } = v;
-                children.push({
-                    name     : k,
-                    component: await component,
-                    docs     : await docs,
-                    path,
-                    children : [],
-                });
-            }
-            newArr.push({ name: key, children: children });       // select / datepicker
-        }
-        return newArr;
-    }
-
     render() {
-        console.log(this.state.routes);
+        console.log(this.state.menuList);
         let Routes = [];
         if (this.state.routes.length > 0) {
             Routes = this.state.routes.map(route => {

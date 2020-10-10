@@ -61,14 +61,14 @@ export default class LayoutMenu extends React.Component<any, any> {
                         this.props.menuList.map((item, index) => {
                             let children = item.children;
                             if (children && children.length > 0) {
-                                return <SubMenu key={ 'parent-' + index } icon={ <MailOutlined/> } title={ item.name }>
+                                return <SubMenu key={ 'parent-' + index } icon={ <MailOutlined/> } title={ item.label }>
                                     { children.map(((child, i) => {
                                         return <Menu.Item key={ 'child-' + i }>
                                             {
                                                 child.path ?
                                                     <Link
-                                                        to={ child.path ?? '' }>{ child.name }{ child.path ?? '' }</Link> :
-                                                    <span>{ child.name }</span>
+                                                        to={ child.path ?? '' }>{ child.label }{ child.path ?? '' }</Link> :
+                                                    <span>{ child.label }</span>
                                             }
                                             {/*<Route exact path="/" component={ Home }/>*/ }
                                             {/*<Route path="/about" component={ About }/>*/ }

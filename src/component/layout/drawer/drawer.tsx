@@ -5,14 +5,15 @@
  * Time: 3:43 下午
  */
 
-import { Button, Col, Drawer, Form, Input, Radio, Row, Select, Space, Switch } from 'antd';
+import { Button, Cascader, Col, Drawer, Form, Input, Radio, Row, Select, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from "@utils/tpl-parse";
-import { formatEnumOptions } from "@utils/format-value";
+import { componentFormatTree, formatEnumOptions } from "@utils/format-value";
+import { arraylastItem } from '@root/utils/util';
 
 interface IComponentDataset {
     el: string
@@ -42,7 +43,8 @@ export default class LayoutDrawer extends React.Component<any, any> {
         componentName     : '',          // 组件名称
         componentInitValue: '',          // 组件初始值
 
-        dataEnum: [
+        componentsTree: [],
+        dataEnum      : [
             // { label: 'Android', value: '1' },
             // { label: 'iOS', value: '2' },
         ],
@@ -50,6 +52,12 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.state.components);
+        componentFormatTree(componentMap).then(tree => {
+            this.setState({
+                componentsTree: tree
+            })
+        })
     }
 
     showDrawer = () => {
@@ -91,16 +99,18 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 选择组件
     handleChangeComponent(e, v) {
-        if (!v.property) {
+        let componentName = e.join('-')
+        let currentComponent = arraylastItem<any>(v);
+        if (!currentComponent.property) {
             console.error('请配置组件的proerty属性');
             this.setState({
                 componentsDataset: [],
-                componentName    : e,
+                componentName,
             }, () => this.generateCode());
             return false;
         }
 
-        let { dataset, ...attrs } = v.property;
+        let { dataset, ...attrs } = currentComponent.property;
         let arr: Array<IComponentDataset> = [];
         let dataEnum: Array<any> = [];
 
@@ -140,7 +150,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
         // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
         this.setState({
             componentsDataset: arr,
-            componentName    : e,
+            componentName,
             dataEnum,
         }, () => this.generateCode());
 
@@ -273,7 +283,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                               dataEnum: this.state.dataEnum,
                           } }
                     >
-                        <Row gutter={ 24 }>
+                        <Row hidden={ true } gutter={ 24 }>
                             <Col span={ 18 }>
                                 <Form.Item
                                     label="组件名称"
@@ -282,6 +292,17 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                     <Select placeholder="请选择组件" options={ this.state.components }
                                             onChange={ this.handleChangeComponent.bind(this) }>
                                     </Select>
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={ 24 }>
+                            <Col span={ 18 }>
+                                <Form.Item
+                                    label="组件名称"
+                                    rules={ [ { required: true, message: '请选择组件' } ] }>
+                                    <Cascader options={ this.state.componentsTree }
+                                              onChange={ this.handleChangeComponent.bind(this) }
+                                              placeholder="请选择组件"/>
                                 </Form.Item>
                             </Col>
                         </Row>

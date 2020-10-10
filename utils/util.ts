@@ -51,6 +51,11 @@ export function isDOM(v): v is HTMLElement {
         v && typeof v === 'object' && v.nodeType === 1 && typeof v.nodeName === 'string';
 }
 
+export function arraylastItem<T>(array: Array<T>):T {
+    let lastIndex = array.length - 1;
+    return array[lastIndex];
+}
+
 export function DeepEachElement(root, callback?: (el: HTMLElement) => void) {
     // 这里输出的是根节点
     if (!root) return;
