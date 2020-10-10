@@ -25,14 +25,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/layout/drawer/drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/layout/drawer/drawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/layout/menu/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/layout/menu/menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/document/Document.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/document/Document.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/format-value.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/format-value.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/util.ts" afterDir="false" />
-    </list>
+    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
