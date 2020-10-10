@@ -6,7 +6,7 @@
  */
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
-export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value') {
+export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
     if (!Boolean(list)) {
         return []
     }

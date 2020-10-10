@@ -6,8 +6,9 @@
  */
 
 interface IPropertyItem {
-    name: string,
-    type: string,
+    name: string
+    type: string
+    label?: string
 }
 
 interface IPropertysConfig<T> {
@@ -77,12 +78,14 @@ const property: IPropertysConfig<IPropertyItem> = {
         type: 'JSON',
     },
     label            : {
-        name: 'label',
-        type: 'string',
+        name : 'label',
+        type : 'string',
+        label: '标签'
     },
     required         : {
-        name: 'required',
-        type: 'boolean',
+        name : 'required',
+        type : 'boolean',
+        label: '是否必填'
     },
     tabPosition      : {
         name: 'tabPosition',

@@ -11,6 +11,8 @@ import React from 'react';
 import componentMap from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
+import { parseEnum } from "@utils/tpl-parse";
+import { formatEnumOptions } from "@utils/format-value";
 
 interface IComponentDataset {
     el: string
@@ -25,22 +27,24 @@ interface IComponentAttrs {
 
 }
 
-
 const { Option } = Select;
 
 export default class LayoutDrawer extends React.Component<any, any> {
     private template = `<input data-fn="form-button" />`;
     private form: any = React.createRef<FormInstance>();
     state = {
-        visible                  : true,
-        components               : this.getComponents(),
-        componentUseHtml         : '',          // 生成的组件代码
-        currentComponentDataset  : [],          // 组件dataset
-        currentComponentName     : '',          // 组件名称
-        currentComponentInitValue: '',          // 组件初始值
-        dataEnum                 : [
-            { label: 'Android', value: '1' },
-            { label: 'iOS', value: '2' },
+        visible: true,
+
+        components       : this.getComponents(),
+        componentsDataset: [],          // 组件dataset
+
+        componentUseCode  : '',          // 生成的组件代码
+        componentName     : '',          // 组件名称
+        componentInitValue: '',          // 组件初始值
+
+        dataEnum: [
+            // { label: 'Android', value: '1' },
+            // { label: 'iOS', value: '2' },
         ],
     };
 
@@ -60,7 +64,13 @@ export default class LayoutDrawer extends React.Component<any, any> {
         });
     };
 
-    getComponents() {
+    setAttributeValue(index, value) {
+        let componentsDataset: Array<IComponentDataset> = this.state.componentsDataset;
+        componentsDataset[index].value = value;
+        this.setState({ componentsDataset });
+    }
+
+    getComponents(): Array<any> {
         let components: Array<any> = [];
         for (const key in componentMap) {
             if (!componentMap.hasOwnProperty(key)) continue;
@@ -70,9 +80,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
                 let v = value[k];
                 components.push({
-                    label: key + '-' + k,
-                    value: key + '-' + k,
-                    props: v.props,
+                    label   : key + '-' + k,
+                    value   : key + '-' + k,
+                    property: v.property,
                 });
             }
         }
@@ -81,53 +91,69 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 选择组件
     handleChangeComponent(e, v) {
-        let { dataset, ...attrs } = v.props;
+        if (!v.property) {
+            console.error('请配置组件的proerty属性');
+            this.setState({
+                componentsDataset: [],
+                componentName    : e,
+            }, () => this.generateCode());
+            return false;
+        }
 
+        let { dataset, ...attrs } = v.property;
         let arr: Array<IComponentDataset> = [];
+        let dataEnum: Array<any> = [];
+
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
-            let v = dataset[k];
+            let val = dataset[k];
+
+            if (k === 'enum') {
+                dataEnum = formatEnumOptions(parseEnum(val.value));           // 1,Android;2,iOS => // [{label:'',value:''}]
+            }
+
             arr.push({
                 label  : `data-${ k }`,       //
-                el     : v.el,
-                options: v.options,
-                value  : v.value,
+                el     : val.el,
+                options: val.options,
+                value  : val.value,
             });
         }
 
         for (const k in attrs) {
             if (!attrs.hasOwnProperty(k)) continue
-            let v = attrs[k];
+            let val = attrs[k];
+            // value值的有选范围的时候
+            if (k === 'value' && val.el !== 'input') {
+                val.options = dataEnum
+            }
+
             arr.push({
                 label  : k,
-                el     : v.el,
-                options: v.options,
-                value  : v.value
+                el     : val.el,
+                options: val.options,
+                value  : val.value,
+                render : val.render !== false,
             });
         }
 
-        console.log(attrs);
-
         // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
         this.setState({
-            currentComponentDataset: arr,
-            currentComponentName   : e,
+            componentsDataset: arr,
+            componentName    : e,
+            dataEnum,
         }, () => this.generateCode());
 
     }
 
     handleChangeRadio(index, e) {
         let value = e.target.value;
-        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
-        currentComponentDataset[index].value = value;
-        this.setState({ currentComponentDataset });
+        this.setAttributeValue(index, value);
         this.generateCode();
     }
 
-    handleChangeSwitch(index, e) {
-        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
-        currentComponentDataset[index].value = e;
-        this.setState({ currentComponentDataset });
+    handleChangeSwitch(index, value) {
+        this.setAttributeValue(index, value);
         this.generateCode();
     }
 
@@ -137,22 +163,30 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 生成代码
     generateCode() {
-        let components: Array<IComponentDataset> = this.state.currentComponentDataset;
+        let components: Array<IComponentDataset> = this.state.componentsDataset;
+        let attrs = components.map(item => {
+            if (item.value) {
+                return `${ item.label }="${ item.value || '' }"`
+            } else {
+                return undefined
+            }
+        }).filter(t => t).join(' ');
 
-        let attrs = components.map(item => `${ item.label }="${ item.value || '' }"`).join(' ');
-
-        let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => {
-            v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.currentComponentName }"`);      //替换组件名称
+        let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
+            v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.componentName }"`);      //替换组件名称
             return `${ v } ${ attrs }`
         });
 
-        this.setState({ componentUseHtml });
+        this.setState({ componentUseCode });
+
+        // TODO setState 后 initValues 不生效的的解决方案 https://www.cnblogs.com/lanshu123/p/10966395.html
+        this.form.current.resetFields()
 
     }
 
     handleFormListAdd(index, add) {
-        this.handleFormListGetDataEnum(index);
-        add();
+        this.handleFormListGetDataEnum(index).then(r => add());
+        // add();
     }
 
     handleFormListRemove(index, remove, fieldName) {
@@ -160,36 +194,47 @@ export default class LayoutDrawer extends React.Component<any, any> {
         this.handleFormListGetDataEnum(index);
     }
 
-    handleFormListGetDataEnum(index) {
+    async handleFormListGetDataEnum(index) {
         let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);            // 把undefined过滤出去
-        console.log(dataEnum);
-
         let enumStr = dataEnum.map(item => `${ item.value },${ item.label }`).join(';');
-        console.log(enumStr);
+        let componentsDataset: Array<IComponentDataset> = this.state.componentsDataset;
 
-        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
-        currentComponentDataset[index].value = enumStr;
-        this.setState({ currentComponentDataset });
-        this.generateCode();
+        // data-enum 动态修改来来，value的options也要修改
+        let valueProps: any = componentsDataset.find(item => item.label === 'value');
+        valueProps.options = dataEnum;
+
+        componentsDataset[index].value = enumStr;
+        await this.setState({
+            componentsDataset,
+            dataEnum,
+        });
+        this.generateCode()
     }
 
+    // input
     handleInputChange(index, e) {
         let value = e.target.value;
-        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
-        currentComponentDataset[index].value = value;
-        this.setState({ currentComponentDataset });
+        this.setAttributeValue(index, value)
     }
 
-    handleInputBlur() {
+    handleInputBlur(index, e) {
+        let value = e.target.value;
+        this.setAttributeValue(index, value);
         this.generateCode();
     }
 
-    handleChangeSelect(index, e) {
-        console.log(e);
-        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
-        currentComponentDataset[index].value = e;
-        this.setState({ currentComponentDataset });
+    handleChangeSelect(index, value) {
+        this.setAttributeValue(index, value)
         this.generateCode();
+    }
+
+    async setDataEnum() {
+        let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);
+        await this.setState({ dataEnum })
+    }
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+
     }
 
     render() {
@@ -231,7 +276,6 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         <Row gutter={ 24 }>
                             <Col span={ 18 }>
                                 <Form.Item
-                                    name="componentName"
                                     label="组件名称"
                                     rules={ [ { required: true, message: '请选择组件' } ] }
                                 >
@@ -243,7 +287,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         </Row>
 
                         {
-                            ...this.state.currentComponentDataset.map((item: any, key) => {
+                            ...this.state.componentsDataset.map((item: any, key) => {
+                                if (item.render === false) return ''
+
                                 if (item.el === 'switch') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
@@ -326,12 +372,11 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                         </Col>
                                     </Row>;
                                 } else if (item.el === 'input') {
-                                    console.log(item);
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
                                             <Form.Item label={ item.label }>
                                                 <Input onChange={ this.handleInputChange.bind(this, key) }
-                                                       onBlur={ this.handleInputBlur.bind(this) }
+                                                       onBlur={ this.handleInputBlur.bind(this, key) }
                                                        value={ item.value }
                                                 />
                                             </Form.Item>
@@ -343,6 +388,8 @@ export default class LayoutDrawer extends React.Component<any, any> {
                                             <Form.Item label={ item.label }>
                                                 <Select options={ item.options }
                                                         onChange={ this.handleChangeSelect.bind(this, key) }
+                                                        allowClear={ true }
+                                                        showSearch={ true }
                                                 />
                                             </Form.Item>
                                         </Col>
@@ -355,11 +402,10 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         <Row gutter={ 16 }>
                             <Col span={ 24 }>
                                 <Form.Item
-                                    name="generateCode"
                                     label="对应代码"
                                 >
                                     <CodeEditor dataset={ {
-                                        value: this.state.componentUseHtml,
+                                        value: this.state.componentUseCode,
                                     } }/>
                                 </Form.Item>
                             </Col>

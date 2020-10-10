@@ -5,6 +5,8 @@
  * Time: 11:15 上午
  */
 
+import property from '@root/config/property.config'
+
 export default {
     form  : {
         select: {
@@ -12,19 +14,22 @@ export default {
             component: import('@component/form/select/select'),
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
-            props    : {
+            property    : {
                 dataset: {
                     label      : {
                         el   : 'input',
                         value: 'form-select',
+                        label: `${ property.label.label }`,
                     },
                     enum       : {
                         el   : 'list',
-                        value: '',
+                        value: '1,Android',
+                        label: '数据 - data-enum'
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
+                        label: '是否禁用 - data-disabled'
                     },
                     mode       : {
                         el     : 'radio',
@@ -34,20 +39,33 @@ export default {
                                 value: 'multiple',
                             },
                             {
-                                label: 'tag',       //显示的值
-                                value: 'tag',       //生成的代码的值
+                                label: 'tags',       //显示的值
+                                value: '',       //生成的代码的值
                             },
                         ],
                         value  : 'multiple',
+                        label  : '模式 - data-mode'
                     },
                     placeholder: {
                         el   : 'input',
                         value: '请选择',
+                        label: '占位符 - data-placeholder'
                     },
+                    autoFocus  : {
+                        el   : 'switch',
+                        value: false,
+                        label: '是否自动获取焦点'
+                    },
+                    allowClear : {
+                        value : true,
+                        render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                    }
                 },
                 value  : {
-                    el   : 'input',
-                    value: ''
+                    el     : 'select',
+                    options: [],            // 通过解析enum来得到
+                    value  : '',
+                    label  : '默认值 - value'
                 }
             }
         },
@@ -66,11 +84,12 @@ export default {
         button    : {
             path     : '/form-button',
             component: import('@component/form/button/button'),
-            props    : {
+            property    : {
                 dataset: {
                     label     : {
                         el   : 'input',
                         value: 'form-button',
+                        label: ''
                     },
                     enum      : {
                         el   : 'list',
@@ -113,7 +132,10 @@ export default {
                         value  : 'button',
                     },
                 },
-                value  : '',
+                value  : {
+                    el   : 'input',
+                    value: ''
+                },
             }
         },
         editor    : {
@@ -122,7 +144,7 @@ export default {
         },
         switch    : {
             component: import('@component/form/switch/switch'),
-            props    : {
+            property    : {
                 dataset: {
                     disabled         : {
                         el   : 'switch',
@@ -145,7 +167,7 @@ export default {
         },
         input     : {
             component: import('@component/form/input/input'),
-            props    : {
+            property    : {
                 dataset: {
                     placeholder: {
                         el   : 'input',
