@@ -12,14 +12,17 @@ import componentMap from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 
-
-interface IComponentProps {
+interface IComponentDataset {
     el: string
     label: string
     value: string
     options: Array<any>
 
     [key: string]: any
+}
+
+interface IComponentAttrs {
+
 }
 
 
@@ -29,12 +32,13 @@ export default class LayoutDrawer extends React.Component<any, any> {
     private template = `<input data-fn="form-button" />`;
     private form: any = React.createRef<FormInstance>();
     state = {
-        visible              : true,
-        components           : this.getComponents(),
-        componentUseHtml     : '',
-        currentComponentProps: [],
-        currentComponentName : '',
-        dataEnum             : [
+        visible                  : true,
+        components               : this.getComponents(),
+        componentUseHtml         : '',          // 生成的组件代码
+        currentComponentDataset  : [],          // 组件dataset
+        currentComponentName     : '',          // 组件名称
+        currentComponentInitValue: '',          // 组件初始值
+        dataEnum                 : [
             { label: 'Android', value: '1' },
             { label: 'iOS', value: '2' },
         ],
@@ -62,11 +66,13 @@ export default class LayoutDrawer extends React.Component<any, any> {
             if (!componentMap.hasOwnProperty(key)) continue;
             let value = componentMap[key];
             for (const k in value) {
+                if (!value.hasOwnProperty(k)) continue;
+
                 let v = value[k];
                 components.push({
                     label: key + '-' + k,
                     value: key + '-' + k,
-                    props: v.dataset,
+                    props: v.props,
                 });
             }
         }
@@ -75,40 +81,53 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 选择组件
     handleChangeComponent(e, v) {
-        let props = v.props;
+        let { dataset, ...attrs } = v.props;
 
-        let arr: Array<IComponentProps> = [];
-        for (const k in props) {
-            if (!props.hasOwnProperty(k)) continue;
-            let v = props[k];
+        let arr: Array<IComponentDataset> = [];
+        for (const k in dataset) {
+            if (!dataset.hasOwnProperty(k)) continue;
+            let v = dataset[k];
             arr.push({
-                label  : k,       //
+                label  : `data-${ k }`,       //
                 el     : v.el,
                 options: v.options,
                 value  : v.value,
             });
         }
 
+        for (const k in attrs) {
+            if (!attrs.hasOwnProperty(k)) continue
+            let v = attrs[k];
+            arr.push({
+                label  : k,
+                el     : v.el,
+                options: v.options,
+                value  : v.value
+            });
+        }
+
+        console.log(attrs);
+
         // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
         this.setState({
-            currentComponentProps: arr,
-            currentComponentName : e,
+            currentComponentDataset: arr,
+            currentComponentName   : e,
         }, () => this.generateCode());
 
     }
 
     handleChangeRadio(index, e) {
         let value = e.target.value;
-        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
-        currentComponentProps[index].value = value;
-        this.setState({ currentComponentProps });
+        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
+        currentComponentDataset[index].value = value;
+        this.setState({ currentComponentDataset });
         this.generateCode();
     }
 
     handleChangeSwitch(index, e) {
-        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
-        currentComponentProps[index].value = e;
-        this.setState({ currentComponentProps });
+        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
+        currentComponentDataset[index].value = e;
+        this.setState({ currentComponentDataset });
         this.generateCode();
     }
 
@@ -118,13 +137,15 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 生成代码
     generateCode() {
-        let components: Array<IComponentProps> = this.state.currentComponentProps;
-        let attrs = components.map(item => `data-${ item.label }="${ item.value || '' }"`).join(' ');
+        let components: Array<IComponentDataset> = this.state.currentComponentDataset;
+
+        let attrs = components.map(item => `${ item.label }="${ item.value || '' }"`).join(' ');
 
         let componentUseHtml = this.template.replace(/data-fn="(.*?)"/, v => {
             v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.currentComponentName }"`);      //替换组件名称
-            return v + ' ' + attrs;
+            return `${ v } ${ attrs }`
         });
+
         this.setState({ componentUseHtml });
 
     }
@@ -146,17 +167,17 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let enumStr = dataEnum.map(item => `${ item.value },${ item.label }`).join(';');
         console.log(enumStr);
 
-        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
-        currentComponentProps[index].value = enumStr;
-        this.setState({ currentComponentProps });
+        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
+        currentComponentDataset[index].value = enumStr;
+        this.setState({ currentComponentDataset });
         this.generateCode();
     }
 
     handleInputChange(index, e) {
         let value = e.target.value;
-        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
-        currentComponentProps[index].value = value;
-        this.setState({ currentComponentProps });
+        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
+        currentComponentDataset[index].value = value;
+        this.setState({ currentComponentDataset });
     }
 
     handleInputBlur() {
@@ -165,9 +186,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     handleChangeSelect(index, e) {
         console.log(e);
-        let currentComponentProps: Array<IComponentProps> = this.state.currentComponentProps;
-        currentComponentProps[index].value = e;
-        this.setState({ currentComponentProps });
+        let currentComponentDataset: Array<IComponentDataset> = this.state.currentComponentDataset;
+        currentComponentDataset[index].value = e;
+        this.setState({ currentComponentDataset });
         this.generateCode();
     }
 
@@ -222,7 +243,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         </Row>
 
                         {
-                            ...this.state.currentComponentProps.map((item: any, key) => {
+                            ...this.state.currentComponentDataset.map((item: any, key) => {
                                 if (item.el === 'switch') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>

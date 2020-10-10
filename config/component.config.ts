@@ -7,44 +7,51 @@
 
 export default {
     form  : {
-        select    : {
+        select: {
             path     : '/form-select',
             component: import('@component/form/select/select'),
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
-            dataset  : {
-                label      : {
+            props    : {
+                dataset: {
+                    label      : {
+                        el   : 'input',
+                        value: 'form-select',
+                    },
+                    enum       : {
+                        el   : 'list',
+                        value: '',
+                    },
+                    disabled   : {
+                        el   : 'switch',
+                        value: false,
+                    },
+                    mode       : {
+                        el     : 'radio',
+                        options: [
+                            {
+                                label: 'multiple',
+                                value: 'multiple',
+                            },
+                            {
+                                label: 'tag',       //显示的值
+                                value: 'tag',       //生成的代码的值
+                            },
+                        ],
+                        value  : 'multiple',
+                    },
+                    placeholder: {
+                        el   : 'input',
+                        value: '请选择',
+                    },
+                },
+                value  : {
                     el   : 'input',
-                    value: 'form-select',
-                },
-                enum       : {
-                    el   : 'list',
-                    value: '',
-                },
-                disabled   : {
-                    el   : 'switch',
-                    value: false,
-                },
-                mode       : {
-                    el     : 'radio',
-                    options: [
-                        {
-                            label: 'multiple',
-                            value: 'multiple',
-                        },
-                        {
-                            label: 'tag',       //显示的值
-                            value: 'tag',       //生成的代码的值
-                        },
-                    ],
-                    value  : 'multiple',
-                },
-                placeholder: {
-                    el   : 'input',
-                    value: '请选择',
-                },
-            },
+                    value: ''
+                }
+            }
         },
+
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
@@ -59,52 +66,55 @@ export default {
         button    : {
             path     : '/form-button',
             component: import('@component/form/button/button'),
-            dataset  : {
-                label     : {
-                    el   : 'input',
-                    value: 'form-button',
+            props    : {
+                dataset: {
+                    label     : {
+                        el   : 'input',
+                        value: 'form-button',
+                    },
+                    enum      : {
+                        el   : 'list',
+                        value: '1,Android;2,iOS',
+                    },
+                    disabled  : {
+                        el   : 'switch',
+                        value: false,
+                    },
+                    size      : {
+                        el     : 'radio',
+                        options: [
+                            {
+                                label: 'large',
+                                value: 'large',
+                            },
+                            {
+                                label: 'middle',
+                                value: 'middle',
+                            },
+                            {
+                                label: 'small',
+                                value: 'small',
+                            },
+                        ],
+                        value  : 'middle',
+                    },
+                    optionType: {
+                        el     : 'radio',
+                        options: [
+                            {
+                                label: 'button',
+                                value: 'button',
+                            },
+                            {
+                                label: 'default',
+                                value: 'default',
+                            },
+                        ],
+                        value  : 'button',
+                    },
                 },
-                enum      : {
-                    el   : 'list',
-                    value: '1,Android;2,iOS',
-                },
-                disabled  : {
-                    el   : 'switch',
-                    value: false,
-                },
-                size      : {
-                    el     : 'radio',
-                    options: [
-                        {
-                            label: 'large',
-                            value: 'large',
-                        },
-                        {
-                            label: 'middle',
-                            value: 'middle',
-                        },
-                        {
-                            label: 'small',
-                            value: 'small',
-                        },
-                    ],
-                    value  : 'middle',
-                },
-                optionType: {
-                    el     : 'radio',
-                    options: [
-                        {
-                            label: 'button',
-                            value: 'button',
-                        },
-                        {
-                            label: 'default',
-                            value: 'default',
-                        },
-                    ],
-                    value  : 'button',
-                },
-            },
+                value  : '',
+            }
         },
         editor    : {
             component: import('@component/form/editor/editor'),
@@ -112,52 +122,56 @@ export default {
         },
         switch    : {
             component: import('@component/form/switch/switch'),
-            dataset  : {
-                disabled         : {
-                    el   : 'switch',
-                    value: false,
+            props    : {
+                dataset: {
+                    disabled         : {
+                        el   : 'switch',
+                        value: false,
+                    },
+                    label            : {
+                        el   : 'input',
+                        value: 'form-switch',
+                    },
+                    checkedChildren  : {
+                        el   : 'input',
+                        value: '开启',
+                    },
+                    unCheckedChildren: {
+                        el   : 'input',
+                        value: '关闭',
+                    },
                 },
-                label            : {
-                    el   : 'input',
-                    value: 'form-switch',
-                },
-                checkedChildren  : {
-                    el   : 'input',
-                    value: '开启',
-                },
-                unCheckedChildren: {
-                    el   : 'input',
-                    value: '关闭',
-                },
-            },
+            }
         },
         input     : {
             component: import('@component/form/input/input'),
-            dataset  : {
-                placeholder: {
-                    el   : 'input',
-                    value: '请输入',
+            props    : {
+                dataset: {
+                    placeholder: {
+                        el   : 'input',
+                        value: '请输入',
+                    },
+                    type       : {
+                        el     : 'select',
+                        options: [
+                            {
+                                label: 'text',
+                                value: 'text',
+                            },
+                            {
+                                label: 'password',
+                                value: 'password',
+                            },
+                            {
+                                label: 'number',
+                                value: 'number',
+                            },
+                            //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
+                        ],
+                        value  : 'text',
+                    },
                 },
-                type       : {
-                    el     : 'select',
-                    options: [
-                        {
-                            label: 'text',
-                            value: 'text',
-                        },
-                        {
-                            label: 'password',
-                            value: 'password',
-                        },
-                        {
-                            label: 'number',
-                            value: 'number',
-                        },
-                        //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
-                    ],
-                    value  : 'text',
-                },
-            },
+            }
         },
         file      : {
             component: import('@component/form/file/file'),
