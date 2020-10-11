@@ -5,7 +5,7 @@
  * Time: 11:15 上午
  */
 
-import property from '@root/config/property.config'
+import property from '@root/config/property.config';
 
 export default {
     form  : {
@@ -15,7 +15,6 @@ export default {
             // @ts-ignore
             docs     : import('@component/form/select/select.md'),
             property : {
-
                 dataset: {
                     label      : {
                         el   : 'input',
@@ -25,12 +24,12 @@ export default {
                     enum       : {
                         el   : 'list',
                         value: '1,Android',
-                        label: '数据 - data-enum'
+                        label: '数据 - data-enum',
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
-                        label: '是否禁用 - data-disabled'
+                        label: '是否禁用 - data-disabled',
                     },
                     mode       : {
                         el     : 'radio',
@@ -45,30 +44,48 @@ export default {
                             },
                         ],
                         value  : 'multiple',
-                        label  : '模式 - data-mode'
+                        label  : '模式 - data-mode',
                     },
                     placeholder: {
                         el   : 'input',
                         value: '请选择',
-                        label: '占位符 - data-placeholder'
+                        label: '占位符 - data-placeholder',
                     },
                     autoFocus  : {
                         el   : 'switch',
                         value: false,
-                        label: '是否自动获取焦点'
+                        label: '是否自动获取焦点',
                     },
                     allowClear : {
                         value : true,
                         render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
-                    }
+                    },
                 },
                 value  : {
                     el     : 'select',
                     options: [],            // 通过解析enum来得到
                     value  : '',
-                    label  : '默认值 - value'
-                }
-            }
+                    label  : '默认值 - value',
+                },
+                hook   : {
+                    load        : {
+                        el   : 'input',
+                        value: 'componentLoad',
+                    },
+                    beforeLoad  : {
+                        el   : 'input',
+                        value: 'componentBeforeLoad',
+                    },
+                    update      : {
+                        el   : 'input',
+                        value: 'componentUpdate',
+                    },
+                    beforeUpdate: {
+                        el   : 'input',
+                        value: 'componentBeforeUpdate',
+                    },
+                },
+            },
         },
 
         selectTree: {
@@ -90,7 +107,7 @@ export default {
                     label     : {
                         el   : 'input',
                         value: 'form-button',
-                        label: ''
+                        label: '',
                     },
                     enum      : {
                         el   : 'list',
@@ -135,9 +152,9 @@ export default {
                 },
                 value  : {
                     el   : 'input',
-                    value: ''
+                    value: '',
                 },
-            }
+            },
         },
         editor    : {
             component: import('@component/form/editor/editor'),
@@ -164,7 +181,7 @@ export default {
                         value: '关闭',
                     },
                 },
-            }
+            },
         },
         input     : {
             component: import('@component/form/input/input'),
@@ -194,7 +211,7 @@ export default {
                         value  : 'text',
                     },
                 },
-            }
+            },
         },
         file      : {
             component: import('@component/form/file/file'),

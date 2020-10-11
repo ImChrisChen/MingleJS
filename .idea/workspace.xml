@@ -26,8 +26,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/component.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/config/component.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/layout/drawer/drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/layout/drawer/drawer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +232,7 @@
       <workItem from="1601172849972" duration="22864000" />
       <workItem from="1601372855375" duration="3613000" />
       <workItem from="1601434877915" duration="12348000" />
-      <workItem from="1602396204068" duration="1481000" />
+      <workItem from="1602396204068" duration="6941000" />
     </task>
     <task id="LOCAL-00001" summary=".gitignore">
       <created>1600253474526</created>
@@ -462,7 +465,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602314984017</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="feat:实现macOS系统颜色模式监听">
+      <created>1602398080121</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1602398080121</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,7 +514,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat: 调整代码结构" />
     <MESSAGE value="feat: 通用处理组件加载的钩子" />
     <MESSAGE value="feat: 组件渲染结构调整，保证每一个组件都用独立的容器" />
     <MESSAGE value="feat: 实现form交互，完善模版规则" />
@@ -529,7 +538,8 @@
     <MESSAGE value="完成组件设计器，实现data-enum 动态添加" />
     <MESSAGE value="组件设计器，实现 dataset 和 attrs 区分开，完成组件默认value的配置" />
     <MESSAGE value="组件设计器，空的value则不显示属性调用，实现组件默认值，实现不渲染属性组件" />
-    <option name="LAST_COMMIT_MESSAGE" value="组件设计器，空的value则不显示属性调用，实现组件默认值，实现不渲染属性组件" />
+    <MESSAGE value="feat:实现macOS系统颜色模式监听" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:实现macOS系统颜色模式监听" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1159" y="220" width="940" height="1104" key="#EditorConfig" timestamp="1600594202513">
@@ -561,8 +571,8 @@
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1081" y="425" width="1143" height="841" key="#部署/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601173650220" />
-    <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2" timestamp="1602314983794">
-      <screen x="0" y="23" width="3008" height="1604" />
+    <state x="820" y="23" width="1246" height="940" key="CommitChangelistDialog2" timestamp="1602398080007">
+      <screen x="0" y="23" width="3360" height="1780" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409397683" />
     <state x="984" y="160" width="1505" height="957" key="CommitChangelistDialog2/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600659571302" />
@@ -573,6 +583,7 @@
     <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202006188" />
     <state x="734" y="23" key="CommitChangelistDialog2/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602314983794" />
     <state x="820" y="23" key="CommitChangelistDialog2/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601107496300" />
+    <state x="820" y="23" key="CommitChangelistDialog2/3360.-64.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1602398080007" />
     <state x="602" y="57" key="DiffContextDialog" timestamp="1601358110979">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
@@ -696,8 +707,8 @@
     <state width="751" height="761" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601449323994" />
     <state width="751" height="791" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1600928364034" />
     <state width="751" height="761" key="SwitcherDM/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602324050796" />
-    <state x="1300" y="291" key="Vcs.Push.Dialog.v2" timestamp="1602314985948">
-      <screen x="0" y="23" width="3008" height="1604" />
+    <state x="1452" y="320" key="Vcs.Push.Dialog.v2" timestamp="1602398119595">
+      <screen x="0" y="23" width="3360" height="1780" />
     </state>
     <state x="1106" y="200" key="Vcs.Push.Dialog.v2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409399188" />
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600421191621" />
@@ -708,6 +719,7 @@
     <state x="1300" y="302" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600852204683" />
     <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602314985948" />
     <state x="1452" y="320" key="Vcs.Push.Dialog.v2/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601107498151" />
+    <state x="1452" y="320" key="Vcs.Push.Dialog.v2/3360.-64.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1602398119595" />
     <state x="1511" y="709" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601430668066">
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
@@ -797,8 +809,8 @@
     </state>
     <state x="1509" y="325" width="1005" height="1465" key="run.anything.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600576367714" />
     <state x="1509" y="329" width="1005" height="1486" key="run.anything.popup/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601014343380" />
-    <state x="1330" y="159" width="1124" height="1732" key="search.everywhere.popup" timestamp="1602397569445">
-      <screen x="0" y="23" width="3360" height="1867" />
+    <state x="1330" y="153" width="1124" height="1652" key="search.everywhere.popup" timestamp="1602404646006">
+      <screen x="0" y="23" width="3360" height="1780" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600407265764" />
     <state x="1014" y="128" width="856" height="1314" key="search.everywhere.popup/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600658167807" />
@@ -815,6 +827,7 @@
     <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602325864235" />
     <state x="1330" y="153" width="1124" height="1652" key="search.everywhere.popup/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601134204744" />
     <state x="1330" y="159" width="1124" height="1732" key="search.everywhere.popup/3360.-64.1440.2484/0.23.3360.1867@0.23.3360.1867" timestamp="1602397569445" />
+    <state x="1330" y="153" width="1124" height="1652" key="search.everywhere.popup/3360.-64.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1602404646006" />
     <state x="1203" y="350" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1600264603624">
       <screen x="0" y="23" width="2560" height="1057" />
     </state>

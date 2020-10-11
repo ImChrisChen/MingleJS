@@ -11,8 +11,8 @@ import React from 'react';
 import componentMap from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { parseEnum } from "@utils/tpl-parse";
-import { componentFormatTree, formatEnumOptions } from "@utils/format-value";
+import { parseEnum } from '@utils/tpl-parse';
+import { componentFormatTree, formatEnumOptions } from '@utils/format-value';
 import { arraylastItem } from '@root/utils/util';
 
 interface IComponentDataset {
@@ -36,8 +36,8 @@ export default class LayoutDrawer extends React.Component<any, any> {
     state = {
         visible: true,
 
-        components       : this.getComponents(),
-        componentsDataset: [],          // 组件dataset
+        components        : this.getComponents(),
+        componentsProperty: [],          // 组件dataset
 
         componentUseCode  : '',          // 生成的组件代码
         componentName     : '',          // 组件名称
@@ -55,9 +55,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
         console.log(this.state.components);
         componentFormatTree(componentMap).then(tree => {
             this.setState({
-                componentsTree: tree
-            })
-        })
+                componentsTree: tree,
+            });
+        });
     }
 
     showDrawer = () => {
@@ -73,9 +73,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
     };
 
     setAttributeValue(index, value) {
-        let componentsDataset: Array<IComponentDataset> = this.state.componentsDataset;
-        componentsDataset[index].value = value;
-        this.setState({ componentsDataset });
+        let componentsProperty: Array<IComponentDataset> = this.state.componentsProperty;
+        componentsProperty[index].value = value;
+        this.setState({ componentsProperty });
     }
 
     getComponents(): Array<any> {
@@ -99,18 +99,18 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 选择组件
     handleChangeComponent(e, v) {
-        let componentName = e.join('-')
+        let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
         if (!currentComponent.property) {
             console.error('请配置组件的proerty属性');
             this.setState({
-                componentsDataset: [],
+                componentsProperty: [],
                 componentName,
             }, () => this.generateCode());
             return false;
         }
 
-        let { dataset, ...attrs } = currentComponent.property;
+        let { dataset, hook, ...attrs } = currentComponent.property;
         let arr: Array<IComponentDataset> = [];
         let dataEnum: Array<any> = [];
 
@@ -127,15 +127,16 @@ export default class LayoutDrawer extends React.Component<any, any> {
                 el     : val.el,
                 options: val.options,
                 value  : val.value,
+                render : val.render !== false,
             });
         }
 
         for (const k in attrs) {
-            if (!attrs.hasOwnProperty(k)) continue
+            if (!attrs.hasOwnProperty(k)) continue;
             let val = attrs[k];
             // value值的有选范围的时候
             if (k === 'value' && val.el !== 'input') {
-                val.options = dataEnum
+                val.options = dataEnum;
             }
 
             arr.push({
@@ -147,13 +148,24 @@ export default class LayoutDrawer extends React.Component<any, any> {
             });
         }
 
+        for (const k in hook) {
+            if (!hook.hasOwnProperty(k)) continue;
+            let val = hook[k];
+            arr.push({
+                label  : `hook:${ k }`,
+                el     : val.el,
+                options: val.options,
+                value  : val.value,
+                render : val.render !== false,
+            });
+        }
+
         // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
         this.setState({
-            componentsDataset: arr,
+            componentsProperty: arr,
             componentName,
             dataEnum,
         }, () => this.generateCode());
-
     }
 
     handleChangeRadio(index, e) {
@@ -173,24 +185,46 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     // 生成代码
     generateCode() {
-        let components: Array<IComponentDataset> = this.state.componentsDataset;
+        let components: Array<IComponentDataset> = this.state.componentsProperty;
+        let funcNames: Array<object> = [];
         let attrs = components.map(item => {
+
+            if (item.label.includes('hook:')) {
+                let [ , hookName ] = item.label.split(':');
+                let funcName = item.value;
+                funcNames.push({ funcName, hookName });
+            }
+
             if (item.value) {
-                return `${ item.label }="${ item.value || '' }"`
+                return `${ item.label }="${ item.value || '' }"`;
             } else {
-                return undefined
+                return undefined;
             }
         }).filter(t => t).join(' ');
 
         let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
             v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.componentName }"`);      //替换组件名称
-            return `${ v } ${ attrs }`
+            return `${ v } ${ attrs }`;
         });
+
+        if (componentUseCode.includes('hook:')) {
+            let funcs = funcNames.map((item: any) => {
+                let { funcName, hookName } = item;
+                if (funcName) {
+                    return `function ${ funcName }() {
+                        Message.success("触发组件钩子 ${ hookName }");
+                    }\n`;
+                } else {
+                    return undefined;
+                }
+            }).filter(t => t);
+            componentUseCode += `\n<script> \n ${ funcs.join('\n') } \n</script>`;
+        }
 
         this.setState({ componentUseCode });
 
         // TODO setState 后 initValues 不生效的的解决方案 https://www.cnblogs.com/lanshu123/p/10966395.html
-        this.form.current.resetFields()
+        this.form.current.resetFields();
 
     }
 
@@ -207,24 +241,24 @@ export default class LayoutDrawer extends React.Component<any, any> {
     async handleFormListGetDataEnum(index) {
         let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);            // 把undefined过滤出去
         let enumStr = dataEnum.map(item => `${ item.value },${ item.label }`).join(';');
-        let componentsDataset: Array<IComponentDataset> = this.state.componentsDataset;
+        let componentsProperty: Array<IComponentDataset> = this.state.componentsProperty;
 
         // data-enum 动态修改来来，value的options也要修改
-        let valueProps: any = componentsDataset.find(item => item.label === 'value');
+        let valueProps: any = componentsProperty.find(item => item.label === 'value');
         valueProps.options = dataEnum;
 
-        componentsDataset[index].value = enumStr;
+        componentsProperty[index].value = enumStr;
         await this.setState({
-            componentsDataset,
+            componentsProperty,
             dataEnum,
         });
-        this.generateCode()
+        this.generateCode();
     }
 
     // input
     handleInputChange(index, e) {
         let value = e.target.value;
-        this.setAttributeValue(index, value)
+        this.setAttributeValue(index, value);
     }
 
     handleInputBlur(index, e) {
@@ -234,13 +268,13 @@ export default class LayoutDrawer extends React.Component<any, any> {
     }
 
     handleChangeSelect(index, value) {
-        this.setAttributeValue(index, value)
+        this.setAttributeValue(index, value);
         this.generateCode();
     }
 
     async setDataEnum() {
         let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);
-        await this.setState({ dataEnum })
+        await this.setState({ dataEnum });
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
@@ -308,8 +342,8 @@ export default class LayoutDrawer extends React.Component<any, any> {
                         </Row>
 
                         {
-                            ...this.state.componentsDataset.map((item: any, key) => {
-                                if (item.render === false) return ''
+                            ...this.state.componentsProperty.map((item: any, key) => {
+                                if (item.render === false) return '';
 
                                 if (item.el === 'switch') {
                                     return <Row key={ key }>
