@@ -28,12 +28,13 @@ const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: 
 
 // 判断是否匹配深色模式
 if (darkMode && darkMode.matches) {
-
 }
 
 // 监听主题切换事件
 darkMode && darkMode.addEventListener('change', e => {
     // e.matches true 深色模式
+    let darkMode = e.matches;
+    message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
 });
 
 let env = process.env.NODE_ENV;
