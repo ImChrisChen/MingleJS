@@ -24,15 +24,15 @@ async function deepGetComponent(keys, object) {
     // 判断是否是 import 进来的模块
     if (object[key] instanceof Promise) {
         return {
-            // docs: await  object[key]
-            docs     : undefined,
+            // document: await  object[key]
+            document     : undefined,
             component: await object[key],
         };         // 找到模块直接 return 出去
     } else {
         if (object[key]['component']) {
             return {
                 component: await object[key]['component'],
-                docs     : await object[key]['docs'],
+                document     : await object[key]['document'],
             };
         } else {
             keys.shift();           // 删除第一项
@@ -43,7 +43,7 @@ async function deepGetComponent(keys, object) {
 
 // TODO 后续可优化成读取目录的形式，不过感觉要配合 命令行生成目录会比较好
 export async function getComponent(keys: Array<string>) {
-    let { component: esModule, docs } = await deepGetComponent(keys, componentMap);
+    let { component: esModule, document } = await deepGetComponent(keys, componentMap);
     if (!esModule) {
         console.error(`没有${ keys }这个组件`);
         return false;

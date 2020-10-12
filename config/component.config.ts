@@ -12,8 +12,7 @@ export default {
         select: {
             path     : '/form-select',
             component: import('@component/form/select/select'),
-            // @ts-ignore
-            docs     : import('@component/form/select/select.md'),
+            document : import('@component/form/select/select.md'),
             property : {
                 dataset: {
                     label      : {
@@ -91,6 +90,7 @@ export default {
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
+            document : import('@component/form/selectTree/selectTree.md')
         },
         datepicker: {
             path     : '/form-datepicker',

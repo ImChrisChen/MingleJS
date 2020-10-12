@@ -10,8 +10,8 @@ import $ from 'jquery';
 import ReactDOM from 'react-dom';
 // import 'antd/dist/antd.dark.css'
 import { Document } from './src/document/Document';
-
-import { BrowserRouter as Router } from 'react-router-dom'; // https://reactrouter.com/web/guides/quick-start
+// https://www.cnblogs.com/cckui/p/11490372.html
+import { HashRouter } from 'react-router-dom'; // https://reactrouter.com/web/guides/quick-start
 
 // const isDebug = true;
 //
@@ -44,9 +44,9 @@ const isDocument = true;
 if (isDocument) {
     // docs
     ReactDOM.render(
-        <Router>
-            <Document/>
-        </Router>,
+        <HashRouter>
+            <Document />
+        </HashRouter>,
         document.querySelector('#App'),
     );
 } else {
