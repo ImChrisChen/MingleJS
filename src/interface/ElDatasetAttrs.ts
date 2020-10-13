@@ -23,7 +23,8 @@ export interface IComponentProps {
     box: HTMLElement
     style: object
     dataset: any
-    defaultProperty: object
+    defaultProperty?: object
     role?: string
     ref: () => any
+    value?: any
 }

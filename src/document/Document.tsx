@@ -31,10 +31,7 @@ export class Document extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-    }
 
-    componentWillMount() {
-        console.log('componentWillMount');
         componentFormatTree(componentMap).then(list => {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
@@ -62,10 +59,8 @@ export class Document extends React.Component<any, any> {
                 <h1>Document</h1>
 
                 <Switch>
-                    <div className="route-content">
-                        { ...Routes }
-                        <Redirect from="*" to="/" exact/>
-                    </div>
+                    { ...Routes }
+                    <Redirect from="*" to="/" exact/>
                 </Switch>
 
                 <CodeGenerate/>

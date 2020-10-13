@@ -35,18 +35,13 @@ export default {
                     },
                     enum       : {
                         el   : 'list',
-                        value: '1,Android',
+                        value: '1,Android;2,iOS;3,MacOS;4,Windows',
                         label: '数据 - data-enum',
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
                         label: '是否禁用 - data-disabled',
-                    },
-                    multi      : {
-                        el     : 'radio',
-                        options: [],
-                        value  : 'true',
                     },
                     mode       : {
                         el     : 'radio',
@@ -57,8 +52,12 @@ export default {
                             },
                             {
                                 label: 'tags',       //显示的值
-                                value: '',       //生成的代码的值
+                                value: 'tags',       //生成的代码的值
                             },
+                            {
+                                label: 'single',
+                                value: 'single'
+                            }
                         ],
                         value  : 'multiple',
                         label  : '模式 - data-mode',
@@ -84,24 +83,28 @@ export default {
                     value  : '',
                     label  : '默认值 - value',
                 },
-                hook   : {
-                    load        : {
-                        el   : 'input',
-                        value: 'componentLoad',
-                    },
-                    beforeLoad  : {
-                        el   : 'input',
-                        value: 'componentBeforeLoad',
-                    },
-                    update      : {
-                        el   : 'input',
-                        value: 'componentUpdate',
-                    },
-                    beforeUpdate: {
-                        el   : 'input',
-                        value: 'componentBeforeUpdate',
-                    },
-                },
+                // hook   : {
+                //     load        : {
+                //         el    : 'input',
+                //         value : 'componentLoad',
+                //         render: false
+                //     },
+                //     beforeLoad  : {
+                //         el    : 'input',
+                //         value : 'componentBeforeLoad',
+                //         render: false
+                //     },
+                //     update      : {
+                //         el    : 'input',
+                //         value : 'componentUpdate',
+                //         render: false
+                //     },
+                //     beforeUpdate: {
+                //         el    : 'input',
+                //         value : 'componentBeforeUpdate',
+                //         render: false
+                //     },
+                // },
             },
         },
 
@@ -127,20 +130,20 @@ export default {
             component: import('@component/form/button/button'),
             property : {
                 dataset: {
-                    label     : {
+                    label      : {
                         el   : 'input',
                         value: 'form-button',
                         label: '',
                     },
-                    enum      : {
+                    enum       : {
                         el   : 'list',
                         value: '1,Android;2,iOS',
                     },
-                    disabled  : {
+                    disabled   : {
                         el   : 'switch',
                         value: false,
                     },
-                    size      : {
+                    size       : {
                         el     : 'radio',
                         options: [
                             {
@@ -158,7 +161,7 @@ export default {
                         ],
                         value  : 'middle',
                     },
-                    optionType: {
+                    optionType : {
                         el     : 'radio',
                         options: [
                             {
@@ -172,10 +175,23 @@ export default {
                         ],
                         value  : 'button',
                     },
+                    buttonStyle: {
+                        el     : 'radio',
+                        options: [
+                            {
+                                label: 'solid',
+                                value: 'solid',
+                            }, {
+                                label: 'online',
+                                value: 'online'
+                            }
+                        ]
+                    }
                 },
                 value  : {
-                    el   : 'input',
-                    value: '',
+                    el     : 'select',
+                    options: [],
+                    value  : '',
                 },
             },
         },

@@ -39,7 +39,6 @@ export default class LayoutMenu extends React.Component<any, any> {
     };
 
     render() {
-        console.log(this.props);
         return (
             <div style={ { width: 256 } }>
                 <Button type="primary" onClick={ this.toggleCollapsed } style={ { marginBottom: 16 } }>

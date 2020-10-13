@@ -5,11 +5,27 @@ import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
-import { DeepEachElement, isEmptyStr, isFunc, isUndefined } from '@utils/util';
+import { DeepEachElement, isFunc } from '@utils/util';
 import { parseLineStyle, parseTpl } from '@utils/tpl-parse';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
+
+interface IModuleProperty {
+    dataset: object | any
+    hook: {
+        load?: object
+        beforeLoad?: object
+        update?: object
+        beforeUpdate?: object
+    }
+    value: {
+        el: string
+        options?: Array<{ label: string, value: any }>
+        label?: string
+        value: string
+    }
+}
 
 interface IModules {
     // { element, Component, container, elChildren }
@@ -21,9 +37,8 @@ interface IModules {
     hooks: object                   //  钩子
     style: string                   //  行内样式
     componentMethod: string         //  组件方法
-    defaultProperty: object         //  组件默认值
+    defaultProperty: IModuleProperty         //  组件默认值
 }
-
 
 interface IAttributes extends NamedNodeMap {
     style?: any | string
@@ -274,27 +289,19 @@ export default class App {
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
         let formatDataset = parseDataAttr(dataset);
-        let value = element['value'];
 
-        // 表单元素的组件
-        if (!isUndefined(value)) {
-
-            let isMultiple = element.getAttribute('data-mode') === 'multiple';
-
-            // 多选
-            if (isMultiple) {
-                if (isEmptyStr(value)) {
-                    value = [];
-                }
-                if (!isEmptyStr(value) && value.includes(',')) {
-                    value = value.split(',');
-                }
-            } else { // 单选
-
+        // 处理默认值
+        let initProperty = {};
+        if (defaultProperty && defaultProperty.dataset) {
+            for (const k in defaultProperty.dataset) {
+                let v = defaultProperty.dataset[k];
+                initProperty[k] = v.value
             }
         }
 
-        formatDataset['value'] = value;
+        initProperty = parseDataAttr(initProperty)
+        console.log(initProperty, formatDataset);
+        let defaultProps = Object.assign(initProperty, formatDataset)
 
         // 组件名必须大写
         render(<Component
@@ -302,8 +309,8 @@ export default class App {
                 elChildren={ elChildren }
                 box={ containerWrap }
                 style={ jsxStyle }
-                dataset={ formatDataset }
-                defaultProperty={ defaultProperty }
+                dataset={ defaultProps }
+                value={ element['value'] }
                 role="mingle-component"
                 ref={ componentInstance => {        // 组件实例
                     componentMethod && componentInstance[componentMethod]();

@@ -17,45 +17,34 @@ const { Option } = Select;
 const { Title } = Typography;
 
 interface ISelectState<T> {
-    selectProps: T
+    // selectProps?: T
+    selectProps: any
     checkedAll: boolean
 
     [key: string]: any
 }
 
 interface ISelectProps {
-    theme: string
-    options: Array<any>
-    value?: any
+    // theme: string
+    // options: Array<any>
+    // value?: any
 
-    [propsName: string]: any
+    [key: string]: any
 }
 
 export default class Selector extends React.Component<IComponentProps, any> {
 
-    state: ISelectState<ISelectProps> = {
-        checkedAll : false,
-        selectProps: {
-            theme           : 'light',
-            options         : [],
-            optionFilterProp: 'children',
-            placeholder     : 'Select a person',
-            allowClear      : true,
-            // mode            : 'multiple',
-            autoFocus       : true,
-            maxTagCount     : 1,
-        },
+    state = {
+        checkedAll: false,
+        options   : [],
+        value     : '' as any
     };
 
     constructor(props) {
         super(props);
-        // label   : strParseVirtualDOM(this.props.label),
         this.getSelectList().then(options => {
-            this.setState({
-                selectProps: { options },
-            });
+            this.setState({ options, });
         });
-        console.log(this.props.defaultProperty);
     }
 
     formatListKey(list: Array<any>): Array<object> {
@@ -90,23 +79,31 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        // 字符串DOM 转化成 ReactDOM  https://zh-hans.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
-        // let menuItemSelectedIcon = <div dangerouslySetInnerHTML={ { __html: `<div>😄</div>` } }/>;
-        let dealProps: any = Object.assign(this.state.selectProps, this.props.dataset);
+        let dataset = this.props.dataset;
+        delete dataset.enum
+        let value: any;
+        if (dataset.mode === 'multiple') {
+            if (this.props.value) {
+                value = this.props.value.split(',')
+            } else {
+                value = []
+            }
+        }
+
         return <>
-            <Form.Item label={ this.props.dataset.label }>
+            <Form.Item label={ dataset.label }>
                 <Select
-                    { ...dealProps }
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
+
+                    { ...dataset }
+                    value={ value }
+                    options={ this.state.options }
+
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
-                    onSearch={ this.handleSearch.bind(this) }
-                    showSearch
-                    style={ { width: '200px' } }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
                     filterOption={ (input, option) => {
                         if (!option) return false;
-                        // return String(option.value).includes(input) || String(option.title).includes(input);
                         return String(option.value).includes(input) || String(option.label).includes(input);
                     } }/>
             </Form.Item>
@@ -128,7 +125,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
     handleChange(value, object) {
         console.log(value);
-        trigger(this.props.el, value);
+        this.setState({ value }, () => trigger(this.props.el, value))
     }
 
     handleClear() {
@@ -136,15 +133,11 @@ export default class Selector extends React.Component<IComponentProps, any> {
         trigger(this.props.el, '');
     }
 
-    handleSearch() {
-
-    }
-
     handleSelectAll(e) {
         let v = e.target.checked;
 
         if (v) {
-            let value = this.state.selectProps.options.map(item => item.value);
+            let value = this.state.options.map((item: any) => item.value);
             this.setState({ value });
             trigger(this.props.el, value.join(','));
         } else {

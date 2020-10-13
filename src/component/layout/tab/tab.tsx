@@ -40,14 +40,6 @@ export default class Tab extends React.Component<any, any> {
         });
     }
 
-    componentWillUnmount() {
-
-    }
-
-    refCallback(element) {
-
-    }
-
     render() {
         return <Tabs tabPosition={ this.state.tabPosition }
                      defaultActiveKey="1"
@@ -61,7 +53,6 @@ export default class Tab extends React.Component<any, any> {
                     },
                 )
             }
-            {/*{ ...this.renderChild() }*/ }
         </Tabs>;
     }
 }

@@ -8,34 +8,32 @@ import React from 'react';
 import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-value';
 import { Form, Radio } from 'antd';
+import { IComponentProps } from "@interface/ElDatasetAttrs";
 
-export default class Button extends React.Component<any, any> {
+export default class Button extends React.Component<IComponentProps, any> {
     state: any = {
-        // options    : this.formatAntdButton(this.props.enum),
-        // [
-        // { label: 'Apple', value: 'Apple' },
-        // { label: 'Pear', value: 'Pear' },
-        // { label: 'Orange', value: 'Orange' },
-        // ],
-        optionType : 'button',                                // 'button' | 'default'
-        buttonStyle: this.props.el.mode ?? 'solid',           // 'online' | 'solid'
-        size       : this.props.el.size ?? 'middle',          // 'large' | 'middle' | 'small'
+        value  : this.props.value,
+        options: []
     };
 
     constructor(props) {
         super(props);
+        this.getData().then(options => {
+            this.setState({ options })
+        })
+    }
+
+    async getData() {
+        return formatEnumOptions(this.props.dataset.enum);
     }
 
     handleChange(e: any) {
         let value = e.target.value;
-        this.setState({ value });
-        trigger(this.props.el, value);
+        console.log(value);
+        this.setState({ value }, () => trigger(this.props.el, value));
     }
 
     render() {
-        let formatProps = this.props.dataset;
-        formatProps['options'] = formatEnumOptions(formatProps.enum);
-        let attrs = Object.assign(this.state, formatProps);
         // rules={ [ { required: this.props.required, message: this.props.message } ] }
 
         // return <div>
@@ -65,15 +63,10 @@ export default class Button extends React.Component<any, any> {
         return <>
             <Form.Item label={ this.props.dataset.label }>
                 <Radio.Group
-
                     onChange={ this.handleChange.bind(this) }
-                    { ...attrs }
-
-                    // options={ options }
-                    // size={ size }
-                    // optionType={ optionType }
-                    // buttonStyle={ buttonStyle }
-                    // value={ value }
+                    value={ this.state.value }
+                    options={ this.state.options }
+                    { ...this.props.dataset }
                 />
             </Form.Item>
         </>;
