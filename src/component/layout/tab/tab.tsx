@@ -14,7 +14,7 @@ export default class Tab extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        this.renderChild();
+        this.renderChild()
     }
 
     state: any = {
@@ -38,6 +38,10 @@ export default class Tab extends React.Component<any, any> {
                 $(elChild).show();      //渲染后再显示
             });
         });
+    }
+
+    componentWillUnmount() {
+
     }
 
     refCallback(element) {

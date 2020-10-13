@@ -7,6 +7,17 @@
 
 import property from '@root/config/property.config';
 
+interface IComponentConfig {
+    path?: string
+    component: Promise<object>
+    document?: Promise<object>
+    property?: {
+        dataset?: object
+        value?: object
+        hook?: object
+    }
+}
+
 export default {
     form  : {
         select: {
@@ -16,9 +27,11 @@ export default {
             property : {
                 dataset: {
                     label      : {
-                        el   : 'input',
-                        value: 'form-select',
-                        label: `${ property.label.label }`,
+                        // beforeName: '',     // beforeName其实就是以前的key(在这个属性上是'label')
+                        afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
+                        el       : 'input',
+                        value    : 'form-select',
+                        label    : `${ property.label.label }`,
                     },
                     enum       : {
                         el   : 'list',
@@ -29,6 +42,11 @@ export default {
                         el   : 'switch',
                         value: false,
                         label: '是否禁用 - data-disabled',
+                    },
+                    multi      : {
+                        el     : 'radio',
+                        options: [],
+                        value  : 'true',
                     },
                     mode       : {
                         el     : 'radio',
@@ -90,7 +108,12 @@ export default {
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
-            document : import('@component/form/selectTree/selectTree.md')
+            document : import('@component/form/selectTree/selectTree.md'),
+            property : {
+                dataset: {},
+                value  : {},
+                hook   : {}
+            },
         },
         datepicker: {
             path     : '/form-datepicker',
@@ -217,7 +240,6 @@ export default {
             component: import('@component/form/file/file'),
             path     : 'form-file',
         },
-
     },
     view  : {
         popover : {
@@ -226,6 +248,10 @@ export default {
         dropdown: {
             component: import('@component/view/dropdown/dropdown'),
         },
+        calendar: {
+            path     : 'view-calendar',
+            component: import('@component/view/calendar/calendar')
+        }
     },
     data  : {
         table          : {
@@ -268,6 +294,7 @@ export default {
         },
         tab   : {
             component: import('@component/layout/tab/tab'),
+            property : {}
         },
         window: {
             component: import('@component/layout/window/window'),

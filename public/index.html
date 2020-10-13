@@ -88,6 +88,11 @@
         <div data-fn="data-table" hook:load="load" data-from="game-list"></div>
     </div>
 
+    <div class="panel">
+        <input data-fn="form-datepicker">
+        <div data-fn="view-calendar"></div>
+    </div>
+
 </div>
 
 <!--<div data-fn="layout-drawer"></div>-->
@@ -119,7 +124,7 @@
 
 <script>
     function load() {
-        message.success('load');
+        Message.success('load');
     }
 
     function handleSubmit(e) {
