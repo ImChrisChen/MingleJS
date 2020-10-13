@@ -182,6 +182,15 @@ export default {
         editor    : {
             component: import('@component/form/editor/editor'),
             path     : '/form-editor',
+            property : {
+                dataset: {
+                    visibleEditor: {
+                        el   : 'switch',
+                        value: false
+                    }
+                }
+            },
+
         },
         switch    : {
             component: import('@component/form/switch/switch'),
@@ -250,7 +259,10 @@ export default {
         },
         calendar: {
             path     : 'view-calendar',
-            component: import('@component/view/calendar/calendar')
+            component: import('@component/view/calendar/calendar'),
+            property : {
+                dataset: {}
+            }
         }
     },
     data  : {

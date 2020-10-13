@@ -7,6 +7,6 @@
 
 import $ from 'jquery'
 
-export function trigger(el: HTMLInputElement, value: string | Array<any>): void {
+export function trigger(el: HTMLInputElement | HTMLElement, value: string | Array<any>): void {
     $(el).val(value).trigger('change');
 }

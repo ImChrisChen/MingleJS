@@ -16,3 +16,14 @@ export interface ElementDataAttrs {
     onload?: string
     multi?: boolean
 }
+
+export interface IComponentProps {
+    el: HTMLElement
+    elChildren: Array<HTMLElement>
+    box: HTMLElement
+    style: object
+    dataset: any
+    defaultProperty: object
+    role?: string
+    ref: () => any
+}

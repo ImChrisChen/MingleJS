@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { getComponent } from '@utils/relation-map';
+import { loadModules } from '@utils/relation-map';
 import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
@@ -21,7 +21,9 @@ interface IModules {
     hooks: object                   //  钩子
     style: string                   //  行内样式
     componentMethod: string         //  组件方法
+    defaultProperty: object         //  组件默认值
 }
+
 
 interface IAttributes extends NamedNodeMap {
     style?: any | string
@@ -97,7 +99,9 @@ export default class App {
                                 componentMethod = keysArr.pop() as string;
                             }
 
-                            let Component = await getComponent(keysArr);
+                            const Modules = await loadModules(keysArr);
+                            const Component = Modules.component.default;
+                            let defaultProperty = Modules.property;
 
                             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
                             let elChildren: Array<HTMLElement | any> = [];
@@ -114,7 +118,7 @@ export default class App {
 
                             let hooks = this.formatHooks(attributes);
                             let style = this.formatInLineStyle(attributes);
-                            let module = {
+                            let module: IModules = {
                                 style,
                                 Component,
                                 element,
@@ -123,6 +127,7 @@ export default class App {
                                 elChildren,
                                 hooks,
                                 componentMethod,
+                                defaultProperty,
                             };
                             this.modules.push(module);
 
@@ -264,7 +269,7 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
+        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
@@ -293,16 +298,17 @@ export default class App {
 
         // 组件名必须大写
         render(<Component
-                role="mingle-component"
                 el={ element }
+                elChildren={ elChildren }
+                box={ containerWrap }
+                style={ jsxStyle }
+                dataset={ formatDataset }
+                defaultProperty={ defaultProperty }
+                role="mingle-component"
                 ref={ componentInstance => {        // 组件实例
                     componentMethod && componentInstance[componentMethod]();
                     return componentInstance;
                 } }
-                box={ containerWrap }
-                elChildren={ elChildren }
-                style={ jsxStyle }
-                dataset={ formatDataset }
             />, container, () => callback(hooks),
         );
 

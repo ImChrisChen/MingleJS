@@ -8,10 +8,10 @@
 import './select.less';
 import * as React from 'react';
 import { Checkbox, Form, Select, Typography } from 'antd';
-// @ts-ignore
 import selectJson from '@root/mock/form/select.json';
 import { formatEnumOptions } from '@utils/format-value';
 import { trigger } from '@utils/trigger';
+import { IComponentProps } from "@interface/ElDatasetAttrs";
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -31,7 +31,7 @@ interface ISelectProps {
     [propsName: string]: any
 }
 
-export default class Selector extends React.Component<any, any> {
+export default class Selector extends React.Component<IComponentProps, any> {
 
     state: ISelectState<ISelectProps> = {
         checkedAll : false,
@@ -55,6 +55,7 @@ export default class Selector extends React.Component<any, any> {
                 selectProps: { options },
             });
         });
+        console.log(this.props.defaultProperty);
     }
 
     formatListKey(list: Array<any>): Array<object> {

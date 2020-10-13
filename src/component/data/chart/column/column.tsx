@@ -6,7 +6,6 @@
  */
 import React from 'react';
 // import { DataSet } from "@antv/data-set/lib/data-set";
-// @ts-ignore
 import areaUser from '@root/mock/chart/areaUser.json';
 import { Chart, Interval, Tooltip } from "bizcharts";
 
