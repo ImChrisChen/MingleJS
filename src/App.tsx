@@ -299,9 +299,12 @@ export default class App {
             }
         }
 
+        console.log(initProperty);
+
         initProperty = parseDataAttr(initProperty)
         console.log(initProperty, formatDataset);
         let defaultProps = Object.assign(initProperty, formatDataset)
+        console.log(defaultProps);
 
         // 组件名必须大写
         render(<Component

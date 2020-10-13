@@ -76,6 +76,11 @@ export default {
                         value : true,
                         render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
                     },
+                    showSearch : {     // 指定默认选中条目
+                        el    : 'input',
+                        value : true,
+                        render: false
+                    }
                 },
                 value  : {
                     el     : 'select',

@@ -191,6 +191,9 @@ class LayoutDrawer extends React.Component<any, any> {
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
         let attrs = components.map(item => {
+            if (!item.render) {
+                return undefined
+            }
 
             if (item.label.includes('hook:')) {
                 let [ , hookName ] = item.label.split(':');
