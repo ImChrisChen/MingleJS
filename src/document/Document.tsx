@@ -11,19 +11,17 @@ import LayoutMenu from '@component/layout/menu/menu';
 import componentMap from '../../config/component.config';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import style from './Document.scss';
-// import FormSelect from '@component/form/select/select';
-import FormSelectTree from '@component/form/select/tree/tree';
-import FormSelectButton from '@component/form/button/button';
-import FormDatepicker from '@component/form/datepicker/datepicker';
-// @ts-ignore
-import DataTable from '@component/data/table/table';
-// import CodeEditor from '@component/code/editor/CodeEditor';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
 import { componentFormatTree } from "@utils/format-value";
+import FormEditor from '@component/form/editor/editor'
 
-// console.log(FormSelectMD);
-
-// console.log(FormSelect);
+class Container extends React.Component<any, any> {
+    render() {
+        return <>
+            <FormEditor visibleEditor={ false } value={ this.props.value }/>
+        </>;
+    }
+}
 
 export class Document extends React.Component<any, any> {
     state: any = {
@@ -33,10 +31,7 @@ export class Document extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-    }
 
-    componentWillMount() {
-        console.log('componentWillMount');
         componentFormatTree(componentMap).then(list => {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
@@ -46,40 +41,29 @@ export class Document extends React.Component<any, any> {
     }
 
     render() {
-        console.log(this.state.menuList);
         let Routes = [];
         if (this.state.routes.length > 0) {
             Routes = this.state.routes.map(route => {
-                // console.log(route.component['default']);
-                return <Route key={ Math.random() * 1000 } path={ route.path }
-                              component={ route.component['default'] }/>;
-            });
+                if (route.document) {
+                    return <Route key={ Math.random() * 1000 } path={ route.path }
+                                  render={ () => <Container value={ route.document['default'] }/> }/>;
+                } else {
+                    return undefined
+                }
+            }).filter(t => t);
         }
         return <div className={ style.container }>
             <LayoutMenu menuList={ this.state.menuList }/>
 
             <div style={ { width: '100%', height: '100%' } }>
-                <h1>Content</h1>
+                <h1>Document</h1>
 
                 <Switch>
-                    <div className="route-content">
-                        <Route path="/form-datepicker" component={ FormDatepicker }/>
-                        <Route path="/form-button" component={ FormSelectButton }/>
-                        <Route path="/form-select" component={ FormSelectTree }/>
-                        <Route path="/data-table" component={ DataTable }/>
-                        {/*<Route exact path="/form" component={ CodeGenerate }/>*/ }
-                        <Route path="*" component={ CodeGenerate }/>
-                        <Redirect from="/*" to={ '/' }/>
-                    </div>
+                    { ...Routes }
+                    <Redirect from="*" to="/" exact/>
                 </Switch>
 
-                {/*<CodeEditor dataset={ {*/ }
-                {/*    value: `<div data-fn="form-input"></div>`,*/ }
-                {/*} }/>*/ }
-
-                {/*<Editor value={ FormSelectMD }/>*/ }
-
-                {/*{ ...Routes }*/ }
+                <CodeGenerate/>
             </div>
         </div>;
     }

@@ -37,12 +37,12 @@ export async function componentFormatTree(componentMap) {
             if (!val.hasOwnProperty(k)) continue;
 
             let v = val[k];
-            let { component, docs, path, property } = v;
+            let { component, document, path, property } = v;
             children.push({
                 label    : k,
                 value    : k,
                 component: await component,
-                docs     : await docs,
+                document     : await document,
                 property,
                 path,
                 // children : [],

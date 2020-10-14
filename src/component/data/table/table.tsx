@@ -7,9 +7,7 @@
 
 import { message, Table } from 'antd';
 import * as React from 'react';
-// @ts-ignore
 import tableHeader from '@root/mock/table/tableHeader.json';
-// @ts-ignore
 import tableContent from '@root/mock/table/tableContent.json';
 import { parseTpl } from '@utils/tpl-parse';
 import { strParseVirtualDOM } from '@utils/dom-parse';

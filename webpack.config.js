@@ -143,26 +143,26 @@ module.exports = {
                 include: path.resolve(__dirname, '/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
             },
-            // Markdown 文件解析
-            // {
-            //     test: /.(md|txt)$/,
-            //     use: 'raw-loader',
-            // },
+            // Markdown 文件解析(raw 不会把 markdown 解析成 html)
             {
-                test: /.md$/,
-                use: [
-                    {
-                        loader: 'html-loader',
-                    },
-                    {
-                        loader: 'markdown-loader',
-                        options: {
-                            pedantic: true,
-                            renderer,
-                        },
-                    },
-                ],
+                test: /.(md|txt)$/,
+                use: 'raw-loader',
             },
+            // {
+            //     test: /.md$/,
+            //     use: [
+            //         {
+            //             loader: 'html-loader',
+            //         },
+            //         {
+            //             loader: 'markdown-loader',
+            //             options: {
+            //                 // pedantic: true,
+            //                 // renderer,
+            //             },
+            //         },
+            //     ],
+            // },
             { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
             // {
             //     test: /\.jsx?$/,

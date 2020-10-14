@@ -14,6 +14,7 @@ import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/tpl-parse';
 import { componentFormatTree, formatEnumOptions } from '@utils/format-value';
 import { arraylastItem } from '@root/utils/util';
+import { withRouter } from 'react-router-dom';
 
 interface IComponentDataset {
     el: string
@@ -30,7 +31,7 @@ interface IComponentAttrs {
 
 const { Option } = Select;
 
-export default class LayoutDrawer extends React.Component<any, any> {
+class LayoutDrawer extends React.Component<any, any> {
     private template = `<input data-fn="form-button" />`;
     private form: any = React.createRef<FormInstance>();
     state = {
@@ -52,7 +53,6 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        console.log(this.state.components);
         componentFormatTree(componentMap).then(tree => {
             this.setState({
                 componentsTree: tree,
@@ -166,7 +166,10 @@ export default class LayoutDrawer extends React.Component<any, any> {
             componentName,
             dataEnum,
         }, () => this.generateCode());
+
+        this.props.history.push(componentName)
     }
+
 
     handleChangeRadio(index, e) {
         let value = e.target.value;
@@ -188,6 +191,9 @@ export default class LayoutDrawer extends React.Component<any, any> {
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
         let attrs = components.map(item => {
+            if (!item.render) {
+                return undefined
+            }
 
             if (item.label.includes('hook:')) {
                 let [ , hookName ] = item.label.split(':');
@@ -225,7 +231,6 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
         // TODO setState 后 initValues 不生效的的解决方案 https://www.cnblogs.com/lanshu123/p/10966395.html
         this.form.current.resetFields();
-
     }
 
     handleFormListAdd(index, add) {
@@ -290,7 +295,7 @@ export default class LayoutDrawer extends React.Component<any, any> {
 
                 <Drawer
                     title="组件设计器"
-                    width={ '60%' }
+                    width={ '40%' }
                     onClose={ this.onClose }
                     visible={ this.state.visible }
                     bodyStyle={ { paddingBottom: 80 } }
@@ -471,3 +476,5 @@ export default class LayoutDrawer extends React.Component<any, any> {
         );
     }
 }
+
+export default withRouter(LayoutDrawer)

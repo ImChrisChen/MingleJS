@@ -1,15 +1,30 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { getComponent } from '@utils/relation-map';
-import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
+import { loadModules } from '@utils/relation-map';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
-import { DeepEachElement, isEmptyStr, isFunc, isUndefined } from '@utils/util';
+import { DeepEachElement, isFunc } from '@utils/util';
 import { parseLineStyle, parseTpl } from '@utils/tpl-parse';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
+
+interface IModuleProperty {
+    dataset: object | any
+    hook: {
+        load?: object
+        beforeLoad?: object
+        update?: object
+        beforeUpdate?: object
+    }
+    value: {
+        el: string
+        options?: Array<{ label: string, value: any }>
+        label?: string
+        value: string
+    }
+}
 
 interface IModules {
     // { element, Component, container, elChildren }
@@ -21,6 +36,7 @@ interface IModules {
     hooks: object                   //  钩子
     style: string                   //  行内样式
     componentMethod: string         //  组件方法
+    defaultProperty: IModuleProperty         //  组件默认值
 }
 
 interface IAttributes extends NamedNodeMap {
@@ -97,7 +113,9 @@ export default class App {
                                 componentMethod = keysArr.pop() as string;
                             }
 
-                            let Component = await getComponent(keysArr);
+                            const Modules = await loadModules(keysArr);
+                            const Component = Modules.component.default;
+                            let defaultProperty = Modules.property;
 
                             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
                             let elChildren: Array<HTMLElement | any> = [];
@@ -114,7 +132,7 @@ export default class App {
 
                             let hooks = this.formatHooks(attributes);
                             let style = this.formatInLineStyle(attributes);
-                            let module = {
+                            let module: IModules = {
                                 style,
                                 Component,
                                 element,
@@ -123,6 +141,7 @@ export default class App {
                                 elChildren,
                                 hooks,
                                 componentMethod,
+                                defaultProperty,
                             };
                             this.modules.push(module);
 
@@ -246,6 +265,7 @@ export default class App {
     }
 
     static globalEventListener() {
+
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });
@@ -264,45 +284,25 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
-        let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
+        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
+        let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
-        let formatDataset = parseDataAttr(dataset);
-        let value = element['value'];
-
-        // 表单元素的组件
-        if (!isUndefined(value)) {
-
-            let isMultiple = element.getAttribute('data-mode') === 'multiple';
-
-            // 多选
-            if (isMultiple) {
-                if (isEmptyStr(value)) {
-                    value = [];
-                }
-                if (!isEmptyStr(value) && value.includes(',')) {
-                    value = value.split(',');
-                }
-            } else { // 单选
-
-            }
-        }
-
-        formatDataset['value'] = value;
+        let parsedDataset = parseDataAttr(dataset, defaultProperty?.dataset ?? {});
 
         // 组件名必须大写
         render(<Component
-                role="mingle-component"
                 el={ element }
+                elChildren={ elChildren }
+                box={ containerWrap }
+                style={ jsxStyle }
+                dataset={ parsedDataset }
+                value={ element['value'] }
+                role="mingle-component"
                 ref={ componentInstance => {        // 组件实例
                     componentMethod && componentInstance[componentMethod]();
                     return componentInstance;
                 } }
-                box={ containerWrap }
-                elChildren={ elChildren }
-                style={ jsxStyle }
-                dataset={ formatDataset }
             />, container, () => callback(hooks),
         );
 

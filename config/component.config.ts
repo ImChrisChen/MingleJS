@@ -5,31 +5,96 @@
  * Time: 11:15 上午
  */
 
-import property from '@root/config/property.config';
+// 钩子类型
+export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
+
+// 解析类型
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON';
+
+// 组件设计器，属性值渲染类型
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
+
+export interface IOptions {
+    label: string
+    value: string
+
+    [key: string]: any
+}
+
+export interface IPropertyConfig<OptionItem> {
+    el?: elType             //要渲染的组件名称
+    value?: any
+    options?: Array<OptionItem>       // 选择列表
+    label?: string
+    parse?: parseType
+    render?: boolean
+}
+
+interface IComponentConfig<Property> {
+    [key: string]: {
+        [key: string]: {
+            component?: Promise<any>
+            path?: string
+            document?: Promise<any>
+            property?: {
+                dataset?: {
+                    [key: string]: Property
+                }
+                value?: Property
+                hook?: {
+                    [key in hookType]?: {
+                        el?: string
+                        value?: string
+                        render?: boolean
+                    }
+                }
+            }
+        }
+    }
+}
+
+const SizeOptions = [
+    {
+        label: 'large',
+        value: 'large',
+    },
+    {
+        label: 'middle',
+        value: 'middle',
+    },
+    {
+        label: 'small',
+        value: 'small',
+    },
+]
 
 export default {
     form  : {
-        select: {
+        select    : {
             path     : '/form-select',
             component: import('@component/form/select/select'),
-            // @ts-ignore
-            docs     : import('@component/form/select/select.md'),
+            document : import('@component/form/select/select.md'),
             property : {
                 dataset: {
                     label      : {
-                        el   : 'input',
-                        value: 'form-select',
-                        label: `${ property.label.label }`,
+                        // beforeName: '',     // beforeName其实就是以前的key(在这个属性上是'label')
+                        afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
+                        el       : 'input',
+                        value    : 'form-select',
+                        label    : `哈哈`,
+                        parse    : 'string',
                     },
                     enum       : {
                         el   : 'list',
-                        value: '1,Android',
+                        value: '1,Android;2,iOS;3,MacOS;4,Windows',
                         label: '数据 - data-enum',
+                        parse: 'object[]'
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
                         label: '是否禁用 - data-disabled',
+                        parse: 'boolean'
                     },
                     mode       : {
                         el     : 'radio',
@@ -40,57 +105,88 @@ export default {
                             },
                             {
                                 label: 'tags',       //显示的值
-                                value: '',       //生成的代码的值
+                                value: 'tags',       //生成的代码的值
                             },
+                            {
+                                label: 'single',
+                                value: 'single'
+                            }
                         ],
                         value  : 'multiple',
                         label  : '模式 - data-mode',
+                        parse  : 'string',
                     },
                     placeholder: {
                         el   : 'input',
                         value: '请选择',
                         label: '占位符 - data-placeholder',
+                        parse: 'string',
                     },
                     autoFocus  : {
                         el   : 'switch',
                         value: false,
                         label: '是否自动获取焦点',
+                        parse: 'boolean'
                     },
                     allowClear : {
-                        value : true,
-                        render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                        value: true,
+                        // render: true,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                        parse: 'boolean'
                     },
+                    showSearch : {     // 指定默认选中条目
+                        el    : 'input',
+                        value : true,
+                        render: false,
+                        parse : 'boolean'
+                    }
                 },
                 value  : {
                     el     : 'select',
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     label  : '默认值 - value',
+                    parse  : 'string'
                 },
                 hook   : {
                     load        : {
-                        el   : 'input',
-                        value: 'componentLoad',
+                        el    : 'input',
+                        value : 'componentLoad',
+                        render: false
                     },
                     beforeLoad  : {
-                        el   : 'input',
-                        value: 'componentBeforeLoad',
+                        el    : 'input',
+                        value : 'componentBeforeLoad',
+                        render: false
                     },
                     update      : {
-                        el   : 'input',
-                        value: 'componentUpdate',
+                        el    : 'input',
+                        value : 'componentUpdate',
+                        render: false
                     },
                     beforeUpdate: {
-                        el   : 'input',
-                        value: 'componentBeforeUpdate',
+                        el    : 'input',
+                        value : 'componentBeforeUpdate',
+                        render: false
                     },
                 },
             },
         },
-
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
+            document : import('@component/form/selectTree/selectTree.md'),
+            property : {
+                dataset: {
+                    size: {
+                        el     : "radio",
+                        options: SizeOptions,
+                        parse  : "string",
+                        value  : ''
+                    },
+                },
+                value  : {},
+                hook   : {}
+            },
         },
         datepicker: {
             path     : '/form-datepicker',
@@ -104,38 +200,29 @@ export default {
             component: import('@component/form/button/button'),
             property : {
                 dataset: {
-                    label     : {
+                    label      : {
                         el   : 'input',
                         value: 'form-button',
                         label: '',
+                        parse: 'string'
                     },
-                    enum      : {
+                    enum       : {
                         el   : 'list',
                         value: '1,Android;2,iOS',
+                        parse: 'object[]'
                     },
-                    disabled  : {
+                    disabled   : {
                         el   : 'switch',
                         value: false,
+                        parse: 'boolean'
                     },
-                    size      : {
+                    size       : {
                         el     : 'radio',
-                        options: [
-                            {
-                                label: 'large',
-                                value: 'large',
-                            },
-                            {
-                                label: 'middle',
-                                value: 'middle',
-                            },
-                            {
-                                label: 'small',
-                                value: 'small',
-                            },
-                        ],
+                        options: SizeOptions,
                         value  : 'middle',
+                        parse  : 'string'
                     },
-                    optionType: {
+                    optionType : {
                         el     : 'radio',
                         options: [
                             {
@@ -148,17 +235,42 @@ export default {
                             },
                         ],
                         value  : 'button',
+                        parse  : 'string'
                     },
+                    buttonStyle: {
+                        el     : 'radio',
+                        options: [
+                            {
+                                label: 'solid',
+                                value: 'solid',
+                            }, {
+                                label: 'online',
+                                value: 'online'
+                            }
+                        ],
+                        parse  : 'string'
+                    }
                 },
                 value  : {
-                    el   : 'input',
-                    value: '',
+                    el     : 'select',
+                    options: [],
+                    value  : '',
+                    parse  : 'string'
                 },
             },
         },
         editor    : {
             component: import('@component/form/editor/editor'),
             path     : '/form-editor',
+            property : {
+                dataset: {
+                    visibleEditor: {
+                        el   : 'switch',
+                        value: false
+                    }
+                }
+            },
+
         },
         switch    : {
             component: import('@component/form/switch/switch'),
@@ -217,7 +329,6 @@ export default {
             component: import('@component/form/file/file'),
             path     : 'form-file',
         },
-
     },
     view  : {
         popover : {
@@ -226,6 +337,13 @@ export default {
         dropdown: {
             component: import('@component/view/dropdown/dropdown'),
         },
+        calendar: {
+            path     : 'view-calendar',
+            component: import('@component/view/calendar/calendar'),
+            property : {
+                dataset: {}
+            }
+        }
     },
     data  : {
         table          : {
@@ -268,6 +386,7 @@ export default {
         },
         tab   : {
             component: import('@component/layout/tab/tab'),
+            property : {}
         },
         window: {
             component: import('@component/layout/window/window'),
@@ -281,4 +400,4 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-} as object;
+} as IComponentConfig<IPropertyConfig<IOptions>>

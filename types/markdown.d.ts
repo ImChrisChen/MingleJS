@@ -1,1 +1,0 @@
-/** * Created by WebStorm. * User: MacBook * Date: 2020/9/22 * Time: 8:32 下午 */declare module "*.md" {    const content: string;    export default content;}declare module "*.txt" {    const content: string;    export default content;}
