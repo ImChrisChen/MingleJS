@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { loadModules } from '@utils/relation-map';
-import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { message } from 'antd';
@@ -286,22 +285,10 @@ export default class App {
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
         let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
-        let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
+        let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
-        let formatDataset = parseDataAttr(dataset, defaultProperty?.dataset ?? {});
-
-        // 处理默认值
-        let initProperty = {};
-        if (defaultProperty && defaultProperty.dataset) {
-            for (const k in defaultProperty.dataset) {
-                let v = defaultProperty.dataset[k];
-                initProperty[k] = v.value
-            }
-        }
-
-        initProperty = parseDataAttr(initProperty, defaultProperty?.dataset ?? {})
-        let defaultProps = Object.assign(initProperty, formatDataset)
+        let parsedDataset = parseDataAttr(dataset, defaultProperty?.dataset ?? {});
 
         // 组件名必须大写
         render(<Component
@@ -309,7 +296,7 @@ export default class App {
                 elChildren={ elChildren }
                 box={ containerWrap }
                 style={ jsxStyle }
-                dataset={ defaultProps }
+                dataset={ parsedDataset }
                 value={ element['value'] }
                 role="mingle-component"
                 ref={ componentInstance => {        // 组件实例

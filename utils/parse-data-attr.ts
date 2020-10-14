@@ -5,18 +5,17 @@
  * Time: 11:23 上午
  */
 
-import { ElementDataAttrs } from '@interface/ElDatasetAttrs';
 import { parseEnum, parseTpl } from '@utils/tpl-parse';
 
-export function parseDataAttr(dataAttrs: ElementDataAttrs = {}, defaultDataset?): object {
+export function parseDataAttr(dataAttrs = {}, defaultDataset?): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     let dataset = JSON.parse(JSON.stringify(dataAttrs));
     let newDataSet = {};
 
-    for (const datasetKey in dataset) {
+    for (const datasetKey in defaultDataset) {
 
-        if (!dataset.hasOwnProperty(datasetKey)) continue;
+        if (!defaultDataset.hasOwnProperty(datasetKey)) continue;
         if (datasetKey === 'fn') continue;
         let currentProperty = defaultDataset[datasetKey];
 

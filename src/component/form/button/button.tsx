@@ -8,7 +8,7 @@ import React from 'react';
 import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-value';
 import { Form, Radio } from 'antd';
-import { IComponentProps } from "@interface/ElDatasetAttrs";
+import { IComponentProps } from "@interface/common/component";
 
 export default class Button extends React.Component<IComponentProps, any> {
     state: any = {

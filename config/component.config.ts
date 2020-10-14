@@ -5,9 +5,72 @@
  * Time: 11:15 上午
  */
 
+// 钩子类型
+export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
+
+// 解析类型
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON';
+
+// 组件设计器，属性值渲染类型
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
+
+export interface IOptions {
+    label: string
+    value: string
+
+    [key: string]: any
+}
+
+export interface IPropertyConfig<OptionItem> {
+    el?: elType             //要渲染的组件名称
+    value?: any
+    options?: Array<OptionItem>       // 选择列表
+    label?: string
+    parse?: parseType
+    render?: boolean
+}
+
+interface IComponentConfig<Property> {
+    [key: string]: {
+        [key: string]: {
+            component?: Promise<any>
+            path?: string
+            document?: Promise<any>
+            property?: {
+                dataset?: {
+                    [key: string]: Property
+                }
+                value?: Property
+                hook?: {
+                    [key in hookType]?: {
+                        el?: string
+                        value?: string
+                        render?: boolean
+                    }
+                }
+            }
+        }
+    }
+}
+
+const SizeOptions = [
+    {
+        label: 'large',
+        value: 'large',
+    },
+    {
+        label: 'middle',
+        value: 'middle',
+    },
+    {
+        label: 'small',
+        value: 'small',
+    },
+]
+
 export default {
     form  : {
-        select: {
+        select    : {
             path     : '/form-select',
             component: import('@component/form/select/select'),
             document : import('@component/form/select/select.md'),
@@ -66,9 +129,9 @@ export default {
                         parse: 'boolean'
                     },
                     allowClear : {
-                        value : true,
-                        render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
-                        parse : 'boolean'
+                        value: true,
+                        // render: true,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                        parse: 'boolean'
                     },
                     showSearch : {     // 指定默认选中条目
                         el    : 'input',
@@ -84,37 +147,43 @@ export default {
                     label  : '默认值 - value',
                     parse  : 'string'
                 },
-                // hook   : {
-                //     load        : {
-                //         el    : 'input',
-                //         value : 'componentLoad',
-                //         render: false
-                //     },
-                //     beforeLoad  : {
-                //         el    : 'input',
-                //         value : 'componentBeforeLoad',
-                //         render: false
-                //     },
-                //     update      : {
-                //         el    : 'input',
-                //         value : 'componentUpdate',
-                //         render: false
-                //     },
-                //     beforeUpdate: {
-                //         el    : 'input',
-                //         value : 'componentBeforeUpdate',
-                //         render: false
-                //     },
-                // },
+                hook   : {
+                    load        : {
+                        el    : 'input',
+                        value : 'componentLoad',
+                        render: false
+                    },
+                    beforeLoad  : {
+                        el    : 'input',
+                        value : 'componentBeforeLoad',
+                        render: false
+                    },
+                    update      : {
+                        el    : 'input',
+                        value : 'componentUpdate',
+                        render: false
+                    },
+                    beforeUpdate: {
+                        el    : 'input',
+                        value : 'componentBeforeUpdate',
+                        render: false
+                    },
+                },
             },
         },
-
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
             document : import('@component/form/selectTree/selectTree.md'),
             property : {
-                dataset: {},
+                dataset: {
+                    size: {
+                        el     : "radio",
+                        options: SizeOptions,
+                        parse  : "string",
+                        value  : ''
+                    },
+                },
                 value  : {},
                 hook   : {}
             },
@@ -135,7 +204,7 @@ export default {
                         el   : 'input',
                         value: 'form-button',
                         label: '',
-                        parse: 'stirng'
+                        parse: 'string'
                     },
                     enum       : {
                         el   : 'list',
@@ -149,20 +218,7 @@ export default {
                     },
                     size       : {
                         el     : 'radio',
-                        options: [
-                            {
-                                label: 'large',
-                                value: 'large',
-                            },
-                            {
-                                label: 'middle',
-                                value: 'middle',
-                            },
-                            {
-                                label: 'small',
-                                value: 'small',
-                            },
-                        ],
+                        options: SizeOptions,
                         value  : 'middle',
                         parse  : 'string'
                     },
@@ -344,4 +400,4 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-} as object;
+} as IComponentConfig<IPropertyConfig<IOptions>>
