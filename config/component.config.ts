@@ -5,19 +5,6 @@
  * Time: 11:15 上午
  */
 
-import property from '@root/config/property.config';
-
-interface IComponentConfig {
-    path?: string
-    component: Promise<object>
-    document?: Promise<object>
-    property?: {
-        dataset?: object
-        value?: object
-        hook?: object
-    }
-}
-
 export default {
     form  : {
         select: {
@@ -31,17 +18,20 @@ export default {
                         afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
                         el       : 'input',
                         value    : 'form-select',
-                        label    : `${ property.label.label }`,
+                        label    : `哈哈`,
+                        parse    : 'string',
                     },
                     enum       : {
                         el   : 'list',
                         value: '1,Android;2,iOS;3,MacOS;4,Windows',
                         label: '数据 - data-enum',
+                        parse: 'object[]'
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
                         label: '是否禁用 - data-disabled',
+                        parse: 'boolean'
                     },
                     mode       : {
                         el     : 'radio',
@@ -61,25 +51,30 @@ export default {
                         ],
                         value  : 'multiple',
                         label  : '模式 - data-mode',
+                        parse  : 'string',
                     },
                     placeholder: {
                         el   : 'input',
                         value: '请选择',
                         label: '占位符 - data-placeholder',
+                        parse: 'string',
                     },
                     autoFocus  : {
                         el   : 'switch',
                         value: false,
                         label: '是否自动获取焦点',
+                        parse: 'boolean'
                     },
                     allowClear : {
                         value : true,
                         render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                        parse : 'boolean'
                     },
                     showSearch : {     // 指定默认选中条目
                         el    : 'input',
                         value : true,
-                        render: false
+                        render: false,
+                        parse : 'boolean'
                     }
                 },
                 value  : {
@@ -87,6 +82,7 @@ export default {
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     label  : '默认值 - value',
+                    parse  : 'string'
                 },
                 // hook   : {
                 //     load        : {
@@ -139,14 +135,17 @@ export default {
                         el   : 'input',
                         value: 'form-button',
                         label: '',
+                        parse: 'stirng'
                     },
                     enum       : {
                         el   : 'list',
                         value: '1,Android;2,iOS',
+                        parse: 'object[]'
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
+                        parse: 'boolean'
                     },
                     size       : {
                         el     : 'radio',
@@ -165,6 +164,7 @@ export default {
                             },
                         ],
                         value  : 'middle',
+                        parse  : 'string'
                     },
                     optionType : {
                         el     : 'radio',
@@ -179,6 +179,7 @@ export default {
                             },
                         ],
                         value  : 'button',
+                        parse  : 'string'
                     },
                     buttonStyle: {
                         el     : 'radio',
@@ -190,13 +191,15 @@ export default {
                                 label: 'online',
                                 value: 'online'
                             }
-                        ]
+                        ],
+                        parse  : 'string'
                     }
                 },
                 value  : {
                     el     : 'select',
                     options: [],
                     value  : '',
+                    parse  : 'string'
                 },
             },
         },

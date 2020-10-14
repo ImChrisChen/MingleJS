@@ -266,6 +266,7 @@ export default class App {
     }
 
     static globalEventListener() {
+
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });
@@ -288,7 +289,7 @@ export default class App {
         let dataset: ElementDataAttrs = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
-        let formatDataset = parseDataAttr(dataset);
+        let formatDataset = parseDataAttr(dataset, defaultProperty?.dataset ?? {});
 
         // 处理默认值
         let initProperty = {};
@@ -299,12 +300,8 @@ export default class App {
             }
         }
 
-        console.log(initProperty);
-
-        initProperty = parseDataAttr(initProperty)
-        console.log(initProperty, formatDataset);
+        initProperty = parseDataAttr(initProperty, defaultProperty?.dataset ?? {})
         let defaultProps = Object.assign(initProperty, formatDataset)
-        console.log(defaultProps);
 
         // 组件名必须大写
         render(<Component
