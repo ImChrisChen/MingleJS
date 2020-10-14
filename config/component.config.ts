@@ -90,6 +90,12 @@ export default {
                         label: '数据 - data-enum',
                         parse: 'object[]'
                     },
+                    url        : {
+                        el   : 'input',
+                        value: '',
+                        label: '数据源',
+                        parse: 'string'
+                    },
                     disabled   : {
                         el   : 'switch',
                         value: false,
@@ -123,21 +129,22 @@ export default {
                         parse: 'string',
                     },
                     autoFocus  : {
-                        el   : 'switch',
-                        value: false,
-                        label: '是否自动获取焦点',
-                        parse: 'boolean'
+                        el    : 'switch',
+                        value : false,
+                        label : '是否自动获取焦点',
+                        parse : 'boolean',
+                        render: false
                     },
                     allowClear : {
-                        value: true,
-                        // render: true,              // TODO render 为false时，不在表单设计器中渲染,为默认值
-                        parse: 'boolean'
+                        value : true,
+                        render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                        parse : 'boolean'
                     },
                     showSearch : {     // 指定默认选中条目
                         el    : 'input',
                         value : true,
+                        parse : 'boolean',
                         render: false,
-                        parse : 'boolean'
                     }
                 },
                 value  : {

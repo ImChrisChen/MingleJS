@@ -12,6 +12,8 @@ import selectJson from '@root/mock/form/select.json';
 import { formatEnumOptions } from '@utils/format-value';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from "@interface/common/component";
+import { jsonp } from "@utils/request/request";
+// import axios from 'axios'
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -48,10 +50,9 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     formatListKey(list: Array<any>): Array<object> {
-        return [];
         let selectTree: Array<object> = [];
         let selectList = list.map(item => {
-            let isSuper = selectTree.find((f: object) => f['key'] === item['pid']);
+            let isSuper = selectTree.find((f: any) => f.value == item.pid);
             if (isSuper) {
                 console.log(isSuper);
             } else {
@@ -71,11 +72,21 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     async getSelectList() {
+        return this.formatListKey(selectJson);
+
         if (this.props.dataset.enum) {
             return formatEnumOptions(this.props.dataset.enum);
         } else {
             return this.formatListKey(selectJson);
         }
+    }
+
+    async getData() {
+        let url = `http://e.local.aidalan.com/option/game/publisher?pf=0&jsoncallback`;
+        jsonp(url).then(res => {
+            console.log(res);
+            $(res.data)
+        })
     }
 
     render() {
@@ -89,7 +100,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
                 value = []
             }
         }
-        console.log(dataset);
 
         return <>
             <Form.Item label={ dataset.label }>
