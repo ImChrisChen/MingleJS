@@ -42,7 +42,7 @@ export async function componentFormatTree(componentMap) {
                 label    : k,
                 value    : k,
                 component: await component,
-                document     : await document,
+                document : await document,
                 property,
                 path,
                 // children : [],
@@ -56,4 +56,36 @@ export async function componentFormatTree(componentMap) {
     }
     return newArr;
 }
+
+
+interface IKeyMap {
+    id: string
+    pid: string
+    name: string
+}
+
+export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): Array<object> {
+    let pids = Array.from(new Set(list.map(item => item[pid])));
+    let selectTree: Array<object> = pids.map(pid => {
+        return {
+            id      : pid,
+            children: [],
+            label   : pid,
+            value   : pid,
+        }
+    })
+    list.forEach(item => {
+        let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
+        if (superItem) {
+            superItem.children.push({
+                id   : item[name],
+                value: item[id],
+                label: item[name],
+                pid  : item[pid]
+            });
+        }
+    });
+    return selectTree;
+}
+
 

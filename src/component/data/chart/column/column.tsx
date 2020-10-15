@@ -8,6 +8,7 @@ import React from 'react';
 // import { DataSet } from "@antv/data-set/lib/data-set";
 import areaUser from '@root/mock/chart/areaUser.json';
 import { Chart, Interval, Tooltip } from "bizcharts";
+import { Spin } from "antd";
 
 // const dataSet = new DataSet({
 //     state: {
@@ -60,11 +61,27 @@ export default class ChartColumn extends React.Component<any, any> {
     //     { name: 'Berlin', 月份: 'Aug.', 月均降雨量: 42.4 },
     // ];
 
+    state = {
+        loading: true,
+        data   : []
+    }
+
     constructor(props) {
         super(props);
+        this.getData().then(data => {
+            this.setState({ data, loading: false })
+        })
     }
 
     data = areaUser;
+
+    async getData() {
+        return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+                resolve(areaUser)
+            }, 2000)
+        })
+    }
 
     onAfterchangedata(e, g) {
         console.log(e, g);
@@ -90,37 +107,39 @@ export default class ChartColumn extends React.Component<any, any> {
         console.log(this.props);
         return <>
             <h2 style={ { textAlign: 'center', padding: '10px 20px' } }>地域用户画像</h2>
-            <Chart
-                height={ 300 }
-                padding="auto"
-                data={ this.data }
-                autoFit
-                onClick={ this.onClick.bind(this) }
-                onBeforerender={ this.onBeforerender.bind(this) }
-                onAfterrender={ this.onAfterrender.bind(this) }
-                onBeforepaint={ this.onBeforepaint.bind(this) }
-                onAfterchangedata={ this.onAfterchangedata.bind(this) }
-            >
-                <Interval
-                    // adjust={ [
-                    //     {
-                    //         type       : 'dodge',
-                    //         marginRatio: 0,
-                    //     },
-                    // ] }
-                    // color="count"
-                    position="location*count"
-                    // animate={ {
-                    //     enter: {
-                    //         duration: 1000, // enter 动画执行时间
-                    //     },
-                    //     leave: false, // 关闭 leave 销毁动画
-                    // } }
-                    // shape="x"
-                    // size={ 10 }
-                />
-                <Tooltip shared/>
-            </Chart>
+            <Spin spinning={ this.state.loading } tip="loading...">
+                <Chart
+                    height={ 300 }
+                    padding="auto"
+                    data={ this.state.data }
+                    autoFit
+                    onClick={ this.onClick.bind(this) }
+                    onBeforerender={ this.onBeforerender.bind(this) }
+                    onAfterrender={ this.onAfterrender.bind(this) }
+                    onBeforepaint={ this.onBeforepaint.bind(this) }
+                    onAfterchangedata={ this.onAfterchangedata.bind(this) }
+                >
+                    <Interval
+                        // adjust={ [
+                        //     {
+                        //         type       : 'dodge',
+                        //         marginRatio: 0,
+                        //     },
+                        // ] }
+                        // color="count"
+                        position="location*count"
+                        // animate={ {
+                        //     enter: {
+                        //         duration: 1000, // enter 动画执行时间
+                        //     },
+                        //     leave: false, // 关闭 leave 销毁动画
+                        // } }
+                        // shape="x"
+                        // size={ 10 }
+                    />
+                    <Tooltip shared/>
+                </Chart>
+            </Spin>
         </>;
     }
 }

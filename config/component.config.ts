@@ -70,7 +70,7 @@ const SizeOptions = [
 
 export default {
     form  : {
-        select    : {
+        select: {
             path     : '/form-select',
             component: import('@component/form/select/select'),
             document : import('@component/form/select/select.md'),
@@ -178,10 +178,10 @@ export default {
                 },
             },
         },
+
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
-            document : import('@component/form/selectTree/selectTree.md'),
             property : {
                 dataset: {
                     size: {
@@ -195,9 +195,34 @@ export default {
                 hook   : {}
             },
         },
+
+        cascader: {
+            path     : '/form-cascader',
+            component: import('@component/form/cascader/cascader'),
+            property : {
+                dataset: {
+                    showSearch: {
+                        value : true,
+                        parse : 'boolean',
+                        render: false,
+                    },
+                }
+            }
+        },
+
         datepicker: {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/datepicker'),
+            property : {
+                dataset: {
+                    allowClear: {
+                        el    : "switch",
+                        parse : 'boolean',
+                        render: false,
+                        value : false
+                    }
+                }
+            }
         },
         ajax      : {
             component: import('@component/form/ajax/form'),
@@ -393,7 +418,19 @@ export default {
         },
         tab   : {
             component: import('@component/layout/tab/tab'),
-            property : {}
+            property : {
+                dataset: {
+                    tabPosition: {
+                        el     : 'radio',
+                        options: [
+                            { label: 'top', value: 'top' },
+                            { label: 'left', value: 'left' },
+                        ],
+                        value  : 'left',
+                        parse  : 'string',
+                    }
+                }
+            }
         },
         window: {
             component: import('@component/layout/window/window'),
@@ -408,3 +445,15 @@ export default {
         },
     },
 } as IComponentConfig<IPropertyConfig<IOptions>>
+
+import zhCN from 'antd/es/locale/zh_CN'
+
+// 组件全局配置
+export const globalComponentConfig: any = {
+    locale                  : zhCN,
+    componentSize           : 'middle',
+    direction               : "ltr",
+    space                   : { size: "small" },
+    // virtual                 : true,
+    dropdownMatchSelectWidth: true
+}

@@ -2,10 +2,9 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const { getThemeVariables } = require('antd/dist/theme');
-const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
-const Dashboard = require('webpack-dashboard');
-const dashboard = new Dashboard();
-
+// const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
+// const Dashboard = require('webpack-dashboard');
+// const dashboard = new Dashboard();
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
@@ -254,7 +253,7 @@ module.exports = {
             },
         }),
         
-        new DashboardPlugin(/*dashboard.setData*/),
+        // new DashboardPlugin(/*dashboard.setData*/),
     ],
     devServer: {
         proxy: {
@@ -272,16 +271,16 @@ module.exports = {
             allowedHosts: [
                 'mingle-test.local.aidalan.com',
             ],
-            // port: 9000,
-            // historyApiFallback: true,
-            // headers: {
-            //     'X-Content-Type-Options': 'nosniff',
-            // },
-            // lazy: true,
+            port: 9000,
+            historyApiFallback: true,
+            headers: {
+                'X-Content-Type-Options': 'nosniff',
+            },
+            lazy: true,
             open: true,     //是否自动打开默认浏览器
             hot: true,      //热更新
-            // useLocalIp: true,//是否用自己的IP
-            // inline: true,//
+            useLocalIp: true,//是否用自己的IP
+            inline: true,//
         },
     },
 };

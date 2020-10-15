@@ -3,9 +3,10 @@ import { render } from 'react-dom';
 import { loadModules } from '@utils/relation-map';
 import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
-import { message } from 'antd';
+import { ConfigProvider, message } from 'antd';
 import { DeepEachElement, isFunc } from '@utils/util';
 import { parseLineStyle, parseTpl } from '@utils/tpl-parse';
+import { globalComponentConfig } from "@root/config/component.config";
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -212,6 +213,7 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
+                message.success(`onchange - value:${$(element).val()}`);
                 this.renderComponent(module, function (hooks) {
                     // console.log('-----------------beforeUpdate');
                     hooks['beforeUpdate']?.();
@@ -291,23 +293,30 @@ export default class App {
         let parsedDataset = parseDataAttr(dataset, defaultProperty?.dataset ?? {});
 
         // 组件名必须大写
-        render(<Component
-                el={ element }
-                elChildren={ elChildren }
-                box={ containerWrap }
-                style={ jsxStyle }
-                dataset={ parsedDataset }
-                value={ element['value'] }
-                role="mingle-component"
-                ref={ componentInstance => {        // 组件实例
-                    componentMethod && componentInstance[componentMethod]();
-                    return componentInstance;
-                } }
-            />, container, () => callback(hooks),
+        render(
+            <ConfigProvider
+                { ...globalComponentConfig }
+            >
+                <Component
+                    el={ element }
+                    elChildren={ elChildren }
+                    box={ containerWrap }
+                    style={ jsxStyle }
+                    dataset={ parsedDataset }
+                    value={ element['value'] }
+                    role="mingle-component"
+                    ref={ componentInstance => {        // 组件实例
+                        componentMethod && componentInstance[componentMethod]();
+                        return componentInstance;
+                    } }
+                />
+            </ConfigProvider>
+            , container, () => callback(hooks),
         );
 
 
     }
 
 }
+
 

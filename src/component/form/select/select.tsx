@@ -7,12 +7,13 @@
 
 import './select.less';
 import * as React from 'react';
-import { Checkbox, Form, Select, Typography } from 'antd';
+import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import selectJson from '@root/mock/form/select.json';
-import { formatEnumOptions } from '@utils/format-value';
+import { formatEnumOptions, formatList2Tree } from '@utils/format-value';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from "@interface/common/component";
 import { jsonp } from "@utils/request/request";
+import { Divider } from "antd/es";
 // import axios from 'axios'
 
 const { Option } = Select;
@@ -37,9 +38,10 @@ interface ISelectProps {
 export default class Selector extends React.Component<IComponentProps, any> {
 
     state = {
-        checkedAll: false,
-        options   : [],
-        value     : '' as any
+        checkedAll : false,
+        options    : [],
+        value      : '' as any,
+        currentItem: {}
     };
 
     constructor(props) {
@@ -49,35 +51,17 @@ export default class Selector extends React.Component<IComponentProps, any> {
         });
     }
 
-    formatListKey(list: Array<any>): Array<object> {
-        let selectTree: Array<object> = [];
-        let selectList = list.map(item => {
-            let isSuper = selectTree.find((f: any) => f.value == item.pid);
-            if (isSuper) {
-                console.log(isSuper);
-            } else {
-                let option = {
-                    label: item.game_name,
-                    value: item.id,
-                    pid  : item.original_name,
-                };
-                selectTree.push(option);
-            }
-
-        });
-        console.log(selectTree);
-        // let pids = Array.from(new Set(selectList.map(item => item.pid)));
-
-        return [];
-    }
-
     async getSelectList() {
-        return this.formatListKey(selectJson);
+        let pid = 'original_name';
+        let name = 'game_name';
+        let id = 'game_name';
+
+        return formatList2Tree(selectJson, { id, pid, name });
 
         if (this.props.dataset.enum) {
             return formatEnumOptions(this.props.dataset.enum);
         } else {
-            return this.formatListKey(selectJson);
+            return formatList2Tree(selectJson, { id, pid, name });
         }
     }
 
@@ -102,21 +86,26 @@ export default class Selector extends React.Component<IComponentProps, any> {
         }
 
         return <>
-            <Form.Item label={ dataset.label }>
+            <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
 
                     { ...dataset }
                     value={ value }
                     options={ this.state.options }
-
+                    style={ { width: 200 } }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
-                    filterOption={ (input, option) => {
+                    maxTagCount={ 1 }
+                    filterOption={ (input, option) => {     // 搜索
                         if (!option) return false;
                         return String(option.value).includes(input) || String(option.label).includes(input);
                     } }/>
+                <Select
+                    options={ this.state.currentItem['children'] }
+                    style={ { width: 200 } }
+                />
             </Form.Item>
         </>;
     }
@@ -128,15 +117,27 @@ export default class Selector extends React.Component<IComponentProps, any> {
             {
                 isMultiple
                     ? <Checkbox checked={ this.state.checkedAll }
-                                onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox>
-                    : ''
+                                onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox> : ''
             }
+            <Divider/>
+            <>
+                {
+                    [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
+                        return <Button type="primary" key={ index }>{ item }</Button>
+                    })
+                }
+            </>
         </>;
     }
 
+    handleSelectTag(e) {
+        console.log(e);
+    }
+
     handleChange(value, object) {
-        console.log(value);
-        this.setState({ value }, () => trigger(this.props.el, value))
+        console.log(value, object);
+        let currentItem = object
+        this.setState({ currentItem, value }, () => trigger(this.props.el, value))
     }
 
     handleClear() {
@@ -155,8 +156,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
             this.setState({ value: [] });
             trigger(this.props.el, '');
         }
-
-        console.log(v);
 
         this.setState({
             checkedAll: !this.state.checkedAll,
