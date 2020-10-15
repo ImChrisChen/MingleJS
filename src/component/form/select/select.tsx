@@ -7,11 +7,14 @@
 
 import './select.less';
 import * as React from 'react';
-import { Checkbox, Form, Select, Typography } from 'antd';
+import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import selectJson from '@root/mock/form/select.json';
-import { formatEnumOptions } from '@utils/format-value';
+import { formatEnumOptions, formatList2Tree } from '@utils/format-value';
 import { trigger } from '@utils/trigger';
-import { IComponentProps } from "@interface/common/component";
+import { IComponentProps } from '@interface/common/component';
+import { jsonp } from '@utils/request/request';
+import { Divider } from 'antd/es';
+// import axios from 'axios'
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -35,78 +38,84 @@ interface ISelectProps {
 export default class Selector extends React.Component<IComponentProps, any> {
 
     state = {
-        checkedAll: false,
-        options   : [],
-        value     : '' as any
+        checkedAll : false,
+        options    : [],
+        value      : '' as any,
+        currentItem: {},
     };
 
     constructor(props) {
         super(props);
-        this.getSelectList().then(options => {
-            this.setState({ options, });
+        // this.getSelectList().then(options => {
+        //     this.setState({ options, });
+        // });
+        this.getData().then(options => {
+            let obj = {
+                pid : 'media_name',
+                name: 'publisher_name',
+                id  : 'id',
+            };
+            console.log(options);
+            this.setState({ options: formatList2Tree(options, obj) });
         });
-    }
-
-    formatListKey(list: Array<any>): Array<object> {
-        return [];
-        let selectTree: Array<object> = [];
-        let selectList = list.map(item => {
-            let isSuper = selectTree.find((f: object) => f['key'] === item['pid']);
-            if (isSuper) {
-                console.log(isSuper);
-            } else {
-                let option = {
-                    label: item.game_name,
-                    value: item.id,
-                    pid  : item.original_name,
-                };
-                selectTree.push(option);
-            }
-
-        });
-        console.log(selectTree);
-        // let pids = Array.from(new Set(selectList.map(item => item.pid)));
-
-        return [];
     }
 
     async getSelectList() {
+        let pid = 'original_name';
+        let name = 'game_name';
+        let id = 'game_name';
+
+        return formatList2Tree(selectJson, { id, pid, name });
+
         if (this.props.dataset.enum) {
             return formatEnumOptions(this.props.dataset.enum);
         } else {
-            return this.formatListKey(selectJson);
+            return formatList2Tree(selectJson, { id, pid, name });
         }
+    }
+
+    async getData() {
+        // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
+        if (!this.props.dataset.url) {
+            return [];
+        }
+        let res = await jsonp(this.props.dataset.url);
+        return res.data;
     }
 
     render() {
         let dataset = this.props.dataset;
-        delete dataset.enum
+        delete dataset.enum;
         let value: any;
         if (dataset.mode === 'multiple') {
             if (this.props.value) {
-                value = this.props.value.split(',')
+                value = this.props.value.split(',');
             } else {
-                value = []
+                value = [];
             }
         }
-        console.log(dataset);
 
         return <>
-            <Form.Item label={ dataset.label }>
+            <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
 
                     { ...dataset }
                     value={ value }
                     options={ this.state.options }
-
+                    style={ { width: 200 } }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
-                    filterOption={ (input, option) => {
+                    maxTagCount={ 1 }
+                    filterOption={ (input, option) => {     // 搜索
                         if (!option) return false;
                         return String(option.value).includes(input) || String(option.label).includes(input);
                     } }/>
+                <Select
+                    options={ this.state.currentItem['children'] }
+                    style={ { width: 200 } }
+                />
             </Form.Item>
         </>;
     }
@@ -118,15 +127,27 @@ export default class Selector extends React.Component<IComponentProps, any> {
             {
                 isMultiple
                     ? <Checkbox checked={ this.state.checkedAll }
-                                onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox>
-                    : ''
+                                onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox> : ''
             }
+            <Divider/>
+            <>
+                {
+                    [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
+                        return <Button type="primary" key={ index }>{ item }</Button>;
+                    })
+                }
+            </>
         </>;
     }
 
+    handleSelectTag(e) {
+        console.log(e);
+    }
+
     handleChange(value, object) {
-        console.log(value);
-        this.setState({ value }, () => trigger(this.props.el, value))
+        console.log(value, object);
+        let currentItem = object;
+        this.setState({ currentItem, value }, () => trigger(this.props.el, value));
     }
 
     handleClear() {
@@ -145,8 +166,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
             this.setState({ value: [] });
             trigger(this.props.el, '');
         }
-
-        console.log(v);
 
         this.setState({
             checkedAll: !this.state.checkedAll,

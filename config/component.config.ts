@@ -66,11 +66,11 @@ const SizeOptions = [
         label: 'small',
         value: 'small',
     },
-]
+];
 
 export default {
     form  : {
-        select    : {
+        select: {
             path     : '/form-select',
             component: import('@component/form/select/select'),
             document : import('@component/form/select/select.md'),
@@ -88,13 +88,19 @@ export default {
                         el   : 'list',
                         value: '1,Android;2,iOS;3,MacOS;4,Windows',
                         label: '数据 - data-enum',
-                        parse: 'object[]'
+                        parse: 'object[]',
+                    },
+                    url        : {
+                        el   : 'input',
+                        value: '',
+                        label: '数据源',
+                        parse: 'string',
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
                         label: '是否禁用 - data-disabled',
-                        parse: 'boolean'
+                        parse: 'boolean',
                     },
                     mode       : {
                         el     : 'radio',
@@ -109,8 +115,8 @@ export default {
                             },
                             {
                                 label: 'single',
-                                value: 'single'
-                            }
+                                value: 'single',
+                            },
                         ],
                         value  : 'multiple',
                         label  : '模式 - data-mode',
@@ -123,74 +129,100 @@ export default {
                         parse: 'string',
                     },
                     autoFocus  : {
-                        el   : 'switch',
-                        value: false,
-                        label: '是否自动获取焦点',
-                        parse: 'boolean'
+                        el    : 'switch',
+                        value : false,
+                        label : '是否自动获取焦点',
+                        parse : 'boolean',
+                        render: false,
                     },
                     allowClear : {
-                        value: true,
-                        // render: true,              // TODO render 为false时，不在表单设计器中渲染,为默认值
-                        parse: 'boolean'
+                        value : true,
+                        render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
+                        parse : 'boolean',
                     },
                     showSearch : {     // 指定默认选中条目
                         el    : 'input',
                         value : true,
+                        parse : 'boolean',
                         render: false,
-                        parse : 'boolean'
-                    }
+                    },
                 },
                 value  : {
                     el     : 'select',
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     label  : '默认值 - value',
-                    parse  : 'string'
+                    parse  : 'string',
                 },
                 hook   : {
                     load        : {
                         el    : 'input',
                         value : 'componentLoad',
-                        render: false
+                        render: false,
                     },
                     beforeLoad  : {
                         el    : 'input',
                         value : 'componentBeforeLoad',
-                        render: false
+                        render: false,
                     },
                     update      : {
                         el    : 'input',
                         value : 'componentUpdate',
-                        render: false
+                        render: false,
                     },
                     beforeUpdate: {
                         el    : 'input',
                         value : 'componentBeforeUpdate',
-                        render: false
+                        render: false,
                     },
                 },
             },
         },
+
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
-            document : import('@component/form/selectTree/selectTree.md'),
             property : {
                 dataset: {
                     size: {
-                        el     : "radio",
+                        el     : 'radio',
                         options: SizeOptions,
-                        parse  : "string",
-                        value  : ''
+                        parse  : 'string',
+                        value  : '',
                     },
                 },
                 value  : {},
-                hook   : {}
+                hook   : {},
             },
         },
+
+        cascader: {
+            path     : '/form-cascader',
+            component: import('@component/form/cascader/cascader'),
+            property : {
+                dataset: {
+                    showSearch: {
+                        value : true,
+                        parse : 'boolean',
+                        render: false,
+                    },
+                },
+            },
+        },
+
         datepicker: {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/datepicker'),
+            property : {
+                dataset: {
+                    allowClear: {
+                        el    : 'switch',
+                        parse : 'boolean',
+                        render: false,
+                        value : false,
+                    },
+                },
+            },
         },
         ajax      : {
             component: import('@component/form/ajax/form'),
@@ -204,23 +236,23 @@ export default {
                         el   : 'input',
                         value: 'form-button',
                         label: '',
-                        parse: 'string'
+                        parse: 'string',
                     },
                     enum       : {
                         el   : 'list',
                         value: '1,Android;2,iOS',
-                        parse: 'object[]'
+                        parse: 'object[]',
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
-                        parse: 'boolean'
+                        parse: 'boolean',
                     },
                     size       : {
                         el     : 'radio',
                         options: SizeOptions,
                         value  : 'middle',
-                        parse  : 'string'
+                        parse  : 'string',
                     },
                     optionType : {
                         el     : 'radio',
@@ -235,7 +267,7 @@ export default {
                             },
                         ],
                         value  : 'button',
-                        parse  : 'string'
+                        parse  : 'string',
                     },
                     buttonStyle: {
                         el     : 'radio',
@@ -245,17 +277,18 @@ export default {
                                 value: 'solid',
                             }, {
                                 label: 'online',
-                                value: 'online'
-                            }
+                                value: 'online',
+                            },
                         ],
-                        parse  : 'string'
-                    }
+                        value  : '',
+                        parse  : 'string',
+                    },
                 },
                 value  : {
                     el     : 'select',
                     options: [],
                     value  : '',
-                    parse  : 'string'
+                    parse  : 'string',
                 },
             },
         },
@@ -266,9 +299,9 @@ export default {
                 dataset: {
                     visibleEditor: {
                         el   : 'switch',
-                        value: false
-                    }
-                }
+                        value: false,
+                    },
+                },
             },
 
         },
@@ -341,9 +374,9 @@ export default {
             path     : 'view-calendar',
             component: import('@component/view/calendar/calendar'),
             property : {
-                dataset: {}
-            }
-        }
+                dataset: {},
+            },
+        },
     },
     data  : {
         table          : {
@@ -386,7 +419,19 @@ export default {
         },
         tab   : {
             component: import('@component/layout/tab/tab'),
-            property : {}
+            property : {
+                dataset: {
+                    tabPosition: {
+                        el     : 'radio',
+                        options: [
+                            { label: 'top', value: 'top' },
+                            { label: 'left', value: 'left' },
+                        ],
+                        value  : 'left',
+                        parse  : 'string',
+                    },
+                },
+            },
         },
         window: {
             component: import('@component/layout/window/window'),
@@ -400,4 +445,16 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-} as IComponentConfig<IPropertyConfig<IOptions>>
+} as IComponentConfig<IPropertyConfig<IOptions>>;
+
+import zhCN from 'antd/es/locale/zh_CN';
+
+// 组件全局配置
+export const globalComponentConfig: any = {
+    locale                  : zhCN,
+    componentSize           : 'middle',
+    direction               : 'ltr',
+    space                   : { size: 'small' },
+    // virtual                 : true,
+    dropdownMatchSelectWidth: true,
+};

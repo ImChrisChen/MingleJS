@@ -4,14 +4,15 @@ import 'antd/dist/antd.css';
 
 import './src/App.scss';
 import React from 'react';
-import { message } from 'antd';
+import { ConfigProvider, message, notification } from 'antd';
 import App from './src/App';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 // import 'antd/dist/antd.dark.css'
 import { Document } from './src/document/Document';
 // https://www.cnblogs.com/cckui/p/11490372.html
-import { HashRouter } from 'react-router-dom'; // https://reactrouter.com/web/guides/quick-start
+import { HashRouter } from 'react-router-dom';
+import { globalComponentConfig } from './config/component.config'; // https://reactrouter.com/web/guides/quick-start
 
 // const isDebug = true;
 //
@@ -44,9 +45,11 @@ const isDocument = true;
 if (isDocument) {
     // docs
     ReactDOM.render(
-        <HashRouter>
-            <Document />
-        </HashRouter>,
+        <ConfigProvider { ...globalComponentConfig }>
+            <HashRouter>
+                <Document/>
+            </HashRouter>
+        </ConfigProvider>,
         document.querySelector('#App'),
     );
 } else {
@@ -57,5 +60,6 @@ if (isDocument) {
 }
 
 App.globalEventListener();
-window['Message'] = message;
 window['$'] = $;
+window['Message'] = message;
+window['Notice'] = notification;

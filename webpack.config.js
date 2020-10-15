@@ -2,6 +2,9 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const { getThemeVariables } = require('antd/dist/theme');
+// const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
+// const Dashboard = require('webpack-dashboard');
+// const dashboard = new Dashboard();
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
@@ -249,21 +252,31 @@ module.exports = {
                 ],
             },
         }),
+        
+        // new DashboardPlugin(/*dashboard.setData*/),
     ],
     devServer: {
         proxy: {
-            '/manage': {
-                // /manage/useful/advPositionCost/header?pf=1'
-                target: 'http://e.aidalan.com/manage',
-                // source: true,
-                changeOrigin: true,
-                pathRewrite: { '^/manage': '' },
-            },
+            // '/manage': {
+            //     // /manage/useful/advPositionCost/header?pf=1'
+            //     target: 'http://e.aidalan.com/manage',
+            //     // source: true,
+            //     changeOrigin: true,
+            //     pathRewrite: { '^/manage': '' },
+            // },
             contentBase: path.resolve(__dirname, 'dist/index.html'),   //静态服务器根目录
             compress: true,             // 是否压缩
-            host: '0.0.0.0',            // 局域网ip
-            // port: 9000,
+            // host: 'etest.local.aidalan.com',            // 局域网ip
+            disableHostCheck: true,     //
+            allowedHosts: [
+                'mingle-test.local.aidalan.com',
+            ],
+            port: 9000,
             historyApiFallback: true,
+            headers: {
+                'X-Content-Type-Options': 'nosniff',
+            },
+            lazy: true,
             open: true,     //是否自动打开默认浏览器
             hot: true,      //热更新
             useLocalIp: true,//是否用自己的IP
