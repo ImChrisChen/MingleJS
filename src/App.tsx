@@ -5,8 +5,8 @@ import { parseDataAttr } from '@utils/parse-data-attr';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { DeepEachElement, isFunc } from '@utils/util';
-import { parseLineStyle, parseTpl } from '@utils/tpl-parse';
-import { globalComponentConfig } from "@root/config/component.config";
+import { parseLineStyle } from '@utils/tpl-parse';
+import { globalComponentConfig } from '@root/config/component.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -165,12 +165,6 @@ export default class App {
         });
     }
 
-    // 模版渲染
-    formatInnerHTML(el: HTMLElement, model): string {
-        let innerHTML = el.innerHTML;
-        return parseTpl(innerHTML);
-    }
-
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
@@ -213,7 +207,7 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                message.success(`onchange - value:${$(element).val()}`);
+                message.success(`onchange - value:${ $(element).val() }`);
                 this.renderComponent(module, function (hooks) {
                     // console.log('-----------------beforeUpdate');
                     hooks['beforeUpdate']?.();

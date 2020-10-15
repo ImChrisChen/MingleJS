@@ -11,9 +11,9 @@ import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import selectJson from '@root/mock/form/select.json';
 import { formatEnumOptions, formatList2Tree } from '@utils/format-value';
 import { trigger } from '@utils/trigger';
-import { IComponentProps } from "@interface/common/component";
-import { jsonp } from "@utils/request/request";
-import { Divider } from "antd/es";
+import { IComponentProps } from '@interface/common/component';
+import { jsonp } from '@utils/request/request';
+import { Divider } from 'antd/es';
 // import axios from 'axios'
 
 const { Option } = Select;
@@ -41,13 +41,22 @@ export default class Selector extends React.Component<IComponentProps, any> {
         checkedAll : false,
         options    : [],
         value      : '' as any,
-        currentItem: {}
+        currentItem: {},
     };
 
     constructor(props) {
         super(props);
-        this.getSelectList().then(options => {
-            this.setState({ options, });
+        // this.getSelectList().then(options => {
+        //     this.setState({ options, });
+        // });
+        this.getData().then(options => {
+            let obj = {
+                pid : 'media_name',
+                name: 'publisher_name',
+                id  : 'id',
+            };
+            console.log(options);
+            this.setState({ options: formatList2Tree(options, obj) });
         });
     }
 
@@ -66,22 +75,23 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     async getData() {
-        let url = `http://e.local.aidalan.com/option/game/publisher?pf=0&jsoncallback`;
-        jsonp(url).then(res => {
-            console.log(res);
-            $(res.data)
-        })
+        // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
+        if (!this.props.dataset.url) {
+            return [];
+        }
+        let res = await jsonp(this.props.dataset.url);
+        return res.data;
     }
 
     render() {
         let dataset = this.props.dataset;
-        delete dataset.enum
+        delete dataset.enum;
         let value: any;
         if (dataset.mode === 'multiple') {
             if (this.props.value) {
-                value = this.props.value.split(',')
+                value = this.props.value.split(',');
             } else {
-                value = []
+                value = [];
             }
         }
 
@@ -123,7 +133,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
             <>
                 {
                     [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
-                        return <Button type="primary" key={ index }>{ item }</Button>
+                        return <Button type="primary" key={ index }>{ item }</Button>;
                     })
                 }
             </>
@@ -136,8 +146,8 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
     handleChange(value, object) {
         console.log(value, object);
-        let currentItem = object
-        this.setState({ currentItem, value }, () => trigger(this.props.el, value))
+        let currentItem = object;
+        this.setState({ currentItem, value }, () => trigger(this.props.el, value));
     }
 
     handleClear() {

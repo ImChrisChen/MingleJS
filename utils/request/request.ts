@@ -4,19 +4,19 @@
  * Date: 2020/9/23
  * Time: 11:16 下午
  */
-import { message } from "antd";
+import { message } from 'antd';
 
 export function jsonp(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
         window['jsonCallBack'] = (result) => {
-
+            
             console.log(result);
 
             if (result.status) {
                 resolve(result);
             } else {
-                message.error('接口返回错误')
-                reject(result)
+                message.error('接口返回错误');
+                reject(result);
             }
 
         };
@@ -25,10 +25,8 @@ export function jsonp(url: string): Promise<any> {
         if (url.includes('?')) {
             url = url + '&jsoncallback=jsonCallBack';
         } else {
-            url = url + '?jsoncallback=jsonCallBack'
+            url = url + '?jsoncallback=jsonCallBack';
         }
-        console.log(url);
-
         script.type = 'text/javascript';
         script.src = url;
         let body = document.querySelector('body');

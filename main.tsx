@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom';
 import { Document } from './src/document/Document';
 // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
-import { globalComponentConfig } from "./config/component.config"; // https://reactrouter.com/web/guides/quick-start
+import { globalComponentConfig } from './config/component.config'; // https://reactrouter.com/web/guides/quick-start
 
 // const isDebug = true;
 //
@@ -62,4 +62,4 @@ if (isDocument) {
 App.globalEventListener();
 window['$'] = $;
 window['Message'] = message;
-window['Notice'] = notification
+window['Notice'] = notification;
