@@ -54,3 +54,63 @@ window.funcName = function () {
 
 ### 目录结构
 
+```bash
+├── README.md
+├── config
+│   └── component.config.ts					//组件配置文件
+├── dist									//打包生成的文件
+│   ├── chart.min.js
+│   ├── index.html
+│   ├── index.js
+│   ├── main.min.js
+│   ├── manifest.min.js
+│   └── report.html
+├── ecosystem.config.js
+├── main.tsx								// 入口文件
+├── mock									// mock数据
+│   ├── chart
+│   ├── form
+│   ├── list
+│   └── table
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── public									// 
+│   ├── chart.html
+│   ├── demo.html
+│   ├── form
+│   ├── index.html
+│   └── index.js
+├── script.js
+├── src										// 
+│   ├── App.scss	
+│   ├── App.scss.d.ts
+│   ├── App.tsx								// 
+│   ├── component							// 组件（对外提供的组件都在这里）
+│   ├── core								// 
+│   ├── document							// 组件设计器（包括文档）
+│   ├── interface							// 接口声明文件
+│   ├── router								// 
+│   └── services
+├── static									// 静态资源文件
+│   └── images
+├── tsconfig.json
+├── types									// types
+│   ├── index.d.ts
+│   └── typings.d.ts
+├── utils									// 封装的常用函数
+│   ├── format-data.ts
+│   ├── inspect.ts
+│   ├── parser-dom.tsx
+│   ├── parser-property.ts
+│   ├── parser-tpl.ts
+│   ├── request
+│   ├── trigger.ts
+│   └── util.ts
+└── webpack.config.js						// 打包配置
+```
+
+
+
+
+
