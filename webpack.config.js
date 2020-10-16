@@ -233,7 +233,7 @@ module.exports = {
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : 'server'),
+            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
             analyzerHost: '0.0.0.0',
             // analyzerPort: '9200',
             generateStatsFile: false,

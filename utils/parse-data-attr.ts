@@ -26,7 +26,6 @@ export function parseDataAttr(dataAttrs = {}, defaultDataset?): object {
             let defaultVal = currentProperty.value;     // 属性默认值
             let useValue = dataset[datasetKey];         // 传入的属性值
             let value = useValue ?? defaultVal ?? '';
-            console.log(value, currentProperty, datasetKey);
 
             switch(type) {
                 case 'string':            // 模版解析

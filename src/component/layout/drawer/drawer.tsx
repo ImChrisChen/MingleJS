@@ -114,6 +114,7 @@ class LayoutDrawer extends React.Component<any, any> {
         let arr: Array<IComponentDataset> = [];
         let dataEnum: Array<any> = [];
 
+        //dataset 属性
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
             let val = dataset[k];
@@ -127,10 +128,12 @@ class LayoutDrawer extends React.Component<any, any> {
                 el     : val.el,
                 options: val.options,
                 value  : val.value,
+                desc   : val.desc,
                 render : val.render !== false,
             });
         }
 
+        // 普通属性
         for (const k in attrs) {
             if (!attrs.hasOwnProperty(k)) continue;
             let val = attrs[k];
@@ -144,10 +147,12 @@ class LayoutDrawer extends React.Component<any, any> {
                 el     : val.el,
                 options: val.options,
                 value  : val.value,
+                desc   : val.desc,
                 render : val.render !== false,
             });
         }
 
+        // 钩子属性
         for (const k in hook) {
             if (!hook.hasOwnProperty(k)) continue;
             let val = hook[k];
@@ -156,6 +161,7 @@ class LayoutDrawer extends React.Component<any, any> {
                 el     : val.el,
                 options: val.options,
                 value  : val.value,
+                desc   : val.desc,
                 render : val.render !== false,
             });
         }
@@ -349,11 +355,12 @@ class LayoutDrawer extends React.Component<any, any> {
                         {
                             ...this.state.componentsProperty.map((item: any, key) => {
                                 if (item.render === false) return '';
+                                let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
                                 if (item.el === 'switch') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label }>
+                                            <Form.Item label={ label }>
                                                 <Switch checked={ item.value }
                                                         onChange={ this.handleChangeSwitch.bind(this, key) }/>
                                             </Form.Item>
@@ -362,7 +369,7 @@ class LayoutDrawer extends React.Component<any, any> {
                                 } else if (item.el === 'radio') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label }>
+                                            <Form.Item label={ label }>
                                                 <Radio.Group
                                                     onChange={ this.handleChangeRadio.bind(this, key) }
                                                     options={ item.options }
@@ -374,7 +381,7 @@ class LayoutDrawer extends React.Component<any, any> {
                                 } else if (item.el === 'list') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label } name={ item.label }>
+                                            <Form.Item label={ label } name={ item.label }>
                                                 <Form.List name="dataEnum">
                                                     { (fields, { add, remove }) => {
                                                         return (
@@ -434,7 +441,7 @@ class LayoutDrawer extends React.Component<any, any> {
                                 } else if (item.el === 'input') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label }>
+                                            <Form.Item label={ label }>
                                                 <Input onChange={ this.handleInputChange.bind(this, key) }
                                                        onBlur={ this.handleInputBlur.bind(this, key) }
                                                        value={ item.value }
@@ -445,7 +452,7 @@ class LayoutDrawer extends React.Component<any, any> {
                                 } else if (item.el === 'select') {
                                     return <Row key={ key }>
                                         <Col span={ 18 }>
-                                            <Form.Item label={ item.label }>
+                                            <Form.Item label={ label }>
                                                 <Select options={ item.options }
                                                         onChange={ this.handleChangeSelect.bind(this, key) }
                                                         allowClear={ true }
