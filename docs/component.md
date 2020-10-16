@@ -1,1 +1,0 @@
-# 组件文档hahahaha 是哈哈哈```javascriptfunction Hello() {    console.log('哈哈哈');}```

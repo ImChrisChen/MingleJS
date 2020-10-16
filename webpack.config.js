@@ -81,8 +81,8 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
             '@root': path.resolve(__dirname, './'),
-            '@config': path.resolve(__dirname, 'config'),
-            '@docs': path.resolve(__dirname, 'docs'),
+            '@conf': path.resolve(__dirname, './config'),
+            '@core': path.resolve(__dirname, 'src/core'),
             '@src': path.resolve(__dirname, 'src'),
             '@component': path.resolve(__dirname, 'src/component/'),
             '@interface': path.resolve(__dirname, 'src/interface/'),
@@ -233,7 +233,7 @@ module.exports = {
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : 'server'),
+            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
             analyzerHost: '0.0.0.0',
             // analyzerPort: '9200',
             generateStatsFile: false,

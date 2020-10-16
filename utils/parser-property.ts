@@ -5,9 +5,10 @@
  * Time: 11:23 上午
  */
 
-import { parseEnum, parseTpl } from '@utils/tpl-parse';
+import { parseEnum, parseTpl } from "@utils/parser-tpl";
+import { IPropertyConfig } from "@root/config/component.config";
 
-export function parseDataAttr(dataAttrs = {}, defaultDataset?): object {
+export function parserProperty(dataAttrs = {}, defaultDataset?): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     let dataset = JSON.parse(JSON.stringify(dataAttrs));
@@ -17,18 +18,25 @@ export function parseDataAttr(dataAttrs = {}, defaultDataset?): object {
 
         if (!defaultDataset.hasOwnProperty(datasetKey)) continue;
         if (datasetKey === 'fn') continue;
-        let currentProperty = defaultDataset[datasetKey];
+        let currentProperty: IPropertyConfig<any> = defaultDataset[datasetKey];
 
         // 如何该属性有映射, 数据处理和key值转换
         if (currentProperty && currentProperty.parse) {
 
-            let type = currentProperty.parse;           // dataset值解析类型
-            let defaultVal = currentProperty.value;     // 属性默认值
+            let {
+                parse,                      // dataset值解析类型
+                value: defaultVal,           // 属性默认值
+                verify,
+            } = currentProperty;
             let useValue = dataset[datasetKey];         // 传入的属性值
             let value = useValue ?? defaultVal ?? '';
-            console.log(value, currentProperty, datasetKey);
 
-            switch(type) {
+            if (verify && !verify(value)) {
+                console.error(`${ datasetKey }属性的值格式验证不通过`)
+                continue;
+            }
+
+            switch (parse) {
                 case 'string':            // 模版解析
                     newDataSet[datasetKey] = parseTpl(value);
                     break;

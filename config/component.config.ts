@@ -4,6 +4,8 @@
  * Date: 2020/9/21
  * Time: 11:15 上午
  */
+import zhCN from 'antd/es/locale/zh_CN';
+import { isUrl } from "@utils/inspect";
 
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
@@ -28,9 +30,11 @@ export interface IPropertyConfig<OptionItem> {
     label?: string
     parse?: parseType
     render?: boolean
+    desc?: string           // 字段描述
+    verify?: (v) => any
 }
 
-interface IComponentConfig<Property> {
+interface IModulesConfig<Property> {
     [key: string]: {
         [key: string]: {
             component?: Promise<any>
@@ -81,25 +85,26 @@ export default {
                         afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
                         el       : 'input',
                         value    : 'form-select',
-                        label    : `哈哈`,
+                        desc     : `label 标签的文本`,
                         parse    : 'string',
                     },
                     enum       : {
                         el   : 'list',
                         value: '1,Android;2,iOS;3,MacOS;4,Windows',
-                        label: '数据 - data-enum',
+                        desc : '列表数据 逗号两边分别对应 key - value',
                         parse: 'object[]',
                     },
                     url        : {
-                        el   : 'input',
-                        value: '',
-                        label: '数据源',
-                        parse: 'string',
+                        el    : 'input',
+                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        desc  : '列表数据的接口地址',
+                        parse : 'string',
+                        verify: value => isUrl(value)
                     },
                     disabled   : {
                         el   : 'switch',
                         value: false,
-                        label: '是否禁用 - data-disabled',
+                        desc : '是否禁用',
                         parse: 'boolean',
                     },
                     mode       : {
@@ -109,29 +114,29 @@ export default {
                                 label: 'multiple',
                                 value: 'multiple',
                             },
-                            {
-                                label: 'tags',       //显示的值
-                                value: 'tags',       //生成的代码的值
-                            },
+                            // {
+                            //     label: 'tags',       //显示的值
+                            //     value: 'tags',       //生成的代码的值
+                            // },
                             {
                                 label: 'single',
                                 value: 'single',
                             },
                         ],
                         value  : 'multiple',
-                        label  : '模式 - data-mode',
+                        desc   : '模式',
                         parse  : 'string',
                     },
                     placeholder: {
                         el   : 'input',
                         value: '请选择',
-                        label: '占位符 - data-placeholder',
+                        desc : '占位符',
                         parse: 'string',
                     },
                     autoFocus  : {
                         el    : 'switch',
                         value : false,
-                        label : '是否自动获取焦点',
+                        desc  : '是否自动获取焦点',
                         parse : 'boolean',
                         render: false,
                     },
@@ -151,28 +156,38 @@ export default {
                     el     : 'select',
                     options: [],            // 通过解析enum来得到
                     value  : '',
-                    label  : '默认值 - value',
+                    desc   : '默认值',
                     parse  : 'string',
+                },
+                name   : {
+                    el   : 'input',
+                    value: 'form-select',
+                    parse: 'string',
+                    desc : '组件的name值'
                 },
                 hook   : {
                     load        : {
                         el    : 'input',
                         value : 'componentLoad',
+                        desc  : '组件加载完成的触发的函数',
                         render: false,
                     },
                     beforeLoad  : {
                         el    : 'input',
                         value : 'componentBeforeLoad',
+                        desc  : '组件加载前触发的函数',
                         render: false,
                     },
                     update      : {
                         el    : 'input',
                         value : 'componentUpdate',
+                        desc  : '组件更新后触发的函数',
                         render: false,
                     },
                     beforeUpdate: {
                         el    : 'input',
                         value : 'componentBeforeUpdate',
+                        desc  : '组件更新前触发的函数',
                         render: false,
                     },
                 },
@@ -235,7 +250,7 @@ export default {
                     label      : {
                         el   : 'input',
                         value: 'form-button',
-                        label: '',
+                        desc : '',
                         parse: 'string',
                     },
                     enum       : {
@@ -445,9 +460,7 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-} as IComponentConfig<IPropertyConfig<IOptions>>;
-
-import zhCN from 'antd/es/locale/zh_CN';
+} as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置
 export const globalComponentConfig: any = {

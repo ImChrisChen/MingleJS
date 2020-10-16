@@ -24,9 +24,8 @@ export function formatEnumOptions(list: Array<any>, label: string = 'label', val
     return options;
 }
 
-
 // 组件配置转化为 菜单，多级选择器可以渲染的数据格式
-export async function componentFormatTree(componentMap) {
+export async function formatComponents2Tree(componentMap) {
     let newArr: Array<object> = [];
     for (const key in componentMap) {
         if (!componentMap.hasOwnProperty(key)) continue;
@@ -57,7 +56,6 @@ export async function componentFormatTree(componentMap) {
     return newArr;
 }
 
-
 interface IKeyMap {
     id: string
     pid: string
@@ -68,7 +66,7 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
     let pids = Array.from(new Set(list.map(item => item[pid])));
     let selectTree: Array<object> = pids.map(pid => {
         return {
-            id      : pid,
+            id      : pid,              // 父子映射关系
             children: [],
             label   : pid,
             value   : pid,
@@ -78,7 +76,7 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
         let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
         if (superItem) {
             superItem.children.push({
-                id   : item[name],
+                id   : item[name],      // 父子映射关系
                 value: item[id],
                 label: item[name],
                 pid  : item[pid]
@@ -87,5 +85,4 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
     });
     return selectTree;
 }
-
 

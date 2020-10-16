@@ -7,7 +7,6 @@
 
 // filename: ioc.ts
 
-
 // 导入元数据支持
 import 'reflect-metadata';
 
@@ -16,7 +15,7 @@ const classPool: Array<Function> = [];
 
 // 标记可被注入类
 export function injectable(_constructor: Function) {
-    // 通过反射机制，获取参数类型列表    
+    // 通过反射机制，获取参数类型列表
     let paramsTypes: Array<Function> = Reflect.getMetadata('design:paramtypes', _constructor);
     if (classPool.indexOf(_constructor) !== -1) {
         return;

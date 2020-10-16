@@ -1,11 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { loadModules } from '@utils/relation-map';
-import { parseDataAttr } from '@utils/parse-data-attr';
+import { loadModules } from '@src/core/base';
+import { parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
-import { DeepEachElement, isFunc } from '@utils/util';
-import { parseLineStyle } from '@utils/tpl-parse';
+import { deepEachElement } from '@utils/util';
+import { isFunc } from "@utils/inspect";
+import { parseLineStyle } from "@utils/parser-tpl";
 import { globalComponentConfig } from '@root/config/component.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
@@ -73,7 +74,7 @@ export default class App {
     }
 
     async init(elementContainer) {
-        DeepEachElement(elementContainer, async element => {
+        deepEachElement(elementContainer, async element => {
             if (element.attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;
                 let attributes = element.attributes;
@@ -284,7 +285,7 @@ export default class App {
         let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
-        let parsedDataset = parseDataAttr(dataset, defaultProperty?.dataset ?? {});
+        let parsedDataset = parserProperty(dataset, defaultProperty?.dataset ?? {});
 
         // 组件名必须大写
         render(
