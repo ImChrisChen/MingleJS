@@ -5,7 +5,7 @@
  * Time: 11:13 上午
  */
 
-import { isDOM, isEmptyStr, isObject } from '@utils/util';
+import { isDOM, isEmptyStr, isObject } from '@utils/inspect';
 
 declare type IParseModeData = HTMLElement | object | null;
 

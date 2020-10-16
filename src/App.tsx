@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { loadModules } from '@root/core/base';
+import { loadModules } from '@src/core/base';
 import { parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
-import { deepEachElement, isFunc } from '@utils/util';
+import { deepEachElement } from '@utils/util';
+import { isFunc } from "@utils/inspect";
 import { parseLineStyle } from "@utils/parser-tpl";
 import { globalComponentConfig } from '@root/config/component.config';
 

@@ -4,6 +4,8 @@
  * Date: 2020/9/21
  * Time: 11:15 上午
  */
+import zhCN from 'antd/es/locale/zh_CN';
+import { isUrl } from "@utils/inspect";
 
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
@@ -29,9 +31,10 @@ export interface IPropertyConfig<OptionItem> {
     parse?: parseType
     render?: boolean
     desc?: string           // 字段描述
+    verify?: (v) => any
 }
 
-interface IComponentConfig<Property> {
+interface IModulesConfig<Property> {
     [key: string]: {
         [key: string]: {
             component?: Promise<any>
@@ -92,10 +95,11 @@ export default {
                         parse: 'object[]',
                     },
                     url        : {
-                        el   : 'input',
-                        value: '',
-                        desc : '列表数据的接口地址',
-                        parse: 'string',
+                        el    : 'input',
+                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        desc  : '列表数据的接口地址',
+                        parse : 'string',
+                        verify: value => isUrl(value)
                     },
                     disabled   : {
                         el   : 'switch',
@@ -456,9 +460,7 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-} as IComponentConfig<IPropertyConfig<IOptions>>;
-
-import zhCN from 'antd/es/locale/zh_CN';
+} as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置
 export const globalComponentConfig: any = {

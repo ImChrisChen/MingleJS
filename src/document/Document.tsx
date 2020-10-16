@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { deepEach, isObject } from '@utils/util';
+import { deepEach } from '@utils/util';
 import LayoutMenu from '@component/layout/menu/menu';
 import componentMap from '@root/config/component.config';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -14,6 +14,7 @@ import style from './Document.scss';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
 import { formatComponents2Tree } from "@utils/format-data";
 import FormEditor from '@component/form/editor/editor'
+import { isObject } from "@utils/inspect";
 
 class Container extends React.Component<any, any> {
     render() {

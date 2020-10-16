@@ -5,7 +5,7 @@
  * Time: 3:43 下午
  */
 
-import { Button, Cascader, Col, Drawer, Form, Input, Radio, Row, Select, Space, Switch } from 'antd';
+import { Button, Cascader, Col, Drawer, Form, Input, message, Radio, Row, Select, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
@@ -123,6 +123,11 @@ class LayoutDrawer extends React.Component<any, any> {
                 dataEnum = formatEnumOptions(parseEnum(val.value));           // 1,Android;2,iOS => // [{label:'',value:''}]
             }
 
+            // value验证不通过
+            if (!(val.verify && val.verify(val.value))) {
+
+            }
+
             arr.push({
                 label  : `data-${ k }`,       //
                 el     : val.el,
@@ -194,6 +199,7 @@ class LayoutDrawer extends React.Component<any, any> {
 
     // 生成代码
     generateCode() {
+        message.success('generate')
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
         let attrs = components.map(item => {
