@@ -14,8 +14,6 @@ import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
-import { Inject } from "typescript-ioc";
-import { ParserService } from "@services/parser.service";
 // import axios from 'axios'
 
 const { Option } = Select;
@@ -46,7 +44,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
         currentItem: {},
     };
 
-    constructor(props, @Inject private parser: ParserService) {
+    constructor(props) {
         super(props);
         // this.getSelectList().then(options => {
         //     this.setState({ options, });
@@ -54,7 +52,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
         this.getData().then(options => {
             this.setState({ options });
         });
-        console.log(this.parser.parseTpl);
     }
 
     async getSelectList() {
@@ -86,6 +83,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     render() {
+        console.log(this.props);
         let dataset = this.props.dataset;
         delete dataset.enum;
         let value: any;
