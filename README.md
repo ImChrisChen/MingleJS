@@ -9,12 +9,30 @@ React + Typescript + Antd + WUI
 
 
 
+## 开发环境
+
+
+
+1. 需安装 node  环境  
+2. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
+
+拉去项目进入根目录，执行以下命令
+
+~~~shell
+npm install && npm run dev
+~~~
+
+
+
+
+
 ## 使用方式
 
-引入js
 
+
+引入js
 ```html
-<script src="mingle.aidalan.com"></script>
+<script src="https://mingle.aidalan.com/index.js"></script>
 ```
 
 1. 表单组件调用方式为 <input data-fn="form-xxx" />非表单组件则用 <div data-fn="layout-xx"></div>
@@ -24,6 +42,8 @@ React + Typescript + Antd + WUI
 
 
 ## 组件生命周期
+
+
 
 MingleJS 包含4个组件生命周期
 
@@ -52,12 +72,14 @@ window.funcName = function () {
 
 
 
-### 目录结构
+## 目录结构
+
+
 
 ```bash
 ├── README.md
 ├── config
-│   └── component.config.ts					//组件配置文件
+│   └── component.config.ts					//组件配置文件(很重要)
 ├── dist									//打包生成的文件
 │   ├── chart.min.js
 │   ├── index.html

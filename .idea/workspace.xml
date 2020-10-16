@@ -25,7 +25,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="目录结构调整,删除docs目录">
+    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
@@ -570,7 +570,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602841168872</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="feat:开发文档补充">
+      <created>1602843110943</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1602843110943</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,7 +619,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat:完成form-input组件" />
     <MESSAGE value="undone: 字符串style =&gt; jsx style" />
     <MESSAGE value="config :调整代码" />
     <MESSAGE value="config: 完成 字符串style转化为JSON style" />
@@ -637,7 +643,8 @@
     <MESSAGE value="feat: 调整文件/目录" />
     <MESSAGE value="feat: 调整文件/目录结构" />
     <MESSAGE value="feat: 通过组件配置实现，属性值过滤" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 通过组件配置实现，属性值过滤" />
+    <MESSAGE value="feat:开发文档补充" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:开发文档补充" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1159" y="220" width="940" height="1104" key="#EditorConfig" timestamp="1600594202513">
@@ -669,7 +676,7 @@
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1081" y="425" width="1143" height="841" key="#部署/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601173650220" />
-    <state x="734" y="25" width="1443" height="1262" key="CommitChangelistDialog2" timestamp="1602842481426">
+    <state x="734" y="25" width="1443" height="1262" key="CommitChangelistDialog2" timestamp="1602843110675">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409397683" />
@@ -680,7 +687,7 @@
     <state x="984" y="160" key="CommitChangelistDialog2/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688609861" />
     <state x="734" y="23" width="1637" height="1302" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697908331" />
     <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202006188" />
-    <state x="734" y="25" width="1443" height="1262" key="CommitChangelistDialog2/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602842481426" />
+    <state x="734" y="25" width="1443" height="1262" key="CommitChangelistDialog2/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602843110675" />
     <state x="734" y="23" key="CommitChangelistDialog2/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602652332581" />
     <state x="734" y="25" key="CommitChangelistDialog2/3008.637.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602667710241" />
     <state x="820" y="23" key="CommitChangelistDialog2/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601107496300" />
@@ -876,7 +883,7 @@
     <state width="751" height="791" key="SwitcherDM/3008.192.1920.1057/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1600928364034" />
     <state width="751" height="761" key="SwitcherDM/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602324050796" />
     <state width="751" height="758" key="SwitcherDM/3008.637.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602666871276" />
-    <state x="1300" y="292" key="Vcs.Push.Dialog.v2" timestamp="1602841248480">
+    <state x="1300" y="292" key="Vcs.Push.Dialog.v2" timestamp="1602843114122">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1106" y="200" key="Vcs.Push.Dialog.v2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409399188" />
@@ -887,7 +894,7 @@
     <state x="1300" y="288" key="Vcs.Push.Dialog.v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697911955" />
     <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202008163" />
     <state x="1300" y="302" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600852204683" />
-    <state x="1300" y="292" key="Vcs.Push.Dialog.v2/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602841248480" />
+    <state x="1300" y="292" key="Vcs.Push.Dialog.v2/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602843114122" />
     <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602652334683" />
     <state x="1452" y="320" key="Vcs.Push.Dialog.v2/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601107498151" />
     <state x="1452" y="320" key="Vcs.Push.Dialog.v2/3360.-64.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1602398119595" />
@@ -990,7 +997,7 @@
     </state>
     <state x="1509" y="325" width="1005" height="1465" key="run.anything.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600576367714" />
     <state x="1509" y="329" width="1005" height="1486" key="run.anything.popup/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601014343380" />
-    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup" timestamp="1602843046438">
+    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup" timestamp="1602843636528">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600407265764" />
@@ -1006,7 +1013,7 @@
     <state x="1191" y="145" width="1006" height="1548" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600912334166" />
     <state x="1191" y="145" width="1006" height="1548" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1600930629105" />
     <state x="1191" y="145" width="1006" height="1549" key="search.everywhere.popup/3008.192.1920.994/0.23.3008.1669/-1920.244.1920.1177@0.23.3008.1669" timestamp="1601024163265" />
-    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602843046438" />
+    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602843636528" />
     <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602648657647" />
     <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup/3008.637.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602667715143" />
     <state x="1330" y="153" width="1124" height="1652" key="search.everywhere.popup/3360.-345.1440.2537/0.23.3360.1780@0.23.3360.1780" timestamp="1601134204744" />
