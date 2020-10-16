@@ -5,9 +5,9 @@
  * Time: 11:23 上午
  */
 
-import { parseEnum, parseTpl } from '@utils/tpl-parse';
+import { parseEnum, parseTpl } from "@utils/parser-tpl";
 
-export function parseDataAttr(dataAttrs = {}, defaultDataset?): object {
+export function parserProperty(dataAttrs = {}, defaultDataset?): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     let dataset = JSON.parse(JSON.stringify(dataAttrs));
@@ -27,7 +27,7 @@ export function parseDataAttr(dataAttrs = {}, defaultDataset?): object {
             let useValue = dataset[datasetKey];         // 传入的属性值
             let value = useValue ?? defaultVal ?? '';
 
-            switch(type) {
+            switch (type) {
                 case 'string':            // 模版解析
                     newDataSet[datasetKey] = parseTpl(value);
                     break;

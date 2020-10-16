@@ -8,11 +8,11 @@
 import React from 'react';
 import { deepEach, isObject } from '@utils/util';
 import LayoutMenu from '@component/layout/menu/menu';
-import componentMap from '../../config/component.config';
+import componentMap from '@root/config/component.config';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import style from './Document.scss';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
-import { componentFormatTree } from "@utils/format-value";
+import { formatComponents2Tree } from "@utils/format-data";
 import FormEditor from '@component/form/editor/editor'
 
 class Container extends React.Component<any, any> {
@@ -32,7 +32,7 @@ export class Document extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
-        componentFormatTree(componentMap).then(list => {
+        formatComponents2Tree(componentMap).then(list => {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });

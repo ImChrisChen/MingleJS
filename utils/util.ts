@@ -57,14 +57,13 @@ export function arraylastItem<T>(array: Array<T>): T {
     return array[lastIndex];
 }
 
-export function DeepEachElement(root, callback?: (el: HTMLElement) => void) {
+export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
     // 这里输出的是根节点
     if (!root) return;
 
-
     if (root.children.length) {
         Array.from(root.children).forEach(item => {
-            return DeepEachElement(item, callback);
+            return deepEachElement(item, callback);
         });
     }
     callback && callback(root);
@@ -98,10 +97,6 @@ export function isClass(obj, strict?): obj is ClassDecorator {
     }
 
     return false;
-}
-
-interface IDeepEachCallback {
-
 }
 
 // 前递归 => root => left => right => children

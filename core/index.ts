@@ -24,3 +24,13 @@ class B {
 
 let a = create(B);
 console.log(a);
+
+
+//接口的另一种形式
+abstract class Demo {
+    abstract key: string
+}
+
+const o: Demo = {
+    key: '123123'
+}

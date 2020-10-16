@@ -4,21 +4,18 @@
  * Date: 2020/9/23
  * Time: 11:16 下午
  */
+
 import { message } from 'antd';
 
 export function jsonp(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
         window['jsonCallBack'] = (result) => {
-            
-            console.log(result);
-
             if (result.status) {
                 resolve(result);
             } else {
                 message.error('接口返回错误');
                 reject(result);
             }
-
         };
         let script: HTMLScriptElement = document.createElement('script');
 
@@ -38,7 +35,6 @@ export function jsonp(url: string): Promise<any> {
     });
 }
 
-//
 // 允许携带cookie
 // axios.defaults.timeout = 6000;
 // axios.defaults.withCredentials = true;

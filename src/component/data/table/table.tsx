@@ -9,8 +9,8 @@ import { message, Table } from 'antd';
 import * as React from 'react';
 import tableHeader from '@root/mock/table/tableHeader.json';
 import tableContent from '@root/mock/table/tableContent.json';
-import { parseTpl } from '@utils/tpl-parse';
-import { strParseVirtualDOM } from '@utils/dom-parse';
+import { parseTpl } from '@utils/parser-tpl';
+import { strParseVirtualDOM } from '@utils/parser-dom';
 import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
 import FormAjax from '@component/form/ajax/form';
@@ -257,7 +257,7 @@ export default class DataTable extends React.Component<any, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch(item.field) {
+                switch (item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;

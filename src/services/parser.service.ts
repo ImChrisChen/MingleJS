@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/10/16 * Time: 上午11:53 */export class ParserService {    constructor() {        console.log('constructor');    }    public parseTpl() {        console.log('parseTpl');    }}

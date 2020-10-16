@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import { trigger } from '@utils/trigger';
-import { formatEnumOptions } from '@utils/format-value';
+import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from "@interface/common/component";
 

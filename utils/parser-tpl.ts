@@ -46,16 +46,16 @@ export function getTplFields(tpl: string): Array<string> {
 }
 
 export function parseEnum(enumStr: string): Array<object> {
-    return strToJSON(enumStr, ';', ',');
+    return parseStr2JSON(enumStr, ';', ',');
 }
 
 export function parseLineStyle(style: string): object {
-    let res = toCamelCase(style);
-    let stylesJson = strToJSON(res, ';', ':');
+    let res = parseCamelCase(style);
+    let stylesJson = parseStr2JSON(res, ';', ':');
     return Object.assign({}, ...stylesJson);
 }
 
-function strToJSON(str: string, rowStplit: string, cellSplit: string): Array<object> {
+function parseStr2JSON(str: string, rowStplit: string, cellSplit: string): Array<object> {
     if (isEmptyStr(str)) return [];
 
     // return str.split(';').reduce((arr: Array<object>, group) => {
@@ -71,39 +71,11 @@ function strToJSON(str: string, rowStplit: string, cellSplit: string): Array<obj
     }, []);
 }
 
-function toCamelCase(string: string): string {
+// 中横线转化为 小驼峰
+function parseCamelCase(string: string): string {
     return string.replace(/-(.)/g, function (ret) {
         console.log(ret);
         ret = ret.substr(1);
         return ret.toUpperCase();
     });
 }
-
-// export function readyUrl(url) {
-//     if(!url) {
-//         return '';
-//     }
-//     url += (url.indexOf('?') > 0 ? '&' : '?');
-//
-//     let relay = getRelay(url), _o, val;
-//     for(var i in relay) {
-//         _o = $('input[name="' + relay[i] + '"], select[name="' + relay[i] + '"]').first();
-//         val = _o.attr('type') === 'checkbox' ? (_o.prop('checked') ? _o.val() : '') : _o.val() || '';
-//         url = url.replace('<{' + relay[i] + '}>', encodeURIComponent(val));
-//     }
-//     url += 'jsoncallback=?';
-//     return url;
-// }
-//
-// export function getRelay(url) {
-//     //把url中所有<{}>找出来
-//     if(!url) {
-//         return [];
-//     }
-//     url = url.match(/<\{([^}]+)\}>/ig);
-//     for(var i in url) {
-//         url[i] = url[i].substr(2, url[i].length - 4);
-//     }
-//     return url ? url : [];
-// }
-

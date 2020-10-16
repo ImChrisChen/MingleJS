@@ -9,11 +9,13 @@ import './select.less';
 import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import selectJson from '@root/mock/form/select.json';
-import { formatEnumOptions, formatList2Tree } from '@utils/format-value';
+import { formatEnumOptions, formatList2Tree } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
+import { Inject } from "typescript-ioc";
+import { ParserService } from "@services/parser.service";
 // import axios from 'axios'
 
 const { Option } = Select;
@@ -44,20 +46,15 @@ export default class Selector extends React.Component<IComponentProps, any> {
         currentItem: {},
     };
 
-    constructor(props) {
+    constructor(props, @Inject private parser: ParserService) {
         super(props);
         // this.getSelectList().then(options => {
         //     this.setState({ options, });
         // });
         this.getData().then(options => {
-            let obj = {
-                pid : 'media_name',
-                name: 'publisher_name',
-                id  : 'id',
-            };
-            console.log(options);
-            this.setState({ options: formatList2Tree(options, obj) });
+            this.setState({ options });
         });
+        console.log(this.parser.parseTpl);
     }
 
     async getSelectList() {
@@ -76,11 +73,16 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
     async getData() {
         // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
-        if (!this.props.dataset.url) {
-            return [];
+        if (this.props.dataset.url) {
+            let { data } = await jsonp(this.props.dataset.url);
+            return formatList2Tree(data, {
+                pid : 'media_name',
+                name: 'publisher_name',
+                id  : 'id',
+            })
+        } else if (this.props.dataset.enum) {
+            return formatEnumOptions(this.props.dataset.enum);
         }
-        let res = await jsonp(this.props.dataset.url);
-        return res.data;
     }
 
     render() {
@@ -131,10 +133,10 @@ export default class Selector extends React.Component<IComponentProps, any> {
             }
             <Divider/>
             <>
-                {
-                    [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
-                        return <Button type="primary" key={ index }>{ item }</Button>;
-                    })
+                { '' &&
+                [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
+                    return <Button type="primary" key={ index }>{ item }</Button>;
+                })
                 }
             </>
         </>;

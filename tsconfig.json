@@ -4,7 +4,7 @@
 		
 		/* Basic Options */
 		// "incremental": true,                   /* Enable incremental compilation */
-		"target": "es2015",
+		"target": "es6",
 		/* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
 		"module": "commonjs",
 		/* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
@@ -58,11 +58,17 @@
 			"@root/*": [
 				"./*"
 			],
-			"@config": [
+			"@conf": [
 				"config/*"
+			],
+			"@core": [
+				"core/*"
 			],
 			"@docs": [
 				"docs/*"
+			],
+			"@mock/*": [
+				"mock/*"
 			],
 			"@src/*": [
 				"src/*"
@@ -87,9 +93,6 @@
 			],
 			"@utils/*": [
 				"utils/*"
-			],
-			"@mock/*": [
-				"mock/*"
 			]
 		},
 		/* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */

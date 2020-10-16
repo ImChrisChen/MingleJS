@@ -11,8 +11,8 @@ import React from 'react';
 import componentMap from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { parseEnum } from '@utils/tpl-parse';
-import { componentFormatTree, formatEnumOptions } from '@utils/format-value';
+import { parseEnum } from '@utils/parser-tpl';
+import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router-dom';
 
@@ -53,7 +53,7 @@ class LayoutDrawer extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        componentFormatTree(componentMap).then(tree => {
+        formatComponents2Tree(componentMap).then(tree => {
             this.setState({
                 componentsTree: tree,
             });
