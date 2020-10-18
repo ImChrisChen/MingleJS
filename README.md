@@ -47,12 +47,12 @@ npm install && npm run dev
 
 MingleJS 包含4个组件生命周期
 
-| 组件生命周期 | 使用方式                                          | 触发时机   |
-| ------------ | ------------------------------------------------- | ---------- |
-| beforeLoad   | `<input data-fn="xx" hook:beforeLoad="funcName">`   | 组件渲染前 |
-| Load         | `<input data-fn="xx" hook:load="funcName">`         | 组件渲染后 |
-| beforeUpdate | `<input data-fn="xx" hook:beforeUpdate="funcName">` | 组件更新前 |
-| Update       | `<input data-fn="xx" hook:update="funcName">`       | 组件更新后 |
+| 组件生命周期  | 使用方式                                         | 触发时机   |
+| ------------- | ------------------------------------------------ | ---------- |
+| before-load   | `<input data-fn="xx" @before-load="funcName">`   | 组件渲染前 |
+| load          | `<input data-fn="xx" @load="funcName">`          | 组件渲染后 |
+| before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |
+| update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |
 
 ```html
 <script>

@@ -40,7 +40,7 @@ darkMode && darkMode.addEventListener('change', e => {
 
 let env = process.env.NODE_ENV;
 
-const isDocument = true;
+const isDocument = false;
 
 if (isDocument) {
     // docs
@@ -53,10 +53,7 @@ if (isDocument) {
         document.querySelector('#App'),
     );
 } else {
-    window.onload = function () {
-        // let elements: Array<HTMLElement> = Array.from(document.querySelectorAll(`[data-fn]`));
-        new App(document.body);
-    };
+    window.onload = () => new App(document.body);
 }
 
 App.globalEventListener();
