@@ -77,6 +77,7 @@
 
         </form>
         <div data-fn="data-table"
+             @load="hookTableLoad"
              data-from="game-list"></div>
     </div>
 
@@ -99,6 +100,11 @@
 
 
 <script>
+
+    function hookTableLoad() {
+        console.log('table-loaded');
+    }
+
     function update() {
         Message.success('update');
     }

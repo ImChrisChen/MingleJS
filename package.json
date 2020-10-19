@@ -59,7 +59,7 @@
 		"@types/react-router-dom": "^5.1.5",
 		"@types/uglify-es": "^3.0.0",
 		"@uiw/react-codemirror": "^3.0.1",
-		"@uiw/react-markdown-editor": "^2.0.1",
+		"@uiw/react-markdown-editor": "^2.0.0",
 		"autoprefixer": "^10.0.0",
 		"bizcharts": "^4.0.14",
 		"cli-color": "^2.0.0",
