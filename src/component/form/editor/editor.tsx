@@ -8,7 +8,8 @@
 import React from 'react';
 // https://github.com/remarkjs/react-markdown#options
 import MarkdownEditor from '@uiw/react-markdown-editor';
-import './editor.css'
+import $ from 'jquery';
+import './editor.css';
 
 interface IFormEditorProps {
     value?: string;
@@ -39,7 +40,7 @@ export default class Editor extends React.Component<IFormEditorProps, any> {
     }
 
     componentDidMount() {
-        $('.md-editor-visible').css('width', this.props.visibleEditor ? '50%' : '100%')
+        $('.md-editor-visible').css('width', this.props.visibleEditor ? '50%' : '100%');
     }
 
     handleChange(editor, data, value) {
@@ -52,7 +53,10 @@ export default class Editor extends React.Component<IFormEditorProps, any> {
         return <>
             <div className="container md-editor-markdown">
 
-                <MarkdownEditor { ...this.state.options } />
+                {
+                    this.props.visibleEditor ? <MarkdownEditor { ...this.state.options } /> :
+                        <MarkdownEditor { ...this.state.options } toolbars={ false }/>
+                }
 
             </div>
         </>;
