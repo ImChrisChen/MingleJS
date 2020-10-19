@@ -268,6 +268,7 @@ export default class App {
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
         let parsedDataset = parserProperty(dataset, defaultProperty?.dataset ?? {});
+        parsedDataset['style'] = jsxStyle;
 
         // 组件名必须大写
         render(
@@ -278,7 +279,6 @@ export default class App {
                     el={ element }
                     elChildren={ elChildren }
                     box={ containerWrap }
-                    style={ jsxStyle }
                     dataset={ parsedDataset }
                     value={ element['value'] }
                     role="mingle-component"

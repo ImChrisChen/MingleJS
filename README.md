@@ -83,9 +83,9 @@ window.funcName = function () {
 ├── dist									//打包生成的文件
 │   ├── chart.min.js
 │   ├── index.html
-│   ├── index.js
+│   ├── index.js							
 │   ├── main.min.js
-│   ├── manifest.min.js
+│   ├── manifest.min.js					
 │   └── report.html
 ├── ecosystem.config.js
 ├── main.tsx								// 入口文件
@@ -133,6 +133,42 @@ window.funcName = function () {
 ```
 
 
+
+## 表单 和 数据（图表/表格/列表）之间的关联
+
+~~~html
+// 表单组件 // 表单ID，用于关联需要控制的数据。
+<form id="game-list" data-fn="form-ajax" data-async="true">				
+    <input data-fn="form-button" 
+           data-label="平台:"
+           data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows" 
+           name="platform"
+           />
+
+    <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
+    
+    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
+    
+</form>
+
+// 表格组件
+<div data-fn="data-table" 
+     data-from="game-list"			// 需要关联的表单ID
+     >
+</div>
+~~~
+
+
+
+## 样式
+
+`在input中输入style属性，可直接作作用于当前组件`
+
+在实例化组件之前，获取到style属性的值，然后转换成JSX的style样式。设置进组件内
+
+~~~html
+<input data-fn="form-input" style="width:200px" />
+~~~
 
 
 

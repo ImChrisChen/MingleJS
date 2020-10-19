@@ -37,18 +37,18 @@ interface ITableHeaderItem {
 interface ITableContentItem {
     [key: string]: any
 
-    'id'?: number | string,
-    'adv_position_id'?: number,
-    'pf'?: number,
-    'date'?: string, // '2020-09-23'
-    'game_name'?: string,
-    'position_name'?: string,
-    'channel_name'?: string,
-    'cost'?: number,
-    'money_cost'?: number,
-    'principal_name'?: string,
-    'remark'?: string,
-    'dl_adv_position_id'?: string
+    id?: number | string,
+    adv_position_id?: number,
+    pf?: number,
+    date?: string, // '2020-09-23'
+    game_name?: string,
+    position_name?: string,
+    channel_name?: string,
+    cost?: number,
+    money_cost?: number,
+    principal_name?: string,
+    remark?: string,
+    dl_adv_position_id?: string
 }
 
 interface IApiResult<T> {
@@ -123,10 +123,10 @@ export default class DataTable extends React.Component<any, any> {
     constructor(props: ITableProps) {
         super(props);
 
-        $('body').addClass('unable-selection');
-
+        console.log(this.props.dataset);
         if (this.props.dataset && this.props.dataset.from) {
-            let formElement = this.findFormElement(this.props.dataset.from);
+            console.log(this.props.dataset);
+            let formElement = FormAjax.findFormElement(this.props.dataset.from);
             FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
         }
 
@@ -184,10 +184,6 @@ export default class DataTable extends React.Component<any, any> {
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
         this.handleDragSelect();
-    }
-
-    findFormElement(from) {
-        return document.querySelector(`#${ from }`);
     }
 
     handleFormSubmit(formData, e) {

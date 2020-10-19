@@ -36,7 +36,7 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
     private template = `<input data-fn="form-button" />`;
     private form: any = React.createRef<FormInstance>();
     state = {
-        visible: this.props.visible || true,
+        visible: this.props.visible || false,
 
         components        : this.getComponents(),
         componentsProperty: [],          // 组件dataset

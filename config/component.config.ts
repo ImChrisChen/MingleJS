@@ -346,6 +346,10 @@ export default {
         input     : {
             component: import('@component/form/input/input'),
             property : {
+                style  : {
+                    parse : 'string',
+                    render: false,
+                },
                 dataset: {
                     placeholder: {
                         el   : 'input',
@@ -402,6 +406,16 @@ export default {
         table          : {
             component: import('@component/data/table/table'),
             path     : '/data-table',
+            property : {
+                dataset: {
+                    from: {
+                        el    : 'input',
+                        value : '',
+                        parse : 'string',
+                        render: false
+                    }
+                }
+            }
         },
         chartline      : {
             component: import('@component/data/chart/line/line'),
