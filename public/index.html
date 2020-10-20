@@ -27,19 +27,6 @@
 </head>
 <body>
 
-<!--<input type="text">-->
-
-<!--<input data-fn="form-button"-->
-<!--       data-optionType="button"-->
-<!--       data-buttonStyle="solid"-->
-<!--       data-enum="Apple,Apple;Pear,Pear;Orange,Orange;Tomato,Tomato"/>-->
-
-
-<!--<div data-fn="data-chartline">-->
-<!--    <h1>哈哈哈哈哈</h1>-->
-<!--    <div data-fn="data-table"></div>-->
-<!--</div>-->
-
 <div id="App"></div>
 
 <div data-fn="layout-tab" data-tabPosition="left">
@@ -89,7 +76,10 @@
             <input data-fn="form-input" data-type="password">
 
         </form>
-        <div data-fn="data-table" hook:load="load" data-from="game-list"></div>
+
+        <div data-fn="data-table"
+             @load="hookTableLoad"
+             data-from="game-list"></div>
     </div>
 
     <div class="panel">
@@ -97,36 +87,37 @@
         <div data-fn="view-calendar"></div>
     </div>
 
+    <div class="panel">
+        <input data-fn="form-button" data-label="平台:"
+               data-enum="1,Android;2,iOS;3,Windows;4,Macos"
+               @before-load="beforeLoad"
+               @load="load"
+               @before-update="beforeUpdate"
+               @update="update"
+        >
+    </div>
+
 </div>
 
-<!--<div data-fn="layout-drawer"></div>-->
-
-<!--<a href="https://baidu.com" data-fn="layout-window">百度</a>-->
-
-<!--<div data-fn="code-editor"></div>-->
-
-<!--<div data-fn="data-chartWorkCloud"></div>-->
-<!--<div data-fn="layout-tab">-->
-
-<!--<div data-fn="data-table"></div>-->
-
-<!--<div data-fn="data-chartcolumn"></div>-->
-
-<!--</div>-->
-
-<!--<div data-fn="data-list"></div>-->
-
-<!--<div data-fn="layout-menu" data-menuList='[{"name":"市场后台"},{"name":"研发后台"}]'></div>-->
-
-<!--<div data-fn="data-table-open"></div>-->
-
-
-<!--<div data-fn="layout-tab">-->
-<!--    <input data-fn="form-switch"/>-->
-<!--    <h1>哈哈哈</h1>-->
-<!--</div>-->
 
 <script>
+
+    function hookTableLoad() {
+        console.log('table-loaded');
+    }
+
+    function update() {
+        Message.success('update');
+    }
+
+    function beforeLoad() {
+        Message.success('beforeLoad');
+    }
+
+    function beforeUpdate() {
+        Message.success('beforeUpdate');
+    }
+
     function load() {
         Message.success('load');
     }

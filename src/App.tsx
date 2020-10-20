@@ -5,8 +5,8 @@ import { parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isFunc } from "@utils/inspect";
-import { parseLineStyle } from "@utils/parser-tpl";
+import { isFunc } from '@utils/inspect';
+import { parseLineStyle } from '@utils/parser-tpl';
 import { globalComponentConfig } from '@root/config/component.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
@@ -54,9 +54,9 @@ interface W extends Window {
 // 组件生命周期
 enum Hooks {
     load = 'load',
-    beforeLoad = 'beforeLoad',
+    beforeLoad = 'before-load',
     update = 'update',
-    beforeUpdate = 'beforeUpdate'
+    beforeUpdate = 'before-update'
 }
 
 export default class App {
@@ -148,11 +148,9 @@ export default class App {
                             this.modules.push(module);
 
                             this.renderComponent(module, (hooks) => {
-                                // console.log('-----------beforeLoad');
-                                hooks['beforeLoad']?.();
+                                hooks[Hooks.beforeLoad]?.();
                             }, (hooks) => {
-                                // console.log('--------------load');
-                                hooks['load']?.();
+                                hooks[Hooks.load]?.();
                                 Array.from(this.$tempContainer.children()).forEach((el: any) => {
                                     // $(element).append(el).show();
                                 });
@@ -169,7 +167,7 @@ export default class App {
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
-            let [ , hookName ] = name.split('hook:');
+            let [ , hookName ] = name.split('@');
             if (hookName && isFunc((window as W)[fnName])) {
                 hooks[hookName] = (window as W)[fnName];
             }
@@ -185,20 +183,6 @@ export default class App {
         return '';
     }
 
-    async render() {
-        this.modules.forEach(module => {
-            // 组件初始化
-            this.renderComponent(module, function (hooks) {
-                // console.log('-----------beforeLoad');
-                hooks['beforeLoad']?.();
-            }, function (hooks) {
-                // console.log('--------------load');
-                hooks['load']?.();
-            });
-            this.eventListener(module);
-        });
-    }
-
     private eventListener(module: IModules) {
         let { element } = module;
 
@@ -210,11 +194,9 @@ export default class App {
             $(element).on('change', (e) => {
                 message.success(`onchange - value:${ $(element).val() }`);
                 this.renderComponent(module, function (hooks) {
-                    // console.log('-----------------beforeUpdate');
-                    hooks['beforeUpdate']?.();
+                    hooks[Hooks.beforeUpdate]?.();
                 }, function (hooks) {
-                    // console.log('---------------update');
-                    hooks['update']?.();
+                    hooks[Hooks.update]?.();
                 });
             });
         }
@@ -286,6 +268,7 @@ export default class App {
         beforeCallback(hooks);
         let jsxStyle = parseLineStyle(style);
         let parsedDataset = parserProperty(dataset, defaultProperty?.dataset ?? {});
+        parsedDataset['style'] = jsxStyle;
 
         // 组件名必须大写
         render(
@@ -296,7 +279,6 @@ export default class App {
                     el={ element }
                     elChildren={ elChildren }
                     box={ containerWrap }
-                    style={ jsxStyle }
                     dataset={ parsedDataset }
                     value={ element['value'] }
                     role="mingle-component"

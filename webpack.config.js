@@ -148,7 +148,7 @@ module.exports = {
             },
             // Markdown 文件解析(raw 不会把 markdown 解析成 html)
             {
-                test: /.(md|txt)$/,
+                test: /.(md|txt|html)$/,
                 use: 'raw-loader',
             },
             // {

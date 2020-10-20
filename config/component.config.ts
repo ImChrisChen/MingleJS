@@ -5,7 +5,7 @@
  * Time: 11:15 上午
  */
 import zhCN from 'antd/es/locale/zh_CN';
-import { isUrl } from "@utils/inspect";
+import { isUrl } from '@utils/inspect';
 
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
@@ -99,7 +99,7 @@ export default {
                         value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
                         desc  : '列表数据的接口地址',
                         parse : 'string',
-                        verify: value => isUrl(value)
+                        verify: value => isUrl(value),
                     },
                     disabled   : {
                         el   : 'switch',
@@ -163,7 +163,7 @@ export default {
                     el   : 'input',
                     value: 'form-select',
                     parse: 'string',
-                    desc : '组件的name值'
+                    desc : '组件的name值',
                 },
                 hook   : {
                     load        : {
@@ -346,6 +346,10 @@ export default {
         input     : {
             component: import('@component/form/input/input'),
             property : {
+                style  : {
+                    parse : 'string',
+                    render: false,
+                },
                 dataset: {
                     placeholder: {
                         el   : 'input',
@@ -369,6 +373,11 @@ export default {
                             //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
                         ],
                         value  : 'text',
+                    },
+                    label      : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
                     },
                 },
             },
@@ -397,6 +406,16 @@ export default {
         table          : {
             component: import('@component/data/table/table'),
             path     : '/data-table',
+            property : {
+                dataset: {
+                    from: {
+                        el    : 'input',
+                        value : '',
+                        parse : 'string',
+                        render: false
+                    }
+                }
+            }
         },
         chartline      : {
             component: import('@component/data/chart/line/line'),

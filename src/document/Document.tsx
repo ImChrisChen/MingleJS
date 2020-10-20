@@ -7,27 +7,28 @@
 
 import React from 'react';
 import { deepEach } from '@utils/util';
-import LayoutMenu from '@component/layout/menu/menu';
 import componentMap from '@root/config/component.config';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import style from './Document.scss';
+import { formatComponents2Tree } from '@utils/format-data';
+import FormEditor from '@component/form/editor/editor';
+import { Layout, Menu } from 'antd';
+import './Document.scss';
+import LayoutMenu from '@component/layout/menu/menu';
+import { Redirect, Route, Switch } from 'react-router';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
-import { formatComponents2Tree } from "@utils/format-data";
-import FormEditor from '@component/form/editor/editor'
-import { isObject } from "@utils/inspect";
+import { Link } from 'react-router-dom';
+import html from '@root/demo/index.html';
+import App from '@src/App';
+import readmeMarkdown from '@root/README.md';
+import $ from 'jquery';
 
-class Container extends React.Component<any, any> {
-    render() {
-        return <>
-            <FormEditor visibleEditor={ false } value={ this.props.value }/>
-        </>;
-    }
-}
+const { Header, Content, Footer, Sider } = Layout;
 
-export class Document extends React.Component<any, any> {
+class Document extends React.Component<any, any> {
     state: any = {
-        menuList: [],
-        routes  : [],
+        menuList      : [],
+        routes        : [],
+        collapsed     : false,
+        showCodeDesign: false,          // 是否显示组件设计器
     };
 
     constructor(props) {
@@ -41,55 +42,100 @@ export class Document extends React.Component<any, any> {
         });
     }
 
+    toggle = () => {
+        this.setState({
+            collapsed: !this.state.collapsed,
+        });
+    };
+
+    handleCodeGenerate() {
+        this.setState({
+            showCodeDesign: true,
+        });
+        console.log(this.state);
+    }
+
+    handleCloseCodeDesign() {
+        this.setState({
+            showCodeDesign: false
+        })
+    }
+
     render() {
         let Routes = [];
         if (this.state.routes.length > 0) {
             Routes = this.state.routes.map(route => {
                 if (route.document) {
-                    return <Route key={ Math.random() * 1000 } path={ route.path }
-                                  render={ () => <Container value={ route.document['default'] }/> }/>;
+                    return <Route key={ Math.random() * 1000 }
+                                  path={ route.path }
+                                  render={ () => <FormEditor visibleEditor={ false }
+                                                             val={ route.document['default'] }/> }/>;
                 } else {
-                    return undefined
+                    return undefined;
                 }
             }).filter(t => t);
         }
-        return <div className={ style.container }>
-            <LayoutMenu menuList={ this.state.menuList }/>
 
-            <div style={ { width: '100%', height: '100%' } }>
-                <h1>Document</h1>
+        console.log(this);
 
-                <Switch>
-                    { ...Routes }
-                    <Redirect from="*" to="/" exact/>
-                </Switch>
+        return (
+            <Layout style={ { display: 'flex', flexDirection: 'row' } }>
+                <LayoutMenu menuList={ this.state.menuList }/>
+                <Layout className="site-layout" style={ { width: '100%' } }>
+                    <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
+                        <div className="logo"/>
 
-                <CodeGenerate/>
-            </div>
-        </div>;
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
+                            <Menu.Item key="1" onClick={ this.handleCodeGenerate.bind(this) }>组件设计器</Menu.Item>
+                            <Menu.Item key="2"><Link to={ '/test' }>测试页面</Link></Menu.Item>
+                            <Menu.Item key="3"><Link to={ '/' }>开发文档</Link></Menu.Item>
+                        </Menu>
+
+                    </Header>
+                    <Content
+                        className="site-layout-background"
+                        style={ {
+                            // margin   : '24px 16px',
+                            padding  : 2,
+                            minHeight: 280,
+                        } }
+                    >
+                        <Switch>
+                            { ...Routes }
+                            <Route path={ '/' } exact
+                                   render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
+                            <Route path={ '/test' } exact render={ () => <TestPage/> }/>
+                            <Redirect from="*" to="/" exact/>
+                        </Switch>
+
+                        <CodeGenerate visible={ this.state.showCodeDesign }
+                                      onClose={ this.handleCloseCodeDesign.bind(this) }
+                        />
+
+                    </Content>
+                </Layout>
+            </Layout>
+        );
     }
 }
 
-function deepEachObject(root, fn, temp: Array<any> = []) {
-
-    for (const key in root) {
-        if (!root.hasOwnProperty(key)) continue;
-        let val = root[key];
-
-        if (fn) {
-            let callbackResult = fn(key, val, root, temp);
-            if (callbackResult) {
-                temp.push({
-                    [key]: val,
-                });
-            }
-        }
-
-        if (isObject(val)) {
-            deepEachObject(val, fn, temp);
-        }
+class TestPage extends React.Component<any, any> {
+    constructor(props) {
+        super(props);
+        this.renderHtml();
     }
 
-    return temp;
+    renderHtml() {
+        setTimeout(function () {
+            let TestPage = $('.TestPage');
+            TestPage.append($(html));
+            new App(TestPage.get(0));
+        });
+    }
+
+    render() {
+        return <div className="TestPage"/>;
+    }
 }
 
+export default Document;

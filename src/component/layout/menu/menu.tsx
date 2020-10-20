@@ -40,13 +40,9 @@ export default class LayoutMenu extends React.Component<any, any> {
 
     render() {
         return (
-            <div style={ { width: 256 } }>
+            <div style={ { width: this.props.width, height: '100vh', background: '#fff' } }>
                 <Button type="primary" onClick={ this.toggleCollapsed } style={ { marginBottom: 16 } }>
                     { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
-                </Button>
-
-                <Button>
-                    <Link to="/form">Form</Link>
                 </Button>
 
                 <Menu

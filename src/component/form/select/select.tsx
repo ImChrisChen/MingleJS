@@ -114,6 +114,8 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     } }/>
                 <Select
                     options={ this.state.currentItem['children'] }
+                    mode="multiple"
+                    maxTagCount={ 1 }
                     style={ { width: 200 } }
                 />
             </Form.Item>
