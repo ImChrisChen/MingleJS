@@ -1,12 +1,14 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const { getThemeVariables } = require('antd/dist/theme');
 // const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
 // const Dashboard = require('webpack-dashboard');
 // const dashboard = new Dashboard();
 
-const HappyPack = require('happypack');     // 使用HappyPack开启多进程Loader转换
+// const HappyPack = require('happypack');     // 使用HappyPack开启多进程Loader转换
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const smp = new SpeedMeasurePlugin();
 
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
@@ -15,8 +17,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
-const marked = require('marked');
-const renderer = new marked.Renderer();
+// const marked = require('marked');
+// const renderer = new marked.Renderer();
+const os = require('os');
+
+// const PrepackWebpackPlugin = require('prepack-webpack-plugin').default;     //使用Prepack提前求值
 
 // const UglifyEsPlugin = require('uglify-es');
 
@@ -46,7 +51,7 @@ const typingsForCssModulesLoaderConf = {
     },
 };
 
-module.exports = {
+module.exports = smp.wrap({
     watch: true,
     watchOptions: {
         ignored: /node_module/,
@@ -77,7 +82,7 @@ module.exports = {
         splitChunks: {
             name: 'manifest',     // 自动处理文件名
             chunks: 'all',
-            minChunks: 1, // 至少 import 1 次的即需要打包
+            minChunks: 5, // 至少 import 1 次的即需要打包
             automaticNameDelimiter: '-',        // 生成名称的隔离符
             cacheGroups: {
                 vendors: {
@@ -104,11 +109,13 @@ module.exports = {
             
             '@images': path.resolve(__dirname, 'static/images'),
             '@utils': path.resolve(__dirname, 'utils'),
+            
+            // 生产环境下使用
             // 'react': path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
             // 'bizcharts': path.resolve(__dirname, './node_modules/bizcharts/umd/BizCharts.min.js'),
         },
         modules: [path.resolve(__dirname, 'node_modules')],
-        // mainFields: ['main'],
+        // mainFields: ['main'],        // 生产环境下使用
     },
     module: {
         // noParse: [/jquery|bizcharts/, /react\.min\.js$/],
@@ -156,6 +163,10 @@ module.exports = {
                 use: [
                     { loader: 'awesome-typescript-loader' },
                     { loader: 'cache-loader' },
+                    {
+                        loader: 'thread-loader',
+                        options: { workers: os.cpus().length },
+                    },
                 ],
                 include: path.resolve(__dirname, '/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
@@ -192,9 +203,13 @@ module.exports = {
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
         // 'react': 'React',
         // 'react-dom': 'ReactDOM',
+        // 'antd': true,
         // 'bizcharts': 'bizcharts',
+        // 'jquery': 'jquery',
     },
     plugins: [
+        
+        // new PrepackWebpackPlugin(),
         
         // new MiniCssExtractPlugin({
         //     // Options similar to the same options in webpackOptions.output
@@ -249,6 +264,7 @@ module.exports = {
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
             analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
             analyzerHost: '0.0.0.0',
+            defaultSizes: 'parsed',
             // analyzerPort: '9200',
             generateStatsFile: false,
             statsOptions: {
@@ -297,5 +313,5 @@ module.exports = {
             inline: false,//
         },
     },
-};
+});
 
