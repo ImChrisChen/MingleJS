@@ -25,17 +25,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="配置测试页面">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="6022e173-faee-4a44-9b24-3c6088a7de8e" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/code/generate/CodeGenerate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/code/generate/CodeGenerate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/form/ajax/form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/form/ajax/form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/form/input/input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/form/input/input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/document/Document.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/document/Document.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/document/form.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/trigger.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/trigger.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +262,8 @@
       <workItem from="1603175556747" duration="916000" />
       <workItem from="1603176630914" duration="244000" />
       <workItem from="1603178319626" duration="158000" />
-      <workItem from="1603178507648" duration="2493000" />
+      <workItem from="1603178507648" duration="3342000" />
+      <workItem from="1603182832575" duration="456000" />
     </task>
     <task id="LOCAL-00001" summary=".gitignore">
       <created>1600253474526</created>
@@ -607,7 +601,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603089531568</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="配置组件设计器页面">
+      <created>1603181257671</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1603181257671</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -649,7 +650,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="config :调整代码" />
     <MESSAGE value="config: 完成 字符串style转化为JSON style" />
     <MESSAGE value="feat: 添加全局函数" />
     <MESSAGE value="feat:添加词云，中国地图，仪表盘等数据格式化图表" />
@@ -674,7 +674,8 @@
     <MESSAGE value="feat: 通过组件配置实现，属性值过滤" />
     <MESSAGE value="feat:开发文档补充" />
     <MESSAGE value="配置测试页面" />
-    <option name="LAST_COMMIT_MESSAGE" value="配置测试页面" />
+    <MESSAGE value="配置组件设计器页面" />
+    <option name="LAST_COMMIT_MESSAGE" value="配置组件设计器页面" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1159" y="220" width="940" height="1104" key="#EditorConfig" timestamp="1600594202513">
@@ -710,7 +711,7 @@
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1081" y="425" width="1143" height="841" key="#部署/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601173650220" />
-    <state x="734" y="25" width="1443" height="1262" key="CommitChangelistDialog2" timestamp="1603176419342">
+    <state x="734" y="25" width="1443" height="1262" key="CommitChangelistDialog2" timestamp="1603181257313">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1226" y="23" key="CommitChangelistDialog2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409397683" />
@@ -718,7 +719,7 @@
     <state x="625" y="23" key="CommitChangelistDialog2/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600786982658" />
     <state x="734" y="23" key="CommitChangelistDialog2/0.23.3008.1604/3008.192.1920.1057/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601358143112" />
     <state x="734" y="23" key="CommitChangelistDialog2/0.23.3008.1604/3008.635.1920.1057/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602601172529" />
-    <state x="734" y="25" key="CommitChangelistDialog2/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603176419342" />
+    <state x="734" y="25" key="CommitChangelistDialog2/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603181257313" />
     <state x="984" y="160" key="CommitChangelistDialog2/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688609861" />
     <state x="734" y="23" width="1637" height="1302" key="CommitChangelistDialog2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697908331" />
     <state x="734" y="23" width="1246" height="940" key="CommitChangelistDialog2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202006188" />
@@ -926,7 +927,7 @@
     <state width="751" height="758" key="SwitcherDM/3008.487.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603159123322" />
     <state width="751" height="761" key="SwitcherDM/3008.635.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602324050796" />
     <state width="751" height="758" key="SwitcherDM/3008.637.1920.1055/0.25.3008.1597/-1680.246.1680.1025@0.25.3008.1597" timestamp="1602666871276" />
-    <state x="1300" y="292" key="Vcs.Push.Dialog.v2" timestamp="1603176402238">
+    <state x="1300" y="292" key="Vcs.Push.Dialog.v2" timestamp="1603181259737">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1106" y="200" key="Vcs.Push.Dialog.v2/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600409399188" />
@@ -934,7 +935,7 @@
     <state x="1106" y="260" key="Vcs.Push.Dialog.v2/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600755918507" />
     <state x="1300" y="291" key="Vcs.Push.Dialog.v2/0.23.3008.1604/3008.192.1920.1057/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601358147195" />
     <state x="1300" y="291" key="Vcs.Push.Dialog.v2/0.23.3008.1604/3008.635.1920.1057/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602601175587" />
-    <state x="1300" y="292" key="Vcs.Push.Dialog.v2/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603176402238" />
+    <state x="1300" y="292" key="Vcs.Push.Dialog.v2/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603181259737" />
     <state x="1300" y="288" key="Vcs.Push.Dialog.v2/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697911955" />
     <state x="1300" y="291" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601202008163" />
     <state x="1300" y="302" key="Vcs.Push.Dialog.v2/3008.192.1920.1057/0.23.3008.1669/-1680.244.1680.1027@0.23.3008.1669" timestamp="1600852204683" />
@@ -993,7 +994,7 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="732" y="146" width="1716" height="936" key="dock-window-6/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688094078" />
-    <state x="1442" y="254" width="892" height="1070" key="find.popup" timestamp="1603179094274">
+    <state x="1442" y="254" width="892" height="1070" key="find.popup" timestamp="1603182926333">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1227" y="175" width="757" height="706" key="find.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600258714186" />
@@ -1001,7 +1002,7 @@
     <state x="1227" y="226" width="758" height="947" key="find.popup/0.23.2560.1417/2560.192.1920.1057/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600774183792" />
     <state x="1442" y="253" width="892" height="1074" key="find.popup/0.23.3008.1604/3008.192.1920.1057/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601369920144" />
     <state x="1442" y="253" width="892" height="1074" key="find.popup/0.23.3008.1604/3008.635.1920.1057/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602595480549" />
-    <state x="1442" y="254" width="892" height="1070" key="find.popup/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603179094274" />
+    <state x="1442" y="254" width="892" height="1070" key="find.popup/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603182926333" />
     <state x="1227" y="226" width="758" height="947" key="find.popup/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600682817980" />
     <state x="1442" y="250" width="890" height="1057" key="find.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600698742038" />
     <state x="1442" y="253" width="892" height="1074" key="find.popup/3008.192.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602215189162" />
@@ -1015,13 +1016,13 @@
       <screen x="0" y="23" width="3008" height="1604" />
     </state>
     <state x="1527" y="422" width="645" height="778" key="ftp.server.browser/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601172203334" />
-    <state width="901" height="648" key="javadoc.popup" timestamp="1603160287566">
+    <state width="901" height="648" key="javadoc.popup" timestamp="1603182882872">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state width="766" height="574" key="javadoc.popup/0.23.2560.1417/-1680.23.1680.1027@0.23.2560.1417" timestamp="1600659801564" />
     <state width="901" height="650" key="javadoc.popup/0.23.3008.1604/3008.192.1920.1057/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601349964805" />
     <state width="901" height="650" key="javadoc.popup/0.23.3008.1604/3008.635.1920.1057/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602597993477" />
-    <state width="901" height="648" key="javadoc.popup/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603103287504" />
+    <state width="901" height="648" key="javadoc.popup/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603182882872" />
     <state width="766" height="574" key="javadoc.popup/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600683684561" />
     <state width="900" height="640" key="javadoc.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600697212176" />
     <state width="901" height="650" key="javadoc.popup/3008.192.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602223666603" />
@@ -1047,7 +1048,7 @@
     </state>
     <state x="1509" y="325" width="1005" height="1465" key="run.anything.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600576367714" />
     <state x="1509" y="329" width="1005" height="1486" key="run.anything.popup/3008.192.1920.1057/0.23.3008.1604/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601014343380" />
-    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup" timestamp="1603179287818">
+    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup" timestamp="1603182985802">
       <screen x="0" y="25" width="3008" height="1597" />
     </state>
     <state x="1014" y="101" width="856" height="980" key="search.everywhere.popup/0.23.2560.1057/-1680.23.1680.1027@0.23.2560.1057" timestamp="1600407265764" />
@@ -1056,7 +1057,7 @@
     <state x="1191" y="141" width="1005" height="1487" key="search.everywhere.popup/0.23.3008.1604/-1680.23.1680.1027@0.23.3008.1604" timestamp="1600655527135" />
     <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/0.23.3008.1604/3008.192.1920.1057/-1920.244.1920.1177@0.23.3008.1604" timestamp="1601375808598" />
     <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/0.23.3008.1604/3008.635.1920.1057/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602600592564" />
-    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603179287818" />
+    <state x="1191" y="141" width="1006" height="1482" key="search.everywhere.popup/0.25.3008.1597/3008.487.1920.1055/-1680.246.1680.1025@0.25.3008.1597" timestamp="1603182985802" />
     <state x="1014" y="128" width="856" height="1314" key="search.everywhere.popup/2560.192.1920.1057/0.23.2560.1417/-1680.244.1680.1027@0.23.2560.1417" timestamp="1600688866334" />
     <state x="1191" y="139" width="1005" height="1466" key="search.everywhere.popup/3008.-345.1440.2537/0.23.3008.1582@0.23.3008.1582" timestamp="1600698304517" />
     <state x="1191" y="140" width="1006" height="1488" key="search.everywhere.popup/3008.192.1920.1057/0.23.3008.1604/-1680.244.1680.1027@0.23.3008.1604" timestamp="1602223833424" />

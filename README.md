@@ -26,14 +26,37 @@ npm install && npm run dev
 
 
 
-## 使用方式
+## 打包部署
 
+项目根目录运行
 
+~~~shell
+npm run build
+~~~
 
-引入js
-```html
+会生成dist目录， 结构如下
+
+~~~javascript
+├── dist
+│   ├── chart.min.js
+│   ├── index.html
+│   ├── index.js
+│   ├── main.min.js
+│   ├── manifest.min.js
+│   └── report.html
+~~~
+
+把dist目录部署到服务器后，只需要用<script>标签引入 index.js 即可使用
+
+~~~html
 <script src="https://mingle.aidalan.com/index.js"></script>
-```
+~~~
+
+
+
+
+
+## 使用说明
 
 1. 表单组件调用方式为 <input data-fn="form-xxx" />非表单组件则用 <div data-fn="layout-xx"></div>
 2. 组件所有属性均通过 <input data-*="属性值"> 组件默认值通过设置 input 上的value值即可
