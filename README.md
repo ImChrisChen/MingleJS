@@ -22,7 +22,7 @@ React + Typescript + Antd + WUI
 npm install && npm run dev
 ~~~
 
-
+浏览器打开 [http://localhost:8080](http://localhost:8080)
 
 
 

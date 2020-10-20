@@ -25,9 +25,10 @@ const { Header, Content, Footer, Sider } = Layout;
 
 class Document extends React.Component<any, any> {
     state: any = {
-        menuList : [],
-        routes   : [],
-        collapsed: false,
+        menuList      : [],
+        routes        : [],
+        collapsed     : false,
+        showCodeDesign: false,          // 是否显示组件设计器
     };
 
     constructor(props) {
@@ -48,7 +49,16 @@ class Document extends React.Component<any, any> {
     };
 
     handleCodeGenerate() {
+        this.setState({
+            showCodeDesign: true,
+        });
+        console.log(this.state);
+    }
 
+    handleCloseCodeDesign() {
+        this.setState({
+            showCodeDesign: false
+        })
     }
 
     render() {
@@ -66,12 +76,15 @@ class Document extends React.Component<any, any> {
             }).filter(t => t);
         }
 
+        console.log(this);
+
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
                 <LayoutMenu menuList={ this.state.menuList }/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
+
                         <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
                             <Menu.Item key="1" onClick={ this.handleCodeGenerate.bind(this) }>组件设计器</Menu.Item>
                             <Menu.Item key="2"><Link to={ '/test' }>测试页面</Link></Menu.Item>
@@ -95,7 +108,9 @@ class Document extends React.Component<any, any> {
                             <Redirect from="*" to="/" exact/>
                         </Switch>
 
-                        <CodeGenerate visible={ false }/>
+                        <CodeGenerate visible={ this.state.showCodeDesign }
+                                      onClose={ this.handleCloseCodeDesign.bind(this) }
+                        />
 
                     </Content>
                 </Layout>

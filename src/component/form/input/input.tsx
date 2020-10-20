@@ -19,6 +19,7 @@ export default class FormInput extends React.Component<IComponentProps, any> {
 
     constructor(props: IComponentProps) {
         super(props);
+        console.log(this.props);
     }
 
     state = {

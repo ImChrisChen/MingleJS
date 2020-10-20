@@ -24,9 +24,9 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let { async } = this.props.dataset;
         let form: HTMLFormElement = this.props.el;
-        // FormAjax.onFormSubmit(form, function (formData) {
-        //     console.log(formData)
-        // });
+        FormAjax.onFormSubmit(form, function (formData) {
+            console.log(formData)
+        });
     }
 
     static onFormSubmit(formElement, callback) {

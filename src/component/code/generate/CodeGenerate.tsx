@@ -27,17 +27,15 @@ interface IComponentDataset {
 
 interface ICodeGenerateProps {
     visible?: boolean           //是否显示组件设计器
+    onClose: () => any
+
     [key: string]: any
 }
-
-const { Option } = Select;
 
 class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
     private template = `<input data-fn="form-button" />`;
     private form: any = React.createRef<FormInstance>();
     state = {
-        visible: this.props.visible || false,
-
         components        : this.getComponents(),
         componentsProperty: [],          // 组件dataset
 
@@ -60,18 +58,6 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
             });
         });
     }
-
-    showDrawer = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    onClose = () => {
-        this.setState({
-            visible: false,
-        });
-    };
 
     setAttributeValue(index, value) {
         let componentsProperty: Array<IComponentDataset> = this.state.componentsProperty;
@@ -180,6 +166,10 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
         }, () => this.generateCode());
 
         this.props.history.push(componentName)
+    }
+
+    shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
+        return true;
     }
 
     handleChangeRadio(index, e) {
@@ -301,15 +291,15 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
     render() {
         return (
             <>
-                <Button type="primary" onClick={ this.showDrawer }>
-                    <PlusOutlined/> New account
-                </Button>
+                {/*<Button type="primary" onClick={ this.showDrawer }>*/ }
+                {/*    <PlusOutlined/> New account*/ }
+                {/*</Button>*/ }
 
                 <Drawer
                     title="组件设计器"
                     width={ '100%' }
-                    onClose={ this.onClose }
-                    visible={ this.state.visible }
+                    onClose={ this.props.onClose }
+                    visible={ this.props.visible }
                     bodyStyle={ { paddingBottom: 80 } }
                     mask={ false }
                     footer={
@@ -318,7 +308,7 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
                                 textAlign: 'right',
                             } }
                         >
-                            <Button onClick={ this.onClose } style={ { marginRight: 8 } }>
+                            <Button onClick={ this.props.onClose } style={ { marginRight: 8 } }>
                                 Cancel
                             </Button>
                             <Button onClick={ this.handleSubmit.bind(this) } type="primary">
