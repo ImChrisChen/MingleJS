@@ -33,6 +33,7 @@ class Document extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        console.log(props);
 
         formatComponents2Tree(componentMap).then(list => {
             let routes = deepEach(list, item => {

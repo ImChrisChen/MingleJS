@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "rm -rf ./dist && webpack && node script.js",
 		"pre": "rm -rf ./dist NODE_ENV=pre webpack && node script.js",
-		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --inline --progress --profile --config webpack.config.js",
+		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --config webpack.config.js",
 		"docs": "npx docsify serve ./docs"
 	},
 	"author": "chrischen",
@@ -20,6 +20,7 @@
 		"@types/axios": "^0.14.0",
 		"@types/jquery": "^3.5.1",
 		"@types/node": "^14.11.2",
+		"@types/react-window": "^1.8.2",
 		"@types/uglifyjs-webpack-plugin": "^1.1.0",
 		"antd": "4.7.0",
 		"awesome-typescript-loader": "^5.2.1",
@@ -27,6 +28,7 @@
 		"babel-loader": "^8.1.0",
 		"cache-loader": "^4.1.0",
 		"css-loader": "^1.0.1",
+		"happypack": "^5.0.1",
 		"html-webpack-plugin": "^4.4.1",
 		"jquery": "^3.5.1",
 		"less": "^3.12.2",

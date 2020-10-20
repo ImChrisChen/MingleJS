@@ -6,6 +6,9 @@ const { getThemeVariables } = require('antd/dist/theme');
 // const Dashboard = require('webpack-dashboard');
 // const dashboard = new Dashboard();
 
+const HappyPack = require('happypack');     // 使用HappyPack开启多进程Loader转换
+
+
 // https://www.npmjs.com/package/webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
@@ -14,6 +17,7 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文�
 const glob = require('glob');
 const marked = require('marked');
 const renderer = new marked.Renderer();
+
 // const UglifyEsPlugin = require('uglify-es');
 
 let env = process.env.NODE_ENV;
@@ -43,6 +47,12 @@ const typingsForCssModulesLoaderConf = {
 };
 
 module.exports = {
+    watch: true,
+    watchOptions: {
+        ignored: /node_module/,
+        aggregateTimeout: 300,
+        poll: 1000,  //每秒询问次数，越小越好
+    },
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
@@ -76,7 +86,6 @@ module.exports = {
             },
         },
     },
-    
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
@@ -95,9 +104,14 @@ module.exports = {
             
             '@images': path.resolve(__dirname, 'static/images'),
             '@utils': path.resolve(__dirname, 'utils'),
+            // 'react': path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
+            // 'bizcharts': path.resolve(__dirname, './node_modules/bizcharts/umd/BizCharts.min.js'),
         },
+        modules: [path.resolve(__dirname, 'node_modules')],
+        // mainFields: ['main'],
     },
     module: {
+        // noParse: [/jquery|bizcharts/, /react\.min\.js$/],
         rules: [
             {
                 test: /\.css$/i,
@@ -280,7 +294,7 @@ module.exports = {
             open: true,     //是否自动打开默认浏览器
             hot: true,      //热更新
             useLocalIp: true,//是否用自己的IP
-            inline: true,//
+            inline: false,//
         },
     },
 };

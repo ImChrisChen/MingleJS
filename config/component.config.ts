@@ -412,31 +412,31 @@ export default {
                         el    : 'input',
                         value : '',
                         parse : 'string',
-                        render: false
-                    }
-                }
-            }
+                        render: false,
+                    },
+                },
+            },
         },
         chartline      : {
             component: import('@component/data/chart/line/line'),
             path     : '/data-chartline',
         },
-        chartcolumn    : {
-            component: import('@component/data/chart/column/column'),
-            path     : '/data-chartcolumn',
-        },
+        // chartcolumn    : {
+        //     component: import('@component/data/chart/column/column'),
+        //     path     : '/data-chartcolumn',
+        // },
         chartCoordinate: {
             component: import('@component/data/chart/coordinate/Coordinate'),
             path     : '/data-coordinate',
         },
-        chartWorkCloud : {
-            component: import('@component/data/chart/wordcloud/wordCloud'),
-            path     : '/data-chartWorkCloud',
-        },
-        chartMap       : {
-            component: import('@component/data/chart/map/map'),
-            path     : '/data-chartMap',
-        },
+        // chartWorkCloud : {
+        //     component: import('@component/data/chart/wordcloud/wordCloud'),
+        //     path     : '/data-chartWorkCloud',
+        // },
+        // chartMap       : {
+        //     component: import('@component/data/chart/map/map'),
+        //     path     : '/data-chartMap',
+        // },
         list           : {
             component: import('@component/data/list/list'),
             path     : 'data-list',
@@ -444,7 +444,7 @@ export default {
         virtualTable   : {
             component: import('@component/data/table/_table'),
             path     : '/virtualTable',
-        }
+        },
     },
     tips  : {
         loading: {
@@ -483,6 +483,7 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
+    
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置
