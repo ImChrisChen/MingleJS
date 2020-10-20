@@ -1,1 +1,1 @@
-.rowClassName {}.tableHeaderCell {    width  : inherit;    height : inherit;    //color : #ffffff;}@mixin thColor($color: transparentize()) {    background-color : $color;}
+.rowClassName {}.tableHeaderCell {    width      : inherit;    height     : inherit;    text-align : center;    //color : #ffffff;}@mixin thColor($color: transparentize()) {    background-color : $color;}.virtual-grid {    text-align : center !important;}

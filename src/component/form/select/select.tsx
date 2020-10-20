@@ -16,7 +16,6 @@ import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
 // import axios from 'axios'
 
-const { Option } = Select;
 const { Title } = Typography;
 
 interface ISelectState<T> {

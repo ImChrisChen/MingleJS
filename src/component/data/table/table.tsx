@@ -352,6 +352,9 @@ export default class DataTable extends React.Component<any, any> {
         };
         return <div>
             <Table
+                components={ {
+
+                } }
                 rowClassName={ style.rowClassName }
                 rowSelection={ rowSelection }
                 { ...this.state }

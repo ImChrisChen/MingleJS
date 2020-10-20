@@ -441,6 +441,10 @@ export default {
             component: import('@component/data/list/list'),
             path     : 'data-list',
         },
+        virtualTable   : {
+            component: import('@component/data/table/_table'),
+            path     : '/virtualTable',
+        }
     },
     tips  : {
         loading: {

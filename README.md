@@ -46,7 +46,7 @@ npm run build
 │   └── report.html
 ~~~
 
-把dist目录部署到服务器后，只需要用<script>标签引入 index.js 即可使用
+把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
 
 ~~~html
 <script src="https://mingle.aidalan.com/index.js"></script>
