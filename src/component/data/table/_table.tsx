@@ -9,12 +9,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { VariableSizeGrid as Grid } from 'react-window';
 import ResizeObserver from 'rc-resize-observer';
 import classNames from 'classnames';
-import { Table } from 'antd';
+import { Button, Input, Space, Table } from 'antd';
 import { parseTpl } from "@utils/parser-tpl";
 import { strParseVirtualDOM } from "@utils/parser-dom";
-import style from "@component/data/table/table.scss";
 import tableHeader from '@root/mock/table/tableHeader.json';
 import tableContent from '@root/mock/table/tableContent.json';
+import { SearchOutlined } from '@ant-design/icons';
+import Highlighter from 'react-highlight-words';
 
 
 interface ITableHeaderItem {
@@ -67,7 +68,7 @@ interface ITableProps {
 }
 
 function VirtualTable(props) {
-    const { columns, scroll } = props;
+    const { columns, scroll, dataSource } = props;
     const [ tableWidth, setTableWidth ] = useState(0);
     const widthColumnCount = columns.filter(({ width }) => !width).length;
     const mergedColumns = columns.map((column) => {
@@ -118,7 +119,7 @@ function VirtualTable(props) {
                 } }
                 height={ scroll.y }
                 rowCount={ rawData.length }
-                rowHeight={ () => 54 }
+                rowHeight={ () => 46 }
                 width={ tableWidth }
                 onScroll={ ({ scrollLeft }) => {
                     onScroll({
@@ -139,7 +140,7 @@ function VirtualTable(props) {
             </Grid>
         );
     };
-
+    console.log(props);
 
     return (
         <ResizeObserver
@@ -149,7 +150,8 @@ function VirtualTable(props) {
         >
             <Table
                 { ...props }
-                className="virtual-table"
+                dataSource={ dataSource }
+                // className="virtual-table"
                 columns={ mergedColumns }
                 components={ {
                     body: renderVirtualList,
@@ -200,8 +202,12 @@ const footer = () => 'Here is footer';
 
 export default class FormTable extends React.Component<any, any> {
     private fieldTpl!: string;
+    private searchInput
 
     state = {
+        searchText    : '',
+        searchedColumn: '',
+
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
         selectedRowKeys: [],
@@ -346,30 +352,123 @@ export default class FormTable extends React.Component<any, any> {
                 ...item,
 
                 // antd
-                title       : <div className={ style.tableHeaderCell }
-                                   style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
-                // title    : item.text,
-                dataIndex   : item.field,
-                id          : item.field,
-                align       : 'center',
-                render      : function (text, item, i) {
-                    return text;
-                },     // 自定义渲染表格中的每一项
-                // className: style.tableHeaderCell,
-                // width       : 80,
-                onHeaderCell: (column) => {
-                    // console.log(column);
-                },
-                ellipsis    : true,
-                Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
-                // fixed       : true,
-                sorter      : {
-                    compare,
-                },
+                // ...this.getColumnSearchProps(item.field),
+                // filters     : [
+                //     {
+                //         text : 'Joe',
+                //         value: 'Joe',
+                //     },
+                //     {
+                //         text : 'Jim',
+                //         value: 'Jim',
+                //     },
+                //     {
+                //         text    : 'Submenu',
+                //         value   : 'Submenu',
+                //         children: [
+                //             {
+                //                 text : 'Green',
+                //                 value: 'Green',
+                //             },
+                //             {
+                //                 text : 'Black',
+                //                 value: 'Black',
+                //             },
+                //         ],
+                //     },
+                // ],
+
+
+                // title    : <div className={ style.tableHeaderCell }
+                //                 style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
+                title    : item.text,
+                dataIndex: item.field,
+                id       : item.field,
+                align    : 'left',
+                // render      : function (text, item, i) {
+                //     return text;
+                // },     // 自定义渲染表格中的每一项
+                // // className: style.tableHeaderCell,
+                // // width       : 80,
+                // onHeaderCell: (column) => {
+                //     // console.log(column);
+                // },
+                // ellipsis    : true,
+                // Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+                // // fixed       : false,
+                // // sorter      : {
+                // //     compare,
+                // // },
             };
         });
     }
 
+    getColumnSearchProps = dataIndex => ({
+        filterDropdown               : ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={ { padding: 8 } }>
+                <Input
+                    ref={ node => {
+                        this.searchInput = node;
+                    } }
+                    placeholder={ `Search ${ dataIndex }` }
+                    value={ selectedKeys[0] }
+                    onChange={ e => setSelectedKeys(e.target.value ? [ e.target.value ] : []) }
+                    onPressEnter={ () => this.handleSearch(selectedKeys, confirm, dataIndex) }
+                    style={ { width: 188, marginBottom: 8, display: 'block' } }
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={ () => this.handleSearch(selectedKeys, confirm, dataIndex) }
+                        icon={ <SearchOutlined/> }
+                        size="small"
+                        style={ { width: 90 } }
+                    >
+                        Search
+                    </Button>
+                    <Button onClick={ () => this.handleReset(clearFilters) } size="small" style={ { width: 90 } }>
+                        Reset
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon                   : filtered => <SearchOutlined
+            style={ { color: filtered ? '#1890ff' : undefined } }/>,
+        onFilter                     : (value, record) =>
+            record[dataIndex]
+                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+                : '',
+        onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render                       : text =>
+            this.state.searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
+                    searchWords={ [ this.state.searchText ] }
+                    autoEscape
+                    textToHighlight={ text ? text.toString() : '' }
+                />
+            ) : (
+                text
+            ),
+    })
+
+    handleReset = clearFilters => {
+        clearFilters();
+        this.setState({ searchText: '' });
+    };
+
+    handleSearch = (selectedKeys, confirm, dataIndex) => {
+        console.log(selectedKeys, confirm, dataIndex);
+        confirm();
+        this.setState({
+            searchText    : selectedKeys[0],
+            searchedColumn: dataIndex,
+        });
+    };
 
     onSelectChange(selectedRowKeys) {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -415,13 +514,37 @@ export default class FormTable extends React.Component<any, any> {
             ],
         };
 
-        return <VirtualTable
-            { ...this.state }
-            rowClassName={ style.rowClassName }
-            // rowSelection={ rowSelection }
-        />
+        // return <VirtualTable
+        //     { ...this.state }
+        //     rowClassName={ style.rowClassName }
+        //     // rowSelection={ rowSelection }
+        // />
+        // return <VirtualTable columns={ columns } dataSource={ data } scroll={ { y: 300, x: '100vw' } }/>
 
-        return <VirtualTable columns={ this.state.columns } dataSource={ this.state.dataSource }
-                             scroll={ { y: 300, x: '100vw' } }/>
+        return <VirtualTable
+            bordered
+            onRow={ record => {
+                return {
+                    onClick      : event => {
+                    }, // 点击行
+                    onDoubleClick: event => {
+                    },
+                    onContextMenu: event => {
+                    },
+                    onMouseEnter : event => {
+                    }, // 鼠标移入行
+                    onMouseLeave : event => {
+                    },
+                };
+            } }
+            onHeaderRow={ column => {
+                return {
+                    onClick: () => {
+                    }, // 点击表头行
+                };
+            } }
+            pagination={ false }
+            columns={ this.state.columns } dataSource={ this.state.dataSource }
+            scroll={ { y: 300, x: '100vw' } }/>
     }
 }

@@ -97,7 +97,7 @@ class Document extends React.Component<any, any> {
                         className="site-layout-background"
                         style={ {
                             // margin   : '24px 16px',
-                            padding  : 2,
+                            // padding  : 2,
                             minHeight: 280,
                         } }
                     >

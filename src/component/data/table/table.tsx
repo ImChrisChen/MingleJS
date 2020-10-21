@@ -5,7 +5,7 @@
  * Time: 7:35 下午
  */
 
-import { message, Table } from 'antd';
+import { Button, Input, message, Space, Table } from 'antd';
 import * as React from 'react';
 import tableHeader from '@root/mock/table/tableHeader.json';
 import tableContent from '@root/mock/table/tableContent.json';
@@ -16,6 +16,8 @@ import { ColumnsType } from 'antd/es/table';
 import FormAjax from '@component/form/ajax/form';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery'
+import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -77,7 +79,6 @@ interface ITableState {
 // ! 操作符    https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36
 
 const expandable = { expandedRowRender: record => <p>{ record.description }</p> };
-const footer = () => 'Here is footer';
 
 export default class DataTable extends React.Component<any, any> {
 
@@ -88,15 +89,19 @@ export default class DataTable extends React.Component<any, any> {
         loading        : true,
         size           : 'small',   // default | middle | small
         showHeader     : true,
+
+        searchText    : '',
+        searchedColumn: '',
+
         // summary        : (e, v) => {
         // },
         // expandable,
-        footer,
-        title          : function () {
-            return <>我是默认的表格title🤪🤪🤪🤪</>;
-        },
-        bordered       : true,
-        pagination     : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
+        // footer: () => 'Here is footer',
+        // title          : function () {
+        //     return <>我是默认的表格title🤪🤪🤪🤪</>;
+        // },
+        bordered  : true,
+        pagination: {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
             pageSizeOptions : [ 10, 20, 50, 100, 200 ],
             pageSize        : 100,
@@ -112,13 +117,13 @@ export default class DataTable extends React.Component<any, any> {
                 });
             },
         },
-        scroll         : {
+        scroll    : {
             y: '100vh',
         },
-
     };
     private fieldTpl!: string;
     private url: string = this.props.url;
+    private searchInput;
 
     constructor(props: ITableProps) {
         super(props);
@@ -157,6 +162,7 @@ export default class DataTable extends React.Component<any, any> {
                     console.log('拖拽结束');
 
                     let $tds = $el.find('td');
+                    $tds.css('background', 'transparent')
                     Array.from($tds).forEach(td => {
                         let { top, left } = $(td).offset() as any;
 
@@ -283,6 +289,8 @@ export default class DataTable extends React.Component<any, any> {
                 ...item,
 
                 // antd
+                ...this.getColumnSearchProps(item.field),
+
                 title       : <div className={ style.tableHeaderCell }
                                    style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
                 // title    : item.text,
@@ -299,13 +307,80 @@ export default class DataTable extends React.Component<any, any> {
                 },
                 ellipsis    : true,
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
-                fixed       : true,
+                fixed       : false,
                 sorter      : {
                     compare,
                 },
             };
         });
     }
+
+    getColumnSearchProps = dataIndex => ({
+        filterDropdown               : ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={ { padding: 8 } }>
+                <Input
+                    ref={ node => {
+                        this.searchInput = node;
+                    } }
+                    placeholder={ `Search ${ dataIndex }` }
+                    value={ selectedKeys[0] }
+                    onChange={ e => setSelectedKeys(e.target.value ? [ e.target.value ] : []) }
+                    onPressEnter={ () => this.handleSearch(selectedKeys, confirm, dataIndex) }
+                    style={ { width: 188, marginBottom: 8, display: 'block' } }
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={ () => this.handleSearch(selectedKeys, confirm, dataIndex) }
+                        icon={ <SearchOutlined/> }
+                        size="small"
+                        style={ { width: 90 } }
+                    >
+                        Search
+                    </Button>
+                    <Button onClick={ () => this.handleReset(clearFilters) } size="small" style={ { width: 90 } }>
+                        Reset
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon                   : filtered => <SearchOutlined
+            style={ { color: filtered ? '#1890ff' : undefined } }/>,
+        onFilter                     : (value, record) =>
+            record[dataIndex]
+                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+                : '',
+        onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render                       : text =>
+            this.state.searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
+                    searchWords={ [ this.state.searchText ] }
+                    autoEscape
+                    textToHighlight={ text ? text.toString() : '' }
+                />
+            ) : (
+                text
+            ),
+    })
+
+    handleReset = clearFilters => {
+        clearFilters();
+        this.setState({ searchText: '' });
+    };
+
+    handleSearch = (selectedKeys, confirm, dataIndex) => {
+        console.log(selectedKeys, confirm, dataIndex);
+        confirm();
+        this.setState({
+            searchText    : selectedKeys[0],
+            searchedColumn: dataIndex,
+        });
+    };
 
     onSelectChange(selectedRowKeys) {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -352,11 +427,31 @@ export default class DataTable extends React.Component<any, any> {
         };
         return <div>
             <Table
-                components={ {
-
+                className={ style.FormTable }
+                components={ {} }
+                onRow={ record => {
+                    return {
+                        onClick      : event => {
+                        }, // 点击行
+                        onDoubleClick: event => {
+                        },
+                        onContextMenu: event => {
+                        },
+                        onMouseEnter : event => {
+                        }, // 鼠标移入行
+                        onMouseLeave : event => {
+                        },
+                    };
                 } }
+                onHeaderRow={ column => {
+                    return {
+                        onClick: () => {
+                        }, // 点击表头行
+                    };
+                } }
+                sticky={ true }
                 rowClassName={ style.rowClassName }
-                rowSelection={ rowSelection }
+                // rowSelection={ rowSelection }
                 { ...this.state }
             >
             </Table>

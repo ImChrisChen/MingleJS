@@ -35,12 +35,19 @@ export default class FormInput extends React.Component<IComponentProps, any> {
         return <>
             <Form.Item
                 label={ this.props.dataset.label }
-                rules={ [ { required: true, message: `请填写${ this.props.dataset.label }` } ] }
-                validateStatus="error"
-                hasFeedback={ true }
-                help="Should be combination of numbers & alphabets"
+                name={ this.props.dataset.label }
+                // rules={
+                //     [
+                //         {
+                //             required: true
+                //         }
+                //     ]
+                // }
+                // validateStatus="error"
+                // help="Should be combination of numbers & alphabets"
             >
                 <Input
+
                     { ...this.props.dataset }
                     onChange={ this.handleChange.bind(this) }
                 />

@@ -5,7 +5,7 @@
  * Time: 12:35 上午
  */
 import React from 'react';
-import { message } from 'antd';
+import { Form, message } from 'antd';
 import $ from 'jquery';
 
 // import tableData from '@mock/table/tableContent'
@@ -45,7 +45,6 @@ export default class FormAjax extends React.Component<any, any> {
         return document.querySelector(`#${ from }`);
     }
 
-
     // 获取表单数据
     static getFormData(formElement): IFormData {
         let $elements = $(formElement).find(`[name]`);
@@ -63,7 +62,9 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     render() {
-        return <>
-        </>;
+        // this.props.elChildren
+        return <Form>
+            <h1>Form</h1>
+        </Form>
     }
 }
