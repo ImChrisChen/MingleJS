@@ -16,6 +16,8 @@ import $ from 'jquery'
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import { jsonp } from "@utils/request/request";
+import { isNumber, isString } from "@utils/inspect";
+import FormAjax from "@component/form/ajax/form";
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -24,7 +26,7 @@ interface ITableHeaderItem {
     class: string       // 表头item的样式
     if: string          //  "<{pf}> > 0"  show
     else: string        //  hidee
-    filter: boolean        //  是否可过滤
+    filter: boolean        //  是否可过滤(搜索)
     frozen: boolean | string        // "1,2"   row column 是否固定
     highlight: boolean      // 是否高亮     0-1
     replace: string         // "1,开启;0,关闭"
@@ -126,10 +128,10 @@ export default class DataTable extends React.Component<any, any> {
     constructor(props: ITableProps) {
         super(props);
 
-        // if (this.props.dataset && this.props.dataset.from) {
-        //     let formElement = FormAjax.findFormElement(this.props.dataset.from);
-        //     FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
-        // }
+        if (this.props.dataset && this.props.dataset.from) {
+            let formElement = FormAjax.findFormElement(this.props.dataset.from);
+            FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
+        }
 
         Promise.all([
             this.getTableHeader(),
@@ -236,6 +238,8 @@ export default class DataTable extends React.Component<any, any> {
         return data.map(item => {
 
             for (const key in item) {
+                if (!item.hasOwnProperty(key)) continue
+
                 if (/<(.*?)>/.test(item[key])) {
                     item[key] = strParseVirtualDOM(item[key]);          // 字符串dom转化
                 }
@@ -258,10 +262,8 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     async getTableHeader(): Promise<Array<ITableHeaderItem>> {
-        // let url = 'http://e.aidalan.com/manage/useful/advPositionCost/header?pf=1&jsoncallback';
         let url = `http://e.local.aidalan.com/manage/useful/game/header?pf=1`
         let res = await jsonp(url);
-        console.log(res);
         // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
         let { data }: IApiResult<ITableHeaderItem> = res;
         return data.map((item, index) => {
@@ -272,8 +274,42 @@ export default class DataTable extends React.Component<any, any> {
                 this.fieldTpl = item.field;
             }
 
+            let fn: any = null;
+
             if (item.sortable) {
-                console.log(item.field);
+                let field = item.field;
+                fn = (a, b): number => {
+                    let aVal = a[field];
+                    let bVal = b[field];
+
+                    if (aVal && bVal) {
+
+                        // number
+                        if (isNumber(aVal) && isNumber(bVal)) {
+                            return aVal - bVal;
+                        }
+
+                        // string
+                        if (isString(aVal) && isString(bVal)) {
+                            // %
+                            if (aVal.includes('%') && bVal.includes('%')) {
+                                aVal = parseFloat(aVal);
+                                bVal = parseFloat(bVal);
+                                return (aVal as number) - (bVal as number);
+                            }
+                            // time 判断是否日期格式
+                            if (!isNaN(Date.parse(bVal))) {
+                                aVal = Date.parse(aVal);
+                                bVal = Date.parse(bVal);
+                                return aVal - bVal
+                            }
+
+                        }
+
+                    }
+
+                    return 0
+                }
             }
 
             let compare = function (a, b): number {
@@ -304,11 +340,12 @@ export default class DataTable extends React.Component<any, any> {
                 return result;
             };
 
+            let filters = item.filter ? this.getColumnSearchProps(item.field) : {};     // 搜索
+
             return {
                 ...item,
-
                 // antd
-                ...this.getColumnSearchProps(item.field),
+                ...filters,       // 搜索
 
                 title       : <div className={ style.tableHeaderCell }
                                    style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
@@ -327,7 +364,7 @@ export default class DataTable extends React.Component<any, any> {
                 ellipsis    : true,
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : false,
-                sorter      : item.sortable ? { compare, } : null,
+                sorter      : fn,
             };
         });
     }
