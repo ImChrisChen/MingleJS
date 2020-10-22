@@ -263,8 +263,8 @@ module.exports = smp.wrap({
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
             analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
-            analyzerHost: '0.0.0.0',
-            defaultSizes: 'parsed',
+            //analyzerHost: '0.0.0.0',
+            //defaultSizes: 'parsed',
             // analyzerPort: '9200',
             generateStatsFile: false,
             statsOptions: {

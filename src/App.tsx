@@ -68,9 +68,13 @@ export default class App {
         if ($(`[role="mingle-component-working-temp"]`).length === 0) {
             $('body').append(this.$tempContainer);
         }
-        this.init(elementContainer).then(() => {
-            // this.globalEventListener();
-        });
+        try {
+            this.init(elementContainer).then(() => {
+                // this.globalEventListener();
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async init(elementContainer) {
@@ -270,28 +274,30 @@ export default class App {
         let parsedDataset = parserProperty(dataset, defaultProperty?.dataset ?? {});
         parsedDataset['style'] = jsxStyle;
 
-        // 组件名必须大写
-        render(
-            <ConfigProvider
-                { ...globalComponentConfig }
-            >
-                <Component
-                    el={ element }
-                    elChildren={ elChildren }
-                    box={ containerWrap }
-                    dataset={ parsedDataset }
-                    value={ element['value'] }
-                    role="mingle-component"
-                    ref={ componentInstance => {        // 组件实例
-                        componentMethod && componentInstance[componentMethod]();
-                        return componentInstance;
-                    } }
-                />
-            </ConfigProvider>
-            , container, () => callback(hooks),
-        );
-
-
+        try {
+            // 组件名必须大写
+            render(
+                <ConfigProvider
+                    { ...globalComponentConfig }
+                >
+                    <Component
+                        el={ element }
+                        elChildren={ elChildren }
+                        box={ containerWrap }
+                        dataset={ parsedDataset }
+                        value={ element['value'] }
+                        role="mingle-component"
+                        ref={ componentInstance => {        // 组件实例
+                            componentMethod.trim() && componentInstance[componentMethod]();
+                            return componentInstance;
+                        } }
+                    />
+                </ConfigProvider>
+                , container, () => callback(hooks),
+            );
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 }

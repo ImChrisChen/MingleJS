@@ -6,10 +6,13 @@
  */
 
 import { message } from 'antd';
+import md5 from 'md5'
 
 export function jsonp(url: string): Promise<any> {
+    let funcName = 'callback' + md5(url);
+    console.log(funcName);
     return new Promise((resolve, reject) => {
-        window['jsonCallBack'] = (result) => {
+        window[funcName] = (result) => {
             if (result.status) {
                 resolve(result);
             } else {
@@ -20,9 +23,9 @@ export function jsonp(url: string): Promise<any> {
         let script: HTMLScriptElement = document.createElement('script');
 
         if (url.includes('?')) {
-            url = url + '&jsoncallback=jsonCallBack';
+            url = url + `&jsoncallback=${ funcName }`;
         } else {
-            url = url + '?jsoncallback=jsonCallBack';
+            url = url + `?jsoncallback=${ funcName }`;
         }
         script.type = 'text/javascript';
         script.src = url;

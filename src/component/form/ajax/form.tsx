@@ -30,7 +30,6 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     static onFormSubmit(formElement, callback) {
-        console.log(formElement);
         formElement.onsubmit = async function (e) {
             e.preventDefault();
             let formData: IFormData = FormAjax.getFormData(formElement);

@@ -7,17 +7,15 @@
 
 import { Button, Input, message, Space, Table } from 'antd';
 import * as React from 'react';
-import tableHeader from '@root/mock/table/tableHeader.json';
-import tableContent from '@root/mock/table/tableContent.json';
 import { parseTpl } from '@utils/parser-tpl';
 import { strParseVirtualDOM } from '@utils/parser-dom';
 import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
-import FormAjax from '@component/form/ajax/form';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery'
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import { jsonp } from "@utils/request/request";
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -128,17 +126,17 @@ export default class DataTable extends React.Component<any, any> {
     constructor(props: ITableProps) {
         super(props);
 
-        console.log(this.props.dataset);
-        if (this.props.dataset && this.props.dataset.from) {
-            console.log(this.props.dataset);
-            let formElement = FormAjax.findFormElement(this.props.dataset.from);
-            FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
-        }
+        // if (this.props.dataset && this.props.dataset.from) {
+        //     let formElement = FormAjax.findFormElement(this.props.dataset.from);
+        //     FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
+        // }
 
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
         ]).then(([ tableHeader, tableContent ]) => {
+            console.log(tableHeader);
+            console.log(tableContent);
             let sumItem = this.sum(tableContent);
             tableContent.unshift(sumItem);
             this.setState({
@@ -207,9 +205,7 @@ export default class DataTable extends React.Component<any, any> {
             obj.money_cost += item.money_cost;
         });
         return {
-            // @ts-ignore
             cost                : obj.cost.toFixed(2),
-            // @ts-ignore
             money_cost          : obj.money_cost.toFixed(2),
             key                 : 0,
             'id'                : '合计',
@@ -224,7 +220,7 @@ export default class DataTable extends React.Component<any, any> {
             'principal_name'    : '',
             'remark'            : '',
             'dl_adv_position_id': '',
-        };
+        } as object;
     }
 
     public open() {
@@ -232,29 +228,52 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     async getTableContent(): Promise<Array<ITableContentItem>> {
-        let { data }: IApiResult<ITableContentItem> = tableContent;
+        let url = `http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`
+        let res = await jsonp(url)
+
+        // let { data }: IApiResult<ITableContentItem> = tableContent;
+        let { data }: any = res;
         return data.map(item => {
-            let fieldStr = parseTpl(this.fieldTpl, item);
-            let fieldJSX = strParseVirtualDOM(fieldStr);
-            return {
+
+            for (const key in item) {
+                if (/<(.*?)>/.test(item[key])) {
+                    item[key] = strParseVirtualDOM(item[key]);          // 字符串dom转化
+                }
+            }
+
+            let result = {
                 ...item,
-                key            : item.id,
-                name           : '',
-                [this.fieldTpl]: fieldJSX,
+                key         : item.id,
+                name        : '',
+                introduction: <h1>1111</h1>
                 // [this.fieldTpl]: '12321321'
             };
+            if (this.fieldTpl) {
+                let fieldStr = parseTpl(this.fieldTpl, item);
+                let fieldJSX = strParseVirtualDOM(fieldStr);
+                result[this.fieldTpl] = fieldJSX
+            }
+            return result
         });
     }
 
     async getTableHeader(): Promise<Array<ITableHeaderItem>> {
         // let url = 'http://e.aidalan.com/manage/useful/advPositionCost/header?pf=1&jsoncallback';
-        let { data }: IApiResult<ITableHeaderItem> = tableHeader;
+        let url = `http://e.local.aidalan.com/manage/useful/game/header?pf=1`
+        let res = await jsonp(url);
+        console.log(res);
+        // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
+        let { data }: IApiResult<ITableHeaderItem> = res;
         return data.map((item, index) => {
             // let width = parseTpl(item.field, item).length * 10;
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
             if (/<(.*?)>/.test(item.field)) {
                 this.fieldTpl = item.field;
+            }
+
+            if (item.sortable) {
+                console.log(item.field);
             }
 
             let compare = function (a, b): number {
@@ -308,9 +327,7 @@ export default class DataTable extends React.Component<any, any> {
                 ellipsis    : true,
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : false,
-                sorter      : {
-                    compare,
-                },
+                sorter      : item.sortable ? { compare, } : null,
             };
         });
     }
