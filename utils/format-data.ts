@@ -86,3 +86,18 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
     return selectTree;
 }
 
+export function formatObject2Url(data: object, url: string = ''): string {
+    let params = '';
+    let [ href, ...args ] = url.split('?');
+    for (const key in data) {
+        if (!data.hasOwnProperty(key)) continue;
+        let val = data[key];
+        params += `${ key }=${ val }&`
+    }
+    params = params.slice(0, params.length - 1);        // 删除最后一个&符
+    return href + '?' + params
+}
+
+export function formatUrl2Object() {
+
+}

@@ -18,6 +18,7 @@ import Highlighter from "react-highlight-words";
 import { jsonp } from "@utils/request/request";
 import { isNumber, isString } from "@utils/inspect";
 import FormAjax from "@component/form/ajax/form";
+import { formatObject2Url } from "@utils/format-data";
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -124,13 +125,15 @@ export default class DataTable extends React.Component<any, any> {
     private fieldTpl!: string;
     private url: string = this.props.url;
     private searchInput;
+    private headerUrl = `http://e.local.aidalan.com/manage/useful/game/header`;
+    private tableUrl = `http://e.local.aidalan.com/manage/useful/game/list?pf=1`;
 
     constructor(props: ITableProps) {
         super(props);
 
         if (this.props.dataset && this.props.dataset.from) {
             let formElement = FormAjax.findFormElement(this.props.dataset.from);
-            FormAjax.onFormSubmit(formElement, this.handleFormSubmit);
+            FormAjax.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
         }
 
         Promise.all([
@@ -139,8 +142,6 @@ export default class DataTable extends React.Component<any, any> {
         ]).then(([ tableHeader, tableContent ]) => {
             console.log(tableHeader);
             console.log(tableContent);
-            let sumItem = this.sum(tableContent);
-            tableContent.unshift(sumItem);
             this.setState({
                 columns   : tableHeader,
                 dataSource: tableContent,
@@ -192,8 +193,11 @@ export default class DataTable extends React.Component<any, any> {
         this.handleDragSelect();
     }
 
-    handleFormSubmit(formData, e) {
-        console.log(formData);
+    async handleFormSubmit(formData, e) {
+        let url = formatObject2Url(formData, this.tableUrl);
+        console.log(url);
+        let res = await jsonp(url);
+        console.log(res);
     }
 
     sum(list): ITableContentItem {
@@ -229,13 +233,13 @@ export default class DataTable extends React.Component<any, any> {
         message.success('table open');
     }
 
-    async getTableContent(): Promise<Array<ITableContentItem>> {
-        let url = `http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`
-        let res = await jsonp(url)
+    async getTableContent(tableUrl: string = this.tableUrl): Promise<Array<ITableContentItem>> {
+        // let url = `http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`
+        let res = await jsonp(tableUrl)
 
         // let { data }: IApiResult<ITableContentItem> = tableContent;
         let { data }: any = res;
-        return data.map(item => {
+        let tableContent: Array<ITableContentItem> = data.map(item => {
 
             for (const key in item) {
                 if (!item.hasOwnProperty(key)) continue
@@ -259,11 +263,13 @@ export default class DataTable extends React.Component<any, any> {
             }
             return result
         });
+        // let sumItem = this.sum(tableContent);
+        // tableContent.unshift(sumItem);
+        return tableContent;
     }
 
-    async getTableHeader(): Promise<Array<ITableHeaderItem>> {
-        let url = `http://e.local.aidalan.com/manage/useful/game/header?pf=1`
-        let res = await jsonp(url);
+    async getTableHeader(headerUrl: string = this.headerUrl): Promise<Array<ITableHeaderItem>> {
+        let res = await jsonp(headerUrl);
         // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
         let { data }: IApiResult<ITableHeaderItem> = res;
         return data.map((item, index) => {
