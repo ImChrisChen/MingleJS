@@ -4,6 +4,8 @@
  * Date: 2020/9/17
  * Time: 10:39 下午
  */
+import { IOptions } from "@root/config/component.config";
+import { parseTpl } from "@utils/parser-tpl";
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
@@ -86,6 +88,24 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
     return selectTree;
 }
 
+// 列表转化为 antd options
+export function formatList2AntdOptions(list: Array<any>, k: string, v: string): Array<IOptions> {
+    return list.map(item => {
+        console.log(item);
+        let label = parseTpl(v, item);
+        return {
+            value: item[k],
+            label: label,
+            title: label,
+        }
+    });
+}
+
+/**
+ *
+ * @param data
+ * @param url
+ */
 export function formatObject2Url(data: object, url: string = ''): string {
     let params = '';
     let [ href, ...args ] = url.split('?');
@@ -98,6 +118,18 @@ export function formatObject2Url(data: object, url: string = ''): string {
     return href + '?' + params
 }
 
-export function formatUrl2Object() {
-
+/**
+ *
+ * @param url
+ * @param o
+ */
+export function formatUrl2Object(url: string, o: object = {}) {
+    let [ , search ] = url.split('?')
+    search.split('&').forEach(kv => {
+        if (kv) {
+            let [ k, v ] = kv.split('=')
+            o[k] = v;
+        }
+    });
+    return o;
 }

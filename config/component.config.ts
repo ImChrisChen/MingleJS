@@ -11,7 +11,7 @@ import { isUrl } from '@utils/inspect';
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
 // 解析类型
-export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON';
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null' | '';
 
 // 组件设计器，属性值渲染类型
 export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
@@ -19,6 +19,7 @@ export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
 export interface IOptions {
     label: string
     value: string
+    title?: string
 
     [key: string]: any
 }
@@ -151,6 +152,18 @@ export default {
                         parse : 'boolean',
                         render: false,
                     },
+                    key        : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'id',
+                        desc : '数据源唯一id'
+                    },
+                    value      : {
+                        el   : 'input',
+                        parse: 'null',
+                        value: '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
+                        desc : '要展示的内容'
+                    }
                 },
                 value  : {
                     el     : 'select',
@@ -483,7 +496,7 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-    
+
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置

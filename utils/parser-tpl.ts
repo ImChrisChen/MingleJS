@@ -28,10 +28,11 @@ export function parseTpl(
     if (isObject(data)) {
         fields.forEach(field => {
             let val = data[field] ?? '';
-            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));
+            console.log(val);
+            // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用
+            tpl = tpl.replace(/<{(.*?)}>/g, val);
         });
     }
-
     return tpl;
 }
 
@@ -46,16 +47,16 @@ export function getTplFields(tpl: string): Array<string> {
 }
 
 export function parseEnum(enumStr: string): Array<object> {
-    return parseStr2JSON(enumStr, ';', ',');
+    return parseStr2JSONArray(enumStr, ';', ',');
 }
 
 export function parseLineStyle(style: string): object {
     let res = parseCamelCase(style);
-    let stylesJson = parseStr2JSON(res, ';', ':');
+    let stylesJson = parseStr2JSONArray(res, ';', ':');
     return Object.assign({}, ...stylesJson);
 }
 
-function parseStr2JSON(str: string, rowStplit: string, cellSplit: string): Array<object> {
+export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: string): Array<object> {
     if (isEmptyStr(str)) return [];
 
     // return str.split(';').reduce((arr: Array<object>, group) => {

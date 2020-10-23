@@ -9,7 +9,7 @@ import './select.less';
 import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import selectJson from '@root/mock/form/select.json';
-import { formatEnumOptions, formatList2Tree } from '@utils/format-data';
+import { formatEnumOptions, formatList2AntdOptions, formatList2Tree } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
@@ -71,6 +71,8 @@ export default class Selector extends React.Component<IComponentProps, any> {
         // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
         if (this.props.dataset.url) {
             let { data } = await jsonp(this.props.dataset.url);
+            let { key, value } = this.props.dataset;
+            return formatList2AntdOptions(data, key, value)
             return formatList2Tree(data, {
                 pid : 'media_name',
                 name: 'publisher_name',

@@ -10,12 +10,15 @@ import md5 from 'md5'
 
 export function jsonp(url: string): Promise<any> {
     let funcName = 'callback' + md5(url);
-    console.log(funcName);
+    let isDone = false;
+    let timeout = 2000;     // 超时时间
     return new Promise((resolve, reject) => {
-        window[funcName] = (result) => {
+        window[funcName] = result => {
             if (result.status) {
+                isDone = true;
                 resolve(result);
             } else {
+                isDone = true;
                 message.error('接口返回错误');
                 reject(result);
             }
@@ -27,16 +30,26 @@ export function jsonp(url: string): Promise<any> {
         } else {
             url = url + `?jsoncallback=${ funcName }`;
         }
+
         script.type = 'text/javascript';
         script.src = url;
+
         let body = document.querySelector('body');
-        body?.appendChild(script);
+
+        try {
+            body?.appendChild(script);
+        } catch (e) {
+            console.log(e);
+        }
 
         setTimeout(() => {
-            body?.removeChild(script);
-        }, 500);
+            if (!isDone) message.error('接口请求超时')
+        }, timeout)
+        setTimeout(() => body?.removeChild(script), 500);
     });
 }
+
+window.jsonp = jsonp
 
 // 允许携带cookie
 // axios.defaults.timeout = 6000;

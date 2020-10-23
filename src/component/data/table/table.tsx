@@ -18,7 +18,7 @@ import Highlighter from "react-highlight-words";
 import { jsonp } from "@utils/request/request";
 import { isNumber, isString } from "@utils/inspect";
 import FormAjax from "@component/form/ajax/form";
-import { formatObject2Url } from "@utils/format-data";
+import { formatObject2Url, formatUrl2Object } from "@utils/format-data";
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -90,9 +90,8 @@ export default class DataTable extends React.Component<any, any> {
         loading        : true,
         size           : 'small',   // default | middle | small
         showHeader     : true,
-
-        searchText    : '',
-        searchedColumn: '',
+        searchText     : '',
+        searchedColumn : '',
 
         // summary        : (e, v) => {
         // },
@@ -127,9 +126,14 @@ export default class DataTable extends React.Component<any, any> {
     private searchInput;
     private headerUrl = `http://e.local.aidalan.com/manage/useful/game/header`;
     private tableUrl = `http://e.local.aidalan.com/manage/useful/game/list?pf=1`;
+    private baseParams = {
+        page   : 1,
+        pageNum: 100,
+    }
 
     constructor(props: ITableProps) {
         super(props);
+
 
         if (this.props.dataset && this.props.dataset.from) {
             let formElement = FormAjax.findFormElement(this.props.dataset.from);
@@ -196,8 +200,9 @@ export default class DataTable extends React.Component<any, any> {
     async handleFormSubmit(formData, e) {
         let url = formatObject2Url(formData, this.tableUrl);
         console.log(url);
-        let res = await jsonp(url);
-        console.log(res);
+        let tableContent = await this.getTableContent(url)
+        this.setState({ dataSource: tableContent })
+        console.log(this.state);
     }
 
     sum(list): ITableContentItem {
@@ -234,8 +239,9 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     async getTableContent(tableUrl: string = this.tableUrl): Promise<Array<ITableContentItem>> {
-        // let url = `http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`
         let res = await jsonp(tableUrl)
+        let o = formatUrl2Object(`http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`)
+        console.log(o);
 
         // let { data }: IApiResult<ITableContentItem> = tableContent;
         let { data }: any = res;
