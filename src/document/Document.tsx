@@ -84,7 +84,7 @@ class Document extends React.Component<any, any> {
                         <div className="logo"/>
 
                         <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
-                            <Menu.Item key="1" onClick={ this.handleCodeGenerate.bind(this) }>组件设计器</Menu.Item>
+                            <Menu.Item key="1"><Link to={ '/code-generate' }>组件设计器</Link></Menu.Item>
                             <Menu.Item key="2"><Link to={ '/test' }>测试页面</Link></Menu.Item>
                             <Menu.Item key="3"><Link to={ '/' }>开发文档</Link></Menu.Item>
                         </Menu>
@@ -100,15 +100,16 @@ class Document extends React.Component<any, any> {
                     >
                         <Switch>
                             { ...Routes }
-                            <Route path={ '/' } exact
-                                   render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
+                            <Route path={ '/' } exact render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
                             <Route path={ '/test' } exact render={ () => <TestPage/> }/>
+                            <Route path={ '/code-generate' } exact render={ () => <CodeGenerate/> }/>
                             <Redirect from="*" to="/" exact/>
                         </Switch>
 
-                        <CodeGenerate visible={ this.state.showCodeDesign }
-                                      onClose={ this.handleCloseCodeDesign.bind(this) }
-                        />
+                        {/*<CodeGenerate visible={ this.state.showCodeDesign }*/ }
+                        {/*              onClose={ this.handleCloseCodeDesign.bind(this) }*/ }
+                        {/*<CodeGenerate visible={ this.state.showCodeDesign }*/}
+                        {/*              onClose={ this.handleCloseCodeDesign.bind(this) }*/}
 
                     </Content>
                 </Layout>

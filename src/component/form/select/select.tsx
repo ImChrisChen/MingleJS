@@ -113,12 +113,12 @@ export default class Selector extends React.Component<IComponentProps, any> {
                         if (!option) return false;
                         return String(option.value).includes(input) || String(option.label).includes(input);
                     } }/>
-                <Select
-                    options={ this.state.currentItem['children'] }
-                    mode="multiple"
-                    maxTagCount={ 1 }
-                    style={ { width: 200 } }
-                />
+                {/*<Select*/}
+                {/*    options={ this.state.currentItem['children'] }*/}
+                {/*    mode="multiple"*/}
+                {/*    maxTagCount={ 1 }*/}
+                {/*    style={ { width: 200 } }*/}
+                {/*/>*/}
             </Form.Item>
         </>;
     }

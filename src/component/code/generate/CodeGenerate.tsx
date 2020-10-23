@@ -5,7 +5,7 @@
  * Time: 1:37 下午
  */
 
-import { Button, Cascader, Col, Drawer, Form, Input, message, Radio, Row, Select, Space, Switch } from 'antd';
+import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
@@ -32,7 +32,7 @@ interface ICodeGenerateProps {
     [key: string]: any
 }
 
-class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
+class CodeGenerate extends React.Component<any, any> {
     private template = `<input data-fn="form-button" />`;
     private form: any = React.createRef<FormInstance>();
     state = {
@@ -165,7 +165,7 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
             dataEnum,
         }, () => this.generateCode());
 
-        this.props.history.push(componentName)
+        // this.props.history.push(componentName)
     }
 
     shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
@@ -289,194 +289,322 @@ class CodeGenerate extends React.Component<ICodeGenerateProps, any> {
     }
 
     render() {
-        return (
-            <>
-                {/*<Button type="primary" onClick={ this.showDrawer }>*/ }
-                {/*    <PlusOutlined/> New account*/ }
-                {/*</Button>*/ }
-
-                <Drawer
-                    title="组件设计器"
-                    width={ '100%' }
-                    onClose={ this.props.onClose }
-                    visible={ this.props.visible }
-                    bodyStyle={ { paddingBottom: 80 } }
-                    mask={ false }
-                    footer={
-                        <div
-                            style={ {
-                                textAlign: 'right',
-                            } }
+        return <>
+            <Form layout="vertical"
+                  hideRequiredMark
+                  ref={ this.form }
+                  initialValues={ {
+                      dataEnum: this.state.dataEnum,
+                  } }
+            >
+                <Row hidden={ true } gutter={ 24 }>
+                    <Col span={ 18 }>
+                        <Form.Item
+                            label="组件名称"
+                            rules={ [ { required: true, message: '请选择组件' } ] }
                         >
-                            <Button onClick={ this.props.onClose } style={ { marginRight: 8 } }>
-                                Cancel
-                            </Button>
-                            <Button onClick={ this.handleSubmit.bind(this) } type="primary">
-                                Submit
-                            </Button>
-                        </div>
-                    }
-                >
-                    <Form layout="vertical"
-                          hideRequiredMark
-                          ref={ this.form }
-                          initialValues={ {
-                              dataEnum: this.state.dataEnum,
-                          } }
-                    >
-                        <Row hidden={ true } gutter={ 24 }>
-                            <Col span={ 18 }>
-                                <Form.Item
-                                    label="组件名称"
-                                    rules={ [ { required: true, message: '请选择组件' } ] }
-                                >
-                                    <Select placeholder="请选择组件" options={ this.state.components }
-                                            onChange={ this.handleChangeComponent.bind(this) }>
-                                    </Select>
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={ 24 }>
-                            <Col span={ 18 }>
-                                <Form.Item
-                                    label="组件名称"
-                                    rules={ [ { required: true, message: '请选择组件' } ] }>
-                                    <Cascader options={ this.state.componentsTree }
-                                              onChange={ this.handleChangeComponent.bind(this) }
-                                              placeholder="请选择组件"/>
-                                </Form.Item>
-                            </Col>
-                        </Row>
+                            <Select placeholder="请选择组件" options={ this.state.components }
+                                    onChange={ this.handleChangeComponent.bind(this) }>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={ 24 }>
+                    <Col span={ 18 }>
+                        <Form.Item
+                            label="组件名称"
+                            rules={ [ { required: true, message: '请选择组件' } ] }>
+                            <Cascader options={ this.state.componentsTree }
+                                      onChange={ this.handleChangeComponent.bind(this) }
+                                      placeholder="请选择组件"/>
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-                        {
-                            ...this.state.componentsProperty.map((item: any, key) => {
-                                if (item.render === false) return '';
-                                let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
+                {
+                    ...this.state.componentsProperty.map((item: any, key) => {
+                        if (item.render === false) return '';
+                        let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
-                                if (item.el === 'switch') {
-                                    return <Row key={ key }>
-                                        <Col span={ 18 }>
-                                            <Form.Item label={ label }>
-                                                <Switch checked={ item.value }
-                                                        onChange={ this.handleChangeSwitch.bind(this, key) }/>
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>;
-                                } else if (item.el === 'radio') {
-                                    return <Row key={ key }>
-                                        <Col span={ 18 }>
-                                            <Form.Item label={ label }>
-                                                <Radio.Group
-                                                    onChange={ this.handleChangeRadio.bind(this, key) }
-                                                    options={ item.options }
-                                                    value={ item.value }
-                                                />
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>;
-                                } else if (item.el === 'list') {
-                                    return <Row key={ key }>
-                                        <Col span={ 18 }>
-                                            <Form.Item label={ label } name={ item.label }>
-                                                <Form.List name="dataEnum">
-                                                    { (fields, { add, remove }) => {
-                                                        return (
-                                                            <div>
-                                                                { fields.map(field => (
-                                                                    <Space key={ field.key }
-                                                                           style={ {
-                                                                               display     : 'flex',
-                                                                               marginBottom: 8,
-                                                                           } }
-                                                                           align="start">
-                                                                        <Form.Item
-                                                                            { ...field }
-                                                                            name={ [ field.name, 'value' ] }
-                                                                            fieldKey={ [ field.fieldKey, 'value' ] }
-                                                                            rules={ [ {
-                                                                                required: true,
-                                                                                message : 'Missing value',
-                                                                            } ] }
-                                                                        >
-                                                                            <Input placeholder="value"/>
-                                                                        </Form.Item>
-                                                                        <Form.Item
-                                                                            { ...field }
-                                                                            name={ [ field.name, 'label' ] }
-                                                                            fieldKey={ [ field.fieldKey, 'label' ] }
-                                                                            rules={ [ {
-                                                                                required: true,
-                                                                                message : 'Missing label',
-                                                                            } ] }
-                                                                        >
-                                                                            <Input placeholder="label"/>
-                                                                        </Form.Item>
-
-                                                                        <MinusCircleOutlined
-                                                                            onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
-                                                                        />
-                                                                    </Space>
-                                                                )) }
-
-                                                                <Form.Item>
-                                                                    <Button
-                                                                        type="dashed"
-                                                                        onClick={ this.handleFormListAdd.bind(this, key, add) }
-                                                                        block
-                                                                    >
-                                                                        <PlusOutlined/> 保存
-                                                                    </Button>
+                        if (item.el === 'switch') {
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label }>
+                                        <Switch checked={ item.value }
+                                                onChange={ this.handleChangeSwitch.bind(this, key) }/>
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+                        } else if (item.el === 'radio') {
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label }>
+                                        <Radio.Group
+                                            onChange={ this.handleChangeRadio.bind(this, key) }
+                                            options={ item.options }
+                                            value={ item.value }
+                                        />
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+                        } else if (item.el === 'list') {
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label } name={ item.label }>
+                                        <Form.List name="dataEnum">
+                                            { (fields, { add, remove }) => {
+                                                return (
+                                                    <div>
+                                                        { fields.map(field => (
+                                                            <Space key={ field.key }
+                                                                   style={ {
+                                                                       display     : 'flex',
+                                                                       marginBottom: 8,
+                                                                   } }
+                                                                   align="start">
+                                                                <Form.Item
+                                                                    { ...field }
+                                                                    name={ [ field.name, 'value' ] }
+                                                                    fieldKey={ [ field.fieldKey, 'value' ] }
+                                                                    rules={ [ {
+                                                                        required: true,
+                                                                        message : 'Missing value',
+                                                                    } ] }
+                                                                >
+                                                                    <Input placeholder="value"/>
                                                                 </Form.Item>
-                                                            </div>
-                                                        );
-                                                    } }
-                                                </Form.List>
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>;
-                                } else if (item.el === 'input') {
-                                    return <Row key={ key }>
-                                        <Col span={ 18 }>
-                                            <Form.Item label={ label }>
-                                                <Input onChange={ this.handleInputChange.bind(this, key) }
-                                                       onBlur={ this.handleInputBlur.bind(this, key) }
-                                                       value={ item.value }
-                                                />
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>;
-                                } else if (item.el === 'select') {
-                                    return <Row key={ key }>
-                                        <Col span={ 18 }>
-                                            <Form.Item label={ label }>
-                                                <Select options={ item.options }
-                                                        onChange={ this.handleChangeSelect.bind(this, key) }
-                                                        allowClear={ true }
-                                                        showSearch={ true }
-                                                />
-                                            </Form.Item>
-                                        </Col>
-                                    </Row>;
+                                                                <Form.Item
+                                                                    { ...field }
+                                                                    name={ [ field.name, 'label' ] }
+                                                                    fieldKey={ [ field.fieldKey, 'label' ] }
+                                                                    rules={ [ {
+                                                                        required: true,
+                                                                        message : 'Missing label',
+                                                                    } ] }
+                                                                >
+                                                                    <Input placeholder="label"/>
+                                                                </Form.Item>
 
-                                }
-                            })
+                                                                <MinusCircleOutlined
+                                                                    onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
+                                                                />
+                                                            </Space>
+                                                        )) }
+
+                                                        <Form.Item>
+                                                            <Button
+                                                                type="dashed"
+                                                                onClick={ this.handleFormListAdd.bind(this, key, add) }
+                                                                block
+                                                            >
+                                                                <PlusOutlined/> 保存
+                                                            </Button>
+                                                        </Form.Item>
+                                                    </div>
+                                                );
+                                            } }
+                                        </Form.List>
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+                        } else if (item.el === 'input') {
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label }>
+                                        <Input onChange={ this.handleInputChange.bind(this, key) }
+                                               onBlur={ this.handleInputBlur.bind(this, key) }
+                                               value={ item.value }
+                                        />
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+                        } else if (item.el === 'select') {
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label }>
+                                        <Select options={ item.options }
+                                                onChange={ this.handleChangeSelect.bind(this, key) }
+                                                allowClear={ true }
+                                                showSearch={ true }
+                                        />
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+
                         }
+                    })
+                }
 
-                        <Row gutter={ 16 }>
-                            <Col span={ 24 }>
-                                <Form.Item
-                                    label="对应代码"
-                                >
-                                    <CodeEditor dataset={ {
-                                        value: this.state.componentUseCode,
-                                    } }/>
+                <Row gutter={ 16 }>
+                    <Col span={ 24 }>
+                        <Form.Item
+                            label="对应代码"
+                        >
+                            <CodeEditor dataset={ {
+                                value: this.state.componentUseCode,
+                            } }/>
+                        </Form.Item>
+                    </Col>
+                </Row>
+            </Form>
+        </>
+        return <Form layout="vertical"
+                     hideRequiredMark
+                     ref={ this.form }
+                     initialValues={ {
+                         dataEnum: this.state.dataEnum,
+                     } }
+        >
+            <Row hidden={ true } gutter={ 24 }>
+                <Col span={ 18 }>
+                    <Form.Item
+                        label="组件名称"
+                        rules={ [ { required: true, message: '请选择组件' } ] }
+                    >
+                        <Select placeholder="请选择组件" options={ this.state.components }
+                                onChange={ this.handleChangeComponent.bind(this) }>
+                        </Select>
+                    </Form.Item>
+                </Col>
+            </Row>
+            <Row gutter={ 24 }>
+                <Col span={ 18 }>
+                    <Form.Item
+                        label="组件名称"
+                        rules={ [ { required: true, message: '请选择组件' } ] }>
+                        <Cascader options={ this.state.componentsTree }
+                                  onChange={ this.handleChangeComponent.bind(this) }
+                                  placeholder="请选择组件"/>
+                    </Form.Item>
+                </Col>
+            </Row>
+
+            {
+                ...this.state.componentsProperty.map((item: any, key) => {
+                    if (item.render === false) return '';
+                    let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
+
+                    if (item.el === 'switch') {
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label }>
+                                    <Switch checked={ item.value }
+                                            onChange={ this.handleChangeSwitch.bind(this, key) }/>
                                 </Form.Item>
                             </Col>
-                        </Row>
-                    </Form>
-                </Drawer>
-            </>
-        );
+                        </Row>;
+                    } else if (item.el === 'radio') {
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label }>
+                                    <Radio.Group
+                                        onChange={ this.handleChangeRadio.bind(this, key) }
+                                        options={ item.options }
+                                        value={ item.value }
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>;
+                    } else if (item.el === 'list') {
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label } name={ item.label }>
+                                    <Form.List name="dataEnum">
+                                        { (fields, { add, remove }) => {
+                                            return (
+                                                <div>
+                                                    { fields.map(field => (
+                                                        <Space key={ field.key }
+                                                               style={ {
+                                                                   display     : 'flex',
+                                                                   marginBottom: 8,
+                                                               } }
+                                                               align="start">
+                                                            <Form.Item
+                                                                { ...field }
+                                                                name={ [ field.name, 'value' ] }
+                                                                fieldKey={ [ field.fieldKey, 'value' ] }
+                                                                rules={ [ {
+                                                                    required: true,
+                                                                    message : 'Missing value',
+                                                                } ] }
+                                                            >
+                                                                <Input placeholder="value"/>
+                                                            </Form.Item>
+                                                            <Form.Item
+                                                                { ...field }
+                                                                name={ [ field.name, 'label' ] }
+                                                                fieldKey={ [ field.fieldKey, 'label' ] }
+                                                                rules={ [ {
+                                                                    required: true,
+                                                                    message : 'Missing label',
+                                                                } ] }
+                                                            >
+                                                                <Input placeholder="label"/>
+                                                            </Form.Item>
+
+                                                            <MinusCircleOutlined
+                                                                onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
+                                                            />
+                                                        </Space>
+                                                    )) }
+
+                                                    <Form.Item>
+                                                        <Button
+                                                            type="dashed"
+                                                            onClick={ this.handleFormListAdd.bind(this, key, add) }
+                                                            block
+                                                        >
+                                                            <PlusOutlined/> 保存
+                                                        </Button>
+                                                    </Form.Item>
+                                                </div>
+                                            );
+                                        } }
+                                    </Form.List>
+                                </Form.Item>
+                            </Col>
+                        </Row>;
+                    } else if (item.el === 'input') {
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label }>
+                                    <Input onChange={ this.handleInputChange.bind(this, key) }
+                                           onBlur={ this.handleInputBlur.bind(this, key) }
+                                           value={ item.value }
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>;
+                    } else if (item.el === 'select') {
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label }>
+                                    <Select options={ item.options }
+                                            onChange={ this.handleChangeSelect.bind(this, key) }
+                                            allowClear={ true }
+                                            showSearch={ true }
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>;
+
+                    }
+                })
+            }
+
+            <Row gutter={ 16 }>
+                <Col span={ 24 }>
+                    <Form.Item
+                        label="对应代码"
+                    >
+                        <CodeEditor dataset={ {
+                            value: this.state.componentUseCode,
+                        } }/>
+                    </Form.Item>
+                </Col>
+            </Row>
+        </Form>
     }
 }
 
