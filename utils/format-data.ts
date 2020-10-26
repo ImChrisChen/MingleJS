@@ -4,15 +4,15 @@
  * Date: 2020/9/17
  * Time: 10:39 下午
  */
-import { IOptions } from "@root/config/component.config";
-import { parseTpl } from "@utils/parser-tpl";
-import { isDOMString, isWuiTpl } from "@utils/inspect";
-import { strParseVirtualDOM } from "@utils/parser-dom";
+import { IOptions } from '@root/config/component.config';
+import { parseTpl } from '@utils/parser-tpl';
+import { isDOMString, isWuiTpl } from '@utils/inspect';
+import { strParseVirtualDOM } from '@utils/parser-dom';
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
     if (!Boolean(list)) {
-        return []
+        return [];
     }
     let options: Array<any> = [];
     list.forEach(item => {
@@ -66,6 +66,13 @@ interface IKeyMap {
     name: string
 }
 
+/**
+ *
+ * @param list  需要数据转化的列表
+ * @param id    id 唯一值
+ * @param pid   pid/id 形成父级关系映射
+ * @param name  展示的内容字段 / 模版
+ */
 export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
     let selectTree: Array<object> = pids.map(pid => {
@@ -74,16 +81,25 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
             children: [],
             label   : pid,
             value   : pid,
-        }
-    })
+        };
+    });
     list.forEach(item => {
         let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
+
+        let label: any;
+
+        if (isWuiTpl(name)) {
+            label = parseTpl(name, item);
+        } else {
+            label = item[name];
+        }
+
         if (superItem) {
             superItem.children.push({
-                id   : item[name],      // 父子映射关系
+                id   : label,
                 value: item[id],
-                label: item[name],
-                pid  : item[pid]
+                label: label,
+                pid  : item[pid],       // 父子映射关系
             });
         }
     });
@@ -97,7 +113,7 @@ export function formatList2AntdOptions(list: Array<any>, k: string, v: string): 
         if (isWuiTpl(v)) { // template
             label = parseTpl(v, item);
         } else {
-            label = item[v]
+            label = item[v];
         }
 
         if (isDOMString(label)) {
@@ -110,7 +126,7 @@ export function formatList2AntdOptions(list: Array<any>, k: string, v: string): 
             value: String(item[k]),
             label: label,
             // title: label,
-        }
+        };
     });
 }
 
@@ -125,10 +141,10 @@ export function formatObject2Url(data: object, url: string = ''): string {
     for (const key in data) {
         if (!data.hasOwnProperty(key)) continue;
         let val = data[key];
-        params += `${ key }=${ val }&`
+        params += `${ key }=${ val }&`;
     }
     params = params.slice(0, params.length - 1);        // 删除最后一个&符
-    return href + '?' + params
+    return href + '?' + params;
 }
 
 /**
@@ -137,10 +153,10 @@ export function formatObject2Url(data: object, url: string = ''): string {
  * @param o
  */
 export function formatUrl2Object(url: string, o: object = {}) {
-    let [ , search ] = url.split('?')
+    let [ , search ] = url.split('?');
     search.split('&').forEach(kv => {
         if (kv) {
-            let [ k, v ] = kv.split('=')
+            let [ k, v ] = kv.split('=');
             o[k] = v;
         }
     });

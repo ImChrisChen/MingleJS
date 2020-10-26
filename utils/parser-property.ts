@@ -5,8 +5,8 @@
  * Time: 11:23 上午
  */
 
-import { parseEnum, parseTpl } from "@utils/parser-tpl";
-import { IPropertyConfig } from "@root/config/component.config";
+import { parseEnum, parseTpl } from '@utils/parser-tpl';
+import { IPropertyConfig } from '@root/config/component.config';
 
 export function parserProperty(dataAttrs = {}, defaultDataset?): object {
 
@@ -32,7 +32,8 @@ export function parserProperty(dataAttrs = {}, defaultDataset?): object {
             let value = useValue ?? defaultVal ?? '';
 
             if (verify && !verify(value)) {
-                console.error(`${ datasetKey }属性的值格式验证不通过`)
+                console.log(verify(value), value);
+                console.error(`${ datasetKey }属性的值格式验证不通过`);
                 continue;
             }
 
@@ -66,9 +67,9 @@ export function parserProperty(dataAttrs = {}, defaultDataset?): object {
                     }
                     newDataSet[datasetKey] = JSON.parse(value);
                     break;
-                case "null":
+                case 'null':
                     newDataSet[datasetKey] = value;
-                    break
+                    break;
 
                 // 默认不解析
                 default:

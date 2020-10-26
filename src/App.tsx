@@ -78,6 +78,7 @@ export default class App {
     }
 
     async init(elementContainer) {
+        message.success('init')
         deepEachElement(elementContainer, async element => {
             if (element.attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;

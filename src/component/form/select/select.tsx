@@ -8,7 +8,6 @@
 import './select.less';
 import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
-import selectJson from '@root/mock/form/select.json';
 import { formatEnumOptions, formatList2AntdOptions, formatList2Tree } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
@@ -16,6 +15,7 @@ import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
 // import axios from 'axios'
 
+const { Option, OptGroup } = Select;
 const { Title } = Typography;
 
 interface ISelectState<T> {
@@ -49,43 +49,35 @@ export default class Selector extends React.Component<IComponentProps, any> {
         //     this.setState({ options, });
         // });
         this.getData().then(options => {
-            console.log(options);
             this.setState({ options });
         });
     }
 
-    async getSelectList() {
-        let pid = 'original_name';
-        let name = 'game_name';
-        let id = 'game_name';
-
-        return formatList2Tree(selectJson, { id, pid, name });
-
-        if (this.props.dataset.enum) {
-            return formatEnumOptions(this.props.dataset.enum);
-        } else {
-            return formatList2Tree(selectJson, { id, pid, name });
-        }
-    }
-
     async getData() {
         // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
-        if (this.props.dataset.url) {
-            let { data } = await jsonp(this.props.dataset.url);
-            let { key, value } = this.props.dataset;
-            return formatList2AntdOptions(data.slice(0, 1), key, value)
-            return formatList2Tree(data, {
-                pid : 'media_name',
-                name: 'publisher_name',
-                id  : 'id',
-            })
-        } else if (this.props.dataset.enum) {
-            return formatEnumOptions(this.props.dataset.enum);
+        let { url, groupby, key, value, enum: enumList } = this.props.dataset;
+
+        if (url) {
+            let { data } = await jsonp(url);
+
+            if (groupby) {
+                return formatList2Tree(data, {
+                    pid : groupby,
+                    name: value,
+                    id  : key,
+                });
+            } else {
+                return formatList2AntdOptions(data, key, value);
+            }
+
+        } else if (enumList) {
+
+            return formatEnumOptions(enumList);
+
         }
     }
 
     render() {
-        console.log(this.props);
         let dataset = this.props.dataset;
         delete dataset.enum;
         let value: any;
@@ -103,9 +95,10 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
 
                     { ...dataset }
+                    dropdownMatchSelectWidth={ 300 }
                     value={ value }
+                    style={ { minWidth: 100 } }
                     options={ this.state.options }
-                    style={ { width: 200 } }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
@@ -149,7 +142,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     handleChange(value, object) {
-        console.log(value, object);
         let currentItem = object;
         this.setState({ currentItem, value }, () => trigger(this.props.el, value));
     }

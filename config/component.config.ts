@@ -98,12 +98,12 @@ export default {
                     },
                     url        :
                         {
-                        el    : 'input',
-                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
-                        desc  : '列表数据的接口地址',
-                        parse : 'string',
-                        verify: value => isUrl(value),
-                    },
+                            el    : 'input',
+                            value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                            desc  : '列表数据的接口地址',
+                            parse : 'string',
+                            verify: value => isUrl(value),
+                        },
                     disabled   : {
                         el   : 'switch',
                         value: false,
@@ -158,14 +158,20 @@ export default {
                         el   : 'input',
                         parse: 'string',
                         value: 'id',
-                        desc : '数据源唯一id'
+                        desc : '数据源唯一id',
                     },
                     value      : {
                         el   : 'input',
                         parse: 'null',
                         value: '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
-                        desc : '要展示的内容'
-                    }
+                        desc : '要展示的内容模版/字段',
+                    },
+                    groupby    : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '按照groupby的值来进行分组排列',
+                    },
                 },
                 value  : {
                     el     : 'select',
@@ -245,6 +251,11 @@ export default {
             component: import('@component/form/datepicker/datepicker'),
             property : {
                 dataset: {
+                    label     : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'form-datepicker',
+                    },
                     allowClear: {
                         el    : 'switch',
                         parse : 'boolean',
@@ -496,6 +507,30 @@ export default {
     code  : {
         editor: {
             component: import('@component/code/editor/CodeEditor'),
+        },
+    },
+    handle: {
+        request: {
+            component: import('@component/handle/request/request'),
+            property : {
+                dataset: {
+                    trigger: {
+                        el     : 'switch',
+                        parse  : 'string',
+                        value  : 'click',     // 'click' | 'hover'
+                        options: [
+                            { label: 'click', value: 'click' },
+                            { label: 'hover', value: 'hover' },
+                        ],
+                    },
+                    url    : {
+                        el    : 'input',
+                        value : '',
+                        parse : 'string',
+                        verify: v => isUrl(v),
+                    },
+                },
+            },
         },
     },
 

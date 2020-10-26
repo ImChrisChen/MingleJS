@@ -5,7 +5,7 @@
  * Time: 12:35 上午
  */
 import React from 'react';
-import { Form, message } from 'antd';
+import { message } from 'antd';
 import $ from 'jquery';
 
 // import tableData from '@mock/table/tableContent'
@@ -61,9 +61,6 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     render() {
-        // this.props.elChildren
-        return <Form>
-            <h1>Form</h1>
-        </Form>
+        return <></>
     }
 }

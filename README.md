@@ -170,7 +170,7 @@ window.funcName = function () {
 
     <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
     
-    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
+    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>	
     
 </form>
 
