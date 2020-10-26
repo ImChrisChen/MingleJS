@@ -26,11 +26,14 @@ export function parseTpl(
     }
 
     if (isObject(data)) {
+        console.log(fields);
         fields.forEach(field => {
             let val = data[field] ?? '';
             console.log(val);
             // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用
-            tpl = tpl.replace(/<{(.*?)}>/g, val);
+            let regExp = new RegExp(`<{${ field }}>`, 'g')
+            console.log(regExp);
+            tpl = tpl.replace(regExp, val);
         });
     }
     return tpl;

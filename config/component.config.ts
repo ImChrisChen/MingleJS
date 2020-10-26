@@ -18,7 +18,7 @@ export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
 
 export interface IOptions {
     label: string
-    value: string
+    value: string | number
     title?: string
 
     [key: string]: any
@@ -91,11 +91,13 @@ export default {
                     },
                     enum       : {
                         el   : 'list',
-                        value: '1,Android;2,iOS;3,MacOS;4,Windows',
+                        // value: '1,Android;2,iOS;3,MacOS;4,Windows',
+                        value: '',
                         desc : '列表数据 逗号两边分别对应 key - value',
                         parse: 'object[]',
                     },
-                    url        : {
+                    url        :
+                        {
                         el    : 'input',
                         value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
                         desc  : '列表数据的接口地址',

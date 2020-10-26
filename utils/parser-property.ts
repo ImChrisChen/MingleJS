@@ -14,8 +14,6 @@ export function parserProperty(dataAttrs = {}, defaultDataset?): object {
     let dataset = JSON.parse(JSON.stringify(dataAttrs));
     let newDataSet = {};
 
-    console.log(dataset);
-
     for (const datasetKey in defaultDataset) {
 
         if (!defaultDataset.hasOwnProperty(datasetKey)) continue;
@@ -32,7 +30,6 @@ export function parserProperty(dataAttrs = {}, defaultDataset?): object {
             } = currentProperty;
             let useValue = dataset[datasetKey];         // 传入的属性值
             let value = useValue ?? defaultVal ?? '';
-            console.log(useValue, defaultVal);
 
             if (verify && !verify(value)) {
                 console.error(`${ datasetKey }属性的值格式验证不通过`)

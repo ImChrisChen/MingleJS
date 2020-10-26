@@ -49,6 +49,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
         //     this.setState({ options, });
         // });
         this.getData().then(options => {
+            console.log(options);
             this.setState({ options });
         });
     }
@@ -72,7 +73,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
         if (this.props.dataset.url) {
             let { data } = await jsonp(this.props.dataset.url);
             let { key, value } = this.props.dataset;
-            return formatList2AntdOptions(data, key, value)
+            return formatList2AntdOptions(data.slice(0, 1), key, value)
             return formatList2Tree(data, {
                 pid : 'media_name',
                 name: 'publisher_name',
@@ -113,12 +114,12 @@ export default class Selector extends React.Component<IComponentProps, any> {
                         if (!option) return false;
                         return String(option.value).includes(input) || String(option.label).includes(input);
                     } }/>
-                {/*<Select*/}
-                {/*    options={ this.state.currentItem['children'] }*/}
-                {/*    mode="multiple"*/}
-                {/*    maxTagCount={ 1 }*/}
-                {/*    style={ { width: 200 } }*/}
-                {/*/>*/}
+                {/*<Select*/ }
+                {/*    options={ this.state.currentItem['children'] }*/ }
+                {/*    mode="multiple"*/ }
+                {/*    maxTagCount={ 1 }*/ }
+                {/*    style={ { width: 200 } }*/ }
+                {/*/>*/ }
             </Form.Item>
         </>;
     }

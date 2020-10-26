@@ -6,6 +6,8 @@
  */
 import { IOptions } from "@root/config/component.config";
 import { parseTpl } from "@utils/parser-tpl";
+import { isDOMString, isWuiTpl } from "@utils/inspect";
+import { strParseVirtualDOM } from "@utils/parser-dom";
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
@@ -91,12 +93,23 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
 // 列表转化为 antd options
 export function formatList2AntdOptions(list: Array<any>, k: string, v: string): Array<IOptions> {
     return list.map(item => {
-        console.log(item);
-        let label = parseTpl(v, item);
+        let label: any;
+        if (isWuiTpl(v)) { // template
+            label = parseTpl(v, item);
+        } else {
+            label = item[v]
+        }
+
+        if (isDOMString(label)) {
+            label = strParseVirtualDOM(label);
+        }
+
         return {
-            value: item[k],
+            // https://ant-design.gitee.io/components/select-cn/#Option-props
+            // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
+            value: String(item[k]),
             label: label,
-            title: label,
+            // title: label,
         }
     });
 }
