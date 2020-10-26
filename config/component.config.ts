@@ -237,6 +237,29 @@ export default {
             component: import('@component/form/cascader/cascader'),
             property : {
                 dataset: {
+                    url       : {
+                        el   : 'input',
+                        value: 'http://e.aidalan.com/option/pf/list',
+                        parse: 'string',
+                    },
+                    key       : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '数据转化的ID唯一值',
+                    },
+                    value     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'null',
+                        desc : '数据展示值',
+                    },
+                    groupby   : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '与data-key形成关系映射 id/pid',
+                    },
                     showSearch: {
                         value : true,
                         parse : 'boolean',
@@ -434,11 +457,23 @@ export default {
             path     : '/data-table',
             property : {
                 dataset: {
-                    from: {
+                    from     : {
                         el    : 'input',
                         value : '',
                         parse : 'string',
                         render: false,
+                    },
+                    url      : {
+                        el   : 'input',
+                        value: `http://e.aidalan.com/presenter/market/daily/data?pf=<{pf}>&date_way=<{date_way}>&group_way=<{group_way}>&indication=<{indication}>&pay_off_type=<{pay_off_type}>&more_indication=<{more_indication}>&principal_id=<{principal_id}>&dl_adv_position_id=<{dl_adv_position_id}>&media_id=<{media_id}>&pay_off_way=<{pay_off_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&dl_publisher_id=<{dl_publisher_id}>&original_id=<{original_id}>&tags=<{tags}>&pay_stage_default=<{pay_stage_default}>&pay_stage=""`, // 市场日表表头
+                        parse: 'string',
+                        desc : '表数据url',
+                    },
+                    headerurl: {
+                        el   : 'input',
+                        value: `http://e.aidalan.com/presenter/market/daily/header?date_way=<{date_way}>&group_way=<{group_way}>&indication=<{indication}>&pay_off_type=<{pay_off_type}>&pay_off_way=<{pay_off_way}>&more_indication=<{more_indication}>&pf=<{pf}>&v_ratio=<{v_ratio}>&tags=<{tags}>&pay_stage_default=<{pay_stage_default}>&pay_stage=""`,         //  市场日表
+                        parse: 'string',
+                        desc : '表头url',
                     },
                 },
             },
@@ -530,7 +565,17 @@ export default {
                         verify: v => isUrl(v),
                     },
                 },
+                value  : {
+                    el   : 'input',
+                    value: '',
+                    parse: 'string',
+                },
             },
+        },
+    },
+    demo  : {
+        select: {
+            component: import('@component/demo/select'),
         },
     },
 

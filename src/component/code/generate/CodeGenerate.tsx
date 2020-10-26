@@ -14,7 +14,10 @@ import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/parser-tpl';
 import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
+import { jsonp } from '@utils/request/request';
+
+type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
 interface IComponentDataset {
     el: string
@@ -85,7 +88,7 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     // 选择组件
-    handleChangeComponent(e, v) {
+    async handleChangeComponent(e, v) {
         let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
         if (!currentComponent.property) {
@@ -189,12 +192,12 @@ class CodeGenerate extends React.Component<any, any> {
 
     // 生成代码
     generateCode() {
-        message.success('generate')
+        message.success('generate');
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
         let attrs = components.map(item => {
             if (!item.render) {
-                return undefined
+                return undefined;
             }
 
             if (item.label.includes('hook:')) {
@@ -447,9 +450,9 @@ class CodeGenerate extends React.Component<any, any> {
                     </Col>
                 </Row>
             </Form>
-        </>
+        </>;
     }
 }
 
-export default withRouter(CodeGenerate)
+export default withRouter(CodeGenerate);
 // export default CodeGenerate

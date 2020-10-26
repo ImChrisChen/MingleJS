@@ -39,7 +39,7 @@ export function parserProperty(dataAttrs = {}, defaultDataset?): object {
 
             switch (parse) {
                 case 'string':            // 模版解析
-                    newDataSet[datasetKey] = parseTpl(value);
+                    newDataSet[datasetKey] = parseTpl(value,document.body);
                     break;
 
                 case 'number':

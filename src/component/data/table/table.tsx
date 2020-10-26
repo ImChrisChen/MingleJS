@@ -12,13 +12,13 @@ import { strParseVirtualDOM } from '@utils/parser-dom';
 import style from './table.scss';
 import { ColumnsType } from 'antd/es/table';
 import { findDOMNode } from 'react-dom';
-import $ from 'jquery'
-import { SearchOutlined } from "@ant-design/icons";
-import Highlighter from "react-highlight-words";
-import { jsonp } from "@utils/request/request";
-import { isNumber, isString } from "@utils/inspect";
-import FormAjax from "@component/form/ajax/form";
-import { formatObject2Url, formatUrl2Object } from "@utils/format-data";
+import $ from 'jquery';
+import { SearchOutlined } from '@ant-design/icons';
+import Highlighter from 'react-highlight-words';
+import { jsonp } from '@utils/request/request';
+import { isNumber, isString } from '@utils/inspect';
+import FormAjax from '@component/form/ajax/form';
+import { formatObject2Url, formatUrl2Object } from '@utils/format-data';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -124,16 +124,13 @@ export default class DataTable extends React.Component<any, any> {
     private fieldTpl!: string;
     private url: string = this.props.url;
     private searchInput;
-    private headerUrl = `http://e.local.aidalan.com/manage/useful/game/header`;
-    private tableUrl = `http://e.local.aidalan.com/manage/useful/game/list?pf=1`;
     private baseParams = {
         page   : 1,
         pageNum: 100,
-    }
+    };
 
     constructor(props: ITableProps) {
         super(props);
-
 
         if (this.props.dataset && this.props.dataset.from) {
             let formElement = FormAjax.findFormElement(this.props.dataset.from);
@@ -167,7 +164,7 @@ export default class DataTable extends React.Component<any, any> {
                     console.log('拖拽结束');
 
                     let $tds = $el.find('td');
-                    $tds.css('background', 'transparent')
+                    $tds.css('background', 'transparent');
                     Array.from($tds).forEach(td => {
                         let { top, left } = $(td).offset() as any;
 
@@ -198,10 +195,10 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     async handleFormSubmit(formData, e) {
-        let url = formatObject2Url(formData, this.tableUrl);
+        let url = formatObject2Url(formData, this.props.dataset.url);
         console.log(url);
-        let tableContent = await this.getTableContent(url)
-        this.setState({ dataSource: tableContent })
+        let tableContent = await this.getTableContent(url);
+        this.setState({ dataSource: tableContent });
         console.log(this.state);
     }
 
@@ -238,9 +235,9 @@ export default class DataTable extends React.Component<any, any> {
         message.success('table open');
     }
 
-    async getTableContent(tableUrl: string = this.tableUrl): Promise<Array<ITableContentItem>> {
-        let res = await jsonp(tableUrl)
-        let o = formatUrl2Object(`http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`)
+    async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
+        let res = await jsonp(tableUrl);
+        let o = formatUrl2Object(`http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`);
         console.log(o);
 
         // let { data }: IApiResult<ITableContentItem> = tableContent;
@@ -248,7 +245,7 @@ export default class DataTable extends React.Component<any, any> {
         let tableContent: Array<ITableContentItem> = data.map(item => {
 
             for (const key in item) {
-                if (!item.hasOwnProperty(key)) continue
+                if (!item.hasOwnProperty(key)) continue;
 
                 if (/<(.*?)>/.test(item[key])) {
                     item[key] = strParseVirtualDOM(item[key]);          // 字符串dom转化
@@ -259,22 +256,22 @@ export default class DataTable extends React.Component<any, any> {
                 ...item,
                 key         : item.id,
                 name        : '',
-                introduction: <h1>1111</h1>
+                introduction: <h1>1111</h1>,
                 // [this.fieldTpl]: '12321321'
             };
             if (this.fieldTpl) {
                 let fieldStr = parseTpl(this.fieldTpl, item);
                 let fieldJSX = strParseVirtualDOM(fieldStr);
-                result[this.fieldTpl] = fieldJSX
+                result[this.fieldTpl] = fieldJSX;
             }
-            return result
+            return result;
         });
         // let sumItem = this.sum(tableContent);
         // tableContent.unshift(sumItem);
         return tableContent;
     }
 
-    async getTableHeader(headerUrl: string = this.headerUrl): Promise<Array<ITableHeaderItem>> {
+    async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
         let res = await jsonp(headerUrl);
         // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
         let { data }: IApiResult<ITableHeaderItem> = res;
@@ -313,15 +310,15 @@ export default class DataTable extends React.Component<any, any> {
                             if (!isNaN(Date.parse(bVal))) {
                                 aVal = Date.parse(aVal);
                                 bVal = Date.parse(bVal);
-                                return aVal - bVal
+                                return aVal - bVal;
                             }
 
                         }
 
                     }
 
-                    return 0
-                }
+                    return 0;
+                };
             }
 
             let compare = function (a, b): number {
@@ -432,7 +429,7 @@ export default class DataTable extends React.Component<any, any> {
             ) : (
                 text
             ),
-    })
+    });
 
     handleReset = clearFilters => {
         clearFilters();

@@ -62,9 +62,9 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
             if (groupby) {
                 return formatList2Tree(data, {
-                    pid : groupby,
-                    name: value,
                     id  : key,
+                    name: value,
+                    pid : groupby,
                 });
             } else {
                 return formatList2AntdOptions(data, key, value);
@@ -96,8 +96,8 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
                     { ...dataset }
                     dropdownMatchSelectWidth={ 300 }
-                    value={ value }
                     style={ { minWidth: 100 } }
+                    value={ value }
                     options={ this.state.options }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }

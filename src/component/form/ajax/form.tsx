@@ -24,8 +24,12 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let { async } = this.props.dataset;
         let form: HTMLFormElement = this.props.el;
+        $(form).find('[type=reset]').on('click', e => {
+            e.preventDefault();
+            // $(form).find('input[data-fn]').val('').trigger('change');
+        });
         FormAjax.onFormSubmit(form, function (formData) {
-            console.log(formData)
+            console.log(formData);
         });
     }
 
@@ -61,6 +65,6 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     render() {
-        return <></>
+        return <></>;
     }
 }

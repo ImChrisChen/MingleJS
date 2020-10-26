@@ -12,7 +12,7 @@ declare type IParseModeData = HTMLElement | object | null;
 // 'pf=<{pf}>' => 'pf=ios'
 export function parseTpl(
     tpl: string,
-    itemData: IParseModeData = document.querySelector('body'),
+    itemData: IParseModeData = document.body,
 ): string {
     let fields: Array<string> = getTplFields(tpl);
 
