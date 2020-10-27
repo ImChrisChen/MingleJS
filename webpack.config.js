@@ -1,5 +1,4 @@
 const path = require('path');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const { getThemeVariables } = require('antd/dist/theme');
 // const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
@@ -10,32 +9,20 @@ const { getThemeVariables } = require('antd/dist/theme');
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // const smp = new SpeedMeasurePlugin();
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   // 打包分析
+const HtmlWebpackPlugin = require('html-webpack-plugin');           //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
-// const marked = require('marked');
-// const renderer = new marked.Renderer();
-const os = require('os');
-
-// const PrepackWebpackPlugin = require('prepack-webpack-plugin').default;     //使用Prepack提前求值
-
-// const UglifyEsPlugin = require('uglify-es');
-
 let env = process.env.NODE_ENV;
 
 //默认生产环境
 if (typeof env === 'undefined') {
     env = 'production';
 }
-
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const isProduction = env === 'production';
 console.log(env);
@@ -55,7 +42,8 @@ module.exports = {
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
-        main: './main.tsx',     // https://webpack.js.org/guides/code-splitting/
+        // [name]是对应的入口文件的key, [name].js 就是main.js
+        main: './main.tsx',    // https://webpack.js.org/guides/code-splitting/
         // vendoer: [
         //     'react',
         //     'react-dom',
@@ -136,21 +124,15 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                // use: ExtractTextPlugin.extract({        // webpack4.x css分离
-                //     fallback: 'style-loader',
-                //     use: 'css-loader',
-                // }),
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    // { loader: 'style-loader' },
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     { loader: 'css-loader' },
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    // { loader: 'style-loader' },
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     { loader: 'css-loader' },
                     {
                         loader: 'less-loader',
@@ -247,9 +229,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: '[name].[contenthash].css',
+            filename: '[name].css',     // main.css
             disable: isProduction,
-            chunkFilename: '[id].css',
+            chunkFilename: '[name].css', // manifest.css
         }),
         
         new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
