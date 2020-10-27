@@ -21,11 +21,10 @@ export function parseTpl(
         fields.forEach(field => {
             let input = document.querySelector(`input[name=${ field }]`);
             let val = input?.['value'] ?? '';
-            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));      // 将模版替换为指定的值
+            let regExp = new RegExp(`<{${ field }}>`, 'g');
+            tpl = tpl.replace(regExp, encodeURIComponent(val));              // 将模版替换为指定的值
         });
-    }
-
-    if (isObject(itemData)) {
+    } else if (isObject(itemData)) {
         fields.forEach(field => {
             let val = itemData[field] ?? '';
             // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用

@@ -18,7 +18,7 @@ import Highlighter from 'react-highlight-words';
 import { jsonp } from '@utils/request/request';
 import { isNumber, isString } from '@utils/inspect';
 import FormAjax from '@component/form/ajax/form';
-import { formatObject2Url, formatUrl2Object } from '@utils/format-data';
+import { formatObject2Url } from '@utils/format-data';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -35,6 +35,9 @@ interface ITableHeaderItem {
     sortable: boolean      // 是否排序 分前后端
     sum: boolean           // 求和
     thColor: string // bgColor
+    visible?: boolean       //是否显示
+
+    [key: string]: any
 }
 
 interface ITableContentItem {
@@ -194,12 +197,15 @@ export default class DataTable extends React.Component<any, any> {
         this.handleDragSelect();
     }
 
+    // 提交表单
     async handleFormSubmit(formData, e) {
+        console.log('表单数据:', formData);
+        this.setState({ loading: true });
+
         let url = formatObject2Url(formData, this.props.dataset.url);
-        console.log(url);
         let tableContent = await this.getTableContent(url);
-        this.setState({ dataSource: tableContent });
-        console.log(this.state);
+
+        this.setState({ dataSource: tableContent, loading: false });
     }
 
     sum(list): ITableContentItem {
@@ -237,12 +243,9 @@ export default class DataTable extends React.Component<any, any> {
 
     async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
         let res = await jsonp(tableUrl);
-        let o = formatUrl2Object(`http://e.local.aidalan.com/manage/useful/game/list?pf=2&original_id=&mapping_game_id=&dl_game_id=&page=1&pageNum=100`);
-        console.log(o);
-
         // let { data }: IApiResult<ITableContentItem> = tableContent;
         let { data }: any = res;
-        let tableContent: Array<ITableContentItem> = data.map(item => {
+        let tableContent: Array<ITableContentItem> = data.map((item, index) => {
 
             for (const key in item) {
                 if (!item.hasOwnProperty(key)) continue;
@@ -254,7 +257,7 @@ export default class DataTable extends React.Component<any, any> {
 
             let result = {
                 ...item,
-                key         : item.id,
+                key         : index/*item.id*/,
                 name        : '',
                 introduction: <h1>1111</h1>,
                 // [this.fieldTpl]: '12321321'
@@ -275,8 +278,13 @@ export default class DataTable extends React.Component<any, any> {
         let res = await jsonp(headerUrl);
         // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
         let { data }: IApiResult<ITableHeaderItem> = res;
-        return data.map((item, index) => {
+
+        let tableHeader: Array<ITableHeaderItem> = [];
+        for (const item of data) {
+            // let index = data.indexOf(item);
             // let width = parseTpl(item.field, item).length * 10;
+
+            if (!item.visible) continue;
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
             if (/<(.*?)>/.test(item.field)) {
@@ -351,7 +359,7 @@ export default class DataTable extends React.Component<any, any> {
 
             let filters = item.filter ? this.getColumnSearchProps(item.field) : {};     // 搜索
 
-            return {
+            tableHeader.push({
                 ...item,
                 // antd
                 ...filters,       // 搜索
@@ -374,8 +382,10 @@ export default class DataTable extends React.Component<any, any> {
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : false,
                 sorter      : fn,
-            };
-        });
+            });
+        }
+
+        return tableHeader;
     }
 
     getColumnSearchProps = dataIndex => ({

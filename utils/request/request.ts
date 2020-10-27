@@ -6,12 +6,12 @@
  */
 
 import { message } from 'antd';
-import md5 from 'md5'
+import md5 from 'md5';
 
 export function jsonp(url: string): Promise<any> {
-    let funcName = 'callback' + md5(url);
+    let funcName = 'callback' + md5(url + new Date().getTime());         // 解决jsonp短时间内无法循环请求的问题
     let isDone = false;
-    let timeout = 2000;     // 超时时间
+    let timeout = 8000;     // 超时时间
     return new Promise((resolve, reject) => {
         window[funcName] = result => {
             if (result.status) {
@@ -43,13 +43,14 @@ export function jsonp(url: string): Promise<any> {
         }
 
         setTimeout(() => {
-            if (!isDone) message.error('接口请求超时')
-        }, timeout)
+            if (!isDone) message.error('接口请求超时');
+            reject({ error: '', msg: '接口请求超时' });
+        }, timeout);
         setTimeout(() => body?.removeChild(script), 500);
     });
 }
 
-window.jsonp = jsonp
+window.jsonp = jsonp;
 
 // 允许携带cookie
 // axios.defaults.timeout = 6000;

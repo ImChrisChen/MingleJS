@@ -14,7 +14,7 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null' | '';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
 
 export interface IOptions {
     label: string
@@ -72,6 +72,11 @@ const SizeOptions = [
         value: 'small',
     },
 ];
+
+// TODO 提取公共属性(待调整)
+const CommonAttr = {
+    label: {},
+};
 
 export default {
     form  : {
@@ -237,6 +242,11 @@ export default {
             component: import('@component/form/cascader/cascader'),
             property : {
                 dataset: {
+                    label     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                    },
                     url       : {
                         el   : 'input',
                         value: 'http://e.aidalan.com/option/pf/list',
@@ -266,6 +276,11 @@ export default {
                         render: false,
                     },
                 },
+                value  : {
+                    el   : 'input',
+                    value: [ '346_删除' ],
+                    parse: 'null',
+                },
             },
         },
 
@@ -278,6 +293,26 @@ export default {
                         el   : 'input',
                         parse: 'string',
                         value: 'form-datepicker',
+                    },
+                    format    : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'YYYY-MM-DD',
+                    },
+                    single    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                    },
+                    mindate   : {
+                        el    : 'datepicker',
+                        parse : 'string',
+                        render: false,
+                    },
+                    maxdate   : {
+                        el    : 'datepicker',
+                        parse : 'string',
+                        render: false,
                     },
                     allowClear: {
                         el    : 'switch',
@@ -457,7 +492,7 @@ export default {
             path     : '/data-table',
             property : {
                 dataset: {
-                    from     : {
+                    'from'   : {
                         el    : 'input',
                         value : '',
                         parse : 'string',
@@ -465,13 +500,13 @@ export default {
                     },
                     url      : {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/market/daily/data?pf=<{pf}>&date_way=<{date_way}>&group_way=<{group_way}>&indication=<{indication}>&pay_off_type=<{pay_off_type}>&more_indication=<{more_indication}>&principal_id=<{principal_id}>&dl_adv_position_id=<{dl_adv_position_id}>&media_id=<{media_id}>&pay_off_way=<{pay_off_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&dl_publisher_id=<{dl_publisher_id}>&original_id=<{original_id}>&tags=<{tags}>&pay_stage_default=<{pay_stage_default}>&pay_stage=""`, // 市场日表表头
+                        value: ``, // 市场日表表头
                         parse: 'string',
                         desc : '表数据url',
                     },
                     headerurl: {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/market/daily/header?date_way=<{date_way}>&group_way=<{group_way}>&indication=<{indication}>&pay_off_type=<{pay_off_type}>&pay_off_way=<{pay_off_way}>&more_indication=<{more_indication}>&pf=<{pf}>&v_ratio=<{v_ratio}>&tags=<{tags}>&pay_stage_default=<{pay_stage_default}>&pay_stage=""`,         //  市场日表
+                        value: ``,         //  市场日表
                         parse: 'string',
                         desc : '表头url',
                     },

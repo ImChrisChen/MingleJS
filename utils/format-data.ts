@@ -86,13 +86,7 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
     list.forEach(item => {
         let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
 
-        let label: any;
-
-        if (isWuiTpl(name)) {
-            label = parseTpl(name, item);
-        } else {
-            label = item[name];
-        }
+        let label = templateVerifyParser(name, item);
 
         if (superItem) {
             superItem.children.push({
@@ -106,19 +100,29 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
     return selectTree;
 }
 
+// 验证 && 解析模版 && DOM转化
+function templateVerifyParser(tpl: string, item: object): string {
+
+    let label: string;
+
+    if (isWuiTpl(tpl)) { // template
+        label = parseTpl(tpl, item);
+    } else {
+        label = item[tpl];
+    }
+
+    if (isDOMString(label)) {
+        label = strParseVirtualDOM(label);
+    }
+
+    return label;
+}
+
 // 列表转化为 antd options
 export function formatList2AntdOptions(list: Array<any>, k: string, v: string): Array<IOptions> {
     return list.map(item => {
-        let label: any;
-        if (isWuiTpl(v)) { // template
-            label = parseTpl(v, item);
-        } else {
-            label = item[v];
-        }
 
-        if (isDOMString(label)) {
-            label = strParseVirtualDOM(label);
-        }
+        let label = templateVerifyParser(v, item);
 
         return {
             // https://ant-design.gitee.io/components/select-cn/#Option-props
@@ -131,29 +135,42 @@ export function formatList2AntdOptions(list: Array<any>, k: string, v: string): 
 }
 
 /**
- *
  * @param data
  * @param url
  */
 export function formatObject2Url(data: object, url: string = ''): string {
     let params = '';
-    let [ href, ...args ] = url.split('?');
-    for (const key in data) {
-        if (!data.hasOwnProperty(key)) continue;
-        let val = data[key];
+    let [ href, search ] = url.split('?');
+
+    //TODO 带参数的url传进来，会把url上的参数和data合并了
+    let object = {};
+    if (search) {
+        let o = formatUrl2Object(search);
+        object = Object.assign(o, data);
+    } else {
+        object = data;
+    }
+
+    for (const key in object) {
+        if (!object.hasOwnProperty(key)) continue;
+        let val = object[key];
         params += `${ key }=${ val }&`;
     }
     params = params.slice(0, params.length - 1);        // 删除最后一个&符
+
     return href + '?' + params;
 }
 
 /**
- *
+ * pf=1&game_id=123 => {pf:1,game_id:123}
  * @param url
  * @param o
  */
 export function formatUrl2Object(url: string, o: object = {}) {
-    let [ , search ] = url.split('?');
+    let search = url;
+    if (url.includes('?')) {
+        [ , search ] = url.split('?');
+    }
     search.split('&').forEach(kv => {
         if (kv) {
             let [ k, v ] = kv.split('=');
