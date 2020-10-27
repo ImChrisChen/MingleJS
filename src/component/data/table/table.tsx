@@ -531,7 +531,6 @@ export default class DataTable extends React.Component<any, any> {
                     };
                 } }
                 sticky={ true }
-                rowClassName={ style.rowClassName }
                 // rowSelection={ rowSelection }
                 { ...this.state }
             >

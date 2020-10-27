@@ -10,6 +10,9 @@ const { getThemeVariables } = require('antd/dist/theme');
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // const smp = new SpeedMeasurePlugin();
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
@@ -41,15 +44,6 @@ const clc = require('cli-color');
 
 console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
 
-const typingsForCssModulesLoaderConf = {
-    loader: 'typings-for-css-modules-loader',
-    options: {
-        modules: true,
-        namedExport: true,
-        camelCase: true,
-        sass: true,
-    },
-};
 
 module.exports = {
     watch: !isProduction,
@@ -142,15 +136,21 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
+                // use: ExtractTextPlugin.extract({        // webpack4.x css分离
+                //     fallback: 'style-loader',
+                //     use: 'css-loader',
+                // }),
                 use: [
-                    { loader: 'style-loader' },
+                    MiniCssExtractPlugin.loader,
+                    // { loader: 'style-loader' },
                     { loader: 'css-loader' },
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
-                    { loader: 'style-loader' },
+                    MiniCssExtractPlugin.loader,
+                    // { loader: 'style-loader' },
                     { loader: 'css-loader' },
                     {
                         loader: 'less-loader',
@@ -168,12 +168,25 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                rules: [
+                include: path.resolve('src/'),
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     {
-                        use: [
-                            'style-loader',
-                            typingsForCssModulesLoaderConf,
-                        ],
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: true,
+                            namedExport: true,
+                            camelCase: true,
+                            sass: true,
+                            localIdentName: '[name]__[local]__[hash:base64:5]',
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            // outputStyle: 'expanded',
+                            sourceMap: true,
+                        },
                     },
                 ],
             },
@@ -231,13 +244,13 @@ module.exports = {
         
         // new PrepackWebpackPlugin(),
         
-        // new MiniCssExtractPlugin({
-        //     // Options similar to the same options in webpackOptions.output
-        //     // both options are optional
-        //     filename: '[name].[contenthash].css',
-        //     disable: isProduction,
-        //     chunkFilename: '[id].css',
-        // }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].[contenthash].css',
+            disable: isProduction,
+            chunkFilename: '[id].css',
+        }),
         
         new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
         
