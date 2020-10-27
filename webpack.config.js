@@ -7,8 +7,8 @@ const { getThemeVariables } = require('antd/dist/theme');
 // const dashboard = new Dashboard();
 
 // const HappyPack = require('happypack');     // 使用HappyPack开启多进程Loader转换
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-const smp = new SpeedMeasurePlugin();
+// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+// const smp = new SpeedMeasurePlugin();
 
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
@@ -51,7 +51,7 @@ const typingsForCssModulesLoaderConf = {
     },
 };
 
-module.exports = smp.wrap({
+module.exports = {
     watch: true,
     watchOptions: {
         ignored: /node_module/,
@@ -82,7 +82,7 @@ module.exports = smp.wrap({
         splitChunks: {
             name: 'manifest',     // 自动处理文件名
             chunks: 'all',
-            minChunks: 5, // 至少 import 1 次的即需要打包
+            minChunks: 1, // 至少 import 1 次的即需要打包
             automaticNameDelimiter: '-',        // 生成名称的隔离符
             cacheGroups: {
                 vendors: {
@@ -163,10 +163,10 @@ module.exports = smp.wrap({
                 use: [
                     { loader: 'awesome-typescript-loader' },
                     { loader: 'cache-loader' },
-                    {
-                        loader: 'thread-loader',
-                        options: { workers: os.cpus().length },
-                    },
+                    // {
+                    //     loader: 'thread-loader',
+                    //     options: { workers: os.cpus().length },
+                    // },
                 ],
                 include: path.resolve(__dirname, '/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
@@ -224,7 +224,7 @@ module.exports = smp.wrap({
         // 处理html
         new HtmlWebpackPlugin({
             // chunks: ['./dist/mingle.min.js'],
-            // title: isProduction ? 'MingleJS Production' : 'MingleJS Development',            // html title
+            title: isProduction ? 'MingleJS Production' : 'MingleJS Development',            // html title
             filename: path.resolve(__dirname, 'dist/index.html'),
             template: path.resolve(__dirname, 'public/index.html'),
         }),
@@ -262,7 +262,7 @@ module.exports = smp.wrap({
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
+            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? false : false),
             //analyzerHost: '0.0.0.0',
             //defaultSizes: 'parsed',
             // analyzerPort: '9200',
@@ -313,5 +313,5 @@ module.exports = smp.wrap({
             inline: false,//
         },
     },
-});
+};
 

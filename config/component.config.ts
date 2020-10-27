@@ -11,14 +11,15 @@ import { isUrl } from '@utils/inspect';
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
 // 解析类型
-export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON';
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null' | '';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select'
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
 
 export interface IOptions {
     label: string
-    value: string
+    value: string | number
+    title?: string
 
     [key: string]: any
 }
@@ -72,6 +73,11 @@ const SizeOptions = [
     },
 ];
 
+// TODO 提取公共属性(待调整)
+const CommonAttr = {
+    label: {},
+};
+
 export default {
     form  : {
         select: {
@@ -90,17 +96,19 @@ export default {
                     },
                     enum       : {
                         el   : 'list',
-                        value: '1,Android;2,iOS;3,MacOS;4,Windows',
+                        // value: '1,Android;2,iOS;3,MacOS;4,Windows',
+                        value: '',
                         desc : '列表数据 逗号两边分别对应 key - value',
                         parse: 'object[]',
                     },
-                    url        : {
-                        el    : 'input',
-                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
-                        desc  : '列表数据的接口地址',
-                        parse : 'string',
-                        verify: value => isUrl(value),
-                    },
+                    url        :
+                        {
+                            el    : 'input',
+                            value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                            desc  : '列表数据的接口地址',
+                            parse : 'string',
+                            verify: value => isUrl(value),
+                        },
                     disabled   : {
                         el   : 'switch',
                         value: false,
@@ -150,6 +158,24 @@ export default {
                         value : true,
                         parse : 'boolean',
                         render: false,
+                    },
+                    key        : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'id',
+                        desc : '数据源唯一id',
+                    },
+                    value      : {
+                        el   : 'input',
+                        parse: 'null',
+                        value: '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
+                        desc : '要展示的内容模版/字段',
+                    },
+                    groupby    : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '按照groupby的值来进行分组排列',
                     },
                 },
                 value  : {
@@ -216,11 +242,44 @@ export default {
             component: import('@component/form/cascader/cascader'),
             property : {
                 dataset: {
+                    label     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                    },
+                    url       : {
+                        el   : 'input',
+                        value: 'http://e.aidalan.com/option/pf/list',
+                        parse: 'string',
+                    },
+                    key       : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '数据转化的ID唯一值',
+                    },
+                    value     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'null',
+                        desc : '数据展示值',
+                    },
+                    groupby   : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '与data-key形成关系映射 id/pid',
+                    },
                     showSearch: {
                         value : true,
                         parse : 'boolean',
                         render: false,
                     },
+                },
+                value  : {
+                    el   : 'input',
+                    value: [ '346_删除' ],
+                    parse: 'null',
                 },
             },
         },
@@ -230,6 +289,31 @@ export default {
             component: import('@component/form/datepicker/datepicker'),
             property : {
                 dataset: {
+                    label     : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'form-datepicker',
+                    },
+                    format    : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'YYYY-MM-DD',
+                    },
+                    single    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                    },
+                    mindate   : {
+                        el    : 'datepicker',
+                        parse : 'string',
+                        render: false,
+                    },
+                    maxdate   : {
+                        el    : 'datepicker',
+                        parse : 'string',
+                        render: false,
+                    },
                     allowClear: {
                         el    : 'switch',
                         parse : 'boolean',
@@ -408,11 +492,23 @@ export default {
             path     : '/data-table',
             property : {
                 dataset: {
-                    from: {
+                    'from'   : {
                         el    : 'input',
                         value : '',
                         parse : 'string',
                         render: false,
+                    },
+                    url      : {
+                        el   : 'input',
+                        value: ``, // 市场日表表头
+                        parse: 'string',
+                        desc : '表数据url',
+                    },
+                    headerurl: {
+                        el   : 'input',
+                        value: ``,         //  市场日表
+                        parse: 'string',
+                        desc : '表头url',
                     },
                 },
             },
@@ -483,7 +579,41 @@ export default {
             component: import('@component/code/editor/CodeEditor'),
         },
     },
-    
+    handle: {
+        request: {
+            component: import('@component/handle/request/request'),
+            property : {
+                dataset: {
+                    trigger: {
+                        el     : 'switch',
+                        parse  : 'string',
+                        value  : 'click',     // 'click' | 'hover'
+                        options: [
+                            { label: 'click', value: 'click' },
+                            { label: 'hover', value: 'hover' },
+                        ],
+                    },
+                    url    : {
+                        el    : 'input',
+                        value : '',
+                        parse : 'string',
+                        verify: v => isUrl(v),
+                    },
+                },
+                value  : {
+                    el   : 'input',
+                    value: '',
+                    parse: 'string',
+                },
+            },
+        },
+    },
+    demo  : {
+        select: {
+            component: import('@component/demo/select'),
+        },
+    },
+
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置

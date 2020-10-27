@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"build": "rm -rf ./dist && webpack && node script.js",
+		"build": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && node script.js",
 		"pre": "rm -rf ./dist NODE_ENV=pre webpack && node script.js",
-		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --color --config webpack.config.js",
+		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --colors --config webpack.config.js",
 		"docs": "npx docsify serve ./docs"
 	},
 	"author": "chrischen",

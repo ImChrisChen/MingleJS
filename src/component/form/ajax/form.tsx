@@ -5,7 +5,7 @@
  * Time: 12:35 上午
  */
 import React from 'react';
-import { Form, message } from 'antd';
+import { message } from 'antd';
 import $ from 'jquery';
 
 // import tableData from '@mock/table/tableContent'
@@ -24,8 +24,12 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let { async } = this.props.dataset;
         let form: HTMLFormElement = this.props.el;
+        $(form).find('[type=reset]').on('click', e => {
+            e.preventDefault();
+            // $(form).find('input[data-fn]').val('').trigger('change');
+        });
         FormAjax.onFormSubmit(form, function (formData) {
-            console.log(formData)
+            console.log(formData);
         });
     }
 
@@ -61,9 +65,6 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     render() {
-        // this.props.elChildren
-        return <Form>
-            <h1>Form</h1>
-        </Form>
+        return <></>;
     }
 }

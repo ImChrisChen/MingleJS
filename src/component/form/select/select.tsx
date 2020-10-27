@@ -8,14 +8,14 @@
 import './select.less';
 import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
-import selectJson from '@root/mock/form/select.json';
-import { formatEnumOptions, formatList2Tree } from '@utils/format-data';
+import { formatEnumOptions, formatList2AntdOptions, formatList2Tree } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
 // import axios from 'axios'
 
+const { Option, OptGroup } = Select;
 const { Title } = Typography;
 
 interface ISelectState<T> {
@@ -53,36 +53,31 @@ export default class Selector extends React.Component<IComponentProps, any> {
         });
     }
 
-    async getSelectList() {
-        let pid = 'original_name';
-        let name = 'game_name';
-        let id = 'game_name';
-
-        return formatList2Tree(selectJson, { id, pid, name });
-
-        if (this.props.dataset.enum) {
-            return formatEnumOptions(this.props.dataset.enum);
-        } else {
-            return formatList2Tree(selectJson, { id, pid, name });
-        }
-    }
-
     async getData() {
         // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
-        if (this.props.dataset.url) {
-            let { data } = await jsonp(this.props.dataset.url);
-            return formatList2Tree(data, {
-                pid : 'media_name',
-                name: 'publisher_name',
-                id  : 'id',
-            })
-        } else if (this.props.dataset.enum) {
-            return formatEnumOptions(this.props.dataset.enum);
+        let { url, groupby, key, value, enum: enumList } = this.props.dataset;
+
+        if (url) {
+            let { data } = await jsonp(url);
+
+            if (groupby) {
+                return formatList2Tree(data, {
+                    id  : key,
+                    name: value,
+                    pid : groupby,
+                });
+            } else {
+                return formatList2AntdOptions(data, key, value);
+            }
+
+        } else if (enumList) {
+
+            return formatEnumOptions(enumList);
+
         }
     }
 
     render() {
-        console.log(this.props);
         let dataset = this.props.dataset;
         delete dataset.enum;
         let value: any;
@@ -100,9 +95,10 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
 
                     { ...dataset }
+                    dropdownMatchSelectWidth={ 300 }
+                    style={ { minWidth: 100 } }
                     value={ value }
                     options={ this.state.options }
-                    style={ { width: 200 } }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
@@ -111,12 +107,12 @@ export default class Selector extends React.Component<IComponentProps, any> {
                         if (!option) return false;
                         return String(option.value).includes(input) || String(option.label).includes(input);
                     } }/>
-                <Select
-                    options={ this.state.currentItem['children'] }
-                    mode="multiple"
-                    maxTagCount={ 1 }
-                    style={ { width: 200 } }
-                />
+                {/*<Select*/ }
+                {/*    options={ this.state.currentItem['children'] }*/ }
+                {/*    mode="multiple"*/ }
+                {/*    maxTagCount={ 1 }*/ }
+                {/*    style={ { width: 200 } }*/ }
+                {/*/>*/ }
             </Form.Item>
         </>;
     }
@@ -146,7 +142,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     handleChange(value, object) {
-        console.log(value, object);
         let currentItem = object;
         this.setState({ currentItem, value }, () => trigger(this.props.el, value));
     }

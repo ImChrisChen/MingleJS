@@ -8,19 +8,19 @@ import React from 'react';
 import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
-import { IComponentProps } from "@interface/common/component";
+import { IComponentProps } from '@interface/common/component';
 
 export default class Button extends React.Component<IComponentProps, any> {
     state: any = {
         value  : this.props.value,
-        options: []
+        options: [],
     };
 
     constructor(props) {
         super(props);
         this.getData().then(options => {
-            this.setState({ options })
-        })
+            this.setState({ options });
+        });
     }
 
     async getData() {
@@ -29,7 +29,6 @@ export default class Button extends React.Component<IComponentProps, any> {
 
     handleChange(e: any) {
         let value = e.target.value;
-        console.log(value);
         this.setState({ value }, () => trigger(this.props.el, value));
     }
 

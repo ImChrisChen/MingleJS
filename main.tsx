@@ -39,7 +39,7 @@ darkMode && darkMode.addEventListener('change', e => {
 
 let env = process.env.NODE_ENV;
 
-let docs = document.querySelector('#App');
+let docs = document.querySelector('#__MINGLE_DOCS__');
 
 if (docs) {
     // docs
@@ -51,8 +51,11 @@ if (docs) {
         // </ConfigProvider>,
         docs,
     );
+} else {
+    // public/index.html
+    window.onload = () => new App(document.body);
 }
-window.onload = () => new App(document.body);
+
 
 App.globalEventListener();
 window['$'] = $;

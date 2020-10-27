@@ -78,6 +78,7 @@ export default class App {
     }
 
     async init(elementContainer) {
+        message.success('init');
         deepEachElement(elementContainer, async element => {
             if (element.attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;
@@ -196,7 +197,7 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                // message.success(`onchange - value:${ $(element).val() }`);
+                message.success(`onchange - value:${ $(element).val() }`);
                 this.renderComponent(module, function (hooks) {
                     hooks[Hooks.beforeUpdate]?.();
                 }, function (hooks) {

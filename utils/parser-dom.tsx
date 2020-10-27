@@ -32,7 +32,7 @@ export function elementParseAllVirtualDOM(els: Array<HTMLElement>): Array<ReactE
 
 // 字符串 => ReactDOM https://zh-hans.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
 export function strParseVirtualDOM(strHtml: string): any {
-    return <div dangerouslySetInnerHTML={ { __html: strHtml } }/>;
+    return <span dangerouslySetInnerHTML={ { __html: strHtml } }/>;
 }
 
 // 字符串 => 真实DOM
