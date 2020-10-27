@@ -1,1 +1,26 @@
-.rowClassName {}.tableHeaderCell {    width      : inherit;    height     : inherit;    text-align : center;    //color : #ffffff;}@mixin thColor($color: transparentize()) {    background-color : $color;}.virtual-grid {    text-align : center !important;}.FormTable {    //padding             : 20px;    -webkit-user-select : none; /* Chrome/Safari/Opera */    -o-user-select      : none;    -moz-user-select    : none; /*火狐 firefox*/    -webkit-user-select : none; /*webkit浏览器*/    -ms-user-select     : none; /*IE10+*/    -khtml-user-select  : none; /*早期的浏览器*/    user-select         : none;}
+.tableHeaderCell {
+    width      : inherit;
+    height     : inherit;
+    text-align : center;
+    //color : #ffffff;
+}
+
+@mixin thColor($color: transparentize()) {
+    background-color : $color;
+}
+
+.virtual-grid {
+    text-align : center !important;
+}
+
+.FormTable {
+    //padding             : 20px;
+    -webkit-user-select : none; /* Chrome/Safari/Opera */
+    -o-user-select      : none;
+    -moz-user-select    : none; /*火狐 firefox*/
+    -webkit-user-select : none; /*webkit浏览器*/
+    -ms-user-select     : none; /*IE10+*/
+    -khtml-user-select  : none; /*早期的浏览器*/
+    user-select         : none;
+}
+

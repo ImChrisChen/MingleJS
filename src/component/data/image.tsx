@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/10/27 * Time: 6:31 下午 */import { IComponentProps } from '@interface/common/component';import React from 'react';export default class DataImage extends React.Component<IComponentProps, any> {    render() {        return <>        </>;    }}
