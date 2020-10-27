@@ -95,6 +95,7 @@ export default class DataTable extends React.Component<any, any> {
         showHeader     : true,
         searchText     : '',
         searchedColumn : '',
+        showSorterTooltip: true,        // 是否显示下一次排序的tip
 
         // summary        : (e, v) => {
         // },
@@ -120,9 +121,9 @@ export default class DataTable extends React.Component<any, any> {
                 });
             },
         },
-        scroll    : {
-            y: '100vh',
-        },
+        // scroll    : {        //  表格是否可以滚动
+        //     y: '100vh',
+        // },
     };
     private fieldTpl!: string;
     private url: string = this.props.url;
@@ -378,7 +379,7 @@ export default class DataTable extends React.Component<any, any> {
                 onHeaderCell: (column) => {
                     // console.log(column);
                 },
-                ellipsis    : true,
+                // ellipsis    : true,      // 自动省略
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : false,
                 sorter      : fn,
@@ -516,9 +517,10 @@ export default class DataTable extends React.Component<any, any> {
                         },
                     };
                 } }
-                onHeaderRow={ column => {
+                onHeaderRow={ (column, index) => {
                     return {
-                        onClick: () => {
+                        onClick: e => {
+                            console.log(column,index);
                         }, // 点击表头行
                     };
                 } }
