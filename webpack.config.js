@@ -52,7 +52,7 @@ const typingsForCssModulesLoaderConf = {
 };
 
 module.exports = {
-    watch: true,
+    watch: !isProduction,
     watchOptions: {
         ignored: /node_module/,
         aggregateTimeout: 300,
@@ -82,13 +82,33 @@ module.exports = {
         splitChunks: {
             name: 'manifest',     // 自动处理文件名
             chunks: 'all',
+            minSize: 30000,
             minChunks: 1, // 至少 import 1 次的即需要打包
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
             automaticNameDelimiter: '-',        // 生成名称的隔离符
             cacheGroups: {
                 vendors: {
-                    test: /react|react-dom|antd/,   // 将这两个第三方模块单独提取打包
+                    test: /react|react-dom|antd|jquery/,
+                    priority: -10,
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true,
                 },
             },
+        },
+    },
+    performance: {      // webpack 打包性能提示
+        hints: 'warning',
+        //入口起点的最大体积
+        maxEntrypointSize: 50000000,
+        //生成文件的最大体积
+        maxAssetSize: 30000000,
+        //只给出 js 文件的性能提示
+        assetFilter: function (assetFilename) {
+            return assetFilename.endsWith('.js');
         },
     },
     resolve: {
@@ -262,7 +282,7 @@ module.exports = {
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? false : false),
+            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
             //analyzerHost: '0.0.0.0',
             //defaultSizes: 'parsed',
             // analyzerPort: '9200',
