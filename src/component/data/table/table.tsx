@@ -87,14 +87,14 @@ const expandable = { expandedRowRender: record => <p>{ record.description }</p> 
 export default class DataTable extends React.Component<any, any> {
 
     state: ITableState = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
-        columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
-        dataSource     : [],
-        selectedRowKeys: [],
-        loading        : true,
-        size           : 'small',   // default | middle | small
-        showHeader     : true,
-        searchText     : '',
-        searchedColumn : '',
+        columns          : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
+        dataSource       : [],
+        selectedRowKeys  : [],
+        loading          : true,
+        size             : 'small',   // default | middle | small
+        showHeader       : true,
+        searchText       : '',
+        searchedColumn   : '',
         showSorterTooltip: true,        // 是否显示下一次排序的tip
 
         // summary        : (e, v) => {
@@ -195,7 +195,7 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        this.handleDragSelect();
+        // this.handleDragSelect();
     }
 
     // 提交表单
@@ -499,7 +499,7 @@ export default class DataTable extends React.Component<any, any> {
                 },
             ],
         };
-        return <div>
+        return <>
             <Table
                 className={ style.FormTable }
                 components={ {} }
@@ -520,7 +520,13 @@ export default class DataTable extends React.Component<any, any> {
                 onHeaderRow={ (column, index) => {
                     return {
                         onClick: e => {
-                            console.log(column,index);
+                            console.log(column, this.state.columns);
+                            console.log(column[0]['visible']);
+                            column[0]['visible'] = false;
+                            this.setState({
+                                columns: column,
+                            });
+                            console.log(this.state);
                         }, // 点击表头行
                     };
                 } }
@@ -530,6 +536,6 @@ export default class DataTable extends React.Component<any, any> {
                 { ...this.state }
             >
             </Table>
-        </div>;
+        </>;
     }
 }
