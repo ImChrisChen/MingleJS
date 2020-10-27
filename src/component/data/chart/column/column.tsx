@@ -7,8 +7,8 @@
 import React from 'react';
 // import { DataSet } from "@antv/data-set/lib/data-set";
 import areaUser from '@root/mock/chart/areaUser.json';
-import { Chart, Interval, Tooltip } from "bizcharts";
-import { Spin } from "antd";
+import { Chart, Interval, Tooltip } from 'bizcharts';
+import { Spin } from 'antd';
 
 // const dataSet = new DataSet({
 //     state: {
@@ -63,14 +63,14 @@ export default class ChartColumn extends React.Component<any, any> {
 
     state = {
         loading: true,
-        data   : []
-    }
+        data   : [],
+    };
 
     constructor(props) {
         super(props);
         this.getData().then(data => {
-            this.setState({ data, loading: false })
-        })
+            this.setState({ data, loading: false });
+        });
     }
 
     data = areaUser;
@@ -78,25 +78,25 @@ export default class ChartColumn extends React.Component<any, any> {
     async getData() {
         return new Promise(function (resolve, reject) {
             setTimeout(() => {
-                resolve(areaUser)
-            }, 2000)
-        })
+                resolve(areaUser);
+            }, 2000);
+        });
     }
 
-    onAfterchangedata(e, g) {
-        console.log(e, g);
+    onAfterchangedata(e) {
+        console.log(e);
     }
 
-    onBeforerender(e, g) {
-        console.log(e, g);
+    onBeforerender(e) {
+        console.log(e);
     }
 
-    onAfterrender(e, g) {
-        console.log(e, g);
+    onAfterrender(e) {
+        console.log(e);
     }
 
-    onBeforepaint(e, g) {
-        console.log(e, g);
+    onBeforepaint(e) {
+        console.log(e);
     }
 
     onClick(e) {
