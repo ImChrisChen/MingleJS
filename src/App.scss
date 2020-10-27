@@ -9,7 +9,7 @@ body {
 
 
 [data-component-container] {
-    padding-right : 20px;
+    //padding-right : 20px;
 }
 
 .unable-selection {
@@ -20,4 +20,8 @@ body {
     -ms-user-select     : none; /*IE10+*/
     -khtml-user-select  : none; /*早期的浏览器*/
     user-select         : none;
+}
+
+form [data-component-container] {
+    margin-right : 10px;
 }

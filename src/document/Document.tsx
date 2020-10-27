@@ -16,7 +16,7 @@ import LayoutMenu from '@component/layout/menu/menu';
 import { Redirect, Route, Switch } from 'react-router';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
 import { Link } from 'react-router-dom';
-import html from '@root/demo/index.html';
+import html from '@root/template/emarket_day.html';
 import App from '@src/App';
 import readmeMarkdown from '@root/README.md';
 import $ from 'jquery';
@@ -76,8 +76,6 @@ class Document extends React.Component<any, any> {
             }).filter(t => t);
         }
 
-        console.log(this);
-
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
                 <LayoutMenu menuList={ this.state.menuList }/>
@@ -86,7 +84,7 @@ class Document extends React.Component<any, any> {
                         <div className="logo"/>
 
                         <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
-                            <Menu.Item key="1" onClick={ this.handleCodeGenerate.bind(this) }>组件设计器</Menu.Item>
+                            <Menu.Item key="1"><Link to={ '/code-generate' }>组件设计器</Link></Menu.Item>
                             <Menu.Item key="2"><Link to={ '/test' }>测试页面</Link></Menu.Item>
                             <Menu.Item key="3"><Link to={ '/' }>开发文档</Link></Menu.Item>
                         </Menu>
@@ -96,21 +94,22 @@ class Document extends React.Component<any, any> {
                         className="site-layout-background"
                         style={ {
                             // margin   : '24px 16px',
-                            padding  : 2,
+                            // padding  : 2,
                             minHeight: 280,
                         } }
                     >
                         <Switch>
                             { ...Routes }
-                            <Route path={ '/' } exact
-                                   render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
+                            <Route path={ '/' } exact render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
                             <Route path={ '/test' } exact render={ () => <TestPage/> }/>
+                            <Route path={ '/code-generate' } exact render={ () => <CodeGenerate/> }/>
                             <Redirect from="*" to="/" exact/>
                         </Switch>
 
-                        <CodeGenerate visible={ this.state.showCodeDesign }
-                                      onClose={ this.handleCloseCodeDesign.bind(this) }
-                        />
+                        {/*<CodeGenerate visible={ this.state.showCodeDesign }*/ }
+                        {/*              onClose={ this.handleCloseCodeDesign.bind(this) }*/ }
+                        {/*<CodeGenerate visible={ this.state.showCodeDesign }*/}
+                        {/*              onClose={ this.handleCloseCodeDesign.bind(this) }*/}
 
                     </Content>
                 </Layout>

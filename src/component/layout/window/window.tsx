@@ -17,6 +17,7 @@ export default class LayoutWindow extends React.Component<any, any> {
     }
 
     render() {
+        return <></>
         return (
             <iframe
                 style={ { width: '100%', height: this.state.iFrameHeight, overflow: 'visible' } }

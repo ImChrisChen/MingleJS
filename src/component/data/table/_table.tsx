@@ -1,24 +1,22 @@
 /**
  * Created by WebStorm.
  * User: MacBook
- * Date: 2020/9/18
- * Time: 7:35 下午
+ * Date: 2020/10/20
+ * Time: 5:28 下午
  */
 
-import { Button, Input, message, Space, Table } from 'antd';
-import * as React from 'react';
-import { parseTpl } from '@utils/parser-tpl';
-import { strParseVirtualDOM } from '@utils/parser-dom';
-import style from './table.scss';
-import { ColumnsType } from 'antd/es/table';
-import { findDOMNode } from 'react-dom';
-import $ from 'jquery';
+import React, { useEffect, useRef, useState } from 'react';
+import { VariableSizeGrid as Grid } from 'react-window';
+import ResizeObserver from 'rc-resize-observer';
+import classNames from 'classnames';
+import { Button, Input, Space, Table } from 'antd';
+import { parseTpl } from "@utils/parser-tpl";
+import { strParseVirtualDOM } from "@utils/parser-dom";
+import tableHeader from '@root/mock/table/tableHeader.json';
+import tableContent from '@root/mock/table/tableContent.json';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { jsonp } from '@utils/request/request';
-import { isNumber, isString } from '@utils/inspect';
-import FormAjax from '@component/form/ajax/form';
-import { formatObject2Url } from '@utils/format-data';
+
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -27,7 +25,7 @@ interface ITableHeaderItem {
     class: string       // 表头item的样式
     if: string          //  "<{pf}> > 0"  show
     else: string        //  hidee
-    filter: boolean        //  是否可过滤(搜索)
+    filter: boolean        //  是否可过滤
     frozen: boolean | string        // "1,2"   row column 是否固定
     highlight: boolean      // 是否高亮     0-1
     replace: string         // "1,开启;0,关闭"
@@ -35,9 +33,6 @@ interface ITableHeaderItem {
     sortable: boolean      // 是否排序 分前后端
     sum: boolean           // 求和
     thColor: string // bgColor
-    visible?: boolean       //是否显示
-
-    [key: string]: any
 }
 
 interface ITableContentItem {
@@ -72,39 +67,162 @@ interface ITableProps {
     [key: string]: any
 }
 
-interface ITableState {
-    columns: ColumnsType<ITableHeaderItem>
-    dataSource: Array<any>
-    loading: boolean
+function VirtualTable(props) {
+    const { columns, scroll, dataSource } = props;
+    const [ tableWidth, setTableWidth ] = useState(0);
+    const widthColumnCount = columns.filter(({ width }) => !width).length;
+    const mergedColumns = columns.map((column) => {
+        if (column.width) {
+            return column;
+        }
 
-    [key: string]: any
-}
+        return { ...column, width: Math.floor(tableWidth / widthColumnCount) };
+    });
+    const gridRef: any = useRef();
+    const [ connectObject ] = useState(() => {
+        const obj = {};
+        Object.defineProperty(obj, 'scrollLeft', {
+            get: () => null,
+            set: (scrollLeft) => {
+                if (gridRef.current) {
+                    gridRef.current.scrollTo({
+                        scrollLeft,
+                    });
+                }
+            },
+        });
+        return obj;
+    });
 
-// ! 操作符    https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36
+    const resetVirtualGrid = () => {
+        gridRef.current.resetAfterIndices({
+            columnIndex      : 0,
+            shouldForceUpdate: false,
+        });
+    };
 
-const expandable = { expandedRowRender: record => <p>{ record.description }</p> };
+    useEffect(() => resetVirtualGrid, [ tableWidth ]);
 
-export default class DataTable extends React.Component<any, any> {
+    const renderVirtualList = (rawData, { scrollbarSize, ref, onScroll }) => {
+        ref.current = connectObject;
+        const totalHeight = rawData.length * 54;
+        return (
+            <Grid
+                ref={ gridRef }
+                className="virtual-grid"
+                columnCount={ mergedColumns.length }
+                columnWidth={ (index) => {
+                    const { width } = mergedColumns[index];
+                    return totalHeight > scroll.y && index === mergedColumns.length - 1
+                        ? width - scrollbarSize - 1
+                        : width;
+                } }
+                height={ scroll.y }
+                rowCount={ rawData.length }
+                rowHeight={ () => 46 }
+                width={ tableWidth }
+                onScroll={ ({ scrollLeft }) => {
+                    onScroll({
+                        scrollLeft,
+                    });
+                } }
+            >
+                { ({ columnIndex, rowIndex, style }) => (
+                    <div
+                        className={ classNames('virtual-table-cell', {
+                            'virtual-table-cell-last': columnIndex === mergedColumns.length - 1,
+                        }) }
+                        style={ style }
+                    >
+                        { rawData[rowIndex][mergedColumns[columnIndex].dataIndex] }
+                    </div>
+                ) }
+            </Grid>
+        );
+    };
+    console.log(props);
 
-    state: ITableState = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
+    return (
+        <ResizeObserver
+            onResize={ ({ width }) => {
+                setTableWidth(width);
+            } }
+        >
+            <Table
+                { ...props }
+                dataSource={ dataSource }
+                // className="virtual-table"
+                columns={ mergedColumns }
+                components={ {
+                    body: renderVirtualList,
+                } }
+            />
+        </ResizeObserver>
+    );
+} // Usage
+
+const columns = [
+    {
+        title    : 'A',
+        dataIndex: 'key',
+        width    : 150,
+    },
+    {
+        title    : 'B',
+        dataIndex: 'key',
+    },
+    {
+        title    : 'C',
+        dataIndex: 'key',
+    },
+    {
+        title    : 'D',
+        dataIndex: 'key',
+    },
+    {
+        title    : 'E',
+        dataIndex: 'key',
+        width    : 200,
+    },
+    {
+        title    : 'F',
+        dataIndex: 'key',
+        width    : 100,
+    },
+];
+const data = Array.from(
+    {
+        length: 100000,
+    },
+    (_, key) => ({
+        key,
+    }),
+);
+const footer = () => 'Here is footer';
+
+export default class FormTable extends React.Component<any, any> {
+    private fieldTpl!: string;
+    private searchInput
+
+    state = {
+        searchText    : '',
+        searchedColumn: '',
+
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
         selectedRowKeys: [],
         loading        : true,
-        size           : 'small',   // default | middle | small
+        // size           : 'small',   // default | middle | small
         showHeader     : true,
-        searchText     : '',
-        searchedColumn : '',
-
         // summary        : (e, v) => {
         // },
         // expandable,
-        // footer: () => 'Here is footer',
-        // title          : function () {
-        //     return <>我是默认的表格title🤪🤪🤪🤪</>;
-        // },
-        bordered  : true,
-        pagination: {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
+        footer,
+        title          : function () {
+            return <>我是默认的表格title🤪🤪🤪🤪</>;
+        },
+        bordered       : true,
+        pagination     : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
             pageSizeOptions : [ 10, 20, 50, 100, 200 ],
             pageSize        : 100,
@@ -120,30 +238,21 @@ export default class DataTable extends React.Component<any, any> {
                 });
             },
         },
-        scroll    : {
-            y: '100vh',
-        },
-    };
-    private fieldTpl!: string;
-    private url: string = this.props.url;
-    private searchInput;
-    private baseParams = {
-        page   : 1,
-        pageNum: 100,
-    };
-
-    constructor(props: ITableProps) {
-        super(props);
-
-        if (this.props.dataset && this.props.dataset.from) {
-            let formElement = FormAjax.findFormElement(this.props.dataset.from);
-            FormAjax.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
+        scroll         : {
+            x: '100vw',
+            y: 600,
         }
+    }
+
+    constructor(props) {
+        super(props);
 
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
         ]).then(([ tableHeader, tableContent ]) => {
+            let sumItem = this.sum(tableContent);
+            tableContent.unshift(sumItem);
             console.log(tableHeader);
             console.log(tableContent);
             this.setState({
@@ -152,60 +261,6 @@ export default class DataTable extends React.Component<any, any> {
                 loading   : false,
             });
         });
-
-    }
-
-    handleDragSelect() {
-        let $el = $(this.props.el);
-        let el = findDOMNode(this.props.el);
-        console.log(el);
-        $el.on('mousedown', function (e) {
-            let { clientX: startX, clientY: startY } = e;
-            $el.one('mouseup', function (e) {
-                let { clientX: endX, clientY: endY } = e;
-                if (Math.abs(startX - endX) > 100 || Math.abs(startY - endY) > 100) {
-                    console.log('拖拽结束');
-
-                    let $tds = $el.find('td');
-                    $tds.css('background', 'transparent');
-                    Array.from($tds).forEach(td => {
-                        let { top, left } = $(td).offset() as any;
-
-                        // td的x要  大于开始的， 小于结束的 (从左往右)
-                        if (
-                            (left + $(td).width()) > startX
-                            && left < endX
-                        ) {
-                            // td的y要  大于开始的， 小于结束的 (从上往下)
-                            if (
-                                (top + $(td).height()) > startY
-                                && top < endY) {
-                                $(td).css({
-                                    background: 'pink',
-                                });
-                                // $('body').removeClass('unable-selection');
-                            }
-                        }
-                    });
-                }
-            });
-        });
-
-    }
-
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        this.handleDragSelect();
-    }
-
-    // 提交表单
-    async handleFormSubmit(formData, e) {
-        console.log('表单数据:', formData);
-        this.setState({ loading: true });
-
-        let url = formatObject2Url(formData, this.props.dataset.url);
-        let tableContent = await this.getTableContent(url);
-
-        this.setState({ dataSource: tableContent, loading: false });
     }
 
     sum(list): ITableContentItem {
@@ -219,7 +274,9 @@ export default class DataTable extends React.Component<any, any> {
             obj.money_cost += item.money_cost;
         });
         return {
+            // @ts-ignore
             cost                : obj.cost.toFixed(2),
+            // @ts-ignore
             money_cost          : obj.money_cost.toFixed(2),
             key                 : 0,
             'id'                : '合计',
@@ -234,99 +291,33 @@ export default class DataTable extends React.Component<any, any> {
             'principal_name'    : '',
             'remark'            : '',
             'dl_adv_position_id': '',
-        } as object;
+        };
     }
 
-    public open() {
-        message.success('table open');
-    }
-
-    async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
-        let res = await jsonp(tableUrl);
-        // let { data }: IApiResult<ITableContentItem> = tableContent;
-        let { data }: any = res;
-        let tableContent: Array<ITableContentItem> = data.map((item, index) => {
-
-            for (const key in item) {
-                if (!item.hasOwnProperty(key)) continue;
-
-                if (/<(.*?)>/.test(item[key])) {
-                    item[key] = strParseVirtualDOM(item[key]);          // 字符串dom转化
-                }
-            }
-
-            let result = {
+    async getTableContent(): Promise<Array<ITableContentItem>> {
+        let { data }: IApiResult<ITableContentItem> = tableContent;
+        return data.map(item => {
+            let fieldStr = parseTpl(this.fieldTpl, item);
+            let fieldJSX = strParseVirtualDOM(fieldStr);
+            return {
                 ...item,
-                key         : index/*item.id*/,
-                name        : '',
-                introduction: <h1>1111</h1>,
+                key            : item.id,
+                name           : '',
+                [this.fieldTpl]: fieldJSX,
                 // [this.fieldTpl]: '12321321'
             };
-            if (this.fieldTpl) {
-                let fieldStr = parseTpl(this.fieldTpl, item);
-                let fieldJSX = strParseVirtualDOM(fieldStr);
-                result[this.fieldTpl] = fieldJSX;
-            }
-            return result;
         });
-        // let sumItem = this.sum(tableContent);
-        // tableContent.unshift(sumItem);
-        return tableContent;
     }
 
-    async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
-        let res = await jsonp(headerUrl);
-        // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
-        let { data }: IApiResult<ITableHeaderItem> = res;
-
-        let tableHeader: Array<ITableHeaderItem> = [];
-        for (const item of data) {
-            // let index = data.indexOf(item);
+    async getTableHeader(): Promise<Array<ITableHeaderItem>> {
+        // let url = 'http://e.aidalan.com/manage/useful/advPositionCost/header?pf=1&jsoncallback';
+        let { data }: IApiResult<ITableHeaderItem> = tableHeader;
+        return data.map((item, index) => {
             // let width = parseTpl(item.field, item).length * 10;
-
-            if (!item.visible) continue;
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
             if (/<(.*?)>/.test(item.field)) {
                 this.fieldTpl = item.field;
-            }
-
-            let fn: any = null;
-
-            if (item.sortable) {
-                let field = item.field;
-                fn = (a, b): number => {
-                    let aVal = a[field];
-                    let bVal = b[field];
-
-                    if (aVal && bVal) {
-
-                        // number
-                        if (isNumber(aVal) && isNumber(bVal)) {
-                            return aVal - bVal;
-                        }
-
-                        // string
-                        if (isString(aVal) && isString(bVal)) {
-                            // %
-                            if (aVal.includes('%') && bVal.includes('%')) {
-                                aVal = parseFloat(aVal);
-                                bVal = parseFloat(bVal);
-                                return (aVal as number) - (bVal as number);
-                            }
-                            // time 判断是否日期格式
-                            if (!isNaN(Date.parse(bVal))) {
-                                aVal = Date.parse(aVal);
-                                bVal = Date.parse(bVal);
-                                return aVal - bVal;
-                            }
-
-                        }
-
-                    }
-
-                    return 0;
-                };
             }
 
             let compare = function (a, b): number {
@@ -357,35 +348,59 @@ export default class DataTable extends React.Component<any, any> {
                 return result;
             };
 
-            let filters = item.filter ? this.getColumnSearchProps(item.field) : {};     // 搜索
-
-            tableHeader.push({
+            return {
                 ...item,
+
                 // antd
-                ...filters,       // 搜索
+                // ...this.getColumnSearchProps(item.field),
+                // filters     : [
+                //     {
+                //         text : 'Joe',
+                //         value: 'Joe',
+                //     },
+                //     {
+                //         text : 'Jim',
+                //         value: 'Jim',
+                //     },
+                //     {
+                //         text    : 'Submenu',
+                //         value   : 'Submenu',
+                //         children: [
+                //             {
+                //                 text : 'Green',
+                //                 value: 'Green',
+                //             },
+                //             {
+                //                 text : 'Black',
+                //                 value: 'Black',
+                //             },
+                //         ],
+                //     },
+                // ],
 
-                title       : <div className={ style.tableHeaderCell }
-                                   style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
-                // title    : item.text,
-                dataIndex   : item.field,
-                id          : item.field,
-                align       : 'center',
-                render      : function (text, item, i) {
-                    return text;
-                },     // 自定义渲染表格中的每一项
-                // className: style.tableHeaderCell,
-                // width       : 80,
-                onHeaderCell: (column) => {
-                    // console.log(column);
-                },
-                ellipsis    : true,
-                Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
-                fixed       : false,
-                sorter      : fn,
-            });
-        }
 
-        return tableHeader;
+                // title    : <div className={ style.tableHeaderCell }
+                //                 style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
+                title    : item.text,
+                dataIndex: item.field,
+                id       : item.field,
+                align    : 'left',
+                // render      : function (text, item, i) {
+                //     return text;
+                // },     // 自定义渲染表格中的每一项
+                // // className: style.tableHeaderCell,
+                // // width       : 80,
+                // onHeaderCell: (column) => {
+                //     // console.log(column);
+                // },
+                // ellipsis    : true,
+                // Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+                // // fixed       : false,
+                // // sorter      : {
+                // //     compare,
+                // // },
+            };
+        });
     }
 
     getColumnSearchProps = dataIndex => ({
@@ -439,7 +454,7 @@ export default class DataTable extends React.Component<any, any> {
             ) : (
                 text
             ),
-    });
+    })
 
     handleReset = clearFilters => {
         clearFilters();
@@ -498,36 +513,38 @@ export default class DataTable extends React.Component<any, any> {
                 },
             ],
         };
-        return <div>
-            <Table
-                className={ style.FormTable }
-                components={ {} }
-                onRow={ record => {
-                    return {
-                        onClick      : event => {
-                        }, // 点击行
-                        onDoubleClick: event => {
-                        },
-                        onContextMenu: event => {
-                        },
-                        onMouseEnter : event => {
-                        }, // 鼠标移入行
-                        onMouseLeave : event => {
-                        },
-                    };
-                } }
-                onHeaderRow={ column => {
-                    return {
-                        onClick: () => {
-                        }, // 点击表头行
-                    };
-                } }
-                sticky={ true }
-                rowClassName={ style.rowClassName }
-                // rowSelection={ rowSelection }
-                { ...this.state }
-            >
-            </Table>
-        </div>;
+
+        // return <VirtualTable
+        //     { ...this.state }
+        //     rowClassName={ style.rowClassName }
+        //     // rowSelection={ rowSelection }
+        // />
+        // return <VirtualTable columns={ columns } dataSource={ data } scroll={ { y: 300, x: '100vw' } }/>
+
+        return <VirtualTable
+            bordered
+            onRow={ record => {
+                return {
+                    onClick      : event => {
+                    }, // 点击行
+                    onDoubleClick: event => {
+                    },
+                    onContextMenu: event => {
+                    },
+                    onMouseEnter : event => {
+                    }, // 鼠标移入行
+                    onMouseLeave : event => {
+                    },
+                };
+            } }
+            onHeaderRow={ column => {
+                return {
+                    onClick: () => {
+                    }, // 点击表头行
+                };
+            } }
+            pagination={ false }
+            columns={ this.state.columns } dataSource={ this.state.dataSource }
+            scroll={ { y: 300, x: '100vw' } }/>
     }
 }

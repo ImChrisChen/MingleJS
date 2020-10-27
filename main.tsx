@@ -39,9 +39,9 @@ darkMode && darkMode.addEventListener('change', e => {
 
 let env = process.env.NODE_ENV;
 
-const isDocument = true;
+let docs = document.querySelector('#__MINGLE_DOCS__');
 
-if (isDocument) {
+if (docs) {
     // docs
     ReactDOM.render(
         // <ConfigProvider { ...globalComponentConfig }>
@@ -49,11 +49,13 @@ if (isDocument) {
             <Document/>
         </HashRouter>,
         // </ConfigProvider>,
-        document.querySelector('#App'),
+        docs,
     );
 } else {
+    // public/index.html
     window.onload = () => new App(document.body);
 }
+
 
 App.globalEventListener();
 window['$'] = $;

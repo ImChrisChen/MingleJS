@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { IComponentProps } from "@interface/common/component";
+import { Button } from "antd";
 
 export class LayoutDrawer extends React.Component<IComponentProps, any> {
     constructor(props) {
@@ -14,6 +15,8 @@ export class LayoutDrawer extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        return undefined;
+        return <>
+            <Button>展开</Button>
+        </>
     }
 }

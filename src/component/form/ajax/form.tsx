@@ -24,13 +24,16 @@ export default class FormAjax extends React.Component<any, any> {
     private init() {
         let { async } = this.props.dataset;
         let form: HTMLFormElement = this.props.el;
+        $(form).find('[type=reset]').on('click', e => {
+            e.preventDefault();
+            // $(form).find('input[data-fn]').val('').trigger('change');
+        });
         FormAjax.onFormSubmit(form, function (formData) {
-            console.log(formData)
+            console.log(formData);
         });
     }
 
     static onFormSubmit(formElement, callback) {
-        console.log(formElement);
         formElement.onsubmit = async function (e) {
             e.preventDefault();
             let formData: IFormData = FormAjax.getFormData(formElement);
@@ -44,7 +47,6 @@ export default class FormAjax extends React.Component<any, any> {
     static findFormElement(from): HTMLElement | null {
         return document.querySelector(`#${ from }`);
     }
-
 
     // 获取表单数据
     static getFormData(formElement): IFormData {
@@ -63,7 +65,6 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     render() {
-        return <>
-        </>;
+        return <></>;
     }
 }

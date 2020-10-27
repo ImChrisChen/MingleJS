@@ -12,26 +12,26 @@ declare type IParseModeData = HTMLElement | object | null;
 // 'pf=<{pf}>' => 'pf=ios'
 export function parseTpl(
     tpl: string,
-    data: IParseModeData = document.querySelector('body'),
+    itemData: IParseModeData = document.body,
 ): string {
     let fields: Array<string> = getTplFields(tpl);
 
     // 去body 里面找input
-    if (isDOM(data)) {
+    if (isDOM(itemData)) {
         fields.forEach(field => {
             let input = document.querySelector(`input[name=${ field }]`);
             let val = input?.['value'] ?? '';
-            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));      // 将模版替换为指定的值
+            let regExp = new RegExp(`<{${ field }}>`, 'g');
+            tpl = tpl.replace(regExp, encodeURIComponent(val));              // 将模版替换为指定的值
         });
-    }
-
-    if (isObject(data)) {
+    } else if (isObject(itemData)) {
         fields.forEach(field => {
-            let val = data[field] ?? '';
-            tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));
+            let val = itemData[field] ?? '';
+            // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用
+            let regExp = new RegExp(`<{${ field }}>`, 'g');
+            tpl = tpl.replace(regExp, val);
         });
     }
-
     return tpl;
 }
 
@@ -46,16 +46,16 @@ export function getTplFields(tpl: string): Array<string> {
 }
 
 export function parseEnum(enumStr: string): Array<object> {
-    return parseStr2JSON(enumStr, ';', ',');
+    return parseStr2JSONArray(enumStr, ';', ',');
 }
 
 export function parseLineStyle(style: string): object {
     let res = parseCamelCase(style);
-    let stylesJson = parseStr2JSON(res, ';', ':');
+    let stylesJson = parseStr2JSONArray(res, ';', ':');
     return Object.assign({}, ...stylesJson);
 }
 
-function parseStr2JSON(str: string, rowStplit: string, cellSplit: string): Array<object> {
+export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: string): Array<object> {
     if (isEmptyStr(str)) return [];
 
     // return str.split(';').reduce((arr: Array<object>, group) => {
@@ -74,7 +74,6 @@ function parseStr2JSON(str: string, rowStplit: string, cellSplit: string): Array
 // 中横线转化为 小驼峰
 function parseCamelCase(string: string): string {
     return string.replace(/-(.)/g, function (ret) {
-        console.log(ret);
         ret = ret.substr(1);
         return ret.toUpperCase();
     });

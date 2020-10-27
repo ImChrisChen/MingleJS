@@ -12,7 +12,7 @@ let __files__ = ['main.min.js', 'manifest.min.js', 'chart.min.js'];
 let __scripts__ = __files__.map(file => {
     let script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = file + '?v=' + version;
+    script.src = 'http://mingle.local.aidalan.com/' + file + '?v=' + version;
     return script;
 });
 document.body.append(...__scripts__);
