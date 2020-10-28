@@ -10,16 +10,16 @@ import * as React from 'react';
 import { parseTpl } from '@utils/parser-tpl';
 import { strParseVirtualDOM } from '@utils/parser-dom';
 import style from './table.scss';
-import { ColumnsType } from 'antd/es/table';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { jsonp } from '@utils/request/request';
+import { IApiResult, jsonp } from '@utils/request/request';
 import { isNumber, isString } from '@utils/inspect';
 import FormAjax from '@component/form/ajax/form';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
+import { ColumnsType } from 'antd/es/table';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -58,13 +58,8 @@ interface ITableContentItem {
     dl_adv_position_id?: string
 }
 
-interface IApiResult<T> {
-    status: boolean
-    nums?: number | string,
-    page?: number | string,
-    data: Array<T>,
-
-    [key: string]: any
+interface ITableApiRes<T = any> extends IApiResult {
+    data: Array<T> | any,
 }
 
 interface ITableProps {
@@ -247,7 +242,7 @@ export default class DataTable extends React.Component<any, any> {
 
     async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
         let res = await jsonp(tableUrl);
-        // let { data }: IApiResult<ITableContentItem> = tableContent;
+        // let { data }: ITableApiRes<ITableContentItem> = tableContent;
         let { data }: any = res;
         let tableContent: Array<ITableContentItem> = data.map((item, index) => {
 
@@ -281,8 +276,8 @@ export default class DataTable extends React.Component<any, any> {
 
     async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
         let res = await jsonp(headerUrl);
-        // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
-        let { data }: IApiResult<ITableHeaderItem> = res;
+        // let { data }: ITableApiRes<ITableHeaderItem> = tableHeader;
+        let { data }: ITableApiRes<ITableHeaderItem> = res;
 
         let tableHeader: Array<ITableHeaderItem> = [];
         for (const item of data) {

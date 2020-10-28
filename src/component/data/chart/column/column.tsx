@@ -10,35 +10,13 @@ import areaUser from '@root/mock/chart/areaUser.json';
 import { Chart, Interval, Tooltip } from 'bizcharts';
 import { Spin } from 'antd';
 
-// const dataSet = new DataSet({
-//     state: {
-//         year: '2010'
-//     }
-// })
-//
-// const dataView = dataSet.createView().source(areaUser);
-//
-// dataView.transform({
-//     type: 'filter',
-//     callback (row) {
-//         return row.year === dataSet.state.year
-//     }
-// })
-//
-// 注册自己的主题
-// registerTheme('my-theme', {
-//     defaultColor: '#6DC8EC',
-//     geometries  : {
-//         interval: {
-//             rect: {
-//                 default : { style: { fill: '#6DC8EC', fillOpacity: 0.95 } },
-//                 active  : { style: { stroke: '#5AD8A6', lineWidth: 1 } },
-//                 inactive: { style: { fillOpacity: 0.3, strokeOpacity: 0.3 } },
-//                 selected: {},
-//             }
-//         }
-//     }
-// })
+const str = [ 'we', 'are', 'the', 'black', 'gold', 'team' ];
+const mockData = () => {
+    return str.map((item, i) => ({
+        xAxis: str[i],
+        yAxis: Math.floor(Math.random() * 1000),
+    }));
+};
 
 export default class ChartColumn extends React.Component<any, any> {
 

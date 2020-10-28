@@ -11,7 +11,7 @@ import { isUrl } from '@utils/inspect';
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
 // 解析类型
-export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null' | '';
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null';
 
 // 组件设计器，属性值渲染类型
 export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
@@ -509,6 +509,59 @@ export default {
                         value: ``,         //  市场日表
                         parse: 'string',
                         desc : '表头url',
+                    },
+                },
+            },
+        },
+        image          : {
+            component: import('@component/data/image/image'),
+            path     : '/data-image',
+            property : {
+                dataset: {
+                    'from'    : {
+                        el    : 'input',
+                        parse : 'string',
+                        value : '',
+                        render: false,
+                    },
+                    url       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '图表数据接口',
+                    },
+                    colors    : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                        desc : '图表配置主色调',
+                    },
+                    xaxis     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                        desc : 'x轴的配置',
+                    },
+                    series    : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                        desc : '',
+                    },
+                    size      : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                    },
+                    datadirect: {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                    },
+                    title     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
                     },
                 },
             },
