@@ -230,6 +230,7 @@ module.exports = {
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: '[name].css',     // main.css
+            minimize: true,
             disable: isProduction,
             chunkFilename: '[name].css', // manifest.css
         }),

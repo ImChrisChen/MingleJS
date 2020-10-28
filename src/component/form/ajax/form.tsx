@@ -34,14 +34,19 @@ export default class FormAjax extends React.Component<any, any> {
     }
 
     static onFormSubmit(formElement, callback) {
-        formElement.onsubmit = async function (e) {
+        $(formElement).on('submit', function (e) {
             e.preventDefault();
             let formData: IFormData = FormAjax.getFormData(formElement);
             callback(formData, e);
             message.info('提交表单');
-            // $(formElement).trigger('submit', formData);
-
-        };
+        });
+        // formElement.onsubmit = async function (e) {
+        //     e.preventDefault();
+        //     let formData: IFormData = FormAjax.getFormData(formElement);
+        //     callback(formData, e);
+        //     message.info('提交表单');
+        //     // $(formElement).trigger('submit', formData);
+        // };
     }
 
     static findFormElement(from): HTMLElement | null {

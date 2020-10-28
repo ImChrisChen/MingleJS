@@ -80,7 +80,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
     render() {
         let dataset = this.props.dataset;
         delete dataset.enum;
-        let value: any;
+        let value: any = this.props.value;
         if (dataset.mode === 'multiple') {
             if (this.props.value) {
                 value = this.props.value.split(',');
