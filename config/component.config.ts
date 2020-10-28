@@ -81,7 +81,7 @@ const CommonAttr = {
 
 export default {
     form  : {
-        select: {
+        select    : {
             path     : '/form-select',
             component: import('@component/form/select/select'),
             document : import('@component/form/select/select.md'),
@@ -220,7 +220,6 @@ export default {
                 },
             },
         },
-
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
@@ -237,8 +236,7 @@ export default {
                 hook   : {},
             },
         },
-
-        cascader: {
+        cascader  : {
             path     : '/form-cascader',
             component: import('@component/form/cascader/cascader'),
             property : {
@@ -284,7 +282,6 @@ export default {
                 },
             },
         },
-
         datepicker: {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/datepicker'),
@@ -335,6 +332,19 @@ export default {
         },
         ajax      : {
             component: import('@component/form/ajax/form'),
+            property : {
+                dataset: {
+                    layout: {
+                        el     : 'radio',
+                        options: [
+                            { label: 'block', value: 'block' },
+                            { label: 'flex', value: 'flex' },
+                        ],
+                        parse  : 'string',
+                        value  : 'flex',
+                    },
+                },
+            },
         },
         button    : {
             path     : '/form-button',

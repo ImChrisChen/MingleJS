@@ -53,7 +53,7 @@ export function jsonp(url: string): Promise<IApiResult> {
 
         try {
             body?.appendChild(script);
-        } catch (e) {
+        } catch(e) {
             console.log(e);
         }
 

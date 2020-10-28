@@ -287,6 +287,7 @@ export default class App {
         // 触发 beforeLoad 钩子
         beforeCallback(hooks);
 
+        // 组件渲染
         try {
             // 组件名必须大写
             render(
