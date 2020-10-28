@@ -7,7 +7,7 @@ import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
 import { isFunc } from '@utils/inspect';
 import { parseLineStyle } from '@utils/parser-tpl';
-import { globalComponentConfig } from '@root/config/component.config';
+import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -39,6 +39,7 @@ interface IModules {
     style: string                   //  行内样式
     componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
+    config: IComponentConfig        // 组件配置
 }
 
 interface IAttributes extends NamedNodeMap {
@@ -122,6 +123,7 @@ export default class App {
 
                             const Modules = await loadModules(keysArr);
                             const Component = Modules.component.default;
+                            const config = Modules.config;
                             let defaultProperty = Modules.property;
 
                             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
@@ -149,6 +151,7 @@ export default class App {
                                 hooks,
                                 componentMethod,
                                 defaultProperty,
+                                config,
                             };
                             this.modules.push(module);
 
@@ -268,7 +271,7 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
+        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod, config } = module;
 
         // 处理 data-* 属性 
         let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
@@ -280,7 +283,7 @@ export default class App {
 
         // 处理 value 属性
         let defaultValue = typeof defaultProperty?.value?.value === 'function'
-            ? defaultProperty.value.value()
+            ? defaultProperty.value.value(config)
             : defaultProperty?.value?.value ?? '';
         let value = element['value'] || defaultValue; // TODO 因为 input的value 默认值为 "" , 所以这里不能使用 ?? 操作符,否则无法获取到 defaultValue
 

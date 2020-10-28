@@ -27,7 +27,7 @@ export interface IOptions {
 
 export interface IPropertyConfig<OptionItem> {
     el?: elType             //要渲染的组件名称
-    value?: any
+    value?: ((config: IComponentConfig) => any) | any
     options?: Array<OptionItem>       // 选择列表
     label?: string
     parse?: parseType
@@ -38,22 +38,24 @@ export interface IPropertyConfig<OptionItem> {
 
 interface IModulesConfig<Property> {
     [key: string]: {
-        [key: string]: {
-            component?: Promise<any>
-            path?: string
-            document?: Promise<any>
-            property?: {
-                dataset?: {
-                    [key: string]: Property
-                }
-                value?: Property
-                hook?: {
-                    [key in hookType]?: {
-                        el?: string
-                        value?: string
-                        render?: boolean
-                    }
-                }
+        [key: string]: IComponentConfig<Property>
+    }
+}
+
+export interface IComponentConfig<Property = IPropertyConfig<IOptions>> {
+    component?: Promise<any>
+    path?: string
+    document?: Promise<any>
+    property?: {
+        dataset: {
+            [key: string]: Property
+        }
+        value?: Property
+        hook?: {
+            [key in hookType]?: {
+                el?: string
+                value?: string
+                render?: boolean
             }
         }
     }
@@ -322,9 +324,8 @@ export default {
                 value  : {
                     el   : 'input',
                     parse: 'null',
-                    value: () => {
+                    value: (config: IComponentConfig) => {      // TODO config 是 form-datepicker的配置
                         let date = moment().format('YYYY-MM-DD');
-                        console.log(this);
                         return [ date, date ];
                     },
                 },
