@@ -6,6 +6,7 @@
  */
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
+import moment from 'moment';
 
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
@@ -319,6 +320,15 @@ export default {
                         parse : 'boolean',
                         render: false,
                         value : false,
+                    },
+                },
+                value  : {
+                    el   : 'input',
+                    parse: 'null',
+                    value: () => {
+                        let date = moment().format('YYYY-MM-DD');
+                        console.log(this);
+                        return [ date, date ];
                     },
                 },
             },
@@ -672,8 +682,8 @@ export default {
 // 组件全局配置
 export const globalComponentConfig: any = {
     locale                  : zhCN,
-    componentSize           : 'middle',
-    direction               : 'ltr',
+    componentSize           : 'small',
+    direction               : 'ltr',        // ltr | rtl
     space                   : { size: 'small' },
     // virtual                 : true,
     dropdownMatchSelectWidth: true,

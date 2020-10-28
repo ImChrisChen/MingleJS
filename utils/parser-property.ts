@@ -37,7 +37,7 @@ export function parserProperty(dataAttrs = {}, defaultDataset?): object {
                 continue;
             }
 
-            switch (parse) {
+            switch(parse) {
                 case 'string':            // 模版解析
                     newDataSet[datasetKey] = parseTpl(value, document.body);
                     break;

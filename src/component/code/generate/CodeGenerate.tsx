@@ -15,7 +15,6 @@ import { parseEnum } from '@utils/parser-tpl';
 import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
-import { jsonp } from '@utils/request/request';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -109,6 +108,11 @@ class CodeGenerate extends React.Component<any, any> {
             if (!dataset.hasOwnProperty(k)) continue;
             let val = dataset[k];
 
+            // TODO 当值为函数时，执行函数
+            if (typeof val.value === 'function') {
+                val.value = val.value();
+            }
+
             if (k === 'enum') {
                 dataEnum = formatEnumOptions(parseEnum(val.value));           // 1,Android;2,iOS => // [{label:'',value:''}]
             }
@@ -132,6 +136,12 @@ class CodeGenerate extends React.Component<any, any> {
         for (const k in attrs) {
             if (!attrs.hasOwnProperty(k)) continue;
             let val = attrs[k];
+
+            // TODO 当值为函数时，执行函数
+            if (typeof val.value === 'function') {
+                val.value = val.value();
+            }
+
             // value值的有选范围的时候
             if (k === 'value' && val.el !== 'input') {
                 val.options = dataEnum;
