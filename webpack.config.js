@@ -1,5 +1,4 @@
 const path = require('path');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const { getThemeVariables } = require('antd/dist/theme');
 // const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
@@ -10,29 +9,20 @@ const { getThemeVariables } = require('antd/dist/theme');
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // const smp = new SpeedMeasurePlugin();
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
 
 // https://www.npmjs.com/package/webpack-bundle-analyzer
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   //
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //打包html的插件
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   // 打包分析
+const HtmlWebpackPlugin = require('html-webpack-plugin');           //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
-// const marked = require('marked');
-// const renderer = new marked.Renderer();
-const os = require('os');
-
-// const PrepackWebpackPlugin = require('prepack-webpack-plugin').default;     //使用Prepack提前求值
-
-// const UglifyEsPlugin = require('uglify-es');
-
 let env = process.env.NODE_ENV;
 
 //默认生产环境
 if (typeof env === 'undefined') {
     env = 'production';
 }
-
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const isProduction = env === 'production';
 console.log(env);
@@ -41,18 +31,9 @@ const clc = require('cli-color');
 
 console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
 
-const typingsForCssModulesLoaderConf = {
-    loader: 'typings-for-css-modules-loader',
-    options: {
-        modules: true,
-        namedExport: true,
-        camelCase: true,
-        sass: true,
-    },
-};
 
 module.exports = {
-    watch: true,
+    watch: !isProduction,
     watchOptions: {
         ignored: /node_module/,
         aggregateTimeout: 300,
@@ -61,7 +42,8 @@ module.exports = {
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? false : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
-        main: './main.tsx',     // https://webpack.js.org/guides/code-splitting/
+        // [name]是对应的入口文件的key, [name].js 就是main.js
+        main: './main.tsx',    // https://webpack.js.org/guides/code-splitting/
         // vendoer: [
         //     'react',
         //     'react-dom',
@@ -82,13 +64,33 @@ module.exports = {
         splitChunks: {
             name: 'manifest',     // 自动处理文件名
             chunks: 'all',
+            minSize: 30000,
             minChunks: 1, // 至少 import 1 次的即需要打包
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
             automaticNameDelimiter: '-',        // 生成名称的隔离符
             cacheGroups: {
                 vendors: {
-                    test: /react|react-dom|antd/,   // 将这两个第三方模块单独提取打包
+                    test: /react|react-dom|antd|jquery/,
+                    priority: -10,
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true,
                 },
             },
+        },
+    },
+    performance: {      // webpack 打包性能提示
+        hints: 'warning',
+        //入口起点的最大体积
+        maxEntrypointSize: 50000000,
+        //生成文件的最大体积
+        maxAssetSize: 30000000,
+        //只给出 js 文件的性能提示
+        assetFilter: function (assetFilename) {
+            return assetFilename.endsWith('.js');
         },
     },
     resolve: {
@@ -123,14 +125,14 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [
-                    { loader: 'style-loader' },
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     { loader: 'css-loader' },
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
-                    { loader: 'style-loader' },
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     { loader: 'css-loader' },
                     {
                         loader: 'less-loader',
@@ -148,12 +150,25 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                rules: [
+                include: path.resolve('src/'),
+                use: [
+                    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     {
-                        use: [
-                            'style-loader',
-                            typingsForCssModulesLoaderConf,
-                        ],
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            modules: true,
+                            namedExport: true,
+                            camelCase: true,
+                            sass: true,
+                            localIdentName: '[name]__[local]__[hash:base64:5]',
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            // outputStyle: 'expanded',
+                            sourceMap: true,
+                        },
                     },
                 ],
             },
@@ -211,13 +226,14 @@ module.exports = {
         
         // new PrepackWebpackPlugin(),
         
-        // new MiniCssExtractPlugin({
-        //     // Options similar to the same options in webpackOptions.output
-        //     // both options are optional
-        //     filename: '[name].[contenthash].css',
-        //     disable: isProduction,
-        //     chunkFilename: '[id].css',
-        // }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].css',     // main.css
+            minimize: true,
+            disable: isProduction,
+            chunkFilename: '[name].css', // manifest.css
+        }),
         
         new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
         
@@ -262,7 +278,7 @@ module.exports = {
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? false : false),
+            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
             //analyzerHost: '0.0.0.0',
             //defaultSizes: 'parsed',
             // analyzerPort: '9200',

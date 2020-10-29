@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 
 import './src/App.scss';
 import React from 'react';
-import { message, notification } from 'antd';
+import { ConfigProvider, message, notification } from 'antd';
 import App from './src/App';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 import Document from './src/document/Document';
 // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
+import { globalComponentConfig } from './config/component.config';
 
 // const isDebug = true;
 //
@@ -44,11 +45,11 @@ let docs = document.querySelector('#__MINGLE_DOCS__');
 if (docs) {
     // docs
     ReactDOM.render(
-        // <ConfigProvider { ...globalComponentConfig }>
-        <HashRouter>
-            <Document/>
-        </HashRouter>,
-        // </ConfigProvider>,
+        <ConfigProvider { ...globalComponentConfig }>
+            <HashRouter>
+                <Document/>
+            </HashRouter>,
+        </ConfigProvider>,
         docs,
     );
 } else {

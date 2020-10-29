@@ -5,20 +5,21 @@
  * Time: 7:35 下午
  */
 
-import { Button, Input, message, Space, Table } from 'antd';
+import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
 import * as React from 'react';
 import { parseTpl } from '@utils/parser-tpl';
 import { strParseVirtualDOM } from '@utils/parser-dom';
 import style from './table.scss';
-import { ColumnsType } from 'antd/es/table';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { jsonp } from '@utils/request/request';
+import { IApiResult, jsonp } from '@utils/request/request';
 import { isNumber, isString } from '@utils/inspect';
 import FormAjax from '@component/form/ajax/form';
 import { formatObject2Url } from '@utils/format-data';
+import Checkbox from 'antd/lib/checkbox';
+import { ColumnsType } from 'antd/es/table';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -57,13 +58,8 @@ interface ITableContentItem {
     dl_adv_position_id?: string
 }
 
-interface IApiResult<T> {
-    status: boolean
-    nums?: number | string,
-    page?: number | string,
-    data: Array<T>,
-
-    [key: string]: any
+interface ITableApiRes<T = any> extends IApiResult {
+    data: Array<T> | any,
 }
 
 interface ITableProps {
@@ -73,6 +69,7 @@ interface ITableProps {
 }
 
 interface ITableState {
+    // columns: ColumnsType<ITableHeaderItem>
     columns: ColumnsType<ITableHeaderItem>
     dataSource: Array<any>
     loading: boolean
@@ -87,14 +84,17 @@ const expandable = { expandedRowRender: record => <p>{ record.description }</p> 
 export default class DataTable extends React.Component<any, any> {
 
     state: ITableState = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
-        columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
-        dataSource     : [],
-        selectedRowKeys: [],
-        loading        : true,
-        size           : 'small',   // default | middle | small
-        showHeader     : true,
-        searchText     : '',
-        searchedColumn : '',
+        columns          : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
+        dataSource       : [],
+        selectedRowKeys  : [],
+        loading          : true,
+        size             : 'small',   // default | middle | small
+        showHeader       : true,
+        searchText       : '',
+        searchedColumn   : '',
+        showSorterTooltip: true,        // 是否显示下一次排序的tip
+        showDropdown     : false,       // 是否显示下拉菜单
+        showDropdownBtn  : false,       // 是否显示下拉框按钮
 
         // summary        : (e, v) => {
         // },
@@ -120,9 +120,9 @@ export default class DataTable extends React.Component<any, any> {
                 });
             },
         },
-        scroll    : {
-            y: '100vh',
-        },
+        // scroll    : {        //  表格是否可以滚动
+        //     y: '100vh',
+        // },
     };
     private fieldTpl!: string;
     private url: string = this.props.url;
@@ -194,7 +194,7 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        this.handleDragSelect();
+        // this.handleDragSelect();
     }
 
     // 提交表单
@@ -243,7 +243,7 @@ export default class DataTable extends React.Component<any, any> {
 
     async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
         let res = await jsonp(tableUrl);
-        // let { data }: IApiResult<ITableContentItem> = tableContent;
+        // let { data }: ITableApiRes<ITableContentItem> = tableContent;
         let { data }: any = res;
         let tableContent: Array<ITableContentItem> = data.map((item, index) => {
 
@@ -258,6 +258,7 @@ export default class DataTable extends React.Component<any, any> {
             let result = {
                 ...item,
                 key         : index/*item.id*/,
+                dataIndex   : index,
                 name        : '',
                 introduction: <h1>1111</h1>,
                 // [this.fieldTpl]: '12321321'
@@ -276,15 +277,15 @@ export default class DataTable extends React.Component<any, any> {
 
     async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
         let res = await jsonp(headerUrl);
-        // let { data }: IApiResult<ITableHeaderItem> = tableHeader;
-        let { data }: IApiResult<ITableHeaderItem> = res;
+        // let { data }: ITableApiRes<ITableHeaderItem> = tableHeader;
+        let { data }: ITableApiRes<ITableHeaderItem> = res;
 
         let tableHeader: Array<ITableHeaderItem> = [];
         for (const item of data) {
             // let index = data.indexOf(item);
             // let width = parseTpl(item.field, item).length * 10;
 
-            if (!item.visible) continue;
+            // if (!item.visible) continue;
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
             if (/<(.*?)>/.test(item.field)) {
@@ -378,7 +379,7 @@ export default class DataTable extends React.Component<any, any> {
                 onHeaderCell: (column) => {
                     // console.log(column);
                 },
-                ellipsis    : true,
+                // ellipsis    : true,      // 自动省略
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 fixed       : false,
                 sorter      : fn,
@@ -460,7 +461,38 @@ export default class DataTable extends React.Component<any, any> {
         this.setState({ selectedRowKeys });
     }
 
+    renderTableHeaderConfig(data) {
+        const handleClickMenu = e => {
+            let index = e.item.props.index;
+            let columns = this.state.columns;
+            columns[index]['visible'] = !columns[index]['visible'];
+            this.setState({ showDropdown: true, columns });
+        };
+        return <Menu onClick={ handleClickMenu }>
+            { data.map(item =>
+                <Menu.Item key={ Math.random() } className="ant-dropdown-link">
+                    <Checkbox key={ item.dataIndex } checked={ item.visible }>{ item.text }</Checkbox>
+                </Menu.Item>,
+            ) }
+        </Menu>;
+    }
+
+    handleDropdownVisibleChange(flag) {
+        this.setState({ showDropdown: flag });
+    }
+
+    handleTableWrapMouseEnter() {
+        console.log('----------');
+        this.setState({ showDropdownBtn: true });
+    }
+
+    handleTableWrapMouseLeave() {
+        console.log('2222222');
+        this.setState({ showDropdownBtn: false });
+    }
+
     render() {
+        console.log(this.props);
         const { selectedRowKeys } = this.state;
         const rowSelection = {
             selectedRowKeys,
@@ -498,9 +530,23 @@ export default class DataTable extends React.Component<any, any> {
                 },
             ],
         };
-        return <div>
+
+        return <div className={ style.formTableWrap }
+                    onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
+                    onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }
+        >
+            <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
+                      className={ `${ style.dropdown } ${ this.state.showDropdownBtn ? style.show : style.hide }` }
+                      placement="bottomRight"
+                      onVisibleChange={ this.handleDropdownVisibleChange.bind(this) }
+                      visible={ this.state.showDropdown } trigger={ [ 'click' ] } arrow>
+                <Button>
+                    <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
+                </Button>
+            </Dropdown>
+
             <Table
-                className={ style.FormTable }
+                className={ style.formTable }
                 components={ {} }
                 onRow={ record => {
                     return {
@@ -516,17 +562,23 @@ export default class DataTable extends React.Component<any, any> {
                         },
                     };
                 } }
-                onHeaderRow={ column => {
+                onHeaderRow={ (column, index) => {
                     return {
-                        onClick: () => {
+                        onClick: e => {
+                            // column[0]['visible'] = false;
+                            // this.setState({
+                            //     columns: column,
+                            // });
                         }, // 点击表头行
                     };
                 } }
+                // style{this.props}
                 sticky={ true }
-                rowClassName={ style.rowClassName }
                 // rowSelection={ rowSelection }
                 { ...this.state }
+                columns={ this.state.columns.filter(item => item['visible'] === true) }
             >
+                <h1 style={ { position: 'absolute', top: '50%', left: '50%' } }>-------------------</h1>
             </Table>
         </div>;
     }

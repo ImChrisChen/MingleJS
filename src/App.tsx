@@ -1,13 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { loadModules } from '@src/core/base';
-import { parserProperty } from '@utils/parser-property';
+import { parserAttrs, parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
 import { isFunc } from '@utils/inspect';
-import { parseLineStyle } from '@utils/parser-tpl';
-import { globalComponentConfig } from '@root/config/component.config';
+import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -24,7 +23,7 @@ interface IModuleProperty {
         el: string
         options?: Array<{ label: string, value: any }>
         label?: string
-        value: string
+        value?: any
     }
 }
 
@@ -36,9 +35,9 @@ interface IModules {
     container: HTMLElement          //  组件渲染的React容器
     containerWrap: HTMLElement      //  组件根容器
     hooks: object                   //  钩子
-    style: string                   //  行内样式
     componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
+    config: IComponentConfig        // 组件配置
 }
 
 interface IAttributes extends NamedNodeMap {
@@ -50,6 +49,8 @@ interface IAttributes extends NamedNodeMap {
 interface W extends Window {
     // [key: string]: any
 }
+
+export type PropertyType = 'dataset' | 'attribute';
 
 // 组件生命周期
 enum Hooks {
@@ -73,7 +74,7 @@ export default class App {
                 // this.globalEventListener();
             });
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -122,6 +123,7 @@ export default class App {
 
                             const Modules = await loadModules(keysArr);
                             const Component = Modules.component.default;
+                            const config = Modules.config;
                             let defaultProperty = Modules.property;
 
                             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
@@ -138,9 +140,8 @@ export default class App {
                             }
 
                             let hooks = this.formatHooks(attributes);
-                            let style = this.formatInLineStyle(attributes);
+
                             let module: IModules = {
-                                style,
                                 Component,
                                 element,
                                 container,
@@ -149,6 +150,7 @@ export default class App {
                                 hooks,
                                 componentMethod,
                                 defaultProperty,
+                                config,
                             };
                             this.modules.push(module);
 
@@ -268,36 +270,55 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod } = module;
-        let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-        beforeCallback(hooks);
-        let jsxStyle = parseLineStyle(style);
-        let parsedDataset = parserProperty(dataset, defaultProperty?.dataset ?? {});
-        parsedDataset['style'] = jsxStyle;
+        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod, config } = module;
+        let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
 
+        // 处理 data-* 属性
+        let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
+        let parsedDataset = parserProperty(dataset, defaultDataset ?? {}, dataset);
+
+        // 普通属性
+        let attrs = {};     // key value
+        [ ...element.attributes ].forEach(item => {
+            if (!item.name.includes('data-')) attrs[item.name] = item.value;
+        });
+        let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
+
+        let props = {
+            el        : element,
+            elChildren: elChildren,
+            box       : containerWrap,
+            dataset   : parsedDataset,
+            ...parsedAttrs,
+            // style      : jsxStyle,
+            role      : 'mingle-component',
+            ref       : componentInstance => {        // 组件实例
+                componentMethod.trim() && componentInstance[componentMethod]();
+                return componentInstance;
+            },
+        };
+
+        // 处理 value 属性
+        let defaultValue = typeof defaultProperty?.value?.value === 'function'
+            ? defaultProperty.value.value(config)
+            : defaultProperty?.value?.value ?? '';
+        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 ??  操作符,否则无法获取到 defaultValue
+        let value = element['value'] || defaultValue;
+
+        // 触发 beforeLoad 钩子
+        beforeCallback(hooks);
+
+        // 组件渲染
         try {
             // 组件名必须大写
             render(
-                <ConfigProvider
-                    { ...globalComponentConfig }
-                >
-                    <Component
-                        el={ element }
-                        elChildren={ elChildren }
-                        box={ containerWrap }
-                        dataset={ parsedDataset }
-                        value={ element['value'] }
-                        role="mingle-component"
-                        ref={ componentInstance => {        // 组件实例
-                            componentMethod.trim() && componentInstance[componentMethod]();
-                            return componentInstance;
-                        } }
-                    />
+                <ConfigProvider { ...globalComponentConfig } >
+                    <Component { ...props } value={ value }/>
                 </ConfigProvider>
                 , container, () => callback(hooks),
             );
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 

@@ -8,7 +8,20 @@
 import { message } from 'antd';
 import md5 from 'md5';
 
-export function jsonp(url: string): Promise<any> {
+export interface IApiResult {
+    status: boolean
+    data: any
+
+    msg?: string
+    message?: string
+    md5?: string
+    nums?: number | string,
+    page?: number | string,
+
+    [key: string]: any
+}
+
+export function jsonp(url: string): Promise<IApiResult> {
     let funcName = 'callback' + md5(url + new Date().getTime());         // 解决jsonp短时间内无法循环请求的问题
     let isDone = false;
     let timeout = 8000;     // 超时时间
@@ -17,10 +30,12 @@ export function jsonp(url: string): Promise<any> {
             if (result.status) {
                 isDone = true;
                 resolve(result);
+                window[funcName] = undefined;
             } else {
                 isDone = true;
                 message.error('接口返回错误');
                 reject(result);
+                window[funcName] = undefined;
             }
         };
         let script: HTMLScriptElement = document.createElement('script');
@@ -38,13 +53,14 @@ export function jsonp(url: string): Promise<any> {
 
         try {
             body?.appendChild(script);
-        } catch (e) {
+        } catch(e) {
             console.log(e);
         }
 
         setTimeout(() => {
             if (!isDone) message.error('接口请求超时');
             reject({ error: '', msg: '接口请求超时' });
+            window[funcName] = undefined;
         }, timeout);
         setTimeout(() => body?.removeChild(script), 500);
     });

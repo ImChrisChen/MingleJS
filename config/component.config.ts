@@ -6,12 +6,13 @@
  */
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
+import moment from 'moment';
 
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
 // 解析类型
-export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null' | '';
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
 export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
@@ -24,9 +25,9 @@ export interface IOptions {
     [key: string]: any
 }
 
-export interface IPropertyConfig<OptionItem> {
+export interface IPropertyConfig<OptionItem = IOptions> {
     el?: elType             //要渲染的组件名称
-    value?: any
+    value?: ((config: IComponentConfig) => any) | any
     options?: Array<OptionItem>       // 选择列表
     label?: string
     parse?: parseType
@@ -37,22 +38,24 @@ export interface IPropertyConfig<OptionItem> {
 
 interface IModulesConfig<Property> {
     [key: string]: {
-        [key: string]: {
-            component?: Promise<any>
-            path?: string
-            document?: Promise<any>
-            property?: {
-                dataset?: {
-                    [key: string]: Property
-                }
-                value?: Property
-                hook?: {
-                    [key in hookType]?: {
-                        el?: string
-                        value?: string
-                        render?: boolean
-                    }
-                }
+        [key: string]: IComponentConfig<Property>
+    }
+}
+
+export interface IComponentConfig<Property = IPropertyConfig> {
+    component?: Promise<any>
+    path?: string
+    document?: Promise<any>
+    property?: {
+        dataset: {
+            [key: string]: Property
+        }
+        value?: Property
+        hook?: {
+            [key in hookType]?: {
+                el?: string
+                value?: string
+                render?: boolean
             }
         }
     }
@@ -74,19 +77,45 @@ const SizeOptions = [
 ];
 
 // TODO 提取公共属性(待调整)
-const CommonAttr = {
-    label: {},
+const UniversalProps = {
+    label      : {},
+    placeholder: {
+        render: false,
+        desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
+        parse : 'string',
+        value : (config: IComponentConfig) => {
+            return '请选择' + config?.property?.dataset.label;
+        },
+    },
+    style      : {
+        render: false,
+        parse : 'style',
+        value : '',
+    },
+    url        : {
+        el    : 'input',
+        value : '',
+        desc  : '数据源',
+        parse : 'string',
+        verify: value => isUrl(value),
+    },
+} as {
+    label: IPropertyConfig
+    placeholder: IPropertyConfig
+    url: IPropertyConfig
+    style: IPropertyConfig
+    [key: string]: IPropertyConfig
 };
 
 export default {
     form  : {
-        select: {
+        select    : {
             path     : '/form-select',
             component: import('@component/form/select/select'),
             document : import('@component/form/select/select.md'),
             property : {
-                dataset: {
-                    label      : {
+                dataset    : {
+                    label     : {
                         // beforeName: '',     // beforeName其实就是以前的key(在这个属性上是'label')
                         afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
                         el       : 'input',
@@ -94,28 +123,27 @@ export default {
                         desc     : `label 标签的文本`,
                         parse    : 'string',
                     },
-                    enum       : {
+                    enum      : {
                         el   : 'list',
                         // value: '1,Android;2,iOS;3,MacOS;4,Windows',
                         value: '',
                         desc : '列表数据 逗号两边分别对应 key - value',
                         parse: 'object[]',
                     },
-                    url        :
-                        {
-                            el    : 'input',
-                            value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
-                            desc  : '列表数据的接口地址',
-                            parse : 'string',
-                            verify: value => isUrl(value),
-                        },
-                    disabled   : {
+                    url       : {
+                        el    : 'input',
+                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        desc  : '列表数据的接口地址',
+                        parse : 'string',
+                        verify: value => isUrl(value),
+                    },
+                    disabled  : {
                         el   : 'switch',
                         value: false,
                         desc : '是否禁用',
                         parse: 'boolean',
                     },
-                    mode       : {
+                    mode      : {
                         el     : 'radio',
                         options: [
                             {
@@ -135,63 +163,58 @@ export default {
                         desc   : '模式',
                         parse  : 'string',
                     },
-                    placeholder: {
-                        el   : 'input',
-                        value: '请选择',
-                        desc : '占位符',
-                        parse: 'string',
-                    },
-                    autoFocus  : {
+                    autoFocus : {
                         el    : 'switch',
                         value : false,
                         desc  : '是否自动获取焦点',
                         parse : 'boolean',
                         render: false,
                     },
-                    allowClear : {
+                    allowClear: {
                         value : true,
                         render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
                         parse : 'boolean',
                     },
-                    showSearch : {     // 指定默认选中条目
+                    showSearch: {     // 指定默认选中条目
                         el    : 'input',
                         value : true,
                         parse : 'boolean',
                         render: false,
                     },
-                    key        : {
+                    key       : {
                         el   : 'input',
                         parse: 'string',
                         value: 'id',
                         desc : '数据源唯一id',
                     },
-                    value      : {
+                    value     : {
                         el   : 'input',
                         parse: 'null',
                         value: '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
                         desc : '要展示的内容模版/字段',
                     },
-                    groupby    : {
+                    groupby   : {
                         el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : '按照groupby的值来进行分组排列',
                     },
                 },
-                value  : {
+                value      : {
                     el     : 'select',
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     desc   : '默认值',
                     parse  : 'string',
                 },
-                name   : {
+                placeholder: UniversalProps.placeholder,
+                name       : {
                     el   : 'input',
                     value: 'form-select',
                     parse: 'string',
                     desc : '组件的name值',
                 },
-                hook   : {
+                hook       : {
                     load        : {
                         el    : 'input',
                         value : 'componentLoad',
@@ -219,7 +242,6 @@ export default {
                 },
             },
         },
-
         selectTree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
@@ -236,8 +258,7 @@ export default {
                 hook   : {},
             },
         },
-
-        cascader: {
+        cascader  : {
             path     : '/form-cascader',
             component: import('@component/form/cascader/cascader'),
             property : {
@@ -283,7 +304,6 @@ export default {
                 },
             },
         },
-
         datepicker: {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/datepicker'),
@@ -321,10 +341,31 @@ export default {
                         value : false,
                     },
                 },
+                value  : {
+                    el   : 'input',
+                    parse: 'null',
+                    value: (config: IComponentConfig) => {      // TODO config 是 form-datepicker的配置
+                        let date = moment().format('YYYY-MM-DD');
+                        return [ date, date ];
+                    },
+                },
             },
         },
         ajax      : {
             component: import('@component/form/ajax/form'),
+            property : {
+                dataset: {
+                    layout: {
+                        el     : 'radio',
+                        options: [
+                            { label: 'block', value: 'block' },
+                            { label: 'flex', value: 'flex' },
+                        ],
+                        parse  : 'string',
+                        value  : 'flex',
+                    },
+                },
+            },
         },
         button    : {
             path     : '/form-button',
@@ -430,16 +471,8 @@ export default {
         input     : {
             component: import('@component/form/input/input'),
             property : {
-                style  : {
-                    parse : 'string',
-                    render: false,
-                },
-                dataset: {
-                    placeholder: {
-                        el   : 'input',
-                        value: '请输入',
-                    },
-                    type       : {
+                dataset    : {
+                    type : {
                         el     : 'select',
                         options: [
                             {
@@ -458,12 +491,13 @@ export default {
                         ],
                         value  : 'text',
                     },
-                    label      : {
+                    label: {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                     },
                 },
+                placeholder: UniversalProps.placeholder,
             },
         },
         file      : {
@@ -509,6 +543,72 @@ export default {
                         value: ``,         //  市场日表
                         parse: 'string',
                         desc : '表头url',
+                    },
+                },
+            },
+        },
+        image          : {
+            component: import('@component/data/image/image'),
+            path     : '/data-image',
+            property : {
+                dataset: {
+                    'from'    : {
+                        el    : 'input',
+                        parse : 'string',
+                        value : '',
+                        render: false,
+                    },
+                    url       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '图表数据接口',
+                    },
+                    colors    : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                        desc : '图表配置主色调',
+                    },
+                    xaxis     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                        desc : 'x轴的配置',
+                    },
+                    series    : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                        desc : '',
+                    },
+                    size      : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'JSON',
+                    },
+                    datadirect: {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                    },
+                    title     : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                    },
+                },
+            },
+        },
+        panel          : {
+            component: import('@component/data/panel/panel'),
+            property : {
+                dataset: {
+                    url  : UniversalProps.url,
+                    model: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
                     },
                 },
             },
@@ -619,8 +719,8 @@ export default {
 // 组件全局配置
 export const globalComponentConfig: any = {
     locale                  : zhCN,
-    componentSize           : 'middle',
-    direction               : 'ltr',
+    componentSize           : 'small',
+    direction               : 'ltr',        // ltr | rtl
     space                   : { size: 'small' },
     // virtual                 : true,
     dropdownMatchSelectWidth: true,
