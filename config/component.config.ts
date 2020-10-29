@@ -12,7 +12,7 @@ import moment from 'moment';
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
 // 解析类型
-export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'null';
+export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
 export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
@@ -25,7 +25,7 @@ export interface IOptions {
     [key: string]: any
 }
 
-export interface IPropertyConfig<OptionItem> {
+export interface IPropertyConfig<OptionItem = IOptions> {
     el?: elType             //要渲染的组件名称
     value?: ((config: IComponentConfig) => any) | any
     options?: Array<OptionItem>       // 选择列表
@@ -42,7 +42,7 @@ interface IModulesConfig<Property> {
     }
 }
 
-export interface IComponentConfig<Property = IPropertyConfig<IOptions>> {
+export interface IComponentConfig<Property = IPropertyConfig> {
     component?: Promise<any>
     path?: string
     document?: Promise<any>
@@ -77,8 +77,25 @@ const SizeOptions = [
 ];
 
 // TODO 提取公共属性(待调整)
-const CommonAttr = {
-    label: {},
+const UniversalProps = {
+    label      : {},
+    placeholder: {
+        render: false,
+        desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
+        parse : 'string',
+        value : (config: IComponentConfig) => {
+            return '请选择' + config?.property?.dataset.label;
+        },
+    },
+    style      : {
+        render: false,
+        parse : 'style',
+        value : '',
+    },
+} as {
+    label: IPropertyConfig
+    placeholder: IPropertyConfig
+    [key: string]: IPropertyConfig
 };
 
 export default {
@@ -88,8 +105,8 @@ export default {
             component: import('@component/form/select/select'),
             document : import('@component/form/select/select.md'),
             property : {
-                dataset: {
-                    label      : {
+                dataset    : {
+                    label     : {
                         // beforeName: '',     // beforeName其实就是以前的key(在这个属性上是'label')
                         afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
                         el       : 'input',
@@ -97,14 +114,14 @@ export default {
                         desc     : `label 标签的文本`,
                         parse    : 'string',
                     },
-                    enum       : {
+                    enum      : {
                         el   : 'list',
                         // value: '1,Android;2,iOS;3,MacOS;4,Windows',
                         value: '',
                         desc : '列表数据 逗号两边分别对应 key - value',
                         parse: 'object[]',
                     },
-                    url        :
+                    url       :
                         {
                             el    : 'input',
                             value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
@@ -112,13 +129,13 @@ export default {
                             parse : 'string',
                             verify: value => isUrl(value),
                         },
-                    disabled   : {
+                    disabled  : {
                         el   : 'switch',
                         value: false,
                         desc : '是否禁用',
                         parse: 'boolean',
                     },
-                    mode       : {
+                    mode      : {
                         el     : 'radio',
                         options: [
                             {
@@ -138,63 +155,58 @@ export default {
                         desc   : '模式',
                         parse  : 'string',
                     },
-                    placeholder: {
-                        el   : 'input',
-                        value: '请选择',
-                        desc : '占位符',
-                        parse: 'string',
-                    },
-                    autoFocus  : {
+                    autoFocus : {
                         el    : 'switch',
                         value : false,
                         desc  : '是否自动获取焦点',
                         parse : 'boolean',
                         render: false,
                     },
-                    allowClear : {
+                    allowClear: {
                         value : true,
                         render: false,              // TODO render 为false时，不在表单设计器中渲染,为默认值
                         parse : 'boolean',
                     },
-                    showSearch : {     // 指定默认选中条目
+                    showSearch: {     // 指定默认选中条目
                         el    : 'input',
                         value : true,
                         parse : 'boolean',
                         render: false,
                     },
-                    key        : {
+                    key       : {
                         el   : 'input',
                         parse: 'string',
                         value: 'id',
                         desc : '数据源唯一id',
                     },
-                    value      : {
+                    value     : {
                         el   : 'input',
                         parse: 'null',
                         value: '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
                         desc : '要展示的内容模版/字段',
                     },
-                    groupby    : {
+                    groupby   : {
                         el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : '按照groupby的值来进行分组排列',
                     },
                 },
-                value  : {
+                value      : {
                     el     : 'select',
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     desc   : '默认值',
                     parse  : 'string',
                 },
-                name   : {
+                placeholder: UniversalProps.placeholder,
+                name       : {
                     el   : 'input',
                     value: 'form-select',
                     parse: 'string',
                     desc : '组件的name值',
                 },
-                hook   : {
+                hook       : {
                     load        : {
                         el    : 'input',
                         value : 'componentLoad',
@@ -451,16 +463,8 @@ export default {
         input     : {
             component: import('@component/form/input/input'),
             property : {
-                style  : {
-                    parse : 'string',
-                    render: false,
-                },
-                dataset: {
-                    placeholder: {
-                        el   : 'input',
-                        value: '请输入',
-                    },
-                    type       : {
+                dataset    : {
+                    type : {
                         el     : 'select',
                         options: [
                             {
@@ -479,12 +483,13 @@ export default {
                         ],
                         value  : 'text',
                     },
-                    label      : {
+                    label: {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                     },
                 },
+                placeholder: UniversalProps.placeholder,
             },
         },
         file      : {
