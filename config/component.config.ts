@@ -92,9 +92,18 @@ const UniversalProps = {
         parse : 'style',
         value : '',
     },
+    url        : {
+        el    : 'input',
+        value : '',
+        desc  : '数据源',
+        parse : 'string',
+        verify: value => isUrl(value),
+    },
 } as {
     label: IPropertyConfig
     placeholder: IPropertyConfig
+    url: IPropertyConfig
+    style: IPropertyConfig
     [key: string]: IPropertyConfig
 };
 
@@ -121,14 +130,13 @@ export default {
                         desc : '列表数据 逗号两边分别对应 key - value',
                         parse: 'object[]',
                     },
-                    url       :
-                        {
-                            el    : 'input',
-                            value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
-                            desc  : '列表数据的接口地址',
-                            parse : 'string',
-                            verify: value => isUrl(value),
-                        },
+                    url       : {
+                        el    : 'input',
+                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        desc  : '列表数据的接口地址',
+                        parse : 'string',
+                        verify: value => isUrl(value),
+                    },
                     disabled  : {
                         el   : 'switch',
                         value: false,
@@ -588,6 +596,19 @@ export default {
                         el   : 'input',
                         value: '',
                         parse: 'string',
+                    },
+                },
+            },
+        },
+        panel          : {
+            component: import('@component/data/panel/panel'),
+            property : {
+                dataset: {
+                    url  : UniversalProps.url,
+                    model: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
                     },
                 },
             },
