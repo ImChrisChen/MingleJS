@@ -73,7 +73,7 @@ export default class App {
             this.init(elementContainer).then(() => {
                 // this.globalEventListener();
             });
-        } catch(e) {
+        } catch (e) {
             console.log(e);
         }
     }
@@ -273,13 +273,12 @@ export default class App {
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
         let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, style, componentMethod, config } = module;
 
-        // 处理 data-* 属性 
+        // 处理 data-* 属性
         let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-
-        // 处理 style属性
-        let jsxStyle = parseLineStyle(style);
         let parsedDataset = parserProperty(dataset, defaultProperty?.dataset ?? {});
-        parsedDataset['style'] = jsxStyle;
+
+        // 处理 style 属性
+        let jsxStyle = parseLineStyle(style);
 
         // 处理 value 属性
         let defaultValue = typeof defaultProperty?.value?.value === 'function'
@@ -302,6 +301,7 @@ export default class App {
                         elChildren={ elChildren }
                         box={ containerWrap }
                         dataset={ parsedDataset }
+                        style={ jsxStyle }
                         value={ value }
                         role="mingle-component"
                         ref={ componentInstance => {        // 组件实例
@@ -312,7 +312,7 @@ export default class App {
                 </ConfigProvider>
                 , container, () => callback(hooks),
             );
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }

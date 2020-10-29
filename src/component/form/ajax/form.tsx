@@ -43,6 +43,7 @@ export default class FormAjax extends React.Component<IComponentProps, any> {
     }
 
     static onFormSubmit(formElement, callback) {
+        // TODO 使用Jquery on 绑定事件(DOM2级事件),在一个表单关联多个表格/图表的情况下避免事件覆盖
         $(formElement).on('submit', function (e) {
             e.preventDefault();
             let formData: IFormData = FormAjax.getFormData(formElement);

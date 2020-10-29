@@ -13,7 +13,7 @@
     text-align : center !important;
 }
 
-.FormTable {
+.formTable {
     //padding             : 20px;
     -webkit-user-select : none; /* Chrome/Safari/Opera */
     -o-user-select      : none;
@@ -22,5 +22,25 @@
     -ms-user-select     : none; /*IE10+*/
     -khtml-user-select  : none; /*早期的浏览器*/
     user-select         : none;
+    position            : relative;
+}
+
+.dropdown {
+    position : absolute;
+    top      : 0;
+    right    : 0;
+    z-index  : 999;
+}
+
+.formTableWrap {
+    position : relative;
+}
+
+.show {
+    display : block !important;
+}
+
+.hide {
+    display : none !important;
 }
 
