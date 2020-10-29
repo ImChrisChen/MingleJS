@@ -5,81 +5,132 @@
  * Time: 11:23 上午
  */
 
-import { parseEnum, parseTpl } from '@utils/parser-tpl';
-import { IPropertyConfig } from '@root/config/component.config';
+import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
+import { IPropertyConfig, parseType } from '@root/config/component.config';
 
-export function parserProperty(dataAttrs = {}, defaultDataset?): object {
+// 解析dataset data-*
+export function parserProperty(dataset, defaultDataset, config): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
-    let dataset = JSON.parse(JSON.stringify(dataAttrs));
-    let newDataSet = {};
+    dataset = JSON.parse(JSON.stringify(dataset));
+    let props = {};
 
     for (const datasetKey in defaultDataset) {
 
         if (!defaultDataset.hasOwnProperty(datasetKey)) continue;
+
         if (datasetKey === 'fn') continue;
+
         let currentProperty: IPropertyConfig<any> = defaultDataset[datasetKey];
 
         // 如何该属性有映射, 数据处理和key值转换
-        if (currentProperty && currentProperty.parse) {
+        if (!currentProperty /*!currentProperty.parse*/) continue;
 
-            let {
-                parse,                      // dataset值解析类型
-                value: defaultVal,           // 属性默认值
-                verify,
-            } = currentProperty;
-            let useValue = dataset[datasetKey];         // 传入的属性值
-            let value = useValue ?? defaultVal ?? '';
+        let {
+            parse,                      // dataset值解析类型
+            value: defaultVal,           // 属性默认值
+            verify,
+        } = currentProperty;
+        let useValue = dataset[datasetKey];         // 传入的属性值
 
+        let value = useValue ?? defaultVal ?? '';
+
+        // value值函数解析
+        if (value && typeof value === 'function') value = value();
+
+        // 属性函数验证
+        if (verify && !verify(value)) {
+            console.error(`${ datasetKey }属性的值格式验证不通过`);
+            continue;
+        }
+
+        let { k, v } = parserProgram(datasetKey, value, parse);
+        props[k] = v;
+    }
+
+    return props;
+}
+
+// 解析普通属性 name value placeholder ...
+export function parserAttrs(attrs, defaultAttrsConfig, config) {
+    let defaultAttrs = {};
+
+    for (const key in defaultAttrsConfig) {
+        if (!defaultAttrsConfig.hasOwnProperty(key)) continue;
+        let currentProperty = defaultAttrsConfig[key];
+        if (currentProperty) {
+
+            let { value, parse, verify } = currentProperty;
+
+            // value值函数解析
+            if (value && typeof value === 'function') value = value();
+
+            // 属性函数验证
             if (verify && !verify(value)) {
-                console.log(verify(value), value);
-                console.error(`${ datasetKey }属性的值格式验证不通过`);
+                console.error(`${ key }属性的值格式验证不通过`);
                 continue;
             }
+            defaultAttrs[key] = parserProgram(key, value, parse).v;
+        }
+    }
+    let finalAttrs = Object.assign(defaultAttrs, attrs);
 
-            switch (parse) {
-                case 'string':            // 模版解析
-                    newDataSet[datasetKey] = parseTpl(value, document.body);
-                    break;
-
-                case 'number':
-                    newDataSet[datasetKey] = Number(value);
-                    break;
-
-                case 'boolean':
-                    newDataSet[datasetKey] = eval(value);
-                    break;
-
-                case 'string[]':             // 分割成数组
-                    newDataSet[datasetKey] = value ? value.split(',') : [];
-                    break;
-
-                case 'object[]':
-                    newDataSet[datasetKey] = parseEnum(value);
-                    break;
-
-                case 'JSON':
-                    let ret = /({.*?}|\[.*?\])/.test(value);
-                    if (!ret) {
-                        console.error(`data-${ datasetKey }的值传入的不是一个JSON`);
-                        newDataSet[datasetKey] = {};
-                        continue;
-                    }
-                    newDataSet[datasetKey] = JSON.parse(value);
-                    break;
-                case 'null':
-                    newDataSet[datasetKey] = value;
-                    break;
-
-                // 默认不解析
-                default:
-                    newDataSet[datasetKey] = value;
-                    break;
-            }
-
+    // TODO 默认处理属性，不用写/读取配置去解析
+    for (const key in finalAttrs) {
+        if (!finalAttrs.hasOwnProperty(key)) continue;
+        if (key === 'style') {
+            finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
     }
 
-    return newDataSet;
+    return finalAttrs;
+
 }
 
+export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
+
+    switch (parse) {
+
+        case 'string':            // 模版解析
+            value = parseTpl(value, document.body);
+            break;
+
+        case 'number':
+            value = Number(value);
+            break;
+
+        case 'boolean':
+            value = eval(value);
+            break;
+
+        case 'string[]':             // 分割成数组
+            value = value ? value.split(',') : [];
+            break;
+
+        case 'object[]':
+            value = parseEnum(value);
+            break;
+
+        case 'JSON':
+            let ret = /({.*?}|\[.*?\])/.test(value);
+            if (ret) {
+                value = JSON.parse(value);
+            } else {
+                console.error(`data-${ key }的值传入的不是一个JSON`);
+                value = {};
+            }
+            break;
+
+        case 'style':       // 行内样式解析成 JSX Style
+            value = parseLineStyle(value);
+            break;
+
+        case 'null':
+            break;
+
+        default :   // 默认不解析
+            break;
+    }
+
+    return { k: key, v: value };
+}

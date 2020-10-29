@@ -12,7 +12,7 @@ import { strParseVirtualDOM } from '@utils/parser-dom';
 import style from './table.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { IApiResult, jsonp } from '@utils/request/request';
 import { isNumber, isString } from '@utils/inspect';
@@ -93,7 +93,8 @@ export default class DataTable extends React.Component<any, any> {
         searchText       : '',
         searchedColumn   : '',
         showSorterTooltip: true,        // 是否显示下一次排序的tip
-        DropdownVisible  : false,
+        showDropdown     : false,       // 是否显示下拉菜单
+        showDropdownBtn  : false,       // 是否显示下拉框按钮
 
         // summary        : (e, v) => {
         // },
@@ -465,7 +466,7 @@ export default class DataTable extends React.Component<any, any> {
             let index = e.item.props.index;
             let columns = this.state.columns;
             columns[index]['visible'] = !columns[index]['visible'];
-            this.setState({ DropdownVisible: true, columns });
+            this.setState({ showDropdown: true, columns });
         };
         return <Menu onClick={ handleClickMenu }>
             { data.map(item =>
@@ -477,10 +478,21 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     handleDropdownVisibleChange(flag) {
-        this.setState({ DropdownVisible: flag });
+        this.setState({ showDropdown: flag });
+    }
+
+    handleTableWrapMouseEnter() {
+        console.log('----------');
+        this.setState({ showDropdownBtn: true });
+    }
+
+    handleTableWrapMouseLeave() {
+        console.log('2222222');
+        this.setState({ showDropdownBtn: false });
     }
 
     render() {
+        console.log(this.props);
         const { selectedRowKeys } = this.state;
         const rowSelection = {
             selectedRowKeys,
@@ -519,17 +531,22 @@ export default class DataTable extends React.Component<any, any> {
             ],
         };
 
-        return <>
+        return <div className={ style.formTableWrap }
+                    onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
+                    onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }
+        >
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
+                      className={ `${ style.dropdown } ${ this.state.showDropdownBtn ? style.show : style.hide }` }
+                      placement="bottomRight"
                       onVisibleChange={ this.handleDropdownVisibleChange.bind(this) }
-                      visible={ this.state.DropdownVisible } trigger={ [ 'click' ] } arrow>
+                      visible={ this.state.showDropdown } trigger={ [ 'click' ] } arrow>
                 <Button>
-                    <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }> 动态表头<DownOutlined/> </a>
+                    <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
             </Dropdown>
 
             <Table
-                className={ style.FormTable }
+                className={ style.formTable }
                 components={ {} }
                 onRow={ record => {
                     return {
@@ -555,12 +572,14 @@ export default class DataTable extends React.Component<any, any> {
                         }, // 点击表头行
                     };
                 } }
+                // style{this.props}
                 sticky={ true }
                 // rowSelection={ rowSelection }
                 { ...this.state }
                 columns={ this.state.columns.filter(item => item['visible'] === true) }
             >
+                <h1 style={ { position: 'absolute', top: '50%', left: '50%' } }>-------------------</h1>
             </Table>
-        </>;
+        </div>;
     }
 }

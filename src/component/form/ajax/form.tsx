@@ -7,6 +7,7 @@
 import React from 'react';
 import { message } from 'antd';
 import $ from 'jquery';
+import { IComponentProps } from '@interface/common/component';
 
 // import tableData from '@mock/table/tableContent'
 
@@ -14,7 +15,7 @@ interface IFormData {
     [key: string]: string | any
 }
 
-export default class FormAjax extends React.Component<any, any> {
+export default class FormAjax extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
@@ -23,7 +24,8 @@ export default class FormAjax extends React.Component<any, any> {
 
     private init() {
         let { async } = this.props.dataset;
-        let form: HTMLFormElement = this.props.el;
+        let form: HTMLElement = this.props.el;
+        this.setLayout(form);
         $(form).find('[type=reset]').on('click', e => {
             e.preventDefault();
             // $(form).find('input[data-fn]').val('').trigger('change');
@@ -33,7 +35,15 @@ export default class FormAjax extends React.Component<any, any> {
         });
     }
 
+    private setLayout(formElement: HTMLElement) {
+        if (this.props.dataset.layout === 'flex') {
+            $(formElement).css({ display: 'flex' });
+        } else {
+        }
+    }
+
     static onFormSubmit(formElement, callback) {
+        // TODO 使用Jquery on 绑定事件(DOM2级事件),在一个表单关联多个表格/图表的情况下避免事件覆盖
         $(formElement).on('submit', function (e) {
             e.preventDefault();
             let formData: IFormData = FormAjax.getFormData(formElement);
