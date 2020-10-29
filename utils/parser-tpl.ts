@@ -5,7 +5,8 @@
  * Time: 11:13 上午
  */
 
-import { isDOM, isEmptyStr, isObject } from '@utils/inspect';
+// 正则手册 https://tool.oschina.net/uploads/apidocs/jquery/regexp.html
+import { isDOM, isEmptyStr, isObject, isUndefined } from '@utils/inspect';
 
 declare type IParseModeData = HTMLElement | object | null;
 
@@ -26,10 +27,26 @@ export function parseTpl(
         });
     } else if (isObject(itemData)) {
         fields.forEach(field => {
-            let val = itemData[field] ?? '';
-            // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用
             let regExp = new RegExp(`<{${ field }}>`, 'g');
-            tpl = tpl.replace(regExp, val);
+
+            if (/[^0-9]\.[^0-9]/.test(field)) {     // 匹配是否是多级变量访问
+                let fieldArr = field.split('.');
+                let val: any = fieldArr.reduce((data, fieldItem) => {
+                    let val = data[fieldItem];
+                    if (isUndefined(val)) {
+                        console.error(` ${ field } 模版解析错误`);
+                        return '';
+                    }
+                    return val;
+                }, itemData);
+                tpl = tpl.replace(regExp, val);
+
+            } else {
+                let val = itemData[field] ?? '';
+                // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用
+                tpl = tpl.replace(regExp, val);
+            }
+
         });
     }
     return tpl;
