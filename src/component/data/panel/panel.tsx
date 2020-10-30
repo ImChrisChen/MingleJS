@@ -19,24 +19,20 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     constructor(props) {
         super(props);
         this.getData().then(data => {
+            console.log(data);
             this.parserTemplate(data);
         });
     }
 
     private async getData() {
+        console.log(this.props);
         let { url, model } = this.props.dataset;
         if (url) {
             let res = await jsonp(url);
             return res.status ? res.data : {};
         } else if (model) {
-            return await this.parserModel(model);
-        }
-    }
-
-    async parserModel(model) {
-        try {
-            return JSON.parse(model);
-        } catch(e) {
+            return model;
+        } else {
             return {};
         }
     }

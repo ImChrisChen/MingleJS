@@ -19,7 +19,7 @@
                             <(/if)></span>
             <div class="pull-right m-t-xs m-r">
                                 <span class="text-xs text-muted">昨天 <span
-                                    class="font-bold"><{yesterday_cost}></span></span>
+                                        class="font-bold"><{yesterday_cost}></span></span>
             </div>
         </div>
     </div>
@@ -49,3 +49,16 @@
     </div>
 
 </div>
+
+<div data-fn="data-panel" data-model='{"users":[{"name":"Chris","age":10},{"name":"Alex","age":12}]}'>
+    <{foreach users as user}>
+    <h1>用户名：<{ user.name }></h1>
+    <h2> 年龄 ：<{ user.age }></h2>
+    <{/foreach}>
+</div>
+
+
+<!--str = str.replace(/(\(\d+)(\+|-|\*|\/)(\d+\))/,e => {-->
+<!--   console.log(eval(e));-->
+<!--   return eval(e)-->
+<!--})-->
