@@ -14,7 +14,7 @@ declare type IParseModeData = HTMLElement | object | null;
 export function parseTpl(tpl: string, itemData: IParseModeData = document.body): string {
     tpl = parseForeach(tpl, itemData as object);
     tpl = parseVar(tpl, itemData);
-    tpl = parseIfelse(tpl,itemData);
+    tpl = parseIfelse(tpl, itemData);
     return tpl;
 }
 
@@ -108,6 +108,12 @@ export function parseForeach(tpl, itemData: object) {
             return tpl;
         }).join('');
     });
+}
+
+// 解析 四则运算(加减乘除)
+export function parseMathCalc(tpl) {
+    let regExp = /(\(\d+)(\+|-|\*|\/)(\d+\))/;
+    return tpl.replace(regExp, e => eval(e));       // TODO 待完善递归匹配
 }
 
 // [ 'pf', 'game_id' ];
