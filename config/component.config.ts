@@ -607,8 +607,8 @@ export default {
                     url  : UniversalProps.url,
                     model: {
                         el   : 'input',
-                        parse: 'string',
-                        value: '',
+                        parse: 'JSON',
+                        value: `{}`,
                     },
                 },
             },
