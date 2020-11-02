@@ -6,7 +6,7 @@
  */
 
 // 每次打包后版本号会通过 script.js 进行 io 修改;
-let version = "2020-10-30/8:07:08/pm";
+let version = new Date().getTime();
 
 let __files__ = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
 let __scripts__ = __files__.map(file => {

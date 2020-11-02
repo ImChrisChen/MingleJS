@@ -482,12 +482,10 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     handleTableWrapMouseEnter() {
-        console.log('----------');
         this.setState({ showDropdownBtn: true });
     }
 
     handleTableWrapMouseLeave() {
-        console.log('2222222');
         this.setState({ showDropdownBtn: false });
     }
 

@@ -16,7 +16,7 @@ import LayoutMenu from '@component/layout/menu/menu';
 import { Redirect, Route, Switch } from 'react-router';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
 import { Link } from 'react-router-dom';
-import html from '@root/template/data-panel.html';
+import html from '@root/template/user_analysis.html';
 import App from '@src/App';
 import readmeMarkdown from '@root/README.md';
 import $ from 'jquery';
@@ -102,7 +102,8 @@ class Document extends React.Component<any, any> {
                     >
                         <Switch>
                             { ...Routes }
-                            <Route path={ '/' } exact render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
+                            <Route path={ '/' } exact
+                                   render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
                             <Route path={ '/test' } exact render={ () => <TestPage html={ html }/> }/>
                             <Route path={ '/code-generate' } exact render={ () => <CodeGenerate/> }/>
                             <Route path={ '/regexp-manual' } exact render={ () => <TestPage html={ regExpManual }/> }/>
