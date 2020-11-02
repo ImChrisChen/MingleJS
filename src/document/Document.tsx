@@ -16,7 +16,7 @@ import LayoutMenu from '@component/layout/menu/menu';
 import { Redirect, Route, Switch } from 'react-router';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
 import { Link } from 'react-router-dom';
-import html from '@root/template/data-panel.html';
+import html from '@root/template/data-panel2.html';
 import App from '@src/App';
 import readmeMarkdown from '@root/README.md';
 import $ from 'jquery';
