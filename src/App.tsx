@@ -61,7 +61,8 @@ enum Hooks {
 }
 
 export default class App {
-    private modules: Array<IModules> = [];
+    modules: Array<IModules> = [];
+    models: Array<any> = [];       // data-model
     $tempContainer: any;
 
     constructor(elementContainer/*private readonly elements: Array<HTMLElement>*/) {
@@ -73,18 +74,16 @@ export default class App {
             this.init(elementContainer).then(() => {
                 // this.globalEventListener();
             });
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }
 
     async init(elementContainer) {
-        message.success('init');
         deepEachElement(elementContainer, async element => {
-            if (element.attributes['data-fn']) {
+            let attributes = element.attributes;
+            if (attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;
-                let attributes = element.attributes;
-
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     // element.setAttribute('type', 'hidden');
 
@@ -170,6 +169,7 @@ export default class App {
             }
         });
     }
+
 
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
@@ -317,7 +317,7 @@ export default class App {
                 </ConfigProvider>
                 , container, () => callback(hooks),
             );
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }

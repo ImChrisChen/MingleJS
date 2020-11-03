@@ -22,6 +22,7 @@ export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
     }
     callback && callback(root);
 }
+
 // 前递归 => root => left => right => children
 export function deepEach(
     tree: Array<object> = [],

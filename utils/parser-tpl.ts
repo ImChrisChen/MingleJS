@@ -76,7 +76,7 @@ export function parseIfelse(tpl, itemData: IParseModeData) {
         let result: boolean;
         try {
             result = eval(String(condtionExpress));
-        } catch (e) {
+        } catch(e) {
             console.error(e);
             result = false;
         }

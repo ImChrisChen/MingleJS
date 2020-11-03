@@ -17,9 +17,10 @@ import { Redirect, Route, Switch } from 'react-router';
 import CodeGenerate from '@component/code/generate/CodeGenerate';
 import { Link } from 'react-router-dom';
 import html from '@root/template/user_analysis.html';
-import html2 from '@root/template/temaplte.pkg.html'
+import html2 from '@root/template/temaplte.pkg.html';
 import App from '@src/App';
 import readmeMarkdown from '@root/README.md';
+import tplEngine from '@root/template/tpl-engine.html';
 import $ from 'jquery';
 import regExpManual from '@root/template/regexp_manual.html';
 
@@ -89,6 +90,7 @@ class Document extends React.Component<any, any> {
                             <Menu.Item key="1"><Link to={ '/code-generate' }>组件设计器</Link></Menu.Item>
                             <Menu.Item key="2"><Link to={ '/test' }>测试页面</Link></Menu.Item>
                             <Menu.Item key="5"><Link to={ '/test2' }>测试页面2</Link></Menu.Item>
+                            <Menu.Item key="6"><Link to={ '/tpl-engine' }>模版引擎</Link></Menu.Item>
                             <Menu.Item key="3"><Link to={ '/' }>开发文档</Link></Menu.Item>
                             <Menu.Item key="4"><Link to={ '/regexp-manual' }>正则手册</Link></Menu.Item>
                         </Menu>
@@ -108,6 +110,7 @@ class Document extends React.Component<any, any> {
                                    render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
                             <Route path={ '/test' } exact render={ () => <TestPage html={ html }/> }/>
                             <Route path={ '/test2' } exact render={ () => <TestPage html={ html2 }/> }/>
+                            <Route path={ '/tpl-engine' } exact render={ () => <TestPage html={ tplEngine }/> }/>
                             <Route path={ '/code-generate' } exact render={ () => <CodeGenerate/> }/>
                             <Route path={ '/regexp-manual' } exact render={ () => <TestPage html={ regExpManual }/> }/>
                             <Redirect from="*" to="/" exact/>

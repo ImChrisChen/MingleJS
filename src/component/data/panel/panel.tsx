@@ -20,9 +20,40 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         super(props);
         this.getData().then(data => {
             console.log(data);
+            this.tplParser(this.props.el, data);
             this.parserTemplate(data);
         });
     }
+
+    tplParser(el: HTMLElement, model) {
+        let attrs = el.attributes;
+        if (attrs['@foreach']) {
+            let { name, value } = attrs['@foreach'];
+            if (!/^\w+ as \w+$/.test(value)) {
+                console.error(`${ name }格式不正确`);
+                return;
+            }
+            let [ list, item ] = value.split('as');
+            list = list.trim();
+            item = item.trim();
+            console.log(list, item);
+        }
+
+        if (attrs['@if']) {
+            let { value: fieldTpl } = attrs['@if'];
+            let fields = fieldTpl.match(/[^\d\s\+\-\*\/]+/g);
+            console.log(fields);
+        }
+    }
+
+    parserForeach() {
+
+    }
+
+    parserIfelse() {
+
+    }
+
 
     private async getData() {
         console.log(this.props);
