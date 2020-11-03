@@ -616,6 +616,12 @@ export default {
                 },
             },
         },
+        charts         : {
+            component: import('@component/data/chart/demo'),
+            property : {
+                dataset: {},
+            },
+        },
         panel          : {
             component: import('@component/data/panel/panel'),
             property : {
