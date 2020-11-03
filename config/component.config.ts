@@ -592,6 +592,12 @@ export default {
                         parse: 'JSON',
                         desc : '',
                     },
+                    category  : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '多维度统计指定的key',
+                    },
                     size      : {
                         el   : 'input',
                         value: '{"height": 400}',
