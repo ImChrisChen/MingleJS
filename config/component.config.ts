@@ -691,6 +691,15 @@ export default {
         },
         window: {
             component: import('@component/layout/window/window'),
+            property : {
+                dataset: {
+                    title: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                    },
+                },
+            },
         },
         drawer: {
             component: import('@component/layout/drawer/drawer'),

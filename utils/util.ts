@@ -32,7 +32,7 @@ export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
 
     if (root.children.length) {
         Array.from(root.children).forEach(item => {
-            return deepEachElementTail(item, callback);
+            return deepEachElement(item, callback);
         });
     }
 }

@@ -20,6 +20,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     constructor(props) {
         super(props);
         this.getData().then(data => {
+            console.log(this.props.el);
             this.tplParser(this.props.el, data);
         });
     }
@@ -28,11 +29,11 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     tplParser(el: HTMLElement, model) {
         $(el).hide();
         deepEachElement(el, element => {
+            console.log(element);
             let attrs = element.attributes;
 
             if (attrs['@if']) {
                 let { value: fieldTpl } = attrs['@if'];
-                console.log(fieldTpl);
 
                 let express = parseVar(fieldTpl, model, 'field');
                 try {
@@ -69,6 +70,8 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
                 element.remove();
             }
         });
+        // TODO 这里必须要用 this.state.html 是在子组件中还没渲染的原始模版,不然子组件中(不再data-panel内的子组件，例如弹窗)无法使用模版变量
+        // this.props.el.innerHTML = parseVar(this.state.html, model);
         this.props.el.innerHTML = parseVar(el.innerHTML, model);
         $(el).show();
     }

@@ -127,7 +127,6 @@ export function parseForeach(tpl, itemData: object) {
         return list.map(item => {
             let model = { [itemName]: item };
             let tpl = parseVar(codeBlock, model);
-            console.log(tpl);
             return tpl;
         }).join('');
     });
@@ -138,7 +137,6 @@ export function parseFor(codeBlock: string, itemData, { list, item }) {
     let data = itemData[list];
     return data.map(it => {
         let model = { [item]: it };
-        console.log(model);
         return parseVar(codeBlock, model);
     }).join('');
 }
@@ -168,10 +166,10 @@ export function getExpressFields(tpl): Array<string> {
 export function isExpress(express: string) {
     if (isNaN(Number(express)) && !(/[\s\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express))) {
         // 变量
-        console.log('变量');
+        // console.log('变量');
         return false;
     } else {
-        console.log('表达式');
+        // console.log('表达式');
         return true;
     }
 }

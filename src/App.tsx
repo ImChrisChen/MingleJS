@@ -4,7 +4,7 @@ import { loadModules } from '@src/core/base';
 import { parserAttrs, parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
-import { deepEachElementTail } from '@utils/util';
+import { deepEachElement } from '@utils/util';
 import { isFunc } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 
@@ -74,15 +74,18 @@ export default class App {
             this.init(elementContainer).then(() => {
                 // this.globalEventListener();
             });
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
 
     async init(elementContainer) {
-        deepEachElementTail(elementContainer, async element => {
+        deepEachElement(elementContainer, async element => {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
+
+                console.log(element);
+
                 let container: HTMLElement, containerWrap: HTMLElement;
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     // element.setAttribute('type', 'hidden');
@@ -106,7 +109,7 @@ export default class App {
 
                 if (componentNames) {
 
-                    containerWrap.setAttribute('data-component-container', componentNames);
+                    containerWrap.setAttribute('data-component-uid', App.getUUID());
 
                     for (const componentName of componentNames.split(' ')) {
 
@@ -170,6 +173,12 @@ export default class App {
         });
     }
 
+    static getUUID() { // 获取唯一值
+        return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
+            let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
@@ -286,7 +295,7 @@ export default class App {
 
         let props = {
             el        : element,
-            elChildren: elChildren,
+            elChildren: elChildren ?? [],
             box       : containerWrap,
             dataset   : parsedDataset,
             ...parsedAttrs,
@@ -317,7 +326,7 @@ export default class App {
                 </ConfigProvider>
                 , container, () => callback(hooks),
             );
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
