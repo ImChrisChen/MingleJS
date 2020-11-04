@@ -4,7 +4,7 @@ import { loadModules } from '@src/core/base';
 import { parserAttrs, parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
-import { deepEachElement } from '@utils/util';
+import { deepEachElementTail } from '@utils/util';
 import { isFunc } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 
@@ -80,7 +80,7 @@ export default class App {
     }
 
     async init(elementContainer) {
-        deepEachElement(elementContainer, async element => {
+        deepEachElementTail(elementContainer, async element => {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;

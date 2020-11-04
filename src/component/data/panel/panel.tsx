@@ -7,8 +7,9 @@
 import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { parserEscape2Html } from '@utils/parser-char';
-import { parseTpl } from '@utils/parser-tpl';
+import { parseFor, parseTpl, parseVar } from '@utils/parser-tpl';
 import { jsonp } from '@utils/request/request';
+import { deepEachElement } from '@utils/util';
 
 export default class DataPanel extends React.Component<IComponentProps, any> {
 
@@ -19,31 +20,56 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     constructor(props) {
         super(props);
         this.getData().then(data => {
-            console.log(data);
             this.tplParser(this.props.el, data);
-            this.parserTemplate(data);
         });
     }
 
+    // TODO if-else  => parseVal => foreach
     tplParser(el: HTMLElement, model) {
-        let attrs = el.attributes;
-        if (attrs['@foreach']) {
-            let { name, value } = attrs['@foreach'];
-            if (!/^\w+ as \w+$/.test(value)) {
-                console.error(`${ name }格式不正确`);
-                return;
-            }
-            let [ list, item ] = value.split('as');
-            list = list.trim();
-            item = item.trim();
-            console.log(list, item);
-        }
+        $(el).hide();
+        deepEachElement(el, element => {
+            let attrs = element.attributes;
 
-        if (attrs['@if']) {
-            let { value: fieldTpl } = attrs['@if'];
-            let fields = fieldTpl.match(/[^\d\s\+\-\*\/]+/g);
-            console.log(fields);
-        }
+            if (attrs['@if']) {
+                let { value: fieldTpl } = attrs['@if'];
+                let express = parseVar(fieldTpl, model, 'field');
+                try {
+                    let ifResult = eval(express);
+                    console.log(ifResult);
+
+                    if (ifResult) {
+                        $(element).next().attr('@else') !== undefined && $(element).next().remove();
+                    } else {
+                        console.log(element);
+                        $(element).remove();
+                    }
+
+                    $(element).removeAttr('@if');
+                    $(element).next().removeAttr('@else');
+
+                } catch (e) {
+                    console.error('if内表达式解析语法错误');
+                }
+            }
+
+            if (attrs['@foreach']) {
+                let { name, value } = attrs['@foreach'];
+                if (!/^\w+ as \w+$/.test(value)) {
+                    console.error(`${ name }格式不正确`);
+                    return;
+                }
+                let [ list, item ] = value.split('as');
+                list = list.trim();
+                item = item.trim();
+
+                element.removeAttribute('@foreach');
+
+                let htmlStr = parseFor(element.outerHTML, model, { list, item });
+                element.insertAdjacentHTML('afterend', htmlStr);
+                element.remove();
+            }
+        });
+        $(el).show();
     }
 
     parserForeach() {

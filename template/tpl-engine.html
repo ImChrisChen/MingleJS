@@ -1,16 +1,9 @@
-<div data-fn="data-panel" @if="<{data}>.length" data-model='{"status":true,"data":[{"name":1},{"name":2}]}'>
-    <h1>哈哈哈</h1>
+<div data-fn="data-panel" data-model='{"status":true,"data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'>
+    <h1 @if="status && data.length > 0">测试if</h1>
+    <h2 @else>测试else</h2>
     <ul>
-        <li @foreach="<{users as user}">><{user1111}></li>
+        <li @foreach="data as item">
+            <h1> 姓名:<{item.name}> 年龄: <{item.age}> </h1>
+        </li>
     </ul>
-</div>
-<div>
-    <div>
-        <div>
-            <li @foreach="users as user"><{user1111}></li>
-            <div>
-                <li @foreach="users as user"><{user1111}></li>
-            </div>
-        </div>
-    </div>
 </div>

@@ -6,61 +6,84 @@
  */
 
 // 正则手册 https://tool.oschina.net/uploads/apidocs/jquery/regexp.html
-import { isDOM, isEmptyStr, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
+import { isDOM, isEmptyStr, isObject, isUndefined } from '@utils/inspect';
+import { parserEscape2Html } from '@utils/parser-char';
+
+declare type tplTyle = 'tpl' | 'field'
 
 declare type IParseModeData = HTMLElement | object | null;
 
 // 'pf=<{pf}>' => 'pf=ios'
-export function parseTpl(tpl: string, itemData: IParseModeData = document.body): string {
-    tpl = parseForeach(tpl, itemData as object);
-    tpl = parseVar(tpl, itemData);
-    tpl = parseIfelse(tpl, itemData);
+export function parseTpl(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
+    // tpl = parseForeach(tpl, itemData as object);
+    tpl = parseVar(tpl, itemData, type);
+    // tpl = parseIfelse(tpl, itemData);
     return tpl;
 }
 
 // 解析模版变量 例如: 'pf=<{pf}>' => 'pf=1'
-export function parseVar(tpl: string, itemData: IParseModeData = document.body): string {
-    let fields: Array<string> = getTplFields(tpl);
+export function parseVar(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
+    tpl = parserEscape2Html(tpl);
+    let fields: Array<string> = getTplFields(tpl, type);
 
-    if (!isWuiTpl(tpl)) return tpl;
+    // if (!isWuiTpl(tpl)) return tpl; TODO....
 
     // 去body 里面找input
     if (isDOM(itemData)) {
-        fields.forEach(field => {
-            let key = field.trim();
-            let input = document.querySelector(`input[name=${ key }]`);
-            let val = input?.['value'] ?? '';
-            let regExp = new RegExp(`<{${ field }}>`, 'g');
-            tpl = tpl.replace(regExp, encodeURIComponent(val));              // 将模版替换为指定的值
-        });
+        tpl = replaceTplInputValue(fields, itemData, tpl, type);
     } else if (isObject(itemData)) {
-        fields.forEach(field => {
-            let regExp = new RegExp(`<{${ field }}>`, 'g');
-
-            // 多级属性访问 例如: "<{product.detail.title}>"
-            if (/[^0-9]\.[^0-9]/.test(field)) {
-                let fieldArr = field.split('.');
-                let val: any = fieldArr.reduce((data, fieldItem) => {
-                    // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
-                    let val = data[fieldItem.trim()];
-                    if (isUndefined(val)) {
-                        console.error(` ${ field } 模版解析错误`);
-                        return '';
-                    }
-                    return val;
-                }, itemData);
-                tpl = tpl.replace(regExp, val);
-
-                // 单级属性访问 例如: "<{product.name}>"
-            } else {
-                let val = itemData[field.trim()] ?? '';
-                // tpl = tpl.replace(/<{(.*?)}>/g, encodeURIComponent(val));        // TODO value为中文的情况下不适用
-                tpl = tpl.replace(regExp, val);
-            }
-
-        });
+        tpl = replaceTplDataValue(fields, itemData, tpl, type);
     }
     return tpl;
+}
+
+function replaceTplInputValue(fields, element: HTMLElement, tpl, type: tplTyle = 'tpl') {
+
+    fields.forEach(field => {
+        let key = field.trim();
+        let input = element.querySelector(`input[name=${ key }]`);
+        let val = input?.['value'] ?? '';
+        let regExp = createRegExp(type, field);
+        tpl = tpl.replace(regExp, encodeURIComponent(val));              // 将模版替换为指定的值
+    });
+    return tpl;
+}
+
+function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
+    fields.forEach(field => {
+        let regExp = createRegExp(type, field);
+
+        // 多级属性访问 例如: "<{product.detail.title}>"
+        if (/[^0-9]\.[^0-9]/.test(field)) {
+            let fieldArr = field.split('.');
+            let val: any = fieldArr.reduce((data, fieldItem) => {
+                // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
+                let val = data[fieldItem.trim()];
+                if (isUndefined(val)) {
+                    console.error(` ${ field } 模版解析错误`);
+                    return '';
+                }
+                return val;
+            }, itemData);
+            tpl = tpl.replace(regExp, val);
+
+            // 单级属性访问 例如: "<{product}>"
+        } else {
+            let val = itemData[field.trim()] ?? '';
+            tpl = tpl.replace(regExp, val);
+        }
+    });
+    return tpl;
+}
+
+function createRegExp(type: tplTyle, field): RegExp {
+    let regExp;
+    if (type === 'tpl') {
+        regExp = new RegExp(`<{${ field }}>`, 'g');
+    } else if (type === 'field') {
+        regExp = new RegExp(`${ field }`, 'g');
+    }
+    return regExp as RegExp;
 }
 
 // 解析 if else 语法
@@ -71,12 +94,11 @@ export function parseIfelse(tpl, itemData: IParseModeData) {
     return tpl.replace(regExp, (val: string /*val整个是个if代码块*/) => {
         // if 匹配出 if 条件表达式 例如 "100 > 90"
         let execResult = /<\(if\s+([\S\s]+?)\)>([\S\s]+?)(<\(else\)>[\S\s]+?)?<\(\/if\)>/g.exec(val) || [];
-        console.log(execResult);
         let [ , condtionExpress /*表达式*/, content /* if包裹的内容*/ ] = execResult;
         let result: boolean;
         try {
             result = eval(String(condtionExpress));
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             result = false;
         }
@@ -99,7 +121,6 @@ export function parseForeach(tpl, itemData: object) {
         let res = regExp.exec(val) ?? [];
         let [ , eachHead, codeBlock /*eachFoot*/ ] = res;   // eachStart `<{foreach users as user}>`
         let [ listName, itemName ] = parseEachHead(eachHead);
-        console.log(listName, itemName, itemData);
         let list = itemData[listName];
         return list.map(item => {
             let model = { [itemName]: item };
@@ -110,6 +131,16 @@ export function parseForeach(tpl, itemData: object) {
     });
 }
 
+export function parseFor(codeBlock: string, itemData, { list, item }) {
+
+    let data = itemData[list];
+    return data.map(it => {
+        let model = { [item]: it };
+        console.log(model);
+        return parseVar(codeBlock, model);
+    }).join('');
+}
+
 // 解析 四则运算(加减乘除)
 export function parseMathCalc(tpl) {
     let regExp = /(\(\d+)(\+|-|\*|\/)(\d+\))/;
@@ -117,13 +148,18 @@ export function parseMathCalc(tpl) {
 }
 
 // [ 'pf', 'game_id' ];
-export function getTplFields(tpl: string): Array<string> {
-    let matchArr: Array<string> = tpl.match(/<{(.*?)}>/g) ?? [];
-
-    return matchArr.map(item => {
-        let [ , fieldName ] = item.match(/<{(.*?)}>/) ?? [];
-        return fieldName;
-    });
+export function getTplFields(tpl: string, type: tplTyle = 'tpl'): Array<string> {
+    if (type === 'tpl') {
+        let matchArr: Array<string> = tpl.match(/<{(.*?)}>/g) ?? [];
+        return matchArr.map(item => {
+            let [ , fieldName ] = item.match(/<{(.*?)}>/) ?? [];
+            return fieldName;
+        });
+    } else if (type === 'field') {
+        let fields = tpl.match(/[^\s\n\!\|\&\+\-\*\/\=\>\<\(\)]+/g) ?? [];
+        return fields.filter(item => isNaN(Number(item)));
+    }
+    return [];
 }
 
 export function parseEnum(enumStr: string): Array<object> {
