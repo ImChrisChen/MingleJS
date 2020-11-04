@@ -32,7 +32,16 @@ export function parseVar(tpl: string, itemData: IParseModeData = document.body, 
     } else if (type === 'field') {
         fields = getExpressFields(tpl);
     }
-    return replaceTplDataValue(fields, itemData, tpl, type);
+    tpl = replaceTplDataValue(fields, itemData, tpl, type);
+    return tpl.replace(/<{(.*?)}>/g, v => {
+        let [ , express ] = /<{(.*?)}>/.exec(v) ?? [];
+        try {
+            return eval(express);
+        } catch (e) {
+            console.error(`${ express } 表达式格式不正确,运算错误`);
+            return express;
+        }
+    });
 }
 
 function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
@@ -66,7 +75,6 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
             }
         }
     });
-    console.log(tpl);
     return tpl;
 }
 

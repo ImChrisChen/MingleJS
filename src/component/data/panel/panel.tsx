@@ -27,10 +27,6 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     // TODO if-else  => parseVal => foreach
     tplParser(el: HTMLElement, model) {
         $(el).hide();
-        let template = this.props.el.innerHTML;
-        parseVar(template, model);
-
-        return;
         deepEachElement(el, element => {
             let attrs = element.attributes;
 
@@ -52,7 +48,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
                     $(element).next().removeAttr('@else');
 
                 } catch (e) {
-                    console.error('if内表达式解析语法错误');
+                    console.error(`if内表达式解析语法错误: ${ express }`);
                 }
             }
 
@@ -73,17 +69,9 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
                 element.remove();
             }
         });
+        this.props.el.innerHTML = parseVar(el.innerHTML, model);
         $(el).show();
     }
-
-    parserForeach() {
-
-    }
-
-    parserIfelse() {
-
-    }
-
 
     private async getData() {
         let { url, model } = this.props.dataset;
