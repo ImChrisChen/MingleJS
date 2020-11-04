@@ -1,9 +1,18 @@
-<div data-fn="data-panel" data-model='{"status":true,"data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'>
-    <h1 @if="status && data.length > 0">测试if</h1>
-    <h2 @else>测试else</h2>
-    <ul>
-        <li @foreach="data as item">
-            <h1> 姓名:<{item.name}> 年龄: <{item.age}> </h1>
-        </li>
-    </ul>
+<!--<div data-fn="data-panel" data-model='{"status":true,"data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'>-->
+<!--    <h1 @if="status && data.length > 0">测试if</h1>-->
+<!--    <h2 @else>测试else</h2>-->
+<!--    <h1>表达式 <{pf/2}>%</h1>-->
+<!--    <ul>-->
+<!--        <li @foreach="data as item">-->
+<!--            <h1> 姓名:<{item.name}> 年龄: <{item.age}> </h1>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<input data-fn="form-button" data-enum="1,iOS;2,Android" name="pf" value="1">
+
+<div data-fn="data-panel"
+     data-model='{"status":true, "pf":1,"data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'>
+    <h1><{pf / 2 + data.length === status}></h1>
+    <h1><{pf}><{data}></h1>
 </div>

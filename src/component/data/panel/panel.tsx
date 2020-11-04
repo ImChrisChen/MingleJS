@@ -27,20 +27,24 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     // TODO if-else  => parseVal => foreach
     tplParser(el: HTMLElement, model) {
         $(el).hide();
+        let template = this.props.el.innerHTML;
+        parseVar(template, model);
+
+        return;
         deepEachElement(el, element => {
             let attrs = element.attributes;
 
             if (attrs['@if']) {
                 let { value: fieldTpl } = attrs['@if'];
+                console.log(fieldTpl);
+
                 let express = parseVar(fieldTpl, model, 'field');
                 try {
                     let ifResult = eval(express);
-                    console.log(ifResult);
 
                     if (ifResult) {
                         $(element).next().attr('@else') !== undefined && $(element).next().remove();
                     } else {
-                        console.log(element);
                         $(element).remove();
                     }
 
@@ -82,7 +86,6 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
 
 
     private async getData() {
-        console.log(this.props);
         let { url, model } = this.props.dataset;
         if (url) {
             let res = await jsonp(url);
