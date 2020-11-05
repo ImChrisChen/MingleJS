@@ -1,26 +1,24 @@
-<!--<div data-fn="data-panel"-->
-<!--     data-model='{"status":true,"title":"用户列表","msg": "返回成功","data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'-->
-<!--&gt;-->
-<!--    <h2>标题: <{title}></h2>-->
-<!--    <h3>状态: <{status}></h3>-->
-<!--    <p>总人数: <{ data.length * 200 / 100 + (300 - 100) }></p>-->
+<div data-fn="data-panel"
+     data-model='{"status":true,"title":"用户列表","msg": "返回成功","data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'
+>
+    <h2>标题: <{title}></h2>
+    <h3>状态: <{status}></h3>
+    <p>总人数: <{ data.length * 200 / 100 + (300 - 100) }></p>
 
-<!--    <ul @if="status && data.length > 0">-->
-<!--        <li @foreach="data as item">姓名: <{item.name}>年龄: <{item.age}></li>-->
-<!--    </ul>-->
+    <ul @if="status && data.length > 0">
+        <li @foreach="data as item">
+            <h1> 姓名: <{item.name}>年龄: <{item.age}> </h1>
+        </li>
+    </ul>
 
-<!--    <h2 @if="!status">if</h2>-->
-<!--    <h2 @else>else</h2>-->
+    <h2 @if="!status">if</h2>
+    <h2 @else>else</h2>
+
+    <button id="btn" class="ant-btn ant-btn-primary" data-fn="layout-window">Submit
+        <h1>=-===============> <{data.length}></h1>
+        <p>内容内容内容内容内容内容内容内容内容内容内容</p>
+    </button>
+
+</div>
 
 
-<!--</div>-->
-
-<button id="btn" class="ant-btn ant-btn-primary" data-fn="layout-window">Submit
-    <h1>=-===============> <{data.length}></h1>
-    <p>内容内容内容内容内容内容内容内容内容内容内容</p>
-</button>
-
-<!--<div data-fn="layout-tab">-->
-<!--    <input data-fn="form-switch" value="1">-->
-<!--    <input data-fn="form-switch" value="2">-->
-<!--</div>-->
