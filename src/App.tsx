@@ -62,14 +62,17 @@ enum Hooks {
 
 export default class App {
     modules: Array<IModules> = [];
-    models: Array<any> = [];       // data-model
     $tempContainer: any;
 
+
     constructor(elementContainer/*private readonly elements: Array<HTMLElement>*/) {
-        this.$tempContainer = $(`<div role="mingle-component-working-temp"></div>`);
-        if ($(`[role="mingle-component-working-temp"]`).length === 0) {
+
+        // TODO解决
+        this.$tempContainer = $(`<div data-template-element></div>`);
+        if ($(`[data-template-element]`).length === 0) {
             $('body').append(this.$tempContainer);
         }
+
         try {
             this.init(elementContainer).then(() => {
                 // this.globalEventListener();
@@ -160,9 +163,9 @@ export default class App {
                                 hooks[Hooks.beforeLoad]?.();
                             }, (hooks) => {
                                 hooks[Hooks.load]?.();
-                                Array.from(this.$tempContainer.children()).forEach((el: any) => {
-                                    // $(element).append(el).show();
-                                });
+                                // Array.from(this.$tempContainer.children()).forEach((el: any) => {
+                                // $(element).append(el).show();
+                                // });
 
                             });
                             this.eventListener(module);
@@ -179,6 +182,14 @@ export default class App {
             return v.toString(16);
         });
     }
+
+    static async parseElementProperty(el: HTMLElement): Promise<object> {
+        let componentName = el.getAttribute('data-fn') ?? '';
+        let componentModule = await loadModules(componentName.split('-'));
+        let defaultProperty = componentModule.property;
+        return parserProperty(el.dataset, defaultProperty);
+    }
+
 
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
@@ -284,14 +295,14 @@ export default class App {
 
         // 处理 data-* 属性
         let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-        let parsedDataset = parserProperty(dataset, defaultDataset ?? {}, dataset);
+        let parsedDataset = parserProperty(dataset, defaultDataset ?? {});
 
         // 普通属性
         let attrs = {};     // key value
         [ ...element.attributes ].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
-        let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
+        let parsedAttrs = parserAttrs(attrs, defaultAttrs);
 
         let props = {
             el        : element,

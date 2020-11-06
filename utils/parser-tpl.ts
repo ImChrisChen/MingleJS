@@ -16,9 +16,6 @@ declare type IParseModeData = HTMLElement | object | null;
 // 'pf=<{pf}>' => 'pf=ios'
 export function parseTpl(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
     tpl = parseVar(tpl, itemData, type);
-
-    // tpl = parseForeach(tpl, itemData as object);
-    // tpl = parseIfelse(tpl, itemData);
     return tpl;
 }
 
@@ -59,8 +56,8 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
                     let val = data[fieldItem.trim()];
                     if (isUndefined(val)) {
-                        console.error(` ${ field } 模版解析错误`);
-                        return '';
+                        console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
+                        return field;
                     }
                     return val;
                 }, itemData);
@@ -132,12 +129,16 @@ export function parseForeach(tpl, itemData: object) {
     });
 }
 
-export function parseFor(codeBlock: string, itemData, { list, item }) {
-
+export function parseFor(codeBlock: string, itemData, { list, item }): string {
     let data = itemData[list];
+    let html = '';
     return data.map(it => {
         let model = { [item]: it };
-        return parseVar(codeBlock, model);
+        let html = parseVar(codeBlock, model, 'tpl');
+        let [ , exp ] = html.match(/@if=["'`](.*?)["'`]/) ?? [];
+        exp = parseVar(exp, model, 'field');      // if 条件解析后,执行if条件
+        // console.log(exp, eval(exp), html);
+        return eval(exp) ? html : '';
     }).join('');
 }
 

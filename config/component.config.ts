@@ -1,4 +1,4 @@
-/**
+1/**
  * Created by WebStorm.
  * User: MacBook
  * Date: 2020/9/21
@@ -624,6 +624,19 @@ export default {
         },
         panel          : {
             component: import('@component/data/panel/panel'),
+            property : {
+                dataset: {
+                    url  : UniversalProps.url,
+                    model: {
+                        el   : 'input',
+                        parse: 'JSON',
+                        value: `{}`,
+                    },
+                },
+            },
+        },
+        panel2          : {
+            component: import('@component/data/panel/panel2'),
             property : {
                 dataset: {
                     url  : UniversalProps.url,

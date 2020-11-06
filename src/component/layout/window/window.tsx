@@ -10,7 +10,9 @@ import { IComponentProps } from '@interface/common/component';
 import { elementParseAllVirtualDOM } from '@utils/parser-dom';
 import $ from 'jquery';
 import Draggable from 'react-draggable';
+import DataPanel from '@component/data/panel/panel';
 // import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
+import App from '@src/App';
 
 const style = {
     display       : 'flex',
@@ -36,9 +38,17 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
     constructor(props) {
         super(props);
         let uid = this.props.el.getAttribute('data-component-uid');
-        $('body').on('click', `[data-component-uid=${ uid }]`, (e) => {
+        $('body').on('click', `[data-component-uid=${ uid }]`, e => {
             console.log(e);
-            this.handleShowModel();
+            console.log(this.props.el);
+            let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
+            console.log($dataPanel);
+            App.parseElementProperty($dataPanel.get(0)).then(dataset => {
+                DataPanel.getData(dataset).then(model => {
+                    DataPanel.parserWorkingModel(model);
+                    this.handleShowModel();
+                });
+            });
         });
     }
 
@@ -77,6 +87,7 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
                 visible={ visible }
                 mask={ false }
                 maskClosable={ false }
+                getContainer={ () => document.querySelector('[data-template-element]') ?? document.body }
                 title={ <div
                     style={ { width: '100%', cursor: 'move' } }
                     onMouseOver={ () => {
