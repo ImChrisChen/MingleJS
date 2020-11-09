@@ -38,6 +38,7 @@ interface IModules {
     componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
     config: IComponentConfig        // 组件配置
+    componentUID: string            // 组件uid
 }
 
 interface IAttributes extends NamedNodeMap {
@@ -77,7 +78,7 @@ export default class App {
             this.init(elementContainer).then(() => {
                 // this.globalEventListener();
             });
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }
@@ -109,7 +110,9 @@ export default class App {
 
                 if (componentNames) {
 
-                    containerWrap.setAttribute('data-component-uid', App.getUUID());
+                    let componentUID = App.getUUID();
+                    // TODO 设置组件唯一ID
+                    containerWrap.setAttribute('data-component-uid', componentUID);
 
                     for (const componentName of componentNames.split(' ')) {
 
@@ -153,6 +156,7 @@ export default class App {
                                 componentMethod,
                                 defaultProperty,
                                 config,
+                                componentUID,
                             };
                             this.modules.push(module);
 
@@ -287,7 +291,10 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
-        let { element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod, config } = module;
+        let {
+            element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
+            config, componentUID,
+        } = module;
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
 
         // 处理 data-* 属性
@@ -334,7 +341,7 @@ export default class App {
                 </ConfigProvider>
                 , container, () => callback(hooks),
             );
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }

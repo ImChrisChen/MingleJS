@@ -10,6 +10,7 @@ import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 import { parseFor, parseVar } from '@utils/parser-tpl';
 import $ from 'jquery';
+import { isWuiTpl } from '@utils/inspect';
 
 export default class DataPanel extends React.Component<IComponentProps, any> {
 
@@ -19,29 +20,40 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.props);
         DataPanel.getData(this.props.dataset).then(data => {
-            let html = this.parseTemplate(this.props.el, data);
-            if (html !== this.props.el.innerHTML) {
-                this.props.el.innerHTML = this.deleteDirective(html);
-            } else {
-                console.log('无变化 ');
-            }
+            DataPanel.parseTemplate(this.props.el, data);
+            // if (html !== this.props.el.innerHTML) {
+            //     // this.props.el.innerHTML = this.deleteDirective(html);
+            // } else {
+            //     console.log('无变化 ');
+            // }
         });
     }
 
-    parseTemplate(rootElement: HTMLElement, model: object) {
+    static parseTemplate(rootElement: HTMLElement, model: object) {
         deepEachElement(rootElement, (el: HTMLElement) => {
             this.parseIfelse(el, model);
             this.parseForeach(el, model);
+            el.childNodes.forEach(node => {
+                // 处理文本节点
+                if (node.nodeType === 3) {
+                    let textNode = node.textContent;
+                    if (isWuiTpl(textNode ?? '')) {
+                        node.textContent = parseVar(textNode ?? '', model, 'tpl');
+                    }
+                }
+            });
         });
-        return parseVar(rootElement.innerHTML, model, 'tpl');
+        // return parseVar(rootElement.innerHTML, model, 'tpl');
     }
 
     // 解析弹窗内的数据
-    static parserWorkingModel(model: any) {
-        let templateAreas = document.querySelector('[data-template-element]');
+    static parseWorkingModel(model: any) {
+        let templateAreas = document.querySelector('[data-template-element]') as HTMLElement;
         if (templateAreas) {
-            templateAreas.innerHTML = parseVar(templateAreas?.innerHTML ?? '', model, 'tpl');
+            DataPanel.parseTemplate(templateAreas, model);
+            // templateAreas.innerHTML = parseVar(templateAreas?.innerHTML ?? '', model, 'tpl');
         }
     }
 
@@ -54,7 +66,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         console.log(res);
     }
 
-    parseForeach(el: HTMLElement, model: object) {
+    static parseForeach(el: HTMLElement, model: object) {
         let attrs = el.attributes;
         let content = el.outerHTML;
         if (!attrs['@foreach']) return content;
@@ -72,7 +84,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         el.remove();        // 删除掉原始模版
     }
 
-    parseIfelse(el: HTMLElement, model: object) {
+    static parseIfelse(el: HTMLElement, model: object) {
         let attrs = el.attributes;
         if (!attrs['@if']) return;
 
@@ -84,7 +96,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
             } else {
                 $(el).remove();
             }
-        } catch (e) {
+        } catch(e) {
             // TODO 有可能是 @foreach 中的 if 语句
             // console.error(`if内表达式解析语法错误: ${ express }`);
         }

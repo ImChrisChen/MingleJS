@@ -37,17 +37,15 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     constructor(props) {
         super(props);
-        let uid = this.props.el.getAttribute('data-component-uid');
-        $('body').on('click', `[data-component-uid=${ uid }]`, e => {
-            console.log(e);
-            console.log(this.props.el);
-            let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
-            console.log($dataPanel);
-            App.parseElementProperty($dataPanel.get(0)).then(dataset => {
-                DataPanel.getData(dataset).then(model => {
-                    DataPanel.parserWorkingModel(model);
-                    this.handleShowModel();
-                });
+        this.props.el.onclick = e => this.handleClickBtn(e);
+    }
+
+    handleClickBtn(e) {
+        let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
+        App.parseElementProperty($dataPanel.get(0)).then(dataset => {
+            DataPanel.getData(dataset).then(model => {
+                this.handleShowModel();
+                DataPanel.parseWorkingModel(model);
             });
         });
     }
@@ -69,46 +67,18 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     render() {
         const { visible, loading } = this.state;
-        // return <>
-        //     <Rnd
-        //         style={ style }
-        //         default={ {
-        //             x     : 0,
-        //             y     : 0,
-        //             width : 200,
-        //             height: 200,
-        //         } }
-        //     >
-        //         Rnd
-        //     </Rnd>
-        // </>;
-        return <>
-            <Modal
-                visible={ visible }
-                mask={ false }
-                maskClosable={ false }
-                getContainer={ () => document.querySelector('[data-template-element]') ?? document.body }
-                title={ <div
-                    style={ { width: '100%', cursor: 'move' } }
-                    onMouseOver={ () => {
-                        if (this.state.disabled) {
-                            this.setState({
-                                disabled: false,
-                            });
-                        }
-                    } }
-                    onMouseOut={ () => {
-                        this.setState({
-                            disabled: true,
-                        });
-                    } }
-                >{ this.props.dataset.title }</div> }
 
-                width={ 1000 }
-                onOk={ this.handleOk.bind(this) }
-                onCancel={ this.handleCancel.bind(this) }
-                // @ts-ignore
-                modalRender={ modal => <Draggable disabled={ this.state.disabled }>{ modal }</Draggable> }
+        // @ts-ignore
+        // let children = [ ...this.props.elChildren[0].content.children ];
+        let children = this.props.elChildren;
+
+        return <Modal
+            visible={ visible }
+            mask={ false }
+            maskClosable={ false }
+            getContainer={ () => document.querySelector('[data-template-element]') ?? document.body }
+            title={ <div
+                style={ { width: '100%', cursor: 'move' } }
                 onMouseOver={ () => {
                     if (this.state.disabled) {
                         this.setState({
@@ -121,20 +91,40 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
                         disabled: true,
                     });
                 } }
-                footer={
-                    [
-                        <Button key="back" onClick={ this.handleCancel.bind(this) }>
-                            Return
-                        </Button>,
-                        <Button key="submit" type="primary" loading={ loading } onClick={ this.handleOk.bind(this) }>
-                            Submit
-                        </Button>,
-                    ]
+            >{ this.props.dataset.title }</div> }
+
+            width={ 1000 }
+            onOk={ this.handleOk.bind(this) }
+            onCancel={ this.handleCancel.bind(this) }
+            // @ts-ignore
+            modalRender={ modal => <Draggable disabled={ this.state.disabled }>{ modal }</Draggable> }
+            onMouseOver={ () => {
+                if (this.state.disabled) {
+                    this.setState({
+                        disabled: false,
+                    });
                 }
-            >
-                { elementParseAllVirtualDOM(this.props.elChildren) }
-            </Modal>
-        </>;
+            } }
+            onMouseOut={ () => {
+                this.setState({
+                    disabled: true,
+                });
+            } }
+            footer={
+                [
+                    <Button key="back" onClick={ this.handleCancel.bind(this) }>
+                        Return
+                    </Button>,
+                    <Button key="submit" type="primary" loading={ loading } onClick={ this.handleOk.bind(this) }>
+                        Submit
+                    </Button>,
+                ]
+            }
+        >
+            {   // @ts-ignore 
+                elementParseAllVirtualDOM(children)
+            }
+        </Modal>;
     }
 
 }
