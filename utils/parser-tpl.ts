@@ -66,7 +66,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
             } else {
                 let key = field.trim();
                 let val = isDOM(itemData)
-                    ? encodeURIComponent((itemData.querySelector(`input[name=${ key }]`) as HTMLInputElement).value)
+                    ? encodeURIComponent((itemData.querySelector(`input[name=${ key }]`) as HTMLInputElement)?.value ?? '')
                     : (itemData[key] ?? '');
                 tpl = tpl.replace(regExp, val);
             }

@@ -86,9 +86,6 @@ export default class App {
         deepEachElement(elementContainer, async element => {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
-
-                console.log(element);
-
                 let container: HTMLElement, containerWrap: HTMLElement;
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     // element.setAttribute('type', 'hidden');
