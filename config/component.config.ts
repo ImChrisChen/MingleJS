@@ -1,4 +1,5 @@
-1/**
+1;
+/**
  * Created by WebStorm.
  * User: MacBook
  * Date: 2020/9/21
@@ -545,6 +546,14 @@ export default {
                         desc : '表头url',
                     },
                 },
+                style  : {
+                    el    : 'input',
+                    parse : 'null',
+                    value : {
+                        overflow: 'auto',
+                    },
+                    render: false,
+                },
             },
         },
         image          : {
@@ -635,7 +644,7 @@ export default {
                 },
             },
         },
-        panel2          : {
+        panel2         : {
             component: import('@component/data/panel/panel2'),
             property : {
                 dataset: {
