@@ -61,21 +61,6 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     }
 }
 
-const SizeOptions = [
-    {
-        label: 'large',
-        value: 'large',
-    },
-    {
-        label: 'middle',
-        value: 'middle',
-    },
-    {
-        label: 'small',
-        value: 'small',
-    },
-];
-
 // TODO 提取公共属性(待调整)
 const UniversalProps = {
     label      : {},
@@ -84,7 +69,7 @@ const UniversalProps = {
         desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
         parse : 'string',
         value : (parsedDataset) => {
-            console.log(parsedDataset);
+            if (!parsedDataset) return '';
             let label = parsedDataset.label.includes(':')
                 ? parsedDataset.label.substring(0, parsedDataset.label.length - 1)
                 : parsedDataset.label;
@@ -103,11 +88,46 @@ const UniversalProps = {
         parse : 'string',
         verify: value => isUrl(value),
     },
+    'enum'     : {
+        el   : 'list',
+        value: '1,Android;2,iOS;3,MacOS;4,Windows',
+        // value: '',
+        desc : '列表数据 逗号两边分别对应 key - value; 注意：如果有了data-url属性，data-enum则失效，data-enum,data-url二选一',
+        parse: 'object[]',
+    },
+    disabled   : {
+        el   : 'switch',
+        value: false,
+        parse: 'boolean',
+        desc : '是否禁用',
+    },
+    size       : {
+        el     : 'radio',
+        options: [
+            {
+                label: 'large',
+                value: 'large',
+            },
+            {
+                label: 'middle',
+                value: 'middle',
+            },
+            {
+                label: 'small',
+                value: 'small',
+            },
+        ],
+        parse  : 'string',
+        value  : '设置大小',
+    },
 } as {
     label: IPropertyConfig
     placeholder: IPropertyConfig
     url: IPropertyConfig
     style: IPropertyConfig
+    enum: IPropertyConfig
+    disabled: IPropertyConfig
+    size: IPropertyConfig
     [key: string]: IPropertyConfig
 };
 
@@ -127,13 +147,7 @@ export default {
                         desc     : `label 标签的文本`,
                         parse    : 'string',
                     },
-                    enum      : {
-                        el   : 'list',
-                        // value: '1,Android;2,iOS;3,MacOS;4,Windows',
-                        value: '',
-                        desc : '列表数据 逗号两边分别对应 key - value',
-                        parse: 'object[]',
-                    },
+                    enum      : UniversalProps.enum,
                     url       : {
                         el    : 'input',
                         value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
@@ -141,12 +155,7 @@ export default {
                         parse : 'string',
                         verify: value => isUrl(value),
                     },
-                    disabled  : {
-                        el   : 'switch',
-                        value: false,
-                        desc : '是否禁用',
-                        parse: 'boolean',
-                    },
+                    disabled  : UniversalProps.disabled,
                     mode      : {
                         el     : 'radio',
                         options: [
@@ -251,12 +260,7 @@ export default {
             component: import('@component/form/select/tree/tree'),
             property : {
                 dataset: {
-                    size: {
-                        el     : 'radio',
-                        options: SizeOptions,
-                        parse  : 'string',
-                        value  : '',
-                    },
+                    size: UniversalProps.size,
                 },
                 value  : {},
                 hook   : {},
@@ -382,22 +386,9 @@ export default {
                         desc : '',
                         parse: 'string',
                     },
-                    enum       : {
-                        el   : 'list',
-                        value: '1,Android;2,iOS',
-                        parse: 'object[]',
-                    },
-                    disabled   : {
-                        el   : 'switch',
-                        value: false,
-                        parse: 'boolean',
-                    },
-                    size       : {
-                        el     : 'radio',
-                        options: SizeOptions,
-                        value  : 'middle',
-                        parse  : 'string',
-                    },
+                    enum       : UniversalProps.enum,
+                    disabled   : UniversalProps.disabled,
+                    size       : UniversalProps.size,
                     optionType : {
                         el     : 'radio',
                         options: [
@@ -453,10 +444,7 @@ export default {
             component: import('@component/form/switch/switch'),
             property : {
                 dataset: {
-                    disabled         : {
-                        el   : 'switch',
-                        value: false,
-                    },
+                    disabled         : UniversalProps.disabled,
                     label            : {
                         el   : 'input',
                         value: 'form-switch',
@@ -507,6 +495,11 @@ export default {
         file      : {
             component: import('@component/form/file/file'),
             path     : 'form-file',
+            property: {
+                dataset:{
+                    
+                }
+            }
         },
     },
     view  : {
