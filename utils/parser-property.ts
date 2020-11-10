@@ -9,7 +9,7 @@ import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
 
 // 解析dataset data-*
-export function parserProperty(dataset, defaultDataset, config): object {
+export function parserProperty(dataset, defaultDataset): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     dataset = JSON.parse(JSON.stringify(dataset));
@@ -40,7 +40,7 @@ export function parserProperty(dataset, defaultDataset, config): object {
 
         // 属性函数验证
         if (verify && !verify(value)) {
-            console.error(`${ datasetKey }属性的值格式验证不通过`);
+            console.warn(`${ datasetKey }属性的值格式验证不通过`, dataset);
             continue;
         }
 
@@ -52,7 +52,7 @@ export function parserProperty(dataset, defaultDataset, config): object {
 }
 
 // 解析普通属性 name value placeholder ...
-export function parserAttrs(attrs, defaultAttrsConfig, config) {
+export function parserAttrs(attrs, defaultAttrsConfig) {
     let defaultAttrs = {};
 
     for (const key in defaultAttrsConfig) {

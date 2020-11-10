@@ -11,17 +11,32 @@ export function arraylastItem<T>(array: Array<T>): T {
     return array[lastIndex];
 }
 
-export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
+// DOM 尾递归
+export function deepEachElementTail(root, callback?: (el: HTMLElement) => void) {
     // 这里输出的是根节点
     if (!root) return;
+
+    if (root.children.length) {
+        Array.from(root.children).forEach(item => {
+            return deepEachElementTail(item, callback);
+        });
+    }
+    callback && callback(root);
+}
+
+// DOM 前递归
+export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
+    if (!root) return;
+
+    callback && callback(root);
 
     if (root.children.length) {
         Array.from(root.children).forEach(item => {
             return deepEachElement(item, callback);
         });
     }
-    callback && callback(root);
 }
+
 // 前递归 => root => left => right => children
 export function deepEach(
     tree: Array<object> = [],
@@ -55,7 +70,6 @@ export function deepEach(
     return resultArr;
 
 }
-
 
 /**
  * 防抖函数

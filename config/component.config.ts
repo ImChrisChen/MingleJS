@@ -519,6 +519,13 @@ export default {
                 dataset: {},
             },
         },
+        template: {
+            path     : 'view-template',
+            component: import('@component/view/template/template'),
+            property : {
+                dataset: {},
+            },
+        },
     },
     data  : {
         table          : {
@@ -545,6 +552,14 @@ export default {
                         desc : '表头url',
                     },
                 },
+                style  : {
+                    el    : 'input',
+                    parse : 'null',
+                    value : {
+                        overflow: 'auto',
+                    },
+                    render: false,
+                },
             },
         },
         image          : {
@@ -558,6 +573,16 @@ export default {
                         value : '',
                         render: false,
                     },
+                    type      : {
+                        el     : 'select',
+                        parse  : 'string',
+                        options: [
+                            { label: '饼图', value: 'pie' },
+                            { label: '柱状图', value: 'bar' },
+                            { label: '折线图', value: 'line' },
+                        ],
+                        value  : 'pie',
+                    },
                     url       : {
                         el   : 'input',
                         parse: 'string',
@@ -566,7 +591,7 @@ export default {
                     },
                     colors    : {
                         el   : 'input',
-                        value: '',
+                        value: '["#6ad6b6"]',
                         parse: 'JSON',
                         desc : '图表配置主色调',
                     },
@@ -582,9 +607,15 @@ export default {
                         parse: 'JSON',
                         desc : '',
                     },
-                    size      : {
+                    category  : {
                         el   : 'input',
                         value: '',
+                        parse: 'string',
+                        desc : '多维度统计指定的key',
+                    },
+                    size      : {
+                        el   : 'input',
+                        value: '{"height": 400}',
                         parse: 'JSON',
                     },
                     datadirect: {
@@ -600,6 +631,12 @@ export default {
                 },
             },
         },
+        charts         : {
+            component: import('@component/data/chart/demo'),
+            property : {
+                dataset: {},
+            },
+        },
         panel          : {
             component: import('@component/data/panel/panel'),
             property : {
@@ -607,8 +644,21 @@ export default {
                     url  : UniversalProps.url,
                     model: {
                         el   : 'input',
-                        parse: 'string',
-                        value: '',
+                        parse: 'JSON',
+                        value: `{}`,
+                    },
+                },
+            },
+        },
+        panel2         : {
+            component: import('@component/data/panel/panel2'),
+            property : {
+                dataset: {
+                    url  : UniversalProps.url,
+                    model: {
+                        el   : 'input',
+                        parse: 'JSON',
+                        value: `{}`,
                     },
                 },
             },
@@ -669,6 +719,15 @@ export default {
         },
         window: {
             component: import('@component/layout/window/window'),
+            property : {
+                dataset: {
+                    title: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                    },
+                },
+            },
         },
         drawer: {
             component: import('@component/layout/drawer/drawer'),
@@ -708,12 +767,6 @@ export default {
             },
         },
     },
-    demo  : {
-        select: {
-            component: import('@component/demo/select'),
-        },
-    },
-
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置

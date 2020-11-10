@@ -310,7 +310,7 @@ module.exports = {
             //     changeOrigin: true,
             //     pathRewrite: { '^/manage': '' },
             // },
-            contentBase: path.resolve(__dirname, 'dist/index.html'),   //静态服务器根目录
+            contentBase: path.resolve(__dirname, '/'),   //静态服务器根目录
             compress: true,             // 是否压缩
             // host: 'etest.local.aidalan.com',            // 局域网ip
             disableHostCheck: true,     //

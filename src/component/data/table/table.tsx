@@ -20,6 +20,7 @@ import FormAjax from '@component/form/ajax/form';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
+import { IComponentProps } from '@interface/common/component';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -62,7 +63,7 @@ interface ITableApiRes<T = any> extends IApiResult {
     data: Array<T> | any,
 }
 
-interface ITableProps {
+interface ITableProps extends IComponentProps{
     pageSizeOptions: Array<string>
 
     [key: string]: any
@@ -81,7 +82,7 @@ interface ITableState {
 
 const expandable = { expandedRowRender: record => <p>{ record.description }</p> };
 
-export default class DataTable extends React.Component<any, any> {
+export default class DataTable extends React.Component<ITableProps, any> {
 
     state: ITableState = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
         columns          : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
@@ -152,7 +153,6 @@ export default class DataTable extends React.Component<any, any> {
                 loading   : false,
             });
         });
-
     }
 
     handleDragSelect() {
@@ -482,17 +482,14 @@ export default class DataTable extends React.Component<any, any> {
     }
 
     handleTableWrapMouseEnter() {
-        console.log('----------');
         this.setState({ showDropdownBtn: true });
     }
 
     handleTableWrapMouseLeave() {
-        console.log('2222222');
         this.setState({ showDropdownBtn: false });
     }
 
     render() {
-        console.log(this.props);
         const { selectedRowKeys } = this.state;
         const rowSelection = {
             selectedRowKeys,
@@ -531,8 +528,7 @@ export default class DataTable extends React.Component<any, any> {
             ],
         };
 
-        return <div className={ style.formTableWrap }
-                    onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
+        return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }
         >
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -546,6 +542,7 @@ export default class DataTable extends React.Component<any, any> {
             </Dropdown>
 
             <Table
+                style={ this.props.style }
                 className={ style.formTable }
                 components={ {} }
                 onRow={ record => {
