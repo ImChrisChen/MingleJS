@@ -20,14 +20,9 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
+
         DataPanel.getData(this.props.dataset).then(data => {
             DataPanel.parseTemplate(this.props.el, data);
-            // if (html !== this.props.el.innerHTML) {
-            //     // this.props.el.innerHTML = this.deleteDirective(html);
-            // } else {
-            //     console.log('无变化 ');
-            // }
         });
     }
 
@@ -96,7 +91,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
             } else {
                 $(el).remove();
             }
-        } catch(e) {
+        } catch (e) {
             // TODO 有可能是 @foreach 中的 if 语句
             // console.error(`if内表达式解析语法错误: ${ express }`);
         }

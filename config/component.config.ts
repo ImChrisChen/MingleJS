@@ -1,4 +1,3 @@
-1;
 /**
  * Created by WebStorm.
  * User: MacBook
@@ -516,6 +515,13 @@ export default {
         calendar: {
             path     : 'view-calendar',
             component: import('@component/view/calendar/calendar'),
+            property : {
+                dataset: {},
+            },
+        },
+        template: {
+            path     : 'view-template',
+            component: import('@component/view/template/template'),
             property : {
                 dataset: {},
             },

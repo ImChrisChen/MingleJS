@@ -42,6 +42,8 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     handleClickBtn(e) {
         let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
+        let dataPanelUID = $dataPanel.attr('data-component-uid');
+
         App.parseElementProperty($dataPanel.get(0)).then(dataset => {
             DataPanel.getData(dataset).then(model => {
                 this.handleShowModel();
@@ -121,7 +123,7 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
                 ]
             }
         >
-            {   // @ts-ignore 
+            {   // @ts-ignore
                 elementParseAllVirtualDOM(children)
             }
         </Modal>;
