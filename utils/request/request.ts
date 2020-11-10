@@ -24,7 +24,7 @@ export interface IApiResult {
 export function jsonp(url: string): Promise<IApiResult> {
     let funcName = 'callback' + md5(url + new Date().getTime());         // 解决jsonp短时间内无法循环请求的问题
     let isDone = false;
-    let timeout = 8000;     // 超时时间
+    let timeout = 15000;     // 超时时间
     return new Promise((resolve, reject) => {
         window[funcName] = result => {
             if (result.status) {

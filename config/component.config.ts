@@ -15,7 +15,7 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider';
 
 export interface IOptions {
     label: string
@@ -545,13 +545,13 @@ export default {
                     },
                     url      : {
                         el   : 'input',
-                        value: ``, // 市场日表表头
+                        value: `http://e.aidalan.com/presenter/user/location/data?pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count`, // 市场日表表头
                         parse: 'string',
                         desc : '表数据url',
                     },
                     headerurl: {
                         el   : 'input',
-                        value: ``,         //  市场日表
+                        value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
                         parse: 'string',
                         desc : '表头url',
                     },
@@ -564,6 +564,12 @@ export default {
                     },
                     render: false,
                 },
+                height : {
+                    el    : 'slider',
+                    value : 500,
+                    parse : 'number',
+                    render: false,
+                },
             },
         },
         image          : {
@@ -571,13 +577,19 @@ export default {
             path     : '/data-image',
             property : {
                 dataset: {
-                    'from'    : {
+                    'from'     : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    type      : {
+                    name       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
+                    },
+                    type       : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -585,49 +597,51 @@ export default {
                             { label: '柱状图', value: 'bar' },
                             { label: '折线图', value: 'line' },
                         ],
-                        value  : 'pie',
+                        value  : 'bar',
+                        desc   : '图表类型,默认柱状图',
                     },
-                    url       : {
+                    url        : {
                         el   : 'input',
                         parse: 'string',
-                        value: '',
+                        value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
                         desc : '图表数据接口',
                     },
-                    colors    : {
+                    key_field  : {
                         el   : 'input',
-                        value: '["#6ad6b6"]',
-                        parse: 'JSON',
-                        desc : '图表配置主色调',
+                        value: 'location',
+                        parse: 'string',
+                        desc : '图表统计维度的字段名',
                     },
-                    xaxis     : {
+                    value_field: {
                         el   : 'input',
-                        value: '',
-                        parse: 'JSON',
-                        desc : 'x轴的配置',
+                        parse: 'string',
+                        value: 'count',
+                        desc : '图表统计的value值字段名',
                     },
-                    series    : {
+                    colors     : {
                         el   : 'input',
-                        value: '',
-                        parse: 'JSON',
-                        desc : '',
+                        value: '#6ad6b6',
+                        parse: 'string[]',
+                        desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
                     },
-                    category  : {
+                    groupby    : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
-                        desc : '多维度统计指定的key',
+                        desc : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    size      : {
+                    size       : {
                         el   : 'input',
                         value: '{"height": 400}',
                         parse: 'JSON',
+                        desc : '图表大小',
                     },
-                    datadirect: {
+                    datadirect : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                     },
-                    title     : {
+                    title      : {
                         el   : 'input',
                         value: '',
                         parse: 'string',

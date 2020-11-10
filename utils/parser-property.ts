@@ -7,6 +7,7 @@
 
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
+import { isString } from '@utils/inspect';
 
 // 解析dataset data-*
 export function parserProperty(dataset, defaultDataset): object {
@@ -79,7 +80,8 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     // TODO 默认处理属性，不用写/读取配置去解析
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
-        if (key === 'style') {
+        if (key === 'style' && isString(finalAttrs[key])) {
+            console.log(finalAttrs);
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
     }
@@ -90,7 +92,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
-    switch (parse) {
+    switch(parse) {
 
         case 'string':            // 模版解析
             value = parseTpl(value, document.body);
