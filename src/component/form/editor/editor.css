@@ -1,1 +1,8 @@
-/* show */.md-editor-content {  height : 100vh;}/*.md-editor-visible {*//*  width : 50%;*//*}*/
+/* show */
+.md-editor-content {
+    height : 100vh;
+}
+
+/*.md-editor-visible {*/
+/*  width : 50%;*/
+/*}*/

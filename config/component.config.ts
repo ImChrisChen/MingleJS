@@ -519,6 +519,13 @@ export default {
                 dataset: {},
             },
         },
+        template: {
+            path     : 'view-template',
+            component: import('@component/view/template/template'),
+            property : {
+                dataset: {},
+            },
+        },
     },
     data  : {
         table          : {
@@ -544,6 +551,14 @@ export default {
                         parse: 'string',
                         desc : '表头url',
                     },
+                },
+                style  : {
+                    el    : 'input',
+                    parse : 'null',
+                    value : {
+                        overflow: 'auto',
+                    },
+                    render: false,
                 },
             },
         },
@@ -592,6 +607,12 @@ export default {
                         parse: 'JSON',
                         desc : '',
                     },
+                    category  : {
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '多维度统计指定的key',
+                    },
                     size      : {
                         el   : 'input',
                         value: '{"height": 400}',
@@ -610,8 +631,27 @@ export default {
                 },
             },
         },
+        charts         : {
+            component: import('@component/data/chart/demo'),
+            property : {
+                dataset: {},
+            },
+        },
         panel          : {
             component: import('@component/data/panel/panel'),
+            property : {
+                dataset: {
+                    url  : UniversalProps.url,
+                    model: {
+                        el   : 'input',
+                        parse: 'JSON',
+                        value: `{}`,
+                    },
+                },
+            },
+        },
+        panel2         : {
+            component: import('@component/data/panel/panel2'),
             property : {
                 dataset: {
                     url  : UniversalProps.url,
@@ -679,6 +719,15 @@ export default {
         },
         window: {
             component: import('@component/layout/window/window'),
+            property : {
+                dataset: {
+                    title: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                    },
+                },
+            },
         },
         drawer: {
             component: import('@component/layout/drawer/drawer'),

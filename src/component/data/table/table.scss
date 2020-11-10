@@ -15,14 +15,15 @@
 
 .formTable {
     //padding             : 20px;
-    -webkit-user-select : none; /* Chrome/Safari/Opera */
-    -o-user-select      : none;
-    -moz-user-select    : none; /*火狐 firefox*/
-    -webkit-user-select : none; /*webkit浏览器*/
-    -ms-user-select     : none; /*IE10+*/
-    -khtml-user-select  : none; /*早期的浏览器*/
-    user-select         : none;
+    //-webkit-user-select : none; /* Chrome/Safari/Opera */
+    //-o-user-select      : none;
+    //-moz-user-select    : none; /*火狐 firefox*/
+    //-webkit-user-select : none; /*webkit浏览器*/
+    //-ms-user-select     : none; /*IE10+*/
+    //-khtml-user-select  : none; /*早期的浏览器*/
+    //user-select         : none;
     position            : relative;
+    overflow            : auto;
 }
 
 .dropdown {
@@ -33,7 +34,7 @@
 }
 
 .formTableWrap {
-    position : relative;
+    //position : relative;
 }
 
 .show {
