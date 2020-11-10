@@ -362,8 +362,8 @@ export default {
                     layout: {
                         el     : 'radio',
                         options: [
-                            { label: 'block', value: 'block' },
-                            { label: 'flex', value: 'flex' },
+                            { label: 'v', value: 'v' },
+                            { label: 'h', value: 'h' },
                         ],
                         parse  : 'string',
                         value  : 'flex',

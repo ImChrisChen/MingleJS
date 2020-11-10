@@ -89,8 +89,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
             }
         }
 
-        console.log(this.props);
-
         return <>
             <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select
