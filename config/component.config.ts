@@ -83,8 +83,12 @@ const UniversalProps = {
         render: false,
         desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
         parse : 'string',
-        value : (config: IComponentConfig) => {
-            return '请选择' + config?.property?.dataset.label;
+        value : (parsedDataset) => {
+            console.log(parsedDataset);
+            let label = parsedDataset.label.includes(':')
+                ? parsedDataset.label.substring(0, parsedDataset.label.length - 1)
+                : parsedDataset.label;
+            return '请选择' + label;
         },
     },
     style      : {

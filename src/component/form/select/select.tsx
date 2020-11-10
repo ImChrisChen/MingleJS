@@ -89,12 +89,15 @@ export default class Selector extends React.Component<IComponentProps, any> {
             }
         }
 
+        console.log(this.props);
+
         return <>
             <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
 
                     { ...dataset }
+                    placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
                     style={ { minWidth: 100 } }
                     value={ value }

@@ -52,7 +52,8 @@ export function parserProperty(dataset, defaultDataset): object {
 }
 
 // 解析普通属性 name value placeholder ...
-export function parserAttrs(attrs, defaultAttrsConfig) {
+export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
+    console.log(parsedDataset);
     let defaultAttrs = {};
 
     for (const key in defaultAttrsConfig) {
@@ -63,7 +64,7 @@ export function parserAttrs(attrs, defaultAttrsConfig) {
             let { value, parse, verify } = currentProperty;
 
             // value值函数解析
-            if (value && typeof value === 'function') value = value();
+            if (value && typeof value === 'function') value = value(parsedDataset);
 
             // 属性函数验证
             if (verify && !verify(value)) {

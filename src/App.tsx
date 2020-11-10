@@ -78,7 +78,7 @@ export default class App {
             this.init(elementContainer).then(() => {
                 // this.globalEventListener();
             });
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -306,7 +306,7 @@ export default class App {
         [ ...element.attributes ].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
-        let parsedAttrs = parserAttrs(attrs, defaultAttrs);
+        let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
 
         let props = {
             el        : element,
@@ -341,7 +341,7 @@ export default class App {
                 </ConfigProvider>
                 , container, () => callback(hooks),
             );
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
