@@ -150,7 +150,8 @@ export default {
                     enum      : UniversalProps.enum,
                     url       : {
                         el    : 'input',
-                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        // value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        value : 'http://mingle-test.local.aidalan.com/mock/select.json',
                         desc  : '列表数据的接口地址',
                         parse : 'string',
                         verify: value => isUrl(value),
@@ -536,17 +537,13 @@ export default {
                     },
                     headerurl: {
                         el   : 'input',
-                        // value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
-                        // value: 'http://192.168.20.121:8081/mgm/header',
-                        value: 'http://e.aidalan.com/presenter/user/device/header?group_type=reg_count',
+                        value: 'http://mingle-test.local.aidalan.com/mock/table/tableHeader.json',
                         parse: 'string',
                         desc : '表头url',
                     },
                     url      : {
                         el   : 'input',
-                        // value: 'http://192.168.20.121:8081/mgm/data',
-                        // value: `http://e.aidalan.com/presenter/user/location/data?pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count`, // 市场日表表头
-                        value: 'http://e.aidalan.com/presenter/user/brand/data?pf=0&date_way=multi&group_way=&date_range=2020-11-11~2020-11-11&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',
+                        value: 'http://mingle-test.local.aidalan.com/mock/table/tableContent.json',
                         parse: 'string',
                         desc : '表数据url',
                     },
