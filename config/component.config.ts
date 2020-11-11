@@ -536,13 +536,17 @@ export default {
                     },
                     headerurl: {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
+                        // value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
+                        // value: 'http://192.168.20.121:8081/mgm/header',
+                        value: 'http://e.aidalan.com/presenter/user/device/header?group_type=reg_count',
                         parse: 'string',
                         desc : '表头url',
                     },
                     url      : {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/user/location/data?pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count`, // 市场日表表头
+                        // value: 'http://192.168.20.121:8081/mgm/data',
+                        // value: `http://e.aidalan.com/presenter/user/location/data?pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count`, // 市场日表表头
+                        value: 'http://e.aidalan.com/presenter/user/brand/data?pf=0&date_way=multi&group_way=&date_range=2020-11-11~2020-11-11&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',
                         parse: 'string',
                         desc : '表数据url',
                     },
@@ -571,12 +575,10 @@ export default {
                     },
                 },
                 style  : {
-                    el    : 'input',
-                    parse : 'null',
-                    value : {
-                        overflow: 'auto',
-                    },
-                    render: false,
+                    el   : 'input',
+                    parse: 'style',
+                    value: 'overflow: auto',
+                    desc : '样式',
                 },
                 height : {
                     el    : 'slider',
@@ -617,7 +619,8 @@ export default {
                     url        : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
+                        value: 'http://mingle-test.local.aidalan.com/mock/chart/areauser.json',
+                        // value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
                         desc : '图表数据接口',
                     },
                     key_field  : {
@@ -731,18 +734,29 @@ export default {
     },
     layout: {
         menu  : {
-            component: import('@component/layout/menu/menu'),
+            component: import('@component/layout/menu/menu2'),
             path     : '/layout-menu',
             property : {
                 dataset: {
-                    url     : UniversalProps.url,
+                    // url     : UniversalProps.url,
+                    url     : {
+                        el   : 'input',
+                        value: 'http://192.168.20.121:8081/mgm/menlist/',
+                        parse: 'string',
+                        desc : '数据源',
+                    },
                     width   : {
                         el   : 'input',
                         value: 200,
-                        parse: 'string',
+                        parse: 'number',
                         desc : '菜单宽度',
                     },
-                    menulist: {},
+                    menulist: {
+                        el   : 'input',
+                        parse: 'JSON',
+                        desc : '菜单数据',
+                        value: `[{"name":"111111111","path":"http://baidu.com","id":"111111","children":[{"name":"child","id":"123213","path":"http://taobao.com"}]},{"name":"2","path":"http://baidu.com","id":"2"}]`,
+                    },
                 },
             },
         },

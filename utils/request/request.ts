@@ -27,6 +27,7 @@ export function jsonp(url: string): Promise<IApiResult> {
     let timeout = 15000;     // 超时时间
     return new Promise((resolve, reject) => {
         window[funcName] = result => {
+            console.log(result);
             if (result.status) {
                 isDone = true;
                 resolve(result);

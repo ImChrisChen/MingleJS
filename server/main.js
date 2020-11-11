@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/11/11 * Time: 3:13 下午 */const Koa = require('koa');const app = new Koa();app.use(async ctx => {    ctx.body = 'Hello World';});app.listen(3000);

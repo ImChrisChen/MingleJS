@@ -62,6 +62,11 @@ npm run build
 2. 组件所有属性均通过 <input data-*="属性值"> 组件默认值通过设置 input 上的value值即可
 3. 组件均有生命周期
 
+## 模拟数据
+
+本项目提供了Mock数据
+
+直接访问到 http://mingle.local.aidalan.com/mock/ 可以看到所有模拟数据
 
 
 ## 组件生命周期

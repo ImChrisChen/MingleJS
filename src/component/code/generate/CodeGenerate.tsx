@@ -205,7 +205,6 @@ class CodeGenerate extends React.Component<any, any> {
         message.success('generate');
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
-        console.log(components);
 
         // 处理属性,生成属性代码
         let attrs = components.map(item => {
@@ -221,16 +220,14 @@ class CodeGenerate extends React.Component<any, any> {
 
             // 有属性默认值则，生成对应的属性代码
             if (item.value) {
-                return `${ item.label }='${ item.value || '' }'`;
+                return `${ item.label }='${ item.value || '' }'\n\t`;
             } else {
                 return undefined;
             }
         }).filter(t => t).join(' ');
 
-        console.log(attrs);
-
         let componentUseCode = this.template.replace(/data-fn='(.*?)'/, v => {
-            v = v.replace(/data-fn='(.*?)'/, `data-fn='${ this.state.componentName }'`);      //替换组件名称
+            v = v.replace(/data-fn='(.*?)'/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });
 
@@ -299,7 +296,7 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     handleSliderChange(index, value) {
-        console.log(value);
+        // console.log(value);
         // this.setAttributeValue(index);
     }
 
