@@ -1,7 +1,3 @@
-input[data-fn] {
-    display : none !important;
-}
-
 body {
     //background : royalblue !important;
 }
@@ -12,16 +8,20 @@ body {
 
 .unable-selection {
     -webkit-user-select : none; /* Chrome/Safari/Opera */
-    -o-user-select      : none;
+    //-o-user-select      : none;
     -moz-user-select    : none; /*火狐 firefox*/
-    -webkit-user-select : none; /*webkit浏览器*/
+    //-webkit-user-select : none; /*webkit浏览器*/
     -ms-user-select     : none; /*IE10+*/
-    -khtml-user-select  : none; /*早期的浏览器*/
+    //-khtml-user-select  : none; /*早期的浏览器*/
     user-select         : none;
 }
 
 form [data-component-container] {
     margin-right : 10px;
+}
+
+input[data-fn] {
+    display : none;
 }
 
 [data-fn] {
