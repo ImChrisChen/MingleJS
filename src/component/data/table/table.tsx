@@ -63,7 +63,7 @@ interface ITableApiRes<T = any> extends IApiResult {
     data: Array<T> | any,
 }
 
-interface ITableProps extends IComponentProps{
+interface ITableProps extends IComponentProps {
     pageSizeOptions: Array<string>
 
     [key: string]: any
@@ -96,19 +96,12 @@ export default class DataTable extends React.Component<ITableProps, any> {
         showSorterTooltip: true,        // 是否显示下一次排序的tip
         showDropdown     : false,       // 是否显示下拉菜单
         showDropdownBtn  : false,       // 是否显示下拉框按钮
-
-        // summary        : (e, v) => {
-        // },
-        // expandable,
-        // footer: () => 'Here is footer',
-        // title          : function () {
-        //     return <>我是默认的表格title🤪🤪🤪🤪</>;
-        // },
-        bordered  : true,
-        pagination: {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
+        bordered         : true,
+        pagination       : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
-            pageSizeOptions : [ 10, 20, 50, 100, 200 ],
-            pageSize        : 100,
+            pageSizeOptions : this.props.dataset.pages, /*[ '10', '20', '50', '100', '200' ]*/
+            pageSize        : this.props.dataset.pagesize ?? 50,
+            position        : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
             onChange        : (page, pageSize) => {    // 页码改变的回调，参数是改变后的页码及每页条数
                 console.log(page, pageSize);
                 this.setState({

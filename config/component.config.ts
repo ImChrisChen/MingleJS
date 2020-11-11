@@ -495,11 +495,9 @@ export default {
         file      : {
             component: import('@component/form/file/file'),
             path     : 'form-file',
-            property: {
-                dataset:{
-                    
-                }
-            }
+            property : {
+                dataset: {},
+            },
         },
     },
     view  : {
@@ -531,10 +529,16 @@ export default {
             property : {
                 dataset: {
                     'from'   : {
-                        el    : 'input',
-                        value : '',
-                        parse : 'string',
-                        render: false,
+                        el   : 'input',
+                        value: '',
+                        parse: 'string',
+                        desc : '要关联的 form表单的ID, 关联后form表单提交即可重新加载table组件的数据',
+                    },
+                    headerurl: {
+                        el   : 'input',
+                        value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
+                        parse: 'string',
+                        desc : '表头url',
                     },
                     url      : {
                         el   : 'input',
@@ -542,11 +546,28 @@ export default {
                         parse: 'string',
                         desc : '表数据url',
                     },
-                    headerurl: {
+                    pagesize : {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
-                        parse: 'string',
-                        desc : '表头url',
+                        parse: 'number',
+                        desc : '表格每页显示数量',
+                        value: 50,
+                    },
+                    pages    : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '50,100,200',
+                        desc : '自定义分页器页码',
+                    },
+                    position : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'bottomLeft', value: 'bottomLeft' },
+                            { label: 'bottomCenter', value: 'bottomCenter' },
+                            { label: 'bottomRight', value: 'bottomRight' },
+                        ],
+                        parse  : 'string',
+                        value  : 'bottomRight',
+                        desc   : '分页器的位置',
                     },
                 },
                 style  : {
