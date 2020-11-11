@@ -732,6 +732,12 @@ export default {
     layout: {
         menu  : {
             component: import('@component/layout/menu/menu'),
+            path     : '/layout-menu',
+            property : {
+                dataset: {
+                    url: UniversalProps.url,
+                },
+            },
         },
         tab   : {
             component: import('@component/layout/tab/tab'),
