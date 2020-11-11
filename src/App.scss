@@ -1,19 +1,5 @@
-body {
-    //background : royalblue !important;
-}
-
 [data-component-container] {
     //padding-right : 20px;
-}
-
-.unable-selection {
-    -webkit-user-select : none; /* Chrome/Safari/Opera */
-    //-o-user-select      : none;
-    -moz-user-select    : none; /*火狐 firefox*/
-    //-webkit-user-select : none; /*webkit浏览器*/
-    -ms-user-select     : none; /*IE10+*/
-    //-khtml-user-select  : none; /*早期的浏览器*/
-    user-select         : none;
 }
 
 form [data-component-container] {
@@ -25,6 +11,5 @@ input[data-fn] {
 }
 
 [data-fn] {
-    //overflow : auto;
     position : relative;
 }
