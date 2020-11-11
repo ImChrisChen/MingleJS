@@ -1,1 +1,1 @@
-export const unableSelection: string;
+export {};
