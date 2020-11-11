@@ -736,11 +736,43 @@ export default {
             property : {
                 dataset: {
                     // url     : UniversalProps.url,
-                    url     : {
+                    url : {
                         el   : 'input',
-                        value: 'http://192.168.20.121:8081/mgm/menlist/',
+                        // value: 'http://192.168.20.121:8081/mgm/menlist/',
+                        value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
                         parse: 'string',
                         desc : '数据源',
+                    },
+                    open: {
+                        el   : 'switch',
+                        value: true,
+                        parse: 'boolean',
+                        desc : '是否默认展开',
+                    },
+                    id  : {
+                        el   : 'input',
+                        value: 'appMenuId',
+                        parse: 'string',
+                        desc : '菜单ID映射字段名称,例如:id',
+                    },
+                    pid : {
+                        el   : 'input',
+                        value: 'r_father',
+                        parse: 'string',
+                        desc : '菜单父级映射字段名称,例如:parent_id',
+                    },
+                    name: {
+                        el   : 'input',
+                        value: 'name',
+                        parse: 'string',
+                        desc : '菜单名称映射字段名称,例如:menu_name',
+                    },
+
+                    children: {
+                        el   : 'input',
+                        value: 'children',
+                        parse: 'string',
+                        desc : '子菜单映射字段名称,例如:children',
                     },
                     width   : {
                         el   : 'input',
@@ -749,10 +781,11 @@ export default {
                         desc : '菜单宽度',
                     },
                     menulist: {
-                        el   : 'input',
-                        parse: 'JSON',
-                        desc : '菜单数据',
-                        value: `[{"name":"111111111","path":"http://baidu.com","id":"111111","children":[{"name":"child","id":"123213","path":"http://taobao.com"}]},{"name":"2","path":"http://baidu.com","id":"2"}]`,
+                        el    : 'input',
+                        parse : 'JSON',
+                        desc  : '菜单数据',
+                        value : `[{"name":"111111111","path":"http://baidu.com","id":"111111","children":[{"name":"child","id":"123213","path":"http://taobao.com"}]},{"name":"2","path":"http://baidu.com","id":"2"}]`,
+                        render: false,
                     },
                 },
             },

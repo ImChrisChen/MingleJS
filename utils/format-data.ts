@@ -64,6 +64,7 @@ interface IKeyMap {
     id: string
     pid: string
     name: string
+    children?: string
 }
 
 /**
@@ -72,15 +73,16 @@ interface IKeyMap {
  * @param id    id 唯一值
  * @param pid   pid/id 形成父级关系映射
  * @param name  展示的内容字段 / 模版
+ * @param children
  */
-export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): Array<object> {
+export function formatList2Tree(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
     let selectTree: Array<object> = pids.map(pid => {
         return {
-            id      : pid,              // 父子映射关系
-            children: [],
-            label   : pid,
-            value   : pid,
+            id        : pid,              // 父子映射关系
+            [children]: [],
+            label     : pid,
+            value     : pid,
         };
     });
     list.forEach(item => {
@@ -89,7 +91,7 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
         let label = templateVerifyParser(name, item);
 
         if (superItem) {
-            superItem.children.push({
+            superItem[children].push({
                 id   : label,
                 value: item[id],
                 label: label,

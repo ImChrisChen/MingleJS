@@ -16,7 +16,8 @@
     </div>
 
     <button id="btn" class="ant-btn ant-btn-primary" data-fn="layout-window">Submit
-        <div>1232109831239i2130921382190381 <{data.length}></div>
+        <div>1232109831239i2130921382190381 <{data.length}> <span role="img" aria-label="step-forward"
+                                                                  class="anticon anticon-step-forward"></span></div>
     </button>
 
 </div>
@@ -28,12 +29,12 @@ select date as day,sum(money) from order_list group by date
 update date_pay_sum set pay_sum=0;
 insert into date_pay_sum values(20201110,1000);
 {
-    "task_name": "date_pay_sum",
-    "source_table":"order_list",
-    "source_group":"date",
-    "target_table":"date_pay_sum",
-    "target_fields": {
-        "date":{"source_field":"pay_time","alias":"day"},
-        "pay_sum":"money|sum",
-    }
+"task_name": "date_pay_sum",
+"source_table":"order_list",
+"source_group":"date",
+"target_table":"date_pay_sum",
+"target_fields": {
+"date":{"source_field":"pay_time","alias":"day"},
+"pay_sum":"money|sum",
+}
 }
