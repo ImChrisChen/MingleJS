@@ -735,7 +735,14 @@ export default {
             path     : '/layout-menu',
             property : {
                 dataset: {
-                    url: UniversalProps.url,
+                    url     : UniversalProps.url,
+                    width   : {
+                        el   : 'input',
+                        value: 200,
+                        parse: 'string',
+                        desc : '菜单宽度',
+                    },
+                    menulist: {},
                 },
             },
         },

@@ -4,7 +4,6 @@
  * Date: 2020/9/24
  * Time: 9:56 下午
  */
-
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 let version = new Date().getTime();
 
@@ -26,7 +25,11 @@ let __scripts__ = __files__.map(file => {
 
 document.body.append(...__scripts__);
 
+// 判读文件后缀是否是js
 function isJavascript(file) {
-    return file.split('.')[1] === 'js';
+    let filenames = file.split('.');
+    let lastIndex = filenames.length - 1;
+    let suffix = filenames[lastIndex];
+    return suffix === 'js';
 }
 
