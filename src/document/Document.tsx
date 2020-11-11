@@ -19,7 +19,8 @@ import { Link } from 'react-router-dom';
 import html from '@root/template/user_analysis.html';
 import html2 from '@root/template/temaplte.pkg.html';
 import App from '@src/App';
-import readmeMarkdown from '@root/README.md';
+import developmentDocs from '@root/README.md';
+import usageDocs from '@root/README-USAGE.md';
 import tplEngine from '@root/template/tpl-engine.html';
 import $ from 'jquery';
 import regExpManual from '@root/template/regexp_manual.html';
@@ -88,11 +89,12 @@ class Document extends React.Component<any, any> {
 
                         <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
                             <Menu.Item key="1"><Link to={ '/code-generate' }>组件设计器</Link></Menu.Item>
-                            <Menu.Item key="2"><Link to={ '/test' }>测试页面</Link></Menu.Item>
+                            <Menu.Item key="2"><Link to={ '/' }>使用文档</Link></Menu.Item>
+                            <Menu.Item key="3"><Link to={ '/development-docs' }>开发文档</Link></Menu.Item>
+                            <Menu.Item key="4"><Link to={ '/test' }>测试页面</Link></Menu.Item>
                             <Menu.Item key="5"><Link to={ '/test2' }>测试页面2</Link></Menu.Item>
                             <Menu.Item key="6"><Link to={ '/tpl-engine' }>模版引擎</Link></Menu.Item>
-                            <Menu.Item key="3"><Link to={ '/' }>开发文档</Link></Menu.Item>
-                            <Menu.Item key="4"><Link to={ '/regexp-manual' }>正则手册</Link></Menu.Item>
+                            <Menu.Item key="7"><Link to={ '/regexp-manual' }>正则手册</Link></Menu.Item>
                         </Menu>
 
                     </Header>
@@ -106,13 +108,18 @@ class Document extends React.Component<any, any> {
                     >
                         <Switch>
                             { ...Routes }
-                            <Route path={ '/' } exact
-                                   render={ () => <FormEditor visibleEditor={ false } value={ readmeMarkdown }/> }/>
-                            <Route path={ '/test' } exact render={ () => <TestPage html={ html }/> }/>
-                            <Route path={ '/test2' } exact render={ () => <TestPage html={ html2 }/> }/>
-                            <Route path={ '/tpl-engine' } exact render={ () => <TestPage html={ tplEngine }/> }/>
-                            <Route path={ '/code-generate' } exact render={ () => <CodeGenerate/> }/>
-                            <Route path={ '/regexp-manual' } exact render={ () => <TestPage html={ regExpManual }/> }/>
+                            <Route path={ '/' } exact key="/"
+                                   render={ () => <FormEditor visibleEditor={ false } value={ usageDocs }/> }/>
+                            <Route path={ '/development-docs' } exact key="development-docs"
+                                   render={ () => <FormEditor visibleEditor={ false } value={ developmentDocs }/> }/>
+                            <Route path={ '/test' } key="test" exact render={ () => <HtmlRender html={ html }/> }/>
+                            <Route path={ '/test2' } key="test2" exact render={ () => <HtmlRender html={ html2 }/> }/>
+                            <Route path={ '/tpl-engine' } key="tpl-engine" exact
+                                   render={ () => <HtmlRender html={ tplEngine }/> }/>
+                            <Route path={ '/code-generate' } key="code-generate" exact
+                                   render={ () => <CodeGenerate/> }/>
+                            <Route path={ '/regexp-manual' } key="regexp-manual" exact
+                                   render={ () => <HtmlRender html={ regExpManual }/> }/>
                             <Redirect from="*" to="/" exact/>
                         </Switch>
 
@@ -128,22 +135,23 @@ class Document extends React.Component<any, any> {
     }
 }
 
-class TestPage extends React.Component<{ html: string }, any> {
+class HtmlRender extends React.Component<{ html: string }, any> {
     constructor(props) {
+        console.log('htmlrender');
         super(props);
         this.renderHtml();
     }
 
     renderHtml() {
         setTimeout(() => {
-            let TestPage = $('.TestPage');
-            TestPage.html('').append($(this.props.html));
-            new App(TestPage.get(0));
+            let HtmlRender = $('.HtmlRender');
+            HtmlRender.html('').append($(this.props.html));
+            new App(HtmlRender.get(0));
         });
     }
 
     render() {
-        return <div className="TestPage"/>;
+        return <div className="HtmlRender"/>;
     }
 }
 

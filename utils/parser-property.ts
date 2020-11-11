@@ -7,6 +7,7 @@
 
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
+import { isString } from '@utils/inspect';
 
 // 解析dataset data-*
 export function parserProperty(dataset, defaultDataset): object {
@@ -52,7 +53,8 @@ export function parserProperty(dataset, defaultDataset): object {
 }
 
 // 解析普通属性 name value placeholder ...
-export function parserAttrs(attrs, defaultAttrsConfig) {
+export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
+    console.log(parsedDataset);
     let defaultAttrs = {};
 
     for (const key in defaultAttrsConfig) {
@@ -63,7 +65,7 @@ export function parserAttrs(attrs, defaultAttrsConfig) {
             let { value, parse, verify } = currentProperty;
 
             // value值函数解析
-            if (value && typeof value === 'function') value = value();
+            if (value && typeof value === 'function') value = value(parsedDataset);
 
             // 属性函数验证
             if (verify && !verify(value)) {
@@ -78,7 +80,8 @@ export function parserAttrs(attrs, defaultAttrsConfig) {
     // TODO 默认处理属性，不用写/读取配置去解析
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
-        if (key === 'style') {
+        if (key === 'style' && isString(finalAttrs[key])) {
+            console.log(finalAttrs);
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
     }
@@ -89,7 +92,7 @@ export function parserAttrs(attrs, defaultAttrsConfig) {
 
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
-    switch (parse) {
+    switch(parse) {
 
         case 'string':            // 模版解析
             value = parseTpl(value, document.body);

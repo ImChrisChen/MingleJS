@@ -15,7 +15,7 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker';
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider';
 
 export interface IOptions {
     label: string
@@ -61,21 +61,6 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     }
 }
 
-const SizeOptions = [
-    {
-        label: 'large',
-        value: 'large',
-    },
-    {
-        label: 'middle',
-        value: 'middle',
-    },
-    {
-        label: 'small',
-        value: 'small',
-    },
-];
-
 // TODO 提取公共属性(待调整)
 const UniversalProps = {
     label      : {},
@@ -83,8 +68,12 @@ const UniversalProps = {
         render: false,
         desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
         parse : 'string',
-        value : (config: IComponentConfig) => {
-            return '请选择' + config?.property?.dataset.label;
+        value : (parsedDataset) => {
+            if (!parsedDataset) return '';
+            let label = parsedDataset.label.includes(':')
+                ? parsedDataset.label.substring(0, parsedDataset.label.length - 1)
+                : parsedDataset.label;
+            return '请选择' + label;
         },
     },
     style      : {
@@ -99,11 +88,46 @@ const UniversalProps = {
         parse : 'string',
         verify: value => isUrl(value),
     },
+    'enum'     : {
+        el   : 'list',
+        value: '1,Android;2,iOS;3,MacOS;4,Windows',
+        // value: '',
+        desc : '列表数据 逗号两边分别对应 key - value; 注意：如果有了data-url属性，data-enum则失效，data-enum,data-url二选一',
+        parse: 'object[]',
+    },
+    disabled   : {
+        el   : 'switch',
+        value: false,
+        parse: 'boolean',
+        desc : '是否禁用',
+    },
+    size       : {
+        el     : 'radio',
+        options: [
+            {
+                label: 'large',
+                value: 'large',
+            },
+            {
+                label: 'middle',
+                value: 'middle',
+            },
+            {
+                label: 'small',
+                value: 'small',
+            },
+        ],
+        parse  : 'string',
+        value  : '设置大小',
+    },
 } as {
     label: IPropertyConfig
     placeholder: IPropertyConfig
     url: IPropertyConfig
     style: IPropertyConfig
+    enum: IPropertyConfig
+    disabled: IPropertyConfig
+    size: IPropertyConfig
     [key: string]: IPropertyConfig
 };
 
@@ -123,13 +147,7 @@ export default {
                         desc     : `label 标签的文本`,
                         parse    : 'string',
                     },
-                    enum      : {
-                        el   : 'list',
-                        // value: '1,Android;2,iOS;3,MacOS;4,Windows',
-                        value: '',
-                        desc : '列表数据 逗号两边分别对应 key - value',
-                        parse: 'object[]',
-                    },
+                    enum      : UniversalProps.enum,
                     url       : {
                         el    : 'input',
                         value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
@@ -137,12 +155,7 @@ export default {
                         parse : 'string',
                         verify: value => isUrl(value),
                     },
-                    disabled  : {
-                        el   : 'switch',
-                        value: false,
-                        desc : '是否禁用',
-                        parse: 'boolean',
-                    },
+                    disabled  : UniversalProps.disabled,
                     mode      : {
                         el     : 'radio',
                         options: [
@@ -247,12 +260,7 @@ export default {
             component: import('@component/form/select/tree/tree'),
             property : {
                 dataset: {
-                    size: {
-                        el     : 'radio',
-                        options: SizeOptions,
-                        parse  : 'string',
-                        value  : '',
-                    },
+                    size: UniversalProps.size,
                 },
                 value  : {},
                 hook   : {},
@@ -358,8 +366,8 @@ export default {
                     layout: {
                         el     : 'radio',
                         options: [
-                            { label: 'block', value: 'block' },
-                            { label: 'flex', value: 'flex' },
+                            { label: 'v', value: 'v' },
+                            { label: 'h', value: 'h' },
                         ],
                         parse  : 'string',
                         value  : 'flex',
@@ -378,22 +386,9 @@ export default {
                         desc : '',
                         parse: 'string',
                     },
-                    enum       : {
-                        el   : 'list',
-                        value: '1,Android;2,iOS',
-                        parse: 'object[]',
-                    },
-                    disabled   : {
-                        el   : 'switch',
-                        value: false,
-                        parse: 'boolean',
-                    },
-                    size       : {
-                        el     : 'radio',
-                        options: SizeOptions,
-                        value  : 'middle',
-                        parse  : 'string',
-                    },
+                    enum       : UniversalProps.enum,
+                    disabled   : UniversalProps.disabled,
+                    size       : UniversalProps.size,
                     optionType : {
                         el     : 'radio',
                         options: [
@@ -449,10 +444,7 @@ export default {
             component: import('@component/form/switch/switch'),
             property : {
                 dataset: {
-                    disabled         : {
-                        el   : 'switch',
-                        value: false,
-                    },
+                    disabled         : UniversalProps.disabled,
                     label            : {
                         el   : 'input',
                         value: 'form-switch',
@@ -503,6 +495,9 @@ export default {
         file      : {
             component: import('@component/form/file/file'),
             path     : 'form-file',
+            property : {
+                dataset: {},
+            },
         },
     },
     view  : {
@@ -534,22 +529,45 @@ export default {
             property : {
                 dataset: {
                     'from'   : {
-                        el    : 'input',
-                        value : '',
-                        parse : 'string',
-                        render: false,
-                    },
-                    url      : {
                         el   : 'input',
-                        value: ``, // 市场日表表头
+                        value: '',
                         parse: 'string',
-                        desc : '表数据url',
+                        desc : '要关联的 form表单的ID, 关联后form表单提交即可重新加载table组件的数据',
                     },
                     headerurl: {
                         el   : 'input',
-                        value: ``,         //  市场日表
+                        value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
                         parse: 'string',
                         desc : '表头url',
+                    },
+                    url      : {
+                        el   : 'input',
+                        value: `http://e.aidalan.com/presenter/user/location/data?pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count`, // 市场日表表头
+                        parse: 'string',
+                        desc : '表数据url',
+                    },
+                    pagesize : {
+                        el   : 'input',
+                        parse: 'number',
+                        desc : '表格每页显示数量',
+                        value: 50,
+                    },
+                    pages    : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '50,100,200',
+                        desc : '自定义分页器页码',
+                    },
+                    position : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'bottomLeft', value: 'bottomLeft' },
+                            { label: 'bottomCenter', value: 'bottomCenter' },
+                            { label: 'bottomRight', value: 'bottomRight' },
+                        ],
+                        parse  : 'string',
+                        value  : 'bottomRight',
+                        desc   : '分页器的位置',
                     },
                 },
                 style  : {
@@ -560,6 +578,12 @@ export default {
                     },
                     render: false,
                 },
+                height : {
+                    el    : 'slider',
+                    value : 500,
+                    parse : 'number',
+                    render: false,
+                },
             },
         },
         image          : {
@@ -567,13 +591,19 @@ export default {
             path     : '/data-image',
             property : {
                 dataset: {
-                    'from'    : {
+                    'from'     : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    type      : {
+                    name       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
+                    },
+                    type       : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -581,49 +611,51 @@ export default {
                             { label: '柱状图', value: 'bar' },
                             { label: '折线图', value: 'line' },
                         ],
-                        value  : 'pie',
+                        value  : 'bar',
+                        desc   : '图表类型,默认柱状图',
                     },
-                    url       : {
+                    url        : {
                         el   : 'input',
                         parse: 'string',
-                        value: '',
+                        value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
                         desc : '图表数据接口',
                     },
-                    colors    : {
+                    key_field  : {
                         el   : 'input',
-                        value: '["#6ad6b6"]',
-                        parse: 'JSON',
-                        desc : '图表配置主色调',
+                        value: 'location',
+                        parse: 'string',
+                        desc : '图表统计维度的字段名',
                     },
-                    xaxis     : {
+                    value_field: {
                         el   : 'input',
-                        value: '',
-                        parse: 'JSON',
-                        desc : 'x轴的配置',
+                        parse: 'string',
+                        value: 'count',
+                        desc : '图表统计的value值字段名',
                     },
-                    series    : {
+                    colors     : {
                         el   : 'input',
-                        value: '',
-                        parse: 'JSON',
-                        desc : '',
+                        value: '#6ad6b6',
+                        parse: 'string[]',
+                        desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
                     },
-                    category  : {
+                    groupby    : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
-                        desc : '多维度统计指定的key',
+                        desc : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    size      : {
+                    size       : {
                         el   : 'input',
                         value: '{"height": 400}',
                         parse: 'JSON',
+                        desc : '图表大小',
                     },
-                    datadirect: {
+                    datadirect : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                     },
-                    title     : {
+                    title      : {
                         el   : 'input',
                         value: '',
                         parse: 'string',

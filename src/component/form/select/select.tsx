@@ -95,6 +95,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
 
                     { ...dataset }
+                    placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
                     style={ { minWidth: 100 } }
                     value={ value }

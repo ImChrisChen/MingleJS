@@ -5,7 +5,7 @@
  * Time: 1:37 下午
  */
 
-import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Space, Switch } from 'antd';
+import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap from '@root/config/component.config';
@@ -35,7 +35,7 @@ interface ICodeGenerateProps {
 }
 
 class CodeGenerate extends React.Component<any, any> {
-    private template = `<input data-fn="form-button" />`;
+    private template = `<input data-fn='form-button' />`;
     private form: any = React.createRef<FormInstance>();
     state = {
         components        : this.getComponents(),
@@ -205,6 +205,9 @@ class CodeGenerate extends React.Component<any, any> {
         message.success('generate');
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
+        console.log(components);
+
+        // 处理属性,生成属性代码
         let attrs = components.map(item => {
             if (!item.render) {
                 return undefined;
@@ -216,15 +219,18 @@ class CodeGenerate extends React.Component<any, any> {
                 funcNames.push({ funcName, hookName });
             }
 
+            // 有属性默认值则，生成对应的属性代码
             if (item.value) {
-                return `${ item.label }="${ item.value || '' }"`;
+                return `${ item.label }='${ item.value || '' }'`;
             } else {
                 return undefined;
             }
         }).filter(t => t).join(' ');
 
-        let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
-            v = v.replace(/data-fn="(.*?)"/, `data-fn="${ this.state.componentName }"`);      //替换组件名称
+        console.log(attrs);
+
+        let componentUseCode = this.template.replace(/data-fn='(.*?)'/, v => {
+            v = v.replace(/data-fn='(.*?)'/, `data-fn='${ this.state.componentName }'`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });
 
@@ -292,10 +298,16 @@ class CodeGenerate extends React.Component<any, any> {
         this.generateCode();
     }
 
+    handleSliderChange(index, value) {
+        console.log(value);
+        // this.setAttributeValue(index);
+    }
+
     async setDataEnum() {
         let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);
         await this.setState({ dataEnum });
     }
+
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
 
@@ -440,6 +452,18 @@ class CodeGenerate extends React.Component<any, any> {
                                                 allowClear={ true }
                                                 showSearch={ true }
                                         />
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+                        } else if (item.el === 'slider') {
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label }>
+                                        <Slider defaultValue={ 30 }
+                                                tooltipVisible
+                                                max={ 1000 }
+                                                min={ 200 }
+                                                onChange={ this.handleSliderChange.bind(this, key) }/>
                                     </Form.Item>
                                 </Col>
                             </Row>;

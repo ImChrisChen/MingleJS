@@ -15,7 +15,11 @@ interface IFormData {
     [key: string]: string | any
 }
 
-export default class FormAjax extends React.Component<IComponentProps, any> {
+interface IFormAjax extends IComponentProps {
+    layout?: 'v' | 'h'
+}
+
+export default class FormAjax extends React.Component<IFormAjax, any> {
 
     constructor(props) {
         super(props);
@@ -36,9 +40,13 @@ export default class FormAjax extends React.Component<IComponentProps, any> {
     }
 
     private setLayout(formElement: HTMLElement) {
-        if (this.props.dataset.layout === 'flex') {
+
+        if (this.props.dataset.layout === 'h') {
             $(formElement).css({ display: 'flex' });
-        } else {
+        }
+
+        if (this.props.dataset.layout === 'v') {
+            console.log(formElement);
         }
     }
 

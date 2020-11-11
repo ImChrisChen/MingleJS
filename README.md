@@ -185,7 +185,7 @@ window.funcName = function () {
 
 ## 样式
 
-`在input中输入style属性，可直接作作用于当前组件`
+`在input中输入style属性，可直接作作用于当前组件的style属性`
 
 在实例化组件之前，获取到style属性的值，然后转换成JSX的style样式。设置进组件内
 
@@ -193,5 +193,5 @@ window.funcName = function () {
 <input data-fn="form-input" style="width:200px" />
 ~~~
 
-
+​	
 

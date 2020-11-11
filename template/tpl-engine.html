@@ -21,3 +21,19 @@
 
 </div>
 
+// 数据统计任务配置
+// 统计的数据源，统计方式，数据最终到哪去
+// 举例：数据源 订单日志，统计方式：按日分组求和   最终统计到：日累计充值表
+select date as day,sum(money) from order_list group by date
+update date_pay_sum set pay_sum=0;
+insert into date_pay_sum values(20201110,1000);
+{
+    "task_name": "date_pay_sum",
+    "source_table":"order_list",
+    "source_group":"date",
+    "target_table":"date_pay_sum",
+    "target_fields": {
+        "date":{"source_field":"pay_time","alias":"day"},
+        "pay_sum":"money|sum",
+    }
+}
