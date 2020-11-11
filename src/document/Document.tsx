@@ -42,6 +42,7 @@ class Document extends React.Component<any, any> {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });
+            console.log(list);
             this.setState({ menuList: list, routes });
         });
     }
