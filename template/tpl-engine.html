@@ -16,8 +16,14 @@
     </div>
 
     <button id="btn" class="ant-btn ant-btn-primary" data-fn="layout-window">Submit
-        <div>1232109831239i2130921382190381 <{data.length}> <span role="img" aria-label="step-forward"
-                                                                  class="anticon anticon-step-forward"></span></div>
+<!--        <div>表格<{data.length}></div>-->
+        <div data-fn="data-table"
+             data-height="400"
+             data-from="user_analysis"
+             data-headerurl="/mock/table/tableHeader.json"
+             data-url="/mock/table/tableContent.json"
+        ></div>
+
     </button>
 
 </div>

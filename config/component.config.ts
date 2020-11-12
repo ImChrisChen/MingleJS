@@ -575,37 +575,43 @@ export default {
             path     : '/data-table',
             property : {
                 dataset: {
-                    'from'   : {
+                    'from'    : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                         desc : '要关联的 form表单的ID, 关联后form表单提交即可重新加载table组件的数据',
                     },
-                    headerurl: {
+                    headerurl : {
                         el   : 'input',
                         value: domain + '/mock/table/tableHeader.json',
                         parse: 'string',
                         desc : '表头url',
                     },
-                    url      : {
-                        el     : 'input',
-                        value  : domain + '/mock/table/tableContent.json',
-                        parse  : 'string',
-                        desc   : '表数据url',
+                    url       : {
+                        el   : 'input',
+                        value: domain + '/mock/table/tableContent.json',
+                        parse: 'string',
+                        desc : '表数据url',
                     },
-                    pagesize : {
+                    pagesize  : {
                         el   : 'input',
                         parse: 'number',
                         desc : '表格每页显示数量',
                         value: 50,
                     },
-                    pages    : {
+                    pages     : {
                         el   : 'input',
                         parse: 'string[]',
                         value: '50,100,200',
                         desc : '自定义分页器页码',
                     },
-                    position : {
+                    pagination: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否显示分页器',
+                    },
+                    position  : {
                         el     : 'radio',
                         options: [
                             { label: 'bottomLeft', value: 'bottomLeft' },
@@ -616,6 +622,13 @@ export default {
                         value  : 'bottomRight',
                         desc   : '分页器的位置',
                     },
+                    height    : {
+                        el    : 'input',
+                        value : ''/*'300'*/,
+                        parse : 'number',
+                        desc  : '表格内容高度, 可滚动',
+                        render: true,
+                    },
                 },
                 // style  : {
                 //     el   : 'input',
@@ -623,13 +636,6 @@ export default {
                 //     value: 'overflow: auto;height:200px',
                 //     desc : '样式',
                 // },
-                height : {
-                    el    : 'input',
-                    value : ''/*'300px'*/,
-                    parse : 'number',
-                    desc  : '表格内容高度, 可滚动',
-                    render: true,
-                },
             },
         },
         image          : {
