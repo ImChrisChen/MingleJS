@@ -8,13 +8,15 @@
 import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
-import componentMap from '@root/config/component.config';
+import componentMap, { IOptions } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/parser-tpl';
 import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
+import { jsonp } from '@utils/request/request';
+import { isObject } from '@utils/inspect';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -54,6 +56,7 @@ class CodeGenerate extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        console.log('-----------');
         formatComponents2Tree(componentMap).then(tree => {
             this.setState({
                 componentsTree: tree,
@@ -90,6 +93,7 @@ class CodeGenerate extends React.Component<any, any> {
     async handleChangeComponent(e, v) {
         let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
+        let fieldOptions: Array<IOptions> = [];
         if (!currentComponent.property) {
             console.error('请配置组件的proerty属性');
             this.setState({
@@ -113,6 +117,17 @@ class CodeGenerate extends React.Component<any, any> {
                 val.value = val.value();
             }
 
+            if (k === 'url') {
+                let res = await jsonp(val.value);
+                let dataItem = res.status ? res?.data[0] : undefined;
+                if (dataItem && isObject(dataItem)) {
+                    for (const itemKey in dataItem) {
+                        if (!dataItem.hasOwnProperty(itemKey)) continue;
+                        fieldOptions.push({ label: itemKey, value: itemKey });
+                    }
+                }
+            }
+
             if (k === 'enum') {
                 dataEnum = formatEnumOptions(parseEnum(val.value));           // 1,Android;2,iOS => // [{label:'',value:''}]
             }
@@ -122,10 +137,20 @@ class CodeGenerate extends React.Component<any, any> {
 
             }
 
+            let options = val.options;
+            let el = val.el;
+
+            if (options === 'fromUrl') {
+                if (fieldOptions.length > 0) {
+                    options = fieldOptions;
+                    el = 'select';
+                }
+            }
+
             arr.push({
                 label  : `data-${ k }`,       //
-                el     : val.el,
-                options: val.options,
+                el     : el,
+                options: options,
                 value  : val.value,
                 desc   : val.desc,
                 render : val.render !== false,
@@ -192,6 +217,7 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     handleChangeSwitch(index, value) {
+        console.log(value);
         this.setAttributeValue(index, value);
         this.generateCode();
     }
@@ -218,9 +244,11 @@ class CodeGenerate extends React.Component<any, any> {
                 funcNames.push({ funcName, hookName });
             }
 
+
+            // TODO 后续需要完善，选中的值如果和默认值相等，就不用生成对应的属性代码
             // 有属性默认值则，生成对应的属性代码
-            if (item.value) {
-                return `${ item.label }='${ item.value || '' }'\n\t`;
+            if (typeof item.value !== 'undefined') {
+                return `${ item.label }='${ item.value ?? '' }'\n\t`;
             } else {
                 return undefined;
             }

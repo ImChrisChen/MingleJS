@@ -202,10 +202,10 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
     formatConfig() {
         let {
-            key_field  : genre,
-            type       : chartType,
-            name       : genreName,
-            value_field: compare,
+            key  : genre,       // data数据 key 值映射
+            value: compare,     // data数据 value 值映射
+            type : chartType,
+            name : genreName,
             series,
             size,
             colors,
@@ -226,13 +226,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 height  : size.height,
                 chartType,
             };
-        } catch(e) {
+        } catch (e) {
             return {};
         }
     }
 
     renderChart(config) {
-        switch(config.chartType) {
+        switch (config.chartType) {
             case 'bar':
                 return this.bar(config);
             case 'line':

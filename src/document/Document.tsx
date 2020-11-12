@@ -94,6 +94,10 @@ class Document extends React.Component<any, any> {
                             <Menu.Item key="5"><Link to={ '/test2' }>测试页面2</Link></Menu.Item>
                             <Menu.Item key="6"><Link to={ '/tpl-engine' }>模版引擎</Link></Menu.Item>
                             <Menu.Item key="7"><Link to={ '/regexp-manual' }>正则手册</Link></Menu.Item>
+                            <Menu.Item key="8">
+                                <a href="https://ant-design.gitee.io/components/overview-cn/"
+                                   target="_blank">ant-design</a>
+                            </Menu.Item>
                         </Menu>
 
                     </Header>

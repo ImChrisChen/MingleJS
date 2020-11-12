@@ -10,6 +10,7 @@ import { Button, DatePicker, Form } from 'antd';
 import moment from 'moment';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
+import { isArray } from '@utils/inspect';
 
 const { RangePicker } = DatePicker;
 
@@ -32,15 +33,11 @@ interface IDatepickerState {
 export default class Datepicker extends React.Component<IComponentProps, any> {
 
     state: any = {
-        format : 'YYYY-MM-DD',
-        single : true,
-        picker : 'date',      // date | week | month | quarter | year
-        mindate: '',
-        maxdate: '',
+        format: 'YYYY-MM-DD',
         // mode        : 'decade',          // time | date | month | year | decade
         // defaultValue: [ "2020-09-11", "2020-09-17" ],
-        value  : [],
-        open   : false,
+        value : [],
+        open  : false,
     };
 
     constructor(props) {
@@ -66,43 +63,44 @@ export default class Datepicker extends React.Component<IComponentProps, any> {
             open : false,
         });
 
-        trigger(this.props.el, value.join('~'));
+        value = isArray(value) ? value.join('~') : value;
+        console.log(value);
+        trigger(this.props.el, value);
     }
 
     // 今天
-    handleClickToday() {
-        let beginTime = moment().format('YYYY-MM-DD');
-        let endTime = moment().format('YYYY-MM-DD');
-        let value = [ beginTime, endTime ];
-        this.setState({
-            value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
-        });
-        trigger(this.props.el, value.join(','));
-    }
+    handleSelectDay(diffDay) {
+        // let beginTime = moment().format('YYYY-MM-DD');
+        // let endTime = moment().format('YYYY-MM-DD');
+        // let value = [ beginTime, endTime ];
+        // this.setState({
+        //     value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
+        // });
+        // trigger(this.props.el, value.join(','));
 
-    handleClickYesterday() {
         // 昨天
-        let beginTime = moment().subtract(1, 'days').format('YYYY-MM-DD');
-        let endTime = moment().subtract(1, 'days').format('YYYY-MM-DD');
+        let beginTime = moment().subtract(diffDay, 'days').format('YYYY-MM-DD');
+        let endTime = moment().subtract(0, 'days').format('YYYY-MM-DD');
 
         let value = [ beginTime, endTime ];
         this.setState({
             value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
             open : false,
         }, () => trigger(this.props.el, value.join(',')));
-
     }
 
-    handleClickBeforeYesterday() {
-
-    }
-
-    handleClickSevenDay() {
-
-    }
-
-    handleClickCurMonth() {
-
+    renderCustomDay() {
+        let dayMap = [
+            { label: '今天', day: 0 },
+            { label: '昨天', day: 1 },
+            { label: '前天', day: 2 },
+            { label: '7天', day: 7 },
+            { label: '30天', day: 30 },
+        ];
+        return dayMap.map(item => {
+            return <Button key={ item.day }
+                           onClick={ this.handleSelectDay.bind(this, item.day) }>{ item.label } </Button>;
+        });
     }
 
     handleFoucs() {
@@ -115,8 +113,8 @@ export default class Datepicker extends React.Component<IComponentProps, any> {
 
     render() {
         console.log(this.props);
-        let { singledatepicker: single, picker, mode, defaultValue, value, mindate, maxdate, format } = this.state;
-        console.log(this.state);
+        // let date = moment().format('YYYY-MM-DD');
+        let { single, picker, mode, mindate, maxdate, format, allowClear } = this.props.dataset;
         return <>
             <Form.Item label={ this.props.dataset.label } style={ { display: 'flex' } }>
                 { single ?
@@ -125,6 +123,7 @@ export default class Datepicker extends React.Component<IComponentProps, any> {
                         picker={ picker }
                         onChange={ this.handleChange.bind(this) }
                         mode={ mode }
+                        format={ format }
                     />
                     :
                     // 多选
@@ -133,19 +132,10 @@ export default class Datepicker extends React.Component<IComponentProps, any> {
                         onFocus={ this.handleFoucs.bind(this) }
                         onBlur={ this.handleBlur.bind(this) }
                         onChange={ this.handleChange.bind(this) }
+                        format={ format }
                         picker={ picker }
-                        // defaultValue={ [ moment('2015-06-06', format), moment('2015-06-06', format) ] }
-                        allowClear={ false }
-                        value={ value }
-                        renderExtraFooter={ e =>
-                            <>
-                                <Button onClick={ this.handleClickToday.bind(this) }>今天</Button>
-                                { <Button onClick={ this.handleClickYesterday.bind(this) }>昨天</Button> }
-                                { <Button onClick={ this.handleClickBeforeYesterday.bind(this) }>前天</Button> }
-                                { <Button onClick={ this.handleClickSevenDay.bind(this) }>7天</Button> }
-                                { <Button onClick={ this.handleClickCurMonth.bind(this) }>本月</Button> }
-                            </>
-                        }
+                        allowClear={ allowClear }
+                        renderExtraFooter={ e => this.renderCustomDay() }
                         mode={ mode }
                     />
                 }
