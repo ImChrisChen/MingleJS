@@ -38,7 +38,7 @@ export interface IPropertyConfig<OptionItem = IOptions> {
     options?: Array<OptionItem> | 'fromUrl'       // 选择列表
     label?: string            // 组件设计器中的label值
     parse?: parseType         // 解析类型
-    request?: boolean        //  url 上才有这个属性，request为true时在组件设计器中会立即请求
+    request?: boolean         //  url 上才有这个属性，request为true时在组件设计器中会立即请求
     render?: boolean         // 是否可在组件设计器中配置
     desc?: string           // 字段描述
     verify?: (v) => boolean     // 验证属性值是否合法
@@ -156,11 +156,12 @@ export default {
                     label     : UniversalProps.label,
                     enum      : UniversalProps.enum,
                     url       : {
-                        el    : 'input',
-                        value : domain + '/mock/select.json',
-                        desc  : '列表数据的接口地址',
-                        parse : 'string',
-                        verify: value => isUrl(value),
+                        el     : 'input',
+                        value  : domain + '/mock/select.json',
+                        desc   : '列表数据的接口地址',
+                        request: true,
+                        parse  : 'string',
+                        verify : value => isUrl(value),
                     },
                     disabled  : UniversalProps.disabled,
                     mode      : {
@@ -273,10 +274,11 @@ export default {
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: domain + '/mock/tree.json',
-                        desc : '数据源',
+                        el     : 'input',
+                        parse  : 'string',
+                        value  : domain + '/mock/tree.json',
+                        request: true,
+                        desc   : '数据源',
                     },
                     key       : {
                         el     : 'select',
@@ -314,9 +316,10 @@ export default {
                 dataset: {
                     label     : UniversalProps.label,
                     url       : {
-                        el   : 'input',
-                        value: domain + '/mock/select.json',
-                        parse: 'string',
+                        el     : 'input',
+                        value  : domain + '/mock/select.json',
+                        request: true,
+                        parse  : 'string',
                     },
                     key       : {
                         el     : 'input',
@@ -587,7 +590,6 @@ export default {
                     url      : {
                         el     : 'input',
                         value  : domain + '/mock/table/tableContent.json',
-                        request: true,
                         parse  : 'string',
                         desc   : '表数据url',
                     },
@@ -642,10 +644,11 @@ export default {
                         render: false,
                     },
                     url       : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: domain + '/mock/chart/areauser.json',
-                        desc : '图表数据接口',
+                        el     : 'input',
+                        parse  : 'string',
+                        request: true,
+                        value  : domain + '/mock/chart/areauser.json',
+                        desc   : '图表数据接口',
                     },
                     name      : {
                         el   : 'input',
