@@ -6,7 +6,7 @@
             "location": "广东",
             "reg_count": 3796,
             "number": 1,
-            "reg_rate": "7.71%"
+            "reg_rate": "<a href='http://baidu.com?id=<{number}>&location=<{location}>'>百度</a>"
         },
         {
             "location": "江苏",

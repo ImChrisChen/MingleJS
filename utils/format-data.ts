@@ -112,7 +112,7 @@ export function formatList2Tree(list: Array<any>, { id, pid, name, children = 'c
 export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
 
     function replaceKey(beforeKey, afterKey, node) {
-        if (beforeKey !== afterKey) {
+        if (beforeKey !== afterKey && beforeKey && afterKey) {
             node[afterKey] = node[beforeKey];
             if (typeof node[beforeKey] !== 'object') {      // 如果是引用数据类型则不删除
                 delete node[beforeKey];

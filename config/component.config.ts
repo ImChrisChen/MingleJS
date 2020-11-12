@@ -6,7 +6,6 @@
  */
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
-import moment from 'moment';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -35,13 +34,15 @@ export interface IOptions {
 
 export interface IPropertyConfig<OptionItem = IOptions> {
     el?: elType             //要渲染的组件名称
-    value?: ((config: IComponentConfig) => any) | any
-    options?: Array<OptionItem>       // 选择列表
-    label?: string
-    parse?: parseType
-    render?: boolean
+    value?: ((parsedDataset) => any) | any          // TODO 在组件设计器中是没有这个参数传入的
+    options?: Array<OptionItem> | 'fromUrl'       // 选择列表
+    label?: string            // 组件设计器中的label值
+    parse?: parseType         // 解析类型
+    request?: boolean        //  url 上才有这个属性，request为true时在组件设计器中会立即请求
+    render?: boolean         // 是否可在组件设计器中配置
     desc?: string           // 字段描述
-    verify?: (v) => any
+    verify?: (v) => boolean     // 验证属性值是否合法
+    // template?: string,          // 生成代码用的基本模版
 }
 
 interface IModulesConfig<Property> {
@@ -71,7 +72,12 @@ export interface IComponentConfig<Property = IPropertyConfig> {
 
 // TODO 提取公共属性(待调整)
 const UniversalProps = {
-    label      : {},
+    label      : {
+        el   : 'input',
+        value: 'label:',
+        desc : '表单控件描述',
+        parse: 'string',
+    },
     placeholder: {
         render: false,
         desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
@@ -147,14 +153,7 @@ export default {
             document : import('@component/form/select/select.md'),
             property : {
                 dataset    : {
-                    label     : {
-                        // beforeName: '',     // beforeName其实就是以前的key(在这个属性上是'label')
-                        afterName: '',         // TODO 有afterName 表示antd上的新的属性(为了兼容原来的使用方式,做一层属性中间层的交换)
-                        el       : 'input',
-                        value    : 'form-select',
-                        desc     : `label 标签的文本`,
-                        parse    : 'string',
-                    },
+                    label     : UniversalProps.label,
                     enum      : UniversalProps.enum,
                     url       : {
                         el    : 'input',
@@ -203,22 +202,25 @@ export default {
                         render: false,
                     },
                     key       : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: 'id',
-                        desc : '数据源唯一id',
+                        el     : 'input',
+                        parse  : 'string',
+                        options: 'fromUrl',
+                        value  : 'id',
+                        desc   : '数据源唯一id',
                     },
                     value     : {
-                        el   : 'input',
-                        parse: 'null',
-                        value: '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
-                        desc : '要展示的内容模版/字段',
+                        el     : 'input',
+                        parse  : 'null',
+                        options: 'fromUrl',
+                        value  : '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
+                        desc   : '要展示的内容模版/字段',
                     },
                     groupby   : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '',
-                        desc : '按照groupby的值来进行分组排列',
+                        el     : 'input',
+                        parse  : 'string',
+                        options: 'fromUrl',
+                        value  : '',
+                        desc   : '按照groupby的值来进行分组排列',
                     },
                 },
                 value      : {
@@ -268,7 +270,38 @@ export default {
             component: import('@component/form/select/tree/tree'),
             property : {
                 dataset: {
-                    size: UniversalProps.size,
+                    label     : UniversalProps.label,
+                    size      : UniversalProps.size,
+                    url       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: domain + '/mock/tree.json',
+                        desc : '数据源',
+                    },
+                    key       : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'id',
+                    },
+                    value     : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'name',
+                    },
+                    children  : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'children',
+                    },
+                    allowClear: {
+                        el    : 'switch',
+                        parse : 'boolean',
+                        render: false,
+                        value : true,
+                    },
                 },
                 value  : {},
                 hook   : {},
@@ -279,33 +312,32 @@ export default {
             component: import('@component/form/cascader/cascader'),
             property : {
                 dataset: {
-                    label     : {
-                        el   : 'input',
-                        value: '',
-                        parse: 'string',
-                    },
+                    label     : UniversalProps.label,
                     url       : {
                         el   : 'input',
-                        value: 'http://e.aidalan.com/option/pf/list',
+                        value: domain + '/mock/select.json',
                         parse: 'string',
                     },
                     key       : {
-                        el   : 'input',
-                        value: '',
-                        parse: 'string',
-                        desc : '数据转化的ID唯一值',
+                        el     : 'input',
+                        value  : '',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        desc   : '数据转化的ID唯一值',
                     },
                     value     : {
-                        el   : 'input',
-                        value: '',
-                        parse: 'null',
-                        desc : '数据展示值',
+                        el     : 'input',
+                        value  : '',
+                        options: 'fromUrl',
+                        parse  : 'null',
+                        desc   : '数据展示值',
                     },
                     groupby   : {
-                        el   : 'input',
-                        value: '',
-                        parse: 'string',
-                        desc : '与data-key形成关系映射 id/pid',
+                        el     : 'input',
+                        value  : '',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        desc   : '与data-key形成关系映射 id/pid',
                     },
                     showSearch: {
                         value : true,
@@ -315,7 +347,7 @@ export default {
                 },
                 value  : {
                     el   : 'input',
-                    value: [ '346_删除' ],
+                    value: '',
                     parse: 'null',
                 },
             },
@@ -325,30 +357,42 @@ export default {
             component: import('@component/form/datepicker/datepicker'),
             property : {
                 dataset: {
-                    label     : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: 'form-datepicker',
-                    },
+                    label     : UniversalProps.label,
+                    disabled  : UniversalProps.disabled,
                     format    : {
                         el   : 'input',
                         parse: 'string',
                         value: 'YYYY-MM-DD',
+                        desc : '日期格式，参考 moment.js 👉🏿 http://momentjs.cn/ ',
+                    },
+                    picker    : {
+                        el     : 'select',
+                        parse  : 'string',
+                        value  : 'date',
+                        options: [
+                            { label: 'date', value: 'date' },
+                            { label: 'month', value: 'month' },
+                            { label: 'week', value: 'week' },
+                        ],
+                        desc   : '指定范围选择器类型',
                     },
                     single    : {
                         el   : 'switch',
                         parse: 'boolean',
-                        value: true,
+                        value: false,
+                        desc : '是否单选模式，单选 ｜ 多选',
                     },
                     mindate   : {
-                        el    : 'datepicker',
-                        parse : 'string',
-                        render: false,
+                        el   : 'datepicker',
+                        parse: 'string',
+                        value: '',
+                        desc : '最小时间',
                     },
                     maxdate   : {
-                        el    : 'datepicker',
-                        parse : 'string',
-                        render: false,
+                        el   : 'datepicker',
+                        parse: 'string',
+                        value: '',
+                        desc : '最大时间',
                     },
                     allowClear: {
                         el    : 'switch',
@@ -360,10 +404,11 @@ export default {
                 value  : {
                     el   : 'input',
                     parse: 'null',
-                    value: (config: IComponentConfig) => {      // TODO config 是 form-datepicker的配置
-                        let date = moment().format('YYYY-MM-DD');
-                        return [ date, date ];
-                    },
+                    value: '',
+                    // value: (parsedDataset) => {      // TODO config 是 form-datepicker的配置
+                    //     let date = moment().format('YYYY-MM-DD');
+                    //     return [ date, date ];
+                    // },
                 },
             },
         },
@@ -378,7 +423,8 @@ export default {
                             { label: 'h', value: 'h' },
                         ],
                         parse  : 'string',
-                        value  : 'flex',
+                        value  : 'h',
+                        desc   : '布局模式，v 表示垂直布局，h 水平布局',
                     },
                 },
             },
@@ -388,12 +434,7 @@ export default {
             component: import('@component/form/button/button'),
             property : {
                 dataset: {
-                    label      : {
-                        el   : 'input',
-                        value: 'form-button',
-                        desc : '',
-                        parse: 'string',
-                    },
+                    label      : UniversalProps.label,
                     enum       : UniversalProps.enum,
                     disabled   : UniversalProps.disabled,
                     size       : UniversalProps.size,
@@ -453,10 +494,7 @@ export default {
             property : {
                 dataset: {
                     disabled         : UniversalProps.disabled,
-                    label            : {
-                        el   : 'input',
-                        value: 'form-switch',
-                    },
+                    label            : UniversalProps.label,
                     checkedChildren  : {
                         el   : 'input',
                         value: '开启',
@@ -491,11 +529,7 @@ export default {
                         ],
                         value  : 'text',
                     },
-                    label: {
-                        el   : 'input',
-                        value: '',
-                        parse: 'string',
-                    },
+                    label: UniversalProps.label,
                 },
                 placeholder: UniversalProps.placeholder,
             },
@@ -504,7 +538,9 @@ export default {
             component: import('@component/form/file/file'),
             path     : 'form-file',
             property : {
-                dataset: {},
+                dataset: {
+                    label: UniversalProps.label,
+                },
             },
         },
     },
@@ -549,10 +585,11 @@ export default {
                         desc : '表头url',
                     },
                     url      : {
-                        el   : 'input',
-                        value: domain + '/mock/table/tableContent.json',
-                        parse: 'string',
-                        desc : '表数据url',
+                        el     : 'input',
+                        value  : domain + '/mock/table/tableContent.json',
+                        request: true,
+                        parse  : 'string',
+                        desc   : '表数据url',
                     },
                     pagesize : {
                         el   : 'input',
@@ -578,17 +615,18 @@ export default {
                         desc   : '分页器的位置',
                     },
                 },
-                style  : {
-                    el   : 'input',
-                    parse: 'style',
-                    value: 'overflow: auto',
-                    desc : '样式',
-                },
+                // style  : {
+                //     el   : 'input',
+                //     parse: 'style',
+                //     value: 'overflow: auto;height:200px',
+                //     desc : '样式',
+                // },
                 height : {
-                    el    : 'slider',
-                    value : 500,
+                    el    : 'input',
+                    value : ''/*'300px'*/,
                     parse : 'number',
-                    render: false,
+                    desc  : '表格内容高度, 可滚动',
+                    render: true,
                 },
             },
         },
@@ -597,19 +635,25 @@ export default {
             path     : '/data-image',
             property : {
                 dataset: {
-                    'from'     : {
+                    'from'    : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    name       : {
+                    url       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: domain + '/mock/chart/areauser.json',
+                        desc : '图表数据接口',
+                    },
+                    name      : {
                         el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     },
-                    type       : {
+                    type      : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -620,49 +664,45 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    url        : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: domain + '/mock/chart/areauser.json',
-                        // value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
-                        desc : '图表数据接口',
+                    key       : {
+                        el     : 'input',
+                        value  : 'location',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        desc   : '图表统计维度的字段名',
                     },
-                    key_field  : {
-                        el   : 'input',
-                        value: 'location',
-                        parse: 'string',
-                        desc : '图表统计维度的字段名',
+                    value     : {
+                        el     : 'input',
+                        parse  : 'string',
+                        options: 'fromUrl',
+                        value  : 'count',
+                        desc   : '图表统计的value值字段名',
                     },
-                    value_field: {
-                        el   : 'input',
-                        parse: 'string',
-                        value: 'count',
-                        desc : '图表统计的value值字段名',
-                    },
-                    colors     : {
+                    colors    : {
                         el   : 'input',
                         value: '#6ad6b6',
                         parse: 'string[]',
                         desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
                     },
-                    groupby    : {
-                        el   : 'input',
-                        value: '',
-                        parse: 'string',
-                        desc : '分组统计,不填写默认不分组(需要数据格式支持)',
+                    groupby   : {
+                        el     : 'input',
+                        value  : '',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    size       : {
+                    size      : {
                         el   : 'input',
                         value: '{"height": 400}',
                         parse: 'JSON',
                         desc : '图表大小',
                     },
-                    datadirect : {
+                    datadirect: {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                     },
-                    title      : {
+                    title     : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
