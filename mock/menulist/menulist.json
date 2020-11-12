@@ -1,0 +1,22 @@
+{
+    "status": true,
+    "data": [
+        {
+            "name": "菜单1",
+            "id": "1",
+            "path": "http://e.aidalan.com",
+            "children": [
+                {
+                    "name": "子菜单",
+                    "id": "1",
+                    "path": "http://baidu.com"
+                }
+            ]
+        },
+        {
+            "name": "菜单2",
+            "id": "1",
+            "path": "http://e.aidalan.com"
+        }
+    ]
+}

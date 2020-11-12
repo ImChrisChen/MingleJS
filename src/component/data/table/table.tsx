@@ -99,7 +99,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         bordered         : true,
         pagination       : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
-            pageSizeOptions : this.props.dataset.pages, /*[ '10', '20', '50', '100', '200' ]*/
+            pageSizeOptions : /*this.props.dataset.pages*/ [ '10', '20', '50', '100', '200' ],
             pageSize        : this.props.dataset.pagesize ?? 50,
             position        : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
             onChange        : (page, pageSize) => {    // 页码改变的回调，参数是改变后的页码及每页条数
@@ -483,6 +483,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     render() {
+        console.log(this.state);
         const { selectedRowKeys } = this.state;
         const rowSelection = {
             selectedRowKeys,

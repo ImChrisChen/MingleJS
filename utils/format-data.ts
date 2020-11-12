@@ -8,6 +8,7 @@ import { IOptions } from '@root/config/component.config';
 import { parseTpl } from '@utils/parser-tpl';
 import { isDOMString, isWuiTpl } from '@utils/inspect';
 import { strParseVirtualDOM } from '@utils/parser-dom';
+import { deepEach } from '@utils/util';
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
@@ -64,6 +65,7 @@ interface IKeyMap {
     id: string
     pid: string
     name: string
+    children?: string
 }
 
 /**
@@ -72,15 +74,16 @@ interface IKeyMap {
  * @param id    id 唯一值
  * @param pid   pid/id 形成父级关系映射
  * @param name  展示的内容字段 / 模版
+ * @param children
  */
-export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): Array<object> {
+export function formatList2Tree(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
     let selectTree: Array<object> = pids.map(pid => {
         return {
-            id      : pid,              // 父子映射关系
-            children: [],
-            label   : pid,
-            value   : pid,
+            id        : pid,              // 父子映射关系
+            [children]: [],
+            label     : pid,
+            value     : pid,
         };
     });
     list.forEach(item => {
@@ -89,7 +92,7 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
         let label = templateVerifyParser(name, item);
 
         if (superItem) {
-            superItem.children.push({
+            superItem[children].push({
                 id   : label,
                 value: item[id],
                 label: label,
@@ -98,6 +101,49 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }: IKeyMap): A
         }
     });
     return selectTree;
+}
+
+/**
+ * 格式化树的key值
+ * @param root
+ * @param before
+ * @param after
+ */
+export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
+
+    function replaceKey(beforeKey, afterKey, node) {
+        if (beforeKey !== afterKey) {
+            node[afterKey] = node[beforeKey];
+            if (typeof node[beforeKey] !== 'object') {      // 如果是引用数据类型则不删除
+                delete node[beforeKey];
+            }
+        }
+        return node;
+    }
+
+    deepEach(root, function (node) {
+        replaceKey(before.id, after.id, node);
+        replaceKey(before.name, after.name, node);
+        replaceKey(before.pid, after.pid, node);
+        replaceKey(before.children, after.children, node);
+        // if (after.id !== before.id) {
+        //     node[after.id] = node[before.id];
+        //     delete node[before.id];
+        // }
+        // if (after.name !== before.name) {
+        //     node[after.name] = node[before.name];
+        //     delete node[before.name];
+        // }
+        // if (after.pid !== before.pid) {
+        //     node[after.pid] = node[before.pid];
+        //     delete node[before.pid];
+        // }
+        // if (after.children && before.children) {
+        //     node[after.children] = node[before.children];
+        //     // delete node[before.children];
+        // }
+    });
+    return root;
 }
 
 // 验证 && 解析模版 && DOM转化

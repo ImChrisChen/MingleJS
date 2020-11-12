@@ -11,8 +11,6 @@ React + Typescript + Antd + WUI
 
 ## 开发环境
 
-
-
 1. 需安装 node  环境  
 2. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
 
@@ -24,6 +22,36 @@ npm install && npm run dev
 
 浏览器打开 [http://localhost:8080](http://localhost:8080)
 
+## Nginx配置
+
+~~~shell script
+server {
+	listen       		80;
+	server_name  		"mingle-test.local.aidalan.com";
+
+ 	# minglejs 项目
+	location / {
+		proxy_pass http://127.0.0.1:8080;
+		add_header Access-Control-Allow-Origin *;
+	}
+
+	# mock数据 NodeJS jsonp 服务器,对应项目目录，/server/main.js
+	location /mock {
+		proxy_pass http://127.0.0.1:8081;
+		add_header Access-Control-Allow-Origin *;
+	}
+
+	access_log off;
+	proxy_buffer_size 64k;
+	proxy_buffers   4 32k;
+	proxy_busy_buffers_size 64k;
+	default_type 'text/html';
+	charset utf-8;
+
+	set $ACAO '*';
+	add_header 'Access-Control-Allow-Origin' '$ACAO';
+}
+~~~
 
 
 ## 打包部署
@@ -62,6 +90,11 @@ npm run build
 2. 组件所有属性均通过 <input data-*="属性值"> 组件默认值通过设置 input 上的value值即可
 3. 组件均有生命周期
 
+## 模拟数据
+
+本项目提供了Mock数据
+
+直接访问到 http://mingle.local.aidalan.com/mock/ 可以看到所有模拟数据
 
 
 ## 组件生命周期

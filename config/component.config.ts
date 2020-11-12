@@ -8,6 +8,14 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
 import moment from 'moment';
 
+let domain = '';
+const isLocation = window.location.href.includes('-test');
+if (isLocation) {
+    domain = 'http://mingle-test.local.aidalan.com';
+} else {
+    domain = 'http://mingle.local.aidalan.com';
+}
+
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
@@ -150,7 +158,7 @@ export default {
                     enum      : UniversalProps.enum,
                     url       : {
                         el    : 'input',
-                        value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
+                        value : domain + '/mock/select.json',
                         desc  : '列表数据的接口地址',
                         parse : 'string',
                         verify: value => isUrl(value),
@@ -536,13 +544,13 @@ export default {
                     },
                     headerurl: {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/user/location/header?group_type=reg_count`,         //  市场日表
+                        value: domain + '/mock/table/tableHeader.json',
                         parse: 'string',
                         desc : '表头url',
                     },
                     url      : {
                         el   : 'input',
-                        value: `http://e.aidalan.com/presenter/user/location/data?pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count`, // 市场日表表头
+                        value: domain + '/mock/table/tableContent.json',
                         parse: 'string',
                         desc : '表数据url',
                     },
@@ -571,12 +579,10 @@ export default {
                     },
                 },
                 style  : {
-                    el    : 'input',
-                    parse : 'null',
-                    value : {
-                        overflow: 'auto',
-                    },
-                    render: false,
+                    el   : 'input',
+                    parse: 'style',
+                    value: 'overflow: auto',
+                    desc : '样式',
                 },
                 height : {
                     el    : 'slider',
@@ -617,7 +623,8 @@ export default {
                     url        : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
+                        value: domain + '/mock/chart/areauser.json',
+                        // value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
                         desc : '图表数据接口',
                     },
                     key_field  : {
@@ -731,18 +738,65 @@ export default {
     },
     layout: {
         menu  : {
-            component: import('@component/layout/menu/menu'),
+            component: import('@component/layout/menu/menu2'),
             path     : '/layout-menu',
             property : {
                 dataset: {
-                    url     : UniversalProps.url,
+                    // url     : UniversalProps.url,
+                    url : {
+                        el   : 'input',
+                        // value: 'http://192.168.20.121:8081/mgm/menlist/',
+                        // value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
+                        value: domain + '/mock/tree.json',
+                        parse: 'string',
+                        desc : '数据源',
+                    },
+                    open: {
+                        el   : 'switch',
+                        value: true,
+                        parse: 'boolean',
+                        desc : '是否默认展开',
+                    },
+                    id  : {
+                        el   : 'input',
+                        // value: 'appMenuId',
+                        value: 'id',
+                        parse: 'string',
+                        desc : '菜单ID映射字段名称,例如:id',
+                    },
+                    pid : {
+                        el   : 'input',
+                        // value: 'r_father',
+                        value: 'parent',
+                        parse: 'string',
+                        desc : '菜单父级映射字段名称,例如:parent_id',
+                    },
+                    name: {
+                        el   : 'input',
+                        value: 'name',
+                        parse: 'string',
+                        desc : '菜单名称映射字段名称,例如:menu_name',
+                    },
+
+                    children: {
+                        el   : 'input',
+                        value: 'children',
+                        parse: 'string',
+                        desc : '子菜单映射字段名称,例如:children',
+                    },
                     width   : {
                         el   : 'input',
                         value: 200,
-                        parse: 'string',
+                        parse: 'number',
                         desc : '菜单宽度',
                     },
-                    menulist: {},
+                    menulist: {
+                        el    : 'input',
+                        parse : 'JSON',
+                        desc  : '菜单数据',
+                        value : `[{"name":"111111111","path":"http://baidu.com","id":"111111","children":[{"name":"child","id":"123213","path":"http://taobao.com"}]},{"name":"2","path":"http://baidu.com","id":"2"}]`,
+                        render: false,
+                    },
                 },
             },
         },

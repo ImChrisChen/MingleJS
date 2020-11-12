@@ -16,11 +16,12 @@ interface IMenuItem {
     name: string
     path?: string
     id?: string
+    [key:string]:any
 }
 
 interface IMenuState<T> {
     theme?: string,
-    menuList: Array<T>
+    menulist: Array<T>
     collapsed: boolean,
 }
 
@@ -29,8 +30,12 @@ export default class LayoutMenu extends React.Component<any, any> {
     state: IMenuState<IMenuItem> = {
         collapsed: false,
         theme    : 'light',
-        menuList : this.props.menuList,
+        menulist : this.props.menulist,
     };
+
+    constructor(props) {
+        super(props);
+    }
 
     toggleCollapsed = () => {
         this.setState({
@@ -53,7 +58,7 @@ export default class LayoutMenu extends React.Component<any, any> {
                     inlineCollapsed={ this.state.collapsed }
                 >
                     {
-                        this.props.menuList.map((item, index) => {
+                        this.props.menulist.map((item, index) => {
                             let children = item.children;
                             if (children && children.length > 0) {
                                 return <SubMenu key={ 'parent-' + index } icon={ <MailOutlined/> } title={ item.label }>
