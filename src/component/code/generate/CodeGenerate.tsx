@@ -340,6 +340,103 @@ class CodeGenerate extends React.Component<any, any> {
 
     }
 
+    renderSwitch(key, item) {
+        return <Switch
+            checked={ item.value }
+            onChange={ this.handleChangeSwitch.bind(this, key) }/>;
+    }
+
+    renderRadio(key, item) {
+        return <Radio.Group
+            onChange={ this.handleChangeRadio.bind(this, key) }
+            options={ item.options }
+            value={ item.value }
+        />;
+    }
+
+    renderList(key, item) {
+        return <Form.List name="dataEnum">
+            { (fields, { add, remove }) => {
+                return (
+                    <div>
+                        { fields.map(field => (
+                            <Space key={ field.key }
+                                   style={ {
+                                       display     : 'flex',
+                                       marginBottom: 8,
+                                   } }
+                                   align="start">
+                                <Form.Item
+                                    { ...field }
+                                    name={ [ field.name, 'value' ] }
+                                    fieldKey={ [ field.fieldKey, 'value' ] }
+                                    rules={ [ {
+                                        required: true,
+                                        message : 'Missing value',
+                                    } ] }
+                                >
+                                    <Input placeholder="value"/>
+                                </Form.Item>
+                                <Form.Item
+                                    { ...field }
+                                    name={ [ field.name, 'label' ] }
+                                    fieldKey={ [ field.fieldKey, 'label' ] }
+                                    rules={ [ {
+                                        required: true,
+                                        message : 'Missing label',
+                                    } ] }
+                                >
+                                    <Input placeholder="label"/>
+                                </Form.Item>
+
+                                <MinusCircleOutlined
+                                    onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
+                                />
+                            </Space>
+                        )) }
+
+                        <Form.Item>
+                            <Button
+                                type="dashed"
+                                onClick={ this.handleFormListAdd.bind(this, key, add) }
+                                block
+                            >
+                                <PlusOutlined/> 保存
+                            </Button>
+                        </Form.Item>
+                    </div>
+                );
+            } }
+        </Form.List>;
+    }
+
+    renderInput(key, item) {
+        return <Input
+            onChange={ this.handleInputChange.bind(this, key) }
+            onBlur={ this.handleInputBlur.bind(this, key) }
+            value={ item.value }
+        />;
+    }
+
+    renderSelect(key, item) {
+        return <Select
+            options={ item.options }
+            onChange={ this.handleChangeSelect.bind(this, key) }
+            allowClear={ true }
+            showSearch={ true }
+            value={ item.value }
+        />;
+    }
+
+    renderSlider(key, item) {
+        return <Slider
+            defaultValue={ 30 }
+            tooltipVisible
+            max={ 1000 }
+            min={ 200 }
+            onChange={ this.handleSliderChange.bind(this, key) }/>;
+    }
+
     render() {
         return <div style={ this.style }>
             <div style={ { width: '48%' } }>
@@ -385,127 +482,42 @@ class CodeGenerate extends React.Component<any, any> {
                         if (item.render === false) return '';
                         let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
-                        if (item.el === 'switch') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Switch checked={ item.value }
-                                                onChange={ this.handleChangeSwitch.bind(this, key) }/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'radio') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Radio.Group
-                                            onChange={ this.handleChangeRadio.bind(this, key) }
-                                            options={ item.options }
-                                            value={ item.value }
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'list') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label } name={ item.label }>
-                                        <Form.List name="dataEnum">
-                                            { (fields, { add, remove }) => {
-                                                return (
-                                                    <div>
-                                                        { fields.map(field => (
-                                                            <Space key={ field.key }
-                                                                   style={ {
-                                                                       display     : 'flex',
-                                                                       marginBottom: 8,
-                                                                   } }
-                                                                   align="start">
-                                                                <Form.Item
-                                                                    { ...field }
-                                                                    name={ [ field.name, 'value' ] }
-                                                                    fieldKey={ [ field.fieldKey, 'value' ] }
-                                                                    rules={ [ {
-                                                                        required: true,
-                                                                        message : 'Missing value',
-                                                                    } ] }
-                                                                >
-                                                                    <Input placeholder="value"/>
-                                                                </Form.Item>
-                                                                <Form.Item
-                                                                    { ...field }
-                                                                    name={ [ field.name, 'label' ] }
-                                                                    fieldKey={ [ field.fieldKey, 'label' ] }
-                                                                    rules={ [ {
-                                                                        required: true,
-                                                                        message : 'Missing label',
-                                                                    } ] }
-                                                                >
-                                                                    <Input placeholder="label"/>
-                                                                </Form.Item>
-
-                                                                <MinusCircleOutlined
-                                                                    onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
-                                                                />
-                                                            </Space>
-                                                        )) }
-
-                                                        <Form.Item>
-                                                            <Button
-                                                                type="dashed"
-                                                                onClick={ this.handleFormListAdd.bind(this, key, add) }
-                                                                block
-                                                            >
-                                                                <PlusOutlined/> 保存
-                                                            </Button>
-                                                        </Form.Item>
-                                                    </div>
-                                                );
-                                            } }
-                                        </Form.List>
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'input') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Input onChange={ this.handleInputChange.bind(this, key) }
-                                               onBlur={ this.handleInputBlur.bind(this, key) }
-                                               value={ item.value }
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'select') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Select options={ item.options }
-                                                onChange={ this.handleChangeSelect.bind(this, key) }
-                                                allowClear={ true }
-                                                showSearch={ true }
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'slider') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Slider defaultValue={ 30 }
-                                                tooltipVisible
-                                                max={ 1000 }
-                                                min={ 200 }
-                                                onChange={ this.handleSliderChange.bind(this, key) }/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
+                        let formItem;
+                        switch (item.el) {
+                            case 'switch':
+                                formItem = this.renderSwitch(key, item);
+                                break;
+                            case 'radio':
+                                formItem = this.renderRadio(key, item);
+                                break;
+                            case 'list':
+                                formItem = this.renderList(key, item);
+                                break;
+                            case 'input':
+                                formItem = this.renderInput(key, item);
+                                break;
+                            case 'select':
+                                formItem = this.renderSelect(key, item);
+                                break;
+                            case 'slider':
+                                formItem = this.renderSlider(key, item);
+                                break;
+                            default  :
+                                break;
 
                         }
+
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label }>
+                                    { formItem }
+                                </Form.Item>
+                            </Col>
+                        </Row>;
                     })
                 }
             </Form>
+
         </div>;
     }
 }
