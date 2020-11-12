@@ -5,7 +5,21 @@
  * Time: 1:37 下午
  */
 
-import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
+import {
+    Button,
+    Cascader,
+    Col,
+    Form,
+    Input,
+    InputNumber,
+    message,
+    Radio,
+    Row,
+    Select,
+    Slider,
+    Space,
+    Switch,
+} from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
 import componentMap, { IOptions, IPropertyConfig } from '@root/config/component.config';
@@ -245,10 +259,9 @@ class CodeGenerate extends React.Component<any, any> {
                 funcNames.push({ funcName, hookName });
             }
 
-
             // TODO 后续需要完善，选中的值如果和默认值相等，就不用生成对应的属性代码
             // 有属性默认值则，生成对应的属性代码
-            if (typeof item.value !== 'undefined') {
+            if ((typeof item.value !== 'undefined') && item.value !== '') {
                 return `${ item.label }='${ item.value ?? '' }'\n\t`;
             } else {
                 return undefined;
@@ -309,6 +322,7 @@ class CodeGenerate extends React.Component<any, any> {
 
     // input
     handleInputChange(index, e) {
+        console.log(index, e);
         let value = e.target.value;
         this.setAttributeValue(index, value);
     }
@@ -334,8 +348,6 @@ class CodeGenerate extends React.Component<any, any> {
         await this.setState({ dataEnum });
     }
 
-    style = { display: 'flex', justifyContent: 'space-between' };
-
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
 
     }
@@ -350,6 +362,18 @@ class CodeGenerate extends React.Component<any, any> {
         return <Radio.Group
             onChange={ this.handleChangeRadio.bind(this, key) }
             options={ item.options }
+            value={ item.value }
+        />;
+    }
+
+    renderNumberInput(key, item) {
+        return <InputNumber
+            min={ 50 } max={ 800 } defaultValue={ 3 }
+            step={ 10 }
+            onChange={ e => {
+                this.setAttributeValue(key, e);
+                this.generateCode();
+            } }
             value={ item.value }
         />;
     }
@@ -438,7 +462,7 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     render() {
-        return <div style={ this.style }>
+        return <div style={ { display: 'flex', justifyContent: 'space-between' } }>
             <div style={ { width: '48%' } }>
                 <CodeEditor dataset={ {
                     value: this.state.componentUseCode,
@@ -483,7 +507,7 @@ class CodeGenerate extends React.Component<any, any> {
                         let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
                         let formItem;
-                        switch (item.el) {
+                        switch(item.el) {
                             case 'switch':
                                 formItem = this.renderSwitch(key, item);
                                 break;
@@ -502,9 +526,11 @@ class CodeGenerate extends React.Component<any, any> {
                             case 'slider':
                                 formItem = this.renderSlider(key, item);
                                 break;
+                            case 'number':
+                                formItem = this.renderNumberInput(key, item);
+                                break;
                             default  :
                                 break;
-
                         }
 
                         return <Row key={ key }>

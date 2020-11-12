@@ -103,28 +103,26 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     private bar(config) {
         let { position, groupby, colors } = config;
         return <>
-            <Spin spinning={ this.state.loading } tip="loading...">
-                <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
-                       interactions={ [ 'active-region' ] }>
+            <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
+                   interactions={ [ 'active-region' ] }>
 
-                    <Interval position={ position } color={ groupby || colors }
-                              adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
+                <Interval position={ position } color={ groupby || colors }
+                          adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
-                    <Tooltip shared/>
-                    <Legend layout="vertical" position="top-left"
-                            itemName={ {
-                                spacing  : 10, // 文本同滑轨的距离
-                                style    : {
-                                    // stroke: 'blue',
-                                    fill: 'red',
-                                },
-                                formatter: (text, item, index) => {
-                                    return text === 'Berlin' ? 'Berlin【重点关注】' : text;
-                                },
-                            } }
-                    />
-                </Chart>
-            </Spin>
+                <Tooltip shared/>
+                <Legend layout="vertical" position="top-left"
+                        itemName={ {
+                            spacing  : 10, // 文本同滑轨的距离
+                            style    : {
+                                // stroke: 'blue',
+                                fill: 'red',
+                            },
+                            formatter: (text, item, index) => {
+                                return text === 'Berlin' ? 'Berlin【重点关注】' : text;
+                            },
+                        } }
+                />
+            </Chart>
         </>;
     }
 
@@ -138,32 +136,30 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         **/
 
         return <>
-            <Spin spinning={ this.state.loading } tip="loading...">
-                <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
-                       interactions={ [ 'active-region' ] }>
+            <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
+                   interactions={ [ 'active-region' ] }>
 
-                    {/*<Line position={ position } color={ groupby || colors }/>*/ }
-                    {/*<Point position={ position } color={ groupby || colors }/>*/ }
+                {/*<Line position={ position } color={ groupby || colors }/>*/ }
+                {/*<Point position={ position } color={ groupby || colors }/>*/ }
 
-                    <LineAdvance area shape="smooth" position={ position } point={ true }
-                                 color={ groupby || colors } label="first"/>
+                <LineAdvance area shape="smooth" position={ position } point={ true }
+                             color={ groupby || colors } label="first"/>
 
-                    <Tooltip shared/>
-                    <Legend layout="vertical" position="top-left"
-                            itemName={ {
-                                spacing  : 10, // 文本同滑轨的距离
-                                style    : {
-                                    // stroke: 'blue',
-                                    fill: 'red',
-                                },
-                                formatter: (text, item, index) => {
-                                    return text === 'Berlin' ? 'Berlin【重点关注】' : text;
-                                },
-                            } }
-                    />
+                <Tooltip shared/>
+                <Legend layout="vertical" position="top-left"
+                        itemName={ {
+                            spacing  : 10, // 文本同滑轨的距离
+                            style    : {
+                                // stroke: 'blue',
+                                fill: 'red',
+                            },
+                            formatter: (text, item, index) => {
+                                return text === 'Berlin' ? 'Berlin【重点关注】' : text;
+                            },
+                        } }
+                />
 
-                </Chart>
-            </Spin>
+            </Chart>
         </>;
     }
 
@@ -207,7 +203,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
             type : chartType,
             name : genreName,
             series,
-            size,
+            height,
             colors,
             title,
             groupby,
@@ -223,16 +219,16 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 colors  : colors,
                 genreName,       // `按照${genreName('地区')}统计的维度`
                 title,
-                height  : size.height,
+                height,
                 chartType,
             };
-        } catch (e) {
+        } catch(e) {
             return {};
         }
     }
 
     renderChart(config) {
-        switch (config.chartType) {
+        switch(config.chartType) {
             case 'bar':
                 return this.bar(config);
             case 'line':
@@ -253,7 +249,9 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return <>
             <h2 hidden={ !this.props.dataset.title }
                 style={ { textAlign: 'center', padding: '10px 20px' } }>{ this.props.dataset.title }</h2>
-            { this.renderChart(config) }
+            <Spin spinning={ this.state.loading } tip="loading...">
+                { this.renderChart(config) }
+            </Spin>
         </>;
     }
 }
