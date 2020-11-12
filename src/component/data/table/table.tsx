@@ -15,7 +15,7 @@ import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { IApiResult, jsonp } from '@utils/request/request';
-import { isNumber, isString } from '@utils/inspect';
+import { isHtmlTpl, isNumber, isString, isWuiTpl } from '@utils/inspect';
 import FormAjax from '@component/form/ajax/form';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
@@ -97,9 +97,10 @@ export default class DataTable extends React.Component<ITableProps, any> {
         showDropdown     : false,       // 是否显示下拉菜单
         showDropdownBtn  : false,       // 是否显示下拉框按钮
         bordered         : true,
-        pagination       : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
+        pagination       : this.props.dataset.pagination ? {      // 分页
+            // https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
-            pageSizeOptions : this.props.dataset.pages, /*[ '10', '20', '50', '100', '200' ]*/
+            pageSizeOptions : /*this.props.dataset.pages*/ [ '10', '20', '50', '100', '200' ],
             pageSize        : this.props.dataset.pagesize ?? 50,
             position        : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
             onChange        : (page, pageSize) => {    // 页码改变的回调，参数是改变后的页码及每页条数
@@ -113,10 +114,10 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     pagination: { pageSize, page },
                 });
             },
+        } : false,
+        scroll           : {        //  表格是否可以滚动
+            y: this.props.dataset.height || undefined,
         },
-        // scroll    : {        //  表格是否可以滚动
-        //     y: '100vh',
-        // },
     };
     private fieldTpl!: string;
     private url: string = this.props.url;
@@ -128,6 +129,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     constructor(props: ITableProps) {
         super(props);
+        console.log(props);
 
         if (this.props.dataset && this.props.dataset.from) {
             let formElement = FormAjax.findFormElement(this.props.dataset.from);
@@ -242,10 +244,21 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             for (const key in item) {
                 if (!item.hasOwnProperty(key)) continue;
+                let value = item[key];
 
-                if (/<(.*?)>/.test(item[key])) {
-                    item[key] = strParseVirtualDOM(item[key]);          // 字符串dom转化
+                // 解析wui模版
+                if (isWuiTpl(value)) {
+                    value = parseTpl(value, item, 'tpl');
                 }
+
+                // 解析html模版
+                if (isHtmlTpl(value)) {
+                    console.log(value);
+                    value = strParseVirtualDOM(value);          // 字符串dom转化
+                    console.log(value);
+                }
+
+                item[key] = value;
             }
 
             let result = {
@@ -256,11 +269,12 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 introduction: <h1>1111</h1>,
                 // [this.fieldTpl]: '12321321'
             };
-            if (this.fieldTpl) {
-                let fieldStr = parseTpl(this.fieldTpl, item);
-                let fieldJSX = strParseVirtualDOM(fieldStr);
-                result[this.fieldTpl] = fieldJSX;
-            }
+
+            // if (this.fieldTpl) {
+            //     let fieldStr = parseTpl(this.fieldTpl, item);
+            //     let fieldJSX = strParseVirtualDOM(fieldStr);
+            //     result[this.fieldTpl] = fieldJSX;
+            // }
             return result;
         });
         // let sumItem = this.sum(tableContent);
@@ -281,9 +295,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
             // if (!item.visible) continue;
 
             // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
-            if (/<(.*?)>/.test(item.field)) {
-                this.fieldTpl = item.field;
-            }
+            // if (/<(.*?)>/.test(item.field)) {
+            //     this.fieldTpl = item.field;
+            // }
 
             let fn: any = null;
 
@@ -325,7 +339,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch (item.field) {
+                switch(item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;
@@ -483,6 +497,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     render() {
+        console.log(this.state);
         const { selectedRowKeys } = this.state;
         const rowSelection = {
             selectedRowKeys,

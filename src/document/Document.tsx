@@ -29,7 +29,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 class Document extends React.Component<any, any> {
     state: any = {
-        menuList      : [],
+        menulist      : [],
         routes        : [],
         collapsed     : false,
         showCodeDesign: false,          // 是否显示组件设计器
@@ -42,7 +42,7 @@ class Document extends React.Component<any, any> {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });
-            this.setState({ menuList: list, routes });
+            this.setState({ menulist: list, routes });
         });
     }
 
@@ -56,7 +56,6 @@ class Document extends React.Component<any, any> {
         this.setState({
             showCodeDesign: true,
         });
-        console.log(this.state);
     }
 
     handleCloseCodeDesign() {
@@ -82,7 +81,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu menuList={ this.state.menuList }/>
+                <LayoutMenu menulist={ this.state.menulist }/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
@@ -95,6 +94,10 @@ class Document extends React.Component<any, any> {
                             <Menu.Item key="5"><Link to={ '/test2' }>测试页面2</Link></Menu.Item>
                             <Menu.Item key="6"><Link to={ '/tpl-engine' }>模版引擎</Link></Menu.Item>
                             <Menu.Item key="7"><Link to={ '/regexp-manual' }>正则手册</Link></Menu.Item>
+                            <Menu.Item key="8">
+                                <a href="https://ant-design.gitee.io/components/overview-cn/"
+                                   target="_blank">ant-design</a>
+                            </Menu.Item>
                         </Menu>
 
                     </Header>
@@ -137,7 +140,6 @@ class Document extends React.Component<any, any> {
 
 class HtmlRender extends React.Component<{ html: string }, any> {
     constructor(props) {
-        console.log('htmlrender');
         super(props);
         this.renderHtml();
     }

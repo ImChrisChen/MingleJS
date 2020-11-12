@@ -54,8 +54,8 @@ export function parserProperty(dataset, defaultDataset): object {
 
 // 解析普通属性 name value placeholder ...
 export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
-    console.log(parsedDataset);
     let defaultAttrs = {};
+    console.log(parsedDataset);
 
     for (const key in defaultAttrsConfig) {
         if (!defaultAttrsConfig.hasOwnProperty(key)) continue;
@@ -81,7 +81,6 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
         if (key === 'style' && isString(finalAttrs[key])) {
-            console.log(finalAttrs);
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
     }
@@ -92,7 +91,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
-    switch(parse) {
+    switch (parse) {
 
         case 'string':            // 模版解析
             value = parseTpl(value, document.body);

@@ -5,16 +5,32 @@
  * Time: 1:37 下午
  */
 
-import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
+import {
+    Button,
+    Cascader,
+    Col,
+    Form,
+    Input,
+    InputNumber,
+    message,
+    Radio,
+    Row,
+    Select,
+    Slider,
+    Space,
+    Switch,
+} from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
-import componentMap from '@root/config/component.config';
+import componentMap, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/parser-tpl';
 import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
+import { jsonp } from '@utils/request/request';
+import { isObject } from '@utils/inspect';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -35,7 +51,7 @@ interface ICodeGenerateProps {
 }
 
 class CodeGenerate extends React.Component<any, any> {
-    private template = `<input data-fn='form-button' />`;
+    private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
     state = {
         components        : this.getComponents(),
@@ -54,6 +70,7 @@ class CodeGenerate extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        console.log('-----------');
         formatComponents2Tree(componentMap).then(tree => {
             this.setState({
                 componentsTree: tree,
@@ -90,6 +107,7 @@ class CodeGenerate extends React.Component<any, any> {
     async handleChangeComponent(e, v) {
         let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
+        let fieldOptions: Array<IOptions> = [];
         if (!currentComponent.property) {
             console.error('请配置组件的proerty属性');
             this.setState({
@@ -100,17 +118,29 @@ class CodeGenerate extends React.Component<any, any> {
         }
 
         let { dataset, hook, ...attrs } = currentComponent.property;
-        let arr: Array<IComponentDataset> = [];
+        // let arr: Array<IComponentDataset> = [];
+        let arr: Array<IPropertyConfig> = [];
         let dataEnum: Array<any> = [];
 
         //dataset 属性
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
-            let val = dataset[k];
+            let val: IPropertyConfig = dataset[k];
 
             // TODO 当值为函数时，执行函数
             if (typeof val.value === 'function') {
                 val.value = val.value();
+            }
+
+            if (k === 'url' && val.request) {
+                let res = await jsonp(val.value);
+                let dataItem = res.status ? res?.data[0] : undefined;
+                if (dataItem && isObject(dataItem)) {
+                    for (const itemKey in dataItem) {
+                        if (!dataItem.hasOwnProperty(itemKey)) continue;
+                        fieldOptions.push({ label: itemKey, value: itemKey });
+                    }
+                }
             }
 
             if (k === 'enum') {
@@ -122,10 +152,20 @@ class CodeGenerate extends React.Component<any, any> {
 
             }
 
+            let options = val.options;
+            let el = val.el;
+
+            if (options === 'fromUrl') {
+                if (fieldOptions.length > 0) {
+                    options = fieldOptions;
+                    el = 'select';
+                }
+            }
+
             arr.push({
                 label  : `data-${ k }`,       //
-                el     : val.el,
-                options: val.options,
+                el     : el,
+                options: options,
                 value  : val.value,
                 desc   : val.desc,
                 render : val.render !== false,
@@ -192,6 +232,7 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     handleChangeSwitch(index, value) {
+        console.log(value);
         this.setAttributeValue(index, value);
         this.generateCode();
     }
@@ -205,7 +246,6 @@ class CodeGenerate extends React.Component<any, any> {
         message.success('generate');
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
-        console.log(components);
 
         // 处理属性,生成属性代码
         let attrs = components.map(item => {
@@ -219,18 +259,17 @@ class CodeGenerate extends React.Component<any, any> {
                 funcNames.push({ funcName, hookName });
             }
 
+            // TODO 后续需要完善，选中的值如果和默认值相等，就不用生成对应的属性代码
             // 有属性默认值则，生成对应的属性代码
-            if (item.value) {
-                return `${ item.label }='${ item.value || '' }'`;
+            if ((typeof item.value !== 'undefined') && item.value !== '') {
+                return `${ item.label }='${ item.value ?? '' }'\n\t`;
             } else {
                 return undefined;
             }
         }).filter(t => t).join(' ');
 
-        console.log(attrs);
-
-        let componentUseCode = this.template.replace(/data-fn='(.*?)'/, v => {
-            v = v.replace(/data-fn='(.*?)'/, `data-fn='${ this.state.componentName }'`);      //替换组件名称
+        let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
+            v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });
 
@@ -283,6 +322,7 @@ class CodeGenerate extends React.Component<any, any> {
 
     // input
     handleInputChange(index, e) {
+        console.log(index, e);
         let value = e.target.value;
         this.setAttributeValue(index, value);
     }
@@ -299,7 +339,7 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     handleSliderChange(index, value) {
-        console.log(value);
+        // console.log(value);
         // this.setAttributeValue(index);
     }
 
@@ -308,14 +348,129 @@ class CodeGenerate extends React.Component<any, any> {
         await this.setState({ dataEnum });
     }
 
-
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
 
     }
 
+    renderSwitch(key, item) {
+        return <Switch
+            checked={ item.value }
+            onChange={ this.handleChangeSwitch.bind(this, key) }/>;
+    }
+
+    renderRadio(key, item) {
+        return <Radio.Group
+            onChange={ this.handleChangeRadio.bind(this, key) }
+            options={ item.options }
+            value={ item.value }
+        />;
+    }
+
+    renderNumberInput(key, item) {
+        return <InputNumber
+            min={ 50 } max={ 800 } defaultValue={ 3 }
+            step={ 10 }
+            onChange={ e => {
+                this.setAttributeValue(key, e);
+                this.generateCode();
+            } }
+            value={ item.value }
+        />;
+    }
+
+    renderList(key, item) {
+        return <Form.List name="dataEnum">
+            { (fields, { add, remove }) => {
+                return (
+                    <div>
+                        { fields.map(field => (
+                            <Space key={ field.key }
+                                   style={ {
+                                       display     : 'flex',
+                                       marginBottom: 8,
+                                   } }
+                                   align="start">
+                                <Form.Item
+                                    { ...field }
+                                    name={ [ field.name, 'value' ] }
+                                    fieldKey={ [ field.fieldKey, 'value' ] }
+                                    rules={ [ {
+                                        required: true,
+                                        message : 'Missing value',
+                                    } ] }
+                                >
+                                    <Input placeholder="value"/>
+                                </Form.Item>
+                                <Form.Item
+                                    { ...field }
+                                    name={ [ field.name, 'label' ] }
+                                    fieldKey={ [ field.fieldKey, 'label' ] }
+                                    rules={ [ {
+                                        required: true,
+                                        message : 'Missing label',
+                                    } ] }
+                                >
+                                    <Input placeholder="label"/>
+                                </Form.Item>
+
+                                <MinusCircleOutlined
+                                    onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
+                                />
+                            </Space>
+                        )) }
+
+                        <Form.Item>
+                            <Button
+                                type="dashed"
+                                onClick={ this.handleFormListAdd.bind(this, key, add) }
+                                block
+                            >
+                                <PlusOutlined/> 保存
+                            </Button>
+                        </Form.Item>
+                    </div>
+                );
+            } }
+        </Form.List>;
+    }
+
+    renderInput(key, item) {
+        return <Input
+            onChange={ this.handleInputChange.bind(this, key) }
+            onBlur={ this.handleInputBlur.bind(this, key) }
+            value={ item.value }
+        />;
+    }
+
+    renderSelect(key, item) {
+        return <Select
+            options={ item.options }
+            onChange={ this.handleChangeSelect.bind(this, key) }
+            allowClear={ true }
+            showSearch={ true }
+            value={ item.value }
+        />;
+    }
+
+    renderSlider(key, item) {
+        return <Slider
+            defaultValue={ 30 }
+            tooltipVisible
+            max={ 1000 }
+            min={ 200 }
+            onChange={ this.handleSliderChange.bind(this, key) }/>;
+    }
+
     render() {
-        return <>
+        return <div style={ { display: 'flex', justifyContent: 'space-between' } }>
+            <div style={ { width: '48%' } }>
+                <CodeEditor dataset={ {
+                    value: this.state.componentUseCode,
+                } }/>
+            </div>
+
             <Form layout="vertical"
+                  style={ { width: '48%' } }
                   hideRequiredMark
                   ref={ this.form }
                   initialValues={ {
@@ -351,140 +506,45 @@ class CodeGenerate extends React.Component<any, any> {
                         if (item.render === false) return '';
                         let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
-                        if (item.el === 'switch') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Switch checked={ item.value }
-                                                onChange={ this.handleChangeSwitch.bind(this, key) }/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'radio') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Radio.Group
-                                            onChange={ this.handleChangeRadio.bind(this, key) }
-                                            options={ item.options }
-                                            value={ item.value }
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'list') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label } name={ item.label }>
-                                        <Form.List name="dataEnum">
-                                            { (fields, { add, remove }) => {
-                                                return (
-                                                    <div>
-                                                        { fields.map(field => (
-                                                            <Space key={ field.key }
-                                                                   style={ {
-                                                                       display     : 'flex',
-                                                                       marginBottom: 8,
-                                                                   } }
-                                                                   align="start">
-                                                                <Form.Item
-                                                                    { ...field }
-                                                                    name={ [ field.name, 'value' ] }
-                                                                    fieldKey={ [ field.fieldKey, 'value' ] }
-                                                                    rules={ [ {
-                                                                        required: true,
-                                                                        message : 'Missing value',
-                                                                    } ] }
-                                                                >
-                                                                    <Input placeholder="value"/>
-                                                                </Form.Item>
-                                                                <Form.Item
-                                                                    { ...field }
-                                                                    name={ [ field.name, 'label' ] }
-                                                                    fieldKey={ [ field.fieldKey, 'label' ] }
-                                                                    rules={ [ {
-                                                                        required: true,
-                                                                        message : 'Missing label',
-                                                                    } ] }
-                                                                >
-                                                                    <Input placeholder="label"/>
-                                                                </Form.Item>
-
-                                                                <MinusCircleOutlined
-                                                                    onClick={ this.handleFormListRemove.bind(this, key, remove, field.name) }
-                                                                />
-                                                            </Space>
-                                                        )) }
-
-                                                        <Form.Item>
-                                                            <Button
-                                                                type="dashed"
-                                                                onClick={ this.handleFormListAdd.bind(this, key, add) }
-                                                                block
-                                                            >
-                                                                <PlusOutlined/> 保存
-                                                            </Button>
-                                                        </Form.Item>
-                                                    </div>
-                                                );
-                                            } }
-                                        </Form.List>
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'input') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Input onChange={ this.handleInputChange.bind(this, key) }
-                                               onBlur={ this.handleInputBlur.bind(this, key) }
-                                               value={ item.value }
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'select') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Select options={ item.options }
-                                                onChange={ this.handleChangeSelect.bind(this, key) }
-                                                allowClear={ true }
-                                                showSearch={ true }
-                                        />
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-                        } else if (item.el === 'slider') {
-                            return <Row key={ key }>
-                                <Col span={ 18 }>
-                                    <Form.Item label={ label }>
-                                        <Slider defaultValue={ 30 }
-                                                tooltipVisible
-                                                max={ 1000 }
-                                                min={ 200 }
-                                                onChange={ this.handleSliderChange.bind(this, key) }/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>;
-
+                        let formItem;
+                        switch(item.el) {
+                            case 'switch':
+                                formItem = this.renderSwitch(key, item);
+                                break;
+                            case 'radio':
+                                formItem = this.renderRadio(key, item);
+                                break;
+                            case 'list':
+                                formItem = this.renderList(key, item);
+                                break;
+                            case 'input':
+                                formItem = this.renderInput(key, item);
+                                break;
+                            case 'select':
+                                formItem = this.renderSelect(key, item);
+                                break;
+                            case 'slider':
+                                formItem = this.renderSlider(key, item);
+                                break;
+                            case 'number':
+                                formItem = this.renderNumberInput(key, item);
+                                break;
+                            default  :
+                                break;
                         }
+
+                        return <Row key={ key }>
+                            <Col span={ 18 }>
+                                <Form.Item label={ label }>
+                                    { formItem }
+                                </Form.Item>
+                            </Col>
+                        </Row>;
                     })
                 }
-
-                <Row gutter={ 16 }>
-                    <Col span={ 24 }>
-                        <Form.Item
-                            label="对应代码"
-                        >
-                            <CodeEditor dataset={ {
-                                value: this.state.componentUseCode,
-                            } }/>
-                        </Form.Item>
-                    </Col>
-                </Row>
             </Form>
-        </>;
+
+        </div>;
     }
 }
 

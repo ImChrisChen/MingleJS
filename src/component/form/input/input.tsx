@@ -49,6 +49,7 @@ export default class FormInput extends React.Component<IComponentProps, any> {
 
                     { ...this.props.dataset }
                     onChange={ this.handleChange.bind(this) }
+                    placeholder={ this.props.placeholder }
                 />
             </Form.Item>
         </>;

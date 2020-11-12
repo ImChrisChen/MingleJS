@@ -1,12 +1,11 @@
 @import "~codemirror/lib/codemirror.css";
 @import "~codemirror/theme/rubyblue.css";
-@import "~codemirror/theme/idea.css";
 
 .code-mirror {
     /*width  : 50%;*/
-    height : 200px;
+    height : 300px;
 }
 
 .code-mirror > .CodeMirror {
-    height : 200px !important;
+    height : 300px !important;
 }
