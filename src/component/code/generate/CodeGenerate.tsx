@@ -35,7 +35,7 @@ interface ICodeGenerateProps {
 }
 
 class CodeGenerate extends React.Component<any, any> {
-    private template = `<input data-fn='form-button' />`;
+    private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
     state = {
         components        : this.getComponents(),
@@ -226,8 +226,8 @@ class CodeGenerate extends React.Component<any, any> {
             }
         }).filter(t => t).join(' ');
 
-        let componentUseCode = this.template.replace(/data-fn='(.*?)'/, v => {
-            v = v.replace(/data-fn='(.*?)'/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
+        let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
+            v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });
 
@@ -305,14 +305,22 @@ class CodeGenerate extends React.Component<any, any> {
         await this.setState({ dataEnum });
     }
 
+    style = { display: 'flex', justifyContent: 'space-between' };
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
 
     }
 
     render() {
-        return <>
+        return <div style={ this.style }>
+            <div style={ { width: '48%' } }>
+                <CodeEditor dataset={ {
+                    value: this.state.componentUseCode,
+                } }/>
+            </div>
+
             <Form layout="vertical"
+                  style={ { width: '48%' } }
                   hideRequiredMark
                   ref={ this.form }
                   initialValues={ {
@@ -468,20 +476,8 @@ class CodeGenerate extends React.Component<any, any> {
                         }
                     })
                 }
-
-                <Row gutter={ 16 }>
-                    <Col span={ 24 }>
-                        <Form.Item
-                            label="对应代码"
-                        >
-                            <CodeEditor dataset={ {
-                                value: this.state.componentUseCode,
-                            } }/>
-                        </Form.Item>
-                    </Col>
-                </Row>
             </Form>
-        </>;
+        </div>;
     }
 }
 

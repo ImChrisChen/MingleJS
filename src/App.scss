@@ -1,9 +1,10 @@
-[data-component-container] {
-    //padding-right : 20px;
+
+form [data-component-uid] {
+    margin-right : 10px;
 }
 
-form [data-component-container] {
-    margin-right : 10px;
+[data-component-uid] {
+    position : relative;
 }
 
 input[data-fn] {
