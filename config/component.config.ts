@@ -8,6 +8,14 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
 import moment from 'moment';
 
+let domain = '';
+const isLocation = window.location.href.includes('-test');
+if (isLocation) {
+    domain = 'http://mingle-test.local.aidalan.com';
+} else {
+    domain = 'http://mingle.local.aidalan.com';
+}
+
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
@@ -150,8 +158,7 @@ export default {
                     enum      : UniversalProps.enum,
                     url       : {
                         el    : 'input',
-                        // value : 'http://e.local.aidalan.com/option/game/publisher?pf=0',
-                        value : 'http://mingle-test.local.aidalan.com/mock/select.json',
+                        value : domain + '/mock/select.json',
                         desc  : '列表数据的接口地址',
                         parse : 'string',
                         verify: value => isUrl(value),
@@ -537,13 +544,13 @@ export default {
                     },
                     headerurl: {
                         el   : 'input',
-                        value: 'http://mingle-test.local.aidalan.com/mock/table/tableHeader.json',
+                        value: domain + '/mock/table/tableHeader.json',
                         parse: 'string',
                         desc : '表头url',
                     },
                     url      : {
                         el   : 'input',
-                        value: 'http://mingle-test.local.aidalan.com/mock/table/tableContent.json',
+                        value: domain + '/mock/table/tableContent.json',
                         parse: 'string',
                         desc : '表数据url',
                     },
@@ -616,7 +623,7 @@ export default {
                     url        : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://mingle-test.local.aidalan.com/mock/chart/areauser.json',
+                        value: domain + '/mock/chart/areauser.json',
                         // value: 'http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=0&date_way=multi&group_way=&date_range=2020-10-28~2020-10-28&dl_game_id=&dl_channel_id=&media_id=&dl_adv_position_id=&dl_publisher_id=&principal_id=&original_id=&group_type=reg_count',     // 地域统计
                         desc : '图表数据接口',
                     },
@@ -739,7 +746,8 @@ export default {
                     url : {
                         el   : 'input',
                         // value: 'http://192.168.20.121:8081/mgm/menlist/',
-                        value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
+                        // value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
+                        value: domain + '/mock/tree.json',
                         parse: 'string',
                         desc : '数据源',
                     },
@@ -751,13 +759,15 @@ export default {
                     },
                     id  : {
                         el   : 'input',
-                        value: 'appMenuId',
+                        // value: 'appMenuId',
+                        value: 'id',
                         parse: 'string',
                         desc : '菜单ID映射字段名称,例如:id',
                     },
                     pid : {
                         el   : 'input',
-                        value: 'r_father',
+                        // value: 'r_father',
+                        value: 'parent',
                         parse: 'string',
                         desc : '菜单父级映射字段名称,例如:parent_id',
                     },

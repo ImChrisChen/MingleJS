@@ -11,6 +11,19 @@ export function arraylastItem<T>(array: Array<T>): T {
     return array[lastIndex];
 }
 
+// 求树最大深度
+export function getDepthMax(node: any, children = 'children') {
+
+    if (!node[children] || node[children].length === 0) {
+        return 1;
+    }
+
+    let maxChildDepth = node[children].map(item => getDepthMax(item));
+
+    return 1 + Math.max(...maxChildDepth);
+}
+
+
 // DOM 尾递归
 export function deepEachElementTail(root, callback?: (el: HTMLElement) => void) {
     // 这里输出的是根节点
@@ -41,7 +54,7 @@ export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
 export function deepEach(
     tree: Array<object> = [],
     // callback: (node?: object | any, i?: number | any, parent?: object | any, resultArr?: Array<object> | any) => {},
-    callback: Function,
+    callback: (node: any, i: number, parent: any, arr: Array<any>) => any,
     parent?: object,
     resultArr: Array<any> = [],
     children: string = 'children',

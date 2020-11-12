@@ -12,7 +12,8 @@ import { Button, Menu } from 'antd';
 import { MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { jsonp } from '@utils/request/request';
-import { formatList2Tree } from '@utils/format-data';
+import { formatList2Tree, formatTreeKey } from '@utils/format-data';
+import { getDepthMax } from '@utils/util';
 
 export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
 
@@ -33,7 +34,7 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
 
     async getData(): Promise<Array<any>> {
         let { url, menulist, id, name, pid, children } = this.props.dataset;
-        let data;
+        let data: Array<any>;
         console.log(url);
         if (url) {
             let res = await jsonp(url);
@@ -41,13 +42,19 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
         } else {
             data = menulist;
         }
-        data = formatList2Tree(data, {
-            // id      : 'appMenuId',
-            // pid     : 'r_father',
-            // name    : 'name',
-            // children: 'children',
-            id, pid, name, children,
-        });
+        let deep = getDepthMax({ children: data }, 'children') - 1;
+        console.log(deep);
+        if (deep > 1) {
+            data = formatTreeKey(data, { id, pid, name, children }, {
+                id      : 'id',
+                pid     : 'pid',
+                name    : 'label',
+                children: 'children',
+            });
+            console.log(data);
+        } else {
+            data = formatList2Tree(data, { id, pid, name, children });
+        }
         console.log(data);
         return data;
     }
