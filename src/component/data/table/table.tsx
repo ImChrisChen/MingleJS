@@ -97,7 +97,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
         showDropdown     : false,       // 是否显示下拉菜单
         showDropdownBtn  : false,       // 是否显示下拉框按钮
         bordered         : true,
-        pagination       : {      // 分页 https://ant-design.gitee.io/components/pagination-cn/#API
+        pagination       : this.props.dataset.pagination ? {      // 分页
+            // https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
             pageSizeOptions : /*this.props.dataset.pages*/ [ '10', '20', '50', '100', '200' ],
             pageSize        : this.props.dataset.pagesize ?? 50,
@@ -113,9 +114,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     pagination: { pageSize, page },
                 });
             },
-        },
+        } : false,
         scroll           : {        //  表格是否可以滚动
-            y: this.props.height || undefined,
+            y: this.props.dataset.height || undefined,
         },
     };
     private fieldTpl!: string;
