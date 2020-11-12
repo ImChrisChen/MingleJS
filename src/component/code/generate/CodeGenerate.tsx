@@ -8,7 +8,7 @@
 import { Button, Cascader, Col, Form, Input, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React from 'react';
-import componentMap, { IOptions } from '@root/config/component.config';
+import componentMap, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/parser-tpl';
@@ -104,20 +104,21 @@ class CodeGenerate extends React.Component<any, any> {
         }
 
         let { dataset, hook, ...attrs } = currentComponent.property;
-        let arr: Array<IComponentDataset> = [];
+        // let arr: Array<IComponentDataset> = [];
+        let arr: Array<IPropertyConfig> = [];
         let dataEnum: Array<any> = [];
 
         //dataset 属性
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
-            let val = dataset[k];
+            let val: IPropertyConfig = dataset[k];
 
             // TODO 当值为函数时，执行函数
             if (typeof val.value === 'function') {
                 val.value = val.value();
             }
 
-            if (k === 'url') {
+            if (k === 'url' && val.request) {
                 let res = await jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
                 if (dataItem && isObject(dataItem)) {

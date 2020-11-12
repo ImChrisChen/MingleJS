@@ -36,11 +36,13 @@ export interface IPropertyConfig<OptionItem = IOptions> {
     el?: elType             //要渲染的组件名称
     value?: ((parsedDataset) => any) | any          // TODO 在组件设计器中是没有这个参数传入的
     options?: Array<OptionItem> | 'fromUrl'       // 选择列表
-    label?: string
-    parse?: parseType
-    render?: boolean
+    label?: string            // 组件设计器中的label值
+    parse?: parseType         // 解析类型
+    request?: boolean        //  url 上才有这个属性，request为true时在组件设计器中会立即请求
+    render?: boolean         // 是否可在组件设计器中配置
     desc?: string           // 字段描述
-    verify?: (v) => any
+    verify?: (v) => boolean     // 验证属性值是否合法
+    // template?: string,          // 生成代码用的基本模版
 }
 
 interface IModulesConfig<Property> {
@@ -583,10 +585,11 @@ export default {
                         desc : '表头url',
                     },
                     url      : {
-                        el   : 'input',
-                        value: domain + '/mock/table/tableContent.json',
-                        parse: 'string',
-                        desc : '表数据url',
+                        el     : 'input',
+                        value  : domain + '/mock/table/tableContent.json',
+                        request: true,
+                        parse  : 'string',
+                        desc   : '表数据url',
                     },
                     pagesize : {
                         el   : 'input',
