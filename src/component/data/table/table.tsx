@@ -339,7 +339,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch (item.field) {
+                switch(item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;

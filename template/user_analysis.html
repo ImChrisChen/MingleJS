@@ -58,7 +58,7 @@
            data-value="<span class='ti-<{pf}>'></span> <{channel_name}>" data-key="channel_id" value="">
 
     <!-- 广告位 -->
-    <input data-fn="form-input" name="adv_position_id" data-label="广告位" placeholder="广告位ID">
+    <input data-fn="form-input" name="adv_position_id" data-label="广告位">
 
     <!-- 用户分析 -->
     <input data-fn="form-button" data-label="用户分析" name="group_type" value="reg_count"
@@ -72,7 +72,7 @@
 
     <!-- 地域用户画像 -->
     <div class="flexWidth-45">
-        <div data-fn="data-image"
+        <div data-fn="data-chart"
              data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
              data-from="user_analysis"
              data-type="bar"
@@ -94,7 +94,7 @@
 
     <!-- 品牌用户画像 -->
     <div class="flexWidth-45">
-        <div data-fn="data-image"
+        <div data-fn="data-chart"
              data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=brand&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
              data-from="user_analysis"
              data-type="pie"
@@ -117,7 +117,7 @@
     <div class="flexWidth-45">
         <div class="panel panel-info">
             <div class="panel-body">
-                <div data-fn="data-image"
+                <div data-fn="data-chart"
                      data-from="user_analysis"
                      data-type="bar"
                      data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=device&amp;pf=<{pf}>&amp;date_way=multi&amp;group_way=<{group_way}>&amp;date_range=<{date_range}>&amp;dl_game_id=<{dl_game_id}>&amp;dl_channel_id=<{dl_channel_id}>&amp;media_id=<{media_id}>&amp;dl_adv_position_id=<{dl_adv_position_id}>&amp;dl_publisher_id=<{dl_publisher_id}>&amp;principal_id=<{principal_id}>&amp;original_id=<{original_id}>&amp;group_type=<{group_type}>"
@@ -136,13 +136,13 @@
 </div>
 
 <style>
-  .flexWidth-45 {
-    width : 45%
-  }
+    .flexWidth-45 {
+        width : 45%
+    }
 
-  [data-fn=data-image] {
-    /*width : 45%;*/
-  }
+    [data-fn=data-chart] {
+        /*width : 45%;*/
+    }
 </style>
 
 <!--<div data-fn=" data-table"-->

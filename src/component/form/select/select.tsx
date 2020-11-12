@@ -41,20 +41,17 @@ export default class Selector extends React.Component<IComponentProps, any> {
         options    : [],
         value      : '' as any,
         currentItem: {},
+        loading    : true,
     };
 
     constructor(props) {
         super(props);
-        // this.getSelectList().then(options => {
-        //     this.setState({ options, });
-        // });
         this.getData().then(options => {
-            this.setState({ options });
+            this.setState({ options, loading: false });
         });
     }
 
     async getData() {
-        // let url = `http://e.local.aidalan.com/option/game/publisher?pf=0`;
         let { url, groupby, key, value, enum: enumList } = this.props.dataset;
 
         if (url) {
@@ -100,6 +97,8 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     style={ { minWidth: 100 } }
                     value={ value }
                     options={ this.state.options }
+                    loading={ this.state.loading }
+                    disabled={ this.state.loading }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }

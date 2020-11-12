@@ -22,7 +22,7 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider';
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider' | 'number';
 
 export interface IOptions {
     label: string
@@ -75,7 +75,7 @@ const UniversalProps = {
     label      : {
         el   : 'input',
         value: 'label:',
-        desc : '表单控件描述',
+        desc : '表单控件描述,若没有设置placeholder 属性时，会默认使用label属性的值',
         parse: 'string',
     },
     placeholder: {
@@ -270,7 +270,7 @@ export default {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/tree'),
             property : {
-                dataset: {
+                dataset    : {
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
@@ -305,15 +305,16 @@ export default {
                         value : true,
                     },
                 },
-                value  : {},
-                hook   : {},
+                placeholder: UniversalProps.placeholder,
+                value      : {},
+                hook       : {},
             },
         },
         cascader  : {
             path     : '/form-cascader',
             component: import('@component/form/cascader/cascader'),
             property : {
-                dataset: {
+                dataset    : {
                     label     : UniversalProps.label,
                     url       : {
                         el     : 'input',
@@ -348,7 +349,8 @@ export default {
                         render: false,
                     },
                 },
-                value  : {
+                placeholder: UniversalProps.placeholder,
+                value      : {
                     el   : 'input',
                     value: '',
                     parse: 'null',
@@ -623,7 +625,7 @@ export default {
                         desc   : '分页器的位置',
                     },
                     height    : {
-                        el    : 'input',
+                        el    : 'number',
                         value : ''/*'300'*/,
                         parse : 'number',
                         desc  : '表格内容高度, 可滚动',
@@ -638,9 +640,9 @@ export default {
                 // },
             },
         },
-        image          : {
+        chart          : {
             component: import('@component/data/image/image'),
-            path     : '/data-image',
+            path     : '/data-chart',
             property : {
                 dataset: {
                     'from'    : {
@@ -700,10 +702,10 @@ export default {
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    size      : {
+                    height    : {
                         el   : 'input',
-                        value: '{"height": 400}',
-                        parse: 'JSON',
+                        value: 400,
+                        parse: 'number',
                         desc : '图表大小',
                     },
                     datadirect: {
@@ -719,12 +721,12 @@ export default {
                 },
             },
         },
-        charts         : {
-            component: import('@component/data/chart/demo'),
-            property : {
-                dataset: {},
-            },
-        },
+        // charts         : {
+        //     component: import('@component/data/chart/demo'),
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
         panel          : {
             component: import('@component/data/panel/panel'),
             property : {
@@ -834,7 +836,7 @@ export default {
                         desc : '子菜单映射字段名称,例如:children',
                     },
                     width   : {
-                        el   : 'input',
+                        el   : 'number',
                         value: 200,
                         parse: 'number',
                         desc : '菜单宽度',
