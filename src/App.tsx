@@ -165,7 +165,7 @@ export default class App {
                             }, (hooks) => {
                                 hooks[Hooks.load]?.();
                                 // Array.from(this.$tempContainer.children()).forEach((el: any) => {
-                                // $(element).append(el).show();
+                                //     $(element).append(el).show();
                                 // });
 
                             });

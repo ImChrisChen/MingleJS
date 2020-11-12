@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && node script.js",
+		"deploy": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && node script.js && git add . && git commit -m '打包部署' && git push origin dev",
 		"pre": "rm -rf ./dist NODE_ENV=pre webpack && node script.js",
 		"mock": "nodemon ./server/main.js",
 		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --colors --config webpack.config.js && npx nodemon ./server/main.js",
