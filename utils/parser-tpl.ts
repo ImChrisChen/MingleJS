@@ -21,7 +21,6 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
 
 // 解析模版变量 例如: 'pf=<{pf}>' => 'pf=1'
 export function parseVar(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
-    console.log(tpl);
     tpl = parserEscape2Html(tpl);       // 字符替换 "&lt" => "<"
 
     let fields: Array<string> = [];

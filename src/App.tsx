@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {ReactInstance} from 'react';
 import { render } from 'react-dom';
 import { loadModules } from '@src/core/base';
 import { parserAttrs, parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isFunc } from '@utils/inspect';
+import {isFunc, isWuiTpl} from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
+import {lineOffset} from "@turf/turf";
+import {parseTpl} from "@utils/parser-tpl";
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -63,8 +65,8 @@ enum Hooks {
 
 export default class App {
     modules: Array<IModules> = [];
+    private instances = {}      // 组件实例
     $tempContainer: any;
-
 
     constructor(elementContainer/*private readonly elements: Array<HTMLElement>*/) {
 
@@ -162,12 +164,11 @@ export default class App {
 
                             this.renderComponent(module, (hooks) => {
                                 hooks[Hooks.beforeLoad]?.();
-                            }, (hooks) => {
+                            }, (hooks,instance:ReactInstance) => {
                                 hooks[Hooks.load]?.();
                                 // Array.from(this.$tempContainer.children()).forEach((el: any) => {
                                 //     $(element).append(el).show();
                                 // });
-
                             });
                             this.eventListener(module);
                         }
@@ -221,10 +222,35 @@ export default class App {
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
                 message.success(`onchange - value:${ $(element).val() }`);
-                this.renderComponent(module, function (hooks) {
+                
+                // 组件发生改变的时候重新出发组件渲染，达到值的改变
+                this.renderComponent(module, hooks => { 
                     hooks[Hooks.beforeUpdate]?.();
-                }, function (hooks) {
+                }, (hooks,instance:ReactInstance /*获取到的组件实例*/) => {
                     hooks[Hooks.update]?.();
+                    
+                    // TODO input调用的元素,外层才是 [data-component-uid]
+                    let $formItems = $(element).closest('form').find('[data-fn][name]');
+                    
+                    [...$formItems].forEach(formItem => {
+                        let dataset = formItem.dataset;
+                        let uid = $(formItem).parent('[data-component-uid]').attr('data-component-uid') ?? '';
+                        
+                        for (const key in dataset) {
+                            if(!dataset.hasOwnProperty(key)) continue;
+                            let tpl = dataset[key] ?? '';
+                            // if (isWuiTpl(tpl)) {
+                            let inputName = (element as HTMLInputElement).name;
+                            let regExp = new RegExp(`<{(.*?)${inputName}(.*?)}>`) || null;
+                            if (inputName && regExp.test(tpl)) {
+                                let formItemInstance = this.instances[uid];
+                                // tpl = parseTpl(tpl)
+                                // formItemInstance.getData(tpl);
+                            }
+                            // }
+                        }
+                        
+                    })
                 });
             });
         }
@@ -290,7 +316,7 @@ export default class App {
         });
     }
 
-    private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h) => any) {
+    private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h,instance:ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
             config, componentUID,
@@ -308,6 +334,7 @@ export default class App {
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
 
+        let instance:any = null;
         let props = {
             el        : element,
             elChildren: elChildren ?? [],
@@ -315,9 +342,11 @@ export default class App {
             dataset   : parsedDataset,
             ...parsedAttrs,
             // style      : jsxStyle,
-            role      : 'mingle-component',
+            role      : '',
             ref       : componentInstance => {        // 组件实例
                 componentMethod.trim() && componentInstance[componentMethod]();
+                instance = componentInstance
+                this.instances[componentUID] = componentInstance
                 return componentInstance;
             },
         };
@@ -339,7 +368,7 @@ export default class App {
                 <ConfigProvider { ...globalComponentConfig } >
                     <Component { ...props } value={ value }/>
                 </ConfigProvider>
-                , container, () => callback(hooks),
+                , container, () => callback(hooks, instance),
             );
         } catch (e) {
             console.error(e);
