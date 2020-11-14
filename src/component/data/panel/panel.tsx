@@ -8,7 +8,7 @@ import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
-import { parseFor, parseVar } from '@utils/parser-tpl';
+import { parseFor, parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
 import { isWuiTpl } from '@utils/inspect';
 
@@ -35,12 +35,12 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
                 if (node.nodeType === 3) {
                     let textNode = node.textContent;
                     if (isWuiTpl(textNode ?? '')) {
-                        node.textContent = parseVar(textNode ?? '', model, 'tpl');
+                        node.textContent = parseTpl(textNode ?? '', model, 'tpl');
                     }
                 }
             });
         });
-        // return parseVar(rootElement.innerHTML, model, 'tpl');
+        // return parseTpl(rootElement.innerHTML, model, 'tpl');
     }
 
     // 解析弹窗内的数据
@@ -48,7 +48,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         let templateAreas = document.querySelector('[data-template-element]') as HTMLElement;
         if (templateAreas) {
             DataPanel.parseTemplate(templateAreas, model);
-            // templateAreas.innerHTML = parseVar(templateAreas?.innerHTML ?? '', model, 'tpl');
+            // templateAreas.innerHTML = parseTpl(templateAreas?.innerHTML ?? '', model, 'tpl');
         }
     }
 
@@ -57,7 +57,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
     }
 
     parseContentProps(el, model) {
-        let res = parseVar(el.textContent, model, 'tpl');
+        let res = parseTpl(el.textContent, model, 'tpl');
         console.log(res);
     }
 
@@ -84,7 +84,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         if (!attrs['@if']) return;
 
         let { value: expressTpl } = attrs['@if'];
-        let express = parseVar(expressTpl, model, 'field');
+        let express = parseTpl(expressTpl, model, 'field');
         try {
             if (eval(express)) {
                 $(el).next().attr('@else') !== undefined && $(el).next().remove();      // 成立去掉else

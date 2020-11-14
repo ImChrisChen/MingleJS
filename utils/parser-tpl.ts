@@ -13,14 +13,9 @@ declare type tplTyle = 'tpl' | 'field'
 
 declare type IParseModeData = HTMLElement | object | null;
 
-// 'pf=<{pf}>' => 'pf=ios'
+// 'pf=<{pf}>' => 'pf=ios' 或者 
+// 'data.length > 1' => '10 > 1' => true
 export function parseTpl(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
-    tpl = parseVar(tpl, itemData, type);
-    return tpl;
-}
-
-// 解析模版变量 例如: 'pf=<{pf}>' => 'pf=1'
-export function parseVar(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
     tpl = parserEscape2Html(tpl);       // 字符替换 "&lt" => "<"
 
     let fields: Array<string> = [];
@@ -31,11 +26,11 @@ export function parseVar(tpl: string, itemData: IParseModeData = document.body, 
     }
     tpl = replaceTplDataValue(fields, itemData, tpl, type);
     return tpl.replace(/<{(.*?)}>/g, v => {
-        let [ , express ] = /<{(.*?)}>/.exec(v) ?? [];
+        let [, express] = /<{(.*?)}>/.exec(v) ?? [];
         try {
             return eval(express);
         } catch (e) {
-            console.error(`${ express } 表达式格式不正确,运算错误`);
+            console.error(`${express} 表达式格式不正确,运算错误`);
             return express;
         }
     });
@@ -56,7 +51,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
                     let val = data[fieldItem.trim()];
                     if (isUndefined(val)) {
-                        console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
+                        console.warn(` ${field} 未匹配到模版变量，暂不替换`, itemData);
                         return field;
                     }
                     return val;
@@ -66,7 +61,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
             } else {
                 let key = field.trim();
                 let val = isDOM(itemData)
-                    ? encodeURIComponent((itemData.querySelector(`input[name=${ key }]`) as HTMLInputElement)?.value ?? '')
+                    ? encodeURIComponent((itemData.querySelector(`input[name=${key}]`) as HTMLInputElement)?.value ?? '')
                     : (itemData[key] ?? '');
                 tpl = tpl.replace(regExp, val);
             }
@@ -78,9 +73,9 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
 function createRegExp(type: tplTyle, field): RegExp {
     let regExp;
     if (type === 'tpl') {
-        regExp = new RegExp(`<{${ field }}>`, 'g');
+        regExp = new RegExp(`<{${field}}>`, 'g');
     } else if (type === 'field') {
-        regExp = new RegExp(`${ field }`, 'g');
+        regExp = new RegExp(`${field}`, 'g');
     }
     return regExp as RegExp;
 }
@@ -93,7 +88,7 @@ export function parseIfelse(tpl, itemData: IParseModeData) {
     return tpl.replace(regExp, (val: string /*val整个是个if代码块*/) => {
         // if 匹配出 if 条件表达式 例如 "100 > 90"
         let execResult = /<\(if\s+([\S\s]+?)\)>([\S\s]+?)(<\(else\)>[\S\s]+?)?<\(\/if\)>/g.exec(val) || [];
-        let [ , condtionExpress /*表达式*/, content /* if包裹的内容*/ ] = execResult;
+        let [, condtionExpress /*表达式*/, content /* if包裹的内容*/] = execResult;
         let result: boolean;
         try {
             result = eval(String(condtionExpress));
@@ -101,7 +96,7 @@ export function parseIfelse(tpl, itemData: IParseModeData) {
             console.error(e);
             result = false;
         }
-        console.log(`表达式:'${ condtionExpress }', 执行结果:`, result);
+        console.log(`表达式:'${condtionExpress}', 执行结果:`, result);
         return result ? content : '';
     });
 }
@@ -113,17 +108,17 @@ export function parseForeach(tpl, itemData: object) {
 
     function parseEachHead(eachHead: string) {
         let result = /foreach\s([\w-.]+)\sas\s((\w+)\s=>\s)?([\w-]+)/.exec(eachHead) ?? [];
-        return [ result[1], result[4] ]; // ['users' 'user']
+        return [result[1], result[4]]; // ['users' 'user']
     }
 
     return tpl.replace(regExp, (val: string) => {
         let res = regExp.exec(val) ?? [];
-        let [ , eachHead, codeBlock /*eachFoot*/ ] = res;   // eachStart `<{foreach users as user}>`
-        let [ listName, itemName ] = parseEachHead(eachHead);
+        let [, eachHead, codeBlock /*eachFoot*/] = res;   // eachStart `<{foreach users as user}>`
+        let [listName, itemName] = parseEachHead(eachHead);
         let list = itemData[listName];
         return list.map(item => {
             let model = { [itemName]: item };
-            let tpl = parseVar(codeBlock, model);
+            let tpl = parseTpl(codeBlock, model);
             return tpl;
         }).join('');
     });
@@ -134,9 +129,9 @@ export function parseFor(codeBlock: string, itemData, { list, item }): string {
     let html = '';
     return data.map(it => {
         let model = { [item]: it };
-        let html = parseVar(codeBlock, model, 'tpl');
-        let [ , exp ] = html.match(/@if=["'`](.*?)["'`]/) ?? [];
-        exp = parseVar(exp, model, 'field');      // if 条件解析后,执行if条件
+        let html = parseTpl(codeBlock, model, 'tpl');
+        let [, exp] = html.match(/@if=["'`](.*?)["'`]/) ?? [];
+        exp = parseTpl(exp, model, 'field');      // if 条件解析后,执行if条件
         // console.log(exp, eval(exp), html);
         return eval(exp) ? html : '';
     }).join('');
@@ -152,7 +147,7 @@ export function parseMathCalc(tpl) {
 export function getTplFields(tpl: string): Array<string> {
     let matchArr: Array<string> = tpl.match(/<{(.*?)}>/g) ?? [];
     return matchArr.map(item => {
-        let [ , fieldName ] = item.match(/<{(.*?)}>/) ?? [];
+        let [, fieldName] = item.match(/<{(.*?)}>/) ?? [];
         return fieldName;
     });
 }
@@ -191,7 +186,7 @@ export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: st
     // return str.split(';').reduce((arr: Array<object>, group) => {
     return str.split(rowStplit).reduce((arr: Array<object>, group) => {
         // let [ key, val ] = group.split(',');
-        let [ key, val ] = group.split(cellSplit);
+        let [key, val] = group.split(cellSplit);
         if (!isEmptyStr(key) && !isEmptyStr(val)) {
             key = key.trim();
             val = val.trim();
