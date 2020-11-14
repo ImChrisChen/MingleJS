@@ -7,7 +7,7 @@
 import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { parserEscape2Html } from '@utils/parser-char';
-import { parseFor, parseTpl, parseVar } from '@utils/parser-tpl';
+import { parseFor, parseTpl } from '@utils/parser-tpl';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 
@@ -35,7 +35,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
             if (attrs['@if']) {
                 let { value: fieldTpl } = attrs['@if'];
 
-                let express = parseVar(fieldTpl, model, 'field');
+                let express = parseTpl(fieldTpl, model, 'field');
                 try {
                     let ifResult = eval(express);
 
@@ -71,8 +71,8 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
             }
         });
         // TODO 这里必须要用 this.state.html 是在子组件中还没渲染的原始模版,不然子组件中(不再data-panel内的子组件，例如弹窗)无法使用模版变量
-        // this.props.el.innerHTML = parseVar(this.state.html, model);
-        this.props.el.innerHTML = parseVar(el.innerHTML, model);
+        // this.props.el.innerHTML = parseTpl(this.state.html, model);
+        this.props.el.innerHTML = parseTpl(el.innerHTML, model);
         $(el).show();
     }
 

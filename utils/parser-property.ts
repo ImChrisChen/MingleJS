@@ -41,7 +41,7 @@ export function parserProperty(dataset, defaultDataset): object {
 
         // 属性函数验证
         if (verify && !verify(value)) {
-            console.warn(`${ datasetKey }属性的值格式验证不通过`, dataset);
+            console.warn(`${datasetKey}属性的值格式验证不通过`, dataset);
             continue;
         }
 
@@ -55,7 +55,6 @@ export function parserProperty(dataset, defaultDataset): object {
 // 解析普通属性 name value placeholder ...
 export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     let defaultAttrs = {};
-    console.log(parsedDataset);
 
     for (const key in defaultAttrsConfig) {
         if (!defaultAttrsConfig.hasOwnProperty(key)) continue;
@@ -69,7 +68,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
             // 属性函数验证
             if (verify && !verify(value)) {
-                console.error(`${ key }属性的值格式验证不通过`);
+                console.error(`${key}属性的值格式验证不通过`);
                 continue;
             }
             defaultAttrs[key] = parserProgram(key, value, parse).v;
@@ -118,7 +117,7 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             if (ret) {
                 value = JSON.parse(value);
             } else {
-                console.error(`data-${ key }的值传入的不是一个JSON`);
+                console.error(`data-${key}的值传入的不是一个JSON`);
                 value = {};
             }
             break;
