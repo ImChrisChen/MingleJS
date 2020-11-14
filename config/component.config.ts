@@ -897,6 +897,40 @@ export default {
         drawer: {
             component: import('@component/layout/drawer/drawer'),
         },
+        steps : {
+            path     : '/layout-steps',
+            component: import('@component/layout/steps/steps'),
+            property : {
+                dataset: {
+                    current: {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '指定当前步骤，从 0 开始记数。',
+                        value: 0,
+                    },
+                    layout : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        desc   : '布局方式',
+                        options: [
+                            { label: 'horizontal', value: 'horizontal' },
+                            { label: 'vertical', value: 'vertical' },
+                        ],
+                        value  : undefined,
+                    },
+                    type   : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: 'navigation', value: 'navigation' },
+                            { label: 'default', value: 'default' },
+                        ],
+                        value  : undefined,
+                        desc   : '步骤条类型，有 default 和 navigation 两种',
+                    },
+                },
+            },
+        },
     },
     code  : {
         editor: {
