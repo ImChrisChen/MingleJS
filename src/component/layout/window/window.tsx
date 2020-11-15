@@ -77,9 +77,6 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     render() {
         const { visible, loading } = this.state;
-
-        let children = this.props.elChildren;
-
         return <Modal
             className={ 'layout-window' }
             visible={ visible }

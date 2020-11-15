@@ -12,7 +12,6 @@ export interface IComponentProps {
     box?: HTMLElement
     style?: IReactStyle
     dataset: any
-    role?: string
     ref?: () => any
     value?: any
 

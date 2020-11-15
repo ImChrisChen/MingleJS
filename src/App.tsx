@@ -7,6 +7,7 @@ import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
 import { isFunc } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
+import * as antdIcons from '@ant-design/icons';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -72,25 +73,24 @@ export default class App {
     private instances = {};      // 组件实例
     $tempContainer: any;
 
-    constructor(elementContainer/*private readonly elements: Array<HTMLElement>*/) {
+    constructor(rootElement: HTMLElement/*private readonly elements: Array<HTMLElement>*/) {
 
-        // TODO解决
         this.$tempContainer = $(`<div data-template-element></div>`);
         if ($(`[data-template-element]`).length === 0) {
             $('body').append(this.$tempContainer);
         }
 
         try {
-            this.init(elementContainer).then(() => {
-                // this.globalEventListener();
+            this.init(rootElement).then(r => {
             });
         } catch (e) {
             console.error(e);
         }
     }
 
-    async init(elementContainer) {
-        deepEachElement(elementContainer, async (element) => {
+    async init(rootElement: HTMLElement) {
+        this.renderIcons(rootElement);
+        deepEachElement(rootElement, async (element) => {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;
@@ -185,6 +185,19 @@ export default class App {
         let componentModule = await loadModules(componentName.split('-'));
         let defaultProperty = componentModule.property;
         return parserProperty(el.dataset, defaultProperty);
+    }
+
+    renderIcons(rootElement: HTMLElement) {
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
+        for (const icon of elements) {
+            let { type, color } = icon.attributes;
+            let Icon = antdIcons[type.value];
+            if (!Icon) {
+                console.warn(`没有${ type.value }这个icon图标`);
+                continue;
+            }
+            ReactDOM.render(<Icon style={ { color: color?.value } }/>, icon);
+        }
     }
 
     formatHooks(attributes: IAttributes): object {
@@ -345,8 +358,6 @@ export default class App {
             box       : containerWrap,
             dataset   : parsedDataset,
             ...parsedAttrs,
-            // style      : jsxStyle,
-            role      : '',
             ref       : componentInstance => {        // 组件实例
                 componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
@@ -361,7 +372,7 @@ export default class App {
         let defaultValue = typeof defaultProperty?.value?.value === 'function'
             ? defaultProperty.value.value(config)
             : defaultProperty?.value?.value ?? '';
-        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 ??  操作符,否则无法获取到 defaultValue
+        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
         let value = element['value'] || defaultValue;
 
         // 触发 beforeLoad 钩子
