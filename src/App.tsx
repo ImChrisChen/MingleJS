@@ -190,13 +190,13 @@ export default class App {
     renderIcons(rootElement: HTMLElement) {
         let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
-            let { type, color } = icon.attributes;
+            let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
             if (!Icon) {
                 console.warn(`没有${ type.value }这个icon图标`);
                 continue;
             }
-            ReactDOM.render(<Icon style={ { color: color?.value } }/>, icon);
+            ReactDOM.render(<Icon style={ { color: color?.value, fontSize: size?.value + 'px' } }/>, icon);
         }
     }
 
