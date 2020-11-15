@@ -7,7 +7,6 @@
 import React from 'react';
 import { Button, Modal } from 'antd';
 import { IComponentProps } from '@interface/common/component';
-import { elementParseAllVirtualDOM } from '@utils/parser-dom';
 import $ from 'jquery';
 import Draggable from 'react-draggable';
 import DataPanel from '@component/data/panel/panel';
@@ -38,17 +37,26 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
     constructor(props) {
         super(props);
         this.props.el.onclick = e => this.handleClickBtn(e);
+        this.props.el.innerHTML = this.props.dataset.content;
+    }
+
+    public static parsePopups(model: object) {
+        let templateAreas = document.querySelector('[data-template-element]') as HTMLElement;
+        templateAreas && DataPanel.parseTemplate(templateAreas, model);
     }
 
     handleClickBtn(e) {
         let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
-        let dataPanelUID = $dataPanel.attr('data-component-uid');
-
         App.parseElementProperty($dataPanel.get(0)).then(dataset => {
-            DataPanel.getData(dataset).then(model => {
-                this.handleShowModel();
-                DataPanel.parseWorkingModel(model);
-            });
+            let model = DataPanel.model;
+            this.handleShowModel();
+            LayoutWindow.parsePopups(model);
+        });
+
+        // 组件加载完成后处理弹窗内容
+        setTimeout(() => {
+            let container = document.querySelector('.layout-window-content');
+            container && container.append(...this.props.elChildren);
         });
     }
 
@@ -70,11 +78,10 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
     render() {
         const { visible, loading } = this.state;
 
-        // @ts-ignore
-        // let children = [ ...this.props.elChildren[0].content.children ];
         let children = this.props.elChildren;
 
         return <Modal
+            className={ 'layout-window' }
             visible={ visible }
             mask={ false }
             maskClosable={ false }
@@ -123,9 +130,7 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
                 ]
             }
         >
-            {   // @ts-ignore
-                elementParseAllVirtualDOM(children)
-            }
+            <div className='layout-window-content'/>
         </Modal>;
     }
 

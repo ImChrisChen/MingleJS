@@ -886,10 +886,17 @@ export default {
             component: import('@component/layout/window/window'),
             property : {
                 dataset: {
-                    title: {
+                    title  : {
                         el   : 'input',
                         parse: 'string',
                         value: '标题',
+                        desc : '弹窗的标题',
+                    },
+                    content: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '按钮的内容',
                     },
                 },
             },

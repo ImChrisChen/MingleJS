@@ -31,6 +31,7 @@ interface IModules {
     // { element, Component, container, elChildren }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
+    elChildNodes: any | Array<HTMLElement | Node>
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
     containerWrap: HTMLElement      //  组件根容器
@@ -89,25 +90,22 @@ export default class App {
     }
 
     async init(elementContainer) {
-        deepEachElement(elementContainer, async element => {
+        deepEachElement(elementContainer, async (element) => {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
                 let container: HTMLElement, containerWrap: HTMLElement;
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    // element.setAttribute('type', 'hidden');
 
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     let elementWrap: HTMLElement = document.createElement('div');
                     container = document.createElement('div');
                     element.after(elementWrap);
                     elementWrap.appendChild(element);
                     elementWrap.appendChild(container);
                     containerWrap = elementWrap;
-
                 } else {
                     let reactContainer: HTMLElement = document.createElement('div');
                     element.appendChild(reactContainer);
                     container = reactContainer;
-
                     containerWrap = element;
                 }
 
@@ -115,39 +113,33 @@ export default class App {
 
                 if (componentNames) {
 
-                    let componentUID = App.getUUID();
                     // TODO 设置组件唯一ID
+                    let componentUID = App.getUUID();
                     containerWrap.setAttribute('data-component-uid', componentUID);
 
                     for (const componentName of componentNames.split(' ')) {
 
                         if (componentName.startsWith('self-')) {
-                            console.error(`${componentName} 模块不属于MingleJS`);
+                            console.error(`${ componentName } 模块不属于MingleJS`);
                         } else {
 
                             let keysArr = componentName.split('-');
-                            let componentMethod: string = '';
-                            if (keysArr.length === 3) {
-                                componentMethod = keysArr.pop() as string;
-                            }
+                            // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
+                            let [, , componentMethod] = keysArr;
 
                             const Modules = await loadModules(keysArr);
-                            const Component = Modules.component.default;
+                            const Component = Modules.component.default;            // React组件
                             const config = Modules.config;
+
                             let defaultProperty = Modules.property;
+                            let el = element.cloneNode(true);
+                            let elChildNodes = el.childNodes;
 
                             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
                             let elChildren: Array<HTMLElement | any> = [];
 
-                            if (element.children.length !== 0) { // 有子节点的时候克隆当前父节点(然后获取到子节点)
-                                // elChildren = Array.from(element.cloneNode(true)?.['children'] ?? []);
-                                elChildren = Array.from(element.children ?? []);
-                                elChildren.pop();       // 去掉自己本身
-
-                                elChildren.forEach(el => {
-                                    // this.$tempContainer.append(el).hide();
-                                });
-                            }
+                            elChildren = Array.from(element.children ?? []);
+                            elChildren.pop();       // 去掉自己本身
 
                             let hooks = this.formatHooks(attributes);
 
@@ -157,6 +149,7 @@ export default class App {
                                 container,
                                 containerWrap,
                                 elChildren,
+                                elChildNodes,
                                 hooks,
                                 componentMethod,
                                 defaultProperty,
@@ -194,7 +187,6 @@ export default class App {
         return parserProperty(el.dataset, defaultProperty);
     }
 
-
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
@@ -226,7 +218,7 @@ export default class App {
                 if (!dataset.hasOwnProperty(key)) continue;
                 let tpl = dataset[key] ?? '';
                 let inputName = element.name;
-                let regExp = new RegExp(`<{(.*?)${inputName}(.*?)}>`);
+                let regExp = new RegExp(`<{(.*?)${ inputName }(.*?)}>`);
                 if (inputName && regExp.test(tpl)) {
                     let { module }: IInstances = this.instances[uid];
                     // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
@@ -253,7 +245,7 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                message.success(`onchange - value:${$(element).val()}`);
+                message.success(`onchange - value:${ $(element).val() }`);
 
                 // 组件发生改变的时候重新出发组件渲染，达到值的改变
                 this.renderComponent(module, hooks => {
@@ -329,6 +321,7 @@ export default class App {
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
+            elChildNodes,
             config, componentUID,
         } = module;
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
@@ -348,13 +341,14 @@ export default class App {
         let props = {
             el        : element,
             elChildren: elChildren ?? [],
+            elChildNodes,
             box       : containerWrap,
             dataset   : parsedDataset,
             ...parsedAttrs,
             // style      : jsxStyle,
             role      : '',
             ref       : componentInstance => {        // 组件实例
-                componentMethod.trim() && componentInstance[componentMethod]();
+                componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
                 this.instances[componentUID] = {
                     instance: componentInstance, module,
@@ -377,8 +371,8 @@ export default class App {
         try {
             // 组件名必须大写
             ReactDOM.render(
-                <ConfigProvider {...globalComponentConfig} >
-                    <Component {...props} value={value}/>
+                <ConfigProvider { ...globalComponentConfig } >
+                    <Component { ...props } value={ value }/>
                 </ConfigProvider>
                 , container, () => callback(hooks, instance),
             );
