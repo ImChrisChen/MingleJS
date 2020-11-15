@@ -14,16 +14,6 @@ import Document from './src/document/Document';
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 
-// const isDebug = true;
-//
-// console.log = (function (oriLogFunc) {
-//     return function (str) {
-//         if (isDebug) {
-//             oriLogFunc.call(console, str);
-//         }
-//     };
-// })(console.log);
-
 // 判断是否是深色模式
 const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
 

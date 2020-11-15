@@ -1,8 +1,8 @@
 <div data-fn="data-panel"
-     data-model='{"status":true,"title":"用户列表","msg": "返回成功","data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'
+     data-model='{"status":true,"height":600,"title":"用户列表","msg": "返回成功","data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'
 >
-    <h2>标题: <{title}></h2>
-    <h3>状态: <{status}></h3>
+    <h2>标题: <{ title }></h2>
+    <h3>状态: <{ status }></h3>
     <p>总人数: <{ data.length * 200 / 100 + (300 - 100) }></p>
 
     <ul @if="status && data.length > 0">
@@ -11,12 +11,26 @@
         </li>
     </ul>
 
-    <div data-fn="view-template">
+    <button @if class="ant-btn ant-btn-primary" data-fn="layout-window" data-content="Submit">
+        <div class="container">
+            <form data-fn="form-ajax" data-layout="h">
+                <input data-fn="form-select" name="pf"
+                       value="1"
+                       data-label="平台:"
+                       data-mode="single"
+                       data-key="id"
+                       data-value="name"
+                       data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
 
-    </div>
+                <input data-fn="form-select" name="pf"
+                       value="1"
+                       data-label="平台:"
+                       data-mode="single"
+                       data-key="id"
+                       data-value="name"
+                       data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
+            </form>
 
-    <button id="btn" class="ant-btn ant-btn-primary" data-fn="layout-window">Submit
-        <div>
             <div data-fn="data-table"
                  data-height="400"
                  data-from="user_analysis"
@@ -25,6 +39,31 @@
             ></div>
         </div>
     </button>
+
+    <div @if data-fn="layout-tab">
+        <div data-title="类型1">
+            <input data-fn="form-select" name="pf"
+                   value="1"
+                   data-label="平台"
+                   data-mode="single"
+                   data-key="id"
+                   data-value="name"
+                   data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
+        </div>
+        <div data-title="类型2">
+            <input data-fn="form-select" name="pf"
+                   value="1"
+                   data-label="123213平台:"
+                   data-mode="single"
+                   data-key="id"
+                   data-value="name"
+                   data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
+        </div>
+    </div>
+
+    <icon type="StepBackwardOutlined" color="#f0f" size="30"/>
+
+    <!--    <icon type="WindowsOutlined"/>-->
 
 </div>
 

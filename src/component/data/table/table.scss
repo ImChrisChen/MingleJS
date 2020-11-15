@@ -1,16 +1,16 @@
 .tableHeaderCell {
-    width      : inherit;
-    height     : inherit;
-    text-align : center;
+    width: inherit;
+    height: inherit;
+    text-align: center;
     //color : #ffffff;
 }
 
 @mixin thColor($color: transparentize()) {
-    background-color : $color;
+    background-color: $color;
 }
 
 .virtual-grid {
-    text-align : center !important;
+    text-align: center !important;
 }
 
 .formTable {
@@ -22,15 +22,20 @@
     //-ms-user-select     : none; /*IE10+*/
     //-khtml-user-select  : none; /*早期的浏览器*/
     //user-select         : none;
-    position            : relative;
-    overflow            : auto;
+    position: relative;
+    overflow: auto;
+
+    // TODO 处理表头在弹窗中不显示的问题
+    table {
+        visibility: visible !important;
+    }
 }
 
 .dropdown {
-    position : absolute;
+    position: absolute;
     //top      : 0;
-    right    : 0;
-    z-index  : 999;
+    right: 0;
+    z-index: 999;
 }
 
 .formTableWrap {
@@ -38,10 +43,10 @@
 }
 
 .show {
-    display : block !important;
+    display: block !important;
 }
 
 .hide {
-    display : none !important;
+    display: none !important;
 }
 

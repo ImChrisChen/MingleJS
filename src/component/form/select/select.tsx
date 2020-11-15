@@ -46,7 +46,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        console.log('select props:',props);
         this.getData(this.props.dataset.url).then(options => {
             this.setState({ options, loading: false });
         });
