@@ -13,6 +13,7 @@ import DataPanel from '@component/data/panel/panel';
 // import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
 import App from '@src/App';
 
+
 const style = {
     display       : 'flex',
     alignItems    : 'center',

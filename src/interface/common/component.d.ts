@@ -22,7 +22,10 @@ export interface IReactStyle {
     [key: string]: string | number
 }
 
-export interface IDataset {
-
-
+export interface IRouteItem {
+    path: string
+    component?: any
+    name: string
+    target?: string
+    children: Array<IRouteItem>
 }
