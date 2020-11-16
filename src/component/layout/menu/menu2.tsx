@@ -77,9 +77,9 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
                 </Button>
 
                 <Menu
-                    defaultSelectedKeys={ [ '1' ] }
-                    defaultOpenKeys={ [ 'sub1' ] }
-                    mode="inline"       /* 'vertical' : 'inline': 'horizontal */
+                    defaultSelectedKeys={ ['1'] }
+                    defaultOpenKeys={ ['sub1'] }
+                    mode={ this.props.dataset.layout }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
                     onClick={ this.handleSelectMenu.bind(this) }
                     inlineCollapsed={ this.state.collapsed }

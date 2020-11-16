@@ -80,7 +80,7 @@ class Document extends React.Component<any, any> {
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
 
-                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
+                        <Menu theme="light" mode="horizontal">
                             { navRouter.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target
