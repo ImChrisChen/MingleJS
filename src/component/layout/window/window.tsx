@@ -36,6 +36,7 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     constructor(props) {
         super(props);
+        console.log(this.props.el);
         this.props.el.onclick = e => this.handleClickBtn(e);
         this.props.el.innerHTML = this.props.dataset.content;
     }
@@ -75,15 +76,27 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
         this.setState({ visible: false });
     };
 
+    // TODO 待处理问题，当页面存在多个panel区域中都有弹窗的时候
     render() {
         const { visible, loading } = this.state;
         return <Modal
             className={ 'layout-window' }
             visible={ visible }
             mask={ false }
-            maskClosable={ false }
             getContainer={ () => document.querySelector('[data-template-element]') ?? document.body }
             title={ <div
+                onMouseOverCapture={ () => {
+                    if (this.state.disabled) {
+                        this.setState({
+                            disabled: false,
+                        });
+                    }
+                } }
+                onMouseOutCapture={ () => {
+                    this.setState({
+                        disabled: true,
+                    });
+                } }
                 style={ { width: '100%', cursor: 'move' } }
                 onMouseOver={ () => {
                     if (this.state.disabled) {
@@ -102,20 +115,7 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
             width={ 1000 }
             onOk={ this.handleOk.bind(this) }
             onCancel={ this.handleCancel.bind(this) }
-            // @ts-ignore
             modalRender={ modal => <Draggable disabled={ this.state.disabled }>{ modal }</Draggable> }
-            onMouseOver={ () => {
-                if (this.state.disabled) {
-                    this.setState({
-                        disabled: false,
-                    });
-                }
-            } }
-            onMouseOut={ () => {
-                this.setState({
-                    disabled: true,
-                });
-            } }
             footer={
                 [
                     <Button key="back" onClick={ this.handleCancel.bind(this) }>
@@ -127,7 +127,7 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
                 ]
             }
         >
-            <div className='layout-window-content'/>
+            <div className="layout-window-content"/>
         </Modal>;
     }
 
