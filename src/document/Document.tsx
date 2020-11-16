@@ -38,22 +38,9 @@ class Document extends React.Component<any, any> {
         });
     }
 
-    toggle = () => {
-        this.setState({
-            collapsed: !this.state.collapsed,
-        });
-    };
-
-    handleCodeGenerate() {
-        this.setState({
-            showCodeDesign: true,
-        });
-    }
-
-    handleCloseCodeDesign() {
-        this.setState({
-            showCodeDesign: false,
-        });
+    getCurrentMenu() {
+        let [, currentRoute] = window.location.hash.split('#');
+        return currentRoute;
     }
 
     render() {
@@ -80,7 +67,8 @@ class Document extends React.Component<any, any> {
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
 
-                        <Menu theme="light" mode="horizontal">
+                        {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [this.getCurrentMenu()] }>
                             { navRouter.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target

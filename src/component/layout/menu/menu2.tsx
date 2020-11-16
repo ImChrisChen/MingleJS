@@ -35,7 +35,6 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
     async getData(): Promise<Array<any>> {
         let { url, menulist, id, name, pid, children } = this.props.dataset;
         let data: Array<any>;
-        console.log(url);
         if (url) {
             let res = await jsonp(url);
             data = res.status ? res.data : [];
@@ -55,7 +54,6 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
         } else {
             data = formatList2Tree(data, { id, pid, name, children });
         }
-        console.log(data);
         return data;
     }
 
