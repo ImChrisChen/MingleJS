@@ -72,6 +72,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return res.status ? res.data : [];
     }
 
+    // 饼状图
     private pie(config) {
 
         let genreCount = Array.from(new Set(this.state.data.map(item => item[config.genre]).filter(item => item))).length;
@@ -81,33 +82,35 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
-                   interactions={ [ 'element-single-selected' ] }>
-                <Coordinate type="theta" radius={ 0.75 }/>
+                   interactions={ ['element-single-selected'] }>
+                <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
                 {/*<Tooltip showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
                 <Interval
+                    // style={{ stroke: "white", lineWidth: 5 }}
                     position={ config.compare }
                     adjust="stack"
                     color={ config.genre }
                     label={
-                        [ '*', {
+                        ['*', {
                             content: (data) => {
                                 return `${ data[config.genre] }: ${ data[config.compare] }`;
                             },
-                        } ] }
+                        }] }
                 />
             </Chart>
         </>;
     }
 
+    // 柱状图
     private bar(config) {
         let { position, groupby, colors } = config;
         return <>
             <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ ['active-region'] }>
 
                 <Interval position={ position } color={ groupby || colors }
-                          adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
+                          adjust={ [{ type: 'dodge', marginRatio: 0 }] }/>
 
                 <Tooltip shared/>
                 <Legend layout="vertical" position="top-left"
@@ -126,6 +129,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         </>;
     }
 
+    // 折线图
     private line(config) {
         let { position, groupby, colors, chartType } = config;
 
@@ -137,7 +141,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ ['active-region'] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
@@ -163,6 +167,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         </>;
     }
 
+    // 词云
     private word(config) {
         let { position, groupby, colors } = config;
 
@@ -180,12 +185,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 maskImage={ 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ' }
                 shape={ 'cardioid' }
                 wordStyle={ {
-                    fontSize: [ 30, 40 ],
+                    fontSize: [30, 40],
                 } }
             />
         </>;
     }
 
+    //漏斗图
     private funnel(config) {
         return <>
             <FunnelChart
@@ -222,13 +228,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 height,
                 chartType,
             };
-        } catch(e) {
+        } catch (e) {
             return {};
         }
     }
 
     renderChart(config) {
-        switch(config.chartType) {
+        switch (config.chartType) {
             case 'bar':
                 return this.bar(config);
             case 'line':

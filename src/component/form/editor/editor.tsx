@@ -7,18 +7,18 @@
 
 import React from 'react';
 // https://github.com/remarkjs/react-markdown#options
-import MarkdownEditor from '@uiw/react-markdown-editor';
+import MarkdownEdit from '@uiw/react-markdown-editor';
 import $ from 'jquery';
 import './editor.css';
 
-interface IFormEditorProps {
+interface IMarkdownEditorProps {
     value?: string;
     visibleEditor?: boolean
 
     [key: string]: any
 }
 
-export default class Editor extends React.Component<IFormEditorProps, any> {
+export default class MarkdownEditor extends React.Component<IMarkdownEditorProps, any> {
 
     state = {
         options: {
@@ -54,8 +54,8 @@ export default class Editor extends React.Component<IFormEditorProps, any> {
             <div className="container md-editor-markdown">
 
                 {
-                    this.props.visibleEditor ? <MarkdownEditor { ...this.state.options } /> :
-                        <MarkdownEditor { ...this.state.options } toolbars={ false }/>
+                    this.props.visibleEditor ? <MarkdownEdit { ...this.state.options } /> :
+                        <MarkdownEdit { ...this.state.options } toolbars={ false }/>
                 }
 
             </div>

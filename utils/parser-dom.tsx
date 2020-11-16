@@ -36,13 +36,13 @@ export function strParseVirtualDOM(strHtml: string): any {
 }
 
 // 字符串 => 真实DOM
-export function strParseDOM(strHtml: string): NodeListOf<ChildNode> {
+export function strParseDOM(strHtml: string): HTMLElement {
 
     let container = document.createElement('div');
 
     container.innerHTML = strHtml;
 
-    return container.childNodes;
+    return container;
 
 }
 

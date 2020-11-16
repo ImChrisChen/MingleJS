@@ -13,6 +13,7 @@ import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
+import { strParseDOM } from '@utils/parser-dom';
 // import axios from 'axios'
 
 const { Option, OptGroup } = Select;
@@ -88,7 +89,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
             <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
-
                     { ...dataset }
                     placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
@@ -101,9 +101,13 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
                     maxTagCount={ 1 }
-                    filterOption={ (input, option) => {     // 搜索
+                    filterOption={ (input, option: any) => {     // 搜索
                         if (!option) return false;
-                        return String(option.value).includes(input) || String(option.label).includes(input);
+                        let label: any;
+                        label = typeof option?.label === 'object'
+                            ? strParseDOM(option.label?.props?.dangerouslySetInnerHTML.__html).innerText
+                            : option.label;
+                        return String(option.value).includes(input) || String(label).includes(input);
                     } }/>
                 {/*<Select*/ }
                 {/*    options={ this.state.currentItem['children'] }*/ }

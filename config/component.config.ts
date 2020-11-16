@@ -809,7 +809,7 @@ export default {
             property : {
                 dataset: {
                     // url     : UniversalProps.url,
-                    url : {
+                    url     : {
                         el   : 'input',
                         // value: 'http://192.168.20.121:8081/mgm/menlist/',
                         // value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
@@ -817,33 +817,43 @@ export default {
                         parse: 'string',
                         desc : '数据源',
                     },
-                    open: {
+                    open    : {
                         el   : 'switch',
                         value: true,
                         parse: 'boolean',
                         desc : '是否默认展开',
                     },
-                    id  : {
+                    id      : {
                         el   : 'input',
                         // value: 'appMenuId',
                         value: 'id',
                         parse: 'string',
                         desc : '菜单ID映射字段名称,例如:id',
                     },
-                    pid : {
+                    pid     : {
                         el   : 'input',
                         // value: 'r_father',
                         value: 'parent',
                         parse: 'string',
                         desc : '菜单父级映射字段名称,例如:parent_id',
                     },
-                    name: {
+                    name    : {
                         el   : 'input',
                         value: 'name',
                         parse: 'string',
                         desc : '菜单名称映射字段名称,例如:menu_name',
                     },
-
+                    layout  : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'vertical', value: 'vertical' },
+                            { label: 'horizontal', value: 'horizontal' },
+                            { label: 'inline', value: 'inline' },
+                        ],
+                        value  : 'inline',
+                        parse  : 'string',
+                        desc   : '菜单类型，现在支持垂直(vertical)、水平(horizontal)、和内嵌模式(inline)三种',
+                    },
                     children: {
                         el   : 'input',
                         value: 'children',
@@ -972,6 +982,14 @@ export default {
                 },
             },
         },
+    },
+    editor: {
+        // flow: {
+        //     component: import('@component/editor/flow/flow'),
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
     },
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
