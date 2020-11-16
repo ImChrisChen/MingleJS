@@ -983,6 +983,14 @@ export default {
             },
         },
     },
+    editor: {
+        // flow: {
+        //     component: import('@component/editor/flow/flow'),
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
+    },
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置

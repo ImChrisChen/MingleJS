@@ -19,6 +19,31 @@ import { Link } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
+const data = {
+    nodes: [
+        {
+            id   : '0',
+            label: 'Node',
+            x    : 55,
+            y    : 55,
+        },
+        {
+            id   : '1',
+            label: 'Node',
+            x    : 55,
+            y    : 255,
+        },
+    ],
+    edges: [
+        {
+            label : 'Label',
+            source: '0',
+            target: '1',
+        },
+    ],
+};
+
+
 class Document extends React.Component<any, any> {
     state: any = {
         menulist      : [],

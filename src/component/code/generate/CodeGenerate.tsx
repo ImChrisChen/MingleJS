@@ -71,7 +71,6 @@ class CodeGenerate extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        console.log('-----------');
         formatComponents2Tree(componentMap).then(tree => {
             this.setState({
                 componentsTree: tree,

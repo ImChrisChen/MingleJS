@@ -1,7 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
 import App from '@src/App';
-
 /**
  * Created by WebStorm.
  * User: chrischen
@@ -17,6 +16,7 @@ import regExpManual from '@root/template/regexp_manual.html';
 import { IRouteItem } from '@interface/common/component';
 import layoutWindowPage from '@root/template/tpl-engine.html';
 import MarkdownEditor from '@component/form/editor/editor';
+import layoutSteps from '@root/template/layout-steps.html';
 
 class HtmlRender extends React.Component<{ html: string }, any> {
     constructor(props) {
@@ -70,6 +70,11 @@ export default [
         name     : '弹窗组件测试效果',
         path     : '/layout-winodw-page',
         component: <HtmlRender html={ layoutWindowPage }/>,
+    },
+    {
+        name     : '步骤条组件展示效果',
+        path     : '/layout-steps',
+        component: <HtmlRender html={ layoutSteps }/>,
     },
     {
         name     : '正则手册',

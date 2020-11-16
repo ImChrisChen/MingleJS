@@ -1,0 +1,29 @@
+<div class="ant-layout" style="display: flex; flex-direction: row;">
+
+    <input data-fn="layout-menu"
+           data-url="http://mingle.local.aidalan.com/mock/tree.json"
+           data-open="true"
+           data-id="id"
+           data-pid="parent"
+           data-name="name"
+           data-children="children"
+           data-width="200">
+
+    <section class="ant-layout site-layout" style="width: 100%;">
+        <header class="ant-layout-header site-layout-background" style="padding: 0px; background: rgb(255, 255, 255);">
+            header
+        </header>
+
+        <main class="ant-layout-content site-layout-background" style="min-height: 280px;">
+            main
+            <div data-fn="data-table"
+                 data-headerurl="http://mingle.local.aidalan.com/mock/table/tableHeader.json"
+                 data-url="http://mingle.local.aidalan.com/mock/table/tableContent.json"
+                 data-pagesize="50"
+                 data-pages="50,100,200"
+                 data-pagination="true"
+                 data-position="bottomRight"></div>
+        </main>
+    </section>
+</div>
+
