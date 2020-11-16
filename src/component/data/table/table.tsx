@@ -100,11 +100,10 @@ export default class DataTable extends React.Component<ITableProps, any> {
         pagination       : this.props.dataset.pagination ? {      // 分页
             // https://ant-design.gitee.io/components/pagination-cn/#API
             // current: 0,
-            pageSizeOptions : /*this.props.dataset.pages*/ [ '10', '20', '50', '100', '200' ],
+            pageSizeOptions : /*this.props.dataset.pages*/ ['10', '20', '50', '100', '200'],
             pageSize        : this.props.dataset.pagesize ?? 50,
-            position        : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
+            position        : ['none', this.props.dataset.position /*'bottomLeft'*/],     // 分页器展示的位置
             onChange        : (page, pageSize) => {    // 页码改变的回调，参数是改变后的页码及每页条数
-                console.log(page, pageSize);
                 this.setState({
                     pagination: { pageSize, page },
                 });
@@ -129,7 +128,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     constructor(props: ITableProps) {
         super(props);
-        console.log(props);
 
         if (this.props.dataset && this.props.dataset.from) {
             let formElement = FormAjax.findFormElement(this.props.dataset.from);
@@ -139,9 +137,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
-        ]).then(([ tableHeader, tableContent ]) => {
-            console.log(tableHeader);
-            console.log(tableContent);
+        ]).then(([tableHeader, tableContent]) => {
             this.setState({
                 columns   : tableHeader,
                 dataSource: tableContent,
@@ -153,13 +149,12 @@ export default class DataTable extends React.Component<ITableProps, any> {
     handleDragSelect() {
         let $el = $(this.props.el);
         let el = findDOMNode(this.props.el);
-        console.log(el);
         $el.on('mousedown', function (e) {
             let { clientX: startX, clientY: startY } = e;
             $el.one('mouseup', function (e) {
                 let { clientX: endX, clientY: endY } = e;
                 if (Math.abs(startX - endX) > 100 || Math.abs(startY - endY) > 100) {
-                    console.log('拖拽结束');
+                    // console.log('拖拽结束');
 
                     let $tds = $el.find('td');
                     $tds.css('background', 'transparent');
@@ -253,9 +248,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析html模版
                 if (isHtmlTpl(value)) {
-                    console.log(value);
                     value = strParseVirtualDOM(value);          // 字符串dom转化
-                    console.log(value);
                 }
 
                 item[key] = value;
@@ -339,7 +332,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch(item.field) {
+                switch (item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;
@@ -388,7 +381,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 },
                 // ellipsis    : true,      // 自动省略
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
-                fixed       : false,
+                // fixed       : false,
                 sorter      : fn,
             });
         }
@@ -405,7 +398,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     } }
                     placeholder={ `Search ${ dataIndex }` }
                     value={ selectedKeys[0] }
-                    onChange={ e => setSelectedKeys(e.target.value ? [ e.target.value ] : []) }
+                    onChange={ e => setSelectedKeys(e.target.value ? [e.target.value] : []) }
                     onPressEnter={ () => this.handleSearch(selectedKeys, confirm, dataIndex) }
                     style={ { width: 188, marginBottom: 8, display: 'block' } }
                 />
@@ -440,7 +433,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
             this.state.searchedColumn === dataIndex ? (
                 <Highlighter
                     highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
-                    searchWords={ [ this.state.searchText ] }
+                    searchWords={ [this.state.searchText] }
                     autoEscape
                     textToHighlight={ text ? text.toString() : '' }
                 />
@@ -455,7 +448,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
     };
 
     handleSearch = (selectedKeys, confirm, dataIndex) => {
-        console.log(selectedKeys, confirm, dataIndex);
         confirm();
         this.setState({
             searchText    : selectedKeys[0],
@@ -464,7 +456,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
     };
 
     onSelectChange(selectedRowKeys) {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
     }
 
@@ -496,10 +487,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
         this.setState({ showDropdownBtn: false });
     }
 
-    render() {
-        console.log(this.state);
+    renderRowSelection() {
         const { selectedRowKeys } = this.state;
-        const rowSelection = {
+        return {
             selectedRowKeys,
             onChange  : this.onSelectChange.bind(this),
             selections: [
@@ -535,15 +525,16 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 },
             ],
         };
+    }
 
+    render() {
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
-                    onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }
-        >
+                    onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
                       className={ `${ style.dropdown } ${ this.state.showDropdownBtn ? style.show : style.hide }` }
                       placement="bottomRight"
                       onVisibleChange={ this.handleDropdownVisibleChange.bind(this) }
-                      visible={ this.state.showDropdown } trigger={ [ 'click' ] } arrow>
+                      visible={ this.state.showDropdown } trigger={ ['click'] } arrow>
                 <Button>
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
@@ -577,13 +568,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
                         }, // 点击表头行
                     };
                 } }
-                // style{this.props}
                 sticky={ true }
-                // rowSelection={ rowSelection }
+                // rowSelection={ this.renderRowSelection() }
                 { ...this.state }
                 columns={ this.state.columns.filter(item => item['visible'] === true) }
             >
-                <h1 style={ { position: 'absolute', top: '50%', left: '50%' } }>-------------------</h1>
             </Table>
         </div>;
     }

@@ -31,6 +31,7 @@ import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
 import { jsonp } from '@utils/request/request';
 import { isObject } from '@utils/inspect';
+import { SketchPicker } from 'react-color';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -343,6 +344,11 @@ class CodeGenerate extends React.Component<any, any> {
         // this.setAttributeValue(index);
     }
 
+    handleChangeColor(index, value) {
+        this.setAttributeValue(index, value.hex);
+        this.generateCode();
+    }
+
     async setDataEnum() {
         let dataEnum = this.form.current.getFieldValue('dataEnum').filter(item => item);
         await this.setState({ dataEnum });
@@ -461,6 +467,17 @@ class CodeGenerate extends React.Component<any, any> {
             onChange={ this.handleSliderChange.bind(this, key) }/>;
     }
 
+    renderColorPicker(key, item) {
+        // return <SwatchesPicker
+        //     color={ item.value }
+        //     onChangeComplete={ this.handleChangeColor.bind(this, key) }
+        // />;
+        return <SketchPicker
+            color={ item.value }
+            onChangeComplete={ this.handleChangeColor.bind(this, key) }
+        />;
+    }
+
     render() {
         return <div style={ { display: 'flex', justifyContent: 'space-between' } }>
             <div style={ { width: '48%' } }>
@@ -507,7 +524,7 @@ class CodeGenerate extends React.Component<any, any> {
                         let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
                         let formItem;
-                        switch(item.el) {
+                        switch (item.el) {
                             case 'switch':
                                 formItem = this.renderSwitch(key, item);
                                 break;
@@ -528,6 +545,9 @@ class CodeGenerate extends React.Component<any, any> {
                                 break;
                             case 'number':
                                 formItem = this.renderNumberInput(key, item);
+                                break;
+                            case 'color':
+                                formItem = this.renderColorPicker(key, item);
                                 break;
                             default  :
                                 break;

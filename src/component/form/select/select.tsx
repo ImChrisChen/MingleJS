@@ -46,14 +46,13 @@ export default class Selector extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        this.getData().then(options => {
+        this.getData(this.props.dataset.url).then(options => {
             this.setState({ options, loading: false });
         });
     }
 
-    async getData() {
-        let { url, groupby, key, value, enum: enumList } = this.props.dataset;
-
+    async getData(url) {
+        let { groupby, key, value, enum: enumList } = this.props.dataset;
         if (url) {
             let { data } = await jsonp(url);
 
@@ -85,7 +84,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
                 value = [];
             }
         }
-
         return <>
             <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select

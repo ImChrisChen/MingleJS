@@ -5,16 +5,19 @@
  * Time: 8:26 下午
  */
 import { IComponentProps } from '@interface/common/component';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
-import { parseFor, parseVar } from '@utils/parser-tpl';
+import { parseFor, parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
 import { isWuiTpl } from '@utils/inspect';
 
-export default class DataPanel extends React.Component<IComponentProps, any> {
+// DOM 解析
+export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
 
-    state = {
+    public static model: object = {};
+
+    public state = {
         html: this.props.el.innerHTML,
     };
 
@@ -26,7 +29,7 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         });
     }
 
-    static parseTemplate(rootElement: HTMLElement, model: object) {
+    public static parseTemplate(rootElement: HTMLElement, model: object) {
         deepEachElement(rootElement, (el: HTMLElement) => {
             this.parseIfelse(el, model);
             this.parseForeach(el, model);
@@ -35,42 +38,25 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
                 if (node.nodeType === 3) {
                     let textNode = node.textContent;
                     if (isWuiTpl(textNode ?? '')) {
-                        node.textContent = parseVar(textNode ?? '', model, 'tpl');
+                        node.textContent = parseTpl(textNode ?? '', model, 'tpl');
                     }
                 }
             });
         });
-        // return parseVar(rootElement.innerHTML, model, 'tpl');
+        // return parseTpl(rootElement.innerHTML, model, 'tpl');
     }
 
-    // 解析弹窗内的数据
-    static parseWorkingModel(model: any) {
-        let templateAreas = document.querySelector('[data-template-element]') as HTMLElement;
-        if (templateAreas) {
-            DataPanel.parseTemplate(templateAreas, model);
-            // templateAreas.innerHTML = parseVar(templateAreas?.innerHTML ?? '', model, 'tpl');
-        }
-    }
-
-    deleteDirective(html: string) {
-        return html.replace(/(@foreach=["'`](.*?)["'`])|(@if=["'`](.*?)["'`])/g, '');
-    }
-
-    parseContentProps(el, model) {
-        let res = parseVar(el.textContent, model, 'tpl');
-        console.log(res);
-    }
-
-    static parseForeach(el: HTMLElement, model: object) {
+    public static parseForeach(el: HTMLElement, model: object) {
         let attrs = el.attributes;
         let content = el.outerHTML;
         if (!attrs['@foreach']) return content;
         let { name, value } = attrs['@foreach'];
+        console.log(name, value);
         if (!/^\w+ as \w+$/.test(value)) {
             console.error(`${ name }格式不正确`);
             return content;
         }
-        let [ list, item ] = value.split('as');
+        let [list, item] = value.split('as');
         list = list.trim();
         item = item.trim();
         content = parseFor(content, model, { list, item });
@@ -79,12 +65,12 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         el.remove();        // 删除掉原始模版
     }
 
-    static parseIfelse(el: HTMLElement, model: object) {
+    public static parseIfelse(el: HTMLElement, model: object) {
         let attrs = el.attributes;
         if (!attrs['@if']) return;
 
         let { value: expressTpl } = attrs['@if'];
-        let express = parseVar(expressTpl, model, 'field');
+        let express = parseTpl(expressTpl, model, 'field');
         try {
             if (eval(express)) {
                 $(el).next().attr('@else') !== undefined && $(el).next().remove();      // 成立去掉else
@@ -97,20 +83,19 @@ export default class DataPanel extends React.Component<IComponentProps, any> {
         }
     }
 
-    static async getData(dataset) {
+    public static async getData(dataset) {
         let { url, model } = dataset;
         if (url) {
             let res = await jsonp(url);
-            return res.status ? res.data : {};
+            this.model = res.status ? res.data : {};
         } else if (model) {
-            return model;
-        } else {
-            return {};
+            this.model = model;
         }
+        return this.model;
     }
 
     render() {
-        return <></>;
+        return null;
     }
 
 }

@@ -22,7 +22,7 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider' | 'number';
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider' | 'number' | 'color';
 
 export interface IOptions {
     label: string
@@ -548,6 +548,20 @@ export default {
                 },
             },
         },
+        color     : {
+            component: import('@component/form/color/color'),
+            path     : 'form-color',
+            property : {
+                dataset: {
+                    label: UniversalProps.label,
+                },
+                value  : {
+                    el   : 'color',
+                    value: '#f0f',
+                    parse: 'string',
+                },
+            },
+        },
     },
     view  : {
         popover : {
@@ -671,6 +685,7 @@ export default {
                             { label: '饼图', value: 'pie' },
                             { label: '柱状图', value: 'bar' },
                             { label: '折线图', value: 'line' },
+                            { label: '词云', value: 'word' },
                         ],
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
@@ -690,7 +705,7 @@ export default {
                         desc   : '图表统计的value值字段名',
                     },
                     colors    : {
-                        el   : 'input',
+                        el   : 'color',
                         value: '#6ad6b6',
                         parse: 'string[]',
                         desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
@@ -871,16 +886,57 @@ export default {
             component: import('@component/layout/window/window'),
             property : {
                 dataset: {
-                    title: {
+                    title  : {
                         el   : 'input',
                         parse: 'string',
                         value: '标题',
+                        desc : '弹窗的标题',
+                    },
+                    content: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '按钮的内容',
                     },
                 },
             },
         },
         drawer: {
             component: import('@component/layout/drawer/drawer'),
+        },
+        steps : {
+            path     : '/layout-steps',
+            component: import('@component/layout/steps/steps'),
+            property : {
+                dataset: {
+                    current: {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '指定当前步骤，从 0 开始记数。',
+                        value: 0,
+                    },
+                    layout : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        desc   : '布局方式',
+                        options: [
+                            { label: 'horizontal', value: 'horizontal' },
+                            { label: 'vertical', value: 'vertical' },
+                        ],
+                        value  : undefined,
+                    },
+                    type   : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: 'navigation', value: 'navigation' },
+                            { label: 'default', value: 'default' },
+                        ],
+                        value  : undefined,
+                        desc   : '步骤条类型，有 default 和 navigation 两种',
+                    },
+                },
+            },
         },
     },
     code  : {

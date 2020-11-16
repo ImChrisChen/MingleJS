@@ -228,3 +228,43 @@ window.funcName = function () {
 
 ​	
 
+~~~javascript
+$('a').click(function(event) {
+                        leaveFlag = false;
+                        var url = $(this).attr('href');
+                        // var jumpdownload = '//hd.aidalan.com/download?downlink='
+                        var jumpdownload = '';
+                        var host = window.location.host;
+
+                        if (host.includes('wbdd2018')) {
+                            jumpdownload = '//hd.wbdd2018.com/download?downlink=';
+                        } else {
+                            jumpdownload = '//hd.aidalan.com/download?downlink=';
+                        }
+
+                        if (url && url != 'javascript:;') {
+                            if (browser.versions.mobile) {
+                                console.log(url);
+                            } else {
+                                showQR(url);
+                            }
+                            stats('down', url);
+                            if (browser.versions.android && browser.versions.weixin) {
+                                if (false) {
+                                    location.href = 'wx.html?down=' + url;
+                                    return false;
+                                }
+
+                                if (location.search) {
+                                    var is_direct = location.search.substr(1);
+                                }
+                                if (is_direct && is_direct == 'direct') {
+                                    location.href = url;
+                                } else {
+                                    location.href = jumpdownload + url;
+                                }
+
+                                return false;
+                            }
+~~~
+

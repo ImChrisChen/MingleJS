@@ -14,7 +14,7 @@ export default class Tab extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        this.renderChild()
+        this.renderChild();
     }
 
     state: any = {
@@ -35,9 +35,10 @@ export default class Tab extends React.Component<any, any> {
             let $tabpanels = $(el).find('.form-tabpanel');
             elChildren.forEach((elChild, index) => {
                 $tabpanels[index].append(elChild);
-                $(elChild).show();      //渲染后再显示
+                $(elChild).show();      // TODO 渲染后再显示,写在这里防止抖动
             });
         });
+        // $(elChildren).hide(); // TODO 写在这里会有抖动 
     }
 
     render() {
@@ -46,8 +47,8 @@ export default class Tab extends React.Component<any, any> {
                      onChange={ this.handleChange.bind(this) }
         >
             {
-                this.props.elChildren.map((item, index) => {
-                        return <TabPane className="form-tabpanel" tab="Tab 1"
+                this.props.elChildren.map((child, index) => {
+                        return <TabPane className="form-tabpanel" tab={ child.dataset.title }
                                         key={ index }>
                         </TabPane>;
                     },

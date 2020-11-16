@@ -32,7 +32,7 @@ export default class CodeEditor extends React.Component<any, any> {
 
     runCode() {
         let el = $(this.props.dataset.value);
-        let elementContainer = document.querySelector('.show-code');
+        let elementContainer = document.querySelector('.show-code') as HTMLElement;
         $('.show-code').html('').append(el);
         new App(elementContainer);
     }

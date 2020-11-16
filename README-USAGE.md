@@ -1,4 +1,4 @@
-# MingleJS 使用文档
+MingleJS 使用文档
 
 `组件调用方式和组件传参，还是和WUI保持一致`
 
@@ -29,8 +29,6 @@ window.funcName = function () {
 </script>
 ```
 
-
-
 ## 模版解析
 
 > data-panel组件支持 if foreach 模版渲染等语法
@@ -55,6 +53,7 @@ window.funcName = function () {
         
 </div>
 ~~~
+
 
 #### data-url数据格式
 
@@ -86,7 +85,6 @@ window.funcName = function () {
 ```
 
 
-
 ## Form 表单和表格/图表/ 列表 之间的关联
 
 ~~~html
@@ -110,3 +108,21 @@ window.funcName = function () {
      >
 </div>
 ~~~
+
+
+## 字体图标
+
+
+使用示例
+
+```html
+<icon type="AppleOutlined" color="#f0f00f" size="18" />
+```
+
+| 属性  |                             说明                             |     示例      | 是否必填 |
+| :---: | :----------------------------------------------------------: | :-----------: | :------: |
+| type  | 图标类型,具体参考 [ant.design](https://ant.design/components/icon-cn/#components-icon-demo-iconfont) | AppleOutlined |    Y     |
+| color |                           图标颜色                           |    #f0f00f    |    N     |
+| size  |                           图标大小                           |      18       |    N     |
+
+

@@ -22,7 +22,7 @@
     <input data-fn="form-select" name="dl_game_id" data-mode="multiple"
            data-label="游戏:"
            data-key="game_id"
-           data-value="<span class='ti-<{pf}>'></span> <{game_name}><span class='sr-only'><{game_original_name}></span>"
+           data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"
            data-tags="tags"
            value=""
            data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"
@@ -132,12 +132,11 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <style>
     .flexWidth-45 {
-        width : 45%
+        width: 45%
     }
 
     [data-fn=data-chart] {

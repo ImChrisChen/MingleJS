@@ -7,6 +7,8 @@
 
 import { message } from 'antd';
 import md5 from 'md5';
+import { isWuiTpl } from '@utils/inspect';
+import { parseTpl } from '@utils/parser-tpl';
 
 export interface IApiResult {
     status: boolean
@@ -22,12 +24,13 @@ export interface IApiResult {
 }
 
 export function jsonp(url: string): Promise<IApiResult> {
+    if (isWuiTpl(url)) url = parseTpl(url);
+
     let funcName = 'callback' + md5(url + new Date().getTime());         // 解决jsonp短时间内无法循环请求的问题
     let isDone = false;
     let timeout = 15000;     // 超时时间
     return new Promise((resolve, reject) => {
         window[funcName] = result => {
-            console.log(result);
             if (result.status) {
                 isDone = true;
                 resolve(result);
@@ -54,8 +57,8 @@ export function jsonp(url: string): Promise<IApiResult> {
 
         try {
             body?.appendChild(script);
-        } catch(e) {
-            console.log(e);
+        } catch (e) {
+            console.error(e);
         }
 
         setTimeout(() => {
