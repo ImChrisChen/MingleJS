@@ -33,7 +33,7 @@ import { withRouter } from 'react-router';
 import { jsonp } from '@utils/request/request';
 import { isObject } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
-import style from './CodeGenerate.scss';
+import style from './CodeGenerator.scss';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -53,7 +53,7 @@ interface ICodeGenerateProps {
     [key: string]: any
 }
 
-class CodeGenerate extends React.Component<any, any> {
+class CodeGenerator extends React.Component<any, any> {
     private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
     state = {
@@ -586,5 +586,5 @@ class CodeGenerate extends React.Component<any, any> {
     }
 }
 
-export default withRouter(CodeGenerate);
+export default withRouter(CodeGenerator);
 // export default CodeGenerate
