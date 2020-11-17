@@ -517,6 +517,7 @@ class CodeGenerate extends React.Component<any, any> {
                                 rules={ [ { required: true, message: '请选择组件' } ] }
                             >
                                 <Select placeholder="请选择组件" options={ this.state.components }
+                                        allowClear={ false }
                                         onChange={ this.handleChangeComponent.bind(this) }>
                                 </Select>
                             </Form.Item>

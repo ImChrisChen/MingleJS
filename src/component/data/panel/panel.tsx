@@ -18,7 +18,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     public static model: object = {};
 
     public state = {
-        html: this.props.el.innerHTML,
+        html : this.props.el.innerHTML,
+        model: {},
     };
 
     constructor(props) {
@@ -26,6 +27,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
         DataPanel.getData(this.props.dataset).then(data => {
             DataPanel.parseElement(this.props.el, data);
+            this.setState({ model: data });
         });
     }
 
@@ -51,7 +53,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 }
             });
         });
-        // return parseTpl(rootElement.innerHTML, model, 'tpl');
     }
 
     public static parseForeach(el: HTMLElement, model: object) {
@@ -95,11 +96,10 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         let { url, model } = dataset;
         if (url) {
             let res = await jsonp(url);
-            this.model = res.status ? res.data : {};
+            return res.status ? res.data : {};
         } else if (model) {
-            this.model = model;
+            return model;
         }
-        return this.model;
     }
 
     render() {

@@ -70,7 +70,7 @@ enum Hooks {
 
 export default class App {
     modules: Array<IModules> = [];
-    private instances = {};      // 组件实例
+    public static instances = {};      // 组件实例
     $tempContainer: any;
 
     constructor(rootElement: HTMLElement/*private readonly elements: Array<HTMLElement>*/) {
@@ -235,7 +235,7 @@ export default class App {
                 let inputName = element.name;
                 let regExp = new RegExp(`<{(.*?)${ inputName }(.*?)}>`);
                 if (inputName && regExp.test(tpl)) {
-                    let { module }: IInstances = this.instances[uid];
+                    let { module }: IInstances = App.instances[uid];
                     // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
                     ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
                     this.renderComponent(module,
@@ -363,7 +363,7 @@ export default class App {
             ref       : componentInstance => {        // 组件实例
                 componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
-                this.instances[componentUID] = {
+                App.instances[componentUID] = {
                     instance: componentInstance, module,
                 };
                 return componentInstance;

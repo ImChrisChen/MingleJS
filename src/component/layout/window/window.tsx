@@ -10,6 +10,7 @@ import { IComponentProps } from '@interface/common/component';
 import $ from 'jquery';
 import Draggable from 'react-draggable';
 import DataPanel from '@component/data/panel/panel';
+import App from '@src/App';
 // import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
 
 
@@ -45,7 +46,9 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
         this.handleShowModel();
 
         // TODO 这个要第一次弹窗后才会渲染
-        let model = DataPanel.model;
+        let uid = $(this.props.el).closest('[data-fn=data-panel]')
+            .attr('data-component-uid') ?? '';
+        let { model } = App.instances[uid].instance.state;
         DataPanel.parseElement(this.props.elChildren, model);
 
         let container = document.querySelector('.layout-window-content');
