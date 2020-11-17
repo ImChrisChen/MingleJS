@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/11/17 * Time: 3:20 下午 */import React, { Component } from 'react';export class LayoutGenerator extends Component<any, any> {    constructor(props) {        super(props);    }    render() {        return <div>        </div>;    }}

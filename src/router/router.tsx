@@ -13,9 +13,10 @@ import user_analysis from '@root/template/user_analysis.html';
 import regExpManual from '@root/template/regexp_manual.html';
 import { IRouteItem } from '@interface/common/component';
 import layoutWindowPage from '@root/template/tpl-engine.html';
-import MarkdownEditor from '@component/form/editor/editor';
+import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import layoutSteps from '@root/template/layout-steps.html';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
+import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutGenerator';
 
 // nav
 export default [
@@ -37,7 +38,7 @@ export default [
     {
         name     : '可视化布局',
         path     : '/layout-generate',
-        component: <CodeGenerator/>,
+        component: <LayoutGenerator/>,
     },
     {
         name     : '测试页面',

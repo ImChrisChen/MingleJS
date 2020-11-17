@@ -481,19 +481,6 @@ export default {
                 },
             },
         },
-        editor    : {
-            component: import('@component/form/editor/editor'),
-            path     : '/form-editor',
-            property : {
-                dataset: {
-                    visibleEditor: {
-                        el   : 'switch',
-                        value: false,
-                    },
-                },
-            },
-
-        },
         switch    : {
             component: import('@component/form/switch/switch'),
             property : {
@@ -718,7 +705,7 @@ export default {
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
                     height    : {
-                        el   : 'input',
+                        el   : 'number',
                         value: 400,
                         parse: 'number',
                         desc : '图表大小',
@@ -949,11 +936,6 @@ export default {
             },
         },
     },
-    code  : {
-        editor: {
-            component: import('@component/code/editor/CodeEditor'),
-        },
-    },
     handle: {
         request: {
             component: import('@component/handle/request/request'),
@@ -984,12 +966,39 @@ export default {
         },
     },
     editor: {
-        // flow: {
-        //     component: import('@component/editor/flow/flow'),
-        //     property : {
-        //         dataset: {},
-        //     },
-        // },
+        flow    : {     // 流程图
+            component: import('@component/editor/flow/flow'),
+            property : {
+                dataset: {},
+            },
+        },
+        markdown: {     // markdown 编辑器
+            component: import('@component/editor/markdown-editor/MarkdownEditor'),
+            path     : '/editor-markdown',
+            property : {
+                dataset: {
+                    visibleEditor: {
+                        el   : 'switch',
+                        value: true,
+                        parse: 'boolean',
+                        desc : '是否显示编辑区域',
+                    },
+                },
+                value  : {
+                    el   : 'input',
+                    parse: 'string',
+                    value: '# 哈哈哈🙄',
+                    desc : '内容',
+                },
+            },
+        },
+        code    : {     // 代码编辑器
+            component: import('@component/code/editor/CodeEditor'),
+            path     : '/editor-code',
+            property : {
+                dataset: {},
+            },
+        },
     },
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 

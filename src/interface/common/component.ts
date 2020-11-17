@@ -11,7 +11,7 @@ export interface IComponentProps {
     elChildNodes: Array<HTMLElement | Node>
     box?: HTMLElement
     style?: IReactStyle
-    dataset: any
+    dataset?: any
     ref?: () => any
     value?: any
 

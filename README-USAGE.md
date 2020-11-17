@@ -29,6 +29,61 @@ window.funcName = function () {
 </script>
 ```
 
+
+
+## 全局方法
+
+MingleJS 提供了几个全局方法以便于后端开发者，在不得已的情况下需要编写JS代码实现某些功能的时候提供使用
+
+#### jQuery
+
+这个没有不知道的吧，不用多说了
+
+
+
+#### Message 全局提示
+
+顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+
+可以把代码复制到控制台中感受下效果
+
+
+
+使用示例：
+
+```html
+<script>
+	Message.success('success');
+    Message.error('fail');
+    Message.info('info');
+    Message.loading('loading')
+</script>
+```
+
+**更多操作可参考👉🏿 [ant.design](https://ant-design.gitee.io/components/message-cn/)**
+
+
+
+## Notice
+
+使用示例：
+
+```html
+<script>
+Notice.open({
+    message: 'Notification Title',
+    description:
+      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+  });
+</script>
+```
+
+**更多操作可参考👉🏿  [ant.design](https://ant-design.gitee.io/components/notification-cn/) **
+
+
+
+
+
 ## 模版解析
 
 > data-panel组件支持 if foreach 模版渲染等语法

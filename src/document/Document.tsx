@@ -9,7 +9,7 @@ import React from 'react';
 import { deepEach } from '@utils/util';
 import componentMap from '@root/config/component.config';
 import { formatComponents2Tree } from '@utils/format-data';
-import MarkdownEditor from '@component/form/editor/editor';
+import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
 import LayoutMenu from '@component/layout/menu/menu';
@@ -63,7 +63,7 @@ class Document extends React.Component<any, any> {
     }
 
     getCurrentMenu() {
-        let [, currentRoute] = window.location.hash.split('#');
+        let [ , currentRoute ] = window.location.hash.split('#');
         return currentRoute;
     }
 
@@ -92,7 +92,7 @@ class Document extends React.Component<any, any> {
                         <div className="logo"/>
 
                         {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
-                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [this.getCurrentMenu()] }>
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ this.getCurrentMenu() ] }>
                             { navRouter.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target
