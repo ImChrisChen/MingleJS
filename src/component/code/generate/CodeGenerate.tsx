@@ -359,6 +359,19 @@ class CodeGenerate extends React.Component<any, any> {
 
     }
 
+    renderComponentList() {
+        return <Card title="Card Title">
+            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
+            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
+            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
+            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
+            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
+            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
+            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
+            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
+        </Card>;
+    }
+
     renderSwitch(key, item) {
         return <Switch
             checked={ item.value }

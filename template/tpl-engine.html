@@ -13,6 +13,7 @@
 
     <button class="ant-btn ant-btn-primary" data-fn="layout-window" data-content="Submit">
         <div class="container">
+            <h1><{ data.length }></h1>
             <form data-fn="form-ajax" data-layout="h">
                 <input data-fn="form-select" name="pf"
                        value="1"
@@ -20,7 +21,7 @@
                        data-mode="single"
                        data-key="id"
                        data-value="name"
-                       data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
+                       data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
 
                 <input data-fn="form-select" name="pf"
                        value="1"
@@ -28,7 +29,7 @@
                        data-mode="single"
                        data-key="id"
                        data-value="name"
-                       data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
+                       data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
             </form>
 
             <div data-fn="data-table"
@@ -60,10 +61,6 @@
                    data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
         </div>
     </div>
-
-    <icon type="StepBackwardOutlined" color="#f0f" size="30"/>
-
-    <!--    <icon type="WindowsOutlined"/>-->
 
 </div>
 

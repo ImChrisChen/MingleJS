@@ -55,6 +55,11 @@ export default [
         component: <CodeGenerate/>,
     },
     {
+        name     : '可视化布局',
+        path     : '/layout-generate',
+        component: <CodeGenerate/>,
+    },
+    {
         name     : '测试页面',
         path     : '/test-1',
         component: <HtmlRender html={ temp1 }/>,

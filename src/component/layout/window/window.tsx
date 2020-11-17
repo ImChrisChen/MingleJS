@@ -11,7 +11,6 @@ import $ from 'jquery';
 import Draggable from 'react-draggable';
 import DataPanel from '@component/data/panel/panel';
 // import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
-import App from '@src/App';
 
 
 const style = {
@@ -37,29 +36,20 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     constructor(props) {
         super(props);
-        console.log(this.props.el);
         this.props.el.onclick = e => this.handleClickBtn(e);
         this.props.el.innerHTML = this.props.dataset.content;
     }
 
-    public static parsePopups(model: object) {
-        let templateAreas = document.querySelector('[data-template-element]') as HTMLElement;
-        templateAreas && DataPanel.parseTemplate(templateAreas, model);
-    }
-
     handleClickBtn(e) {
-        let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
-        App.parseElementProperty($dataPanel.get(0)).then(dataset => {
-            let model = DataPanel.model;
-            this.handleShowModel();
-            LayoutWindow.parsePopups(model);
-        });
 
-        // 组件加载完成后处理弹窗内容
-        setTimeout(() => {
-            let container = document.querySelector('.layout-window-content');
-            container && container.append(...this.props.elChildren);
-        });
+        this.handleShowModel();
+
+        // TODO 这个要第一次弹窗后才会渲染
+        let model = DataPanel.model;
+        DataPanel.parseElement(this.props.elChildren, model);
+
+        let container = document.querySelector('.layout-window-content');
+        container && container.append(...this.props.elChildren);
     }
 
     handleShowModel() {
@@ -84,7 +74,9 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
             className={ 'layout-window' }
             visible={ visible }
             mask={ false }
-            getContainer={ () => document.querySelector('[data-template-element]') ?? document.body }
+            getContainer={ () =>
+                $(this.props.el).closest('[data-fn=data-panel]').get(0)
+                || document.body }
             title={ <div
                 onMouseOverCapture={ () => {
                     if (this.state.disabled) {

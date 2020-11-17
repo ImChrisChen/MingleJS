@@ -181,6 +181,7 @@ export default class App {
         });
     }
 
+    // 通过 Element 获取到组件解析后的 dataset 属性
     static async parseElementProperty(el: HTMLElement): Promise<object> {
         let componentName = el.getAttribute('data-fn') ?? '';
         let componentModule = await loadModules(componentName.split('-'));

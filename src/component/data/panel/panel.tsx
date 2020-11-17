@@ -10,7 +10,7 @@ import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 import { parseFor, parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
-import { isWuiTpl } from '@utils/inspect';
+import { isArray, isWuiTpl } from '@utils/inspect';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
@@ -25,12 +25,20 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         super(props);
 
         DataPanel.getData(this.props.dataset).then(data => {
-            DataPanel.parseTemplate(this.props.el, data);
+            DataPanel.parseElement(this.props.el, data);
         });
     }
 
-    public static parseTemplate(rootElement: HTMLElement, model: object) {
-        deepEachElement(rootElement, (el: HTMLElement) => {
+    public static parseElement(rootElement: HTMLElement | Array<HTMLElement>, model: object) {
+        let root = rootElement;
+
+        // 支持单个element 和 多个 element 处理
+        if (isArray(rootElement)) {
+            root = document.createElement('div');
+            root.append(...rootElement);
+        }
+
+        deepEachElement(root, (el: HTMLElement) => {
             this.parseIfelse(el, model);
             this.parseForeach(el, model);
             el.childNodes.forEach(node => {
@@ -56,7 +64,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             console.error(`${ name }格式不正确`);
             return content;
         }
-        let [list, item] = value.split('as');
+        let [ list, item ] = value.split('as');
         list = list.trim();
         item = item.trim();
         content = parseFor(content, model, { list, item });
