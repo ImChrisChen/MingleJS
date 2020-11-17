@@ -43,7 +43,6 @@ const data = {
     ],
 };
 
-
 class Document extends React.Component<any, any> {
     state: any = {
         menulist      : [],

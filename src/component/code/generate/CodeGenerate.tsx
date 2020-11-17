@@ -7,6 +7,7 @@
 
 import {
     Button,
+    Card,
     Cascader,
     Col,
     Form,
@@ -32,6 +33,7 @@ import { withRouter } from 'react-router';
 import { jsonp } from '@utils/request/request';
 import { isObject } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
+import style from './CodeGenerate.scss';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -478,90 +480,93 @@ class CodeGenerate extends React.Component<any, any> {
     }
 
     render() {
-        return <div style={ { display: 'flex', justifyContent: 'space-between' } }>
-            <div style={ { width: '48%' } }>
+        return <div style={ { display: 'flex', justifyContent: 'space-around' } }>
+
+            <Card className={ style.panelCard }>
                 <CodeEditor dataset={ {
                     value: this.state.componentUseCode,
                 } }/>
-            </div>
+            </Card>
 
-            <Form layout="vertical"
-                  style={ { width: '48%' } }
-                  hideRequiredMark
-                  ref={ this.form }
-                  initialValues={ {
-                      dataEnum: this.state.dataEnum,
-                  } }
-            >
-                <Row hidden={ true } gutter={ 24 }>
-                    <Col span={ 18 }>
-                        <Form.Item
-                            label="组件名称"
-                            rules={ [ { required: true, message: '请选择组件' } ] }
-                        >
-                            <Select placeholder="请选择组件" options={ this.state.components }
-                                    onChange={ this.handleChangeComponent.bind(this) }>
-                            </Select>
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Row gutter={ 24 }>
-                    <Col span={ 18 }>
-                        <Form.Item
-                            label="组件名称"
-                            rules={ [ { required: true, message: '请选择组件' } ] }>
-                            <Cascader options={ this.state.componentsTree }
-                                      onChange={ this.handleChangeComponent.bind(this) }
-                                      placeholder="请选择组件"/>
-                        </Form.Item>
-                    </Col>
-                </Row>
+            <Card className={ style.panelCard }>
+                <Form layout="vertical"
+                      style={ { width: '100%' } }
+                      hideRequiredMark
+                      ref={ this.form }
+                      initialValues={ {
+                          dataEnum: this.state.dataEnum,
+                      } }
+                >
+                    <Row hidden={ true } gutter={ 24 }>
+                        <Col span={ 18 }>
+                            <Form.Item
+                                label="组件名称"
+                                rules={ [ { required: true, message: '请选择组件' } ] }
+                            >
+                                <Select placeholder="请选择组件" options={ this.state.components }
+                                        onChange={ this.handleChangeComponent.bind(this) }>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={ 24 }>
+                        <Col span={ 18 }>
+                            <Form.Item
+                                label="组件名称"
+                                rules={ [ { required: true, message: '请选择组件' } ] }>
+                                <Cascader options={ this.state.componentsTree }
+                                          onChange={ this.handleChangeComponent.bind(this) }
+                                          placeholder="请选择组件"/>
+                            </Form.Item>
+                        </Col>
+                    </Row>
 
-                {
-                    ...this.state.componentsProperty.map((item: any, key) => {
-                        if (item.render === false) return '';
-                        let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
+                    {
+                        ...this.state.componentsProperty.map((item: any, key) => {
+                            if (item.render === false) return '';
+                            let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
-                        let formItem;
-                        switch (item.el) {
-                            case 'switch':
-                                formItem = this.renderSwitch(key, item);
-                                break;
-                            case 'radio':
-                                formItem = this.renderRadio(key, item);
-                                break;
-                            case 'list':
-                                formItem = this.renderList(key, item);
-                                break;
-                            case 'input':
-                                formItem = this.renderInput(key, item);
-                                break;
-                            case 'select':
-                                formItem = this.renderSelect(key, item);
-                                break;
-                            case 'slider':
-                                formItem = this.renderSlider(key, item);
-                                break;
-                            case 'number':
-                                formItem = this.renderNumberInput(key, item);
-                                break;
-                            case 'color':
-                                formItem = this.renderColorPicker(key, item);
-                                break;
-                            default  :
-                                break;
-                        }
+                            let formItem;
+                            switch (item.el) {
+                                case 'switch':
+                                    formItem = this.renderSwitch(key, item);
+                                    break;
+                                case 'radio':
+                                    formItem = this.renderRadio(key, item);
+                                    break;
+                                case 'list':
+                                    formItem = this.renderList(key, item);
+                                    break;
+                                case 'input':
+                                    formItem = this.renderInput(key, item);
+                                    break;
+                                case 'select':
+                                    formItem = this.renderSelect(key, item);
+                                    break;
+                                case 'slider':
+                                    formItem = this.renderSlider(key, item);
+                                    break;
+                                case 'number':
+                                    formItem = this.renderNumberInput(key, item);
+                                    break;
+                                case 'color':
+                                    formItem = this.renderColorPicker(key, item);
+                                    break;
+                                default  :
+                                    break;
+                            }
 
-                        return <Row key={ key }>
-                            <Col span={ 18 }>
-                                <Form.Item label={ label }>
-                                    { formItem }
-                                </Form.Item>
-                            </Col>
-                        </Row>;
-                    })
-                }
-            </Form>
+                            return <Row key={ key }>
+                                <Col span={ 18 }>
+                                    <Form.Item label={ label }>
+                                        { formItem }
+                                    </Form.Item>
+                                </Col>
+                            </Row>;
+                        })
+                    }
+                </Form>
+            </Card>
 
         </div>;
     }

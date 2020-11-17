@@ -1,19 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
 <div class="ant-layout" style="display: flex; flex-direction: row;">
 
-    <input data-fn="layout-menu"
-           data-url="http://mingle.local.aidalan.com/mock/tree.json"
-           data-open="true"
-           data-id="id"
-           data-pid="parent"
-           data-name="name"
-           data-children="children"
-           data-width="200">
+    <aside>
+        <div data-fn="layout-menu"
+             data-url="http://mingle.local.aidalan.com/mock/tree.json"
+             data-open="true"
+             data-id="id"
+             data-pid="parent"
+             data-name="name"
+             data-children="children"
+             data-width="200"></div>
+    </aside>
 
     <section class="ant-layout site-layout" style="width: 100%;">
+
+        {* header 部分 *}
         <header class="ant-layout-header site-layout-background" style="padding: 0px; background: rgb(255, 255, 255);">
             header
         </header>
 
+        {* body部分 *}
         <main class="ant-layout-content site-layout-background" style="min-height: 280px;">
             main
             <div data-fn="data-table"
@@ -25,5 +40,8 @@
                  data-position="bottomRight"></div>
         </main>
     </section>
-</div>
 
+</div>
+</body>
+</html>
+<script src="http://mingle.local.aidalan.com/index.js"></script>

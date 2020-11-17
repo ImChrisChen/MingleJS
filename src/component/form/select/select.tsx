@@ -85,6 +85,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
                 value = [];
             }
         }
+        console.log(this.props.dataset, this.state.loading);
         return <>
             <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
                 <Select
@@ -96,7 +97,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     value={ value }
                     options={ this.state.options }
                     loading={ this.state.loading }
-                    disabled={ this.state.loading }
+                    disabled={ !this.state.loading && this.props.dataset.disabled }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
