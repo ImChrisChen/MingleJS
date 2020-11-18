@@ -6,8 +6,18 @@
     <p>总人数: <{ data.length * 200 / 100 + (300 - 100) }></p>
 
     <ul @if="status && data.length > 0">
-        <li @foreach="data as item" @if="item.age == 20">
-            <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}> </h1>
+        <li @foreach="data as item" @if="item.age > 0">
+            <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}>
+                <icon type="AppleOutlined" color="#f0f00f" size="18"/>
+            </h1>
+            <input data-fn='form-button'
+                   data-label='label:'
+                   data-enum='1,Android;2,iOS;3,MacOS;4,Windows'
+                   data-disabled='false'
+                   data-size='设置大小'
+                   data-optionType='button'
+                   name='form-select'
+            />
         </li>
     </ul>
 
@@ -32,13 +42,13 @@
                        data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
             </form>
 
-<!--            <div data-fn="data-table"-->
-<!--                 data-height="400"-->
-<!--                 data-from="user_analysis"-->
-<!--                 data-headerurl="/mock/table/tableHeader.json"-->
-<!--                 data-url="/mock/table/tableContent.json"-->
-<!--            ></div>-->
-<!--            -->
+            <!--            <div data-fn="data-table"-->
+            <!--                 data-height="400"-->
+            <!--                 data-from="user_analysis"-->
+            <!--                 data-headerurl="/mock/table/tableHeader.json"-->
+            <!--                 data-url="/mock/table/tableContent.json"-->
+            <!--            ></div>-->
+            <!--            -->
         </div>
     </button>
 

@@ -4,19 +4,11 @@ form [data-component-uid]{margin-right:10px;min-width:120px}[data-component-uid]
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
 
-/* show */
-.md-editor-content {
-    height : 100vh;
-}
-
-/*.md-editor-visible {*/
-/*  width : 50%;*/
-/*}*/
-
 .table__tableHeaderCell__RhS9Y{width:inherit;height:inherit;text-align:center}.table__virtual-grid__1qGI9{text-align:center !important}.table__formTable__OSy95{position:relative;overflow:auto}.table__formTable__OSy95 table{visibility:visible !important}.table__dropdown__3z2Ud{position:absolute;right:0;z-index:999}.table__show__26P9P{display:block !important}.table__hide__1UrtQ{display:none !important}
 
 .list__gutter-box__2Foj1{padding:8px 0;background:#00a0e9;height:120px}
 
+.md-editor-content {  min-height : 400px;  height     : 100vh;}.md-editor-markdown {  min-height : 400px;  height     : 100vh;}.CodeMirror {  min-height : 400px;  height     : 100vh;}
 /* BASICS */
 
 .CodeMirror {
@@ -405,5 +397,7 @@ span.CodeMirror-selectedtext { background: none; }
 
 #Document__components-layout-demo-custom-trigger__9Mlrz .Document__trigger__1xex4{font-size:18px;line-height:64px;padding:0 24px;cursor:pointer;transition:color 0.3s}#Document__components-layout-demo-custom-trigger__9Mlrz .Document__trigger__1xex4:hover{color:#1890ff}#Document__components-layout-demo-custom-trigger__9Mlrz .Document__logo__24xQ1{height:32px;background:rgba(255,255,255,0.2);margin:16px}.Document__site-layout__2RbHM{width:100% !important}.Document__site-layout__2RbHM .Document__site-layout-background__20Yjo{background:#fff !important}
 
-.CodeGenerate__panel-card__39ZMX{width:49.5%;box-sizing:border-box;padding:10px}.CodeGenerate__grid-style__3aFCk{width:25%;text-align:center}
+.CodeGenerator__panel-card__2aXXD{width:49.5%;box-sizing:border-box;padding:10px}.CodeGenerator__grid-style__1t2yB{width:25%;text-align:center}
+
+.LayoutGenerator__components__1OjyQ{display:flex;flex-wrap:wrap;width:400px;text-align:center}.LayoutGenerator__components__1OjyQ>*{width:20% !important}
 

@@ -134,6 +134,13 @@ const UniversalProps = {
         parse  : 'string',
         value  : '设置大小',
     },
+    name       : {
+        el   : 'input',
+        value: 'form-select',
+        parse: 'string',
+        desc : 'input 组件的name值',
+    },
+
 } as {
     label: IPropertyConfig
     placeholder: IPropertyConfig
@@ -142,6 +149,7 @@ const UniversalProps = {
     enum: IPropertyConfig
     disabled: IPropertyConfig
     size: IPropertyConfig
+    name: IPropertyConfig
     [key: string]: IPropertyConfig
 };
 
@@ -232,12 +240,7 @@ export default {
                     parse  : 'string',
                 },
                 placeholder: UniversalProps.placeholder,
-                name       : {
-                    el   : 'input',
-                    value: 'form-select',
-                    parse: 'string',
-                    desc : '组件的name值',
-                },
+                name       : UniversalProps.name,
                 hook       : {
                     load        : {
                         el    : 'input',
@@ -306,6 +309,7 @@ export default {
                     },
                 },
                 placeholder: UniversalProps.placeholder,
+                name: UniversalProps.name,
                 value      : {},
                 hook       : {},
             },
@@ -350,6 +354,7 @@ export default {
                     },
                 },
                 placeholder: UniversalProps.placeholder,
+                name: UniversalProps.name,
                 value      : {
                     el   : 'input',
                     value: '',
@@ -406,6 +411,7 @@ export default {
                         value : false,
                     },
                 },
+                name: UniversalProps.name,
                 value  : {
                     el   : 'input',
                     parse: 'null',
@@ -473,6 +479,7 @@ export default {
                         parse  : 'string',
                     },
                 },
+                name: UniversalProps.name,
                 value  : {
                     el     : 'select',
                     options: [],
@@ -496,6 +503,7 @@ export default {
                         value: '关闭',
                     },
                 },
+                name: UniversalProps.name,
             },
         },
         input     : {
@@ -523,6 +531,7 @@ export default {
                     },
                     label: UniversalProps.label,
                 },
+                name: UniversalProps.name,
                 placeholder: UniversalProps.placeholder,
             },
         },
@@ -533,6 +542,7 @@ export default {
                 dataset: {
                     label: UniversalProps.label,
                 },
+                name: UniversalProps.name,
             },
         },
         color     : {
