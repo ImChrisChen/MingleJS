@@ -1,4 +1,4 @@
-<form data-fn="form-ajax" id="user_analysis">
+<form data-fn="form-ajax" id="user_analysis" url="xxxx" onsubmit="">
 
     <!-- 日期 -->
     <input data-fn="form-datepicker" data-label="日期:"
@@ -135,13 +135,13 @@
 </div>
 
 <style>
-    .flexWidth-45 {
-        width: 45%
-    }
+  .flexWidth-45 {
+    width : 45%
+  }
 
-    [data-fn=data-chart] {
-        /*width : 45%;*/
-    }
+  [data-fn=data-chart] {
+    /*width : 45%;*/
+  }
 </style>
 
 <!--<div data-fn=" data-table"-->
@@ -154,4 +154,14 @@
 
 <!--<div data-fn="data-chartline"></div>-->
 
+<script>
+    // 1. Ajax请求 不刷新
+    // 2. url 重定向
+    // 3. onSubmit 提供 form表单的数据
 
+
+    function submit(e, data) {
+
+    }
+
+</script>

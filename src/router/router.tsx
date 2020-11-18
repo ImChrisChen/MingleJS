@@ -17,6 +17,7 @@ import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEdito
 import layoutSteps from '@root/template/layout-steps.html';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
 import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutGenerator';
+import AppLayoutHtml from '@root/template/layout.html';
 
 // nav
 export default [
@@ -51,6 +52,11 @@ export default [
                 component: <HtmlRenderer html={ user_analysis }/>,
             },
         ],
+    },
+    {
+        name     : '子应用布局 app-layout',
+        path     : '/app-layout',
+        component: <HtmlRenderer html={ AppLayoutHtml }/>,
     },
     {
         name     : '弹窗组件测试效果',

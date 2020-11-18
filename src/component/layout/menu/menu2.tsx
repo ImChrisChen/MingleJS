@@ -9,7 +9,13 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { Button, Menu } from 'antd';
-import { MailOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
+import {
+    IdcardOutlined,
+    MailOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    PieChartOutlined,
+} from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { jsonp } from '@utils/request/request';
 import { formatList2Tree, formatTreeKey } from '@utils/format-data';
@@ -42,7 +48,7 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
             data = menulist;
         }
         let deep = getDepthMax({ children: data }, 'children') - 1;
-        console.log(deep);
+
         if (deep > 1) {
             data = formatTreeKey(data, { id, pid, name, children }, {
                 id      : 'id',
@@ -50,7 +56,6 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
                 name    : 'label',
                 children: 'children',
             });
-            console.log(data);
         } else {
             data = formatList2Tree(data, { id, pid, name, children });
         }
@@ -68,15 +73,20 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
     }
 
     render() {
+        // width   : (this.state.collapsed ? 80 : this.props.dataset.width) || 200,
         return (
-            <div style={ { width: this.props.dataset.width || 200, height: '100vh', background: '#fff' } }>
-                <Button type="primary" onClick={ this.toggleCollapsed } style={ { marginBottom: 16 } }>
-                    { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
-                </Button>
+            <div style={ { height: '100vh' } }>
 
+                {/* 菜单为Nav时不显示伸缩按钮 */ }
+                { this.props.dataset.layout !== 'horizontal'
+                    ? <Button type="primary" onClick={ this.toggleCollapsed } style={ { marginBottom: 16 } }>
+                        { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
+                    </Button>
+                    : ''
+                }
                 <Menu
-                    defaultSelectedKeys={ ['1'] }
-                    defaultOpenKeys={ ['sub1'] }
+                    defaultSelectedKeys={ [ '1' ] }
+                    defaultOpenKeys={ [ 'sub1' ] }
                     mode={ this.props.dataset.layout }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
                     onClick={ this.handleSelectMenu.bind(this) }
@@ -91,7 +101,8 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
                                                 icon={ <MailOutlined/> }
                                                 title={ item.label }>
                                     { children.map(((child, i) => {
-                                        return <Menu.Item data-path={ child.path } key={ child.id || 'child-' + i }>
+                                        return <Menu.Item data-path={ child.path } key={ child.id || 'child-' + i }
+                                                          icon={ <IdcardOutlined/> }>
                                             { child.label }
                                         </Menu.Item>;
                                     })) }
@@ -108,6 +119,5 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
                 </Menu>
             </div>
         );
-        ;
     }
 }

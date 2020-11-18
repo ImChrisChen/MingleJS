@@ -154,6 +154,26 @@ const UniversalProps = {
 };
 
 export default {
+    // 子应用
+    app   : {
+        layout: {
+            component: import('@component/app/layout/AppLayout'),
+            path     : '/app-layout',
+            property : {
+                dataset: {
+                    theme: {
+                        el     : 'radio',
+                        options: [
+                            { label: 'light', value: 'light' },
+                            { label: 'dark', value: 'dark' },
+                        ],
+                        parse  : 'string',
+                        desc   : '主题色',
+                    },
+                },
+            },
+        },
+    },
     form  : {
         select    : {
             path     : '/form-select',
@@ -309,7 +329,7 @@ export default {
                     },
                 },
                 placeholder: UniversalProps.placeholder,
-                name: UniversalProps.name,
+                name       : UniversalProps.name,
                 value      : {},
                 hook       : {},
             },
@@ -354,7 +374,7 @@ export default {
                     },
                 },
                 placeholder: UniversalProps.placeholder,
-                name: UniversalProps.name,
+                name       : UniversalProps.name,
                 value      : {
                     el   : 'input',
                     value: '',
@@ -411,7 +431,7 @@ export default {
                         value : false,
                     },
                 },
-                name: UniversalProps.name,
+                name   : UniversalProps.name,
                 value  : {
                     el   : 'input',
                     parse: 'null',
@@ -479,7 +499,7 @@ export default {
                         parse  : 'string',
                     },
                 },
-                name: UniversalProps.name,
+                name   : UniversalProps.name,
                 value  : {
                     el     : 'select',
                     options: [],
@@ -503,7 +523,7 @@ export default {
                         value: '关闭',
                     },
                 },
-                name: UniversalProps.name,
+                name   : UniversalProps.name,
             },
         },
         input     : {
@@ -531,7 +551,7 @@ export default {
                     },
                     label: UniversalProps.label,
                 },
-                name: UniversalProps.name,
+                name       : UniversalProps.name,
                 placeholder: UniversalProps.placeholder,
             },
         },
@@ -542,7 +562,7 @@ export default {
                 dataset: {
                     label: UniversalProps.label,
                 },
-                name: UniversalProps.name,
+                name   : UniversalProps.name,
             },
         },
         color     : {
@@ -597,12 +617,14 @@ export default {
                     headerurl : {
                         el   : 'input',
                         value: domain + '/mock/table/tableHeader.json',
+                        // value: 'http://192.168.20.121:8080/mgm/header',
                         parse: 'string',
                         desc : '表头url',
                     },
                     url       : {
                         el   : 'input',
                         value: domain + '/mock/table/tableContent.json',
+                        // value: 'http://192.168.20.121:8080/mgm/data',
                         parse: 'string',
                         desc : '表数据url',
                     },

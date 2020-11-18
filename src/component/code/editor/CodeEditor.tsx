@@ -92,7 +92,7 @@ export default class CodeEditor extends React.Component<any, any> {
             <Space/>
             <div>
                 <h1>代码演示</h1>
-                <div className="show-code">
+                <div className="show-code" style={ { marginTop: 60 } }>
 
                 </div>
             </div>

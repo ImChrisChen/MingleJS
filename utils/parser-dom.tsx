@@ -6,6 +6,7 @@
  */
 
 import React, { ReactElement } from 'react';
+import { isArray } from '@utils/inspect';
 
 // 真实DOM => 字符串 (一个)
 export function elementParseStr(el: HTMLElement) {
@@ -33,6 +34,20 @@ export function elementParseAllVirtualDOM(els: Array<HTMLElement>): Array<ReactE
 // 字符串 => ReactDOM https://zh-hans.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
 export function strParseVirtualDOM(strHtml: string): any {
     return <span dangerouslySetInnerHTML={ { __html: strHtml } }/>;
+}
+
+// 在element包裹一层元素
+export function elementWrap(elements: Array<HTMLElement>, tagName: string = 'div') {
+
+    let newElement = document.createElement(tagName);
+
+    if (isArray(elements)) {
+        newElement.append(...elements);
+    } else {
+        newElement.append(elements);
+    }
+
+    return newElement;
 }
 
 // 字符串 => 真实DOM

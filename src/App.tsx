@@ -43,6 +43,20 @@ interface IModules {
     componentUID: string            // 组件uid
 }
 
+
+interface IArrItem {
+    name: string,
+    value: string
+}
+
+const arr: Array<IArrItem> = [
+    {
+        name : '',
+        value: '',
+    },
+];
+
+
 interface IAttributes extends NamedNodeMap {
     style?: any | string
 

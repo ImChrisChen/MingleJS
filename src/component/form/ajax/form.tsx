@@ -32,7 +32,7 @@ export default class FormAjax extends React.Component<IFormAjax, any> {
         this.setLayout(form);
         $(form).find('[type=reset]').on('click', e => {
             e.preventDefault();
-            // $(form).find('input[data-fn]').val('').trigger('change');
+            $(form).find('input[data-fn]').val('').trigger('change');
         });
         FormAjax.onFormSubmit(form, function (formData) {
             console.log(formData);

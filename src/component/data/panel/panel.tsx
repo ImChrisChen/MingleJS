@@ -11,6 +11,7 @@ import { deepEachElement } from '@utils/util';
 import { parseFor, parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
 import { isArray, isWuiTpl } from '@utils/inspect';
+import { elementWrap } from '@utils/parser-dom';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
@@ -36,8 +37,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
         // 支持单个element 和 多个 element 处理
         if (isArray(rootElement)) {
-            root = document.createElement('div');
-            root.append(...rootElement);
+            root = elementWrap(rootElement);
         }
 
         deepEachElement(root, (el: HTMLElement) => {
