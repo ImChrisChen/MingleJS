@@ -33,7 +33,7 @@ export interface IOptions {
 }
 
 export interface IPropertyConfig<OptionItem = IOptions> {
-    el?: elType             //要渲染的组件名称
+    el?: elType             // (组件设计器) 要渲染的组件名称
     value?: ((parsedDataset) => any) | any          // TODO 在组件设计器中是没有这个参数传入的
     options?: Array<OptionItem> | 'fromUrl'       // 选择列表
     label?: string            // 组件设计器中的label值
@@ -156,19 +156,44 @@ const UniversalProps = {
 export default {
     // 子应用
     app   : {
+        menu: {
+            component: import('@component/app/menu/AppMenu'),
+            property : {
+                dataset: {
+                    url: {
+                        el    : 'input',
+                        parse : 'string',
+                        render: false,
+                        value : domain + '/mock/menulist/uesr-menu.json',
+                    },
+                },
+            },
+        },
+
         layout: {
             component: import('@component/app/layout/AppLayout'),
+            document : import('@component/app/layout/AppLayout.md'),
             path     : '/app-layout',
             property : {
                 dataset: {
-                    theme: {
+                    theme : {
                         el     : 'radio',
                         options: [
                             { label: 'light', value: 'light' },
                             { label: 'dark', value: 'dark' },
                         ],
+                        value  : 'light',
                         parse  : 'string',
                         desc   : '主题色',
+                    },
+                    layout: {
+                        el     : 'radio',
+                        options: [
+                            { label: 'h', value: 'h' },
+                            { label: 'v', value: 'v' },
+                        ],
+                        parse  : 'string',
+                        value  : 'v',
                     },
                 },
             },
@@ -225,7 +250,7 @@ export default {
                         parse : 'boolean',
                     },
                     showSearch: {     // 指定默认选中条目
-                        el    : 'input',
+                        el    : 'switch',
                         value : true,
                         parse : 'boolean',
                         render: false,
@@ -284,7 +309,7 @@ export default {
                         el    : 'input',
                         value : 'componentBeforeUpdate',
                         desc  : '组件更新前触发的函数',
-                        render: false,
+                        render: true,
                     },
                 },
             },

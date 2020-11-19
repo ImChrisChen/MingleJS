@@ -16,7 +16,8 @@ interface IMenuItem {
     name: string
     path?: string
     id?: string
-    [key:string]:any
+
+    [key: string]: any
 }
 
 interface IMenuState<T> {

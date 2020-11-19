@@ -18,6 +18,7 @@ import layoutSteps from '@root/template/layout-steps.html';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
 import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutGenerator';
 import AppLayoutHtml from '@root/template/layout.html';
+import AppMenuHtml from '@root/template/app-menu.html';
 
 // nav
 export default [
@@ -55,22 +56,27 @@ export default [
     },
     {
         name     : '子应用布局 app-layout',
-        path     : '/app-layout',
+        path     : '/nav-app-layout',
         component: <HtmlRenderer html={ AppLayoutHtml }/>,
     },
     {
+        name     : '子应用菜单 app-layout',
+        path     : '/nav-app-menu',
+        component: <HtmlRenderer html={ AppMenuHtml }/>,
+    },
+    {
         name     : '弹窗组件测试效果',
-        path     : '/layout-winodw-page',
+        path     : '/nav-layout-winodw-page',
         component: <HtmlRenderer html={ layoutWindowPage }/>,
     },
     {
         name     : '步骤条组件展示效果',
-        path     : '/layout-steps',
+        path     : '/nav-layout-steps',
         component: <HtmlRenderer html={ layoutSteps }/>,
     },
     {
         name     : '正则手册',
-        path     : '/regexp-manual',
+        path     : '/nav-regexp-manual',
         component: <HtmlRenderer html={ regExpManual }/>,
     },
     {

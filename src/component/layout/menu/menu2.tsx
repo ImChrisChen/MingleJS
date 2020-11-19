@@ -73,9 +73,15 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
     }
 
     render() {
-        // width   : (this.state.collapsed ? 80 : this.props.dataset.width) || 200,
+
+        let s = this.props.box?.style
+        console.log(s);
+
         return (
-            <div style={ { height: '100vh' } }>
+            <div style={ {
+                height: '100vh',
+                width : (this.state.collapsed ? 80 : this.props.dataset.width) || 200,
+            } }>
 
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
                 { this.props.dataset.layout !== 'horizontal'
@@ -101,14 +107,16 @@ export default class LayoutMenu2 extends Component<IComponentProps, ReactNode> {
                                                 icon={ <MailOutlined/> }
                                                 title={ item.label }>
                                     { children.map(((child, i) => {
-                                        return <Menu.Item data-path={ child.path } key={ child.id || 'child-' + i }
+                                        return <Menu.Item data-path={ child.path }
+                                                          key={ child.id || 'child-' + i }
                                                           icon={ <IdcardOutlined/> }>
                                             { child.label }
                                         </Menu.Item>;
                                     })) }
                                 </SubMenu>;
                             } else {
-                                return <Menu.Item mode={ 'horizontal' } key={ item.id || 'child-' + index }
+                                return <Menu.Item mode={ 'horizontal' }
+                                                  key={ item.id || 'child-' + index }
                                                   data-path={ item.path }
                                                   icon={ <PieChartOutlined/> }>
                                     { item.label }

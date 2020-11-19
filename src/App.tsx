@@ -89,6 +89,8 @@ export default class App {
 
     constructor(rootElement: HTMLElement/*private readonly elements: Array<HTMLElement>*/) {
 
+        if (!rootElement) return;
+
         this.$tempContainer = $(`<div data-template-element></div>`);
         if ($(`[data-template-element]`).length === 0) {
             $('body').append(this.$tempContainer);
@@ -128,59 +130,62 @@ export default class App {
 
                 if (componentNames) {
 
-                    // TODO 设置组件唯一ID
-                    let componentUID = App.getUUID();
-                    containerWrap.setAttribute('data-component-uid', componentUID);
+                    if (!containerWrap.getAttribute('data-component-uid')) {
 
-                    for (const componentName of componentNames.split(' ')) {
+                        // TODO 设置组件唯一ID
+                        let componentUID = App.getUUID();
+                        containerWrap.setAttribute('data-component-uid', componentUID);
 
-                        if (componentName.startsWith('self-')) {
-                            console.error(`${ componentName } 模块不属于MingleJS`);
-                        } else {
+                        for (const componentName of componentNames.split(' ')) {
 
-                            let keysArr = componentName.split('-');
-                            // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
-                            let [ , , componentMethod ] = keysArr;
+                            if (componentName.startsWith('self-')) {
+                                console.error(`${ componentName } 模块不属于MingleJS`);
+                            } else {
 
-                            const Modules = await loadModules(keysArr);
-                            const Component = Modules.component.default;            // React组件
-                            const config = Modules.config;
+                                let keysArr = componentName.split('-');
+                                // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
+                                let [ , , componentMethod ] = keysArr;
 
-                            let defaultProperty = Modules.property;
-                            let el = element.cloneNode(true);
-                            let elChildNodes = el.childNodes;
+                                const Modules = await loadModules(keysArr);
+                                const Component = Modules.component.default;            // React组件
+                                const config = Modules.config;
 
-                            // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-                            let elChildren: Array<HTMLElement | any> = [];
+                                let defaultProperty = Modules.property;
+                                let el = element.cloneNode(true);
+                                let elChildNodes = el.childNodes;
 
-                            elChildren = Array.from(element.children ?? []);
-                            elChildren.pop();       // 去掉自己本身
+                                // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
+                                let elChildren: Array<HTMLElement | any> = [];
 
-                            let hooks = this.formatHooks(attributes);
+                                elChildren = Array.from(element.children ?? []);
+                                elChildren.pop();       // 去掉自己本身
 
-                            let module: IModules = {
-                                Component,
-                                element,
-                                container,
-                                containerWrap,
-                                elChildren,
-                                elChildNodes,
-                                hooks,
-                                componentMethod,
-                                defaultProperty,
-                                config,
-                                componentUID,
-                            };
-                            this.modules.push(module);
+                                let hooks = this.formatHooks(attributes);
 
-                            this.renderComponent(module, (hooks) => {
-                                hooks[Hooks.beforeLoad]?.();
-                            }, (hooks, instance: ReactInstance) => {
-                                hooks[Hooks.load]?.();
-                                // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
-                                // });
-                            });
-                            this.eventListener(module);
+                                let module: IModules = {
+                                    Component,
+                                    element,
+                                    container,
+                                    containerWrap,
+                                    elChildren,
+                                    elChildNodes,
+                                    hooks,
+                                    componentMethod,
+                                    defaultProperty,
+                                    config,
+                                    componentUID,
+                                };
+                                this.modules.push(module);
+
+                                this.renderComponent(module, (hooks) => {
+                                    hooks[Hooks.beforeLoad]?.();
+                                }, (hooks, instance: ReactInstance) => {
+                                    hooks[Hooks.load]?.();
+                                    // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
+                                    // });
+                                });
+                                this.eventListener(module);
+                            }
                         }
                     }
                 }
