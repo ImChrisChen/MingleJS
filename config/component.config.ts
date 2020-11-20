@@ -923,7 +923,7 @@ export default {
         tab   : {
             component: import('@component/layout/tab/tab'),
             document : import('@component/layout/tab/tab.md'),
-            path: '/layout-tab',
+            path     : '/layout-tab',
             property : {
                 dataset: {
                     tabPosition: {
@@ -940,6 +940,8 @@ export default {
         },
         window: {
             component: import('@component/layout/window/window'),
+            document : import('@component/layout/window/window.md'),
+            path     : '/layout-window',
             property : {
                 dataset: {
                     title  : {
@@ -963,6 +965,7 @@ export default {
         steps : {
             path     : '/layout-steps',
             component: import('@component/layout/steps/steps'),
+            document : import('@component/layout/steps/steps.md'),
             property : {
                 dataset: {
                     current: {
