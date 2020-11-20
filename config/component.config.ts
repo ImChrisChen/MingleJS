@@ -848,7 +848,7 @@ export default {
     },
     layout: {
         menu  : {
-            component: import('@component/layout/menu/menu2'),
+            component: import('@component/layout/menu/LayoutMenu'),
             path     : '/layout-menu',
             property : {
                 dataset: {

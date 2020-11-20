@@ -8,7 +8,7 @@
 import './select.less';
 import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
-import { formatEnumOptions, formatList2AntdOptions, formatList2Tree } from '@utils/format-data';
+import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
@@ -58,7 +58,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
             let { data } = await jsonp(url);
 
             if (groupby) {
-                return formatList2Tree(data, {
+                return formatList2Group(data, {
                     id  : key,
                     name: value,
                     pid : groupby,

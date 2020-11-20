@@ -12,10 +12,11 @@ import { formatComponents2Tree } from '@utils/format-data';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
-import LayoutMenu from '@component/layout/menu/menu';
+import LayoutMenu from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Redirect, Route, Switch } from 'react-router';
 import navRouter from '@src/router/router';
 import { Link } from 'react-router-dom';
+import md5 from 'md5';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -58,7 +59,10 @@ class Document extends React.Component<any, any> {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });
-            this.setState({ menulist: list, routes });
+            console.log(list);
+            this.setState({
+                menulist: list, routes,
+            });
         });
     }
 
@@ -73,7 +77,7 @@ class Document extends React.Component<any, any> {
             Routes = this.state.routes.map(route => {
                 if (route.document) {
                     return <Route
-                        key={ Math.random() * 1000 }
+                        key={ route.path }
                         path={ route.path }
                         render={ () => <MarkdownEditor
                             visibleEditor={ false }
@@ -86,7 +90,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu menulist={ this.state.menulist }/>
+                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist }/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
@@ -116,7 +120,8 @@ class Document extends React.Component<any, any> {
                             { ...Routes }
                             { navRouter.map(route => <Route
                                     exact
-                                    path={ route.path } key={ route.path }
+                                    path={ route.path }
+                                    key={ route.path }
                                     render={ () => route.component }
                                 />,
                             ) }
