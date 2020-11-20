@@ -1,4 +1,4 @@
-<form data-fn="form-ajax" id="user_analysis" url="xxxx" onsubmit="">
+<form data-fn="form-ajax" id="user_analysis" url="xxxx" onsubmit="submit()">
 
     <!-- 日期 -->
     <input data-fn="form-datepicker" data-label="日期:"
@@ -161,7 +161,7 @@
 
 
     function submit(e, data) {
-
+        console.log(e, data);
     }
 
 </script>

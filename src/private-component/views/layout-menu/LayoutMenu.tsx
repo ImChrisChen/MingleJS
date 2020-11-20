@@ -14,6 +14,7 @@ import {
     MenuUnfoldOutlined,
     PieChartOutlined,
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { SubMenu } = Menu;
 
@@ -74,11 +75,10 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
 
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
-        let height = this.props.layout === 'horizontal' ? 'inherit':'100vh';
-        console.log(this.props);
+        let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (
             <div style={ {
-                width : (this.state.collapsed ? 80 : width),
+                width             : (this.state.collapsed ? 80 : width),
                 height, background: '#fff',
             } }>
 
@@ -110,7 +110,11 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                         return <Menu.Item data-path={ child.path }
                                                           key={ k }
                                                           icon={ <IdcardOutlined/> }>
-                                            { child.label }
+                                            {/* TODO path 是react里面的，input调用使用a链接*/}
+                                            { child.path
+                                                ? <Link to={ child.path ?? '/' }> { child.label } </Link>
+                                                : child.label
+                                            }
                                         </Menu.Item>;
                                     })) }
                                 </SubMenu>;
@@ -119,7 +123,10 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                                   key={ key }
                                                   data-path={ item.path }
                                                   icon={ <PieChartOutlined/> }>
-                                    { item.label }
+                                    { item.path
+                                        ? <Link to={ item.path ?? '/' }> { item.label } </Link>
+                                        : item.label
+                                    }
                                 </Menu.Item>;
                             }
                         })

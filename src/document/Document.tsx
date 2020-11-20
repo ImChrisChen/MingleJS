@@ -59,7 +59,6 @@ class Document extends React.Component<any, any> {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });
-            console.log(list);
             this.setState({
                 menulist: list, routes,
             });
@@ -72,21 +71,21 @@ class Document extends React.Component<any, any> {
     }
 
     render() {
-        let Routes = [];
-        if (this.state.routes.length > 0) {
-            Routes = this.state.routes.map(route => {
-                if (route.document) {
-                    return <Route
-                        key={ route.path }
-                        path={ route.path }
-                        render={ () => <MarkdownEditor
-                            visibleEditor={ false }
-                            value={ route.document['default'] }/> }/>;
-                } else {
-                    return undefined;
-                }
-            }).filter(t => t);
-        }
+        let routes = this.state.routes.map(route => {
+            console.log(route);
+            if (route.document && route.path) {
+                return <Route
+                    exact
+                    key={ route.path }
+                    path={ route.path }
+                    render={ () => <MarkdownEditor
+                        visibleEditor={ false }
+                        value={ route.document['default'] }/> }/>;
+            } else {
+                return undefined;
+            }
+        }).filter(t => t);
+        console.log(routes);
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
@@ -117,7 +116,7 @@ class Document extends React.Component<any, any> {
                         } }
                     >
                         <Switch>
-                            { ...Routes }
+                            { ...routes }
                             { navRouter.map(route => <Route
                                     exact
                                     path={ route.path }

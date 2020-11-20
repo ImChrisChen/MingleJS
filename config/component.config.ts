@@ -922,6 +922,8 @@ export default {
         },
         tab   : {
             component: import('@component/layout/tab/tab'),
+            document : import('@component/layout/tab/tab.md'),
+            path: '/layout-tab',
             property : {
                 dataset: {
                     tabPosition: {
@@ -996,6 +998,8 @@ export default {
     handle: {
         request: {
             component: import('@component/handle/request/request'),
+            document : import('@component/handle/request/request.md'),
+            path     : '/handle-request',
             property : {
                 dataset: {
                     trigger: {
