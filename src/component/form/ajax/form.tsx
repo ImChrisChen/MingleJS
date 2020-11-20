@@ -42,7 +42,7 @@ export default class FormAjax extends React.Component<IFormAjax, any> {
     private setLayout(formElement: HTMLElement) {
 
         if (this.props.dataset.layout === 'h') {
-            $(formElement).css({ display: 'flex' });
+            $(formElement).css({ display: 'flex', flexWrap: 'wrap' });
         }
 
         if (this.props.dataset.layout === 'v') {
@@ -52,19 +52,12 @@ export default class FormAjax extends React.Component<IFormAjax, any> {
 
     static onFormSubmit(formElement, callback) {
         // TODO 使用Jquery on 绑定事件(DOM2级事件),在一个表单关联多个表格/图表的情况下避免事件覆盖
-        $(formElement).on('submit', function (e) {
+        $(formElement).on('submit', e => {
             e.preventDefault();
             let formData: IFormData = FormAjax.getFormData(formElement);
             callback(formData, e);
             message.info('提交表单');
         });
-        // formElement.onsubmit = async function (e) {
-        //     e.preventDefault();
-        //     let formData: IFormData = FormAjax.getFormData(formElement);
-        //     callback(formData, e);
-        //     message.info('提交表单');
-        //     // $(formElement).trigger('submit', formData);
-        // };
     }
 
     static findFormElement(from): HTMLElement | null {
