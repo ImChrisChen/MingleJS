@@ -74,10 +74,12 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
 
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
+        let height = this.props.layout === 'horizontal' ? 'inherit':'100vh';
+        console.log(this.props);
         return (
             <div style={ {
                 width : (this.state.collapsed ? 80 : width),
-                height: '100vh', background: '#fff',
+                height, background: '#fff',
             } }>
 
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
