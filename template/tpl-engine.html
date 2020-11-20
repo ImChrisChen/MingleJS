@@ -1,12 +1,11 @@
-
-<input type="text" value="1" name="title">
-
 <div data-fn="data-panel"
      data-model='{"status":true,"height":600,"title":"用户列表","msg": "返回成功","data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'
 >
     <h2>标题: <{ title }></h2>
     <h3>状态: <{ status }></h3>
     <p>总人数: <{ data.length * 200 / 100 + (300 - 100) }></p>
+
+
     <ul @if="status && data.length > 0">
         <li @foreach="data as item" @if="item.age > 0">
             <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}>
@@ -22,6 +21,11 @@
             />
         </li>
     </ul>
+
+    <button class="ant-btn ant-btn-primary"
+            data-fn="handle-request">
+        Request
+    </button>
 
     <button class="ant-btn ant-btn-primary" data-fn="layout-window" data-content="Submit">
         <div class="container">

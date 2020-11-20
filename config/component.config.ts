@@ -1009,15 +1009,10 @@ export default {
                     },
                     url    : {
                         el    : 'input',
-                        value : '',
+                        value : domain + '/mock/menulist/uesr-menu.json',
                         parse : 'string',
                         verify: v => isUrl(v),
                     },
-                },
-                value  : {
-                    el   : 'input',
-                    value: '',
-                    parse: 'string',
                 },
             },
         },
