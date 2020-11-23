@@ -633,45 +633,51 @@ export default {
             path     : '/data-table',
             property : {
                 dataset: {
-                    'from'    : {
+                    'from'     : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
                         desc : '要关联的 form表单的ID, 关联后form表单提交即可重新加载table组件的数据',
                     },
-                    headerurl : {
+                    headerurl  : {
                         el   : 'input',
                         value: domain + '/mock/table/tableHeader.json',
                         // value: 'http://192.168.20.121:8080/mgm/header',
                         parse: 'string',
                         desc : '表头url',
                     },
-                    url       : {
+                    url        : {
                         el   : 'input',
                         value: domain + '/mock/table/tableContent.json',
                         // value: 'http://192.168.20.121:8080/mgm/data',
                         parse: 'string',
                         desc : '表数据url',
                     },
-                    pagesize  : {
+                    pagesize   : {
                         el   : 'input',
                         parse: 'number',
                         desc : '表格每页显示数量',
                         value: 50,
                     },
-                    pages     : {
+                    currentpage: {
+                        el   : 'input',
+                        parse: 'number',
+                        desc : '当前页',
+                        value: 1,
+                    },
+                    pages      : {
                         el   : 'input',
                         parse: 'string[]',
                         value: '50,100,200',
                         desc : '自定义分页器页码',
                     },
-                    pagination: {
+                    pagination : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: true,
                         desc : '是否显示分页器',
                     },
-                    position  : {
+                    position   : {
                         el     : 'radio',
                         options: [
                             { label: 'bottomLeft', value: 'bottomLeft' },
@@ -682,7 +688,7 @@ export default {
                         value  : 'bottomRight',
                         desc   : '分页器的位置',
                     },
-                    height    : {
+                    height     : {
                         el    : 'number',
                         value : ''/*'300'*/,
                         parse : 'number',
@@ -835,10 +841,6 @@ export default {
         list           : {
             component: import('@component/data/list/list'),
             path     : 'data-list',
-        },
-        virtualTable   : {
-            component: import('@component/data/table/_table'),
-            path     : '/virtualTable',
         },
     },
     tips  : {
