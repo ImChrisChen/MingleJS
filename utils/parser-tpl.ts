@@ -13,9 +13,12 @@ declare type tplTyle = 'tpl' | 'field'
 
 declare type IParseModeData = HTMLElement | object | null;
 
-// 'pf=<{pf}>' => 'pf=ios' 或者 
+// 'pf=<{pf}>' => 'pf=ios' 或者
 // 'data.length > 1' => '10 > 1' => true
 export function parseTpl(tpl: string, itemData: IParseModeData = document.body, type: tplTyle = 'tpl'): string {
+
+    if (!tpl) return tpl;
+
     tpl = parserEscape2Html(tpl);       // 字符替换 "&lt" => "<"
 
     let fields: Array<string> = [];
@@ -27,11 +30,17 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
     tpl = replaceTplDataValue(fields, itemData, tpl, type);
     return tpl.replace(/<{(.*?)}>/g, v => {
         let [, express] = /<{(.*?)}>/.exec(v) ?? [];
-        try {
-            return eval(express);
-        } catch (e) {
-            console.error(`${express} 表达式格式不正确,运算错误`);
-            return express;
+        console.log(express);
+        let exp = isExpress(express.trim())
+        if (exp) {
+            try {
+                return eval(express);
+            } catch (e) {
+                console.error(`${express} 表达式格式不正确,运算错误`);
+                return express;
+            }
+        } else{
+            return express
         }
     });
 }
@@ -62,8 +71,12 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                 let key = field.trim();
                 let val = isDOM(itemData)
                     ? encodeURIComponent((itemData.querySelector(`input[name=${key}]`) as HTMLInputElement)?.value ?? '')
-                    : (itemData[key] ?? '');
-                tpl = tpl.replace(regExp, val);
+                    : (itemData[key]);
+
+                // 只有对象中有这个属性才会被替换
+                if (!isUndefined(val)) {
+                    tpl = tpl.replace(regExp, val);
+                }
             }
         }
     });

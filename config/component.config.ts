@@ -636,9 +636,9 @@ export default {
         },
     },
     view  : {
-        popover : {
-            component: import('@component/view/popover/popover'),
-        },
+        // popover : {
+        //     component: import('@component/view/popover/popover'),
+        // },
         dropdown: {
             component: import('@component/view/dropdown/dropdown'),
         },
@@ -649,13 +649,13 @@ export default {
                 dataset: {},
             },
         },
-        template: {
-            path     : 'view-template',
-            component: import('@component/view/template/template'),
-            property : {
-                dataset: {},
-            },
-        },
+        // template: {
+        //     path     : 'view-template',
+        //     component: import('@component/view/template/template'),
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
     },
     data  : {
         table          : {
@@ -835,31 +835,31 @@ export default {
                 },
             },
         },
-        panel2         : {
-            component: import('@component/data/panel/panel2'),
-            property : {
-                dataset: {
-                    url  : UniversalProps.url,
-                    model: {
-                        el   : 'input',
-                        parse: 'JSON',
-                        value: `{}`,
-                    },
-                },
-            },
-        },
-        chartline      : {
-            component: import('@component/data/chart/line/line'),
-            path     : '/data-chartline',
-        },
+        // panel2         : {
+        //     component: import('@component/data/panel/panel2'),
+        //     property : {
+        //         dataset: {
+        //             url  : UniversalProps.url,
+        //             model: {
+        //                 el   : 'input',
+        //                 parse: 'JSON',
+        //                 value: `{}`,
+        //             },
+        //         },
+        //     },
+        // },
+        // chartline      : {
+        //     component: import('@component/data/chart/line/line'),
+        //     path     : '/data-chartline',
+        // },
         // chartcolumn    : {
         //     component: import('@component/data/chart/column/column'),
         //     path     : '/data-chartcolumn',
         // },
-        chartCoordinate: {
-            component: import('@component/data/chart/coordinate/Coordinate'),
-            path     : '/data-coordinate',
-        },
+        // chartCoordinate: {
+        //     component: import('@component/data/chart/coordinate/Coordinate'),
+        //     path     : '/data-coordinate',
+        // },
         // chartWorkCloud : {
         //     component: import('@component/data/chart/wordcloud/wordCloud'),
         //     path     : '/data-chartWorkCloud',
@@ -874,9 +874,9 @@ export default {
         },
     },
     tips  : {
-        loading: {
-            component: import('@component/tips/loading/loading'),
-        },
+        // loading: {
+            // component: import('@component/tips/loading/loading'),
+        // },
     },
     layout: {
         menu  : {

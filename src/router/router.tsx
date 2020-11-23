@@ -19,6 +19,7 @@ import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer'
 import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutGenerator';
 import AppLayoutHtml from '@root/template/layout.html';
 import AppMenuHtml from '@root/template/app-menu.html';
+import tplHtml from '@root/template/tpl.html';
 
 // nav
 export default [
@@ -68,6 +69,11 @@ export default [
         name     : '弹窗组件测试效果',
         path     : '/nav-layout-winodw-page',
         component: <HtmlRenderer html={ layoutWindowPage }/>,
+    },
+    {
+        name     : '模版引擎',
+        path     : '/nav-tpl',
+        component: <HtmlRenderer html={ tplHtml }/>,
     },
     {
         name     : '步骤条组件展示效果',

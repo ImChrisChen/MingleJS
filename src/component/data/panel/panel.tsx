@@ -8,7 +8,7 @@ import { IComponentProps } from '@interface/common/component';
 import React, { ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
-import { parseFor, parseTpl } from '@utils/parser-tpl';
+import { parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
 import { isArray, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
@@ -42,35 +42,71 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
         deepEachElement(root, (el: HTMLElement) => {
             this.parseIfelse(el, model);
+            this.parseTextContent(el, model);
             this.parseForeach(el, model);
-            el.childNodes.forEach(node => {
-                // 处理文本节点
-                if (node.nodeType === 3) {
-                    let textNode = node.textContent;
-                    if (isWuiTpl(textNode ?? '')) {
-                        node.textContent = parseTpl(textNode ?? '', model, 'tpl');
-                    }
+        });
+    }
+
+    public static parseTextContent(el: HTMLElement, model: object) {
+        el.childNodes.forEach(node => {
+            // 处理文本节点
+            if (node.nodeType === 3) {
+                let textNode = node.textContent;
+                if (isWuiTpl(textNode ?? '')) {
+                    console.log(textNode ,model);
+                    node.textContent = parseTpl(textNode ?? '', model, 'tpl');
                 }
-            });
+            }
         });
     }
 
     public static parseForeach(el: HTMLElement, model: object) {
         let attrs = el.attributes;
-        let content = el.outerHTML;
-        if (!attrs['@foreach']) return content;
+        if (!attrs['@foreach']) return el;
         let { name, value } = attrs['@foreach'];
-        console.log(name, value);
+        el.removeAttribute('@foreach');
+
+        let express;
+        if (attrs['@if'] && attrs['@if'].value) {
+            express = attrs['@if'].value;
+            el.removeAttribute('@if');
+        }
+
+        express = parseTpl(express, model, 'field');
+
+
         if (!/^\w+ as \w+$/.test(value)) {
             console.error(`${ name }格式不正确`);
-            return content;
         }
-        let [ list, item ] = value.split('as');
-        list = list.trim();
-        item = item.trim();
-        content = parseFor(content, model, { list, item });
 
-        el.insertAdjacentHTML('afterend', content);
+        let [ arrayName, itemName ] = value.split('as');
+        arrayName = arrayName.trim();
+        itemName = itemName.trim();
+
+        let loopData = model[arrayName];
+        let nodes = loopData.map(item => {
+            let itemModel = { [itemName]: item };
+            express = parseTpl(express, itemModel, 'field');
+
+            let result: any;
+            try {
+                result = eval(express);
+            } catch (e) {
+                console.warn(`${ express }表达式解析错误`);
+                result = false;
+            }
+
+            if (result) {
+                let cloneNode = el.cloneNode(true) as HTMLElement;
+                DataPanel.parseElement(cloneNode, itemModel);
+                console.log(cloneNode);
+                return cloneNode;
+            } else {
+                return null;
+            }
+        }).filter(t => t);
+
+        $(el).after(...nodes);
         el.remove();        // 删除掉原始模版
     }
 
@@ -96,7 +132,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         let { url, model } = dataset;
         if (url) {
             let res = await jsonp(url);
-            return res.status ? res.data : {};
+            return res.status ? res : {};
         } else if (model) {
             return model;
         }

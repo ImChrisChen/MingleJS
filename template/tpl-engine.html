@@ -7,7 +7,7 @@
 
 
     <ul @if="status && data.length > 0">
-        <li @foreach="data as item" @if="item.age > 0">
+        <li @foreach="data as item" @if="item.age > 25">
             <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}>
                 <icon type="AppleOutlined" color="#f0f00f" size="18"/>
             </h1>
