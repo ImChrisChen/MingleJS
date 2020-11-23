@@ -271,7 +271,7 @@ window.funcName = function () {
 
 ~~~html
 // 表单组件 // 表单ID，用于关联需要控制的数据。
-<form id="game-list" data-fn="form-ajax" data-async="true">				
+<form id="game-list" data-fn="form-action" data-async="true">				
     <input data-fn="form-button" 
            data-label="平台:"
            data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows" 

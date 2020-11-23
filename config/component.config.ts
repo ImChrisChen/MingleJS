@@ -468,10 +468,28 @@ export default {
                 },
             },
         },
-        ajax      : {
-            component: import('@component/form/ajax/form'),
+        action    : {
+            component: import('@component/form/form-action/form'),
             property : {
                 dataset: {
+                    async : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否是异步处理',
+                    },
+                    url   : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'http://baidu.com',
+                        desc : 'form表单提交的url',
+                    },
+                    method: {
+                        el   : 'radio',
+                        parse: 'string',
+                        value: 'post',
+                        desc : '指定请求类型,提供, get | post | delete | put | options (默认post)',
+                    },
                     layout: {
                         el     : 'radio',
                         options: [
@@ -482,6 +500,18 @@ export default {
                         value  : 'h',
                         desc   : '布局模式，v 表示垂直布局，h 水平布局',
                     },
+                },
+                id     : {
+                    el   : 'input',
+                    parse: 'string',
+                    value: '',
+                    desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                },
+                action : {
+                    el   : 'input',
+                    parse: 'string',
+                    value: '',
+                    desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效',
                 },
             },
         },
@@ -771,13 +801,13 @@ export default {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
-                        desc : '图表大小',
+                        desc : '图表高度',
                     },
-                    datadirect: {
-                        el   : 'input',
-                        value: '',
-                        parse: 'string',
-                    },
+                    // datadirect: {
+                    //     el   : 'input',
+                    //     value: '',
+                    //     parse: 'string',
+                    // },
                     title     : {
                         el   : 'input',
                         value: '',

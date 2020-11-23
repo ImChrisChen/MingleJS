@@ -22,7 +22,7 @@ import {
     WordCloudChart,
 } from 'bizcharts';
 import { Spin } from 'antd';
-import FormAjax from '@component/form/ajax/form';
+import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
 
 // const { DataView } = DataSet;
@@ -46,8 +46,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         super(props);
 
         if (this.props.dataset && this.props.dataset.from) {
-            let formElement = FormAjax.findFormElement(this.props.dataset.from);
-            FormAjax.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
+            let formElement = FormAction.findFormElement(this.props.dataset.from);
+            FormAction.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
         }
 
         this.getData().then(data => {

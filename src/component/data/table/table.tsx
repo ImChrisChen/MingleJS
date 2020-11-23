@@ -16,7 +16,7 @@ import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { IApiResult, jsonp } from '@utils/request/request';
 import { isHtmlTpl, isNumber, isString, isWuiTpl } from '@utils/inspect';
-import FormAjax from '@component/form/ajax/form';
+import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
@@ -118,8 +118,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
         super(props);
 
         if (this.props.dataset && this.props.dataset.from) {
-            let formElement = FormAjax.findFormElement(this.props.dataset.from);
-            FormAjax.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
+            let formElement = FormAction.findFormElement(this.props.dataset.from);
+            FormAction.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
         }
 
         Promise.all([
@@ -143,7 +143,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     handleChangePagination(page, pageSize) {
         console.log(page, pageSize);
         this.setState({
-            currentPage: page,
+            currentpage: page,
             pagesize   : pageSize,
         });
     }

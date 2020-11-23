@@ -8,64 +8,88 @@ import React from 'react';
 import { message } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
+import axios from 'axios';
 
 // import tableData from '@mock/table/tableContent'
 
+// 表格提交的数据
 interface IFormData {
     [key: string]: string | any
 }
 
-interface IFormAjax extends IComponentProps {
+interface IFormAction extends IComponentProps {
     layout?: 'v' | 'h'
+    async
 }
 
-export default class FormAjax extends React.Component<IFormAjax, any> {
+export default class FormAction extends React.Component<IFormAction, any> {
 
     constructor(props) {
         super(props);
         this.init();
     }
 
-    private init() {
-        let { async } = this.props.dataset;
+    init() {
         let form: HTMLElement = this.props.el;
         this.setLayout(form);
+        this.handleReset(form);
+        this.handleEvents(form);
+    }
+
+    handleReset(form: HTMLElement) {
         $(form).find('[type=reset]').on('click', e => {
             e.preventDefault();
             $(form).find('input[data-fn]').val('').trigger('change');
         });
-        FormAjax.onFormSubmit(form, function (formData) {
+    }
+
+    async handleEvents(form: HTMLElement) {
+        let { url, method, headers } = this.props.dataset;
+
+        FormAction.onFormSubmit(form, async (formData, e) => {
             console.log(formData);
+            if (url) {
+                let res = await axios({
+                    url,
+                    method,
+                    headers: headers || { 'Content-Type': 'application/json' },
+                    data   : formData,
+                });
+                console.log(res);
+                message.info(res);
+            }
         });
     }
 
-    private setLayout(formElement: HTMLElement) {
+    setLayout(formElement: HTMLElement) {
+        let layout = this.props.dataset.layout;
 
-        if (this.props.dataset.layout === 'h') {
+        if (layout === 'h') {
             $(formElement).css({ display: 'flex', flexWrap: 'wrap' });
         }
 
-        if (this.props.dataset.layout === 'v') {
+        if (layout === 'v') {
             console.log(formElement);
         }
     }
 
-    static onFormSubmit(formElement, callback) {
+    public static onFormSubmit(formElement, callback) {
         // TODO 使用Jquery on 绑定事件(DOM2级事件),在一个表单关联多个表格/图表的情况下避免事件覆盖
         $(formElement).on('submit', e => {
             e.preventDefault();
-            let formData: IFormData = FormAjax.getFormData(formElement);
+
+            let formData: IFormData = FormAction.getFormData(formElement);
             callback(formData, e);
-            message.info('提交表单');
+            // message.info('提交表单');
         });
     }
 
-    static findFormElement(from): HTMLElement | null {
+    public static findFormElement(from): HTMLElement | null {
         return document.querySelector(`#${ from }`);
     }
 
     // 获取表单数据
-    static getFormData(formElement): IFormData {
+    public static getFormData(formElement): IFormData {
         let $elements = $(formElement).find(`[name]`);
         let formData: IFormData = {};
         $elements.each((index, el) => {
@@ -76,7 +100,7 @@ export default class FormAjax extends React.Component<IFormAjax, any> {
         return formData;
     }
 
-    static async requestData() {
+    public static async requestData() {
 
     }
 

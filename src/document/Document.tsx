@@ -72,7 +72,6 @@ class Document extends React.Component<any, any> {
 
     render() {
         let routes = this.state.routes.map(route => {
-            console.log(route);
             if (route.document && route.path) {
                 return <Route
                     exact
@@ -85,7 +84,6 @@ class Document extends React.Component<any, any> {
                 return undefined;
             }
         }).filter(t => t);
-        console.log(routes);
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
