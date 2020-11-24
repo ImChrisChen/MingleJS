@@ -335,6 +335,10 @@ export default class App {
 
     static globalEventListener() {
 
+        window.addEventListener('error', function (...e) {
+            console.log(e);
+        });
+
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });

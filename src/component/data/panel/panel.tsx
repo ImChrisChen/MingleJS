@@ -54,7 +54,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (node.nodeType === 3) {
                 let textNode = node.textContent;
                 if (isWuiTpl(textNode ?? '')) {
-                    console.log(textNode, model);
                     node.textContent = parseTpl(textNode ?? '', model, 'tpl');
                 }
             }
