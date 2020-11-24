@@ -10,7 +10,7 @@ import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 import { parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
-import { isArray, isWuiTpl } from '@utils/inspect';
+import { isArray, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 
 // DOM 解析
@@ -29,6 +29,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         DataPanel.getData(this.props.dataset).then(data => {
             DataPanel.parseElement(this.props.el, data);
             this.setState({ model: data });
+            this.props.el.style.display = 'block';
         });
     }
 
@@ -53,7 +54,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (node.nodeType === 3) {
                 let textNode = node.textContent;
                 if (isWuiTpl(textNode ?? '')) {
-                    console.log(textNode ,model);
+                    console.log(textNode, model);
                     node.textContent = parseTpl(textNode ?? '', model, 'tpl');
                 }
             }
@@ -66,44 +67,55 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         let { name, value } = attrs['@foreach'];
         el.removeAttribute('@foreach');
 
-        let express;
-        if (attrs['@if'] && attrs['@if'].value) {
-            express = attrs['@if'].value;
-            el.removeAttribute('@if');
-        }
-
-        express = parseTpl(express, model, 'field');
-
-
         if (!/^\w+ as \w+$/.test(value)) {
             console.error(`${ name }格式不正确`);
         }
 
+        function getIfExpressByElement(element: HTMLElement) {
+            let attrs = element.attributes;
+            let express;
+            if (attrs['@if'] && attrs['@if'].value) {
+                express = attrs['@if'].value;
+                el.removeAttribute('@if');
+            }
+            return express;
+        }
+
+        let express = getIfExpressByElement(el);
+        express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
+
         let [ arrayName, itemName ] = value.split('as');
+
+
         arrayName = arrayName.trim();
         itemName = itemName.trim();
 
         let loopData = model[arrayName];
         let nodes = loopData.map(item => {
             let itemModel = { [itemName]: item };
-            express = parseTpl(express, itemModel, 'field');
+            let result: any;     // if 表达式的判断结果
 
-            let result: any;
-            try {
-                result = eval(express);
-            } catch (e) {
-                console.warn(`${ express }表达式解析错误`);
-                result = false;
+            // 如果foreach元素上没有if的条件判断
+            if (isUndefined(express)) {
+                result = true;
+            } else {
+                let parseExpress = parseTpl(express, itemModel, 'field');       // TODO foreach中的条件判断要进行两个作用域解析，当前是第二层
+                console.log(parseExpress);
+                try {
+                    result = eval(parseExpress);
+                } catch (e) {
+                    console.warn(`${ parseExpress }表达式解析错误`);
+                    result = false;
+                }
             }
 
+            // 表达式成立的时候才克隆节点
             if (result) {
                 let cloneNode = el.cloneNode(true) as HTMLElement;
-                DataPanel.parseElement(cloneNode, itemModel);
-                console.log(cloneNode);
+                this.parseElement(cloneNode, itemModel);
                 return cloneNode;
-            } else {
-                return null;
             }
+
         }).filter(t => t);
 
         $(el).after(...nodes);

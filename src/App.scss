@@ -35,3 +35,7 @@ input[data-fn] {
     display        : flex;
     flex-direction : column-reverse;
 }
+
+[data-fn=data-panel] {
+    display : none;
+}
