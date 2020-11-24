@@ -8,24 +8,26 @@
 import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { jsonp } from '@utils/request/request';
-// import { DataSet } from '@antv/data-set/lib/data-set';
-// import areaUser from '@root/mock/chart/areaUser.json';
 import {
+    Area,
     Axis,
     Chart,
     Coordinate,
     FunnelChart,
     Interval,
     Legend,
+    Line,
     LineAdvance,
+    Point,
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
 import { Spin } from 'antd';
 import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
+import DataSet from '@antv/data-set';
 
-// const { DataView } = DataSet;
+
 const cols = {
     percent: {
         formatter: val => {
@@ -75,28 +77,28 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     // 饼状图
     private pie(config) {
 
-        let genreCount = Array.from(new Set(this.state.data.map(item => item[config.genre]).filter(item => item))).length;
+        let genreCount = Array.from(new Set(this.state.data.map(item => item[config.key]).filter(item => item))).length;
         if (genreCount > 32) {
             console.warn(`为了保持更好的用户体验，「${ config.genreName }」此图表不建议用饼图展示`);
         }
 
         return <>
             <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
-                   interactions={ ['element-single-selected'] }>
+                   interactions={ [ 'element-single-selected' ] }>
                 <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
                 {/*<Tooltip showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
                 <Interval
                     // style={{ stroke: "white", lineWidth: 5 }}
-                    position={ config.compare }
+                    position={ config.value }
                     adjust="stack"
-                    color={ config.genre }
+                    color={ config.key }
                     label={
-                        ['*', {
+                        [ '*', {
                             content: (data) => {
-                                return `${ data[config.genre] }: ${ data[config.compare] }`;
+                                return `${ data[config.key] }: ${ data[config.value] }`;
                             },
-                        }] }
+                        } ] }
                 />
             </Chart>
         </>;
@@ -107,10 +109,10 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         let { position, groupby, colors } = config;
         return <>
             <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
-                   interactions={ ['active-region'] }>
+                   interactions={ [ 'active-region' ] }>
 
                 <Interval position={ position } color={ groupby || colors }
-                          adjust={ [{ type: 'dodge', marginRatio: 0 }] }/>
+                          adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
                 <Tooltip shared/>
                 <Legend layout="vertical" position="top-left"
@@ -141,7 +143,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
-                   interactions={ ['active-region'] }>
+                   interactions={ [ 'active-region' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
@@ -173,8 +175,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
         function formatData(data) {
             return data.map((item, index) => ({
-                word  : item[config.genre],
-                weight: item[config.compare],
+                word  : item[config.key],
+                weight: item[config.value],
                 id    : index,
             }));
         }
@@ -185,7 +187,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 maskImage={ 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ' }
                 shape={ 'cardioid' }
                 wordStyle={ {
-                    fontSize: [30, 40],
+                    fontSize: [ 30, 40 ],
                 } }
             />
         </>;
@@ -196,18 +198,80 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return <>
             <FunnelChart
                 data={ this.state.data }
-                xField={ config.compare }
-                yField={ config.genre }
+                xField={ config.value }
+                yField={ config.key }
             />
         </>;
     }
 
+    // 雷达图
+    private radar(config) {
+
+        const data = [
+            { item: 'Design', a: 70, b: 30 },
+            { item: 'Development', a: 60, b: 70 },
+            { item: 'Marketing', a: 50, b: 60 },
+            { item: 'Users', a: 40, b: 50 },
+            { item: 'Test', a: 60, b: 70 },
+            { item: 'Language', a: 70, b: 50 },
+            { item: 'Technology', a: 50, b: 40 },
+            { item: 'Support', a: 30, b: 40 },
+            { item: 'Sales', a: 60, b: 40 },
+            { item: 'UX', a: 50, b: 60 },
+        ];
+
+        const { DataView } = DataSet;
+        const dv = new DataView().source(data);
+        console.log(DataSet);
+        console.log(dv);
+        dv.transform({
+            type  : 'fold',
+            // fields: [ 'a', 'b' ], // 展开字段集
+            fields: config.value, // 展开字段集
+            key   : 'user', // key字段
+            value : 'score', // value字段
+        });
+
+        let position = `${ config.key }*score`;
+
+        return <Chart
+            height={ 400 }
+            data={ dv.rows }
+            autoFit
+            scale={ {
+                score: {
+                    min: 0,
+                    max: 80,
+                },
+            } }
+            interactions={ [ 'legend-highlight' ] }
+        >
+            <Coordinate type="polar" radius={ 0.8 }/>
+            <Tooltip shared/>
+            <Point
+                // position="item*score"
+                position={ position }
+                color="user"
+                shape="circle"
+            />
+            <Line
+                position={ position }
+                color="user"
+                size="2"
+            />
+            <Area
+                position={ position }
+                color="user"
+            />
+        </Chart>;
+    }
+
     formatConfig() {
         let {
-            key  : genre,       // data数据 key 值映射
-            value: compare,     // data数据 value 值映射
-            type : chartType,
-            name : genreName,
+            key,       // data数据 key 值映射
+            value,     // data数据 value 值映射
+            type: chartType,
+            name: genreName,
             series,
             height,
             colors,
@@ -215,13 +279,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
             groupby,
         } = this.props.dataset;
         try {
-            // let compare = series[0][0];
+            // let value = series[0][0];
             // let genreName = series[0][1];       // 地区
             return {
-                genre,           // 'location' (地区)
-                compare,         // 'count'  (数量)
+                key,           // 'location' (地区)
+                value,         // 'count'  (数量)
                 groupby,            // 分组统计的key字段名
-                position: `${ genre }*${ compare }`,        // name*value
+                position: `${ key }*${ value }`,        // name*value
                 colors  : colors,
                 genreName,       // `按照${genreName('地区')}统计的维度`
                 title,
@@ -245,12 +309,15 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 return this.word(config);
             case 'funnel':
                 return this.funnel(config);
+            case 'radar':
+                return this.radar(config);
             default:
                 return this.line(config);
         }
     }
 
     render() {
+        console.log(this.props);
         let config = this.formatConfig();
         return <>
             <h2 hidden={ !this.props.dataset.title }

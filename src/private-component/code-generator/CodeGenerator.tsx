@@ -160,7 +160,7 @@ class CodeGenerator extends React.Component<any, any> {
             if (options === 'fromUrl') {
                 if (fieldOptions.length > 0) {
                     options = fieldOptions;
-                    el = 'select';
+                    el = 'select-multiple';
                 }
             }
 
@@ -472,6 +472,17 @@ class CodeGenerator extends React.Component<any, any> {
         />;
     }
 
+    renderSelectMultiple(key, item) {
+        return <Select
+            options={ item.options }
+            mode="multiple"
+            onChange={ this.handleChangeSelect.bind(this, key) }
+            allowClear={ true }
+            showSearch={ true }
+            value={ item.value }
+        />;
+    }
+
     renderSlider(key, item) {
         return <Slider
             defaultValue={ 30 }
@@ -556,6 +567,9 @@ class CodeGenerator extends React.Component<any, any> {
                                     break;
                                 case 'select':
                                     formItem = this.renderSelect(key, item);
+                                    break;
+                                case 'select-multiple':
+                                    formItem = this.renderSelectMultiple(key, item);
                                     break;
                                 case 'slider':
                                     formItem = this.renderSlider(key, item);

@@ -22,7 +22,7 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider' | 'number' | 'color';
+export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider' | 'number' | 'color' | 'select-multiple';
 
 export interface IOptions {
     label: string
@@ -749,7 +749,8 @@ export default {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
-                        value  : domain + '/mock/chart/areauser.json',
+                        // value  : domain + '/mock/chart/areauser.json',
+                        value  : domain + '/mock/chart/radar.json',
                         desc   : '图表数据接口',
                     },
                     name      : {
@@ -765,6 +766,7 @@ export default {
                             { label: '饼图', value: 'pie' },
                             { label: '柱状图', value: 'bar' },
                             { label: '折线图', value: 'line' },
+                            { label: '雷达图', value: 'radar' },
                             { label: '词云', value: 'word' },
                         ],
                         value  : 'bar',
@@ -778,14 +780,14 @@ export default {
                         desc   : '图表统计维度的字段名',
                     },
                     value     : {
-                        el     : 'input',
-                        parse  : 'string',
+                        el     : 'select-multiple',
+                        parse  : 'string[]',
                         options: 'fromUrl',
                         value  : 'count',
                         desc   : '图表统计的value值字段名',
                     },
                     colors    : {
-                        el   : 'color',
+                        el   : 'select',
                         value: '#6ad6b6',
                         parse: 'string[]',
                         desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',

@@ -59,7 +59,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
                     let val = data[fieldItem.trim()];
                     if (isUndefined(val)) {
-                        // console.warn(` ${field} 未匹配到模版变量，暂不替换`, itemData);
+                        // console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
                         return field;
                     }
                     return val;
@@ -73,10 +73,10 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     : (itemData[key]);
 
                 // 只有对象中有这个属性才会被替换
-                if (!isUndefined(val)) {
-                    console.log(tpl);
+                if (isUndefined(val)) {
+                    // console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
+                } else {
                     tpl = tpl.replace(regExp, val);
-                    console.log(tpl);
                 }
             }
         }

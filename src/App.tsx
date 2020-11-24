@@ -8,6 +8,7 @@ import { deepEachElement } from '@utils/util';
 import { isFunc } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
+import moment from "moment";
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -335,8 +336,22 @@ export default class App {
 
     static globalEventListener() {
 
-        window.addEventListener('error', function (...e) {
-            console.log(e);
+        window.addEventListener('error', function (e) {
+            let message = e.message;        // 错误
+            let stack = e.error.stack;
+            let date = moment().format('YYYY-MM-DD/HH:mm:ss')
+            let url = window.location.href;
+            let log = { message, stack, date, url };
+
+            let error_log: string = localStorage.getItem('error_log') || '';
+
+            if (error_log) {
+                let logs: Array<object> = JSON.parse(error_log);
+                logs.unshift(log);
+                localStorage.setItem('error_log', JSON.stringify(logs));
+            } else {
+                localStorage.setItem('error_log', JSON.stringify([ log ]));
+            }
         });
 
         window.addEventListener('online', function () {

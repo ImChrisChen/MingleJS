@@ -1,4 +1,4 @@
-form [data-component-uid]{margin-right:10px;min-width:120px}[data-component-uid]{position:relative}input[data-fn]{display:none}[data-fn]{position:relative}.App__flex-direction-row__35fTm{display:flex;flex-direction:row}.App__flex-direction-rerow__3REe-{display:flex;flex-direction:row-reverse}.App__flex-direction-column__2LVYz{display:flex;flex-direction:column}.App__flex-direction-recolumn__NCl4G{display:flex;flex-direction:column-reverse}
+form [data-component-uid]{margin-right:10px;min-width:120px}[data-component-uid]{position:relative}input[data-fn]{display:none}[data-fn]{position:relative}.App__flex-direction-row__35fTm{display:flex;flex-direction:row}.App__flex-direction-rerow__3REe-{display:flex;flex-direction:row-reverse}.App__flex-direction-column__2LVYz{display:flex;flex-direction:column}.App__flex-direction-recolumn__NCl4G{display:flex;flex-direction:column-reverse}[data-fn=data-panel]{display:none}
 
 .AppMenu__system__2kwqC{height:40px;width:40px;overflow:hidden;padding:6px;box-sizing:border-box;cursor:pointer}.AppMenu__system__2kwqC img{width:100%;height:100%}ul,li{list-style:none;padding:0;margin:0}
 
@@ -403,3 +403,5 @@ span.CodeMirror-selectedtext { background: none; }
 
 .LayoutGenerator__components__1OjyQ{display:flex;flex-wrap:wrap;width:400px;text-align:center}.LayoutGenerator__components__1OjyQ>*{width:20% !important}
 
+
+/*# sourceMappingURL=main.css.map*/
