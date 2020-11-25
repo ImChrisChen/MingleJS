@@ -5,24 +5,25 @@
 >
 
     <!-- 日期 -->
-    <input data-fn="form-datepicker" data-label="日期:"
-           data-mindate="2016-01-01"
-           data-maxdate="2020-10-26"
-           data-singledatepicker="false"
-           name="date_range"
-           value="2020-10-28~2020-10-28"
-    />
+<!--    <input data-fn="form-datepicker" data-label="日期:"-->
+<!--           data-mindate="2016-01-01"-->
+<!--           data-maxdate="2020-10-26"-->
+<!--           data-singledatepicker="false"-->
+<!--           name="date_range"-->
+<!--           value="2020-10-28~2020-10-28"-->
+<!--    />-->
 
     <!-- 平台 -->
     <input data-fn="form-select" name="pf"
            value="1"
+           data-required="true"
            data-label="平台:"
            data-mode="single"
            data-key="id"
            data-value="name"
            data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
 
-    <!-- 游戏 -->
+<!--    &lt;!&ndash; 游戏 &ndash;&gt;-->
     <input data-fn="form-select" name="dl_game_id" data-mode="multiple"
            data-label="游戏:"
            data-key="game_id"
@@ -32,41 +33,41 @@
            data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"
            data-size="sm"
     >
-    <!--    data-groupby="game_original_name"-->
+<!--    &lt;!&ndash;    data-groupby="game_original_name"&ndash;&gt;-->
 
-    <!-- 媒体 -->
-    <input data-fn="form-select" name="media_id" value="" data-mode="multiple" data-size="sm"
-           data-label="媒体:"
-           data-url="http://e.aidalan.com/option/media/list" id="media_id" data-value="media_name"
-           data-key="media_id">
+<!--    &lt;!&ndash; 媒体 &ndash;&gt;-->
+<!--    <input data-fn="form-select" name="media_id" value="" data-mode="multiple" data-size="sm"-->
+<!--           data-label="媒体:"-->
+<!--           data-url="http://e.aidalan.com/option/media/list" id="media_id" data-value="media_name"-->
+<!--           data-key="media_id">-->
 
-    <!-- 账号 -->
-    <input data-fn="form-select" name="dl_publisher_id" data-mode="multiple" value=""
-           data-label="账号:"
-           data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"
-           data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>">
+<!--    &lt;!&ndash; 账号 &ndash;&gt;-->
+<!--    <input data-fn="form-select" name="dl_publisher_id" data-mode="multiple" value=""-->
+<!--           data-label="账号:"-->
+<!--           data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"-->
+<!--           data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>">-->
 
-    <!-- 负责人 -->
-    <input data-fn="form-cascader" name="principal_id" data-mode="multiple"
-           data-groupby="department_name"
-           value=""
-           data-size="sm"
-           data-label="负责人:"
-           data-url="http://e.aidalan.com/option/game/principal" id="principal_id" data-key="id"
-           data-value="name">
+<!--    &lt;!&ndash; 负责人 &ndash;&gt;-->
+<!--    <input data-fn="form-cascader" name="principal_id" data-mode="multiple"-->
+<!--           data-groupby="department_name"-->
+<!--           value=""-->
+<!--           data-size="sm"-->
+<!--           data-label="负责人:"-->
+<!--           data-url="http://e.aidalan.com/option/game/principal" id="principal_id" data-key="id"-->
+<!--           data-value="name">-->
 
-    <!-- 渠道 -->
-    <input data-fn="form-select" name="dl_channel_id" data-mode="multiple"
-           data-label="渠道:"
-           data-url="http://e.aidalan.com/option/game/channel?pf=<{pf}>" id="channel_id" data-size="sm"
-           data-value="<span class='ti-<{pf}>'></span> <{channel_name}>" data-key="channel_id" value="">
+<!--    &lt;!&ndash; 渠道 &ndash;&gt;-->
+<!--    <input data-fn="form-select" name="dl_channel_id" data-mode="multiple"-->
+<!--           data-label="渠道:"-->
+<!--           data-url="http://e.aidalan.com/option/game/channel?pf=<{pf}>" id="channel_id" data-size="sm"-->
+<!--           data-value="<span class='ti-<{pf}>'></span> <{channel_name}>" data-key="channel_id" value="">-->
 
-    <!-- 广告位 -->
-    <input data-fn="form-input" name="adv_position_id" data-label="广告位">
+<!--    &lt;!&ndash; 广告位 &ndash;&gt;-->
+<!--    <input data-fn="form-input" name="adv_position_id" data-label="广告位">-->
 
-    <!-- 用户分析 -->
-    <input data-fn="form-button" data-label="用户分析" name="group_type" value="reg_count"
-           data-enum="reg_count,注册;login_count,活跃;pay_count,付费;" id="group_type">
+<!--    &lt;!&ndash; 用户分析 &ndash;&gt;-->
+<!--    <input data-fn="form-button" data-label="用户分析" name="group_type" value="reg_count"-->
+<!--           data-enum="reg_count,注册;login_count,活跃;pay_count,付费;" id="group_type">-->
 
     <button type="reset" class="ant-btn ant-btn-waring">重置</button>
 

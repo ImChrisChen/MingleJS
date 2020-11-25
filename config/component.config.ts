@@ -19,7 +19,15 @@ if (isLocation) {
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 
 // 解析类型
-export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
+export type parseType =
+    'string'
+    | 'boolean'
+    | 'number'
+    | 'object[]'
+    | 'string[]'
+    | 'JSON'
+    | 'style'
+    | 'null';
 
 // 组件设计器，属性值渲染类型
 export type elType =
@@ -150,6 +158,12 @@ const UniversalProps = {
         parse: 'string',
         desc : 'input 组件的name值',
     },
+    required   : {
+        el   : 'switch',
+        parse: 'boolean',
+        value: false,
+        desc : '表单项是否必填',
+    },
 
 } as {
     label: IPropertyConfig
@@ -160,6 +174,7 @@ const UniversalProps = {
     disabled: IPropertyConfig
     size: IPropertyConfig
     name: IPropertyConfig
+    required: IPropertyConfig
     [key: string]: IPropertyConfig
 };
 
@@ -286,6 +301,7 @@ export default {
                         value  : '',
                         desc   : '按照groupby的值来进行分组排列',
                     },
+                    required  : UniversalProps.required,
                 },
                 value      : {
                     el     : 'select',
@@ -295,8 +311,9 @@ export default {
                     parse  : 'string',
                 },
                 placeholder: UniversalProps.placeholder,
-                name       : UniversalProps.name,
-                hook       : {
+
+                name: UniversalProps.name,
+                hook: {
                     load        : {
                         el    : 'input',
                         value : 'componentLoad',
@@ -362,11 +379,13 @@ export default {
                         render: false,
                         value : true,
                     },
+                    required  : UniversalProps.required,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
-                value      : {},
-                hook       : {},
+
+                value: {},
+                hook : {},
             },
         },
         cascader  : {
@@ -407,10 +426,12 @@ export default {
                         parse : 'boolean',
                         render: false,
                     },
+                    required  : UniversalProps.required,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
-                value      : {
+
+                value: {
                     el   : 'input',
                     value: '',
                     parse: 'null',
@@ -421,7 +442,7 @@ export default {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/datepicker'),
             property : {
-                dataset: {
+                dataset : {
                     label     : UniversalProps.label,
                     disabled  : UniversalProps.disabled,
                     format    : {
@@ -465,9 +486,10 @@ export default {
                         render: false,
                         value : false,
                     },
+                    required: UniversalProps.required,
                 },
-                name   : UniversalProps.name,
-                value  : {
+                name    : UniversalProps.name,
+                value   : {
                     el   : 'input',
                     parse: 'null',
                     value: '',
@@ -529,7 +551,7 @@ export default {
             path     : '/form-button',
             component: import('@component/form/button/button'),
             property : {
-                dataset: {
+                dataset : {
                     label      : UniversalProps.label,
                     enum       : UniversalProps.enum,
                     disabled   : UniversalProps.disabled,
@@ -563,9 +585,10 @@ export default {
                         value  : '',
                         parse  : 'string',
                     },
+                    required: UniversalProps.required,
                 },
-                name   : UniversalProps.name,
-                value  : {
+                name    : UniversalProps.name,
+                value   : {
                     el     : 'select',
                     options: [],
                     value  : '',
@@ -576,7 +599,7 @@ export default {
         switch    : {
             component: import('@component/form/switch/switch'),
             property : {
-                dataset: {
+                dataset : {
                     disabled         : UniversalProps.disabled,
                     label            : UniversalProps.label,
                     checkedChildren  : {
@@ -587,15 +610,16 @@ export default {
                         el   : 'input',
                         value: '关闭',
                     },
+                    // required: UniversalProps.required,
                 },
-                name   : UniversalProps.name,
+                name    : UniversalProps.name,
             },
         },
         input     : {
             component: import('@component/form/input/input'),
             property : {
                 dataset    : {
-                    type : {
+                    type    : {
                         el     : 'select',
                         options: [
                             {
@@ -614,30 +638,34 @@ export default {
                         ],
                         value  : 'text',
                     },
-                    label: UniversalProps.label,
+                    label   : UniversalProps.label,
+                    required: UniversalProps.required,
                 },
                 name       : UniversalProps.name,
                 placeholder: UniversalProps.placeholder,
+
             },
         },
         file      : {
             component: import('@component/form/file/file'),
             path     : 'form-file',
             property : {
-                dataset: {
+                dataset : {
                     label: UniversalProps.label,
+                    required: UniversalProps.required,
                 },
-                name   : UniversalProps.name,
+                name    : UniversalProps.name,
             },
         },
         color     : {
             component: import('@component/form/color/color'),
             path     : 'form-color',
             property : {
-                dataset: {
+                dataset : {
                     label: UniversalProps.label,
+                    required: UniversalProps.required,
                 },
-                value  : {
+                value   : {
                     el   : 'color',
                     value: '#f0f',
                     parse: 'string',
@@ -749,13 +777,13 @@ export default {
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from'        : {
+                    'from' : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url           : {
+                    url    : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
@@ -770,7 +798,7 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type          : {
+                    type   : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -786,21 +814,21 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key           : {
+                    key    : {
                         el     : 'select-multiple',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value         : {
+                    value  : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
                         value  : '',
                         desc   : '图表统计的value值字段名',
                     },
-                    colors        : {
+                    colors : {
                         el     : 'input',
                         options: 'fromUrl',
                         value  : '#37c9e3',
@@ -829,14 +857,14 @@ export default {
                     //     value  : 'horizontal',
                     //     desc   : '图例的布局方式',
                     // },
-                    groupby       : {
+                    groupby: {
                         el     : 'input',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    height        : {
+                    height : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
@@ -847,7 +875,7 @@ export default {
                     //     value: '',
                     //     parse: 'string',
                     // },
-                    title         : {
+                    title  : {
                         el   : 'input',
                         value: '',
                         parse: 'string',

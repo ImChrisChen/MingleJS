@@ -75,6 +75,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     render() {
+        console.log(this.props);
         let dataset = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
@@ -86,7 +87,8 @@ export default class Selector extends React.Component<IComponentProps, any> {
             }
         }
         return <>
-            <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
+            <Form.Item label={ dataset.label } style={ { display: 'flex' } }
+                       required={ this.props.dataset.required }>
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
                     { ...dataset }

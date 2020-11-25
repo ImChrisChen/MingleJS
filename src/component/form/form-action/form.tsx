@@ -78,7 +78,12 @@ export default class FormAction extends React.Component<IFormAction, any> {
         $(formElement).on('submit', e => {
             e.preventDefault();
 
-            let formData: IFormData = FormAction.getFormData(formElement);
+            let formData = FormAction.getFormData(formElement);
+
+            if (!formData) {
+                return;
+            }
+
             callback(formData, e);
             // message.info('提交表单');
         });
@@ -89,14 +94,27 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取表单数据
-    public static getFormData(formElement): IFormData {
-        let $elements = $(formElement).find(`[name]`);
+    public static getFormData(formElement): IFormData | boolean {
+        let $elements = $(formElement).find(`input[name]`);
         let formData: IFormData = {};
+        let verify = true;
         $elements.each((index, el) => {
             let name = $(el).attr('name') ?? '';
             let value = $(el).val();
+
+            let required = eval(el.dataset.required + '');
+            if (required && !value) {
+                message.error(`${ name }的值必须填写`);
+                verify = false;
+            }
+
             formData[name] = value;
         });
+
+        if (!verify) {
+            return false;
+        }
+
         return formData;
     }
 
