@@ -14,6 +14,7 @@ import {
     Axis,
     Chart,
     Coordinate,
+    Interaction,
     Interval,
     Legend,
     Line,
@@ -26,6 +27,7 @@ import { Spin } from 'antd';
 import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
 import DataSet from '@antv/data-set';
+import { isArray, isEmptyArray } from '@utils/inspect';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -82,6 +84,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return res.status ? res.data : [];
     }
 
+    // 环型图
     private loop(config) {
 
         const cols = {
@@ -180,6 +183,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     // 柱状图
     private bar(config) {
         let { position, groupby, colors } = config;
+        console.log(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
                    interactions={ [ 'active-region' ] }>
@@ -188,18 +192,68 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
                 <Tooltip shared/>
-                <Legend layout="vertical" position="top-left"
-                        itemName={ {
-                            spacing  : 10, // 文本同滑轨的距离
-                            style    : {
-                                // stroke: 'blue',
-                                fill: 'red',
-                            },
-                            formatter: (text, item, index) => {
-                                return text === 'Berlin' ? 'Berlin【重点关注】' : text;
-                            },
-                        } }
+                <Legend
+                    // layout={ config.legendLayout }
+                    // position={ config.legendLocation }
+                    visible={ true }
+                    itemName={ {
+                        spacing  : 10, // 文本同滑轨的距离
+                        style    : {
+                            // stroke: 'blue',
+                            fill: 'red',
+                        },
+                        formatter: (text, item, index) => {
+                            return text === 'Berlin' ? 'Berlin【重点关注】' : text;
+                        },
+                    } }
                 />
+            </Chart>
+        </>;
+    }
+
+    // 条型图
+    private hbar(config) {
+        // 数据源
+        config.value = isArray(config.value) ? config.value[0] : config.value;
+        return <>
+            <Chart
+                height={ 400 }
+                data={ this.state.data }
+                autoFit
+
+                scale={ {
+                    [config.value]: {
+                        formatter: (v) => v /*Math.round(v / 10000) + '万'*/,
+                    },
+                } }
+                onAxisLabelClick={ (event, chart) => {
+                    console.log('event', event, 'chart', chart);
+                    console.log('data', chart.filteredData);
+                    console.log('mytext', event.target.attrs.text);
+                    console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
+                } }
+            >
+                <Coordinate transpose/>
+                <Interval
+                    position={ `${ config.key }*${ config.value }` }
+                    label={ [
+                        config.value,
+                        (val) => ({
+                            position: 'middle', // top|middle|bottom|left|right
+                            offsetX : -15,
+                            // content: numeral(val).format('0,0'),
+                            style   : {
+                                fill: '#fff',
+                            },
+                        }),
+                        // {
+                        //   layout: {
+                        //     type: "overlap",
+                        //   },
+                        // },
+                    ] }
+                />
+                <Interaction type="active-region"/>
             </Chart>
         </>;
     }
@@ -432,6 +486,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     formatConfig(): IChartConfig | any {
+        console.log(this.props.dataset);
         let {
             key,       // data数据 key 值映射
             value,     // data数据 value 值映射
@@ -441,7 +496,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
             colors,
             title,
             groupby,
+            legendLocation,     // 图例位置
+            legendLayout,
+
         } = this.props.dataset;
+        if (isEmptyArray(colors) || colors === '') {
+            colors = '#37c9e3';
+        }
         try {
             // let value = series[0][0];
             // let genreName = series[0][1];       // 地区
@@ -450,11 +511,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 value,         // 'count'  (数量)
                 groupby,            // 分组统计的key字段名
                 position: `${ key }*${ value }`,        // name*value
-                colors  : colors,
+                colors,
                 genreName,       // `按照${genreName('地区')}统计的维度`
                 title,
                 height,
                 chartType,
+                legendLocation,     // 图例位置
+                legendLayout,       // 图例的布局方式
             };
         } catch (e) {
             return {};
@@ -465,6 +528,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         switch (config.chartType) {
             case 'bar':
                 return this.bar(config);
+            case 'hbar':
+                return this.hbar(config);
             case 'line':
                 return this.line(config);
             case  'pie':
@@ -483,7 +548,6 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        console.log(this.props);
         let config = this.formatConfig();
         return <>
             <h2 hidden={ !this.props.dataset.title }

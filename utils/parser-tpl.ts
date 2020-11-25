@@ -6,7 +6,7 @@
  */
 
 // 正则手册 https://tool.oschina.net/uploads/apidocs/jquery/regexp.html
-import { isDOM, isEmptyStr, isUndefined } from '@utils/inspect';
+import { isDOM, isEmptyStr, isString, isUndefined } from '@utils/inspect';
 import { parserEscape2Html } from '@utils/parser-char';
 
 declare type tplTyle = 'tpl' | 'field'

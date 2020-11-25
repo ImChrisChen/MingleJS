@@ -31,7 +31,7 @@ import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
 import { jsonp } from '@utils/request/request';
-import { isEmptyArray, isObject, isUndefined } from '@utils/inspect';
+import { isObject, isString, isUndefined } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 
@@ -487,6 +487,9 @@ class CodeGenerator extends React.Component<any, any> {
     }
 
     renderSelectMultiple(key, item) {
+        if (item.value === '') {
+            item.value = [];
+        }
         return <Select
             options={ item.options }
             mode="multiple"

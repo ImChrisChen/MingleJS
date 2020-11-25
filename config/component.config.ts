@@ -749,13 +749,13 @@ export default {
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from' : {
+                    'from'        : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url    : {
+                    url           : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
@@ -770,13 +770,14 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type   : {
+                    type          : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
                             { label: '饼图', value: 'pie' },
                             { label: '环型图', value: 'loop' },
                             { label: '柱状图', value: 'bar' },
+                            { label: '条型图', value: 'hbar' },
                             { label: '折线图', value: 'line' },
                             { label: '雷达图', value: 'radar' },
                             { label: '漏斗图', value: 'funnel' },
@@ -785,34 +786,57 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key    : {
+                    key           : {
                         el     : 'select-multiple',
-                        value  : [],
+                        value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value  : {
+                    value         : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
-                        value  : [],
+                        value  : '',
                         desc   : '图表统计的value值字段名',
                     },
-                    colors : {
-                        el   : 'color',
-                        value: '#37c9e3',
-                        parse: 'string[]',
-                        desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
-                    },
-                    groupby: {
+                    colors        : {
                         el     : 'input',
-                        value  : [],
+                        options: 'fromUrl',
+                        value  : '#37c9e3',
+                        parse  : 'string[]',
+                        desc   : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
+                    },
+                    // legendLocation: {
+                    //     el     : 'select',
+                    //     parse  : 'string',
+                    //     options: [
+                    //         { label: 'top', value: 'top' },
+                    //         { label: 'left', value: 'left' },
+                    //         { label: 'bottom', value: 'bottom' },
+                    //         { label: 'right', value: 'right' },
+                    //     ],
+                    //     value  : 'bottom',
+                    //     desc   : 'legendLocation图例的位置',
+                    // },
+                    // legendLayout  : {
+                    //     el     : 'select',
+                    //     options: [
+                    //         { label: 'horizontal', value: 'horizontal' },
+                    //         { label: 'vertical', value: 'vertical' },
+                    //     ],
+                    //     parse  : 'string',
+                    //     value  : 'horizontal',
+                    //     desc   : '图例的布局方式',
+                    // },
+                    groupby       : {
+                        el     : 'input',
+                        value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    height : {
+                    height        : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
@@ -823,7 +847,7 @@ export default {
                     //     value: '',
                     //     parse: 'string',
                     // },
-                    title  : {
+                    title         : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
