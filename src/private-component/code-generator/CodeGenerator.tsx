@@ -6,6 +6,7 @@
  */
 
 import {
+    AutoComplete,
     Button,
     Card,
     Cascader,
@@ -63,6 +64,7 @@ class CodeGenerator extends React.Component<any, any> {
         componentUseCode  : '',          // 生成的组件代码
         componentName     : '',          // 组件名称
         componentInitValue: '',          // 组件初始值
+        currentComponent  : null,         // 当前选择的组件
 
         componentsTree: [],
         dataEnum      : [
@@ -105,15 +107,14 @@ class CodeGenerator extends React.Component<any, any> {
         return JSON.parse(JSON.stringify(components));
     }
 
-    // 选择组件
-    async handleChangeComponent(e, v) {
-        let componentName = e.join('-');
-        let currentComponent = arraylastItem<any>(v);
+    async reloadChangeComponent(componentName: string, currentComponent) {
+
         let fieldOptions: Array<IOptions> = [];
         if (!currentComponent.property) {
             console.error('请配置组件的proerty属性');
             this.setState({
                 componentsProperty: [],
+                currentComponent,
                 componentName,
             }, () => this.generateCode());
             return false;
@@ -137,6 +138,7 @@ class CodeGenerator extends React.Component<any, any> {
             if (k === 'url' && val.request) {
                 let res = await jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
+                console.log(dataItem);
                 if (dataItem && isObject(dataItem)) {
                     for (const itemKey in dataItem) {
                         if (!dataItem.hasOwnProperty(itemKey)) continue;
@@ -220,7 +222,13 @@ class CodeGenerator extends React.Component<any, any> {
             dataEnum,
         }, () => this.generateCode());
 
-        // this.props.history.push(componentName)
+    }
+
+    // 选择组件
+    async handleChangeComponent(e, v) {
+        let componentName = e.join('-');
+        let currentComponent = arraylastItem<any>(v);
+        this.reloadChangeComponent(componentName, currentComponent);
     }
 
     shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
@@ -324,7 +332,6 @@ class CodeGenerator extends React.Component<any, any> {
 
     // input
     handleInputChange(index, e) {
-        console.log(index, e);
         let value = e.target.value;
         this.setAttributeValue(index, value);
     }
@@ -455,6 +462,14 @@ class CodeGenerator extends React.Component<any, any> {
     }
 
     renderInput(key, item) {
+        // return <AutoComplete
+        //     onChange={ this.handleInputChange.bind(this, key) }
+        //     onBlur={ this.handleInputBlur.bind(this, key) }
+        //     options={ item.options || undefined }
+        //     value={ item.value }
+        // >
+        //     <Input.Search size="large" placeholder="input here"/>
+        // </AutoComplete>;
         return <Input
             onChange={ this.handleInputChange.bind(this, key) }
             onBlur={ this.handleInputBlur.bind(this, key) }
@@ -521,19 +536,6 @@ class CodeGenerator extends React.Component<any, any> {
                           dataEnum: this.state.dataEnum,
                       } }
                 >
-                    <Row hidden={ true } gutter={ 24 }>
-                        <Col span={ 18 }>
-                            <Form.Item
-                                label="组件名称"
-                                rules={ [ { required: true, message: '请选择组件' } ] }
-                            >
-                                <Select placeholder="请选择组件" options={ this.state.components }
-                                        allowClear={ false }
-                                        onChange={ this.handleChangeComponent.bind(this) }>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
                     <Row gutter={ 24 }>
                         <Col span={ 18 }>
                             <Form.Item
