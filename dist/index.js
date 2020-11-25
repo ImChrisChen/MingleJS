@@ -9,7 +9,7 @@
 (function (document) {
     const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
     const hostname = 'http://mingle.local.aidalan.com/';
-    const version = new Date().getTime();
+    const version = "2020-11-25/5:15:38/pm";
     let scripts = files.map(file => {
         let url = hostname + file + '?date=' + version;
         if (isJavascript(file)) {

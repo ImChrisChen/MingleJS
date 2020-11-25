@@ -206,7 +206,17 @@ module.exports = {
             //         },
             //     ],
             // },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'assets/[name].[ext]',
+                    },
+                },
+            },
             { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+            
             // {
             //     test: /\.jsx?$/,
             //     use: {

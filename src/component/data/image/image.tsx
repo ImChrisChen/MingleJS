@@ -28,6 +28,7 @@ import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
 import DataSet from '@antv/data-set';
 import { isArray, isEmptyArray } from '@utils/inspect';
+import antvImage from '@static/images/antv.png'
 
 interface IChartConfig {
     key: string | Array<string>
@@ -236,6 +237,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 <Coordinate transpose/>
                 <Interval
                     position={ `${ config.key }*${ config.value }` }
+                    color={ config.groupby || config.colors }
                     label={ [
                         config.value,
                         (val) => ({
@@ -311,7 +313,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return <>
             <WordCloudChart
                 data={ formatData(this.state.data) }
-                maskImage={ 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*07tdTIOmvlYAAAAAAAAAAABkARQnAQ' }
+                maskImage={ antvImage }
                 shape={ 'cardioid' }
                 wordStyle={ {
                     fontSize: [ 30, 40 ],
