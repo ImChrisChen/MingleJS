@@ -1,1 +1,1 @@
-{	"status": true,	"message": "ok",	"data": [		{			"key": "浏览网站",			"value": 50000		},		{			"key": "放入购物车",			"value": 35000		},		{			"key": "生成订单",			"value": 25000		},		{			"key": "支付订单",			"value": 15000		},		{			"key": "完成交易",			"value": 8000		}	]}
+{	"status": true,	"message": "ok",	"data": [		{			"key": "浏览网站",			"aa": 50000		},		{			"key": "放入购物车",			"aa": 35000		},		{			"key": "生成订单",			"aa": 25000		},		{			"key": "支付订单",			"aa": 15000		},		{			"key": "完成交易",			"aa": 8000		}	]}

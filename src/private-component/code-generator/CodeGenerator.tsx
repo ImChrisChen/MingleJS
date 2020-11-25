@@ -6,7 +6,6 @@
  */
 
 import {
-    AutoComplete,
     Button,
     Card,
     Cascader,
@@ -32,7 +31,7 @@ import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
 import { jsonp } from '@utils/request/request';
-import { isObject } from '@utils/inspect';
+import { isEmptyArray, isObject, isUndefined } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 
@@ -271,10 +270,10 @@ class CodeGenerator extends React.Component<any, any> {
 
             // TODO 后续需要完善，选中的值如果和默认值相等，就不用生成对应的属性代码
             // 有属性默认值则，生成对应的属性代码
-            if ((typeof item.value !== 'undefined') && item.value !== '') {
-                return `${ item.label }='${ item.value ?? '' }'\n\t`;
-            } else {
+            if (isUndefined(item.value) || item.value === '') {
                 return undefined;
+            } else {
+                return `${ item.label }='${ item.value ?? '' }'\n\t`;
             }
         }).filter(t => t).join(' ');
 

@@ -775,6 +775,7 @@ export default {
                         parse  : 'string',
                         options: [
                             { label: '饼图', value: 'pie' },
+                            { label: '环型图', value: 'loop' },
                             { label: '柱状图', value: 'bar' },
                             { label: '折线图', value: 'line' },
                             { label: '雷达图', value: 'radar' },
@@ -799,7 +800,7 @@ export default {
                         desc   : '图表统计的value值字段名',
                     },
                     colors : {
-                        el   : 'select',
+                        el   : 'color',
                         value: '#37c9e3',
                         parse: 'string[]',
                         desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',

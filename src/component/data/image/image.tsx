@@ -45,15 +45,6 @@ interface IChartConfig {
 
 const { DataView } = DataSet;
 
-const cols = {
-    percent: {
-        formatter: val => {
-            val = val * 100 + '%';
-            return val;
-        },
-    },
-};
-
 export default class DataImage extends React.Component<IComponentProps, any> {
 
     state = {
@@ -91,8 +82,64 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return res.status ? res.data : [];
     }
 
+    private loop(config) {
+
+        const cols = {
+            percent: {
+                formatter: val => {
+                    val = val * 100 + '%';
+                    return val;
+                },
+            },
+        };
+
+        let valueSum = this.state.data.reduce((num, current) => {
+            return num + current[config.value];
+        }, 0);
+
+        let genreCount = this.state.data.length;
+        if (genreCount > 32) {
+            console.warn(`为了保持更好的用户体验，「${ config.genreName }」此图表不建议用环型图展示`);
+        }
+
+        //TODO
+        return <>
+            <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
+                   interactions={ [ 'element-single-selected' ] }>
+                <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
+                {/*<Tooltip shared showTitle={ false }/>*/ }
+                <Axis visible={ false }/>
+                <Interval
+                    // style={{ stroke: "white", lineWidth: 5 }}
+                    position={ config.value }
+                    adjust="stack"
+                    color={ config.key }
+                    label={
+                        [ '*', {
+                            content: (data) => {
+                                return `
+                                    ${ data[config.key] }: ${ data[config.value] }
+                                    百分比: ${ (data[config.value] / valueSum * 100).toFixed(2) }%
+                                `;
+                            },
+                        } ] }
+                />
+            </Chart>
+        </>;
+    }
+
     // 饼状图
     private pie(config) {
+
+        const cols = {
+            percent: {
+                formatter: val => {
+                    val = val * 100 + '%';
+                    return val;
+                },
+            },
+        };
+
 
         let valueSum = this.state.data.reduce((num, current) => {
             return num + current[config.value];
@@ -107,7 +154,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         return <>
             <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
                    interactions={ [ 'element-single-selected' ] }>
-                <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
+                <Coordinate type="theta" radius={ 0.85 }/>
                 {/*<Tooltip showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
                 <Interval
@@ -127,6 +174,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 />
             </Chart>
         </>;
+
     }
 
     // 柱状图
@@ -228,11 +276,9 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         //     { action: '完成交易', pv: 8000 },
         // ];
 
-        let data = this.state.data;
-        console.log(data);
+        const data = this.state.data;
         const dv = new DataView().source(data);
-
-        let percent = 'percent';        // 百分比值
+        const percent = 'percent';        // 百分比值
 
         dv.transform({
             type: 'map',
@@ -241,6 +287,11 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 return row;
             },
         });
+        let tpl = `<li data-index={index} style="margin:4px 0">
+                                    <span style="background-color:{color}" class="g2-tooltip-marker"></span>{ name }</br>
+                                    <span style="padding-left: 16px">浏览人数：{pv}</span></br>
+                                    <span style="padding-left: 16px">占比：{${ percent }}</span></br>
+                                </li>`;
         return <>
             <Chart
                 height={ config.height }
@@ -250,7 +301,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
             >
                 <Tooltip
                     showTitle={ false }
-                    itemTpl="<li data-index={index} style=&quot;margin-bottom:4px;&quot;><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}<br/><span style=&quot;padding-left: 16px&quot;>浏览人数：{pv}</span><br/><span style=&quot;padding-left: 16px&quot;>占比：{percent}</span><br/></li>"
+                    itemTpl={ tpl }
+
                 />
                 <Axis name={ percent } grid={ null } label={ null }/>
                 <Axis name={ config.key } label={ null } line={ null } grid={ null } tickLine={ null }/>
@@ -417,6 +469,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 return this.line(config);
             case  'pie':
                 return this.pie(config);
+            case  'loop':
+                return this.loop(config);
             case 'word':
                 return this.word(config);
             case 'funnel':
