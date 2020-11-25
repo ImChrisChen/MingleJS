@@ -94,11 +94,16 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     // 饼状图
     private pie(config) {
 
-        let genreCount = Array.from(new Set(this.state.data.map(item => item[config.key]).filter(item => item))).length;
+        let valueSum = this.state.data.reduce((num, current) => {
+            return num + current[config.value];
+        }, 0);
+
+        let genreCount = this.state.data.length;
         if (genreCount > 32) {
             console.warn(`为了保持更好的用户体验，「${ config.genreName }」此图表不建议用饼图展示`);
         }
 
+        //TODO
         return <>
             <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
                    interactions={ [ 'element-single-selected' ] }>
@@ -113,7 +118,10 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                     label={
                         [ '*', {
                             content: (data) => {
-                                return `${ data[config.key] }: ${ data[config.value] }`;
+                                return `
+                                    ${ data[config.key] }: ${ data[config.value] }
+                                    百分比: ${ (data[config.value] / valueSum * 100).toFixed(2) }%
+                                `;
                             },
                         } ] }
                 />
@@ -224,12 +232,12 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         console.log(data);
         const dv = new DataView().source(data);
 
-        let percent = 'percent';
+        let percent = 'percent';        // 百分比值
 
         dv.transform({
             type: 'map',
             callback(row) {
-                row[percent] = row[config.value] / 50000;
+                row[percent] = row[config.value] / 50000;       // TODO 需要求出最开始流程的数量值作为百分比基数
                 return row;
             },
         });
