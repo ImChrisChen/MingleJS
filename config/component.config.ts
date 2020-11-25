@@ -22,7 +22,17 @@ export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
 export type parseType = 'string' | 'boolean' | 'number' | 'object[]' | 'string[]' | 'JSON' | 'style' | 'null';
 
 // 组件设计器，属性值渲染类型
-export type elType = 'switch' | 'list' | 'radio' | 'input' | 'select' | 'datepicker' | 'slider' | 'number' | 'color' | 'select-multiple';
+export type elType =
+    'switch'
+    | 'list'
+    | 'radio'
+    | 'input'
+    | 'select'
+    | 'datepicker'
+    | 'slider'
+    | 'number'
+    | 'color'
+    | 'select-multiple';
 
 export interface IOptions {
     label: string
@@ -658,7 +668,7 @@ export default {
         // },
     },
     data  : {
-        table          : {
+        table: {
             component: import('@component/data/table/table'),
             path     : '/data-table',
             property : {
@@ -734,23 +744,24 @@ export default {
                 // },
             },
         },
-        chart          : {
+        chart: {
             component: import('@component/data/image/image'),
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from'    : {
+                    'from' : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url       : {
+                    url    : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
-                        value  : domain + '/mock/chart/areauser.json',
+                        // value  : domain + '/mock/chart/areauser.json',
                         // value  : domain + '/mock/chart/radar.json',
+                        value  : domain + '/mock/chart/funnel.json',
                         desc   : '图表数据接口',
                     },
                     // name      : {
@@ -759,7 +770,7 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type      : {
+                    type   : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -767,39 +778,40 @@ export default {
                             { label: '柱状图', value: 'bar' },
                             { label: '折线图', value: 'line' },
                             { label: '雷达图', value: 'radar' },
+                            { label: '漏斗图', value: 'funnel' },
                             { label: '词云', value: 'word' },
                         ],
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key       : {
+                    key    : {
                         el     : 'select-multiple',
                         value  : [],
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value     : {
+                    value  : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
                         value  : [],
                         desc   : '图表统计的value值字段名',
                     },
-                    colors    : {
+                    colors : {
                         el   : 'select',
                         value: '#37c9e3',
                         parse: 'string[]',
                         desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
                     },
-                    groupby   : {
+                    groupby: {
                         el     : 'input',
                         value  : [],
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    height    : {
+                    height : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
@@ -810,7 +822,7 @@ export default {
                     //     value: '',
                     //     parse: 'string',
                     // },
-                    title     : {
+                    title  : {
                         el   : 'input',
                         value: '',
                         parse: 'string',
@@ -824,7 +836,7 @@ export default {
         //         dataset: {},
         //     },
         // },
-        panel          : {
+        panel: {
             component: import('@component/data/panel/panel'),
             property : {
                 dataset: {
@@ -870,14 +882,14 @@ export default {
         //     component: import('@component/data/chart/map/map'),
         //     path     : '/data-chartMap',
         // },
-        list           : {
+        list : {
             component: import('@component/data/list/list'),
             path     : 'data-list',
         },
     },
     tips  : {
         // loading: {
-            // component: import('@component/tips/loading/loading'),
+        // component: import('@component/tips/loading/loading'),
         // },
     },
     layout: {

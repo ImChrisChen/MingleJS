@@ -9,11 +9,11 @@ import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { jsonp } from '@utils/request/request';
 import {
+    Annotation,
     Area,
     Axis,
     Chart,
     Coordinate,
-    FunnelChart,
     Interval,
     Legend,
     Line,
@@ -27,6 +27,23 @@ import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
 import DataSet from '@antv/data-set';
 
+interface IChartConfig {
+    key: string | Array<string>
+    value: string | Array<string> | any
+    colors: string | Array<string>
+    type: string
+    name: string
+    groupby: string
+    position: string
+    genreName: string
+    title: string
+    height: string | number
+    chartType: string
+
+    [key: string]: any
+}
+
+const { DataView } = DataSet;
 
 const cols = {
     percent: {
@@ -195,30 +212,118 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
     //漏斗图
     private funnel(config) {
+        // let data = [
+        //     { action: '浏览网站', pv: 50000 },
+        //     { action: '放入购物车', pv: 35000 },
+        //     { action: '生成订单', pv: 25000 },
+        //     { action: '支付订单', pv: 15000 },
+        //     { action: '完成交易', pv: 8000 },
+        // ];
+
+        let data = this.state.data;
+        console.log(data);
+        const dv = new DataView().source(data);
+
+        let percent = 'percent';
+
+        dv.transform({
+            type: 'map',
+            callback(row) {
+                row[percent] = row[config.value] / 50000;
+                return row;
+            },
+        });
         return <>
-            <FunnelChart
-                data={ this.state.data }
-                xField={ config.value }
-                yField={ config.key }
-            />
+            <Chart
+                height={ config.height }
+                data={ dv.rows }
+                padding={ [ 20, 120, 95 ] }
+                forceFit
+            >
+                <Tooltip
+                    showTitle={ false }
+                    itemTpl="<li data-index={index} style=&quot;margin-bottom:4px;&quot;><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}<br/><span style=&quot;padding-left: 16px&quot;>浏览人数：{pv}</span><br/><span style=&quot;padding-left: 16px&quot;>占比：{percent}</span><br/></li>"
+                />
+                <Axis name={ percent } grid={ null } label={ null }/>
+                <Axis name={ config.key } label={ null } line={ null } grid={ null } tickLine={ null }/>
+                <Coordinate scale={ [ 1, -1 ] } transpose type="rect"/>
+                <Legend/>
+                { dv.rows.map((obj: any, i) => {
+                    return (
+                        <Annotation.Text
+                            key={ i }
+                            top={ true }
+                            position={ {
+                                [config.key]: obj[config.key],
+                                [percent]   : 'median',
+                            } }
+                            content={ parseInt(String(obj[percent] * 100)) + '%' }
+                            style={ {
+                                fill       : '#fff',
+                                fontSize   : 12,
+                                textAlign  : 'center',
+                                shadowBlur : 2,
+                                shadowColor: 'rgba(0, 0, 0, .45)',
+                            } }
+                        />
+                    );
+                }) }
+                <Interval
+                    position={ `${ config.key }*${ percent }` }
+                    adjust="symmetric"
+                    shape="funnel"
+                    color={ [
+                        config.key,
+                        [ '#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF' ],
+                    ] }
+                    tooltip={ [
+                        // 'action*pv*percent',
+                        `${ config.key }*${ config.value }*${ percent }`,
+                        (action, pv, percent) => {
+                            return {
+                                name   : action,
+                                percent: parseInt(String(percent * 100)) + '%',
+                                pv     : pv,
+                            };
+                        },
+                    ] }
+                    label={ [
+                        // 'action*pv',
+                        `${ config.key }*${ config.value }`,
+                        (action, pv) => {
+                            return { content: action + ' ' + pv };
+                        },
+                        {
+                            offset   : 35,
+                            labelLine: {
+                                style: {
+                                    lineWidth: 1,
+                                    stroke   : 'rgba(0, 0, 0, 0.15)',
+                                },
+                            },
+                        } ] }
+                >
+                </Interval>
+            </Chart>
         </>;
     }
 
     // 雷达图
-    private radar(config) {
+    private radar(config: IChartConfig) {
 
-        const data = [
-            { item: 'Design', a: 70, b: 30 },
-            { item: 'Development', a: 60, b: 70 },
-            { item: 'Marketing', a: 50, b: 60 },
-            { item: 'Users', a: 40, b: 50 },
-            { item: 'Test', a: 60, b: 70 },
-            { item: 'Language', a: 70, b: 50 },
-            { item: 'Technology', a: 50, b: 40 },
-            { item: 'Support', a: 30, b: 40 },
-            { item: 'Sales', a: 60, b: 40 },
-            { item: 'UX', a: 50, b: 60 },
-        ];
+        // const data = [
+        //     { item: 'Design', a: 70, b: 30 },
+        //     { item: 'Development', a: 60, b: 70 },
+        //     { item: 'Marketing', a: 50, b: 60 },
+        //     { item: 'Users', a: 40, b: 50 },
+        //     { item: 'Test', a: 60, b: 70 },
+        //     { item: 'Language', a: 70, b: 50 },
+        //     { item: 'Technology', a: 50, b: 40 },
+        //     { item: 'Support', a: 30, b: 40 },
+        //     { item: 'Sales', a: 60, b: 40 },
+        //     { item: 'UX', a: 50, b: 60 },
+        // ];
+        let data = this.state.data;
 
         const { DataView } = DataSet;
         const dv = new DataView().source(data);
@@ -266,13 +371,12 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         </Chart>;
     }
 
-    formatConfig() {
+    formatConfig(): IChartConfig | any {
         let {
             key,       // data数据 key 值映射
             value,     // data数据 value 值映射
             type: chartType,
             name: genreName,
-            series,
             height,
             colors,
             title,
