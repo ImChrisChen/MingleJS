@@ -442,7 +442,7 @@ export default {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/datepicker'),
             property : {
-                dataset : {
+                dataset: {
                     label     : UniversalProps.label,
                     disabled  : UniversalProps.disabled,
                     format    : {
@@ -486,10 +486,10 @@ export default {
                         render: false,
                         value : false,
                     },
-                    required: UniversalProps.required,
+                    required  : UniversalProps.required,
                 },
-                name    : UniversalProps.name,
-                value   : {
+                name   : UniversalProps.name,
+                value  : {
                     el   : 'input',
                     parse: 'null',
                     value: '',
@@ -551,7 +551,7 @@ export default {
             path     : '/form-button',
             component: import('@component/form/button/button'),
             property : {
-                dataset : {
+                dataset: {
                     label      : UniversalProps.label,
                     enum       : UniversalProps.enum,
                     disabled   : UniversalProps.disabled,
@@ -585,10 +585,10 @@ export default {
                         value  : '',
                         parse  : 'string',
                     },
-                    required: UniversalProps.required,
+                    required   : UniversalProps.required,
                 },
-                name    : UniversalProps.name,
-                value   : {
+                name   : UniversalProps.name,
+                value  : {
                     el     : 'select',
                     options: [],
                     value  : '',
@@ -599,7 +599,7 @@ export default {
         switch    : {
             component: import('@component/form/switch/switch'),
             property : {
-                dataset : {
+                dataset: {
                     disabled         : UniversalProps.disabled,
                     label            : UniversalProps.label,
                     checkedChildren  : {
@@ -612,7 +612,7 @@ export default {
                     },
                     // required: UniversalProps.required,
                 },
-                name    : UniversalProps.name,
+                name   : UniversalProps.name,
             },
         },
         input     : {
@@ -650,22 +650,22 @@ export default {
             component: import('@component/form/file/file'),
             path     : 'form-file',
             property : {
-                dataset : {
-                    label: UniversalProps.label,
+                dataset: {
+                    label   : UniversalProps.label,
                     required: UniversalProps.required,
                 },
-                name    : UniversalProps.name,
+                name   : UniversalProps.name,
             },
         },
         color     : {
             component: import('@component/form/color/color'),
             path     : 'form-color',
             property : {
-                dataset : {
-                    label: UniversalProps.label,
+                dataset: {
+                    label   : UniversalProps.label,
                     required: UniversalProps.required,
                 },
-                value   : {
+                value  : {
                     el   : 'color',
                     value: '#f0f',
                     parse: 'string',
@@ -810,6 +810,7 @@ export default {
                             { label: '雷达图', value: 'radar' },
                             { label: '漏斗图', value: 'funnel' },
                             { label: '矩形图', value: 'rect' },
+                            { label: '玫瑰图', value: 'rose' },
                             { label: '词云', value: 'word' },
                         ],
                         value  : 'bar',

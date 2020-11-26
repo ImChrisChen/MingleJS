@@ -179,6 +179,29 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
     }
 
+    // 玫瑰图
+    private rose(config) {
+        // const data = [ { year: '2002', population: 38 } ];
+        return <Chart height={ config.height } data={ this.state.data } autoFit>
+            <Coordinate type="polar"/>
+            <Axis visible={ false }/>
+            <Tooltip showTitle={ false }/>
+            <Interval
+                position={ config.position }
+                adjust="stack"
+                element-highlight
+                color={ config.key }
+                style={ {
+                    lineWidth: 1,
+                    stroke   : '#fff',
+                } }
+                label={ [ config.key, {
+                    offset: -15,
+                } ] }
+            />
+        </Chart>;
+    }
+
     // 柱状图
     private bar(config) {
         let { position, groupby, colors } = config;
@@ -547,7 +570,6 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 nice: true,
             },
         };
-        console.log(dv.rows);
 
         return <Chart
             scale={ scale }
@@ -631,6 +653,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 return this.line(config);
             case  'pie':
                 return this.pie(config);
+            case  'rose':
+                return this.rose(config);
             case  'loop':
                 return this.loop(config);
             case 'word':
