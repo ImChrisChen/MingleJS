@@ -25,7 +25,6 @@ export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
     constructor(props) {
         super(props);
         this.getData().then(data => {
-            console.log(data);
             this.setState({ data });
         });
     }

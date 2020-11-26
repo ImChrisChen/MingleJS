@@ -48,7 +48,6 @@ export default class MarkdownEditorPrivate extends Component<IMarkdownEditorProp
     }
 
     render() {
-        console.log(this.props);
         return <>
             <div className="container md-editor-markdown">
                 {

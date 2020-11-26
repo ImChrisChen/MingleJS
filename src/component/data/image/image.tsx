@@ -19,7 +19,7 @@ import {
     Legend,
     Line,
     LineAdvance,
-    Point,
+    Point, Polygon,
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
@@ -28,7 +28,7 @@ import FormAction from '@component/form/form-action/form';
 import { formatObject2Url } from '@utils/format-data';
 import DataSet from '@antv/data-set';
 import { isArray, isEmptyArray } from '@utils/inspect';
-import antvImage from '@static/images/antv.png'
+import antvImage from '@static/images/antv.png';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -143,8 +143,6 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 },
             },
         };
-
-
         let valueSum = this.state.data.reduce((num, current) => {
             return num + current[config.value];
         }, 0);
@@ -218,7 +216,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         config.value = isArray(config.value) ? config.value[0] : config.value;
         return <>
             <Chart
-                height={ 400 }
+                height={ config.height }
                 data={ this.state.data }
                 autoFit
 
@@ -456,7 +454,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         let position = `${ config.key }*score`;
 
         return <Chart
-            height={ 400 }
+            height={ config.height }
             data={ dv.rows }
             autoFit
             scale={ {
@@ -483,6 +481,103 @@ export default class DataImage extends React.Component<IComponentProps, any> {
             <Area
                 position={ position }
                 color="user"
+            />
+        </Chart>;
+    }
+
+    // 矩形图
+    private rect(config) {
+        const data = {
+            name    : 'root',
+            children: this.state.data,
+            // children: [
+            //     { name: '分类 1', value: 560 },
+            //     { name: '分类 2', value: 500 },
+            //     { name: '分类 3', value: 150 },
+            //     { name: '分类 4', value: 140 },
+            //     { name: '分类 5', value: 115 },
+            //     { name: '分类 6', value: 95 },
+            //     { name: '分类 7', value: 90 },
+            //     { name: '分类 8', value: 75 },
+            //     { name: '分类 9', value: 98 },
+            //     { name: '分类 10', value: 60 },
+            //     { name: '分类 11', value: 45 },
+            //     { name: '分类 12', value: 40 },
+            //     { name: '分类 13', value: 40 },
+            //     { name: '分类 14', value: 35 },
+            //     { name: '分类 15', value: 40 },
+            //     { name: '分类 16', value: 40 },
+            //     { name: '分类 17', value: 40 },
+            //     { name: '分类 18', value: 30 },
+            //     { name: '分类 19', value: 28 },
+            //     { name: '分类 20', value: 16 },
+            // ],
+        };
+        const { DataView } = DataSet;
+        const dv = new DataView();
+        dv.source(data, {
+            type: 'hierarchy',
+        }).transform({
+            field: config.value/*'value'*/,
+            type : 'hierarchy.treemap',
+            tile : 'treemapResquarify',
+            as   : [ 'x', 'y' ],
+        });
+        // 将 DataSet 处理后的结果转换为 G2 接受的数据
+        const nodes: Array<any> = [];
+        for (const node of dv.getAllNodes()) {
+            if (node.data.name === 'root') {
+                continue;
+            }
+            const eachNode: any = {
+                name : node.data[config.key]/*node.data.name*/,
+                x    : node.x,
+                y    : node.y,
+                value: node.data[config.value],
+            };
+
+            nodes.push(eachNode);
+        }
+
+        const scale = {
+            x: {
+                nice: true,
+            },
+            y: {
+                nice: true,
+            },
+        };
+        console.log(dv.rows);
+
+        return <Chart
+            scale={ scale }
+            pure
+            height={ config.height }
+            autoFit
+            data={ nodes }
+        >
+            <Polygon
+                color="name"
+                // color={ config.key }
+                position="x*y"
+                style={ {
+                    lineWidth: 1,
+                    stroke   : '#fff',
+                } }
+                label={ [ config.key/*'name'*/, {
+                    offset : 0,
+                    style  : {
+                        textBaseline: 'middle',
+                    },
+                    content: (obj) => {
+                        if (obj.name !== 'root') {
+                            return obj.name;
+                        }
+                        // if (obj[config.key] !== 'root') {
+                        //     return obj[config.key];
+                        // }
+                    },
+                } ] }
             />
         </Chart>;
     }
@@ -544,6 +639,8 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 return this.funnel(config);
             case 'radar':
                 return this.radar(config);
+            case 'rect':
+                return this.rect(config);
             default:
                 return this.line(config);
         }

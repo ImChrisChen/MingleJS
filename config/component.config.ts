@@ -809,6 +809,7 @@ export default {
                             { label: '折线图', value: 'line' },
                             { label: '雷达图', value: 'radar' },
                             { label: '漏斗图', value: 'funnel' },
+                            { label: '矩形图', value: 'rect' },
                             { label: '词云', value: 'word' },
                         ],
                         value  : 'bar',
