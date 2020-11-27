@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/11/27 * Time: 1:42 下午 */const express = require('express');const router = express.Router();const logs = require('./logs');router.use((req, res, next) => {    next();});router.get('/', (req, res, next) => {    next();});router.use(logs);module.exports = router;

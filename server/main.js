@@ -9,8 +9,16 @@ const path = require('path');
 const express = require('express');
 const app = new express();
 const url = require('url');
+const router = require('./router/index');
+const bodyParser = require('body-parser');     // json 解析中间件
 
-let rootpath = path.resolve(__dirname, '../');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(router);
+
+const rootpath = path.resolve(__dirname, '../');
+
 app.get('*.json', async (req, res) => {
     let [filename] = req.url.split('?');
     let filepath = rootpath + filename;
@@ -31,6 +39,7 @@ app.get('*.json', async (req, res) => {
 app.listen('8081', function () {
     console.log('http://localhost:8081');
 });
+
 
 async function readFile(path) {
     try {
