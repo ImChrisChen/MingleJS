@@ -6,7 +6,7 @@
  */
 
 import { IComponentProps } from '@interface/common/component';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
 import {
     Annotation,
@@ -42,13 +42,14 @@ interface IChartConfig {
     title: string
     height: string | number
     chartType: string
+    dataSource: Array<any> | any
 
     [key: string]: any
 }
 
 const { DataView } = DataSet;
 
-export default class DataImage extends React.Component<IComponentProps, any> {
+export default class DataChart extends React.Component<IComponentProps, any> {
 
     state = {
         loading: true,
@@ -86,7 +87,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 环型图
-    private loop(config) {
+    public static loop(config) {
 
         const cols = {
             percent: {
@@ -97,18 +98,18 @@ export default class DataImage extends React.Component<IComponentProps, any> {
             },
         };
 
-        let valueSum = this.state.data.reduce((num, current) => {
+        let valueSum = config.dataSource.reduce((num, current) => {
             return num + current[config.value];
         }, 0);
 
-        let genreCount = this.state.data.length;
+        let genreCount = config.dataSource.length;
         if (genreCount > 32) {
             console.warn(`为了保持更好的用户体验，「${ config.genreName }」此图表不建议用环型图展示`);
         }
 
         //TODO
         return <>
-            <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
+            <Chart height={ config.height } data={ config.dataSource } scale={ cols } autoFit
                    interactions={ [ 'element-single-selected' ] }>
                 <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
                 {/*<Tooltip shared showTitle={ false }/>*/ }
@@ -133,7 +134,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 饼状图
-    private pie(config) {
+    public static pie(config) {
 
         const cols = {
             percent: {
@@ -143,18 +144,18 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 },
             },
         };
-        let valueSum = this.state.data.reduce((num, current) => {
+        let valueSum = config.dataSource.reduce((num, current) => {
             return num + current[config.value];
         }, 0);
 
-        let genreCount = this.state.data.length;
+        let genreCount = config.dataSource.length;
         if (genreCount > 32) {
             console.warn(`为了保持更好的用户体验，「${ config.genreName }」此图表不建议用饼图展示`);
         }
 
         //TODO
         return <>
-            <Chart height={ config.height } data={ this.state.data } scale={ cols } autoFit
+            <Chart height={ config.height } data={ config.dataSource } scale={ cols } autoFit
                    interactions={ [ 'element-single-selected' ] }>
                 <Coordinate type="theta" radius={ 0.85 }/>
                 {/*<Tooltip showTitle={ false }/>*/ }
@@ -180,9 +181,9 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 玫瑰图
-    private rose(config) {
+    public static rose(config) {
         // const data = [ { year: '2002', population: 38 } ];
-        return <Chart height={ config.height } data={ this.state.data } autoFit>
+        return <Chart height={ config.height } data={ config.dataSource } autoFit>
             <Coordinate type="polar"/>
             <Axis visible={ false }/>
             <Tooltip showTitle={ false }/>
@@ -203,11 +204,11 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 柱状图
-    private bar(config) {
+    public static bar(config) {
         let { position, groupby, colors } = config;
         console.log(config);
         return <>
-            <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
+            <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
 
                 <Interval position={ position } color={ groupby || colors }
@@ -234,13 +235,13 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 条型图
-    private hbar(config) {
+    public static hbar(config) {
         // 数据源
         config.value = isArray(config.value) ? config.value[0] : config.value;
         return <>
             <Chart
                 height={ config.height }
-                data={ this.state.data }
+                data={ config.dataSource }
                 autoFit
 
                 scale={ {
@@ -282,7 +283,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 折线图
-    private line(config) {
+    public static line(config) {
         let { position, groupby, colors, chartType } = config;
 
         /*
@@ -292,7 +293,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         **/
 
         return <>
-            <Chart height={ config.height } padding="auto" data={ this.state.data } autoFit
+            <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
@@ -320,9 +321,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 词云
-    private word(config) {
-        let { position, groupby, colors } = config;
-
+    public static word(config) {
         function formatData(data) {
             return data.map((item, index) => ({
                 word  : item[config.key],
@@ -333,7 +332,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
         return <>
             <WordCloudChart
-                data={ formatData(this.state.data) }
+                data={ formatData(config.dataSource) }
                 maskImage={ antvImage }
                 shape={ 'cardioid' }
                 wordStyle={ {
@@ -344,7 +343,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     //漏斗图
-    private funnel(config) {
+    public static funnel(config) {
         // let data = [
         //     { action: '浏览网站', pv: 50000 },
         //     { action: '放入购物车', pv: 35000 },
@@ -353,7 +352,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         //     { action: '完成交易', pv: 8000 },
         // ];
 
-        const data = this.state.data;
+        const data = config.dataSource;
         const dv = new DataView().source(data);
         const percent = 'percent';        // 百分比值
 
@@ -364,11 +363,12 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 return row;
             },
         });
-        let tpl = `<li data-index={index} style="margin:4px 0">
-                                    <span style="background-color:{color}" class="g2-tooltip-marker"></span>{ name }</br>
-                                    <span style="padding-left: 16px">浏览人数：{pv}</span></br>
-                                    <span style="padding-left: 16px">占比：{${ percent }}</span></br>
-                                </li>`;
+        // let tpl = `<li data-index={index} style="margin:4px 0">
+        //                             <span style="background-color:{color}" class="g2-tooltip-marker"></span>{ name }</br>
+        //                             <span style="padding-left: 16px">浏览人数：{pv}</span></br>
+        //                             <span style="padding-left: 16px">占比：{${ percent }}</span></br>
+        //                         </li>`;
+        let tpl = ``;
         return <>
             <Chart
                 height={ config.height }
@@ -446,7 +446,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 雷达图
-    private radar(config: IChartConfig) {
+    public static radar(config: IChartConfig) {
 
         // const data = [
         //     { item: 'Design', a: 70, b: 30 },
@@ -460,7 +460,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
         //     { item: 'Sales', a: 60, b: 40 },
         //     { item: 'UX', a: 50, b: 60 },
         // ];
-        let data = this.state.data;
+        let data = config.dataSource;
 
         const { DataView } = DataSet;
         const dv = new DataView().source(data);
@@ -509,10 +509,10 @@ export default class DataImage extends React.Component<IComponentProps, any> {
     }
 
     // 矩形图
-    private rect(config) {
+    public static rect(config) {
         const data = {
             name    : 'root',
-            children: this.state.data,
+            children: config.dataSource,
             // children: [
             //     { name: '分类 1', value: 560 },
             //     { name: '分类 2', value: 500 },
@@ -629,7 +629,7 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 key,           // 'location' (地区)
                 value,         // 'count'  (数量)
                 groupby,            // 分组统计的key字段名
-                position: `${ key }*${ value }`,        // name*value
+                position  : `${ key }*${ value }`,        // name*value
                 colors,
                 genreName,       // `按照${genreName('地区')}统计的维度`
                 title,
@@ -637,13 +637,14 @@ export default class DataImage extends React.Component<IComponentProps, any> {
                 chartType,
                 legendLocation,     // 图例位置
                 legendLayout,       // 图例的布局方式
+                dataSource: this.state.data,
             };
         } catch (e) {
             return {};
         }
     }
 
-    renderChart(config) {
+    public static renderChart(config):ReactNode {
         switch (config.chartType) {
             case 'bar':
                 return this.bar(config);
@@ -672,11 +673,12 @@ export default class DataImage extends React.Component<IComponentProps, any> {
 
     render() {
         let config = this.formatConfig();
+        console.log(config);
         return <>
             <h2 hidden={ !this.props.dataset.title }
                 style={ { textAlign: 'center', padding: '10px 20px' } }>{ this.props.dataset.title }</h2>
             <Spin spinning={ this.state.loading } tip="loading...">
-                { this.renderChart(config) }
+                { DataChart.renderChart(config) }
             </Spin>
         </>;
     }
