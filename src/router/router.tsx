@@ -34,6 +34,11 @@ export default [
         component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
     },
     {
+        name     : '日志统计',
+        path     : '/error',
+        component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
+    },
+    {
         name     : '组件设计器',
         path     : '/code-generate',
         component: <CodeGenerator/>,

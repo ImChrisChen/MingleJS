@@ -9,7 +9,7 @@ import App from './src/App';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 // import 'antd/dist/antd.dark.css'
-import Document from './src/document/Document';
+import Document from '@src/pages/document/Document';
 // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
