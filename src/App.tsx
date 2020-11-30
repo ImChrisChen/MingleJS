@@ -9,6 +9,7 @@ import { isFunc } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import moment from 'moment';
+import axios from 'axios';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -336,7 +337,7 @@ export default class App {
 
     static globalEventListener() {
 
-        window.addEventListener('error', function (e) {
+        window.addEventListener('error', async function (e) {
             let msg = e.message;        // 错误
             let stack = e.error.stack;
             let date = moment().format('YYYY-MM-DD/HH:mm:ss');
@@ -352,8 +353,8 @@ export default class App {
             } else {
                 localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
+            await axios.post('http://localhost:8081/log', log);
             message.error(`error, ${ msg }`);
-
         });
 
         window.addEventListener('online', function () {

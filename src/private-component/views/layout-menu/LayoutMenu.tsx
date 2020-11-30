@@ -73,6 +73,16 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         return currentRoute;
     }
 
+    collapsedButton() {
+        return this.props.layout !== 'horizontal'
+            ? <Button type="primary"
+                      onClick={ this.toggleCollapsed.bind(this) }
+                      style={ { marginBottom: 16 } }>
+                { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
+            </Button>
+            : '';
+    }
+
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
@@ -80,18 +90,13 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
             <div style={ {
                 width             : (this.state.collapsed ? 80 : width),
                 height, background: '#fff',
+                position          : 'relative',
             } }>
 
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
-                { this.props.layout !== 'horizontal'
-                    ? <Button type="primary"
-                              onClick={ this.toggleCollapsed.bind(this) }
-                              style={ { marginBottom: 16 } }>
-                        { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
-                    </Button>
-                    : ''
-                }
+                { this.collapsedButton() }
                 <Menu
+                    style={ { position: 'relative' } }
                     mode={ this.props.layout || 'inline' }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
                     inlineCollapsed={ this.state.collapsed }
@@ -110,7 +115,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                         return <Menu.Item data-path={ child.path }
                                                           key={ k }
                                                           icon={ <IdcardOutlined/> }>
-                                            {/* TODO path 是react里面的，input调用使用a链接*/}
+                                            {/* TODO path 是react里面的，input调用使用a链接*/ }
                                             { child.path
                                                 ? <Link to={ child.path ?? '/' }> { child.label } </Link>
                                                 : child.label
@@ -131,6 +136,9 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                             }
                         })
                     }
+                    <Menu.Item style={ { position: 'absolute', bottom: 0 } }>
+                        { this.collapsedButton() }
+                    </Menu.Item>
                 </Menu>
             </div>
         );

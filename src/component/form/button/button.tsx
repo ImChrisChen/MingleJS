@@ -14,6 +14,7 @@ export default class Button extends React.Component<IComponentProps, any> {
     state: any = {
         value  : this.props.value,
         options: [],
+
     };
 
     constructor(props) {
