@@ -388,6 +388,32 @@ export default {
                 hook : {},
             },
         },
+        checkbox  : {
+            // document
+            component: import('@component/form/checkbox/checkbox'),
+            property : {
+                dataset: {
+                    disabled: UniversalProps.disabled,
+                    url     : UniversalProps.url,
+                    enum    : UniversalProps.enum,
+                    label   : UniversalProps.label,
+                    key     : {
+                        el     : 'input',
+                        value  : '',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        desc   : '数据转化的ID唯一值',
+                    },
+                    value   : {
+                        el     : 'input',
+                        value  : '',
+                        options: 'fromUrl',
+                        parse  : 'null',
+                        desc   : '数据展示值',
+                    },
+                },
+            },
+        },
         cascader  : {
             path     : '/form-cascader',
             component: import('@component/form/cascader/cascader'),
