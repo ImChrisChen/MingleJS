@@ -230,7 +230,7 @@ export function formatObject2Url(data: object, url: string = ''): string {
  * @param url
  * @param o
  */
-export function formatUrl2Object(url: string, o: object = {}) {
+export function formatUrl2Object(url: string, o: object = {}): object {
     let search = url;
     if (url.includes('?')) {
         [ , search ] = url.split('?');

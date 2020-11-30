@@ -7,9 +7,12 @@
 
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
+    
+    const development = Number.parseInt(formatUrl2Object(window.location.href).development) === 1;
+    const hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
     const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
-    const hostname = 'http://mingle.local.aidalan.com/';
     const version = new Date().getTime();
+    
     let scripts = files.map(file => {
         let url = hostname + file + '?date=' + version;
         if (isJavascript(file)) {
@@ -44,5 +47,20 @@
         link.href = url;
         return link;
     }
+    
+    function formatUrl2Object(url, o = {}) {
+        let search = url;
+        if (url.includes('?')) {
+            [, search] = url.split('?');
+        }
+        search.split('&').forEach(kv => {
+            if (kv) {
+                let [k, v] = kv.split('=');
+                o[k] = v;
+            }
+        });
+        return o;
+    }
+    
     
 })(window.document);

@@ -25,6 +25,7 @@ export type parseType =
     | 'number'
     | 'object[]'
     | 'string[]'
+    | 'number[]'
     | 'JSON'
     | 'style'
     | 'null';
@@ -181,7 +182,7 @@ const UniversalProps = {
 export default {
     // 子应用
     app   : {
-        menu: {
+        menu  : {
             component: import('@component/app/menu/AppMenu'),
             property : {
                 dataset: {
@@ -194,7 +195,6 @@ export default {
                 },
             },
         },
-
         layout: {
             component: import('@component/app/layout/AppLayout'),
             document : import('@component/app/layout/AppLayout.md'),
@@ -336,7 +336,7 @@ export default {
                         el    : 'input',
                         value : 'componentBeforeUpdate',
                         desc  : '组件更新前触发的函数',
-                        render: true,
+                        render: false,
                     },
                 },
             },
@@ -885,12 +885,6 @@ export default {
                 },
             },
         },
-        // charts         : {
-        //     component: import('@component/data/chart/demo'),
-        //     property : {
-        //         dataset: {},
-        //     },
-        // },
         panel: {
             component: import('@component/data/panel/panel'),
             property : {
@@ -904,42 +898,47 @@ export default {
                 },
             },
         },
-        // panel2         : {
-        //     component: import('@component/data/panel/panel2'),
-        //     property : {
-        //         dataset: {
-        //             url  : UniversalProps.url,
-        //             model: {
-        //                 el   : 'input',
-        //                 parse: 'JSON',
-        //                 value: `{}`,
-        //             },
-        //         },
-        //     },
-        // },
-        // chartline      : {
-        //     component: import('@component/data/chart/line/line'),
-        //     path     : '/data-chartline',
-        // },
-        // chartcolumn    : {
-        //     component: import('@component/data/chart/column/column'),
-        //     path     : '/data-chartcolumn',
-        // },
-        // chartCoordinate: {
-        //     component: import('@component/data/chart/coordinate/Coordinate'),
-        //     path     : '/data-coordinate',
-        // },
-        // chartWorkCloud : {
-        //     component: import('@component/data/chart/wordcloud/wordCloud'),
-        //     path     : '/data-chartWorkCloud',
-        // },
-        // chartMap       : {
-        //     component: import('@component/data/chart/map/map'),
-        //     path     : '/data-chartMap',
-        // },
         list : {
             component: import('@component/data/list/list'),
+            document : import('@component/data/list/list.md'),
             path     : 'data-list',
+            property : {
+                dataset: {
+                    layout: {
+                        el     : 'radio',
+                        options: [
+                            { label: '水平', value: 'horizontal' },
+                            { label: '垂直', value: 'vertical' },
+                        ],
+                        value  : 'vertical',
+                        parse  : 'string',
+                    },
+                    col   : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 4,
+                        desc : '每行显示的列数',
+                    },
+                    gutter: {
+                        el   : 'input',
+                        parse: 'number[]',
+                        value: '12,12',
+                        desc : 'list的间隔，数组第一项为 左右的间隔，第二项为上下的间隔',
+                    },
+                    border: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否显示边框',
+                    },
+                    url   : {
+                        el   : 'input',
+                        parse: 'string',
+                        desc : '数据源',
+                        value: '',
+                    },
+                },
+            },
         },
     },
     tips  : {

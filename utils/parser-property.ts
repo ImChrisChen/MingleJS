@@ -8,6 +8,7 @@
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
 import { isString } from '@utils/inspect';
+import tab from '@component/layout/tab/tab';
 
 // 解析dataset data-*
 export function parserProperty(dataset, defaultDataset): object {
@@ -111,6 +112,11 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
 
         case 'string[]':             // 分割成数组
             value = value ? value.split(',') : [];
+            break;
+
+        case 'number[]':             // 分割成数组
+            value = (value ? value.split(',') : []) as Array<any>;
+            value = value.map(item => Number(item));
             break;
 
         case 'object[]':

@@ -20,6 +20,7 @@ import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutG
 import AppLayoutHtml from '@root/template/layout.html';
 import AppMenuHtml from '@root/template/app-menu.html';
 import tplHtml from '@root/template/tpl.html';
+import dataList from '@root/template/data-list.html';
 
 // nav
 export default [
@@ -61,11 +62,16 @@ export default [
         ],
     },
     {
+        name     : 'data-list',
+        path     : '/nav-data-list',
+        component: <HtmlRenderer html={ dataList }/>,
+    },
+    {
         name     : '子应用布局 app-layout',
         path     : '/nav-app-layout',
         component: <HtmlRenderer html={ AppLayoutHtml }/>,
     },
-    {
+   {
         name     : '子应用菜单 app-layout',
         path     : '/nav-app-menu',
         component: <HtmlRenderer html={ AppMenuHtml }/>,
