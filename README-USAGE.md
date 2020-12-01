@@ -96,15 +96,15 @@ Notice.open({
     <div>接口状态status: <{status}> </div>
     <div>昨天: <{data.today_cost}> </div>
         
-    <div @if="status">接口状态正确时显示的内容</div>
-	<div @else>接口状态异常时显示的内容</div>
+    <div ~if="status">接口状态正确时显示的内容</div>
+	<div ~else>接口状态异常时显示的内容</div>
         
-	<div @if="data.order_list.length > 0" 
-         @foreach="data.order_list as item">
+	<div ~if="data.order_list.length > 0" 
+         ~foreach="data.order_list as item">
 		订单名称：<{item.order_name}>
 		订单ID：<{item.order_id}>
 	</div>
-    <div @else>暂无数据</div>
+    <div ~else>暂无数据</div>
         
 </div>
 ~~~

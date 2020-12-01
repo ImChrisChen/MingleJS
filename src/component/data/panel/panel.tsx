@@ -13,6 +13,7 @@ import $ from 'jquery';
 import { isArray, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
+import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
@@ -60,7 +61,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         for (const attr of attrs) {
             let { name, value } = attr;
 
-            if (name === '@foreach' || name === '@if' || name === 'data-fn') {
+            if (name === directiveForeach || name === directiveIf || name === 'data-fn') {
                 continue;
             }
 
@@ -88,11 +89,11 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     public static parseForeach(el: HTMLElement, model: object) {
         let attrs = el.attributes;
-        if (!attrs['@foreach']) return el;
-        let { name, value } = attrs['@foreach'];
-        el.removeAttribute('@foreach');
+        if (!attrs[directiveForeach]) return el;
+        let { name, value } = attrs[directiveForeach];
+        el.removeAttribute(directiveForeach);
 
-        // @foreach="data as item" 或者 data as (item,index)
+        // ~foreach="data as item" 或者 data as (item,index)
         if (!/^\w+ as (\w+|\(.+?\))$/.test(value)) {
             console.error(`${ name }格式不正确`);
         }
@@ -100,9 +101,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         function getIfExpressByElement(element: HTMLElement) {
             let attrs = element.attributes;
             let express;
-            if (attrs['@if'] && attrs['@if'].value) {
-                express = attrs['@if'].value;
-                el.removeAttribute('@if');
+            if (attrs[directiveIf] && attrs[directiveIf].value) {
+                express = attrs[directiveIf].value;
+                el.removeAttribute(directiveIf);
             }
             return express;
         }
@@ -123,6 +124,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         itemName = itemName.trim();         // item名称
         indexName = indexName.trim();       // 下标名称
 
+        let elseElement;
         let loopData = model[arrayName];
         let nodes = loopData.map((item, index) => {
             let itemModel = {
@@ -153,35 +155,36 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 this.parseProperty(cloneNode, itemModel);      // 处理属性解析
                 return cloneNode;
             } else {
-
-                let elseElement = el.nextElementSibling as HTMLElement;
-                let cloneNode = elseElement.cloneNode(true) as HTMLElement;
-                this.parseElement(cloneNode, itemModel);
-                this.parseProperty(cloneNode, itemModel);      // 处理属性解析
-                return cloneNode;
+                let elseElement = el.nextElementSibling as HTMLElement;     // ~else
+                if (elseElement.attributes?.[directiveElse]) {
+                    let cloneNode = elseElement.cloneNode(true) as HTMLElement;
+                    this.parseElement(cloneNode, itemModel);
+                    this.parseProperty(cloneNode, itemModel);      // 处理属性解析
+                    return cloneNode;
+                }
             }
-
 
         }).filter(t => t);
 
         $(el).after(...nodes);
         el.remove();        // 删除掉原始模版
+        elseElement && elseElement.remove();
     }
 
     public static parseIfelse(el: HTMLElement, model: object) {
         let attrs = el.attributes;
-        if (!attrs['@if']) return;
+        if (!attrs[directiveIf]) return;
 
-        let { value: expressTpl } = attrs['@if'];
+        let { value: expressTpl } = attrs[directiveIf];
         let express = parseTpl(expressTpl, model, 'field');
         try {
             if (eval(express)) {
-                $(el).next().attr('@else') !== undefined && $(el).next().remove();      // 成立去掉else
+                $(el).next().attr(directiveElse) !== undefined && $(el).next().remove();      // 成立去掉else
             } else {
                 $(el).remove();
             }
         } catch (e) {
-            // TODO 有可能是 @foreach 中的 if 语句
+            // TODO 有可能是 ~foreach 中的 if 语句
             // console.error(`if内表达式解析语法错误: ${ express }`);
         }
     }

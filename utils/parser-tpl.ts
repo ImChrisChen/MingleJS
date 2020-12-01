@@ -146,7 +146,7 @@ export function parseFor(codeBlock: string, itemData, { list, item }): string {
     return data.map(it => {
         let model = { [item]: it };
         let html = parseTpl(codeBlock, model, 'tpl');
-        let [ , exp ] = html.match(/@if=["'`](.*?)["'`]/) ?? [];
+        let [ , exp ] = html.match(/~if=["'`](.*?)["'`]/) ?? [];
         exp = parseTpl(exp, model, 'field');      // if 条件解析后,执行if条件
         // console.log(exp, eval(exp), html);
         return eval(exp) ? html : '';
