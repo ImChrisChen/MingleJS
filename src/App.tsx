@@ -113,7 +113,11 @@ export default class App {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
 
-                if (!this.force && (parentNode?.attributes?.['data-fn']?.value === 'data-panel')) {
+                // if (!this.force && (parentNode?.attributes?.['data-fn']?.value === 'data-panel')) {
+                if (!this.force
+                    && $(element).closest('[data-fn=data-panel]').length > 0
+                    && attributes['data-fn'].value !== 'data-panel'
+                ) {
 
                     console.warn('上一个是data-panel,当前元素不解析', element);
 

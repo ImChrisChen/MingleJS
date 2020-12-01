@@ -75,7 +75,6 @@ export default class Selector extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        console.log(this.props);
         let dataset = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;

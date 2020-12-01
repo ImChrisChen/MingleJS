@@ -18,8 +18,6 @@ import { directiveElse, directiveForeach, directiveIf } from '@root/config/direc
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
 
-    public static model: object = {};
-
     public state = {
         html : this.props.el.innerHTML,
         model: {},
@@ -29,7 +27,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         super(props);
 
         DataPanel.getData(this.props.dataset).then(data => {
-            DataPanel.parseElement(this.props.el, data);
+            let rootElement = DataPanel.parseElement(this.props.el, data);
+            new App(rootElement, true);
+
             this.setState({ model: data });
             this.props.el.style.display = 'block';
         });
@@ -46,13 +46,12 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         // TODO 解析顺序会影响渲染性能
         deepEachElement(root, (el: HTMLElement) => {
             this.parseIfelse(el, model);
-            this.parseTextContent(el, model);
             this.parseForeach(el, model);
+            this.parseTextContent(el, model);
             this.parseProperty(el, model);
         });
 
-
-        new App(root as HTMLElement, true);
+        return root;
     }
 
     // 属性解析 解析规则 data-title="<{pf}>"
@@ -122,7 +121,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
         arrayName = arrayName.trim();       // 数组名称
         itemName = itemName.trim();         // item名称
-        indexName = indexName.trim();       // 下标名称
+        indexName = indexName ? indexName.trim() : '';       // 下标名称
 
         let elseElement;
         let loopData = model[arrayName];
@@ -152,18 +151,20 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (result) {
                 let cloneNode = el.cloneNode(true) as HTMLElement;
                 this.parseElement(cloneNode, itemModel);
+                this.parseElement(cloneNode, model);
                 this.parseProperty(cloneNode, itemModel);      // 处理属性解析
                 return cloneNode;
             } else {
-                let elseElement = el.nextElementSibling as HTMLElement;     // ~else
-                if (elseElement.attributes?.[directiveElse]) {
+                elseElement = el.nextElementSibling as HTMLElement;     // ~else
+                if (elseElement?.attributes?.[directiveElse]) {
                     let cloneNode = elseElement.cloneNode(true) as HTMLElement;
                     this.parseElement(cloneNode, itemModel);
+                    console.log(model);
+                    this.parseElement(cloneNode, model);
                     this.parseProperty(cloneNode, itemModel);      // 处理属性解析
                     return cloneNode;
                 }
             }
-
         }).filter(t => t);
 
         $(el).after(...nodes);
