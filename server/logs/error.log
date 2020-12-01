@@ -248,3 +248,285 @@ TypeError: Cannot read property 'split' of undefined
  http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
  2020-12-01/10:10:32   
  ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:46:31   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:49:13   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:51:03   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:51:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:51:36   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:52:13   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:53:51   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:55:26   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:59:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:00:05   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:00:35   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:02:59   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:03:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:03:23   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:03:49   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:04:34   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:04:56   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:05:05   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:05:30   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:07:06   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:07:52   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:08:44   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:09:05   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:09:47   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:09:57   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:10:53   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:11:54   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:12:36   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:13:53   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:14:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:21:42   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:43:22   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:43:40   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:44:33   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:44:45   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:44:50   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:35   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:53   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:53:11   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:54:29   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:54:40   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:54:50   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:57:11   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:59:38   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:01:58   
+ ---END---

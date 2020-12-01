@@ -89,6 +89,8 @@ function createRegExp(type: tplTyle, field): RegExp {
     if (type === 'tpl') {
         regExp = new RegExp(`<{${ field }}>`, 'g');
     } else if (type === 'field') {
+        // TODO 三元运算法加空格在这里会报错，后面有时间再优化这个，/?/
+        // console.log(field);
         regExp = new RegExp(`${ field }`, 'g');
     }
     return regExp as RegExp;

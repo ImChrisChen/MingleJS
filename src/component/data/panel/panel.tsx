@@ -12,6 +12,7 @@ import { parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
 import { isArray, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
+import App from '@src/App';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
@@ -41,12 +42,16 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             root = elementWrap(rootElement);
         }
 
+        // TODO 解析顺序会影响渲染性能
         deepEachElement(root, (el: HTMLElement) => {
             this.parseIfelse(el, model);
             this.parseTextContent(el, model);
-            this.parseProperty(el, model);
             this.parseForeach(el, model);
+            this.parseProperty(el, model);
         });
+
+
+        new App(root as HTMLElement, true);
     }
 
     // 属性解析 解析规则 data-title="<{pf}>"
@@ -63,10 +68,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 continue;
             }
 
-            console.log(name, value);
             let parseValue = parseTpl(value, model, 'tpl');
-            console.log(parseValue);
-            // el.setAttribute(name, parseValue);
+            el.setAttribute(name, parseValue);
         }
     }
 
@@ -89,7 +92,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         let { name, value } = attrs['@foreach'];
         el.removeAttribute('@foreach');
 
-        if (!/^\w+ as \w+$/.test(value)) {
+        // @foreach="data as item" 或者 data as (item,index)
+        if (!/^\w+ as (\w+|\(.+?\))$/.test(value)) {
             console.error(`${ name }格式不正确`);
         }
 
@@ -107,24 +111,33 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
 
         let [ arrayName, itemName ] = value.split('as');
+        let indexName;
 
+        // data as (item,index)
+        if (/\(.+?\)/.test(itemName)) {
+            let [ , itemIndex ] = /\((.+?)\)/.exec('(item,index)') ?? [];       // item,index
+            [ itemName, indexName ] = itemIndex.split(',');
+        }
 
-        arrayName = arrayName.trim();
-        itemName = itemName.trim();
+        arrayName = arrayName.trim();       // 数组名称
+        itemName = itemName.trim();         // item名称
+        indexName = indexName.trim();       // 下标名称
 
         let loopData = model[arrayName];
-        let nodes = loopData.map(item => {
-            let itemModel = { [itemName]: item };
+        let nodes = loopData.map((item, index) => {
+            let itemModel = {
+                [itemName] : item,
+                [indexName]: index,
+            };
             let result: any;     // if 表达式的判断结果
 
-            this.parseProperty(el, itemModel);      // 处理属性解析
 
             // 如果foreach元素上没有if的条件判断
             if (isUndefined(express)) {
                 result = true;
             } else {
                 let parseExpress = parseTpl(express, itemModel, 'field');       // TODO foreach中的条件判断要进行两个作用域解析，当前是第二层
-                console.log(parseExpress);
+                // console.log(parseExpress);
                 try {
                     result = eval(parseExpress);
                 } catch (e) {
@@ -137,8 +150,17 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (result) {
                 let cloneNode = el.cloneNode(true) as HTMLElement;
                 this.parseElement(cloneNode, itemModel);
+                this.parseProperty(cloneNode, itemModel);      // 处理属性解析
+                return cloneNode;
+            } else {
+
+                let elseElement = el.nextElementSibling as HTMLElement;
+                let cloneNode = elseElement.cloneNode(true) as HTMLElement;
+                this.parseElement(cloneNode, itemModel);
+                this.parseProperty(cloneNode, itemModel);      // 处理属性解析
                 return cloneNode;
             }
+
 
         }).filter(t => t);
 

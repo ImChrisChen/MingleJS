@@ -5,11 +5,12 @@ import { parserAttrs, parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isFunc } from '@utils/inspect';
+import { isArray, isFunc } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
+import { elementWrap } from '@utils/parser-dom';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -89,9 +90,9 @@ export default class App {
     public static instances = {};      // 组件实例
     $tempContainer: any;
 
-    constructor(rootElement: HTMLElement/*private readonly elements: Array<HTMLElement>*/) {
-
-        if (!rootElement) return;
+    constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
+        if (!root) return;
+        let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
 
         this.$tempContainer = $(`<div data-template-element></div>`);
         if ($(`[data-template-element]`).length === 0) {
@@ -108,88 +109,97 @@ export default class App {
 
     async init(rootElement: HTMLElement) {
         this.renderIcons(rootElement);
-        deepEachElement(rootElement, async (element) => {
+        deepEachElement(rootElement, async (element, parentNode) => {
             let attributes = element.attributes;
             if (attributes['data-fn']) {
-                let container: HTMLElement, containerWrap: HTMLElement;
 
-                // 处理组件容器
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    let elementWrap: HTMLElement = document.createElement('div');
-                    container = document.createElement('div');
-                    element.after(elementWrap);
-                    elementWrap.appendChild(element);
-                    elementWrap.appendChild(container);
-                    containerWrap = elementWrap;
+                if (!this.force && (parentNode?.attributes?.['data-fn']?.value === 'data-panel')) {
+
+                    console.warn('上一个是data-panel,当前元素不解析', element);
+
                 } else {
-                    let reactContainer: HTMLElement = document.createElement('div');
-                    element.appendChild(reactContainer);
-                    container = reactContainer;
-                    containerWrap = element;
-                }
 
-                let componentNames: string = element.getAttribute('data-fn') ?? '';
+                    let container: HTMLElement, containerWrap: HTMLElement;
 
-                if (componentNames) {
+                    // 处理组件容器
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        let elementWrap: HTMLElement = document.createElement('div');
+                        container = document.createElement('div');
+                        element.after(elementWrap);
+                        elementWrap.appendChild(element);
+                        elementWrap.appendChild(container);
+                        containerWrap = elementWrap;
+                    } else {
+                        let reactContainer: HTMLElement = document.createElement('div');
+                        element.appendChild(reactContainer);
+                        container = reactContainer;
+                        containerWrap = element;
+                    }
 
-                    if (!containerWrap.getAttribute('data-component-uid')) {
+                    let componentNames: string = element.getAttribute('data-fn') ?? '';
 
-                        // TODO 设置组件唯一ID
-                        let componentUID = App.getUUID();
-                        containerWrap.setAttribute('data-component-uid', componentUID);
+                    if (componentNames) {
 
-                        for (const componentName of componentNames.split(' ')) {
+                        if (!containerWrap.getAttribute('data-component-uid')) {
 
-                            if (componentName.startsWith('self-')) {
-                                console.error(`${ componentName } 模块不属于MingleJS`);
-                            } else {
+                            // TODO 设置组件唯一ID
+                            let componentUID = App.getUUID();
+                            containerWrap.setAttribute('data-component-uid', componentUID);
 
-                                let keysArr = componentName.split('-');
-                                // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
-                                let [ , , componentMethod ] = keysArr;
+                            for (const componentName of componentNames.split(' ')) {
 
-                                const Modules = await loadModules(keysArr);
-                                const Component = Modules.component.default;            // React组件
-                                const config = Modules.config;
+                                if (componentName.startsWith('self-')) {
+                                    console.error(`${ componentName } 模块不属于MingleJS`);
+                                } else {
 
-                                let defaultProperty = Modules.property;
-                                let el = element.cloneNode(true);
-                                let elChildNodes = el.childNodes;
+                                    let keysArr = componentName.split('-');
+                                    // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
+                                    let [ , , componentMethod ] = keysArr;
 
-                                // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-                                let elChildren: Array<HTMLElement | any> = [];
+                                    const Modules = await loadModules(keysArr);
+                                    const Component = Modules.component.default;            // React组件
+                                    const config = Modules.config;
 
-                                elChildren = Array.from(element.children ?? []);
-                                elChildren.pop();       // 去掉自己本身
+                                    let defaultProperty = Modules.property;
+                                    let el = element.cloneNode(true);
+                                    let elChildNodes = el.childNodes;
 
-                                let hooks = this.formatHooks(attributes);
+                                    // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
+                                    let elChildren: Array<HTMLElement | any> = [];
 
-                                let module: IModules = {
-                                    Component,
-                                    element,
-                                    container,
-                                    containerWrap,
-                                    elChildren,
-                                    elChildNodes,
-                                    hooks,
-                                    componentMethod,
-                                    defaultProperty,
-                                    config,
-                                    componentUID,
-                                };
-                                this.modules.push(module);
+                                    elChildren = Array.from(element.children ?? []);
+                                    elChildren.pop();       // 去掉自己本身
 
-                                this.renderComponent(module, (hooks) => {
-                                    hooks[Hooks.beforeLoad]?.();
-                                }, (hooks, instance: ReactInstance) => {
-                                    hooks[Hooks.load]?.();
-                                    // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
-                                    // });
-                                });
-                                this.eventListener(module);
+                                    let hooks = this.formatHooks(attributes);
+
+                                    let module: IModules = {
+                                        Component,
+                                        element,
+                                        container,
+                                        containerWrap,
+                                        elChildren,
+                                        elChildNodes,
+                                        hooks,
+                                        componentMethod,
+                                        defaultProperty,
+                                        config,
+                                        componentUID,
+                                    };
+                                    this.modules.push(module);
+
+                                    this.renderComponent(module, (hooks) => {
+                                        hooks[Hooks.beforeLoad]?.();
+                                    }, (hooks, instance: ReactInstance) => {
+                                        hooks[Hooks.load]?.();
+                                        // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
+                                        // });
+                                    });
+                                    this.eventListener(module);
+                                }
                             }
                         }
                     }
+
                 }
             }
         });
@@ -338,8 +348,8 @@ export default class App {
     static globalEventListener() {
 
         window.addEventListener('error', async function (e) {
-            let msg = e.message;        // 错误
-            let stack = e.error.stack;
+            let msg = e?.message;        // 错误
+            let stack = e?.error?.stack;
             let date = moment().format('YYYY-MM-DD/HH:mm:ss');
             let url = window.location.href;
             let log = { message: msg, stack, date, url };
@@ -354,6 +364,7 @@ export default class App {
                 localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
             await axios.post('http://localhost:8081/log', log);
+            console.error(msg);
             message.error(`error, ${ msg }`);
         });
 
