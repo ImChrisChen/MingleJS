@@ -21,6 +21,7 @@ import AppLayoutHtml from '@root/template/layout.html';
 import AppMenuHtml from '@root/template/app-menu.html';
 import tplHtml from '@root/template/tpl.html';
 import dataList from '@root/template/data-list.html';
+import templatePanel from '@root/template/template-panel/template.html';
 
 // nav
 export default [
@@ -67,11 +68,16 @@ export default [
         component: <HtmlRenderer html={ dataList }/>,
     },
     {
+        name     : '模版',
+        path     : '/nav-view-template',
+        component: <HtmlRenderer html={ templatePanel }/>,
+    },
+    {
         name     : '子应用布局 app-layout',
         path     : '/nav-app-layout',
         component: <HtmlRenderer html={ AppLayoutHtml }/>,
     },
-   {
+    {
         name     : '子应用菜单 app-layout',
         path     : '/nav-app-menu',
         component: <HtmlRenderer html={ AppMenuHtml }/>,

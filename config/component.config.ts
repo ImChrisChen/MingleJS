@@ -181,7 +181,7 @@ const UniversalProps = {
 
 export default {
     // 子应用
-    app   : {
+    app     : {
         menu  : {
             component: import('@component/app/menu/AppMenu'),
             property : {
@@ -224,7 +224,7 @@ export default {
             },
         },
     },
-    form  : {
+    form    : {
         select    : {
             path     : '/form-select',
             component: import('@component/form/select/select'),
@@ -699,7 +699,7 @@ export default {
             },
         },
     },
-    view  : {
+    view    : {
         // popover : {
         //     component: import('@component/view/popover/popover'),
         // },
@@ -721,7 +721,7 @@ export default {
         //     },
         // },
     },
-    data  : {
+    data    : {
         table: {
             component: import('@component/data/table/table'),
             path     : '/data-table',
@@ -967,12 +967,12 @@ export default {
             },
         },
     },
-    tips  : {
+    tips    : {
         // loading: {
         // component: import('@component/tips/loading/loading'),
         // },
     },
-    layout: {
+    layout  : {
         menu  : {
             component: import('@component/layout/menu/LayoutMenu'),
             path     : '/layout-menu',
@@ -1124,7 +1124,7 @@ export default {
             },
         },
     },
-    handle: {
+    handle  : {
         request: {
             component: import('@component/handle/request/request'),
             document : import('@component/handle/request/request.md'),
@@ -1150,7 +1150,7 @@ export default {
             },
         },
     },
-    editor: {
+    editor  : {
         flow    : {     // 流程图
             component: import('@component/editor/flow/flow'),
             property : {
@@ -1182,6 +1182,33 @@ export default {
             path     : '/editor-code',
             property : {
                 dataset: {},
+            },
+        },
+    },
+    template: {
+        panel: {
+            component: import('@src/private-component/template/ViewPanel'),
+            property : {
+                dataset: {
+                    title : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '标题',
+                    },
+                    desc  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '描述',
+                        desc : '描述',
+                    },
+                    avatar: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'Chris',
+                        desc : '头像名称',
+                    },
+                },
             },
         },
     },

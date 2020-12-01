@@ -44,10 +44,33 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         deepEachElement(root, (el: HTMLElement) => {
             this.parseIfelse(el, model);
             this.parseTextContent(el, model);
+            this.parseProperty(el, model);
             this.parseForeach(el, model);
         });
     }
 
+    // 属性解析 解析规则 data-title="<{pf}>"
+    public static parseProperty(el: HTMLElement, model: object) {
+        let attrs = el.attributes;
+        for (const attr of attrs) {
+            let { name, value } = attr;
+
+            if (name === '@foreach' || name === '@if' || name === 'data-fn') {
+                continue;
+            }
+
+            if (!isWuiTpl(value)) {
+                continue;
+            }
+
+            console.log(name, value);
+            let parseValue = parseTpl(value, model, 'tpl');
+            console.log(parseValue);
+            // el.setAttribute(name, parseValue);
+        }
+    }
+
+    // 文本解析 解析规则 <p> 平台:<{pf}> <p>
     public static parseTextContent(el: HTMLElement, model: object) {
         el.childNodes.forEach(node => {
             // 处理文本节点
@@ -93,6 +116,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         let nodes = loopData.map(item => {
             let itemModel = { [itemName]: item };
             let result: any;     // if 表达式的判断结果
+
+            this.parseProperty(el, itemModel);      // 处理属性解析
 
             // 如果foreach元素上没有if的条件判断
             if (isUndefined(express)) {
