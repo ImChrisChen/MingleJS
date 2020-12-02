@@ -1,17 +1,41 @@
 
 form [data-component-uid] {
-    margin-right: 10px;
-    min-width: 120px;
+    margin-right : 10px;
+    min-width    : 120px;
 }
 
 [data-component-uid] {
-    position: relative;
+    position : relative;
 }
 
 input[data-fn] {
-    display: none;
+    display : none;
 }
 
 [data-fn] {
-    position: relative;
+    position : relative;
+}
+
+.flex-direction-row {
+    display        : flex;
+    flex-direction : row;
+}
+
+.flex-direction-rerow {
+    display        : flex;
+    flex-direction : row-reverse;
+}
+
+.flex-direction-column {
+    display        : flex;
+    flex-direction : column;
+}
+
+.flex-direction-recolumn {
+    display        : flex;
+    flex-direction : column-reverse;
+}
+
+[data-fn=data-panel] {
+    display : none;
 }

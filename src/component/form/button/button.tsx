@@ -14,6 +14,7 @@ export default class Button extends React.Component<IComponentProps, any> {
     state: any = {
         value  : this.props.value,
         options: [],
+
     };
 
     constructor(props) {
@@ -33,32 +34,6 @@ export default class Button extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        // rules={ [ { required: this.props.required, message: this.props.message } ] }
-
-        // return <div>
-        //     <label className="ant-radio-button-wrapper ant-radio-button-wrapper-checked">
-        //         <span className="ant-radio-button ant-radio-button-checked">
-        //             <input type="checkbox" className="ant-radio-button-input" value="orange" checked={ false }/>
-        //                 <span className="ant-radio-button-inner"/>
-        //         </span>
-        //         <span>Orange</span>
-        //     </label>
-        //     <label className="ant-radio-button-wrapper ">
-        //         <span className="ant-radio-button ">
-        //             <input type="checkbox" className="ant-radio-button-input" value="orange" checked={ false }/>
-        //                 <span className="ant-radio-button-inner"/>
-        //         </span>
-        //         <span>Orange</span>
-        //     </label>
-        //     <label className="ant-radio-button-wrapper ant-radio-button-wrapper-checked">
-        //         <span className="ant-radio-button ant-radio-button-checked">
-        //             <input type="checkbox" className="ant-radio-button-input" value="orange" checked={ false }/>
-        //                 <span className="ant-radio-button-inner"/>
-        //         </span>
-        //         <span>Orange</span>
-        //     </label>
-        // </div>;
-
         return <>
             <Form.Item label={ this.props.dataset.label }>
                 <Radio.Group

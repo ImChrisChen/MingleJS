@@ -53,6 +53,11 @@ export function isFunc(v): v is Function {
     return typeof v === 'function';
 }
 
+// 判断对象是否是 ReactNode
+export function isReactNode(v: any): boolean {
+    return typeof v.$$typeof === 'symbol';
+}
+
 // 判断是否是 DOM
 export function isDOM(v): v is HTMLElement {
     return (typeof HTMLElement === 'object') ?

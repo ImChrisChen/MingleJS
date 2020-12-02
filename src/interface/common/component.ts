@@ -11,7 +11,7 @@ export interface IComponentProps {
     elChildNodes: Array<HTMLElement | Node>
     box?: HTMLElement
     style?: IReactStyle
-    dataset: any
+    dataset?: any
     ref?: () => any
     value?: any
 
@@ -22,7 +22,10 @@ export interface IReactStyle {
     [key: string]: string | number
 }
 
-export interface IDataset {
-
-
+export interface IRouteItem {
+    path: string
+    component?: any
+    name: string
+    target?: string
+    children: Array<IRouteItem>
 }

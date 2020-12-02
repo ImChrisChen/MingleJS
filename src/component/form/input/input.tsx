@@ -33,6 +33,7 @@ export default class FormInput extends React.Component<IComponentProps, any> {
     render() {
         return <>
             <Form.Item
+                required={ this.props.dataset.required }
                 label={ this.props.dataset.label }
                 name={ this.props.dataset.label }
                 // rules={

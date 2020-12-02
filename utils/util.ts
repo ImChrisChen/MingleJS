@@ -38,14 +38,14 @@ export function deepEachElementTail(root, callback?: (el: HTMLElement) => void) 
 }
 
 // DOM 前递归
-export function deepEachElement(root, callback?: (el: HTMLElement) => void) {
+export function deepEachElement(root, callback?: (el: HTMLElement, parentNode: any) => void, parentNode?) {
     if (!root) return;
 
-    callback && callback(root);
+    callback && callback(root, parentNode);
 
     if (root.children.length) {
         Array.from(root.children).forEach(item => {
-            return deepEachElement(item, callback);
+            return deepEachElement(item, callback, root);
         });
     }
 }

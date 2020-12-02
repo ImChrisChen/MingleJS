@@ -1,0 +1,1662 @@
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-27/17:41:48   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-27/17:45:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-27/17:45:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-27/17:45:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-27/17:45:24   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-27/17:45:25   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-30/18:14:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-30/18:14:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-30/18:14:40   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at CanvasRenderingContext2D.getImageData (<anonymous>)
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-11-30/18:14:43   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-11-30/18:17:36   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-11-30/18:17:36   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-11-30/18:17:57   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-11-30/18:17:57   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/09:58:14   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/09:58:14   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/10:10:27   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/10:10:27   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/10:10:32   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/10:10:32   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:46:31   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:49:13   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:51:03   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:51:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:51:36   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:52:13   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:53:51   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:55:26   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/13:59:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:00:05   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:00:35   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:02:59   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:03:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:03:23   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:03:49   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:04:34   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:04:56   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:05:05   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:05:30   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:07:06   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:07:52   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:08:44   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:09:05   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:09:47   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:09:57   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:10:53   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:11:54   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:12:36   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:13:53   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:14:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:21:42   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:43:22   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:43:40   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:44:33   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:44:45   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:44:50   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:16   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:35   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:45:53   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:53:11   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:54:29   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:54:40   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:54:50   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:57:11   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/14:59:38   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:01:58   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:03:15   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:06:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:06:25   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:08:52   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:09:51   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:10:29   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:11:24   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:49:04   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:50:32   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:54:26   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/15:54:36   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/15:54:38   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/15:54:38   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/15:55:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/15:55:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/15:57:56   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/15:57:56   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/16:29:59   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/16:29:59   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:30:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:33:08   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:49:31   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:52:18   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:55:02   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:55:24   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/16:55:35   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/16:56:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/16:56:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/17:08:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-01/17:08:04   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/17:10:51   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/17:13:30   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/17:14:44   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/17:24:39   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-01/17:24:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:00:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:00:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:02:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:02:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:06:47   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:06:47   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:07:32   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:07:32   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:07:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:07:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:08:29   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:08:29   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:09:07   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:09:07   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:09:27   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:09:27   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:14:43   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:14:43   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:15:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:15:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:17:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:17:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:18:51   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:18:51   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:21:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:21:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:21:57   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:21:57   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:22:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:22:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:23:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:23:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:23:08   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:23:08   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:42:55   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:42:55   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:44:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:44:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:45:25   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:45:25   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:45:44   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:45:44   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:46:11   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:46:11   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:46:35   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:46:35   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:49:03   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:49:03   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:49:53   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131748:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:59144:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47284:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:47071:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:41012:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:47062:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:47278:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:47355:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213265:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:213215:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/10:49:54   
+ ---END---

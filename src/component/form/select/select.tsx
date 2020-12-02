@@ -8,11 +8,12 @@
 import './select.less';
 import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
-import { formatEnumOptions, formatList2AntdOptions, formatList2Tree } from '@utils/format-data';
+import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
+import { strParseDOM } from '@utils/parser-dom';
 // import axios from 'axios'
 
 const { Option, OptGroup } = Select;
@@ -57,7 +58,7 @@ export default class Selector extends React.Component<IComponentProps, any> {
             let { data } = await jsonp(url);
 
             if (groupby) {
-                return formatList2Tree(data, {
+                return formatList2Group(data, {
                     id  : key,
                     name: value,
                     pid : groupby,
@@ -85,10 +86,10 @@ export default class Selector extends React.Component<IComponentProps, any> {
             }
         }
         return <>
-            <Form.Item label={ dataset.label } style={ { display: 'flex' } }>
+            <Form.Item label={ dataset.label } style={ { display: 'flex' } }
+                       required={ this.props.dataset.required }>
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
-
                     { ...dataset }
                     placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
@@ -96,14 +97,18 @@ export default class Selector extends React.Component<IComponentProps, any> {
                     value={ value }
                     options={ this.state.options }
                     loading={ this.state.loading }
-                    disabled={ this.state.loading }
+                    disabled={ !this.state.loading && this.props.dataset.disabled }
                     onChange={ this.handleChange.bind(this) }
                     onClear={ this.handleClear.bind(this) }
                     dropdownRender={ menu => this.renderMenuCheckAll(menu) }
                     maxTagCount={ 1 }
-                    filterOption={ (input, option) => {     // 搜索
+                    filterOption={ (input, option: any) => {     // 搜索
                         if (!option) return false;
-                        return String(option.value).includes(input) || String(option.label).includes(input);
+                        let label: any;
+                        label = typeof option?.label === 'object'
+                            ? strParseDOM(option.label?.props?.dangerouslySetInnerHTML.__html).innerText
+                            : option.label;
+                        return String(option.value).includes(input) || String(label).includes(input);
                     } }/>
                 {/*<Select*/ }
                 {/*    options={ this.state.currentItem['children'] }*/ }

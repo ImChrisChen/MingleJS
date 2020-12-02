@@ -8,7 +8,6 @@
 import React, { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { Steps } from 'antd';
-import { strParseVirtualDOM } from '@utils/parser-dom';
 
 const { Step } = Steps;
 
@@ -20,6 +19,7 @@ export default class LayoutSteps extends Component<IComponentProps, ReactNode> {
 
     constructor(props) {
         super(props);
+        this.renderStepChildren();
     }
 
     handleChange(current) {
@@ -27,21 +27,29 @@ export default class LayoutSteps extends Component<IComponentProps, ReactNode> {
     }
 
     renderStepChildren() {
-        return this.props.elChildren.map((element, index) => {
-            let { title } = element.dataset;
-            let description = strParseVirtualDOM(element.innerHTML);
-            element.remove();
-            return <Step key={index} title={title} description={description}/>;
+        // TODO 异步渲染，字符串转化成ReactNode会出现DOM元素的事件失效
+        setTimeout(() => {
+            let steps = [ ...document.querySelectorAll('.layout-step-desc') ] as Array<HTMLElement>;
+            steps.forEach((container, index) => {
+                let step = this.props.elChildren[index];
+                container.append(step);
+            });
         });
     }
 
     render() {
         return <>
-            <Steps current={this.state.current}
-                   direction={this.props.dataset.layout || undefined}
-                   type={this.props.dataset.type}
-                   onChange={this.handleChange.bind(this)}>
-                {this.renderStepChildren()}
+            <Steps current={ this.state.current }
+                   direction={ this.props.dataset.layout || undefined }
+                   type={ this.props.dataset.type }
+                   onChange={ this.handleChange.bind(this) }>
+                { this.props.elChildren.map((element, index) => {
+                    return <Step
+                        className="layout-step"
+                        key={ index }
+                        title={ element.dataset.title }
+                        description={ <div className="layout-step-desc"/> }/>;
+                }) }
             </Steps>
         </>;
     }

@@ -5,44 +5,49 @@
     <h3>状态: <{ status }></h3>
     <p>总人数: <{ data.length * 200 / 100 + (300 - 100) }></p>
 
-    <ul @if="status && data.length > 0">
-        <li @foreach="data as item" @if="item.age == 20">
-            <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}> </h1>
+
+    <ul w-if="status && data.length > 0">
+        <li ~foreach="data as item" ~if="item.age > 25">
+            <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}>
+                <icon type="AppleOutlined" color="#f0f00f" size="18"/>
+            </h1>
+            <input data-fn="form-button"
+                   data-label="label:"
+                   data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
+                   data-disabled="false"
+                   data-size="设置大小"
+                   data-optionType="button"
+                   name="form-select"
+            />
         </li>
     </ul>
 
-    <button @if class="ant-btn ant-btn-primary" data-fn="layout-window" data-content="Submit">
+    <button class="ant-btn ant-btn-primary"
+            data-fn="handle-request">
+        Request
+    </button>
+
+    <button class="ant-btn ant-btn-primary" data-fn="layout-window" data-content="Submit">
         <div class="container">
-            <form data-fn="form-ajax" data-layout="h">
-                <input data-fn="form-select" name="pf"
-                       value="1"
-                       data-label="平台:"
-                       data-mode="single"
-                       data-key="id"
-                       data-value="name"
-                       data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
-
-                <input data-fn="form-select" name="pf"
-                       value="1"
-                       data-label="平台:"
-                       data-mode="single"
-                       data-key="id"
-                       data-value="name"
-                       data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
-            </form>
-
+            <h1><{ title }></h1>
             <div data-fn="data-table"
                  data-height="400"
                  data-from="user_analysis"
                  data-headerurl="/mock/table/tableHeader.json"
                  data-url="/mock/table/tableContent.json"
             ></div>
+
         </div>
     </button>
 
-    <div @if data-fn="layout-tab">
+    <div data-fn="layout-tab">
+        <div data-slot="header">
+
+        </div>
+
         <div data-title="类型1">
             <input data-fn="form-select" name="pf"
+                   data-title="类型1"
                    value="1"
                    data-label="平台"
                    data-mode="single"
@@ -60,10 +65,6 @@
                    data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
         </div>
     </div>
-
-    <icon type="StepBackwardOutlined" color="#f0f" size="30"/>
-
-    <!--    <icon type="WindowsOutlined"/>-->
 
 </div>
 

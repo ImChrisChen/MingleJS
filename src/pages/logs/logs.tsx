@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/11/27 * Time: 5:58 下午 */import { Component } from 'react';export default class Logs extends Component<any, any> {}
