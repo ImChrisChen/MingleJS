@@ -53,15 +53,4 @@ App.globalEventListener();
 window['$'] = $;
 window['Message'] = message;
 window['Notice'] = notification;
-window['postLog'] = function () {
-    axios.post('http://localhost:8081/log', {
-            'message': 'Uncaught IndexSizeError: Failed to execute \'getImageData\' on \'CanvasRenderingContext2D\': The source width is 0.',
-            'stack'  : 'Error: Failed to execute \'getImageData\' on \'CanvasRenderingContext2D\': The source width is 0.\n    at CanvasRenderingContext2D.getImageData (<anonymous>)\n    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:165298:38)\n    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:165239:15)',
-            'date'   : '2020-11-26/18:18:30',
-            'url'    : 'http://mingle-test.local.aidalan.com/#/code-generate',
-        },
-    ).then(r => {
-        console.log(r);
-    });
-};
 
