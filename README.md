@@ -9,6 +9,8 @@ React + Typescript + Antd + WUI
 
 
 
+
+
 ## 开发环境
 
 1. 需安装 node  环境  
@@ -21,6 +23,10 @@ npm install && npm run dev
 ~~~
 
 浏览器打开 [http://localhost:8080](http://localhost:8080)
+
+
+
+
 
 ## Nginx配置
 
@@ -54,6 +60,9 @@ server {
 ~~~
 
 
+
+
+
 ## 打包部署
 
 项目根目录运行
@@ -76,9 +85,66 @@ npm run build
 
 把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
 
+
+
+#### 使用方式
+
 ~~~html
+// 内网测试环境使用
+<script src="https://mingle.local.aidalan.com/index.js"></script>
+
+
+// 正式环境使用
 <script src="https://mingle.aidalan.com/index.js"></script>
 ~~~
+
+
+
+#### 代码打包分析
+
+http://mingle.local.aidalan.com/report.html
+
+
+
+
+
+## 项目说明
+
+`本项目调用组件大致分为两个概念`
+
+
+
+### 1.组件
+
+组件通常是通过业务 提取出的高灵活性，高复用的视图层组件（通常不参杂业务逻辑）
+
+统一在html节点上添加data-fn属性调用对应的组件 data-fn调用组件 
+
+代码实例：
+```html
+<div data-fn="data-table"></div>
+```
+
+
+
+### 2.子应用
+
+子应用是在 组件的基础上，添加了业务的处理，通常只针对某些特殊系统去实现某个特殊的功能，才需要考虑以子应用的形式去实现。
+
+代码示例：
+
+```html
+// 渲染多个系统切换 和 菜单展示功能 ，内部集成了，不同系统的和菜单数据接口
+<app-aside></app-aside>
+```
+
+
+
+> 该方式集成度比较高，可复用性差，如果不是必要情况，可以考虑让后端做业务的同学通过组件去自行实现
+>
+> 在这里我希望每个开发 / 维护 MingleJS的 同学能对组件有自己的理解和看法
+>
+> **而不是成为盲目支撑需求的工具人**
 
 
 
@@ -90,11 +156,18 @@ npm run build
 2. 组件所有属性均通过 <input data-*="属性值"> 组件默认值通过设置 input 上的value值即可
 3. 组件均有生命周期
 
+
+
+
+
 ## 模拟数据
 
 本项目提供了Mock数据
 
 直接访问到 http://mingle.local.aidalan.com/mock/ 可以看到所有模拟数据
+
+
+
 
 
 ## 组件生命周期
@@ -125,6 +198,8 @@ window.funcName = function () {
 }   
 </script>
 ```
+
+
 
 
 
@@ -190,11 +265,13 @@ window.funcName = function () {
 
 
 
+
+
 ## 表单 和 数据（图表/表格/列表）之间的关联
 
 ~~~html
 // 表单组件 // 表单ID，用于关联需要控制的数据。
-<form id="game-list" data-fn="form-ajax" data-async="true">				
+<form id="game-list" data-fn="form-action" data-async="true">				
     <input data-fn="form-button" 
            data-label="平台:"
            data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows" 
@@ -216,6 +293,8 @@ window.funcName = function () {
 
 
 
+
+
 ## 样式
 
 `在input中输入style属性，可直接作作用于当前组件的style属性`
@@ -226,45 +305,5 @@ window.funcName = function () {
 <input data-fn="form-input" style="width:200px" />
 ~~~
 
-​	
 
-~~~javascript
-$('a').click(function(event) {
-                        leaveFlag = false;
-                        var url = $(this).attr('href');
-                        // var jumpdownload = '//hd.aidalan.com/download?downlink='
-                        var jumpdownload = '';
-                        var host = window.location.host;
-
-                        if (host.includes('wbdd2018')) {
-                            jumpdownload = '//hd.wbdd2018.com/download?downlink=';
-                        } else {
-                            jumpdownload = '//hd.aidalan.com/download?downlink=';
-                        }
-
-                        if (url && url != 'javascript:;') {
-                            if (browser.versions.mobile) {
-                                console.log(url);
-                            } else {
-                                showQR(url);
-                            }
-                            stats('down', url);
-                            if (browser.versions.android && browser.versions.weixin) {
-                                if (false) {
-                                    location.href = 'wx.html?down=' + url;
-                                    return false;
-                                }
-
-                                if (location.search) {
-                                    var is_direct = location.search.substr(1);
-                                }
-                                if (is_direct && is_direct == 'direct') {
-                                    location.href = url;
-                                } else {
-                                    location.href = jumpdownload + url;
-                                }
-
-                                return false;
-                            }
-~~~
 

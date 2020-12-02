@@ -8,6 +8,7 @@
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
 import { isString } from '@utils/inspect';
+import tab from '@component/layout/tab/tab';
 
 // 解析dataset data-*
 export function parserProperty(dataset, defaultDataset): object {
@@ -41,7 +42,7 @@ export function parserProperty(dataset, defaultDataset): object {
 
         // 属性函数验证
         if (verify && !verify(value)) {
-            console.warn(`${datasetKey}属性的值格式验证不通过`, dataset);
+            console.warn(`${ datasetKey }属性的值格式验证不通过`, dataset);
             continue;
         }
 
@@ -68,7 +69,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
             // 属性函数验证
             if (verify && !verify(value)) {
-                console.error(`${key}属性的值格式验证不通过`);
+                console.error(`${ key }属性的值格式验证不通过`);
                 continue;
             }
             defaultAttrs[key] = parserProgram(key, value, parse).v;
@@ -79,6 +80,11 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     // TODO 默认处理属性，不用写/读取配置去解析
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
+
+        // TODO 兼容处理
+        if (key === 'required' && finalAttrs[key] !== false) {
+            finalAttrs[key] = true;
+        }
         if (key === 'style' && isString(finalAttrs[key])) {
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
@@ -108,6 +114,11 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             value = value ? value.split(',') : [];
             break;
 
+        case 'number[]':             // 分割成数组
+            value = (value ? value.split(',') : []) as Array<any>;
+            value = value.map(item => Number(item));
+            break;
+
         case 'object[]':
             value = parseEnum(value);
             break;
@@ -117,7 +128,7 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             if (ret) {
                 value = JSON.parse(value);
             } else {
-                console.error(`data-${key}的值传入的不是一个JSON`);
+                console.error(`data-${ key }的值传入的不是一个JSON`);
                 value = {};
             }
             break;

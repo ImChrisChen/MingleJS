@@ -29,7 +29,7 @@ export default class LayoutSteps extends Component<IComponentProps, ReactNode> {
     renderStepChildren() {
         // TODO 异步渲染，字符串转化成ReactNode会出现DOM元素的事件失效
         setTimeout(() => {
-            let steps = [...document.querySelectorAll('.ant-steps-item-description')] as Array<HTMLElement>;
+            let steps = [ ...document.querySelectorAll('.layout-step-desc') ] as Array<HTMLElement>;
             steps.forEach((container, index) => {
                 let step = this.props.elChildren[index];
                 container.append(step);
@@ -45,10 +45,10 @@ export default class LayoutSteps extends Component<IComponentProps, ReactNode> {
                    onChange={ this.handleChange.bind(this) }>
                 { this.props.elChildren.map((element, index) => {
                     return <Step
-                        className='layout-step'
+                        className="layout-step"
                         key={ index }
                         title={ element.dataset.title }
-                        description/>;
+                        description={ <div className="layout-step-desc"/> }/>;
                 }) }
             </Steps>
         </>;

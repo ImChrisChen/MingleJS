@@ -1,1 +1,1 @@
-export const gutterBox: string;
+export const col: string;

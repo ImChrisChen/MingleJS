@@ -10,8 +10,8 @@ import { IComponentProps } from '@interface/common/component';
 import $ from 'jquery';
 import Draggable from 'react-draggable';
 import DataPanel from '@component/data/panel/panel';
-// import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
 import App from '@src/App';
+// import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
 
 
 const style = {
@@ -37,29 +37,28 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
 
     constructor(props) {
         super(props);
-        console.log(this.props.el);
+        console.log(this.props);
         this.props.el.onclick = e => this.handleClickBtn(e);
         this.props.el.innerHTML = this.props.dataset.content;
     }
 
-    public static parsePopups(model: object) {
-        let templateAreas = document.querySelector('[data-template-element]') as HTMLElement;
-        templateAreas && DataPanel.parseTemplate(templateAreas, model);
-    }
-
     handleClickBtn(e) {
-        let $dataPanel = $(this.props.el).closest('[data-fn=data-panel]');
-        App.parseElementProperty($dataPanel.get(0)).then(dataset => {
-            let model = DataPanel.model;
-            this.handleShowModel();
-            LayoutWindow.parsePopups(model);
-        });
 
-        // 组件加载完成后处理弹窗内容
-        setTimeout(() => {
-            let container = document.querySelector('.layout-window-content');
-            container && container.append(...this.props.elChildren);
-        });
+        this.handleShowModel();
+        console.log(e);
+
+        // TODO 这个要第一次弹窗后才会渲染
+        let uid = $(this.props.el).closest('[data-fn=data-panel]')
+            .attr('data-component-uid') ?? '';
+        console.log(uid);
+        let { model } = App.instances[uid].instance.state;
+        console.log(model);
+        DataPanel.parseElement(this.props.elChildren, model);
+
+        // let container = document.querySelector('.layout-window-content');
+        let container = this.props.box?.querySelector('.layout-window-content');
+        container && container.append(...this.props.elChildren);
+        console.log(container);
     }
 
     handleShowModel() {
@@ -84,7 +83,10 @@ export default class LayoutWindow extends React.Component<IComponentProps, any> 
             className={ 'layout-window' }
             visible={ visible }
             mask={ false }
-            getContainer={ () => document.querySelector('[data-template-element]') ?? document.body }
+            getContainer={ () =>
+                // $(this.props.el).closest('[data-fn=data-panel]').get(0)
+                $(this.props.el).get(0)
+                || document.body }
             title={ <div
                 onMouseOverCapture={ () => {
                     if (this.state.disabled) {

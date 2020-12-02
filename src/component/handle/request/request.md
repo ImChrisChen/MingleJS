@@ -1,0 +1,1 @@
+# 代码演示点击触发一个Ajax请求```html<button class="ant-btn ant-btn-primary"        data-fn="handle-request"        data-url="http://mingle-test.local.aidalan.com/mock/menulist/uesr-menu.json">Request</button>```

@@ -76,7 +76,7 @@ interface IKeyMap {
  * @param name  展示的内容字段 / 模版
  * @param children
  */
-export function formatList2Tree(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
+export function formatList2Group(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
     let selectTree: Array<object> = pids.map(pid => {
         return {
@@ -101,6 +101,24 @@ export function formatList2Tree(list: Array<any>, { id, pid, name, children = 'c
         }
     });
     return selectTree;
+}
+
+export function formatList2Tree(list: Array<any>, { id, pid, name }) {
+    const isRoot = (item): boolean => Number(item[pid]) === 0;
+
+    let treeData: Array<any> = [];
+    list.forEach(item => {
+        if (isRoot(item)) {
+            item.children = [];
+            treeData.push(item);
+        }
+        deepEach(treeData, node => {
+            if (Number(node[id]) === Number(item[pid])) {
+                node.children.push(item);
+            }
+        });
+    });
+    return treeData;
 }
 
 /**
@@ -212,7 +230,7 @@ export function formatObject2Url(data: object, url: string = ''): string {
  * @param url
  * @param o
  */
-export function formatUrl2Object(url: string, o: object = {}) {
+export function formatUrl2Object(url: string, o: object = {}): object {
     let search = url;
     if (url.includes('?')) {
         [ , search ] = url.split('?');

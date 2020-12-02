@@ -1,4 +1,8 @@
-<form data-fn="form-ajax" id="user_analysis">
+<form data-fn="form-action"
+      data-url="http://baidu.com"
+      data-method="post"
+      id="user_analysis"
+>
 
     <!-- 日期 -->
     <input data-fn="form-datepicker" data-label="日期:"
@@ -12,6 +16,7 @@
     <!-- 平台 -->
     <input data-fn="form-select" name="pf"
            value="1"
+           data-required="true"
            data-label="平台:"
            data-mode="single"
            data-key="id"
@@ -63,6 +68,8 @@
     <!-- 用户分析 -->
     <input data-fn="form-button" data-label="用户分析" name="group_type" value="reg_count"
            data-enum="reg_count,注册;login_count,活跃;pay_count,付费;" id="group_type">
+
+    <button type="reset" class="ant-btn ant-btn-waring">重置</button>
 
     <button type="submit" class="ant-btn ant-btn-primary">提交</button>
 
@@ -136,7 +143,7 @@
 
 <style>
     .flexWidth-45 {
-        width: 45%
+        width : 45%
     }
 
     [data-fn=data-chart] {
@@ -154,4 +161,14 @@
 
 <!--<div data-fn="data-chartline"></div>-->
 
+<script>
+    // 1. Ajax请求 不刷新
+    // 2. url 重定向
+    // 3. onSubmit 提供 form表单的数据
 
+
+    function submit(e, data) {
+        console.log(e, data);
+    }
+
+</script>

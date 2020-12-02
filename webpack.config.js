@@ -40,7 +40,7 @@ module.exports = {
         poll: 1000,  //每秒询问次数，越小越好
     },
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? false : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
+    devtool: isProduction ? 'cheap-module-source-map' : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
         // [name]是对应的入口文件的key, [name].js 就是main.js
         main: './main.tsx',    // https://webpack.js.org/guides/code-splitting/
@@ -206,7 +206,17 @@ module.exports = {
             //         },
             //     ],
             // },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'assets/[name].[ext]',
+                    },
+                },
+            },
             { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+            
             // {
             //     test: /\.jsx?$/,
             //     use: {

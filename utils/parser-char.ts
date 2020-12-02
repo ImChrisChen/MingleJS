@@ -4,6 +4,7 @@
  * Date: 2020/10/27
  * Time: 6:22 下午
  */
+import { isString } from '@utils/inspect';
 
 //普通字符转换成转意符
 export function parserHtml2Escape(sHtml) {
