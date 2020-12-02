@@ -47,13 +47,14 @@ interface IComponentDataset {
 }
 
 interface ICodeGenerateProps {
-    visible?: boolean           //是否显示组件设计器
-    onClose: () => any
-
-    [key: string]: any
+    // visible?: boolean           //是否显示组件设计器
+    // onClose: () => any
+    // [key: string]: any
+    name: string
+    config: any
 }
 
-class CodeGenerator extends Component<any, any> {
+class CodeGenerator extends Component<ICodeGenerateProps, any> {
     private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
     state = {
@@ -225,6 +226,7 @@ class CodeGenerator extends Component<any, any> {
 
     // 选择组件
     async handleChangeComponent(e, v) {
+        console.log(v);
         let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
         this.reloadChangeComponent(componentName, currentComponent);

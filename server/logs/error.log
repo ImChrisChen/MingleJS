@@ -1820,3 +1820,213 @@ TypeError: Cannot read property 'split' of undefined
  http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
  2020-12-02/17:34:29   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: object with keys {label, value, component, document, property, path}). If you meant to render a collection of children, use an array instead.
+    in div
+    in Unknown (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in Example (created by LayoutGenerator)
+    in Unknown (created by LayoutGenerator)
+    in LayoutGenerator
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: object with keys {label, value, component, document, property, path}). If you meant to render a collection of children, use an array instead.
+    in div
+    in Unknown (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in Example (created by LayoutGenerator)
+    in Unknown (created by LayoutGenerator)
+    in LayoutGenerator
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:216914:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217814:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateHostComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220803:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222128:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226704:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225658:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/18:21:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: object with keys {label, value, component, document, property, path}). If you meant to render a collection of children, use an array instead.
+    in div
+    in Unknown (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in Example (created by LayoutGenerator)
+    in Unknown (created by LayoutGenerator)
+    in LayoutGenerator
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: object with keys {label, value, component, document, property, path}). If you meant to render a collection of children, use an array instead.
+    in div
+    in Unknown (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in Example (created by LayoutGenerator)
+    in Unknown (created by LayoutGenerator)
+    in LayoutGenerator
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:216914:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217814:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateHostComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220803:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222128:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226704:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225658:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/18:21:32   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: object with keys {label, value, component, document, property, path}). If you meant to render a collection of children, use an array instead.
+    in div
+    in Unknown (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in Example (created by LayoutGenerator)
+    in Unknown (created by LayoutGenerator)
+    in LayoutGenerator
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: object with keys {label, value, component, document, property, path}). If you meant to render a collection of children, use an array instead.
+    in div
+    in Unknown (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in div (created by Example)
+    in Example (created by LayoutGenerator)
+    in Unknown (created by LayoutGenerator)
+    in LayoutGenerator
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:216914:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217814:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateHostComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220803:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222128:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226704:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225658:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/18:21:32   
+ ---END---
