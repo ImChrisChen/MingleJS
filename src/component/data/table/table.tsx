@@ -585,12 +585,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // showDropdown={ this.state.showDropdown }       // 是否显示下拉菜单
                 // showDropdownBtn={ this.state.showDropdownBtn }       // 是否显示下拉框按钮
                 bordered={ this.state.bordered }
-                pagination={ {
+                pagination={ this.props.dataset.pagination ? {
                     pageSizeOptions: this.state.pages || [ '10', '20', '50', '100', '200' ],
                     pageSize       : this.state.pagesize || 50,
                     onChange       : this.handleChangePagination.bind(this),
                     current        : this.state.currentpage,
-                } }
+                    position       : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
+                } : false }
                 columns={ this.state.columns.filter(item => item['visible'] === true) }
                 scroll={ {        //  表格是否可以滚动
                     y: this.props.dataset.height || undefined,
