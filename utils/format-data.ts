@@ -30,11 +30,11 @@ export function formatEnumOptions(list: Array<any>, label: string = 'label', val
 }
 
 // 组件配置转化为 菜单，多级选择器可以渲染的数据格式
-export async function formatComponents2Tree(componentMap) {
+export async function formatComponents2Tree(componentConfig) {
     let newArr: Array<object> = [];
-    for (const key in componentMap) {
-        if (!componentMap.hasOwnProperty(key)) continue;
-        let val = componentMap[key];
+    for (const key in componentConfig) {
+        if (!componentConfig.hasOwnProperty(key)) continue;
+        let val = componentConfig[key];
         let children: Array<object> = [];
 
         for (const k in val) {

@@ -61,7 +61,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     toggleCollapsed = (e) => {
-        console.log(e);
         this.setState({
             collapsed: !this.state.collapsed,
         });

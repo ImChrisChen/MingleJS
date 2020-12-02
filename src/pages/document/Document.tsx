@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { deepEach } from '@utils/util';
-import componentMap from '@root/config/component.config';
+import componentConfig from '@root/config/component.config';
 import { formatComponents2Tree } from '@utils/format-data';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
@@ -55,7 +55,7 @@ class Document extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
-        formatComponents2Tree(componentMap).then(list => {
+        formatComponents2Tree(componentConfig).then(list => {
             let routes = deepEach(list, item => {
                 if (item.component) return item;
             });

@@ -22,8 +22,8 @@ import {
     Switch,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import React from 'react';
-import componentMap, { IOptions, IPropertyConfig } from '@root/config/component.config';
+import React, { Component } from 'react';
+import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/parser-tpl';
@@ -53,7 +53,7 @@ interface ICodeGenerateProps {
     [key: string]: any
 }
 
-class CodeGenerator extends React.Component<any, any> {
+class CodeGenerator extends Component<any, any> {
     private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
     state = {
@@ -74,7 +74,7 @@ class CodeGenerator extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        formatComponents2Tree(componentMap).then(tree => {
+        formatComponents2Tree(componentConfig).then(tree => {
             this.setState({
                 componentsTree: tree,
             });
@@ -89,9 +89,9 @@ class CodeGenerator extends React.Component<any, any> {
 
     getComponents(): Array<any> {
         let components: Array<any> = [];
-        for (const key in componentMap) {
-            if (!componentMap.hasOwnProperty(key)) continue;
-            let value = componentMap[key];
+        for (const key in componentConfig) {
+            if (!componentConfig.hasOwnProperty(key)) continue;
+            let value = componentConfig[key];
             for (const k in value) {
                 if (!value.hasOwnProperty(k)) continue;
 

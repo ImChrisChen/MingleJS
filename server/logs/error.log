@@ -1692,3 +1692,131 @@ TypeError: Cannot read property 'split' of undefined
  http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
  2020-12-02/13:40:58   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'innerHTML' of null -----------------end-
+TypeError: Cannot set property 'innerHTML' of null
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:251623:32)
+    at commitDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223542:7)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:226224:9)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:226010:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237816:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214540:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225882:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/17:32:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'innerHTML' of null -----------------end-
+TypeError: Cannot set property 'innerHTML' of null
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:251623:32)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223103:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223619:9)
+    at commitNestedUnmounts (http://mingle-test.local.aidalan.com/manifest.min.js:223664:5)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223944:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:224001:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:226283:11)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/17:32:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'innerHTML' of null -----------------end-
+TypeError: Cannot set property 'innerHTML' of null
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:251623:32)
+    at commitDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223542:7)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:226224:9)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:226010:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237816:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214540:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225882:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/17:33:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'innerHTML' of null -----------------end-
+TypeError: Cannot set property 'innerHTML' of null
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:251623:32)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223103:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223619:9)
+    at commitNestedUnmounts (http://mingle-test.local.aidalan.com/manifest.min.js:223664:5)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223944:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:224001:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:226283:11)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-02/17:33:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/17:34:12   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/17:34:12   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/17:34:29   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-02/17:34:29   
+ ---END---
