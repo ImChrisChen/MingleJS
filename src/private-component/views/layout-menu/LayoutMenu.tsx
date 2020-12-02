@@ -13,8 +13,11 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     PieChartOutlined,
+    LeftOutlined,
+    RightOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import style from './LayoutMenu.scss';
 
 const { SubMenu } = Menu;
 
@@ -75,7 +78,18 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
 
     collapsedButton() {
         return this.props.layout !== 'horizontal'
+            ? <Button
+                type="primary"
+                className={ `layout-menu-toggle-btn ${ style.layoutMenuToggleBtn }` }
+                onClick={ this.toggleCollapsed.bind(this) }
+            >
+                { this.state.collapsed ? <RightOutlined/> : <LeftOutlined/> }
+            </Button>
+            : '';
+
+        return this.props.layout !== 'horizontal'
             ? <Button type="primary"
+                      className="layout-menu-toggle-btn"
                       onClick={ this.toggleCollapsed.bind(this) }
                       style={ { marginBottom: 16 } }>
                 { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
@@ -94,7 +108,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
             } }>
 
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
-                { this.collapsedButton() }
+                {/*{ this.collapsedButton() }*/ }
                 <Menu
                     style={ { position: 'relative' } }
                     mode={ this.props.layout || 'inline' }       /* 'vertical' : 'inline': 'horizontal */
@@ -136,10 +150,8 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                             }
                         })
                     }
-                    <Menu.Item style={ { position: 'absolute', bottom: 0 } }>
-                        { this.collapsedButton() }
-                    </Menu.Item>
                 </Menu>
+                { this.collapsedButton() }
             </div>
         );
     }
