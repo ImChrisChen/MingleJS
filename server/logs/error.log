@@ -3086,3 +3086,179 @@ See https://fb.me/react-invalid-hook-call for tips about how to debug and fix th
  http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
  2020-12-03/10:21:01   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:18:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:19:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-03/11:35:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-03/11:35:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-03/11:37:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134825:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:62221:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50361:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50148:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:44089:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50139:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50355:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50432:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220661:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220611:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-03/11:37:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:57:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:57:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:57:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:57:08   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227466:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227489:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217734:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217794:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:220263:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221757:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:222159:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203689:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203738:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203793:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/layout-generate  -----------------end-
+ 2020-12-03/11:57:26   
+ ---END---

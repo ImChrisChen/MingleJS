@@ -22,7 +22,7 @@ import {
     Switch,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
@@ -34,6 +34,7 @@ import { jsonp } from '@utils/request/request';
 import { isObject, isString, isUndefined } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
+import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -52,9 +53,11 @@ interface ICodeGenerateProps {
     // [key: string]: any
     name?: string
     config?: any
+    visibleCode?: boolean
+    onGenerateCode?: (code: string) => void
 }
 
-class CodeGenerator extends Component<ICodeGenerateProps, any> {
+class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
 
@@ -81,14 +84,6 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
                 componentsTree: tree,
             });
         });
-    }
-
-    // 组件的Props更新时触发
-    UNSAFE_componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
-        let { name, config } = nextProps;
-        if (name && config) {
-            this.reloadChangeComponent(name, config);
-        }
     }
 
     setAttributeValue(index, value) {
@@ -130,7 +125,6 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
         }
 
         let { dataset, hook, ...attrs } = currentComponent.property;
-        // let arr: Array<IComponentDataset> = [];
         let arr: Array<IPropertyConfig> = [];
         let dataEnum: Array<any> = [];
 
@@ -147,7 +141,6 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
             if (k === 'url' && val.request) {
                 let res = await jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
-                console.log(dataItem);
                 if (dataItem && isObject(dataItem)) {
                     for (const itemKey in dataItem) {
                         if (!dataItem.hasOwnProperty(itemKey)) continue;
@@ -230,11 +223,15 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
             componentName,
             dataEnum,
         }, () => this.generateCode());
-
     }
 
+    // 组件的Props更新时触发
     componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
-        console.log(nextProps, nextContext);
+        let { name, config } = nextProps;
+        if (name && config) {
+            console.log('-------------');
+            this.reloadChangeComponent(name, config);
+        }
     }
 
     // 选择组件
@@ -311,6 +308,7 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
             componentUseCode += `\n<script> \n ${ funcs.join('\n') } \n</script>`;
         }
 
+        this.props.onGenerateCode?.(componentUseCode);
         this.setState({ componentUseCode });
 
         // TODO setState 后 initValues 不生效的的解决方案 https://www.cnblogs.com/lanshu123/p/10966395.html
@@ -536,15 +534,17 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
     }
 
     render() {
+        let visibleCode = this.props.visibleCode ?? true;
         return <div style={ { display: 'flex', justifyContent: 'space-around' } }>
 
-            <Card className={ style.panelCard }>
+            { visibleCode ? <Card className={ style.panelCard }>
                 <CodeEditor dataset={ {
                     value: this.state.componentUseCode,
                 } }/>
-            </Card>
+                <ExecCode code={ this.state.componentUseCode }/>
+            </Card> : '' }
 
-            <Card className={ style.panelCard }>
+            <Card className={ style.panelCard } style={ visibleCode ? {} : { width: '100%' } }>
                 <Form layout="vertical"
                       style={ { width: '100%' } }
                       hideRequiredMark

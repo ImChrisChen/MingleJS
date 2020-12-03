@@ -4,3 +4,5 @@ export const layoutGenerate: string;
 export const layoutComponentList: string;
 export const layoutContent: string;
 export const layoutComponentDesign: string;
+export const layoutWorkContent: string;
+export const componentsItem: string;

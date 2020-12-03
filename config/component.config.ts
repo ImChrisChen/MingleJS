@@ -705,6 +705,9 @@ export default {
         // },
         dropdown: {
             component: import('@component/view/dropdown/dropdown'),
+            property : {
+                dataset: {},
+            },
         },
         calendar: {
             path     : 'view-calendar',

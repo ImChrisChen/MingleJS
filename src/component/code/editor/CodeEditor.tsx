@@ -85,17 +85,6 @@ export default class CodeEditor extends Component<any, any> {
                     // this.setState({ value });
                 } }
             />
-
-            {/*<Button onClick={ this.runCode.bind(this) }>查看效果</Button>*/ }
-
-            <Divider/>
-            <Space/>
-            <div>
-                <h1>代码演示</h1>
-                <div className="show-code" style={ { marginTop: 60 } }>
-
-                </div>
-            </div>
         </>;
     }
 }
