@@ -50,13 +50,14 @@ interface ICodeGenerateProps {
     // visible?: boolean           //是否显示组件设计器
     // onClose: () => any
     // [key: string]: any
-    name: string
-    config: any
+    name?: string
+    config?: any
 }
 
 class CodeGenerator extends Component<ICodeGenerateProps, any> {
     private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
+
     state = {
         components        : this.getComponents(),
         componentsProperty: [],          // 组件dataset
@@ -80,6 +81,14 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
                 componentsTree: tree,
             });
         });
+    }
+
+    // 组件的Props更新时触发
+    UNSAFE_componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
+        let { name, config } = nextProps;
+        if (name && config) {
+            this.reloadChangeComponent(name, config);
+        }
     }
 
     setAttributeValue(index, value) {
@@ -111,7 +120,7 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
 
         let fieldOptions: Array<IOptions> = [];
         if (!currentComponent.property) {
-            console.error('请配置组件的proerty属性');
+            console.error(`组件:${ componentName }请配置组件的proerty属性`);
             this.setState({
                 componentsProperty: [],
                 currentComponent,
@@ -222,6 +231,10 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
             dataEnum,
         }, () => this.generateCode());
 
+    }
+
+    componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
+        console.log(nextProps, nextContext);
     }
 
     // 选择组件
@@ -606,5 +619,5 @@ class CodeGenerator extends Component<ICodeGenerateProps, any> {
     }
 }
 
-export default withRouter(CodeGenerator);
-// export default CodeGenerate
+// export default withRouter(CodeGenerator);
+export default CodeGenerator;
