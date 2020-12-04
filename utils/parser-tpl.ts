@@ -30,12 +30,10 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
     // 模版字符替换
     tpl = replaceTplDataValue(fields, itemData, tpl, type);
 
-    console.log(tpl);
     // 表达式执行
     tpl = tpl.replace(/<{(.*?)}>/g, v => {
         let [ , express ] = /<{(.*?)}>/.exec(v) ?? [];
         let exp = isExpress(express.trim());
-        console.log(exp, express);
         if (exp) {
             try {
                 return eval(express);
@@ -48,7 +46,6 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
             return type === 'tpl' ? `<{${ express }}>` : express;
         }
     });
-    console.log(tpl);
     return tpl;
 }
 
@@ -125,19 +122,16 @@ export function getExpressFields(tpl): Array<string> {
 
 // 检测字符串是不是表达式
 export function isExpress(express: string) {
-    if (isNaN(Number(express)) && !(/[\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express))) {
-        // 变量
-        // console.log('变量', express);
-        return false;
-    } else {
-        // console.log('表达式', express);
+    //表达式
+    if (/[\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express)) {
         return true;
+    } else {
+        return false;
     }
 }
 
 export function parsePipeExpress(tpl: string) {
     tpl.replace(/[0-9]+ |> ([a-zA-Z])/, v => {
-        console.log(v);
         return v;
     });
 }
