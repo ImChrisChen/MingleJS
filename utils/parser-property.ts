@@ -8,7 +8,6 @@
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
 import { isString } from '@utils/inspect';
-import tab from '@component/layout/tab/tab';
 
 // 解析dataset data-*
 export function parserProperty(dataset, defaultDataset): object {

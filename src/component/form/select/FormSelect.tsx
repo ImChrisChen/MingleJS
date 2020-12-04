@@ -5,8 +5,6 @@
  * Time: 11:56 下午
  */
 
-import './select.less';
-import * as React from 'react';
 import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
@@ -14,6 +12,7 @@ import { IComponentProps } from '@interface/common/component';
 import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
 import { strParseDOM } from '@utils/parser-dom';
+import React, { Component } from 'react';
 // import axios from 'axios'
 
 const { Option, OptGroup } = Select;
@@ -35,7 +34,7 @@ interface ISelectProps {
     [key: string]: any
 }
 
-export default class Selector extends React.Component<IComponentProps, any> {
+export default class Selector extends Component<IComponentProps, any> {
 
     state = {
         checkedAll : false,

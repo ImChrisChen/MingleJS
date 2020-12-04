@@ -24,7 +24,7 @@ import {
     WordCloudChart,
 } from 'bizcharts';
 import { Spin } from 'antd';
-import FormAction from '@component/form/form-action/form';
+import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
 import DataSet from '@antv/data-set';
 import { isArray, isEmptyArray } from '@utils/inspect';

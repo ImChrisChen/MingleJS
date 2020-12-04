@@ -4,12 +4,12 @@
  * Date: 2020/10/5
  * Time: 2:48 下午
  */
-import React from 'react';
+import React, { Component } from 'react';
 import { Button, Modal } from 'antd';
 import { IComponentProps } from '@interface/common/component';
 import $ from 'jquery';
 import Draggable from 'react-draggable';
-import DataPanel from '@component/data/panel/panel';
+import DataPanel from '@component/data/panel/DataPanel';
 import App from '@src/App';
 // import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
 
@@ -22,7 +22,7 @@ const style = {
     background    : '#f0f0f0',
 };
 
-export default class LayoutWindow extends React.Component<IComponentProps, any> {
+export default class LayoutWindow extends Component<IComponentProps, any> {
 
     state = {
         loading : false,

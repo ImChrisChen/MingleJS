@@ -10,11 +10,10 @@ import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
 
-export default class Button extends React.Component<IComponentProps, any> {
+export default class FormButton extends React.Component<IComponentProps, any> {
     state: any = {
         value  : this.props.value,
         options: [],
-
     };
 
     constructor(props) {
@@ -40,7 +39,9 @@ export default class Button extends React.Component<IComponentProps, any> {
                     onChange={ this.handleChange.bind(this) }
                     value={ this.state.value }
                     options={ this.state.options }
-                    { ...this.props.dataset }
+                    optionType={ this.props.dataset.type }
+                    buttonStyle={ this.props.dataset.buttonStyle }
+                    size={ this.props.dataset.size }
                 />
             </Form.Item>
         </>;

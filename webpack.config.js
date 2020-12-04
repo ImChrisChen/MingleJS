@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const { getThemeVariables } = require('antd/dist/theme');
 // const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
 // const Dashboard = require('webpack-dashboard');
 // const dashboard = new Dashboard();
@@ -138,14 +137,16 @@ module.exports = {
                     {
                         loader: 'less-loader',
                         options: {
-                            lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
-                                modifyVars: getThemeVariables({
-                                    // dark: true, // 开启暗黑模式
-                                    compact: true, // 开启紧凑模式
-                                }),
-                                javascriptEnabled: true,
+                            // javascriptEnabled: true,
+                            // lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+                            modifyVars: {
+                                dark: true, // 开启暗黑模式
+                                compact: true, // 开启紧凑模式
+                                'primary-color': '#f38ce4',　　//修改antd主题色
                             },
+                            javascriptEnabled: true,
                         },
+                        // },
                     },
                 ],
             },

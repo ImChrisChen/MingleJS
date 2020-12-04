@@ -30,7 +30,7 @@ interface IDatepickerState {
     defaultValue: ''
 }
 
-export default class Datepicker extends React.Component<IComponentProps, any> {
+export default class FormDatepicker extends React.Component<IComponentProps, any> {
 
     state: any = {
         format: 'YYYY-MM-DD',

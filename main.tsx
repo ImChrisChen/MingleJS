@@ -1,16 +1,12 @@
 // import 'antd/dist/antd.compact.less' // 紧凑模de式
-
-import 'antd/dist/antd.css';
-
+import './src/App.less';
 import './src/App.scss';
 import React from 'react';
 import { ConfigProvider, message, notification } from 'antd';
 import App from './src/App';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
-// import 'antd/dist/antd.dark.css'
-import Document from '@src/pages/document/Document';
-// https://www.cnblogs.com/cckui/p/11490372.html
+import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import axios from 'axios';

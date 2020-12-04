@@ -151,7 +151,7 @@ const UniversalProps = {
             },
         ],
         parse  : 'string',
-        value  : '设置大小',
+        value  : 'middle',
     },
     name       : {
         el   : 'input',
@@ -227,8 +227,8 @@ export default {
     form    : {
         select    : {
             path     : '/form-select',
-            component: import('@component/form/select/select'),
-            document : import('@component/form/select/select.md'),
+            component: import('@component/form/select/FormSelect'),
+            document : import('@component/form/select/FormSelect.md'),
             property : {
                 dataset    : {
                     label     : UniversalProps.label,
@@ -343,7 +343,7 @@ export default {
         },
         selectTree: {
             path     : '/form-selecttree',
-            component: import('@component/form/select/tree/tree'),
+            component: import('@component/form/select/tree/FormSelectTree'),
             property : {
                 dataset    : {
                     label     : UniversalProps.label,
@@ -390,7 +390,7 @@ export default {
         },
         checkbox  : {
             // document
-            component: import('@component/form/checkbox/checkbox'),
+            component: import('@component/form/checkbox/FormCheckbox'),
             property : {
                 dataset: {
                     disabled: UniversalProps.disabled,
@@ -416,7 +416,7 @@ export default {
         },
         cascader  : {
             path     : '/form-cascader',
-            component: import('@component/form/cascader/cascader'),
+            component: import('@component/form/cascader/FormCascader'),
             property : {
                 dataset    : {
                     label     : UniversalProps.label,
@@ -466,7 +466,7 @@ export default {
         },
         datepicker: {
             path     : '/form-datepicker',
-            component: import('@component/form/datepicker/datepicker'),
+            component: import('@component/form/datepicker/FormDatepicker'),
             property : {
                 dataset: {
                     label     : UniversalProps.label,
@@ -527,7 +527,7 @@ export default {
             },
         },
         action    : {
-            component: import('@component/form/form-action/form'),
+            component: import('@component/form/form-action/FormAction'),
             property : {
                 dataset: {
                     async : {
@@ -573,16 +573,16 @@ export default {
                 },
             },
         },
-        button    : {
-            path     : '/form-button',
-            component: import('@component/form/button/button'),
+        radio     : {
+            path     : '/form-radio',
+            component: import('@component/form/button/FormButton'),
             property : {
                 dataset: {
                     label      : UniversalProps.label,
                     enum       : UniversalProps.enum,
                     disabled   : UniversalProps.disabled,
                     size       : UniversalProps.size,
-                    optionType : {
+                    type       : {  // optionType
                         el     : 'radio',
                         options: [
                             {
@@ -608,8 +608,9 @@ export default {
                                 value: 'online',
                             },
                         ],
-                        value  : '',
+                        value  : 'solid',
                         parse  : 'string',
+                        render : true,
                     },
                     required   : UniversalProps.required,
                 },
@@ -623,7 +624,7 @@ export default {
             },
         },
         switch    : {
-            component: import('@component/form/switch/switch'),
+            component: import('@component/form/switch/FormSwtich'),
             property : {
                 dataset: {
                     disabled         : UniversalProps.disabled,
@@ -642,7 +643,7 @@ export default {
             },
         },
         input     : {
-            component: import('@component/form/input/input'),
+            component: import('@component/form/input/FormInput'),
             property : {
                 dataset    : {
                     type    : {
@@ -673,7 +674,7 @@ export default {
             },
         },
         file      : {
-            component: import('@component/form/file/file'),
+            component: import('@component/form/file/FormFile'),
             path     : 'form-file',
             property : {
                 dataset: {
@@ -684,7 +685,7 @@ export default {
             },
         },
         color     : {
-            component: import('@component/form/color/color'),
+            component: import('@component/form/color/FormColor'),
             path     : 'form-color',
             property : {
                 dataset: {
@@ -726,7 +727,7 @@ export default {
     },
     data    : {
         table: {
-            component: import('@component/data/table/table'),
+            component: import('@component/data/table/DataTable'),
             path     : '/data-table',
             property : {
                 dataset: {
@@ -802,7 +803,7 @@ export default {
             },
         },
         chart: {
-            component: import('@component/data/image/image'),
+            component: import('@component/data/chart/DataChart'),
             path     : '/data-chart',
             property : {
                 dataset: {
@@ -915,7 +916,7 @@ export default {
             },
         },
         panel: {
-            component: import('@component/data/panel/panel'),
+            component: import('@component/data/panel/DataPanel'),
             property : {
                 dataset: {
                     url  : UniversalProps.url,
@@ -928,8 +929,8 @@ export default {
             },
         },
         list : {
-            component: import('@component/data/list/list'),
-            document : import('@component/data/list/list.md'),
+            component: import('@component/data/list/DataList'),
+            document : import('@component/data/list/DataList.md'),
             path     : 'data-list',
             property : {
                 dataset: {
@@ -1050,8 +1051,8 @@ export default {
             },
         },
         tab   : {
-            component: import('@component/layout/tab/tab'),
-            document : import('@component/layout/tab/tab.md'),
+            component: import('@component/layout/tab/LayoutTab'),
+            document : import('@component/layout/tab/LayoutTab'),
             path     : '/layout-tab',
             property : {
                 dataset: {
@@ -1068,8 +1069,8 @@ export default {
             },
         },
         window: {
-            component: import('@component/layout/window/window'),
-            document : import('@component/layout/window/window.md'),
+            component: import('@component/layout/window/LayoutWindow'),
+            document : import('@component/layout/window/LayoutWindow.md'),
             path     : '/layout-window',
             property : {
                 dataset: {
@@ -1089,12 +1090,12 @@ export default {
             },
         },
         drawer: {
-            component: import('@component/layout/drawer/drawer'),
+            component: import('@component/layout/drawer/LayoutDrawer'),
         },
         steps : {
             path     : '/layout-steps',
-            component: import('@component/layout/steps/steps'),
-            document : import('@component/layout/steps/steps.md'),
+            component: import('@component/layout/steps/LayoutSteps'),
+            document : import('@component/layout/steps/LayoutSteps.md'),
             property : {
                 dataset: {
                     current: {
@@ -1129,8 +1130,8 @@ export default {
     },
     handle  : {
         request: {
-            component: import('@component/handle/request/request'),
-            document : import('@component/handle/request/request.md'),
+            component: import('@component/handle/request/HandleRequest'),
+            document : import('@component/handle/request/HandleRequest.md'),
             path     : '/handle-request',
             property : {
                 dataset: {
@@ -1155,7 +1156,7 @@ export default {
     },
     editor  : {
         flow    : {     // 流程图
-            component: import('@component/editor/flow/flow'),
+            component: import('@component/editor/flow/EditorFlow'),
             property : {
                 dataset: {},
             },
