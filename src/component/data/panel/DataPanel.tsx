@@ -15,6 +15,8 @@ import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
 import exp from 'constants';
+import Loading from '@component/tips/loading/loading';
+import { Spin } from 'antd';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
@@ -32,7 +34,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             new App(rootElement, true);
 
             this.setState({ model: data });
-            this.props.el.style.display = 'block';
+            this.props.el.style.visibility = 'visible';
+            this.props.el.style.opacity = '1';
         });
     }
 

@@ -3555,3 +3555,46 @@ undefined  -----------------end-
  http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
  2020-12-04/18:02:06   
  ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: Vue is not defined -----------------end-
+ReferenceError: Vue is not defined
+    at <anonymous>:2:5
+    at DOMEval (http://mingle-test.local.aidalan.com/manifest.min.js:179748:12)
+    at domManip (http://mingle-test.local.aidalan.com/manifest.min.js:185747:8)
+    at jQuery.fn.init.append (http://mingle-test.local.aidalan.com/manifest.min.js:185883:10)
+    at http://mingle-test.local.aidalan.com/main.min.js:253569:33  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
+ 2020-12-04/18:05:48   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
+ 2020-12-04/18:05:56   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
+ 2020-12-04/18:06:13   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: Vue is not defined -----------------end-
+ReferenceError: Vue is not defined
+    at window.onload (<anonymous>:3:9)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
+ 2020-12-04/18:06:13   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
+ 2020-12-04/18:06:36   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: Vue is not defined -----------------end-
+ReferenceError: Vue is not defined
+    at window.onload (<anonymous>:3:9)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
+ 2020-12-04/18:06:36   
+ ---END---
