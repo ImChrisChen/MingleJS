@@ -14,6 +14,7 @@ import { isArray, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
+import exp from 'constants';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
@@ -46,9 +47,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         // TODO 解析顺序会影响渲染性能
         deepEachElement(root, (el: HTMLElement) => {
             this.parseIfelse(el, model);
-            this.parseForeach(el, model);
-            this.parseTextContent(el, model);
             this.parseProperty(el, model);
+            this.parseTextContent(el, model);
+            this.parseForeach(el, model);
         });
 
         return root;
@@ -80,7 +81,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (node.nodeType === 3) {
                 let textNode = node.textContent;
                 if (isWuiTpl(textNode ?? '')) {
-                    node.textContent = parseTpl(textNode ?? '', model, 'tpl');
+                    let textContent = parseTpl(textNode ?? '', model, 'tpl');
+                    console.log(textContent);
+                    node.textContent = textContent;
                 }
             }
         });
@@ -92,7 +95,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         let { name, value } = attrs[directiveForeach];
         el.removeAttribute(directiveForeach);
 
-        // ~foreach="data as item" 或者 data as (item,index)
+        // w-foreach="data as item" 或者 data as (item,index)
         if (!/^\w+ as (\w+|\(.+?\))$/.test(value)) {
             console.error(`${ name }格式不正确`);
         }
@@ -107,15 +110,17 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             return express;
         }
 
-        let express = getIfExpressByElement(el);
-        express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
+        let express = getIfExpressByElement(el) ?? undefined;        // undefined 时是没有表达式的
+        if (express) {
+            express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
+        }
 
         let [ arrayName, itemName ] = value.split('as');
-        let indexName;
+        let indexName = 'index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [ , itemIndex ] = /\((.+?)\)/.exec('(item,index)') ?? [];       // item,index
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
             [ itemName, indexName ] = itemIndex.split(',');
         }
 
@@ -151,17 +156,16 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (result) {
                 let cloneNode = el.cloneNode(true) as HTMLElement;
                 this.parseElement(cloneNode, itemModel);
-                this.parseElement(cloneNode, model);
-                this.parseProperty(cloneNode, itemModel);      // 处理属性解析
+                // this.parseElement(cloneNode, model);
+                // this.parseProperty(cloneNode, itemModel);      // 处理属性解析
                 return cloneNode;
             } else {
-                elseElement = el.nextElementSibling as HTMLElement;     // ~else
+                elseElement = el.nextElementSibling as HTMLElement;     // w-else
                 if (elseElement?.attributes?.[directiveElse]) {
                     let cloneNode = elseElement.cloneNode(true) as HTMLElement;
                     this.parseElement(cloneNode, itemModel);
-                    console.log(model);
-                    this.parseElement(cloneNode, model);
-                    this.parseProperty(cloneNode, itemModel);      // 处理属性解析
+                    // this.parseElement(cloneNode, model);
+                    // this.parseProperty(cloneNode, itemModel);      // 处理属性解析
                     return cloneNode;
                 }
             }

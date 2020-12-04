@@ -75,6 +75,11 @@ export function isWuiTpl(v: string): boolean {
     return /<{(.+?)}>/.test(v);
 }
 
+// 判断是否是管道操作符
+export function isPipe(v: string) {
+    return /[0-9]+ |> ([a-zA-Z])/.test(v);
+}
+
 // 判断字符串中是否存在html字符串
 export function isHtmlTpl(v: string): boolean {
     return /(.*?)(<[a-zA-Z]) (.*?)/.test(v);

@@ -1,1 +1,1 @@
-/** * Created by WebStorm. * User: MacBook * Date: 2020/12/1 * Time: 3:36 下午 */export const directiveIf = '~if';export const directiveElse = '~else';export const directiveForeach = '~foreach';
+/** * Created by WebStorm. * User: MacBook * Date: 2020/12/1 * Time: 3:36 下午 */export const directiveIf = 'w-if';export const directiveElse = 'w-else';export const directiveForeach = 'w-foreach';
