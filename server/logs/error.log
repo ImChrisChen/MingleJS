@@ -3598,3 +3598,41 @@ ReferenceError: Vue is not defined
  http://mingle-test.local.aidalan.com/#/nav-tpl  -----------------end-
  2020-12-04/18:06:36   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134397:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61793:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49933:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49720:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:43661:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:49711:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:49927:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50004:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220214:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220164:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-04/18:37:29   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134397:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61793:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49933:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49720:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:43661:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:49711:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:49927:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50004:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220214:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220164:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/test-1  -----------------end-
+ 2020-12-04/18:37:29   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-view-template  -----------------end-
+ 2020-12-04/18:37:35   
+ ---END---
