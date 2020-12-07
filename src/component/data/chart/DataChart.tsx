@@ -59,30 +59,25 @@ export default class DataChart extends React.Component<IComponentProps, any> {
     constructor(props) {
         super(props);
 
-        if (this.props.dataset && this.props.dataset.from) {
-            let formElement = FormAction.findFormElement(this.props.dataset.from);
-            FormAction.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
-        }
-
-        this.getData().then(data => {
+        this.getData(this.props.dataset.url).then(data => {
             this.setState({ data, loading: false });
         });
     }
 
-    async handleFormSubmit(formData) {
-        this.setState({
-            loading: true,
-        });
+    // TODO 点击表单提交触发
+    public async FormSubmit(formData) {
+        console.log('DataChart:', formData);
+        this.setState({ loading: true });
         let url = formatObject2Url(formData, this.props.dataset.url);
-        let res = await jsonp(url);
-
-        if (res.status) {
-            this.setState({ data: res.data, loading: false });
-        }
+        let data = await this.getData(url);
+        this.setState({ data, loading: false });
     }
 
-    async getData() {
-        let res = await jsonp(this.props.dataset.url);
+    async handleFormSubmit(formData) {
+    }
+
+    async getData(url) {
+        let res = await jsonp(url);
         return res.status ? res.data : [];
     }
 
@@ -640,7 +635,7 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         }
     }
 
-    public static renderChart(config):ReactNode {
+    public static renderChart(config): ReactNode {
         switch (config.chartType) {
             case 'bar':
                 return this.bar(config);

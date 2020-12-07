@@ -117,11 +117,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
     constructor(props: ITableProps) {
         super(props);
 
-        if (this.props.dataset && this.props.dataset.from) {
-            let formElement = FormAction.findFormElement(this.props.dataset.from);
-            FormAction.onFormSubmit(formElement, this.handleFormSubmit.bind(this));
-        }
-
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
@@ -190,8 +185,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     // 提交表单
-    async handleFormSubmit(formData, e) {
-        console.log('表单数据:', formData);
+    public async FormSubmit(formData, e) {
+        console.log('DataTable:', formData);
         this.setState({ loading: true });
 
         let url = formatObject2Url(formData, this.props.dataset.url);

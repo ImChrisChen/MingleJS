@@ -65,7 +65,6 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
             // value值函数解析
             if (value && typeof value === 'function') {
-                console.log(value, parsedDataset);
                 currentProperty.value = value = value(parsedDataset);
             }
 

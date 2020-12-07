@@ -434,7 +434,6 @@ export default class App {
         // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
         let value = element['value'] || defaultValue;
 
-        console.log(value);
         // TODO 如果值不想等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
         if (!isUndefined(element['value']) && value !== element['value']) {
             trigger(element, value);

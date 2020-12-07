@@ -522,11 +522,8 @@ export default {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
-                        console.log(parsedDataset, '----------------');
-
                         // 今天
                         let date = moment().subtract(0, 'days').format(parsedDataset.format);
-                        console.log(date);
                         return parsedDataset.single ? date : date + '~' + date;
 
                         let momentDate = moment(date, parsedDataset.format);
@@ -553,7 +550,7 @@ export default {
                     url   : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://baidu.com',
+                        // value: 'http://baidu.com',
                         desc : 'form表单提交的url',
                     },
                     method: {
