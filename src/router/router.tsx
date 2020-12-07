@@ -54,13 +54,12 @@ export default [
         name     : '测试页面',
         path     : '/test-1',
         component: <HtmlRenderer html={ temp1 }/>,
-        children : [
-            {
-                name     : '用户画像',
-                path     : '/user-analysis',
-                component: <HtmlRenderer html={ user_analysis }/>,
-            },
-        ],
+        children : [ {} ],
+    },
+    {
+        name     : '用户画像',
+        path     : '/user-analysis',
+        component: <HtmlRenderer html={ user_analysis }/>,
     },
     {
         name     : 'data-list',

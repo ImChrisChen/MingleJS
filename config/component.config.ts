@@ -6,6 +6,9 @@
  */
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
+import moment from 'moment';
+import { DatePicker } from 'antd';
+import React from 'react';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -518,7 +521,18 @@ export default {
                 value  : {
                     el   : 'input',
                     parse: 'null',
-                    value: '',
+                    value(parsedDataset) {
+                        console.log(parsedDataset, '----------------');
+
+                        // 今天
+                        let date = moment().subtract(0, 'days').format(parsedDataset.format);
+                        console.log(date);
+                        return parsedDataset.single ? date : date + '~' + date;
+
+                        let momentDate = moment(date, parsedDataset.format);
+                        return parsedDataset.single ? momentDate : [ momentDate, momentDate ];
+                        // return [ moment('2020-10-28', parsedDataset.format), moment('2020-10-28', parsedDataset.format) ];
+                    },
                     // value: (parsedDataset) => {      // TODO config 是 form-datepicker的配置
                     //     let date = moment().format('YYYY-MM-DD');
                     //     return [ date, date ];

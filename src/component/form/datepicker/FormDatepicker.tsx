@@ -42,16 +42,6 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
 
     constructor(props) {
         super(props);
-        //
-        // let beginTime = moment().format("YYYY-MM-DD 00:00:00");
-        // let endTime = moment().format("YYYY-MM-DD 23:59:59"); // 本周
-        //
-        // let beginTime = moment().day("Monday").format("YYYY-MM-DD 00:00:00");
-        // let endTime = moment().day("Monday").day(+7).format("YYYY-MM-DD 23:59:59");
-        //
-        // // 本月
-        // let beginTime = moment().startOf("month").format("YYYY-MM-DD 00:00:00");
-        // let endTime = moment().endOf("month").format("YYYY-MM-DD 23:59:59");
     }
 
     handleChange(_, value) {
@@ -64,20 +54,11 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         });
 
         value = isArray(value) ? value.join('~') : value;
-        console.log(value);
         trigger(this.props.el, value);
     }
 
     // 今天
     handleSelectDay(diffDay) {
-        // let beginTime = moment().format('YYYY-MM-DD');
-        // let endTime = moment().format('YYYY-MM-DD');
-        // let value = [ beginTime, endTime ];
-        // this.setState({
-        //     value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
-        // });
-        // trigger(this.props.el, value.join(','));
-
         // 昨天
         let beginTime = moment().subtract(diffDay, 'days').format('YYYY-MM-DD');
         let endTime = moment().subtract(0, 'days').format('YYYY-MM-DD');
@@ -111,35 +92,53 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         this.setState({ open: false });
     }
 
+    // datepicker value 格式转化 value = '2020-12-07' |  '2020-12-07~2020-12-07'
+    valueFormat(value: string): any | Array<any> {
+        let { format, single, label } = this.props.dataset;
+        let dateValue;
+        if (single) {
+            dateValue = moment(value, format);
+        } else {
+            if (value.includes('~')) {
+                let [ begin, end ] = value.split('~');
+                dateValue = [ moment(begin, format), moment(end, format) ];
+            } else {
+                console.warn(`${ label }格式不正确`);
+            }
+        }
+        return dateValue;
+    }
+
     render() {
-        console.log(this.props);
-        // let date = moment().format('YYYY-MM-DD');
-        let { single, picker, mode, mindate, maxdate, format, allowClear } = this.props.dataset;
-        return <>
-            <Form.Item label={ this.props.dataset.label } style={ { display: 'flex' } }>
-                { single ?
-                    // 单选
-                    <DatePicker
-                        picker={ picker }
-                        onChange={ this.handleChange.bind(this) }
-                        mode={ mode }
-                        format={ format }
-                    />
-                    :
-                    // 多选
-                    <RangePicker
-                        // open={ this.state.open }
-                        onFocus={ this.handleFoucs.bind(this) }
-                        onBlur={ this.handleBlur.bind(this) }
-                        onChange={ this.handleChange.bind(this) }
-                        format={ format }
-                        picker={ picker }
-                        allowClear={ allowClear }
-                        renderExtraFooter={ e => this.renderCustomDay() }
-                        mode={ mode }
-                    />
-                }
-            </Form.Item>
-        </>;
+        let { single, picker, mode, mindate, maxdate, format, allowClear, label } = this.props.dataset;
+
+        let value = this.valueFormat(this.props.value);
+
+        return <Form.Item label={ this.props.dataset.label } style={ { display: 'flex' } }>
+            { single ?
+                // 单选
+                <DatePicker
+                    picker={ picker }
+                    onChange={ this.handleChange.bind(this) }
+                    mode={ mode }
+                    format={ format }
+                    value={ value }
+                />
+                :
+                // 多选
+                <RangePicker
+                    // open={ this.state.open }
+                    onFocus={ this.handleFoucs.bind(this) }
+                    onBlur={ this.handleBlur.bind(this) }
+                    onChange={ this.handleChange.bind(this) }
+                    format={ format }
+                    picker={ picker }
+                    allowClear={ allowClear }
+                    renderExtraFooter={ e => this.renderCustomDay() }
+                    mode={ mode }
+                    value={ value }
+                />
+            }
+        </Form.Item>;
     }
 }

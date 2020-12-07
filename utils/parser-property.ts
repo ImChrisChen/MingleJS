@@ -64,7 +64,10 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
             let { value, parse, verify } = currentProperty;
 
             // value值函数解析
-            if (value && typeof value === 'function') value = value(parsedDataset);
+            if (value && typeof value === 'function') {
+                console.log(value, parsedDataset);
+                currentProperty.value = value = value(parsedDataset);
+            }
 
             // 属性函数验证
             if (verify && !verify(value)) {

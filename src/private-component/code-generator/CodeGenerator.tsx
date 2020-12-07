@@ -242,9 +242,9 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         this.reloadChangeComponent(componentName, currentComponent);
     }
 
-    shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
-        return true;
-    }
+    // shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
+    //     return true;
+    // }
 
     handleChangeRadio(index, e) {
         let value = e.target.value;

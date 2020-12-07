@@ -206,7 +206,6 @@ export default class DataChart extends React.Component<IComponentProps, any> {
     // 柱状图
     public static bar(config) {
         let { position, groupby, colors } = config;
-        console.log(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
@@ -250,10 +249,10 @@ export default class DataChart extends React.Component<IComponentProps, any> {
                     },
                 } }
                 onAxisLabelClick={ (event, chart) => {
-                    console.log('event', event, 'chart', chart);
-                    console.log('data', chart.filteredData);
-                    console.log('mytext', event.target.attrs.text);
-                    console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
+                    // console.log('event', event, 'chart', chart);
+                    // console.log('data', chart.filteredData);
+                    // console.log('mytext', event.target.attrs.text);
+                    // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
                 } }
             >
                 <Coordinate transpose/>
@@ -464,8 +463,6 @@ export default class DataChart extends React.Component<IComponentProps, any> {
 
         const { DataView } = DataSet;
         const dv = new DataView().source(data);
-        console.log(DataSet);
-        console.log(dv);
         dv.transform({
             type  : 'fold',
             // fields: [ 'a', 'b' ], // 展开字段集
@@ -605,7 +602,6 @@ export default class DataChart extends React.Component<IComponentProps, any> {
     }
 
     formatConfig(): IChartConfig | any {
-        console.log(this.props.dataset);
         let {
             key,       // data数据 key 值映射
             value,     // data数据 value 值映射
@@ -673,7 +669,6 @@ export default class DataChart extends React.Component<IComponentProps, any> {
 
     render() {
         let config = this.formatConfig();
-        console.log(config);
         return <>
             <h2 hidden={ !this.props.dataset.title }
                 style={ { textAlign: 'center', padding: '10px 20px' } }>{ this.props.dataset.title }</h2>

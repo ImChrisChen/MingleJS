@@ -5,12 +5,11 @@
 >
 
     <!-- 日期 -->
-    <input data-fn="form-datepicker" data-label="日期:"
+    <input data-fn="form-datepicker"
+           data-label="日期:"
            data-mindate="2016-01-01"
            data-maxdate="2020-10-26"
-           data-singledatepicker="false"
            name="date_range"
-           value="2020-10-28~2020-10-28"
     />
 
     <!-- 平台 -->
@@ -66,7 +65,7 @@
     <input data-fn="form-input" name="adv_position_id" data-label="广告位">
 
     <!-- 用户分析 -->
-    <input data-fn="form-button" data-label="用户分析" name="group_type" value="reg_count"
+    <input data-fn="form-radio" data-label="用户分析" name="group_type" value="reg_count"
            data-enum="reg_count,注册;login_count,活跃;pay_count,付费;" id="group_type">
 
     <button type="reset" class="ant-btn ant-btn-waring">重置</button>
@@ -80,15 +79,12 @@
     <!-- 地域用户画像 -->
     <div class="flexWidth-45">
         <div data-fn="data-chart"
-             data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
              data-from="user_analysis"
+             data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
              data-type="bar"
              data-colors="#6ad6b6"
-             data-name="地域"
              data-key="location"
              data-value="count"
-             data-title=""
-             data-datadirect="y"
         >
         </div>
         <div data-fn="data-table"
@@ -108,7 +104,7 @@
              data-colors="#6ad6b6"
              data-name="品牌"
              data-key="brand"
-             data-value_field="count"
+             data-value="count"
              data-title=""
              data-datadirect="y"
         ></div>
