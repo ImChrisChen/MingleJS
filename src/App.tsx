@@ -257,33 +257,41 @@ export default class App {
         return '';
     }
 
+    // 重载组件
     dynamicReloadComponents(element: HTMLInputElement) {
+        console.log('----------------------');
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
+
         [ ...$formItems ].forEach(formItem => {
             let dataset = formItem.dataset;
             let $formItemBox = $(formItem).parent('[data-component-uid]');
             let uid = $formItemBox.attr('data-component-uid') ?? '';
+            let selfInputName = element.name;
+            let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
+            let { module }: IInstances = App.instances[uid];
 
             for (const key in dataset) {
                 if (!dataset.hasOwnProperty(key)) continue;
-                let tpl = dataset[key] ?? '';
-                let inputName = element.name;
-                let regExp = new RegExp(`<{(.*?)${ inputName }(.*?)}>`);
-                if (inputName && regExp.test(tpl)) {
-                    let { module }: IInstances = App.instances[uid];
+                let value = dataset[key] ?? '';
+
+                // 只有和模版关联的input框组件才会重载
+                if (regExp.test(value)) {
                     // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
+
                     ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
-                    this.renderComponent(module,
-                        hooks => hooks[Hooks.beforeUpdate]?.(),
-                        (hooks) => {
-                            hooks[Hooks.update]?.();
-                            // this.dynamicReloadComponents(element);
-                        },
-                    );
+                    (module.element as HTMLInputElement).value = '';
+                    setTimeout(() => {
+                        this.renderComponent(module,
+                            hooks => hooks[Hooks.beforeUpdate]?.(),
+                            (hooks) => {
+                                hooks[Hooks.update]?.();
+                            },
+                        );
+                    });
+                    break;
                 }
             }
-
         });
     }
 
@@ -296,7 +304,8 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                message.success(`onchange - value:${ $(element).val() }`);
+                // message.success(`onchange - value:${ $(element).val() }`);
+                console.log(`onchange - value:${ $(element).val() }`);
 
                 // 组件发生改变的时候重新出发组件渲染，达到值的改变
                 this.renderComponent(module, hooks => {
@@ -391,6 +400,7 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h, instance: ReactInstance) => any) {
+        console.log('render');
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
             elChildNodes,
