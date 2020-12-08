@@ -12,6 +12,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
+import { Hooks } from '@root/config/directive.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -47,19 +48,10 @@ interface IModules {
     componentUID: string            // 组件uid
 }
 
-
 interface IArrItem {
     name: string,
     value: string
 }
-
-const arr: Array<IArrItem> = [
-    {
-        name : '',
-        value: '',
-    },
-];
-
 
 interface IAttributes extends NamedNodeMap {
     style?: any | string
@@ -74,16 +66,6 @@ interface W extends Window {
 interface IInstances {
     module: IModules
     instance: ReactInstance
-}
-
-export type PropertyType = 'dataset' | 'attribute';
-
-// 组件生命周期
-enum Hooks {
-    load = 'load',
-    beforeLoad = 'before-load',
-    update = 'update',
-    beforeUpdate = 'before-update'
 }
 
 export default class App {
@@ -240,10 +222,14 @@ export default class App {
 
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
+
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
-            let [ , hookName ] = name.split('@');
-            if (hookName && isFunc((window as W)[fnName])) {
-                hooks[hookName] = (window as W)[fnName];
+            // @ts-ignore
+            let hook = Object.values(Hooks).includes(name);
+            if (hook) {
+                if (name && isFunc((window as W)[fnName])) {
+                    hooks[name] = (window as W)[fnName];
+                }
             }
         });
         return hooks;
@@ -259,7 +245,6 @@ export default class App {
 
     // 重载组件
     dynamicReloadComponents(element: HTMLInputElement) {
-        console.log('----------------------');
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
 
@@ -400,7 +385,6 @@ export default class App {
     }
 
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h, instance: ReactInstance) => any) {
-        console.log('render');
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
             elChildNodes,

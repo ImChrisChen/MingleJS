@@ -1138,6 +1138,27 @@ export default {
                 },
             },
         },
+        list  : {
+            component: import('@component/layout/list/LayoutList'),
+            document : import('@component/layout/list/LayoutList.md'),
+            path     : '/layout-list',
+            property : {
+                dataset: {
+                    row  : {
+                        el   : 'number',
+                        value: 2,
+                        parse: 'number',
+                        desc : '每行显示的数量',
+                    },
+                    space: {
+                        el   : 'input',
+                        parse: 'number[]',
+                        value: '20,10',
+                        desc : '前面的值(20)代表上下的间距,后面的值(10)代表左右的间距',
+                    },
+                },
+            },
+        },
     },
     handle  : {
         request: {

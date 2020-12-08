@@ -22,6 +22,7 @@ import AppMenuHtml from '@root/template/app-menu.html';
 import tplHtml from '@root/template/tpl.html';
 import dataList from '@root/template/data-list.html';
 import templatePanel from '@root/template/template-panel/template.html';
+import LayoutList from '@root/template/layout-list.html';
 
 // nav
 export default [
@@ -34,6 +35,11 @@ export default [
         name     : '开发文档',
         path     : '/development-docs',
         component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
+    },
+    {
+        name     : 'Layout-list',
+        path     : '/nav-layout-list',
+        component: <HtmlRenderer html={ LayoutList }/>,
     },
     {
         name     : '日志统计',
