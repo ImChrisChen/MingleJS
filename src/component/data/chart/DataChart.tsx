@@ -13,7 +13,7 @@ import {
     Area,
     Axis,
     Chart,
-    Coordinate,
+    Coordinate, Geom, Guide,
     Interaction,
     Interval,
     Legend,
@@ -599,6 +599,51 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         </Chart>;
     }
 
+    public static water(config) {
+        let data = config.dataSource;
+        const { Text } = Guide;
+        const scale = {
+            value: {
+                min: 0,
+                max: 100,
+            },
+        };
+
+        return (
+            <Chart data={ data } padding="auto" scale={ scale } forceFit>
+                <Tooltip/>
+                <Geom
+                    type="interval"
+                    position={ config.position }
+                    color={ config.groupby || config.colors }
+                    shape="liquid-fill-gauge"
+                    style={ {
+                        lineWidth  : 10,
+                        fillOpacity: 0.75,
+                    } }
+                />
+                <Guide>
+                    {
+                        data.map(
+                            row => (<Text
+                                content={ `${ row[config.value] }%` }
+                                top
+                                position={ {
+                                    [config.key]  : row[config.key],
+                                    [config.value]: 50,
+                                } }
+                                style={ {
+                                    opacity  : 0.75,
+                                    fontSize : window.innerWidth / 60,
+                                    textAlign: 'center',
+                                } }
+                            />))
+                    }
+                </Guide>
+            </Chart>
+        );
+    }
+
     formatConfig(): IChartConfig | any {
         let {
             key,       // data数据 key 值映射
@@ -658,6 +703,8 @@ export default class DataChart extends React.Component<IComponentProps, any> {
                 return this.funnel(config);
             case 'radar':
                 return this.radar(config);
+            // case 'water':
+            //     return this.water(config);
             case 'rect':
                 return this.rect(config);
             default:

@@ -5220,3 +5220,67 @@ undefined  -----------------end-
  http://sim.local.superdalan.com/cmdb/?development=1  -----------------end-
  2020-12-09/11:34:12   
  ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-10.5) is negative. -----------------end-
+Error: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-10.5) is negative.
+    at Circle.createPath (http://mingle-test.local.aidalan.com/manifest.min.js:59434:13)
+    at Group._applyClip (http://mingle-test.local.aidalan.com/manifest.min.js:68095:12)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68113:12)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Canvas._drawRegion (http://mingle-test.local.aidalan.com/manifest.min.js:127323:43)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:127346:17  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-09/13:07:21   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-11) is negative. -----------------end-
+Error: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-11) is negative.
+    at Circle.createPath (http://mingle-test.local.aidalan.com/manifest.min.js:59434:13)
+    at Group._applyClip (http://mingle-test.local.aidalan.com/manifest.min.js:68095:12)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68113:12)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Canvas._drawRegion (http://mingle-test.local.aidalan.com/manifest.min.js:127323:43)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:127346:17  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-09/13:07:24   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-11.125) is negative. -----------------end-
+Error: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-11.125) is negative.
+    at Circle.createPath (http://mingle-test.local.aidalan.com/manifest.min.js:59434:13)
+    at Group._applyClip (http://mingle-test.local.aidalan.com/manifest.min.js:68095:12)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68113:12)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Canvas._drawRegion (http://mingle-test.local.aidalan.com/manifest.min.js:127323:43)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:127346:17  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-09/13:07:27   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-11) is negative. -----------------end-
+Error: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provided (-11) is negative.
+    at Circle.createPath (http://mingle-test.local.aidalan.com/manifest.min.js:59434:13)
+    at Group._applyClip (http://mingle-test.local.aidalan.com/manifest.min.js:68095:12)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68113:12)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Group.draw (http://mingle-test.local.aidalan.com/manifest.min.js:68115:78)
+    at drawChildren (http://mingle-test.local.aidalan.com/manifest.min.js:49269:13)
+    at Canvas._drawRegion (http://mingle-test.local.aidalan.com/manifest.min.js:127323:43)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:127346:17  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-09/13:07:28   
+ ---END---

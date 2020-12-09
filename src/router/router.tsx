@@ -23,6 +23,7 @@ import tplHtml from '@root/template/tpl.html';
 import dataList from '@root/template/data-list.html';
 import templatePanel from '@root/template/template-panel/template.html';
 import LayoutList from '@root/template/layout-list.html';
+import LayoutDrawer from '@root/template/layout-drawer.html';
 
 // nav
 export default [
@@ -40,6 +41,11 @@ export default [
         name     : 'Layout-list',
         path     : '/nav-layout-list',
         component: <HtmlRenderer html={ LayoutList }/>,
+    },
+    {
+        name     : 'Layout-drawer',
+        path     : '/nav-layout-drawer',
+        component: <HtmlRenderer html={ LayoutDrawer }/>,
     },
     {
         name     : '日志统计',

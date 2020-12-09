@@ -11,7 +11,7 @@ module.exports = {
         error_file: '',     // 错误输出日志
         out_file: '',       // 日志
         log_date_format: '',// 日志格式
-        cwd: '/Users/ChrisChen/Desktop/MingleJS/server',
+        cwd: '/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com/server',
         max_memory_restart: '1G',
         env: {
             NODE_ENV: 'development',

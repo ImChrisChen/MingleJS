@@ -9,56 +9,26 @@ import { Button, Modal } from 'antd';
 import { IComponentProps } from '@interface/common/component';
 import $ from 'jquery';
 import Draggable from 'react-draggable';
-import DataPanel from '@component/data/panel/DataPanel';
-import App from '@src/App';
-// import { Row, Col, Icon, Button, Layout, Menu, Card } from 'antd';
-
-
-const style = {
-    display       : 'flex',
-    alignItems    : 'center',
-    justifyContent: 'center',
-    border        : 'solid 1px #ddd',
-    background    : '#f0f0f0',
-};
 
 export default class LayoutWindow extends Component<IComponentProps, any> {
 
     state = {
         loading : false,
-        visible : false,
-        width   : 600,
-        height  : 400,
+        visible : this.props.dataset.open ?? false,
+        width   : this.props.dataset.width ?? 600,
+        height  : this.props.dataset.height ?? 400,
         disabled: true,
-        x       : 50,
-        y       : 50,
     };
     rnd: any;
 
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.props.el.onclick = e => this.handleClickBtn(e);
         this.props.el.innerHTML = this.props.dataset.content;
     }
 
     handleClickBtn(e) {
-
         this.handleShowModel();
-        console.log(e);
-
-        // TODO 这个要第一次弹窗后才会渲染
-        let uid = $(this.props.el).closest('[data-fn=data-panel]')
-            .attr('data-component-uid') ?? '';
-        console.log(uid);
-        let { model } = App.instances[uid].instance.state;
-        console.log(model);
-        DataPanel.parseElement(this.props.elChildren, model);
-
-        // let container = document.querySelector('.layout-window-content');
-        let container = this.props.box?.querySelector('.layout-window-content');
-        container && container.append(...this.props.elChildren);
-        console.log(container);
     }
 
     handleShowModel() {
@@ -78,40 +48,26 @@ export default class LayoutWindow extends Component<IComponentProps, any> {
 
     // TODO 待处理问题，当页面存在多个panel区域中都有弹窗的时候
     render() {
-        const { visible, loading } = this.state;
         return <Modal
-            className={ 'layout-window' }
-            visible={ visible }
-            mask={ false }
-            getContainer={ () =>
-                // $(this.props.el).closest('[data-fn=data-panel]').get(0)
-                $(this.props.el).get(0)
-                || document.body }
+            visible={ this.state.visible }
+            mask={ this.props.dataset.mask ?? false }
             title={ <div
                 onMouseOverCapture={ () => {
                     if (this.state.disabled) {
-                        this.setState({
-                            disabled: false,
-                        });
+                        this.setState({ disabled: false });
                     }
                 } }
                 onMouseOutCapture={ () => {
-                    this.setState({
-                        disabled: true,
-                    });
+                    this.setState({ disabled: true });
                 } }
                 style={ { width: '100%', cursor: 'move' } }
                 onMouseOver={ () => {
                     if (this.state.disabled) {
-                        this.setState({
-                            disabled: false,
-                        });
+                        this.setState({ disabled: false });
                     }
                 } }
                 onMouseOut={ () => {
-                    this.setState({
-                        disabled: true,
-                    });
+                    this.setState({ disabled: true });
                 } }
             >{ this.props.dataset.title }</div> }
 
@@ -124,13 +80,16 @@ export default class LayoutWindow extends Component<IComponentProps, any> {
                     <Button key="back" onClick={ this.handleCancel.bind(this) }>
                         Return
                     </Button>,
-                    <Button key="submit" type="primary" loading={ loading } onClick={ this.handleOk.bind(this) }>
+                    <Button key="submit" type="primary" loading={ this.state.loading }
+                            onClick={ this.handleOk.bind(this) }>
                         Submit
                     </Button>,
                 ]
             }
         >
-            <div className="layout-window-content"/>
+            <div ref={ element => {
+                element?.append(...this.props.elChildren);
+            } }/>
         </Modal>;
     }
 
