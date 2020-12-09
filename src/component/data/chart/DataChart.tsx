@@ -214,13 +214,13 @@ export default class DataChart extends React.Component<IComponentProps, any> {
                     // position={ config.legendLocation }
                     visible={ true }
                     itemName={ {
-                        spacing  : 10, // 文本同滑轨的距离
+                        spacing  : 20, // 文本同滑轨的距离
                         style    : {
                             // stroke: 'blue',
                             fill: 'red',
                         },
                         formatter: (text, item, index) => {
-                            return text === 'Berlin' ? 'Berlin【重点关注】' : text;
+                            return text;
                         },
                     } }
                 />
@@ -292,22 +292,25 @@ export default class DataChart extends React.Component<IComponentProps, any> {
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
+                {/*<Area position={ position } color={ groupby || colors }/>*/ }
 
                 <LineAdvance area shape="smooth" position={ position } point={ true }
                              color={ groupby || colors } label="first"/>
 
                 <Tooltip shared/>
-                <Legend layout="vertical" position="top-left"
-                        itemName={ {
-                            spacing  : 10, // 文本同滑轨的距离
-                            style    : {
-                                // stroke: 'blue',
-                                fill: 'red',
-                            },
-                            formatter: (text, item, index) => {
-                                return text === 'Berlin' ? 'Berlin【重点关注】' : text;
-                            },
-                        } }
+
+                <Legend
+                    visible={ true }
+                    itemName={ {
+                        spacing  : 20, // 文本同滑轨的距离
+                        style    : {
+                            // stroke: 'blue',
+                            fill: 'red',
+                        },
+                        formatter: (text, item, index) => {
+                            return text;
+                        },
+                    } }
                 />
 
             </Chart>

@@ -5208,3 +5208,15 @@ Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The sourc
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-08/13:51:22   
  ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+undefined  -----------------end-
+ http://sim.local.superdalan.com/cmdb/?development=1  -----------------end-
+ 2020-12-09/11:34:12   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+undefined  -----------------end-
+ http://sim.local.superdalan.com/cmdb/?development=1  -----------------end-
+ 2020-12-09/11:34:12   
+ ---END---

@@ -182,6 +182,7 @@ const UniversalProps = {
     [key: string]: IPropertyConfig
 };
 
+// TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
 export default {
     // 子应用
     app     : {
@@ -761,6 +762,29 @@ export default {
                         // value: 'http://192.168.20.121:8080/mgm/data',
                         parse: 'string',
                         desc : '表数据url',
+                    },
+                    bordered   : {
+                        el   : 'switch',
+                        value: true,
+                        desc : '是否显示表格的边框,默认true',
+                        parse: 'boolean',
+                    },
+                    showheader : {
+                        el   : 'switch',
+                        value: true,
+                        parse: 'boolean',
+                        desc : '是否显示表头,默认值 true',
+                    },
+                    size       : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'default', value: 'default' },
+                            { label: 'middle', value: 'middle' },
+                            { label: 'small', value: 'small' },
+                        ],
+                        value  : 'small',
+                        parse  : 'string',
+                        desc   : '表格尺寸，不填则默认small',
                     },
                     pagesize   : {
                         el   : 'input',

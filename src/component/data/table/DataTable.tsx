@@ -94,14 +94,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
         pages      : this.props.dataset.pages,
         pagesize   : this.props.dataset.pagesize,
 
-        size             : 'small',   // default | middle | small
-        showHeader       : true,
         searchText       : '',
         searchedColumn   : '',
         showSorterTooltip: true,        // 是否显示下一次排序的tip
         showDropdown     : false,       // 是否显示下拉菜单
         showDropdownBtn  : false,       // 是否显示下拉框按钮
-        bordered         : true,
         // scroll           : {        //  表格是否可以滚动
         //     y: this.props.dataset.height || undefined,
         // },
@@ -274,20 +271,10 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
         let res = await jsonp(headerUrl);
-        // let { data }: ITableApiRes<ITableHeaderItem> = tableHeader;
         let { data }: ITableApiRes<ITableHeaderItem> = res;
 
         let tableHeader: Array<ITableHeaderItem> = [];
         for (const item of data) {
-            // let index = data.indexOf(item);
-            // let width = parseTpl(item.field, item).length * 10;
-
-            // if (!item.visible) continue;
-
-            // field 为模版的时候 <a href="http://e.aidalan.com/manage/useful/advPositionCost/form?pf=1&id=<{id}"> // data-fn='layout-window-open'>编辑</a>
-            // if (/<(.*?)>/.test(item.field)) {
-            //     this.fieldTpl = item.field;
-            // }
 
             let fn: any = null;
 
@@ -526,6 +513,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
+        console.log(this.props);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -573,13 +561,14 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 loading={ this.state.loading }
                 // selectedRowKeys={ this.state.selectedRowKeys }
                 dataSource={ this.state.dataSource }
-                showHeader={ this.state.showHeader }
+                showHeader={ this.props.dataset.showheader }
+                size={ this.props.dataset.size }
                 // searchText       = {this.state.searchText}
                 // searchedColumn={ this.state.searchedColumn }
                 showSorterTooltip={ this.state.showSorterTooltip }        // 是否显示下一次排序的tip
                 // showDropdown={ this.state.showDropdown }       // 是否显示下拉菜单
                 // showDropdownBtn={ this.state.showDropdownBtn }       // 是否显示下拉框按钮
-                bordered={ this.state.bordered }
+                bordered={ this.props.dataset.bordered }
                 pagination={ this.props.dataset.pagination ? {
                     pageSizeOptions: this.state.pages || [ '10', '20', '50', '100', '200' ],
                     pageSize       : this.state.pagesize || 50,

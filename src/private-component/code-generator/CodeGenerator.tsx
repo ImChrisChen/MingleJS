@@ -47,6 +47,10 @@ interface IComponentDataset {
     [key: string]: any
 }
 
+interface IComponentProperty extends IPropertyConfig {
+    defaultValue: any
+}
+
 interface ICodeGenerateProps {
     // visible?: boolean           //是否显示组件设计器
     // onClose: () => any
@@ -125,13 +129,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         }
 
         let { dataset, hook, ...attrs } = currentComponent.property;
-        let arr: Array<IPropertyConfig> = [];
+        let arr: Array<IComponentProperty> = [];
         let dataEnum: Array<any> = [];
 
         //dataset 属性
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
-            let val: IPropertyConfig = dataset[k];
+            let val: IComponentProperty = dataset[k];
 
             // TODO 当值为函数时，执行函数
             if (typeof val.value === 'function') {
@@ -169,12 +173,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             arr.push({
-                label  : `data-${ k }`,       //
-                el     : el,
-                options: options,
-                value  : val.value,
-                desc   : val.desc,
-                render : val.render !== false,
+                label       : `data-${ k }`,       //
+                el          : el,
+                options     : options,
+                value       : val.value,
+                defaultValue: val.value,
+                desc        : val.desc,
+                render      : val.render !== false,
             });
         }
 
@@ -194,12 +199,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             arr.push({
-                label  : k,
-                el     : val.el,
-                options: val.options,
-                value  : val.value,
-                desc   : val.desc,
-                render : val.render !== false,
+                label       : k,
+                el          : val.el,
+                options     : val.options,
+                value       : val.value,
+                defaultValue: val.value,
+                desc        : val.desc,
+                render      : val.render !== false,
             });
         }
 
@@ -208,12 +214,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             if (!hook.hasOwnProperty(k)) continue;
             let val = hook[k];
             arr.push({
-                label  : `hook:${ k }`,
-                el     : val.el,
-                options: val.options,
-                value  : val.value,
-                desc   : val.desc,
-                render : val.render !== false,
+                label       : `hook:${ k }`,
+                el          : val.el,
+                options     : val.options,
+                value       : val.value,
+                defaultValue: val.value,
+                desc        : val.desc,
+                render      : val.render !== false,
             });
         }
 
@@ -282,7 +289,8 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
             // TODO 后续需要完善，选中的值如果和默认值相等，就不用生成对应的属性代码
             // 有属性默认值则，生成对应的属性代码
-            if (isUndefined(item.value) || item.value === '') {
+            if (isUndefined(item.value) || item.value === '' // || (item.value === item.defaultValue)
+            ) {
                 return undefined;
             } else {
                 return `${ item.label }='${ item.value ?? '' }'\n\t`;

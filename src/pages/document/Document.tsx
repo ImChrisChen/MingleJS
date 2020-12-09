@@ -110,7 +110,8 @@ class Document extends React.Component<any, any> {
                         style={ {
                             // margin   : '24px 16px',
                             // padding  : 2,
-                            minHeight: 280,
+                            minHeight : 280,
+                            background: '#f0f2f5',
                         } }
                     >
                         <Switch>
