@@ -1162,7 +1162,7 @@ export default {
                     content : {
                         el   : 'input',
                         parse: 'string',
-                        value: '标题',
+                        value: '点击弹窗',
                         desc : '按钮的内容',
                     },
                     layout  : {
