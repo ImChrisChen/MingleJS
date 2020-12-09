@@ -7,8 +7,6 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
 import moment from 'moment';
-import { DatePicker } from 'antd';
-import React from 'react';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -713,13 +711,68 @@ export default {
         },
     },
     view    : {
-        // popover : {
-        //     component: import('@component/view/popover/popover'),
-        // },
-        dropdown: {
-            component: import('@component/view/dropdown/dropdown'),
+        steps   : {
+            path     : '/view-steps',
+            component: import('@component/view/steps/ViewSteps'),
+            document : import('@component/view/steps/ViewSteps.md'),
             property : {
-                dataset: {},
+                dataset: {
+                    current: {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '指定当前步骤，从 0 开始记数。',
+                        value: 0,
+                    },
+                    layout : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        desc   : '布局方式',
+                        options: [
+                            { label: 'horizontal', value: 'horizontal' },
+                            { label: 'vertical', value: 'vertical' },
+                        ],
+                        value  : undefined,
+                    },
+                    type   : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: 'navigation', value: 'navigation' },
+                            { label: 'default', value: 'default' },
+                        ],
+                        value  : undefined,
+                        desc   : '步骤条类型，有 default 和 navigation 两种',
+                    },
+                },
+            },
+        },
+        dropdown: {
+            component: import('@component/view/dropdown/ViewDropdown'),
+            property : {
+                dataset: {
+                    trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
+                    },
+                    content: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '提示内容',
+                        desc : '提示内容',
+                    },
+                    width  : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 300,
+                        desc : '宽度',
+                    },
+                },
             },
         },
         calendar: {
@@ -729,13 +782,6 @@ export default {
                 dataset: {},
             },
         },
-        // template: {
-        //     path     : 'view-template',
-        //     component: import('@component/view/template/template'),
-        //     property : {
-        //         dataset: {},
-        //     },
-        // },
     },
     data    : {
         table: {
@@ -1008,9 +1054,74 @@ export default {
         },
     },
     tips    : {
-        // loading: {
-        // component: import('@component/tips/loading/loading'),
-        // },
+        card: {
+            component: import('@component/tips/card/TipsCard'),
+            document : import('@component/tips/card/TipsCard.md'),
+            path     : 'tips-card',
+            property : {
+                dataset: {
+                    trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
+                    },
+                    title  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '提示窗标题',
+                    },
+                    content: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '提示内容',
+                        desc : '提示内容',
+                    },
+                    width  : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 300,
+                        desc : '宽度',
+                    },
+                },
+            },
+        },
+        text: {
+            component: import('@component/tips/text/TipsText'),
+            path     : '/tips-text',
+            property : {
+                dataset: {
+                    content: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '提示内容',
+                        desc : '提示内容',
+                    },
+                    color  : {
+                        el   : 'color',
+                        parse: 'string',
+                        value: '#108ee9',
+                        desc : '颜色',
+                    },
+                    trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
+                    },
+                },
+            },
+        },
+        list: {},
     },
     layout  : {
         menu  : {
@@ -1100,6 +1211,12 @@ export default {
                         ],
                         value  : 'left',
                         parse  : 'string',
+                    },
+                    current    : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 1,
+                        desc : '默认选中的tab',
                     },
                 },
             },
@@ -1200,41 +1317,6 @@ export default {
                         value: false,
                         parse: 'boolean',
                         desc : '是否默认展开抽屉',
-                    },
-                },
-            },
-        },
-        steps : {
-            path     : '/layout-steps',
-            component: import('@component/layout/steps/LayoutSteps'),
-            document : import('@component/layout/steps/LayoutSteps.md'),
-            property : {
-                dataset: {
-                    current: {
-                        el   : 'number',
-                        parse: 'number',
-                        desc : '指定当前步骤，从 0 开始记数。',
-                        value: 0,
-                    },
-                    layout : {
-                        el     : 'radio',
-                        parse  : 'string',
-                        desc   : '布局方式',
-                        options: [
-                            { label: 'horizontal', value: 'horizontal' },
-                            { label: 'vertical', value: 'vertical' },
-                        ],
-                        value  : undefined,
-                    },
-                    type   : {
-                        el     : 'radio',
-                        parse  : 'string',
-                        options: [
-                            { label: 'navigation', value: 'navigation' },
-                            { label: 'default', value: 'default' },
-                        ],
-                        value  : undefined,
-                        desc   : '步骤条类型，有 default 和 navigation 两种',
                     },
                 },
             },

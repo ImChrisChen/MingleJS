@@ -24,6 +24,7 @@ import dataList from '@root/template/data-list.html';
 import templatePanel from '@root/template/template-panel/template.html';
 import LayoutList from '@root/template/layout-list.html';
 import LayoutDrawer from '@root/template/layout-drawer.html';
+import Tips from '@root/template/tips.html';
 
 // nav
 export default [
@@ -46,6 +47,11 @@ export default [
         name     : 'Layout-drawer',
         path     : '/nav-layout-drawer',
         component: <HtmlRenderer html={ LayoutDrawer }/>,
+    },
+    {
+        name     : 'tips',
+        path     : '/nav-tips',
+        component: <HtmlRenderer html={ Tips }/>,
     },
     {
         name     : '日志统计',
@@ -105,7 +111,7 @@ export default [
     },
     {
         name     : '步骤条组件展示效果',
-        path     : '/nav-layout-steps',
+        path     : '/nav-view-steps',
         component: <HtmlRenderer html={ layoutSteps }/>,
     },
     {

@@ -37,7 +37,7 @@ interface IModules {
     // { element, Component, container, elChildren }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
-    elChildNodes: any | Array<HTMLElement | Node>
+    // elChildNodes: any | Array<HTMLElement | Node>
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
     containerWrap: HTMLElement      //  组件根容器
@@ -46,6 +46,7 @@ interface IModules {
     defaultProperty: IModuleProperty         //  组件默认值
     config: IComponentConfig        // 组件配置
     componentUID: string            // 组件uid
+    beforeElement: HTMLElement
 }
 
 interface IArrItem {
@@ -93,6 +94,9 @@ export default class App {
     async init(rootElement: HTMLElement) {
         this.renderIcons(rootElement);
         deepEachElement(rootElement, async (element, parentNode) => {
+            let beforeElement = element.cloneNode(true) as HTMLElement;
+            let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
+
             let attributes = element.attributes;
             if (attributes['data-fn']) {
 
@@ -148,24 +152,19 @@ export default class App {
                                     const config = Modules.config;
 
                                     let defaultProperty = Modules.property;
-                                    let el = element.cloneNode(true);
-                                    let elChildNodes = el.childNodes;
 
                                     // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-                                    let elChildren: Array<HTMLElement | any> = [];
-
-                                    elChildren = Array.from(element.children ?? []);
-                                    elChildren.pop();       // 去掉自己本身
+                                    // let elChildren: Array<HTMLElement | any> = [];
 
                                     let hooks = this.formatHooks(attributes);
 
                                     let module: IModules = {
                                         Component,
                                         element,
+                                        beforeElement,
                                         container,
                                         containerWrap,
                                         elChildren,
-                                        elChildNodes,
                                         hooks,
                                         componentMethod,
                                         defaultProperty,
@@ -387,8 +386,7 @@ export default class App {
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
-            elChildNodes,
-            config, componentUID,
+            config, componentUID, beforeElement,
         } = module;
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
 
@@ -407,7 +405,7 @@ export default class App {
         let props = {
             el        : element,
             elChildren: elChildren ?? [],
-            elChildNodes,
+            beforeElement,
             box       : containerWrap,
             dataset   : parsedDataset,
             ...parsedAttrs,

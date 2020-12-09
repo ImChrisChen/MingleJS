@@ -11,7 +11,7 @@ import { Steps } from 'antd';
 
 const { Step } = Steps;
 
-export default class LayoutSteps extends Component<IComponentProps, ReactNode> {
+export default class ViewSteps extends Component<IComponentProps, ReactNode> {
 
     state = {
         current: this.props.dataset.current,

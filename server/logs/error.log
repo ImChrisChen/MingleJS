@@ -5284,3 +5284,51 @@ Error: Failed to execute 'arc' on 'CanvasRenderingContext2D': The radius provide
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-09/13:07:28   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: element.append is not a function -----------------end-
+TypeError: element.append is not a function
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:252961:75)
+    at imperativeHandleEffect (http://mingle-test.local.aidalan.com/manifest.min.js:218414:5)
+    at commitHookEffectListMount (http://mingle-test.local.aidalan.com/manifest.min.js:222785:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222841:9)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225857:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225595:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237369:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tips  -----------------end-
+ 2020-12-09/16:53:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: element.append is not a function -----------------end-
+TypeError: element.append is not a function
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:252962:75)
+    at imperativeHandleEffect (http://mingle-test.local.aidalan.com/manifest.min.js:218414:5)
+    at commitHookEffectListMount (http://mingle-test.local.aidalan.com/manifest.min.js:222785:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222841:9)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225857:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225595:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237369:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tips  -----------------end-
+ 2020-12-09/16:54:12   
+ ---END---
+error_log: ---START--- 
+  Uncaught HierarchyRequestError: Failed to execute 'append' on 'Element': The new child element contains the parent. -----------------end-
+Error: Failed to execute 'append' on 'Element': The new child element contains the parent.
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:252963:79)
+    at fillRef (http://mingle-test.local.aidalan.com/main.min.js:234175:5)
+    at http://mingle-test.local.aidalan.com/main.min.js:234191:7
+    at Array.forEach (<anonymous>)
+    at http://mingle-test.local.aidalan.com/main.min.js:234190:10
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223077:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225862:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-tips  -----------------end-
+ 2020-12-09/16:55:20   
+ ---END---

@@ -14,9 +14,6 @@ import { isArray, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
-import exp from 'constants';
-import Loading from '@component/tips/loading/loading';
-import { Spin } from 'antd';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
