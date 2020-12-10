@@ -5434,3 +5434,135 @@ undefined  -----------------end-
  http://wui-test.local.aidalan.com/mingle-test.local.aidalan.com/demo.html?development=1  -----------------end-
  2020-12-10/11:15:30   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:216467:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217367:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:219816:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221310:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221712:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226257:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225211:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-menu.html  -----------------end-
+ 2020-12-10/17:00:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Route (created by Document)
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:216467:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217367:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:219816:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221310:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221712:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226257:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225211:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-menu.html  -----------------end-
+ 2020-12-10/17:00:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'ownerDocument' of undefined -----------------end-
+TypeError: Cannot read property 'ownerDocument' of undefined
+    at Function.Sizzle.contains (http://mingle-test.local.aidalan.com/manifest.min.js:181258:17)
+    at isAttached (http://mingle-test.local.aidalan.com/manifest.min.js:184332:18)
+    at buildFragment (http://mingle-test.local.aidalan.com/manifest.min.js:184686:14)
+    at domManip (http://mingle-test.local.aidalan.com/manifest.min.js:185692:14)
+    at jQuery.fn.init.append (http://mingle-test.local.aidalan.com/manifest.min.js:185883:10)
+    at http://mingle-test.local.aidalan.com/main.min.js:254177:33  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-menu.html  -----------------end-
+ 2020-12-10/17:10:09   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'ownerDocument' of undefined -----------------end-
+TypeError: Cannot read property 'ownerDocument' of undefined
+    at Function.Sizzle.contains (http://mingle-test.local.aidalan.com/manifest.min.js:181258:17)
+    at isAttached (http://mingle-test.local.aidalan.com/manifest.min.js:184332:18)
+    at buildFragment (http://mingle-test.local.aidalan.com/manifest.min.js:184686:14)
+    at domManip (http://mingle-test.local.aidalan.com/manifest.min.js:185692:14)
+    at jQuery.fn.init.append (http://mingle-test.local.aidalan.com/manifest.min.js:185883:10)
+    at http://mingle-test.local.aidalan.com/main.min.js:254177:33  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-data-list.html  -----------------end-
+ 2020-12-10/17:10:29   
+ ---END---
