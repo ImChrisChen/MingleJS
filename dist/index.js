@@ -11,7 +11,7 @@
     const development = Number.parseInt(formatUrl2Object(window.location.href).development) === 1;
     const hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
     const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
-    const version = new Date().getTime();
+    const version = "2020-12-11/12:41:10/am";
     
     const scripts = files.map(file => {
         let url = hostname + file + '?date=' + version;

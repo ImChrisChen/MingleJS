@@ -5636,3 +5636,15 @@ TypeError: label.join is not a function
  http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
  2020-12-10/18:23:46   
  ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-menu.html  -----------------end-
+ 2020-12-11/00:35:56   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-menu.html  -----------------end-
+ 2020-12-11/00:39:19   
+ ---END---

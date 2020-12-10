@@ -28,8 +28,7 @@ console.log(env);
 
 const clc = require('cli-color');
 
-console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
-
+console.log(clc.blue(`-------------是否生产环境: ${isProduction}-------------`));
 
 module.exports = {
     watch: !isProduction,
@@ -103,14 +102,14 @@ module.exports = {
             '@interface': path.resolve(__dirname, 'src/interface/'),
             '@services': path.resolve(__dirname, 'src/services/'),
             '@mock': path.resolve(__dirname, 'src/mock'),
-            
+
             '@public': path.resolve(__dirname, 'public/'),
-            
+
             '@static': path.resolve(__dirname, 'static/'),
-            
+
             '@images': path.resolve(__dirname, 'static/images'),
             '@utils': path.resolve(__dirname, 'utils'),
-            
+
             // 生产环境下使用
             // 'react': path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
             // 'bizcharts': path.resolve(__dirname, './node_modules/bizcharts/umd/BizCharts.min.js'),
@@ -125,7 +124,7 @@ module.exports = {
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    { loader: 'css-loader' },
+                    {loader: 'css-loader'},
                     // { loader: 'postcss-loader', options: { parser: 'sugarss', exec: true } },
                 ],
             },
@@ -133,7 +132,7 @@ module.exports = {
                 test: /\.less$/,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    { loader: 'css-loader' },
+                    {loader: 'css-loader'},
                     {
                         loader: 'less-loader',
                         options: {
@@ -178,8 +177,8 @@ module.exports = {
                 // test: /\.tsx?$/,
                 test: /(.ts)|(.tsx)$/,
                 use: [
-                    { loader: 'awesome-typescript-loader' },
-                    { loader: 'cache-loader' },
+                    {loader: 'awesome-typescript-loader'},
+                    {loader: 'cache-loader'},
                     // {
                     //     loader: 'thread-loader',
                     //     options: { workers: os.cpus().length },
@@ -217,8 +216,8 @@ module.exports = {
                     },
                 },
             },
-            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
-            
+            {enforce: 'pre', test: /\.js$/, loader: 'source-map-loader'},
+
             // {
             //     test: /\.jsx?$/,
             //     use: {
@@ -235,9 +234,9 @@ module.exports = {
         // 'jquery': 'jquery',
     },
     plugins: [
-        
+
         // new PrepackWebpackPlugin(),
-        
+
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -246,9 +245,9 @@ module.exports = {
             disable: isProduction,
             chunkFilename: '[name].css', // manifest.css
         }),
-        
+
         new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
-        
+
         // 处理html
         new HtmlWebpackPlugin({
             // chunks: ['./dist/mingle.min.js'],
@@ -256,7 +255,7 @@ module.exports = {
             filename: path.resolve(__dirname, 'dist/index.html'),
             template: path.resolve(__dirname, 'public/index.html'),
         }),
-        
+
         // JS压缩 生产环境可以使用这个
         // new UglifyJsPlugin(),
         // new UglifyJsPlugin({
@@ -266,7 +265,7 @@ module.exports = {
         //     cache: true,
         //     sourceMap: !isProduction,
         // }),
-        
+
         // Images 压缩
         new ImageWebpackPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
@@ -286,7 +285,7 @@ module.exports = {
                 fileName: '[path].[name].[ext]',
             },
         }),
-        
+
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
@@ -299,7 +298,7 @@ module.exports = {
                 source: false,
             },
         }),
-        
+
         new FileManagerPlugin({
             onEnd: {
                 copy: [
@@ -310,18 +309,18 @@ module.exports = {
                 ],
             },
         }),
-        
+
         // new DashboardPlugin(/*dashboard.setData*/),
     ],
     devServer: {
         proxy: {
-            // '/manage': {
-            //     // /manage/useful/advPositionCost/header?pf=1'
-            //     target: 'http://e.aidalan.com/manage',
-            //     // source: true,
-            //     changeOrigin: true,
-            //     pathRewrite: { '^/manage': '' },
-            // },
+            // '/api': 'http://127.0.0.1:8081',
+            '/api': {
+                target: 'http://127.0.0.1:8081',
+                source: true,
+                changeOrigin: true,
+                pathRewrite: {'^/api': '/'},
+            },
             contentBase: path.resolve(__dirname, '/'),   //静态服务器根目录
             compress: true,             // 是否压缩
             // host: 'etest.local.aidalan.com',            // 局域网ip
