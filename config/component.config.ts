@@ -462,7 +462,7 @@ export default {
                 value: {
                     el   : 'input',
                     value: '',
-                    parse: 'null',
+                    parse: 'string',
                 },
             },
         },
@@ -1327,7 +1327,7 @@ export default {
             path     : '/layout-list',
             property : {
                 dataset: {
-                    row  : {
+                    cols : {
                         el   : 'number',
                         value: 2,
                         parse: 'number',

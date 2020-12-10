@@ -10,6 +10,7 @@ import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
 import App from '@src/App';
+import { trigger } from '@utils/trigger';
 
 // import tableData from '@mock/table/tableContent'
 
@@ -34,6 +35,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let form: HTMLElement = this.props.el;
         this.setLayout(form);
         form.onsubmit = (e) => this.handleSubmit(form, e);
+        form.onreset = (e) => this.handleReset(form, e);
     }
 
     async handleSubmit(form, e) {
@@ -76,11 +78,15 @@ export default class FormAction extends React.Component<IFormAction, any> {
         });
     }
 
-    handleReset(form: HTMLElement) {
-        $(form).find('[type=reset]').on('click', e => {
-            e.preventDefault();
-            $(form).find('input[data-fn]').val('').trigger('change');
-        });
+    handleReset(form: HTMLElement, e) {
+        let defaultFormData = FormAction.getFormData(this.props.beforeElement);
+
+        for (const name in defaultFormData) {
+            if (!defaultFormData.hasOwnProperty(name)) continue;
+            let value = defaultFormData[name];
+            let formItem = form.querySelector(`input[data-fn][name=${ name }]`) as HTMLElement;
+            formItem && trigger(formItem, value);
+        }
     }
 
     public verifyFormData(formElement, formData): boolean {

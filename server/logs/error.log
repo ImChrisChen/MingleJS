@@ -5566,3 +5566,73 @@ TypeError: Cannot read property 'ownerDocument' of undefined
  http://mingle-test.local.aidalan.com/#/nav-data-list.html  -----------------end-
  2020-12-10/17:10:29   
  ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+undefined  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-template.html  -----------------end-
+ 2020-12-10/17:26:06   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: label.join is not a function -----------------end-
+TypeError: label.join is not a function
+    at displayRender (http://mingle-test.local.aidalan.com/main.min.js:251355:38)
+    at Cascader.getLabel (http://mingle-test.local.aidalan.com/manifest.min.js:10742:14)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:10657:18
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221358:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221715:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226257:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225211:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-10/18:22:17   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: label.join is not a function -----------------end-
+TypeError: label.join is not a function
+    at displayRender (http://mingle-test.local.aidalan.com/main.min.js:251355:38)
+    at Cascader.getLabel (http://mingle-test.local.aidalan.com/manifest.min.js:10742:14)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:10657:18
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221358:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221715:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226257:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225211:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-10/18:22:17   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: label.join is not a function -----------------end-
+TypeError: label.join is not a function
+    at displayRender (http://mingle-test.local.aidalan.com/main.min.js:251357:38)
+    at Cascader.getLabel (http://mingle-test.local.aidalan.com/manifest.min.js:10742:14)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:10657:18
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221358:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221715:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226257:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225211:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-10/18:23:46   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: label.join is not a function -----------------end-
+TypeError: label.join is not a function
+    at displayRender (http://mingle-test.local.aidalan.com/main.min.js:251357:38)
+    at Cascader.getLabel (http://mingle-test.local.aidalan.com/manifest.min.js:10742:14)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:10657:18
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221358:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221715:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203242:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203291:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203346:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226257:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225211:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-10/18:23:46   
+ ---END---

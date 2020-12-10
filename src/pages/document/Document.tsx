@@ -55,8 +55,9 @@ class Document extends React.Component<any, any> {
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;
+            let [ name ] = item.split('.');
             pageRoutes.push({
-                name     : item,
+                name     : name,
                 path     : '/nav-' + item,
                 component: <HtmlRenderer key={ '/nav-' + item } html={ html }/>,
             });

@@ -5,7 +5,7 @@
 | 参数       | 说明                           | 默认值 |
 | ---------- | ------------------------------ | ------ |
 | data-space | 控制列表中的每一项的上下的边距 | 20,20  |
-| data-row   | 每一行显示的数量               | 2      |
+| data-cols   | 每一行显示的数量               | 2      |
 
 
 
@@ -13,7 +13,7 @@
 
 ```html
 
-<div data-fn="layout-list" data-space="20,20" data-row="2">
+<div data-fn="layout-list" data-space="20,20" data-cols="2">
     <div>
         <input data-fn="data-chart"
                data-url="http://mingle-test.local.aidalan.com/mock/chart/funnel.json"
@@ -88,7 +88,7 @@
 
 ```html
 <div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/mock/chart/funnel.json">
-    <div data-fn="layout-list" data-row="2" data-space="20,20">
+    <div data-fn="layout-list" data-cols="2" data-space="20,20">
         <div w-foreach="data as item">
             <div data-fn="data-chart"
                  data-url="http://mingle-test.local.aidalan.com/mock/chart/funnel.json"

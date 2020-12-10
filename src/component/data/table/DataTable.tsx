@@ -16,7 +16,6 @@ import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { IApiResult, jsonp } from '@utils/request/request';
 import { isHtmlTpl, isNumber, isString, isWuiTpl } from '@utils/inspect';
-import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
@@ -123,6 +122,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 dataSource: tableContent,
                 loading   : false,
             });
+            this.handleDragSelect();
         });
     }
 
@@ -174,7 +174,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 }
             });
         });
-
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
@@ -585,8 +584,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
         </div>;
     }
 }
-
-// { ...this.state }
 
 // pagination       : this.props.dataset.pagination ? {      // 分页
 //     pageSizeOptions: [ '10', '20', '50', '100', '200' ],
