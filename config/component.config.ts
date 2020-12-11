@@ -7,6 +7,7 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@utils/inspect';
 import moment from 'moment';
+import { strParseVirtualDOM } from '@utils/parser-dom';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -525,14 +526,10 @@ export default {
                         let date = moment().subtract(0, 'days').format(parsedDataset.format);
                         return parsedDataset.single ? date : date + '~' + date;
 
-                        let momentDate = moment(date, parsedDataset.format);
-                        return parsedDataset.single ? momentDate : [ momentDate, momentDate ];
+                        // let momentDate = moment(date, parsedDataset.format);
+                        // return parsedDataset.single ? momentDate : [ momentDate, momentDate ];
                         // return [ moment('2020-10-28', parsedDataset.format), moment('2020-10-28', parsedDataset.format) ];
                     },
-                    // value: (parsedDataset) => {      // TODO config 是 form-datepicker的配置
-                    //     let date = moment().format('YYYY-MM-DD');
-                    //     return [ date, date ];
-                    // },
                 },
             },
         },
@@ -685,10 +682,40 @@ export default {
         },
         file      : {
             component: import('@component/form/file/FormFile'),
-            path     : 'form-file',
+            path     : '/form-file',
             property : {
                 dataset: {
                     label   : UniversalProps.label,
+                    url     : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'http://localhost:8081/upload',
+                        desc : '上传的地址',
+                    },
+                    type    : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'text', value: 'text' },
+                            { label: 'picture', value: 'picture' },
+                            { label: 'picture-card', value: 'picture-card' },
+                        ],
+                        value: 'picture-card',
+                        parse  : 'string',
+                        desc   : '上传列表的内建样式，支持三种基本样式 text, picture 和 picture-card',
+                    },
+                    multiple: {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否支持多选文件，开启后按住 ctrl 可选择多个文件',
+                    },
+                    filename: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '发到后台的文件参数名',
+                    },
+                    disabled: UniversalProps.disabled,
                     required: UniversalProps.required,
                 },
                 name   : UniversalProps.name,

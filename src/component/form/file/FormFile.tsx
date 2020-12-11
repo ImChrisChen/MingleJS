@@ -5,10 +5,10 @@
  * Time: 5:32 下午
  */
 
-
 import { Form, Modal, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { Component } from 'react';
+import { IComponentProps } from '@interface/common/component';
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -19,50 +19,12 @@ function getBase64(file) {
     });
 }
 
-export default class FormFile extends React.Component {
-    state: any = {
-        previewVisible  : false,
-        previewImage    : '',
-        previewTitle    : '',
-        default_fileList: [
-            {
-                uid   : '-1',
-                name  : 'image.png',
-                status: 'done',
-                url   : 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid   : '-2',
-                name  : 'image.png',
-                status: 'done',
-                url   : 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid   : '-3',
-                name  : 'image.png',
-                status: 'done',
-                url   : 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid   : '-4',
-                name  : 'image.png',
-                status: 'done',
-                url   : 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid    : '-xxx',
-                percent: 50,
-                name   : 'image.png',
-                status : 'uploading',
-                url    : 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-            {
-                uid   : '-5',
-                name  : 'image.png',
-                status: 'error',
-            },
-        ],
-        fileList        : [],
+export default class FormFile extends Component<IComponentProps, any> {
+    state = {
+        previewVisible: false,
+        previewImage  : '',
+        previewTitle  : '',
+        fileList      : [],
     };
 
     handleCancel = () => this.setState({ previewVisible: false });
@@ -91,11 +53,14 @@ export default class FormFile extends React.Component {
         );
         return (
             <>
-                <Form.Item label={ '文件上传' }>
+                <Form.Item label={ this.props.dataset.label }>
                     <Upload
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        listType="picture-card"
+                        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        action={ this.props.dataset.url }
+                        accept=".png,.jpg"
+                        listType={ this.props.dataset.type }
                         fileList={ fileList }
+                        multiple={ true }
                         onPreview={ this.handlePreview }
                         onChange={ this.handleChange }
                     >

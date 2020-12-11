@@ -5,7 +5,7 @@
  * Time: 12:35 上午
  */
 import React from 'react';
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
@@ -26,6 +26,10 @@ interface IFormAction extends IComponentProps {
 
 export default class FormAction extends React.Component<IFormAction, any> {
 
+    state = {
+        isSmart: false,
+    };
+
     constructor(props) {
         super(props);
         this.init();
@@ -34,9 +38,25 @@ export default class FormAction extends React.Component<IFormAction, any> {
     init() {
         let form: HTMLElement = this.props.el;
         this.setLayout(form);
+        this.formSmart(form);
         form.onsubmit = (e) => this.handleSubmit(form, e);
         form.onreset = (e) => this.handleReset(form, e);
     }
+
+    formSmart(form: HTMLElement) {
+        let elements = ([ ...form.querySelectorAll(`input[type=hidden][data-fn][data-smart]`) ] || []) as Array<HTMLInputElement>;
+        if (elements.length > 0) {
+            let selects = {};
+            elements.forEach(element => {
+                let { name, value } = element;
+                selects[name] = value;
+            });
+            console.log(selects);
+
+            this.setState({ isSmart: true });
+        }
+    }
+
 
     async handleSubmit(form, e) {
         e.preventDefault();
@@ -89,7 +109,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
     }
 
-    public verifyFormData(formElement, formData): boolean {
+    verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
         let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
         formItems.forEach(formItem => {
@@ -132,6 +152,20 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     render() {
-        return <></>;
+        return <>
+            {
+                this.state.isSmart ? <div className="">
+                    <div>
+                        <p> ---------------- </p>
+                        <p> ---------------- </p>
+                        <p> ---------------- </p>
+                        <p> ---------------- </p>
+                        <p> ---------------- </p>
+                    </div>
+                    <Button> 收缩 </Button>
+
+                </div> : ''
+            }
+        </>;
     }
 }

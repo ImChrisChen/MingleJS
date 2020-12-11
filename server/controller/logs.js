@@ -50,6 +50,7 @@ module.exports.getLogs = (req, res, next) => {
 };
 
 module.exports.createLog = (req, res, next) => {
+    console.log('cookies', req.cookies);
     let content = req.body;
     let {message, stack, url} = content;
     let date = moment().format('YYYY-MM-DD/HH:mm:ss');

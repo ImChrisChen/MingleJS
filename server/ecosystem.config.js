@@ -2,7 +2,7 @@ module.exports = {
     apps: [{
         name: 'mingle-server',      // 服务名称
         script: 'main.js',          // 程序入口
-
+        
         // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
         args: 'one two',
         instances: 1,
@@ -12,7 +12,7 @@ module.exports = {
         out_file: '',       // 日志
         log_date_format: '',// 日志格式
         // TODO 因为要在不同的机器上去使用，所以cwd先不固定了，但是要cd到当前目录才能执行 pm2配置文件
-        // cwd: '/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com/server',     
+        // cwd: '/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com/server',
         max_memory_restart: '1G',
         env: {
             NODE_ENV: 'development',
@@ -21,7 +21,7 @@ module.exports = {
             NODE_ENV: 'production',
         },
     }],
-
+    
     deploy: {
         production: {
             user: 'node',

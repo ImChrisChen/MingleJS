@@ -143,7 +143,7 @@ export default class App {
                                     console.error(`${ componentName } 模块不属于MingleJS`);
                                 } else {
 
-                                    let keysArr = componentName.split('-');
+                                    let keysArr = componentName.trim().split('-');
                                     // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
                                     let [ , , componentMethod ] = keysArr;
 
@@ -343,11 +343,11 @@ export default class App {
 
     }
 
-    static globalEventListener() {
+    static async globalEventListener() {
 
         window.addEventListener('error', async function (e) {
-            let msg = e?.message;        // 错误
-            let stack = e?.error?.stack;
+            let msg = e?.message ?? '';        // 错误
+            let stack = e?.error?.stack ?? '';
             let date = moment().format('YYYY-MM-DD/HH:mm:ss');
             let url = window.location.href;
             let log = { message: msg, stack, date, url };
@@ -361,8 +361,7 @@ export default class App {
             } else {
                 localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
-            await axios.post('/api/log', log);
-            console.error(msg);
+            await axios.post('http://localhost:8081/log', log);
             message.error(`error, ${ msg }`);
         });
 
