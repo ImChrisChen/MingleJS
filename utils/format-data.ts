@@ -49,6 +49,7 @@ export async function formatComponents2Tree(componentConfig) {
                 document : await document,
                 property,
                 path,
+                ...v,
                 // children : [],
             });
         }
