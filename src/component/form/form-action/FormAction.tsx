@@ -9,8 +9,8 @@ import { Button, message } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import App from '@src/App';
 import { trigger } from '@utils/trigger';
+import style from './FormAction.scss';
 
 // import tableData from '@mock/table/tableContent'
 
@@ -27,7 +27,8 @@ interface IFormAction extends IComponentProps {
 export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {
-        isSmart: false,
+        formSmartData: {},
+        smartElements: ([...this.props.el.querySelectorAll(`input[data-fn][data-smart]`)] || []) as Array<HTMLInputElement>,
     };
 
     constructor(props) {
@@ -37,26 +38,24 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
-        this.setLayout(form);
-        this.formSmart(form);
         form.onsubmit = (e) => this.handleSubmit(form, e);
         form.onreset = (e) => this.handleReset(form, e);
+
+        this.setLayout(form);
     }
 
-    formSmart(form: HTMLElement) {
-        let elements = ([ ...form.querySelectorAll(`input[type=hidden][data-fn][data-smart]`) ] || []) as Array<HTMLInputElement>;
+    getFormDataSmart(elements) {
+        let formSmartData = {};
         if (elements.length > 0) {
-            let selects = {};
             elements.forEach(element => {
                 let { name, value } = element;
-                selects[name] = value;
+                if (name && value) {
+                    formSmartData[name] = value;
+                }
             });
-            console.log(selects);
-
-            this.setState({ isSmart: true });
         }
+        return formSmartData;
     }
-
 
     async handleSubmit(form, e) {
         e.preventDefault();
@@ -91,7 +90,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     async getViewsInstances() {
         let id = this.props.id;
         let App = (await import('@src/App')).default;
-        let views = [ ...document.querySelectorAll(`[data-from=${ id }]`) ];
+        let views = [...document.querySelectorAll(`[data-from=${ id }]`)];
         return views.map(view => {
             let uid = view.getAttribute('data-component-uid') ?? '';
             return App.instances[uid].instance;
@@ -111,7 +110,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
-        let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        let formItems = [...formElement.querySelectorAll(`input[name][data-fn]`)] as Array<HTMLInputElement>;
         formItems.forEach(formItem => {
             let name = formItem.name;
             let value = formData[name];
@@ -131,7 +130,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取表单数据
     public static getFormData(formElement): IFormData {
         let formData: IFormData = {};
-        let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ];
+        let formItems = [...formElement.querySelectorAll(`input[name][data-fn]`)];
         formItems.forEach(formItem => {
             let { name, value } = formItem;
             formData[name] = value;
@@ -151,21 +150,30 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
     }
 
+    //  保存 data-smart 表单选择条件
+    handleSaveSelects() {
+        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
+        console.log(formDataSmart);
+    }
+
+    renderFormSmart() {
+        return this.state.smartElements.length > 0 ?
+            <div className={ style.formSmart }>
+                <div>
+                    <p> ---------------- </p>
+                    <p> ---------------- </p>
+                    <p> ---------------- </p>
+                    <p> ---------------- </p>
+                    <p> ---------------- </p>
+                </div>
+                <Button> 收缩 </Button>
+                <Button onClick={ this.handleSaveSelects.bind(this) } type={ 'primary' }> 保存 </Button>
+            </div> : '';
+    }
+
     render() {
         return <>
-            {
-                this.state.isSmart ? <div className="">
-                    <div>
-                        <p> ---------------- </p>
-                        <p> ---------------- </p>
-                        <p> ---------------- </p>
-                        <p> ---------------- </p>
-                        <p> ---------------- </p>
-                    </div>
-                    <Button> 收缩 </Button>
-
-                </div> : ''
-            }
+            { this.renderFormSmart() }
         </>;
     }
 }

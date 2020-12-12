@@ -5774,3 +5774,67 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/  -----------------end-
  2020-12-11/13:46:57   
  ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout-drawer.html  -----------------end-
+ 2020-12-11/20:07:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout-drawer.html  -----------------end-
+ 2020-12-11/20:07:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout-drawer.html  -----------------end-
+ 2020-12-11/20:07:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout-drawer.html  -----------------end-
+ 2020-12-11/20:07:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout-drawer.html  -----------------end-
+ 2020-12-11/20:07:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout-drawer.html  -----------------end-
+ 2020-12-11/20:07:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout.html  -----------------end-
+ 2020-12-12/13:32:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught SyntaxError: Unexpected token ':' -----------------end-
+SyntaxError: Unexpected token ':'  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout.html  -----------------end-
+ 2020-12-12/13:32:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: form is not defined -----------------end-
+ReferenceError: form is not defined
+    at new FormAction (http://mingle-test.local.aidalan.com/main.min.js:251693:24)
+    at constructClassInstance (http://mingle-test.local.aidalan.com/manifest.min.js:215945:18)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220165:5)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221685:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226268:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:225222:12)
+    at workLoopSync (http://mingle-test.local.aidalan.com/manifest.min.js:225195:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-form-smart.html  -----------------end-
+ 2020-12-12/13:48:25   
+ ---END---
