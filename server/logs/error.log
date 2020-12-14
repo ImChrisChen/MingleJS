@@ -5854,3 +5854,447 @@ Error: Element type is invalid: expected a string (for built-in components) or a
  http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
  2020-12-14/12:06:12   
  ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-layout-list.html  -----------------end-
+ 2020-12-14/15:38:12   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-layout-list.html  -----------------end-
+ 2020-12-14/15:39:17   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:41:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:42:20   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:42:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:42:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:15   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:37   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:37   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:37   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:38   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Tooltip.update (http://mingle-test.local.aidalan.com/manifest.min.js:78793:12)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Tooltip.update (http://mingle-test.local.aidalan.com/manifest.min.js:78793:12)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:40   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Tooltip.update (http://mingle-test.local.aidalan.com/manifest.min.js:78793:12)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Tooltip.update (http://mingle-test.local.aidalan.com/manifest.min.js:78793:12)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:43:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:44:07   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:44:07   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:44:07   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:44:07   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:44:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=&pf=1&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-14/15:44:19   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:235011:17)
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:234973:23)
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:234973:23)
+    at traverseAllChildren (http://mingle-test.local.aidalan.com/manifest.min.js:235042:10)
+    at Object.forEachChildren [as forEach] (http://mingle-test.local.aidalan.com/manifest.min.js:235090:3)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:233821:61
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221369:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221726:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2020-12-14/16:57:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:235011:17)
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:234973:23)
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:234973:23)
+    at traverseAllChildren (http://mingle-test.local.aidalan.com/manifest.min.js:235042:10)
+    at Object.forEachChildren [as forEach] (http://mingle-test.local.aidalan.com/manifest.min.js:235090:3)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:233821:61
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221369:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221726:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2020-12-14/16:58:08   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+    in Switch (created by Document)
+    in main (created by Basic)
+    in Basic (created by Content)
+    in Content (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in section (created by BasicLayout)
+    in BasicLayout (created by Layout)
+    in Layout (created by Document)
+    in Document
+    in Router (created by HashRouter)
+    in HashRouter
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:235011:17)
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:234973:23)
+    at traverseAllChildrenImpl (http://mingle-test.local.aidalan.com/manifest.min.js:234973:23)
+    at traverseAllChildren (http://mingle-test.local.aidalan.com/manifest.min.js:235042:10)
+    at Object.forEachChildren [as forEach] (http://mingle-test.local.aidalan.com/manifest.min.js:235090:3)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:233821:61
+    at updateContextConsumer (http://mingle-test.local.aidalan.com/manifest.min.js:221369:19)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221726:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2020-12-14/16:58:43   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'default' of undefined -----------------end-
+TypeError: Cannot read property 'default' of undefined
+    at http://mingle-test.local.aidalan.com/main.min.js:253588:39
+    at Array.map (<anonymous>)
+    at Document.render (http://mingle-test.local.aidalan.com/main.min.js:253587:40)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220225:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220175:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221685:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:226268:7)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2020-12-14/17:25:43   
+ ---END---

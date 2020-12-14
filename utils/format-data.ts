@@ -45,8 +45,8 @@ export async function formatComponents2Tree(componentConfig) {
             children.push({
                 label    : k,
                 value    : k,
-                component: await component,
-                document : await document,
+                component: (await component),
+                document : (await document),
                 property,
                 path,
                 ...v,

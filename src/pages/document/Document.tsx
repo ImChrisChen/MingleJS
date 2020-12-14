@@ -34,17 +34,20 @@ class Document extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
-        this.getRouter().then(navRoutes => {
-            this.setState({ navRoutes });
+        this.init();
+    }
+
+    async init() {
+        let navRoutes = await this.getRouter();
+        let tree = await formatComponents2Tree(componentConfig).then();
+        let routes = deepEach(tree, item => {
+            if (item.component) return item;
         });
 
-        formatComponents2Tree(componentConfig).then(list => {
-            let routes = deepEach(list, item => {
-                if (item.component) return item;
-            });
-            this.setState({
-                menulist: list, routes,
-            });
+        this.setState({
+            navRoutes,
+            menulist: tree,
+            routes,
         });
     }
 
@@ -74,6 +77,9 @@ class Document extends React.Component<any, any> {
     render() {
         let routes = this.state.routes.map(route => {
             if (route.document && route.path) {
+
+                console.log(route);
+                console.log(route.document['default']);
                 return <Route
                     exact
                     key={ route.path }

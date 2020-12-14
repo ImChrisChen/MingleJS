@@ -75,6 +75,18 @@ export function isWuiTpl(v: string): boolean {
     return /<{(.+?)}>/.test(v);
 }
 
+// 判断字符串是否是wui组件
+export function isWuiByString(v: string) {
+    return /(.*?)(<[a-zA-Z]+)(.*?)/.test(v);
+}
+
+// 判断 DOM 是否是 Wui组件
+export function isWuiByElement(v: HTMLElement) {
+    let name = v.dataset.fn;
+    if (!name) return false;
+    return /^[a-zA-Z]/.test(name);
+}
+
 // 判断是否是管道操作符
 export function isPipe(v: string) {
     return /[0-9]+ |> ([a-zA-Z])/.test(v);
@@ -82,20 +94,15 @@ export function isPipe(v: string) {
 
 // 判断字符串中是否存在html字符串
 export function isHtmlTpl(v: string): boolean {
-    return /(.*?)(<[a-zA-Z]) (.*?)/.test(v);
+    return /(.*?)(<[a-zA-Z]+) (.*?)/.test(v);
 }
+
 
 // 判断字符串中是否包含wui组件
 export function isIncludeWuiComponent(v: string) {
     return /(<[a-zA-Z])(.*?)(data-fn=("|'|`|)[a-zA-Z]("|'|`|))(.*?)>/.test(v);
 }
 
-// 判断 DOM 是否是 Wui组件
-export function isWuiComponent(v: HTMLElement) {
-    let name = v.dataset.fn;
-    if (!name) return false;
-    return /^[a-zA-Z]/.test(name);
-}
 
 // 判断是否是Class https://zhuanlan.zhihu.com/p/53385348
 export function isClass(obj, strict?): obj is ClassDecorator {

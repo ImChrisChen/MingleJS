@@ -8,18 +8,19 @@
 import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
 import * as React from 'react';
 import { parseTpl } from '@utils/parser-tpl';
-import { strParseVirtualDOM } from '@utils/parser-dom';
+import { elementParseAllStr, strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { IApiResult, jsonp } from '@utils/request/request';
-import { isHtmlTpl, isNumber, isString, isWuiTpl } from '@utils/inspect';
+import { isHtmlTpl, isNumber, isString, isWuiByString, isWuiTpl } from '@utils/inspect';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
+import App from '@src/App';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -241,7 +242,19 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析html模版
                 if (isHtmlTpl(value)) {
-                    value = strParseVirtualDOM(value);          // 字符串dom转化
+
+                    if (isWuiByString(value)) {
+                        let element = strParseDOM(value);
+                        value = <div ref={ node => {
+                            node?.append(element);
+                            new App(element);
+                        } }/>;
+
+                    } else {
+                        value = strParseVirtualDOM(value);          // 字符串dom转化
+                        console.log(value);
+                    }
+
                 }
 
                 item[key] = value;
@@ -253,18 +266,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 dataIndex   : index,
                 name        : '',
                 introduction: <h1>1111</h1>,
-                // [this.fieldTpl]: '12321321'
             };
-
-            // if (this.fieldTpl) {
-            //     let fieldStr = parseTpl(this.fieldTpl, item);
-            //     let fieldJSX = strParseVirtualDOM(fieldStr);
-            //     result[this.fieldTpl] = fieldJSX;
-            // }
             return result;
         });
-        // let sumItem = this.sum(tableContent);
-        // tableContent.unshift(sumItem);
         return tableContent;
     }
 

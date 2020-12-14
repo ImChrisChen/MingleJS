@@ -28,7 +28,23 @@ data-slot 的元素，会被使用到对应的区域中，aside, main
              data-children="children"
              data-width="200"
         ></div>
+
     </div>
+
+<div data-slot="header">
+        <div data-fn="layout-menu"
+             data-url="http://mingle-test.local.aidalan.com/mock/tree.json"
+             data-open="true"
+             data-id="id"
+             data-pid="parent"
+             data-name="name"
+             data-layout="inline"
+             data-children="children"
+             data-width="200"
+        ></div>
+
+</div>
+
 
 
     <div data-slot="main">

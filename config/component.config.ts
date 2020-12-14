@@ -885,7 +885,7 @@ export default {
                         el   : 'input',
                         parse: 'number',
                         desc : '表格每页显示数量',
-                        value: 50,
+                        value: 500,
                     },
                     currentpage: {
                         el   : 'input',
@@ -1106,7 +1106,7 @@ export default {
         card: {
             component: import('@component/tips/card/TipsCard'),
             document : import('@component/tips/card/TipsCard.md'),
-            path     : 'tips-card',
+            path     : '/tips-card',
             property : {
                 dataset: {
                     trigger: {
