@@ -5838,3 +5838,19 @@ ReferenceError: form is not defined
  http://mingle-test.local.aidalan.com/#/nav-form-smart.html  -----------------end-
  2020-12-12/13:48:25   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports. -----------------end-
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+    at createFiberFromTypeAndProps (http://mingle-test.local.aidalan.com/manifest.min.js:227030:21)
+    at createFiberFromElement (http://mingle-test.local.aidalan.com/manifest.min.js:227053:15)
+    at reconcileSingleElement (http://mingle-test.local.aidalan.com/manifest.min.js:217298:23)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:217358:35)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:219827:28)
+    at updateContextProvider (http://mingle-test.local.aidalan.com/manifest.min.js:221321:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:221723:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-14/12:06:12   
+ ---END---
