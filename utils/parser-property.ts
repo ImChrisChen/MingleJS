@@ -97,6 +97,10 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
+    if (typeof parse === 'function') {
+        value = parse(value);
+    }
+
     switch (parse) {
 
         case 'string':            // 模版解析

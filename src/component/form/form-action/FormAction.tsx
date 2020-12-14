@@ -11,6 +11,8 @@ import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
 import App from '@src/App';
 import { trigger } from '@utils/trigger';
+import SmartIcon from '@static/icons/form-smart.png';
+import style from './FormAction.scss';
 
 // import tableData from '@mock/table/tableContent'
 
@@ -22,6 +24,11 @@ interface IFormData {
 interface IFormAction extends IComponentProps {
     layout?: 'v' | 'h'
     async
+}
+
+// data-smart icon
+export function FormSmartIcon() {
+    return <img className={ style.dataSmartIcons } src={ SmartIcon } alt="data-smart标志"/>;
 }
 
 export default class FormAction extends React.Component<IFormAction, any> {

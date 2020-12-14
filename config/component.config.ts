@@ -5,9 +5,8 @@
  * Time: 11:15 上午
  */
 import zhCN from 'antd/es/locale/zh_CN';
-import { isUrl } from '@utils/inspect';
+import { isUndefined, isUrl } from '@utils/inspect';
 import moment from 'moment';
-import { strParseVirtualDOM } from '@utils/parser-dom';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -30,7 +29,8 @@ export type parseType =
     | 'number[]'
     | 'JSON'
     | 'style'
-    | 'null';
+    | 'null'
+    | Function /* 只能用于做验证的方法 比如 isUndefined, isBoolean */
 
 // 组件设计器，属性值渲染类型
 export type elType =
@@ -91,8 +91,24 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     }
 }
 
+// 公共配置属性Interface
+interface IUniversalProps<T> {
+    label: T
+    placeholder: T
+    url: T
+    style: T
+    enum: T
+    disabled: T
+    size: T
+    name: T
+    required: T
+    smart: T
+
+    [key: string]: T
+}
+
 // TODO 提取公共属性(待调整)
-const UniversalProps = {
+const UniversalProps: IUniversalProps<IPropertyConfig> = {
     label      : {
         el   : 'input',
         value: 'label:',
@@ -167,18 +183,13 @@ const UniversalProps = {
         value: false,
         desc : '表单项是否必填',
     },
-
-} as {
-    label: IPropertyConfig
-    placeholder: IPropertyConfig
-    url: IPropertyConfig
-    style: IPropertyConfig
-    enum: IPropertyConfig
-    disabled: IPropertyConfig
-    size: IPropertyConfig
-    name: IPropertyConfig
-    required: IPropertyConfig
-    [key: string]: IPropertyConfig
+    smart      : {     // form
+        // el: 'radio',
+        render: false,
+        value : '',
+        parse : 'string',
+        desc  : '表单快速填充工具,添加后可以配置表单使用，是一个快速填充表格内容的工具',
+    },
 };
 
 // TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
@@ -305,6 +316,7 @@ export default {
                         desc   : '按照groupby的值来进行分组排列',
                     },
                     required  : UniversalProps.required,
+                    smart     : UniversalProps.smart,
                 },
                 value      : {
                     el     : 'select',
@@ -314,9 +326,8 @@ export default {
                     parse  : 'string',
                 },
                 placeholder: UniversalProps.placeholder,
-
-                name: UniversalProps.name,
-                hook: {
+                name       : UniversalProps.name,
+                hook       : {
                     load        : {
                         el    : 'input',
                         value : 'componentLoad',
@@ -383,6 +394,7 @@ export default {
                         value : true,
                     },
                     required  : UniversalProps.required,
+                    smart     : UniversalProps.smart,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -414,7 +426,10 @@ export default {
                         parse  : 'null',
                         desc   : '数据展示值',
                     },
+                    smart   : UniversalProps.smart,
                 },
+                name   : UniversalProps.name,
+                value  : {},
             },
         },
         cascader  : {
@@ -456,6 +471,7 @@ export default {
                         render: false,
                     },
                     required  : UniversalProps.required,
+                    smart     : UniversalProps.smart,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -516,6 +532,7 @@ export default {
                         value : false,
                     },
                     required  : UniversalProps.required,
+                    smart     : UniversalProps.smart,
                 },
                 name   : UniversalProps.name,
                 value  : {
@@ -620,6 +637,7 @@ export default {
                         render : true,
                     },
                     required   : UniversalProps.required,
+                    smart      : UniversalProps.smart,
                 },
                 name   : UniversalProps.name,
                 value  : {
@@ -644,6 +662,7 @@ export default {
                         el   : 'input',
                         value: '关闭',
                     },
+                    smart            : UniversalProps.smart,
                     // required: UniversalProps.required,
                 },
                 name   : UniversalProps.name,
@@ -674,6 +693,7 @@ export default {
                     },
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
+                    smart   : UniversalProps.smart,
                 },
                 name       : UniversalProps.name,
                 placeholder: UniversalProps.placeholder,
@@ -699,7 +719,7 @@ export default {
                             { label: 'picture', value: 'picture' },
                             { label: 'picture-card', value: 'picture-card' },
                         ],
-                        value: 'picture-card',
+                        value  : 'picture-card',
                         parse  : 'string',
                         desc   : '上传列表的内建样式，支持三种基本样式 text, picture 和 picture-card',
                     },
@@ -719,6 +739,7 @@ export default {
                     required: UniversalProps.required,
                 },
                 name   : UniversalProps.name,
+                smart  : UniversalProps.smart,
             },
         },
         color     : {
@@ -728,6 +749,7 @@ export default {
                 dataset: {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
+                    smart   : UniversalProps.smart,
                 },
                 value  : {
                     el   : 'color',
