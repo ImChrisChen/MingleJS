@@ -8,6 +8,8 @@
 import React from 'react';
 import { Form, Switch } from 'antd';
 import { trigger } from '@utils/trigger';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { isUndefined } from '@root/utils/inspect';
 
 export default class FormSwitch extends React.Component<any, any> {
     state: any = {
@@ -28,13 +30,14 @@ export default class FormSwitch extends React.Component<any, any> {
     }
 
     render() {
-        let dataset = this.props.dataset;
+        let { smart, ...dataset } = this.props.dataset;
         dataset.checked = dataset.value;        // switch 的value值是checked
         return <>
             <Form.Item label={ this.props.dataset.label } required={ this.props.required }>
+                { smart ? <FormSmartIcon/> : '' }
                 <Switch
                     onChange={ this.handleChange.bind(this) }
-                    { ...this.props.dataset }
+                    { ...dataset }
                 />
             </Form.Item>
         </>;

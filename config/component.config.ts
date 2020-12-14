@@ -184,10 +184,10 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         desc : '表单项是否必填',
     },
     smart      : {     // form
-        // el: 'radio',
-        render: false,
-        value : '',
-        parse : 'string',
+        el    : 'switch',
+        render: true,
+        value : false,
+        parse : 'boolean',
         desc  : '表单快速填充工具,添加后可以配置表单使用，是一个快速填充表格内容的工具',
     },
 };

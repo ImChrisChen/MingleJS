@@ -13,7 +13,6 @@
 
     <!-- 平台 -->
     <input data-fn="form-select" name="pf"
-           data-smart
            value="1"
            data-required="true"
            data-label="平台:"
@@ -24,7 +23,7 @@
 
     <!-- 游戏 -->
     <input data-fn="form-select" name="dl_game_id" data-mode="multiple"
-           data-smart
+           data-smart="true"
            data-label="游戏:"
            data-key="game_id"
            data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"
@@ -37,7 +36,7 @@
 
     <!-- 媒体 -->
     <input data-fn="form-select"
-           data-smart
+           data-smart="true"
            name="media_id"
            value=""
            data-mode="multiple"
@@ -49,14 +48,14 @@
 
     <!-- 账号 -->
     <input data-fn="form-select" name="dl_publisher_id" data-mode="multiple" value=""
-           data-smart
+           data-smart="true"
            data-label="账号:"
            data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"
            data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>">
 
     <!-- 负责人 -->
     <input data-fn="form-cascader" name="principal_id" data-mode="multiple"
-           data-smart
+           data-smart="true"
            data-groupby="department_name"
            value=""
            data-size="sm"

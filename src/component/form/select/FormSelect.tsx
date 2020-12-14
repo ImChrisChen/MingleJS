@@ -76,8 +76,8 @@ export default class Selector extends Component<IComponentProps, any> {
     }
 
     render() {
-        console.log(this.props);
-        let dataset = this.props.dataset;
+        console.log(this.props.dataset);
+        let { smart, ...dataset } = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
         if (dataset.mode === 'multiple') {
@@ -90,7 +90,7 @@ export default class Selector extends Component<IComponentProps, any> {
         return <>
             <Form.Item label={ dataset.label } style={ { display: 'flex' } }
                        required={ this.props.dataset.required }>
-                { !isUndefined(dataset.smart) ? <FormSmartIcon/> : '' }
+                { smart ? <FormSmartIcon/> : '' }
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
                     { ...dataset }

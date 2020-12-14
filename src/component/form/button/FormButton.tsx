@@ -9,6 +9,8 @@ import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
+import { isUndefined } from '@utils/inspect';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 export default class FormButton extends React.Component<IComponentProps, any> {
     state: any = {
@@ -35,6 +37,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
     render() {
         return <>
             <Form.Item label={ this.props.dataset.label }>
+                { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                 <Radio.Group
                     onChange={ this.handleChange.bind(this) }
                     value={ this.state.value }

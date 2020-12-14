@@ -10,7 +10,8 @@ import { Button, DatePicker, Form } from 'antd';
 import moment from 'moment';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
-import { isArray } from '@utils/inspect';
+import { isArray, isUndefined } from '@utils/inspect';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 const { RangePicker } = DatePicker;
 
@@ -115,6 +116,7 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         let value = this.valueFormat(this.props.value);
 
         return <Form.Item label={ this.props.dataset.label } style={ { display: 'flex' } }>
+            { this.props.dataset.smart ? <FormSmartIcon/> : '' }
             { single ?
                 // 单选
                 <DatePicker

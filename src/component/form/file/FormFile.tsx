@@ -9,6 +9,8 @@ import { Form, Modal, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
+import { isUndefined } from '@root/utils/inspect';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -54,6 +56,7 @@ export default class FormFile extends Component<IComponentProps, any> {
         return (
             <>
                 <Form.Item label={ this.props.dataset.label }>
+                    { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                     <Upload
                         // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         action={ this.props.dataset.url }
