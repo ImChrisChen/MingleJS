@@ -30,6 +30,7 @@ import DataSet from '@antv/data-set';
 import { isArray, isEmptyArray } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
 import moment from 'moment';
+import { RedoOutlined } from '@ant-design/icons';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -50,7 +51,7 @@ interface IChartConfig {
 
 const { DataView } = DataSet;
 
-export function PanelTitle(props: { title: string }) {
+export function PanelTitle(props: { title: string, handleReload: () => any }) {
     let style: any = {
         textAlign : 'center',
         // background: '#f0f2f5',
@@ -62,7 +63,11 @@ export function PanelTitle(props: { title: string }) {
         cursor    : 'pointer',
     };
     return props.title ?
-        <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }</Typography.Title> : <></>;
+        <>
+            <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }</Typography.Title>
+            <RedoOutlined onClick={ props.handleReload }/>
+        </>
+        : <></>;
 }
 
 export function DataUpdateTime(props: { content: string }) {
@@ -681,6 +686,10 @@ export default class DataChart extends Component<IComponentProps, any> {
         );
     }
 
+    handleReload() {
+        this.FormSubmit({});
+    }
+
     formatConfig(): IChartConfig | any {
         let {
             key,       // data数据 key 值映射
@@ -757,7 +766,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     render() {
         let config = this.formatConfig();
         return <>
-            <PanelTitle title={ this.props.dataset.title }/>
+            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
             </Spin>
