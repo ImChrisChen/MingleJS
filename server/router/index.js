@@ -11,6 +11,7 @@ const logs = require('./logs');
 const files = require('./files');
 const mock = require('./mock');
 const upload = require('./upload');
+const proxy = require('./proxy');
 
 router.use((req, res, next) => {
     next();
@@ -24,6 +25,7 @@ router.use(mock);
 router.use(logs);
 router.use(files);
 router.use(upload);
+router.use(proxy);
 
 module.exports = router;
 

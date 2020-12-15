@@ -115,6 +115,16 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         return JSON.parse(JSON.stringify(components));
     }
 
+    //  区分form组件 和其他组件的调用标签 input  / div
+    getTemplate(componentName) {
+        let [ group ] = componentName.split('-');
+        if (group === 'form') {
+            return '<input data-fn="form-button" />';
+        } else {
+            return '<div data-fn="form-button" ></div>';
+        }
+    }
+
     async reloadChangeComponent(componentName: string, currentComponent) {
 
         let fieldOptions: Array<IOptions> = [];
@@ -274,6 +284,9 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         message.success('generate');
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
+        let componentName = this.state.componentName;
+        let template = this.getTemplate(componentName);
+        console.log(template, componentName);
 
         // 处理属性,生成属性代码
         let attrs = components.map(item => {
@@ -297,7 +310,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
         }).filter(t => t).join(' ');
 
-        let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
+        let componentUseCode = template.replace(/data-fn="(.*?)"/, v => {
             v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });

@@ -6298,3 +6298,117 @@ TypeError: Cannot read property 'default' of undefined
  http://mingle-test.local.aidalan.com/#/  -----------------end-
  2020-12-14/17:25:43   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-15/15:40:19   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'fields' of undefined -----------------end-
+TypeError: Cannot read property 'fields' of undefined
+    at Interval.Geometry.getScaleFields (http://mingle-test.local.aidalan.com/manifest.min.js:62425:21)
+    at Chart.View.getScaleFields (http://mingle-test.local.aidalan.com/manifest.min.js:104479:37)
+    at Chart.View.createOrUpdateScales (http://mingle-test.local.aidalan.com/manifest.min.js:104425:23)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104388:10)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidMount (http://mingle-test.local.aidalan.com/manifest.min.js:126342:24)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222879:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-15/16:29:52   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'fields' of undefined -----------------end-
+TypeError: Cannot read property 'fields' of undefined
+    at Interval.Geometry.getScaleFields (http://mingle-test.local.aidalan.com/manifest.min.js:62425:21)
+    at Chart.View.getScaleFields (http://mingle-test.local.aidalan.com/manifest.min.js:104479:37)
+    at Chart.View.createOrUpdateScales (http://mingle-test.local.aidalan.com/manifest.min.js:104425:23)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104388:10)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidMount (http://mingle-test.local.aidalan.com/manifest.min.js:126342:24)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222879:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-15/16:29:52   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:16:06   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:16:11   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:16:13   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:17:17   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:17:44   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:17:55   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:24:44   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:24:45   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:24:46   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:24:47   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-15/17:24:48   
+ ---END---

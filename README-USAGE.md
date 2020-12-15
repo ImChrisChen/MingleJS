@@ -153,7 +153,9 @@ Notice.open({
 
     <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
     
-    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>	
+    <button type="reset" class="ant-btn ant-btn-waring">重置</button>
+
+    <button type="submit" class="ant-btn ant-btn-primary">提交</button>
     
 </form>
 

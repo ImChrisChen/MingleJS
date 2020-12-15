@@ -916,12 +916,24 @@ export default {
                         value  : 'bottomRight',
                         desc   : '分页器的位置',
                     },
+                    interval   : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 1,
+                        desc : '自动刷新间隔， 分钟为单位',
+                    },
                     height     : {
                         el    : 'number',
                         value : ''/*'300'*/,
                         parse : 'number',
                         desc  : '表格内容高度, 可滚动',
                         render: true,
+                    },
+                    title      : {
+                        el   : 'input',
+                        desc : '标题',
+                        value: '标题',
+                        parse: 'string',
                     },
                 },
                 // style  : {
@@ -937,13 +949,13 @@ export default {
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from' : {
+                    'from'  : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url    : {
+                    url     : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
@@ -958,7 +970,7 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type   : {
+                    type    : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -977,21 +989,21 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key    : {
+                    key     : {
                         el     : 'select-multiple',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value  : {
+                    value   : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
                         value  : '',
                         desc   : '图表统计的value值字段名',
                     },
-                    colors : {
+                    colors  : {
                         el     : 'input',
                         options: 'fromUrl',
                         value  : '#37c9e3',
@@ -1020,14 +1032,20 @@ export default {
                     //     value  : 'horizontal',
                     //     desc   : '图例的布局方式',
                     // },
-                    groupby: {
+                    groupby : {
                         el     : 'input',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
                     },
-                    height : {
+                    interval: {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 1,
+                        desc : '自动刷新间隔， 分钟为单位',
+                    },
+                    height  : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
@@ -1038,10 +1056,11 @@ export default {
                     //     value: '',
                     //     parse: 'string',
                     // },
-                    title  : {
+                    title   : {
                         el   : 'input',
-                        value: '',
+                        value: '标题',
                         parse: 'string',
+                        desc : '标题',
                     },
                 },
             },

@@ -5,7 +5,7 @@
  * Time: 7:35 下午
  */
 
-import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
+import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
 import * as React from 'react';
 import { parseTpl } from '@utils/parser-tpl';
 import { elementParseAllStr, strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
@@ -21,6 +21,8 @@ import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
 import App from '@src/App';
+import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
+import moment from 'moment';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -80,8 +82,6 @@ interface ITableState {
 
 // ! 操作符    https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36
 
-const expandable = { expandedRowRender: record => <p>{ record.description }</p> };
-
 export default class DataTable extends React.Component<ITableProps, any> {
 
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
@@ -102,14 +102,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
         // scroll           : {        //  表格是否可以滚动
         //     y: this.props.dataset.height || undefined,
         // },
+
+        updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
-    private fieldTpl!: string;
     private url: string = this.props.url;
     private searchInput;
-    private baseParams = {
-        page   : 1,
-        pageNum: 100,
-    };
 
     constructor(props: ITableProps) {
         super(props);
@@ -125,6 +122,15 @@ export default class DataTable extends React.Component<ITableProps, any> {
             });
             this.handleDragSelect();
         });
+
+        let { interval } = this.props.dataset;
+        if (interval) {
+            setInterval(() => {
+                this.FormSubmit({}).then(r => {
+                    // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);
+                });
+            }, interval * 60 * 1000);
+        }
     }
 
     handleShowSizeChange(page, pageSize) {    // pageSize 变化的回调
@@ -182,14 +188,19 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     // 提交表单
-    public async FormSubmit(formData, e) {
+    public async FormSubmit(formData) {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
         let url = formatObject2Url(formData, this.props.dataset.url);
         let tableContent = await this.getTableContent(url);
+        let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        this.setState({ dataSource: tableContent, loading: false });
+        this.setState({
+            dataSource: tableContent,
+            loading   : false,
+            updateDate: updateDate,
+        });
     }
 
     sum(list): ITableContentItem {
@@ -516,6 +527,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
+        console.log(this.props.dataset);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -527,6 +539,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
             </Dropdown>
+            <DataUpdateTime content={ this.state.updateDate }/>
+
+            <PanelTitle title={ this.props.dataset.title }/>
 
             <Table
                 style={ this.props.style }

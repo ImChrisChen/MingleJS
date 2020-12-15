@@ -6,7 +6,7 @@
  */
 
 import { IComponentProps } from '@interface/common/component';
-import React, { ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
 import {
     Annotation,
@@ -23,12 +23,13 @@ import {
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
-import { Spin } from 'antd';
+import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
 import DataSet from '@antv/data-set';
 import { isArray, isEmptyArray } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
+import moment from 'moment';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -49,11 +50,37 @@ interface IChartConfig {
 
 const { DataView } = DataSet;
 
-export default class DataChart extends React.Component<IComponentProps, any> {
+export function PanelTitle(props: { title: string }) {
+    let style: any = {
+        textAlign : 'center',
+        // background: '#f0f2f5',
+        fontSize  : '18px',
+        height    : '28px',
+        lineHeight: '28px',
+        color     : '#464c54',
+        marginTop : '0px',
+        cursor    : 'pointer',
+    };
+    return props.title ?
+        <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }</Typography.Title> : <></>;
+}
+
+export function DataUpdateTime(props: { content: string }) {
+    let style: any = {
+        position: 'absolute',
+        bottom  : 30,
+        left    : 8,
+    };
+    return <Typography.Text style={ { ...style } } type="secondary">数据上次更新于: { props.content }</Typography.Text>;
+}
+
+export default class DataChart extends Component<IComponentProps, any> {
 
     state = {
-        loading: true,
-        data   : [],
+        loading   : true,
+        data      : [],
+        updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+
     };
 
     constructor(props) {
@@ -62,6 +89,15 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         this.getData(this.props.dataset.url).then(data => {
             this.setState({ data, loading: false });
         });
+
+        let { interval } = this.props.dataset;
+        if (interval) {
+            setInterval(() => {
+                this.FormSubmit({}).then(r => {
+                    // message.success(`图表数据自动更新了,每次更新间隔为${ interval }分钟`);
+                });
+            }, interval * 60 * 1000);
+        }
     }
 
     // TODO 点击表单提交触发
@@ -70,7 +106,8 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         this.setState({ loading: true });
         let url = formatObject2Url(formData, this.props.dataset.url);
         let data = await this.getData(url);
-        this.setState({ data, loading: false });
+        let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+        this.setState({ data, loading: false, updateDate });
     }
 
     async handleFormSubmit(formData) {
@@ -278,7 +315,7 @@ export default class DataChart extends React.Component<IComponentProps, any> {
 
     // 折线图
     public static line(config) {
-        let { position, groupby, colors, chartType } = config;
+        let { position, groupby, colors } = config;
 
         /*
         * TODO line 单独配置
@@ -656,11 +693,16 @@ export default class DataChart extends React.Component<IComponentProps, any> {
             groupby,
             legendLocation,     // 图例位置
             legendLayout,
-
         } = this.props.dataset;
+
         if (isEmptyArray(colors) || colors === '') {
             colors = '#37c9e3';
         }
+
+        if (isArray(colors) && colors.length === 1) {
+            colors = colors[0];
+        }
+
         try {
             // let value = series[0][0];
             // let genreName = series[0][1];       // 地区
@@ -715,11 +757,11 @@ export default class DataChart extends React.Component<IComponentProps, any> {
     render() {
         let config = this.formatConfig();
         return <>
-            <h2 hidden={ !this.props.dataset.title }
-                style={ { textAlign: 'center', padding: '10px 20px' } }>{ this.props.dataset.title }</h2>
+            <PanelTitle title={ this.props.dataset.title }/>
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
             </Spin>
+            <DataUpdateTime content={ this.state.updateDate }/>
         </>;
     }
 }

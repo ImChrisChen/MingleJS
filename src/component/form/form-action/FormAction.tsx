@@ -5,13 +5,14 @@
  * Time: 12:35 上午
  */
 import React from 'react';
-import { Button, message } from 'antd';
+import { Button, Form, Input, message, Modal, Select, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
 import { trigger } from '@utils/trigger';
 import SmartIcon from '@static/icons/form-smart.png';
 import style from './FormAction.scss';
+import { jsonp } from '@root/utils/request/request';
 
 // import tableData from '@mock/table/tableContent'
 
@@ -33,9 +34,15 @@ export function FormSmartIcon() {
 export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {
-        formSmartData   : {},
+        isModalVisible  : false,
         formSmartVisible: false,
-        smartElements   : ([ ...this.props.el.querySelectorAll(`input[data-fn][data-smart]`) ] || []) as Array<HTMLInputElement>,
+        smartElements   : ([ ...this.props.el.querySelectorAll(`input[data-fn][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
+
+        // 提交的数据
+        formModelData: {
+            groupName: '',
+            isPublic : false,
+        },
     };
 
     constructor(props) {
@@ -51,17 +58,18 @@ export default class FormAction extends React.Component<IFormAction, any> {
         this.setLayout(form);
     }
 
+    // 获取form表单中只有 data-smart='true'的属性值
     getFormDataSmart(elements) {
-        let formSmartData = {};
+        let formDataSmart = {};
         if (elements.length > 0) {
             elements.forEach(element => {
                 let { name, value } = element;
                 if (name && value) {
-                    formSmartData[name] = value;
+                    formDataSmart[name] = value;
                 }
             });
         }
-        return formSmartData;
+        return formDataSmart;
     }
 
     async handleSubmit(form, e) {
@@ -159,13 +167,35 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     //  保存 data-smart 表单选择条件
     handleSaveSelects() {
-        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
-        console.log(formDataSmart);
+        this.setState({ isModalVisible: true });
     }
 
     handleToggle() {
         $('.form-smart-container').css('right', this.state.formSmartVisible ? -200 : 0);
         this.setState({ formSmartVisible: !this.state.formSmartVisible });
+    }
+
+    async handleOk() {
+        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
+        let { groupName, isPublic } = this.state.formModelData;
+        let dataStr = formatDataString(formDataSmart);
+
+        function formatDataString(formDataSmart: {}): string {
+            let str = '';
+            for (const key in formDataSmart) {
+                let value = formDataSmart[key];
+                str += `&key[${ key }]=${ value }`;
+            }
+            return str;
+        }
+
+        let url = `https://auc.local.aidalan.com/user.selectTag/save?public=${ Number(isPublic) }&name=${ groupName }${ dataStr }`;
+        let res = await axios.get(url);
+        console.log(res);
+    }
+
+    handleCancel() {
+        this.setState({ isModalVisible: false });
     }
 
     renderFormSmart() {
@@ -187,6 +217,28 @@ export default class FormAction extends React.Component<IFormAction, any> {
     render() {
         return <>
             { this.renderFormSmart() }
+            <Modal title="提交组合信息" visible={ this.state.isModalVisible }
+                   getContainer={ this.props.el }
+                   onOk={ this.handleOk.bind(this) }
+                   onCancel={ this.handleCancel.bind(this) }>
+                <Form.Item label={ '组合名称' }>
+                    <Input placeholder="请输入组合名称" value={ this.state.formModelData.groupName }
+                           onChange={ (e) => {
+                               let formModelData = this.state.formModelData;
+                               formModelData.groupName = e.target.value;
+                               this.setState({ formModelData });
+                           } }
+                    />
+                </Form.Item>
+
+                <Form.Item label={ '是否公开' }>
+                    <Switch checked={ this.state.formModelData.isPublic } onClick={ (e) => {
+                        let formModelData = this.state.formModelData;
+                        formModelData.isPublic = e;
+                        this.setState({ formModelData });
+                    } }/>
+                </Form.Item>
+            </Modal>
         </>;
     }
 }
