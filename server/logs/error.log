@@ -6996,3 +6996,131 @@ TypeError: Cannot read property 'map' of undefined
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-16/17:46:50   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:32:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:32:45   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:32:47   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:33:13   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:42:26   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:42:30   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:42:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/18:42:32   
+ ---END---

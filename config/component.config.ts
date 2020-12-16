@@ -499,6 +499,12 @@ export default {
                         value: 'YYYY-MM-DD',
                         desc : '日期格式，参考 moment.js 👉🏿 http://momentjs.cn/ ',
                     },
+                    showtime  : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否显示时间选择(时分秒)',
+                    },
                     picker    : {
                         el     : 'select',
                         parse  : 'string',
