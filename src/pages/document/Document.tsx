@@ -33,22 +33,27 @@ class Document extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-
-        this.init();
+        this.init().then(({ navRoutes, routes, menulist }) => {
+            this.setState({
+                navRoutes,
+                menulist,
+                routes,
+            });
+        });
     }
 
     async init() {
         let navRoutes = await this.getRouter();
-        let tree = await formatComponents2Tree(componentConfig).then();
+        let tree = await formatComponents2Tree(componentConfig);
         let routes = deepEach(tree, item => {
-            if (item.component) return item;
+            if (item.component && item.document) return item;
         });
 
-        this.setState({
+        return {
             navRoutes,
             menulist: tree,
             routes,
-        });
+        };
     }
 
     // 获取导航栏路由
@@ -77,16 +82,14 @@ class Document extends React.Component<any, any> {
     render() {
         let routes = this.state.routes.map(route => {
             if (route.document && route.path) {
-
-                console.log(route);
-                console.log(route.document['default']);
+                console.log( route.document);
                 return <Route
                     exact
                     key={ route.path }
                     path={ route.path }
                     render={ () => <MarkdownEditor
                         visibleEditor={ false }
-                        value={ route.document['default'] }/> }/>;
+                        value={ route.document }/> }/>;
             } else {
                 return undefined;
             }

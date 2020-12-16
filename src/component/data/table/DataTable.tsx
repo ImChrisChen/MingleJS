@@ -525,6 +525,10 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
+    handleReload() {
+        this.FormSubmit({});
+    }
+
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
         console.log(this.props.dataset);
@@ -541,7 +545,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
             </Dropdown>
             <DataUpdateTime content={ this.state.updateDate }/>
 
-            <PanelTitle title={ this.props.dataset.title }/>
+            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
 
             <Table
                 style={ this.props.style }

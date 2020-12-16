@@ -84,6 +84,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     constructor(props) {
         super(props);
         formatComponents2Tree(componentConfig).then(tree => {
+            console.log(tree);
             this.setState({
                 componentsTree: tree,
             });
@@ -365,6 +366,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     // input
     handleInputChange(index, e) {
+        console.log(index, e);
         let value = e.target.value;
         this.setAttributeValue(index, value);
     }
@@ -386,6 +388,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     handleChangeColor(index, value) {
+        console.log(index, value.hex);
         this.setAttributeValue(index, value.hex);
         this.generateCode();
     }
@@ -397,19 +400,6 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
 
-    }
-
-    renderComponentList() {
-        return <Card title="Card Title">
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-        </Card>;
     }
 
     renderSwitch(key, item) {

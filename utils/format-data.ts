@@ -42,17 +42,20 @@ export async function formatComponents2Tree(componentConfig) {
 
             let v = val[k];
             let { component, document, path, property } = v;
-            children.push({
+            let d = (await document)?.default;
+            console.log(d);
+            let item = {
                 label    : k,
                 value    : k,
-                component: (await component),
-                document : (await document),
+                component: component,
+                document : d,
                 property,
                 path,
                 ...v,
-                // children : [],
-            });
+            };
+            children.push(item);
         }
+
         newArr.push({
             label   : key,
             children: children,

@@ -26,11 +26,11 @@ import {
 import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
-import DataSet from '@antv/data-set';
 import { isArray, isEmptyArray } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
 import moment from 'moment';
 import { RedoOutlined } from '@ant-design/icons';
+
 
 interface IChartConfig {
     key: string | Array<string>
@@ -49,6 +49,8 @@ interface IChartConfig {
     [key: string]: any
 }
 
+import DataSet from '@antv/data-set';
+
 const { DataView } = DataSet;
 
 export function PanelTitle(props: { title: string, handleReload: () => any }) {
@@ -63,10 +65,8 @@ export function PanelTitle(props: { title: string, handleReload: () => any }) {
         cursor    : 'pointer',
     };
     return props.title ?
-        <>
-            <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }</Typography.Title>
-            <RedoOutlined onClick={ props.handleReload }/>
-        </>
+        <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }<RedoOutlined
+            onClick={ props.handleReload }/></Typography.Title>
         : <></>;
 }
 
@@ -500,8 +500,6 @@ export default class DataChart extends Component<IComponentProps, any> {
         //     { item: 'UX', a: 50, b: 60 },
         // ];
         let data = config.dataSource;
-
-        const { DataView } = DataSet;
         const dv = new DataView().source(data);
         dv.transform({
             type  : 'fold',
@@ -573,7 +571,6 @@ export default class DataChart extends Component<IComponentProps, any> {
             //     { name: '分类 20', value: 16 },
             // ],
         };
-        const { DataView } = DataSet;
         const dv = new DataView();
         dv.source(data, {
             type: 'hierarchy',

@@ -1005,7 +1005,7 @@ export default {
                     },
                     colors  : {
                         el     : 'input',
-                        options: 'fromUrl',
+                        // options: 'fromUrl',
                         value  : '#37c9e3',
                         parse  : 'string[]',
                         desc   : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
@@ -1267,7 +1267,7 @@ export default {
         },
         tab   : {
             component: import('@component/layout/tab/LayoutTab'),
-            document : import('@component/layout/tab/LayoutTab'),
+            document : import('@component/layout/tab/LayoutTab.md'),
             path     : '/layout-tab',
             property : {
                 dataset: {
