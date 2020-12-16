@@ -13,7 +13,7 @@
     const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
     const version = new Date().getTime();
     
-    let scripts = files.map(file => {
+    const scripts = files.map(file => {
         let url = hostname + file + '?date=' + version;
         if (isJavascript(file)) {
             return createScript(file, url);

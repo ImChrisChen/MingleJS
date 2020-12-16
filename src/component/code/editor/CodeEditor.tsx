@@ -6,7 +6,7 @@
  */
 
 import { Controlled as CodeMirror } from 'react-codemirror2'; // https://codemirror.net/doc/manual.html#config
-import React from 'react';
+import React, { Component } from 'react';
 import { Divider, Space } from 'antd';
 import App from '@root/src/App';
 import './CodeEditor.css';
@@ -16,7 +16,7 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/htmlmixed/htmlmixed');
 require('codemirror/mode/xml/xml');
 
-export default class CodeEditor extends React.Component<any, any> {
+export default class CodeEditor extends Component<any, any> {
 
     // state = {
     //     value: this.props.dataset.value ?? `<input data-fn="" />`,
@@ -85,17 +85,6 @@ export default class CodeEditor extends React.Component<any, any> {
                     // this.setState({ value });
                 } }
             />
-
-            {/*<Button onClick={ this.runCode.bind(this) }>查看效果</Button>*/ }
-
-            <Divider/>
-            <Space/>
-            <div>
-                <h1>代码演示</h1>
-                <div className="show-code" style={ { marginTop: 60 } }>
-
-                </div>
-            </div>
         </>;
     }
 }

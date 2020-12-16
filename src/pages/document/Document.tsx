@@ -7,42 +7,20 @@
 
 import React from 'react';
 import { deepEach } from '@utils/util';
-import componentMap from '@root/config/component.config';
+import componentConfig from '@root/config/component.config';
 import { formatComponents2Tree } from '@utils/format-data';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
 import LayoutMenu from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Redirect, Route, Switch } from 'react-router';
-import navRouter from '@src/router/router';
+import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import md5 from 'md5';
+import axios from 'axios';
+import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
 
 const { Header, Content, Footer, Sider } = Layout;
-
-const data = {
-    nodes: [
-        {
-            id   : '0',
-            label: 'Node',
-            x    : 55,
-            y    : 55,
-        },
-        {
-            id   : '1',
-            label: 'Node',
-            x    : 55,
-            y    : 255,
-        },
-    ],
-    edges: [
-        {
-            label : 'Label',
-            source: '0',
-            target: '1',
-        },
-    ],
-};
 
 class Document extends React.Component<any, any> {
     state: any = {
@@ -50,19 +28,45 @@ class Document extends React.Component<any, any> {
         routes        : [],
         collapsed     : false,
         showCodeDesign: false,          // 是否显示组件设计器
+        navRoutes     : [ ...navRoutes ],
     };
 
     constructor(props) {
         super(props);
+        this.init();
+    }
 
-        formatComponents2Tree(componentMap).then(list => {
-            let routes = deepEach(list, item => {
-                if (item.component) return item;
-            });
-            this.setState({
-                menulist: list, routes,
-            });
+    async init() {
+        let navRoutes = await this.getRouter();
+        let list = await formatComponents2Tree(componentConfig);
+        console.log(list);
+        let routes = deepEach(list, item => {
+            if (item.component && item.document) return item;
         });
+
+        this.setState({
+            navRoutes,
+            menulist: list,
+            routes,
+        });
+    }
+
+    // 获取导航栏路由
+    async getRouter() {
+        let res = await axios.get('http://localhost:8081/files/template');
+        let data = res.data.status ? res.data.data : [];
+        let pageRoutes: Array<any> = [];
+        for (const item of data) {
+            let html = (await import(`@root/template/${ item }`)).default;
+            let [ name ] = item.split('.');
+            pageRoutes.push({
+                name     : name,
+                path     : '/nav-' + item,
+                component: <HtmlRenderer key={ '/nav-' + item } html={ html }/>,
+            });
+        }
+        let navRoutes = this.state.navRoutes;
+        return [ ...navRoutes, ...pageRoutes ];
     }
 
     getCurrentMenu() {
@@ -79,7 +83,7 @@ class Document extends React.Component<any, any> {
                     path={ route.path }
                     render={ () => <MarkdownEditor
                         visibleEditor={ false }
-                        value={ route.document['default'] }/> }/>;
+                        value={ route.document.default }/> }/>;
             } else {
                 return undefined;
             }
@@ -94,7 +98,7 @@ class Document extends React.Component<any, any> {
 
                         {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
                         <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ this.getCurrentMenu() ] }>
-                            { navRouter.map(route => {
+                            { this.state.navRoutes.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target
                                         ? <a href={ route.path } target={ route.target }>{ route.name } </a>
@@ -108,14 +112,13 @@ class Document extends React.Component<any, any> {
                     <Content
                         className="site-layout-background"
                         style={ {
-                            // margin   : '24px 16px',
-                            // padding  : 2,
-                            minHeight: 280,
+                            minHeight : 280,
+                            background: '#f0f2f5',
                         } }
                     >
                         <Switch>
                             { ...routes }
-                            { navRouter.map(route => <Route
+                            { this.state.navRoutes.map(route => <Route
                                     exact
                                     path={ route.path }
                                     key={ route.path }

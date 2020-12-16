@@ -22,8 +22,8 @@ import {
     Switch,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import React from 'react';
-import componentMap, { IOptions, IPropertyConfig } from '@root/config/component.config';
+import React, { Component, PureComponent } from 'react';
+import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { parseEnum } from '@utils/parser-tpl';
@@ -34,6 +34,7 @@ import { jsonp } from '@utils/request/request';
 import { isObject, isString, isUndefined } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
+import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 
 type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
 
@@ -46,16 +47,24 @@ interface IComponentDataset {
     [key: string]: any
 }
 
-interface ICodeGenerateProps {
-    visible?: boolean           //是否显示组件设计器
-    onClose: () => any
-
-    [key: string]: any
+interface IComponentProperty extends IPropertyConfig {
+    defaultValue: any
 }
 
-class CodeGenerator extends React.Component<any, any> {
+interface ICodeGenerateProps {
+    // visible?: boolean           //是否显示组件设计器
+    // onClose: () => any
+    // [key: string]: any
+    name?: string
+    config?: any
+    visibleCode?: boolean
+    onGenerateCode?: (code: string) => void
+}
+
+class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
+
     state = {
         components        : this.getComponents(),
         componentsProperty: [],          // 组件dataset
@@ -74,7 +83,8 @@ class CodeGenerator extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
-        formatComponents2Tree(componentMap).then(tree => {
+        formatComponents2Tree(componentConfig).then(tree => {
+            console.log(tree);
             this.setState({
                 componentsTree: tree,
             });
@@ -89,9 +99,9 @@ class CodeGenerator extends React.Component<any, any> {
 
     getComponents(): Array<any> {
         let components: Array<any> = [];
-        for (const key in componentMap) {
-            if (!componentMap.hasOwnProperty(key)) continue;
-            let value = componentMap[key];
+        for (const key in componentConfig) {
+            if (!componentConfig.hasOwnProperty(key)) continue;
+            let value = componentConfig[key];
             for (const k in value) {
                 if (!value.hasOwnProperty(k)) continue;
 
@@ -106,11 +116,21 @@ class CodeGenerator extends React.Component<any, any> {
         return JSON.parse(JSON.stringify(components));
     }
 
+    //  区分form组件 和其他组件的调用标签 input  / div
+    getTemplate(componentName) {
+        let [ group ] = componentName.split('-');
+        if (group === 'form') {
+            return '<input data-fn="form-button" />';
+        } else {
+            return '<div data-fn="form-button" ></div>';
+        }
+    }
+
     async reloadChangeComponent(componentName: string, currentComponent) {
 
         let fieldOptions: Array<IOptions> = [];
         if (!currentComponent.property) {
-            console.error('请配置组件的proerty属性');
+            console.error(`组件:${ componentName }请配置组件的proerty属性`);
             this.setState({
                 componentsProperty: [],
                 currentComponent,
@@ -120,14 +140,13 @@ class CodeGenerator extends React.Component<any, any> {
         }
 
         let { dataset, hook, ...attrs } = currentComponent.property;
-        // let arr: Array<IComponentDataset> = [];
-        let arr: Array<IPropertyConfig> = [];
+        let arr: Array<IComponentProperty> = [];
         let dataEnum: Array<any> = [];
 
         //dataset 属性
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
-            let val: IPropertyConfig = dataset[k];
+            let val: IComponentProperty = dataset[k];
 
             // TODO 当值为函数时，执行函数
             if (typeof val.value === 'function') {
@@ -137,7 +156,6 @@ class CodeGenerator extends React.Component<any, any> {
             if (k === 'url' && val.request) {
                 let res = await jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
-                console.log(dataItem);
                 if (dataItem && isObject(dataItem)) {
                     for (const itemKey in dataItem) {
                         if (!dataItem.hasOwnProperty(itemKey)) continue;
@@ -166,12 +184,13 @@ class CodeGenerator extends React.Component<any, any> {
             }
 
             arr.push({
-                label  : `data-${ k }`,       //
-                el     : el,
-                options: options,
-                value  : val.value,
-                desc   : val.desc,
-                render : val.render !== false,
+                label       : `data-${ k }`,       //
+                el          : el,
+                options     : options,
+                value       : val.value,
+                defaultValue: val.value,
+                desc        : val.desc,
+                render      : val.render !== false,
             });
         }
 
@@ -191,12 +210,13 @@ class CodeGenerator extends React.Component<any, any> {
             }
 
             arr.push({
-                label  : k,
-                el     : val.el,
-                options: val.options,
-                value  : val.value,
-                desc   : val.desc,
-                render : val.render !== false,
+                label       : k,
+                el          : val.el,
+                options     : val.options,
+                value       : val.value,
+                defaultValue: val.value,
+                desc        : val.desc,
+                render      : val.render !== false,
             });
         }
 
@@ -205,12 +225,13 @@ class CodeGenerator extends React.Component<any, any> {
             if (!hook.hasOwnProperty(k)) continue;
             let val = hook[k];
             arr.push({
-                label  : `hook:${ k }`,
-                el     : val.el,
-                options: val.options,
-                value  : val.value,
-                desc   : val.desc,
-                render : val.render !== false,
+                label       : `hook:${ k }`,
+                el          : val.el,
+                options     : val.options,
+                value       : val.value,
+                defaultValue: val.value,
+                desc        : val.desc,
+                render      : val.render !== false,
             });
         }
 
@@ -220,19 +241,28 @@ class CodeGenerator extends React.Component<any, any> {
             componentName,
             dataEnum,
         }, () => this.generateCode());
+    }
 
+    // 组件的Props更新时触发
+    componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
+        let { name, config } = nextProps;
+        if (name && config) {
+            console.log('-------------');
+            this.reloadChangeComponent(name, config);
+        }
     }
 
     // 选择组件
     async handleChangeComponent(e, v) {
+        console.log(v);
         let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
         this.reloadChangeComponent(componentName, currentComponent);
     }
 
-    shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
-        return true;
-    }
+    // shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
+    //     return true;
+    // }
 
     handleChangeRadio(index, e) {
         let value = e.target.value;
@@ -255,6 +285,9 @@ class CodeGenerator extends React.Component<any, any> {
         message.success('generate');
         let components: Array<IComponentDataset> = this.state.componentsProperty;
         let funcNames: Array<object> = [];
+        let componentName = this.state.componentName;
+        let template = this.getTemplate(componentName);
+        console.log(template, componentName);
 
         // 处理属性,生成属性代码
         let attrs = components.map(item => {
@@ -270,14 +303,15 @@ class CodeGenerator extends React.Component<any, any> {
 
             // TODO 后续需要完善，选中的值如果和默认值相等，就不用生成对应的属性代码
             // 有属性默认值则，生成对应的属性代码
-            if (isUndefined(item.value) || item.value === '') {
+            if (isUndefined(item.value) || item.value === '' // || (item.value === item.defaultValue)
+            ) {
                 return undefined;
             } else {
                 return `${ item.label }='${ item.value ?? '' }'\n\t`;
             }
         }).filter(t => t).join(' ');
 
-        let componentUseCode = this.template.replace(/data-fn="(.*?)"/, v => {
+        let componentUseCode = template.replace(/data-fn="(.*?)"/, v => {
             v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });
@@ -296,6 +330,7 @@ class CodeGenerator extends React.Component<any, any> {
             componentUseCode += `\n<script> \n ${ funcs.join('\n') } \n</script>`;
         }
 
+        this.props.onGenerateCode?.(componentUseCode);
         this.setState({ componentUseCode });
 
         // TODO setState 后 initValues 不生效的的解决方案 https://www.cnblogs.com/lanshu123/p/10966395.html
@@ -331,6 +366,7 @@ class CodeGenerator extends React.Component<any, any> {
 
     // input
     handleInputChange(index, e) {
+        console.log(index, e);
         let value = e.target.value;
         this.setAttributeValue(index, value);
     }
@@ -352,6 +388,7 @@ class CodeGenerator extends React.Component<any, any> {
     }
 
     handleChangeColor(index, value) {
+        console.log(index, value.hex);
         this.setAttributeValue(index, value.hex);
         this.generateCode();
     }
@@ -363,19 +400,6 @@ class CodeGenerator extends React.Component<any, any> {
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
 
-    }
-
-    renderComponentList() {
-        return <Card title="Card Title">
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-            <Card.Grid className={ style.gridStyle }>Content</Card.Grid>
-            <Card.Grid className={ style.gridStyle }> Content </Card.Grid>
-        </Card>;
     }
 
     renderSwitch(key, item) {
@@ -521,15 +545,17 @@ class CodeGenerator extends React.Component<any, any> {
     }
 
     render() {
+        let visibleCode = this.props.visibleCode ?? true;
         return <div style={ { display: 'flex', justifyContent: 'space-around' } }>
 
-            <Card className={ style.panelCard }>
+            { visibleCode ? <Card className={ style.panelCard }>
                 <CodeEditor dataset={ {
                     value: this.state.componentUseCode,
                 } }/>
-            </Card>
+                <ExecCode code={ this.state.componentUseCode }/>
+            </Card> : '' }
 
-            <Card className={ style.panelCard }>
+            <Card className={ style.panelCard } style={ visibleCode ? {} : { width: '100%' } }>
                 <Form layout="vertical"
                       style={ { width: '100%' } }
                       hideRequiredMark
@@ -604,5 +630,5 @@ class CodeGenerator extends React.Component<any, any> {
     }
 }
 
-export default withRouter(CodeGenerator);
-// export default CodeGenerate
+// export default withRouter(CodeGenerator);
+export default CodeGenerator;

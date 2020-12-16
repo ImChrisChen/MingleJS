@@ -5,12 +5,14 @@ import { parserAttrs, parserProperty } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isArray, isFunc } from '@utils/inspect';
+import { isArray, isFunc, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import moment from 'moment';
 import axios from 'axios';
 import { elementWrap } from '@utils/parser-dom';
+import { trigger } from '@utils/trigger';
+import { Hooks } from '@root/config/directive.config';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -35,7 +37,7 @@ interface IModules {
     // { element, Component, container, elChildren }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
-    elChildNodes: any | Array<HTMLElement | Node>
+    // elChildNodes: any | Array<HTMLElement | Node>
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
     containerWrap: HTMLElement      //  组件根容器
@@ -44,21 +46,13 @@ interface IModules {
     defaultProperty: IModuleProperty         //  组件默认值
     config: IComponentConfig        // 组件配置
     componentUID: string            // 组件uid
+    beforeElement: HTMLElement
 }
-
 
 interface IArrItem {
     name: string,
     value: string
 }
-
-const arr: Array<IArrItem> = [
-    {
-        name : '',
-        value: '',
-    },
-];
-
 
 interface IAttributes extends NamedNodeMap {
     style?: any | string
@@ -73,16 +67,6 @@ interface W extends Window {
 interface IInstances {
     module: IModules
     instance: ReactInstance
-}
-
-export type PropertyType = 'dataset' | 'attribute';
-
-// 组件生命周期
-enum Hooks {
-    load = 'load',
-    beforeLoad = 'before-load',
-    update = 'update',
-    beforeUpdate = 'before-update'
 }
 
 export default class App {
@@ -110,6 +94,9 @@ export default class App {
     async init(rootElement: HTMLElement) {
         this.renderIcons(rootElement);
         deepEachElement(rootElement, async (element, parentNode) => {
+            let beforeElement = element.cloneNode(true) as HTMLElement;
+            let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
+
             let attributes = element.attributes;
             if (attributes['data-fn']) {
 
@@ -156,7 +143,7 @@ export default class App {
                                     console.error(`${ componentName } 模块不属于MingleJS`);
                                 } else {
 
-                                    let keysArr = componentName.split('-');
+                                    let keysArr = componentName.trim().split('-');
                                     // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
                                     let [ , , componentMethod ] = keysArr;
 
@@ -165,24 +152,19 @@ export default class App {
                                     const config = Modules.config;
 
                                     let defaultProperty = Modules.property;
-                                    let el = element.cloneNode(true);
-                                    let elChildNodes = el.childNodes;
 
                                     // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-                                    let elChildren: Array<HTMLElement | any> = [];
-
-                                    elChildren = Array.from(element.children ?? []);
-                                    elChildren.pop();       // 去掉自己本身
+                                    // let elChildren: Array<HTMLElement | any> = [];
 
                                     let hooks = this.formatHooks(attributes);
 
                                     let module: IModules = {
                                         Component,
                                         element,
+                                        beforeElement,
                                         container,
                                         containerWrap,
                                         elChildren,
-                                        elChildNodes,
                                         hooks,
                                         componentMethod,
                                         defaultProperty,
@@ -239,10 +221,14 @@ export default class App {
 
     formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
+
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
-            let [ , hookName ] = name.split('@');
-            if (hookName && isFunc((window as W)[fnName])) {
-                hooks[hookName] = (window as W)[fnName];
+            // @ts-ignore
+            let hook = Object.values(Hooks).includes(name);
+            if (hook) {
+                if (name && isFunc((window as W)[fnName])) {
+                    hooks[name] = (window as W)[fnName];
+                }
             }
         });
         return hooks;
@@ -256,33 +242,40 @@ export default class App {
         return '';
     }
 
+    // 重载组件
     dynamicReloadComponents(element: HTMLInputElement) {
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
+
         [ ...$formItems ].forEach(formItem => {
             let dataset = formItem.dataset;
             let $formItemBox = $(formItem).parent('[data-component-uid]');
             let uid = $formItemBox.attr('data-component-uid') ?? '';
+            let selfInputName = element.name;
+            let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
+            let { module }: IInstances = App.instances[uid];
 
             for (const key in dataset) {
                 if (!dataset.hasOwnProperty(key)) continue;
-                let tpl = dataset[key] ?? '';
-                let inputName = element.name;
-                let regExp = new RegExp(`<{(.*?)${ inputName }(.*?)}>`);
-                if (inputName && regExp.test(tpl)) {
-                    let { module }: IInstances = App.instances[uid];
+                let value = dataset[key] ?? '';
+
+                // 只有和模版关联的input框组件才会重载
+                if (regExp.test(value)) {
                     // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
+
                     ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
-                    this.renderComponent(module,
-                        hooks => hooks[Hooks.beforeUpdate]?.(),
-                        (hooks) => {
-                            hooks[Hooks.update]?.();
-                            // this.dynamicReloadComponents(element);
-                        },
-                    );
+                    (module.element as HTMLInputElement).value = '';
+                    setTimeout(() => {
+                        this.renderComponent(module,
+                            hooks => hooks[Hooks.beforeUpdate]?.(),
+                            (hooks) => {
+                                hooks[Hooks.update]?.();
+                            },
+                        );
+                    });
+                    break;
                 }
             }
-
         });
     }
 
@@ -295,7 +288,8 @@ export default class App {
 
             // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
             $(element).on('change', (e) => {
-                message.success(`onchange - value:${ $(element).val() }`);
+                // message.success(`onchange - value:${ $(element).val() }`);
+                console.log(`onchange - value:${ $(element).val() }`);
 
                 // 组件发生改变的时候重新出发组件渲染，达到值的改变
                 this.renderComponent(module, hooks => {
@@ -349,11 +343,11 @@ export default class App {
 
     }
 
-    static globalEventListener() {
+    static async globalEventListener() {
 
         window.addEventListener('error', async function (e) {
-            let msg = e?.message;        // 错误
-            let stack = e?.error?.stack;
+            let msg = e?.message ?? '';        // 错误
+            let stack = e?.error?.stack ?? '';
             let date = moment().format('YYYY-MM-DD/HH:mm:ss');
             let url = window.location.href;
             let log = { message: msg, stack, date, url };
@@ -368,7 +362,6 @@ export default class App {
                 localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
             await axios.post('http://localhost:8081/log', log);
-            console.error(msg);
             message.error(`error, ${ msg }`);
         });
 
@@ -392,8 +385,7 @@ export default class App {
     private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
-            elChildNodes,
-            config, componentUID,
+            config, componentUID, beforeElement,
         } = module;
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
 
@@ -412,7 +404,7 @@ export default class App {
         let props = {
             el        : element,
             elChildren: elChildren ?? [],
-            elChildNodes,
+            beforeElement,
             box       : containerWrap,
             dataset   : parsedDataset,
             ...parsedAttrs,
@@ -432,6 +424,11 @@ export default class App {
             : defaultProperty?.value?.value ?? '';
         // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
         let value = element['value'] || defaultValue;
+
+        // TODO 如果值不想等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
+        if (!isUndefined(element['value']) && value !== element['value']) {
+            trigger(element, value);
+        }
 
         // 触发 beforeLoad 钩子
         beforeCallback(hooks);

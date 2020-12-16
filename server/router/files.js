@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/12/10 * Time: 2:11 下午 */const express = require('express');const router = express.Router();const pageCtrl = require('../controller/files');// 获取目录文件router.get('/files*', pageCtrl.getFiles);module.exports = router;

@@ -8,7 +8,6 @@
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
 import { isString } from '@utils/inspect';
-import tab from '@component/layout/tab/tab';
 
 // 解析dataset data-*
 export function parserProperty(dataset, defaultDataset): object {
@@ -65,7 +64,9 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
             let { value, parse, verify } = currentProperty;
 
             // value值函数解析
-            if (value && typeof value === 'function') value = value(parsedDataset);
+            if (value && typeof value === 'function') {
+                currentProperty.value = value = value(parsedDataset);
+            }
 
             // 属性函数验证
             if (verify && !verify(value)) {
@@ -95,6 +96,12 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 }
 
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
+
+    if (typeof parse === 'function') {
+        console.log(parse);
+        console.log(value, typeof value);
+        value = parse(value);
+    }
 
     switch (parse) {
 

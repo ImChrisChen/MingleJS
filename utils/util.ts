@@ -23,6 +23,8 @@ export function getDepthMax(node: any, children = 'children') {
     return 1 + Math.max(...maxChildDepth);
 }
 
+// 等待
+export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time));
 
 // DOM 尾递归
 export function deepEachElementTail(root, callback?: (el: HTMLElement) => void) {

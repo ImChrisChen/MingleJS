@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'mingle-dev',
-            cwd: '/Users/ChrisChen/Desktop/MingleJS',
+            // cwd: '/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com',
             script: 'npm run dev',
             // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
             instances: 1,
