@@ -1004,11 +1004,11 @@ export default {
                         desc   : '图表统计的value值字段名',
                     },
                     colors  : {
-                        el     : 'input',
+                        el   : 'input',
                         // options: 'fromUrl',
-                        value  : '#37c9e3',
-                        parse  : 'string[]',
-                        desc   : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
+                        value: '#37c9e3',
+                        parse: 'string[]',
+                        desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
                     },
                     // legendLocation: {
                     //     el     : 'select',

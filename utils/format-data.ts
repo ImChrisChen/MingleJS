@@ -46,7 +46,7 @@ export async function formatComponents2Tree(componentConfig) {
                 label    : k,
                 value    : k,
                 component: await component,
-                document : '---------------' + (await document)?.default,
+                document : await document,
                 property,
                 path,
                 ...args,

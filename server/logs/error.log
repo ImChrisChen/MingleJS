@@ -6724,3 +6724,275 @@ TypeError: Cannot convert undefined or null to object
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-16/15:23:15   
  ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:25:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:25:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:26:46   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:27:25   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-layout.html  -----------------end-
+ 2020-12-16/15:27:26   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:27:30   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134408:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61804:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49944:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49731:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:43672:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:49722:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:49938:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50015:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220225:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220175:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/16:59:26   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:134408:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61804:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49944:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:49731:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:43672:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:49722:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:49938:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50015:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220225:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:220175:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/16:59:26   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:00:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:00:29   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:01:19   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:02:54   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:10:44   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:15:13   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:15:17   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at Chart.changeSize (http://mingle-test.local.aidalan.com/manifest.min.js:133019:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:23:57   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at Chart.changeSize (http://mingle-test.local.aidalan.com/manifest.min.js:133019:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:23:57   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:24:54   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'map' of undefined -----------------end-
+TypeError: Cannot read property 'map' of undefined
+    at IntervalLabel.GeometryLabel.getLabelCfgs (http://mingle-test.local.aidalan.com/manifest.min.js:64262:30)
+    at IntervalLabel.GeometryLabel.getLabelItems (http://mingle-test.local.aidalan.com/manifest.min.js:63944:26)
+    at IntervalLabel.GeometryLabel.render (http://mingle-test.local.aidalan.com/manifest.min.js:63984:27)
+    at Interval.Geometry.renderLabels (http://mingle-test.local.aidalan.com/manifest.min.js:63301:19)
+    at Interval.Geometry.paint (http://mingle-test.local.aidalan.com/manifest.min.js:62132:12)
+    at Chart.View.paintGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104633:16)
+    at Chart.View.renderPaintRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104158:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104061:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/17:46:50   
+ ---END---

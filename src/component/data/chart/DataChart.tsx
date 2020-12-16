@@ -115,9 +115,6 @@ export default class DataChart extends Component<IComponentProps, any> {
         this.setState({ data, loading: false, updateDate });
     }
 
-    async handleFormSubmit(formData) {
-    }
-
     async getData(url) {
         let res = await jsonp(url);
         return res.status ? res.data : [];
@@ -240,14 +237,16 @@ export default class DataChart extends Component<IComponentProps, any> {
         </Chart>;
     }
 
-    // 柱状图
+    // 柱状图 (支持分组统计)
     public static bar(config) {
-        let { position, groupby, colors } = config;
+
+        let { colors, position, dataSource } = this.formatGroupsData(config);
+
         return <>
-            <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
+            <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
 
-                <Interval position={ position } color={ groupby || colors }
+                <Interval position={ position } color={ colors }
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
                 <Tooltip shared/>
@@ -318,18 +317,17 @@ export default class DataChart extends Component<IComponentProps, any> {
         </>;
     }
 
-    // 折线图
+    // 折线图 (支持分组统计)
     public static line(config) {
-        let { position, groupby, colors } = config;
-
         /*
         * TODO line 单独配置
         * area 是否展示区域
         * point 是否展示点
         **/
 
+        let { position, dataSource, colors } = this.formatGroupsData(config);
         return <>
-            <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
+            <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
@@ -337,7 +335,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 {/*<Area position={ position } color={ groupby || colors }/>*/ }
 
                 <LineAdvance area shape="smooth" position={ position } point={ true }
-                             color={ groupby || colors } label="first"/>
+                             color={ colors } label="first"/>
 
                 <Tooltip shared/>
 
@@ -729,6 +727,43 @@ export default class DataChart extends Component<IComponentProps, any> {
         } catch (e) {
             return {};
         }
+    }
+
+    //分组统计数据格式转化
+    private static formatGroupsData(config) {
+        let dv = new DataView().source(config.dataSource);
+        let k = 'type';                     // 固定的type值
+        let fields: Array<any> = config.value;     // fiedls 是数组,data-value ['value1','value2'] 超过一项认定为分组统计
+        let p = '';                         // position 根据单维度统计和多维度统计 做不同的调整
+        let c = '';                         // colors 多维度统计时固定为 'type',   单维度统计时为动态的 key 或者 value
+        let v = '';                         // value  多维度统计时固定为 'value'   单维度统计时为动态的 动态的 value值 例如： ['value1','value2']
+
+        // 分组统计 value: ['value1','value2']
+        if (config.value.length > 1) {
+            c = k;
+            v = 'value';
+            p = `${ config.key }*${ v }`;
+        } else {
+            // 单维度统计 value: ['value1']
+            c = config.groupby;
+            v = config.value[0];
+            p = `${ config.key }*${ config.value[0] }`;
+        }
+
+        dv.transform({
+            type  : 'fold',
+            fields: fields,
+            key   : k,
+            value : v,
+        });
+        return {
+            ...config,
+
+            // 主要转化的数据
+            position  : p,
+            colors    : c,
+            dataSource: dv.rows,
+        };
     }
 
     public static renderChart(config): ReactNode {
