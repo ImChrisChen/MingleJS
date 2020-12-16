@@ -61,7 +61,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     toggleCollapsed = (e) => {
-        console.log(e);
         this.setState({
             collapsed: !this.state.collapsed,
         });
@@ -98,6 +97,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     render() {
+        console.log(this.props.data);
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (
@@ -130,10 +130,9 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                                           key={ k }
                                                           icon={ <IdcardOutlined/> }>
                                             {/* TODO path 是react里面的，input调用使用a链接*/ }
-                                            { child.path
-                                                ? <Link to={ child.path ?? '/' }> { child.label } </Link>
-                                                : child.label
-                                            }
+                                            { child.url ? <a href={ child.url }>{ child.label }</a> : child.label }
+                                            { child.path ?
+                                                <Link to={ child.path ?? '/' }> { child.label } </Link> : child.label }
                                         </Menu.Item>;
                                     })) }
                                 </SubMenu>;

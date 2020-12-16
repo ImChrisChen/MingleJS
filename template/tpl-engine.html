@@ -7,11 +7,11 @@
 
 
     <ul w-if="status && data.length > 0">
-        <li ~foreach="data as item" ~if="item.age > 25">
+        <li w-foreach="data as item" w-if="item.age > 25">
             <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}>
                 <icon type="AppleOutlined" color="#f0f00f" size="18"/>
             </h1>
-            <input data-fn="form-button"
+            <input data-fn="form-radio"
                    data-label="label:"
                    data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
                    data-disabled="false"
@@ -40,33 +40,31 @@
         </div>
     </button>
 
-    <div data-fn="layout-tab">
-        <div data-slot="header">
+</div>
 
-        </div>
 
-        <div data-title="类型1">
-            <input data-fn="form-select" name="pf"
-                   data-title="类型1"
-                   value="1"
-                   data-label="平台"
-                   data-mode="single"
-                   data-key="id"
-                   data-value="name"
-                   data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
-        </div>
-        <div data-title="类型2">
-            <input data-fn="form-select" name="pf"
-                   value="1"
-                   data-label="123213平台:"
-                   data-mode="single"
-                   data-key="id"
-                   data-value="name"
-                   data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
-        </div>
+<div data-fn="layout-tab" data-current="0">
+
+    <div data-title="类型1">
+        <div data-fn="data-table"
+             data-height="400"
+             data-from="user_analysis"
+             data-headerurl="/mock/table/tableHeader.json"
+             data-url="/mock/table/tableContent.json"
+        ></div>
+    </div>
+
+    <div data-title="类型2">
+        <div data-fn="data-table"
+             data-height="800"
+             data-from="user_analysis"
+             data-headerurl="/mock/table/tableHeader.json"
+             data-url="/mock/table/tableContent.json"
+        ></div>
     </div>
 
 </div>
+
 
 // 数据统计任务配置
 // 统计的数据源，统计方式，数据最终到哪去

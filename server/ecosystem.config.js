@@ -11,7 +11,8 @@ module.exports = {
         error_file: '',     // 错误输出日志
         out_file: '',       // 日志
         log_date_format: '',// 日志格式
-        cwd: '/Users/ChrisChen/Desktop/MingleJS/server',
+        // TODO 因为要在不同的机器上去使用，所以cwd先不固定了，但是要cd到当前目录才能执行 pm2配置文件
+        // cwd: '/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com/server',
         max_memory_restart: '1G',
         env: {
             NODE_ENV: 'development',

@@ -1,11 +1,11 @@
-import ModuleConfig from '@root/config/component.config';
-
 /**
  * Created by WebStorm.
  * User: MacBook
  * Date: 2020/10/16
  * Time: 下午2:34
  */
+
+import moduleConfig from '@root/config/component.config';
 
 // 递归加载模块
 async function getModules(keys, object) {
@@ -29,7 +29,7 @@ async function getModules(keys, object) {
 
 // TODO 后续可优化成读取目录的形式，不过感觉要配合 命令行生成目录会比较好
 export async function loadModules(keys: Array<string>) {
-    let module = await getModules(keys, ModuleConfig);
+    let module = await getModules(keys, moduleConfig);
     if (!module.component) {
         console.error(`没有${ keys }这个组件`);
         return false;

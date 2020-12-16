@@ -96,15 +96,15 @@ Notice.open({
     <div>接口状态status: <{status}> </div>
     <div>昨天: <{data.today_cost}> </div>
         
-    <div ~if="status">接口状态正确时显示的内容</div>
-	<div ~else>接口状态异常时显示的内容</div>
+    <div w-if="status">接口状态正确时显示的内容</div>
+	<div w-else>接口状态异常时显示的内容</div>
         
-	<div ~if="data.order_list.length > 0" 
-         ~foreach="data.order_list as item">
+	<div w-if="data.order_list.length > 0" 
+         w-foreach="data.order_list as item">
 		订单名称：<{item.order_name}>
 		订单ID：<{item.order_id}>
 	</div>
-    <div ~else>暂无数据</div>
+    <div w-else>暂无数据</div>
         
 </div>
 ~~~
@@ -153,7 +153,9 @@ Notice.open({
 
     <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
     
-    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>	
+    <button type="reset" class="ant-btn ant-btn-waring">重置</button>
+
+    <button type="submit" class="ant-btn ant-btn-primary">提交</button>
     
 </form>
 

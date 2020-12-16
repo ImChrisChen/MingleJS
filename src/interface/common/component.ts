@@ -14,6 +14,7 @@ export interface IComponentProps {
     dataset?: any
     ref?: () => any
     value?: any
+    beforeElement: HTMLElement | HTMLInputElement
 
     [key: string]: any
 }
