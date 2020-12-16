@@ -41,17 +41,15 @@ export async function formatComponents2Tree(componentConfig) {
             if (!val.hasOwnProperty(k)) continue;
 
             let v = val[k];
-            let { component, document, path, property } = v;
-            let d = (await document)?.default;
-            console.log(d);
+            let { component, document, path, property, ...args } = v;
             let item = {
                 label    : k,
                 value    : k,
-                component: component,
-                document : d,
+                component: await component,
+                document : '---------------' + (await document)?.default,
                 property,
                 path,
-                ...v,
+                ...args,
             };
             children.push(item);
         }

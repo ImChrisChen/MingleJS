@@ -6628,3 +6628,99 @@ Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The sourc
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-16/10:39:32   
  ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/15:15:26   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:16:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:16:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: dodge is not support linear attribute, please use category attribute! -----------------end-
+Error: dodge is not support linear attribute, please use category attribute!
+    at Interval.Geometry.adjustData (http://mingle-test.local.aidalan.com/manifest.min.js:62970:19)
+    at Interval.Geometry.processData (http://mingle-test.local.aidalan.com/manifest.min.js:62935:26)
+    at Interval.Geometry.init (http://mingle-test.local.aidalan.com/manifest.min.js:62045:10)
+    at Chart.View.initGeometries (http://mingle-test.local.aidalan.com/manifest.min.js:104411:18)
+    at Chart.View.renderDataRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104205:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104055:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126086:20)
+    at Chart.componentDidUpdate (http://mingle-test.local.aidalan.com/manifest.min.js:126363:26)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:222900:22)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/15:16:45   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:17:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:17:29   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:17:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-16/15:19:36   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:61616:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:61615:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:97854:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:97763:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:104579:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:104117:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:104060:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:103081:10)
+    at ChartHelper.render (http://mingle-test.local.aidalan.com/manifest.min.js:126093:20)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-16/15:23:15   
+ ---END---
