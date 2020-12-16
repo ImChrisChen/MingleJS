@@ -14,7 +14,6 @@ import { Divider } from 'antd/es';
 import { strParseDOM } from '@utils/parser-dom';
 import React, { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
-import { isUndefined } from '@utils/inspect';
 // import axios from 'axios'
 
 const { Option, OptGroup } = Select;
@@ -76,7 +75,6 @@ export default class Selector extends Component<IComponentProps, any> {
     }
 
     render() {
-        console.log(this.props.dataset);
         let { smart, ...dataset } = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
@@ -88,7 +86,7 @@ export default class Selector extends Component<IComponentProps, any> {
             }
         }
         return <>
-            <Form.Item label={ dataset.label } style={ { display: 'flex' } }
+            <Form.Item label={ dataset.label } style={ { display: 'flex', ...this.props.style } }
                        required={ this.props.dataset.required }>
                 { smart ? <FormSmartIcon/> : '' }
                 <Select

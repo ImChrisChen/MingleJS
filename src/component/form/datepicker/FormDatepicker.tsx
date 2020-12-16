@@ -115,7 +115,7 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
 
         let value = this.valueFormat(this.props.value);
 
-        return <Form.Item label={ this.props.dataset.label } style={ { display: 'flex' } }>
+        return <Form.Item label={ this.props.dataset.label } style={ { display: 'flex', ...this.props.style } } >
             { this.props.dataset.smart ? <FormSmartIcon/> : '' }
             { single ?
                 // 单选

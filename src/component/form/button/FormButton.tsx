@@ -36,7 +36,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
 
     render() {
         return <>
-            <Form.Item label={ this.props.dataset.label }>
+            <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
                 { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                 <Radio.Group
                     onChange={ this.handleChange.bind(this) }

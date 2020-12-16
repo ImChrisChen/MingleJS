@@ -131,6 +131,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         render: false,
         parse : 'style',
         value : '',
+        desc  : '样式',
     },
     url        : {
         el    : 'input',
@@ -326,6 +327,7 @@ export default {
                     parse  : 'string',
                 },
                 placeholder: UniversalProps.placeholder,
+                style      : UniversalProps.style,
                 name       : UniversalProps.name,
                 hook       : {
                     load        : {
@@ -398,9 +400,9 @@ export default {
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
-
-                value: {},
-                hook : {},
+                style      : UniversalProps.style,
+                value      : {},
+                hook       : {},
             },
         },
         checkbox  : {
@@ -428,6 +430,7 @@ export default {
                     },
                     smart   : UniversalProps.smart,
                 },
+                style  : UniversalProps.style,
                 name   : UniversalProps.name,
                 value  : {},
             },
@@ -475,8 +478,8 @@ export default {
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
-
-                value: {
+                style      : UniversalProps.style,
+                value      : {
                     el   : 'input',
                     value: '',
                     parse: 'string',
@@ -535,6 +538,7 @@ export default {
                     smart     : UniversalProps.smart,
                 },
                 name   : UniversalProps.name,
+                style  : UniversalProps.style,
                 value  : {
                     el   : 'input',
                     parse: 'null',
@@ -639,6 +643,7 @@ export default {
                     required   : UniversalProps.required,
                     smart      : UniversalProps.smart,
                 },
+                style  : UniversalProps.style,
                 name   : UniversalProps.name,
                 value  : {
                     el     : 'select',
@@ -666,6 +671,7 @@ export default {
                     // required: UniversalProps.required,
                 },
                 name   : UniversalProps.name,
+                style  : UniversalProps.style,
             },
         },
         input     : {
@@ -696,6 +702,7 @@ export default {
                     smart   : UniversalProps.smart,
                 },
                 name       : UniversalProps.name,
+                style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
 
             },
@@ -739,6 +746,7 @@ export default {
                     required: UniversalProps.required,
                 },
                 name   : UniversalProps.name,
+                style  : UniversalProps.style,
                 smart  : UniversalProps.smart,
             },
         },
@@ -756,6 +764,9 @@ export default {
                     value: '#f0f',
                     parse: 'string',
                 },
+                name   : UniversalProps.name,
+                smart  : UniversalProps.smart,
+                style  : UniversalProps.style,
             },
         },
     },
