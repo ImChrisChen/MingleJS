@@ -1,1 +1,41 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <title>Title</title></head><body><div data-fn="data-table"     data-headerurl="http://192.168.20.121:8080/mgm/header"     data-url="http://192.168.20.121:8080/mgm/data"     data-pagesize="50"     data-pages="50,100,200"     data-pagination="true"     data-position="bottomRight"     data-height="300"     @before-load="beforeload"></div><!--<div data-fn="data-table"--><!--     data-headerurl="http://mingle.local.aidalan.com/mock/table/tableHeader.json"--><!--     data-url="http://mingle.local.aidalan.com/mock/table/tableContent.json"--><!--     data-pagesize="50"--><!--     data-pages="50,100,200"--><!--     data-pagination="true"--><!--     data-position="bottomRight"--><!--     data-height="300"--><!--     @before-load="beforeload"--><!--&gt;</div>--></body></html><script src="http://mingle.local.aidalan.com/index.js"></script><script></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div data-fn="data-table"
+     data-headerurl="http://192.168.20.121:8080/mgm/header"
+     data-url="http://192.168.20.121:8080/mgm/data"
+     data-pagesize="50"
+     data-pages="50,100,200"
+     data-pagination="true"
+     data-position="bottomRight"
+     data-height="300"
+     @before-load="beforeload"
+     @load="loadDate"
+></div>
+
+<!--<div data-fn="data-table"-->
+<!--     data-headerurl="http://mingle.local.aidalan.com/mock/table/tableHeader.json"-->
+<!--     data-url="http://mingle.local.aidalan.com/mock/table/tableContent.json"-->
+<!--     data-pagesize="50"-->
+<!--     data-pages="50,100,200"-->
+<!--     data-pagination="true"-->
+<!--     data-position="bottomRight"-->
+<!--     data-height="300"-->
+<!--     @before-load="beforeload"-->
+<!--&gt;</div>-->
+
+</body>
+</html>
+<script src="http://mingle.local.aidalan.com/index.js"></script>
+<script>
+
+    window.loadDate = function (instance) {
+        console.log(instance);
+    }
+
+</script>

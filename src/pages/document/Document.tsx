@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import md5 from 'md5';
 import axios from 'axios';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
+import AppLarkSDK from '@component/app/larksdk/AppLarkSDK';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,7 +29,7 @@ class Document extends React.Component<any, any> {
         routes        : [],
         collapsed     : false,
         showCodeDesign: false,          // 是否显示组件设计器
-        navRoutes     : [ ...navRoutes ],
+        navRoutes     : [...navRoutes],
     };
 
     constructor(props) {
@@ -58,7 +59,7 @@ class Document extends React.Component<any, any> {
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;
-            let [ name ] = item.split('.');
+            let [name] = item.split('.');
             pageRoutes.push({
                 name     : name,
                 path     : '/nav-' + item,
@@ -66,11 +67,11 @@ class Document extends React.Component<any, any> {
             });
         }
         let navRoutes = this.state.navRoutes;
-        return [ ...navRoutes, ...pageRoutes ];
+        return [...navRoutes, ...pageRoutes];
     }
 
     getCurrentMenu() {
-        let [ , currentRoute ] = window.location.hash.split('#');
+        let [, currentRoute] = window.location.hash.split('#');
         return currentRoute;
     }
 
@@ -91,13 +92,14 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
+                <AppLarkSDK/>
                 <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist }/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
 
                         {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
-                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ this.getCurrentMenu() ] }>
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [this.getCurrentMenu()] }>
                             { this.state.navRoutes.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target

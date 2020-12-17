@@ -313,6 +313,8 @@ module.exports = {
         // new DashboardPlugin(/*dashboard.setData*/),
     ],
     devServer: {
+        host: '0.0.0.0',
+        port: 9000,
         proxy: {
             // '/api': 'http://127.0.0.1:8081',
             '/api': {
@@ -323,12 +325,12 @@ module.exports = {
             },
             contentBase: path.resolve(__dirname, '/'),   //静态服务器根目录
             compress: true,             // 是否压缩
-            // host: 'etest.local.aidalan.com',            // 局域网ip
+            // host: '0.0.0.0',            // 局域网ip
             disableHostCheck: true,     //
-            allowedHosts: [
-                'mingle-test.local.aidalan.com',
-            ],
-            port: 9000,
+            // allowedHosts: [
+            //     'mingle-test.local.aidalan.com',
+            // ],
+            // port: 9000,
             historyApiFallback: true,
             headers: {
                 'X-Content-Type-Options': 'nosniff',
@@ -336,7 +338,7 @@ module.exports = {
             lazy: true,
             open: true,     //是否自动打开默认浏览器
             hot: true,      //热更新
-            useLocalIp: true,//是否用自己的IP
+            // useLocalIp: true,//是否用自己的IP
             inline: false,//
         },
     },

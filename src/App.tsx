@@ -145,7 +145,7 @@ export default class App {
 
                                     let keysArr = componentName.trim().split('-');
                                     // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
-                                    let [ , , componentMethod ] = keysArr;
+                                    let [, , componentMethod] = keysArr;
 
                                     const Modules = await loadModules(keysArr);
                                     const Component = Modules.component.default;            // React组件
@@ -176,7 +176,7 @@ export default class App {
                                     this.renderComponent(module, (hooks) => {
                                         hooks[Hooks.beforeLoad]?.();
                                     }, (hooks, instance: ReactInstance) => {
-                                        hooks[Hooks.load]?.();
+                                        hooks[Hooks.load]?.(instance);
                                         element.style.opacity = '1';
                                         // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
                                         // });
@@ -208,7 +208,7 @@ export default class App {
     }
 
     renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -248,7 +248,7 @@ export default class App {
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
 
-        [ ...$formItems ].forEach(formItem => {
+        [...$formItems].forEach(formItem => {
             let dataset = formItem.dataset;
             let $formItemBox = $(formItem).parent('[data-component-uid]');
             let uid = $formItemBox.attr('data-component-uid') ?? '';
@@ -370,7 +370,7 @@ export default class App {
                 logs.unshift(log);
                 localStorage.setItem('error_log', JSON.stringify(logs));
             } else {
-                localStorage.setItem('error_log', JSON.stringify([ log ]));
+                localStorage.setItem('error_log', JSON.stringify([log]));
             }
             await axios.post('http://localhost:8081/log', log);
             message.error(`error, ${ msg }`);
@@ -406,7 +406,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
+        [...element.attributes].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
