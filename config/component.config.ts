@@ -595,12 +595,12 @@ export default {
                     layout: {
                         el     : 'radio',
                         options: [
-                            { label: 'v', value: 'v' },
-                            { label: 'h', value: 'h' },
+                            { label: 'vertical', value: 'vertical' },
+                            { label: 'horizontal', value: 'horizontal' },
                         ],
                         parse  : 'string',
-                        value  : 'h',
-                        desc   : '布局模式，v 表示垂直布局，h 水平布局',
+                        value  : 'horizontal',
+                        desc   : '布局模式，vertical 表示垂直布局，horizontal 水平布局',
                     },
                 },
                 id     : {
@@ -946,8 +946,8 @@ export default {
                     interval   : {
                         el   : 'number',
                         parse: 'number',
-                        value: 1,
-                        desc : '自动刷新间隔， 分钟为单位',
+                        value: 0,
+                        desc : '自动刷新间隔， 分钟为单位, 设置为 0 则关闭',
                     },
                     height     : {
                         el    : 'number',
@@ -1069,8 +1069,8 @@ export default {
                     interval  : {
                         el   : 'number',
                         parse: 'number',
-                        value: 1,
-                        desc : '自动刷新间隔， 分钟为单位',
+                        value: 0,
+                        desc : '自动刷新间隔， 分钟为单位, 设置为 0 则关闭',
                     },
                     height    : {
                         el   : 'number',

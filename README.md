@@ -68,13 +68,23 @@ npm run build
 会生成dist目录， 结构如下
 
 ~~~javascript
-├── dist
-│   ├── chart.min.js
-│   ├── index.html
-│   ├── index.js
-│   ├── main.min.js
-│   ├── manifest.min.js
-│   └── report.html
+./dist
+├── assets 		// 静态资源文件
+│   ├── antv.png
+│   └── form-smart.png
+├── chart.min.js
+├── chart.min.js.map
+├── index.html
+├── index.js		// 框架入口文件
+├── main.css
+├── main.css.map
+├── main.min.js
+├── main.min.js.map
+├── manifest.css
+├── manifest.css.map
+├── manifest.min.js
+├── manifest.min.js.map
+└── report.html		// 打包文件分析
 ~~~
 
 把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
@@ -87,7 +97,6 @@ npm run build
 // 内网测试环境使用
 <script src="https://mingle.local.aidalan.com/index.js"></script>
 
-
 // 正式环境使用
 <script src="https://mingle.aidalan.com/index.js"></script>
 ~~~
@@ -97,8 +106,6 @@ npm run build
 #### 代码打包分析
 
 http://mingle.local.aidalan.com/report.html
-
-
 
 
 
@@ -136,7 +143,7 @@ http://mingle.local.aidalan.com/report.html
 
 > 该方式集成度比较高，可复用性差，如果不是必要情况，可以考虑让后端做业务的同学通过组件去自行实现
 >
-> 在这里我希望每个开发 / 维护 MingleJS的 同学能对组件有自己的理解和看法
+> 在这里我希望每个开发 / 维护 minglejs的 同学能对组件有自己的理解和看法
 >
 > **而不是成为盲目支撑需求的工具人**
 
