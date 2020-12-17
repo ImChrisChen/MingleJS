@@ -87,7 +87,6 @@ export default class DataChart extends Component<IComponentProps, any> {
         loading   : true,
         data      : [],
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-
     };
 
     constructor(props) {
@@ -328,6 +327,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         **/
 
         let { position, dataSource, colors } = this.formatGroupsData(config);
+        console.log(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
@@ -336,8 +336,10 @@ export default class DataChart extends Component<IComponentProps, any> {
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
                 {/*<Area position={ position } color={ groupby || colors }/>*/ }
 
-                <LineAdvance area shape="smooth" position={ position } point={ true }
-                             color={ colors } label="first"/>
+                <LineAdvance area position={ position } point={ {
+                    shape   : config.pointShape as string,
+                    position: position,
+                } } color={ colors } label="first"/>
 
                 <Tooltip shared/>
 
@@ -529,7 +531,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 // position="item*score"
                 position={ position }
                 color="user"
-                shape="circle"
+                shape={ config.pointShape }
             />
             <Line
                 position={ position }
@@ -722,6 +724,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 title,
                 height,
                 chartType,
+                pointShape: this.props.dataset.point,           // point的类型 https://bizcharts.net/product/BizCharts4/category/62/page/85
                 legendLocation,     // 图例位置
                 legendLayout,       // 图例的布局方式
                 dataSource: this.state.data,
