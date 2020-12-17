@@ -177,6 +177,7 @@ export default class App {
                                         hooks[Hooks.beforeLoad]?.();
                                     }, (hooks, instance: ReactInstance) => {
                                         hooks[Hooks.load]?.();
+                                        element.style.opacity = '1';
                                         // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
                                         // });
                                     });

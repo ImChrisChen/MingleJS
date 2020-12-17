@@ -9644,3 +9644,17 @@ TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-17/16:57:16   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callback21ebc820b8e6ad4e033dea6652d1c77a is not a function -----------------end-
+TypeError: callback21ebc820b8e6ad4e033dea6652d1c77a is not a function
+    at http://192.168.20.121:8080/monitor-api/host-network/?host_id=dd77e83872304d389b79e2085f724c36&host_name=Lan-Kvm-20058-GuangSql&jsoncallback=callback21ebc820b8e6ad4e033dea6652d1c77a:1:1  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/?development=1  -----------------end-
+ 2020-12-17/17:09:19   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callbackc1ec031bcb717fd28f790ec62b385709 is not a function -----------------end-
+TypeError: callbackc1ec031bcb717fd28f790ec62b385709 is not a function
+    at http://192.168.20.121:8080/monitor-api/host-network/?host_id=dd77e83872304d389b79e2085f724c36&host_name=Lan-Kvm-20058-GuangSql&jsoncallback=callbackc1ec031bcb717fd28f790ec62b385709:1:1  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/?development=1  -----------------end-
+ 2020-12-17/17:10:01   
+ ---END---
