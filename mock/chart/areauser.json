@@ -1,7 +1,8 @@
 {
 	"status": true,
 	"message": "ok",
-	"data": [
+	"data":
+	[
 		{
 			"location": "广东",
 			"count": 2529,

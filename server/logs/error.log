@@ -9523,3 +9523,124 @@ TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type
  http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
  2020-12-17/14:23:55   
  ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://wui-test.local.aidalan.com/mingle-test.local.aidalan.com/chart.html?development=1  -----------------end-
+ 2020-12-17/16:09:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://wui-test.local.aidalan.com/mingle-test.local.aidalan.com/chart.html?development=1  -----------------end-
+ 2020-12-17/16:09:25   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callbackaba1d10d9c6096c258bc9ba5a66699a3 is not a function -----------------end-
+TypeError: callbackaba1d10d9c6096c258bc9ba5a66699a3 is not a function
+    at http://192.168.20.121:8080/monitor-api/host-network/?host_id=dd77e83872304d389b79e2085f724c36&host_name=Lan-Kvm-20058-GuangSql&jsoncallback=callbackaba1d10d9c6096c258bc9ba5a66699a3:1:1  -----------------end-
+ http://192.168.20.121:8080/templates-api/monitor-hostindex/  -----------------end-
+ 2020-12-17/16:10:11   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://wui-test.local.aidalan.com/mingle-test.local.aidalan.com/chart.html?development=1  -----------------end-
+ 2020-12-17/16:10:12   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-17/16:57:14   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-17/16:57:14   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-17/16:57:15   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-17/16:57:15   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-17/16:57:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-17/16:57:16   
+ ---END---

@@ -236,11 +236,11 @@ export default {
                     layout: {
                         el     : 'radio',
                         options: [
-                            { label: 'h', value: 'h' },
-                            { label: 'v', value: 'v' },
+                            { label: 'horizontal', value: 'horizontal' },
+                            { label: 'vertical', value: 'vertical' },
                         ],
                         parse  : 'string',
-                        value  : 'v',
+                        value  : 'vertical',
                     },
                 },
             },
@@ -986,9 +986,12 @@ export default {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
-                        // value  : domain + '/mock/chart/areauser.json',
-                        // value  : domain + '/mock/chart/radar.json',
                         value  : domain + '/mock/chart/areauser.json',
+                        // value  : domain + '/mock/chart/radar.json',
+                        // value  : domain + '/mock/chart/areauser.json',
+                        // value  : domain + '/mock/chart/memory.json',
+                        // value  : domain + '/mock/chart/disk.json',
+                        // value  : domain + '/mock/chart/disk_default.json',
                         desc   : '图表数据接口',
                     },
                     // name      : {
@@ -1064,7 +1067,7 @@ export default {
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
-                        desc   : '分组统计,不填写默认不分组(需要数据格式支持)',
+                        desc   : '分组统计,不填写默认不分组(需要数据格式支持), 注意: data-value为多个值时，该选项无效',
                     },
                     interval  : {
                         el   : 'number',
