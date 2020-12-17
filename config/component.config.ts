@@ -204,7 +204,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
 export default {
     // 子应用
     app     : {
-        menu  : {
+        menu   : {
             component: import('@component/app/menu/AppMenu'),
             property : {
                 dataset: {
@@ -217,7 +217,7 @@ export default {
                 },
             },
         },
-        layout: {
+        layout : {
             component: import('@component/app/layout/AppLayout'),
             document : import('@component/app/layout/AppLayout.md'),
             path     : '/app-layout',
@@ -245,7 +245,16 @@ export default {
                 },
             },
         },
+        larksdk: {
+            component: import('@component/app/larksdk/AppLarkSDK'),
+            document : import('@component/app/larksdk/AppLarkSDK.md'),
+            path     : '/app-lark',
+            property : {
+                dataset: {},
+            },
+        },
     },
+    sdk     : {},
     form    : {
         select    : {
             path     : '/form-select',
