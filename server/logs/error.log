@@ -7318,3 +7318,2083 @@ Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The sourc
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-17/10:43:17   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'd83-3054-46c3-aa21-56ad' of undefined -----------------end-
+TypeError: Cannot set property 'd83-3054-46c3-aa21-56ad' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'd83-3054-46c3-aa21-56ad' of undefined -----------------end-
+TypeError: Cannot set property 'd83-3054-46c3-aa21-56ad' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '17f-fd4a-4cc2-8419-713c' of undefined -----------------end-
+TypeError: Cannot set property '17f-fd4a-4cc2-8419-713c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a4a-b253-43a0-b23e-c64e' of undefined -----------------end-
+TypeError: Cannot set property 'a4a-b253-43a0-b23e-c64e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '3ac-8a39-40e2-a9bf-7265' of undefined -----------------end-
+TypeError: Cannot set property '3ac-8a39-40e2-a9bf-7265' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '93c-9a83-443b-8023-db05' of undefined -----------------end-
+TypeError: Cannot set property '93c-9a83-443b-8023-db05' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'ceb-f105-4132-9233-feee' of undefined -----------------end-
+TypeError: Cannot set property 'ceb-f105-4132-9233-feee' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'cf9-be18-4411-bd35-bec8' of undefined -----------------end-
+TypeError: Cannot set property 'cf9-be18-4411-bd35-bec8' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '11e-11fa-4df8-9bf1-cd4f' of undefined -----------------end-
+TypeError: Cannot set property '11e-11fa-4df8-9bf1-cd4f' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '674-b886-4912-914c-0c3b' of undefined -----------------end-
+TypeError: Cannot set property '674-b886-4912-914c-0c3b' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '98f-4f24-4960-8e89-becd' of undefined -----------------end-
+TypeError: Cannot set property '98f-4f24-4960-8e89-becd' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '93c-9a83-443b-8023-db05' of undefined -----------------end-
+TypeError: Cannot set property '93c-9a83-443b-8023-db05' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:04   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '2db-9abf-4385-a9cb-19df' of undefined -----------------end-
+TypeError: Cannot set property '2db-9abf-4385-a9cb-19df' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'ceb-f105-4132-9233-feee' of undefined -----------------end-
+TypeError: Cannot set property 'ceb-f105-4132-9233-feee' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined -----------------end-
+TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined -----------------end-
+TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '1df-65e9-4bbe-adfe-f0dc' of undefined -----------------end-
+TypeError: Cannot set property '1df-65e9-4bbe-adfe-f0dc' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e4b-5f54-4291-9712-5fdf' of undefined -----------------end-
+TypeError: Cannot set property 'e4b-5f54-4291-9712-5fdf' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '17f-fd4a-4cc2-8419-713c' of undefined -----------------end-
+TypeError: Cannot set property '17f-fd4a-4cc2-8419-713c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '17f-fd4a-4cc2-8419-713c' of undefined -----------------end-
+TypeError: Cannot set property '17f-fd4a-4cc2-8419-713c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '2db-9abf-4385-a9cb-19df' of undefined -----------------end-
+TypeError: Cannot set property '2db-9abf-4385-a9cb-19df' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a50-9c26-4bf6-a64d-93cc' of undefined -----------------end-
+TypeError: Cannot set property 'a50-9c26-4bf6-a64d-93cc' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '98a-658f-48bf-985e-a056' of undefined -----------------end-
+TypeError: Cannot set property '98a-658f-48bf-985e-a056' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '1df-65e9-4bbe-adfe-f0dc' of undefined -----------------end-
+TypeError: Cannot set property '1df-65e9-4bbe-adfe-f0dc' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a4a-b253-43a0-b23e-c64e' of undefined -----------------end-
+TypeError: Cannot set property 'a4a-b253-43a0-b23e-c64e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '3ac-8a39-40e2-a9bf-7265' of undefined -----------------end-
+TypeError: Cannot set property '3ac-8a39-40e2-a9bf-7265' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '3ac-8a39-40e2-a9bf-7265' of undefined -----------------end-
+TypeError: Cannot set property '3ac-8a39-40e2-a9bf-7265' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '1b3-627b-4015-9ed6-85b4' of undefined -----------------end-
+TypeError: Cannot set property '1b3-627b-4015-9ed6-85b4' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e4b-5f54-4291-9712-5fdf' of undefined -----------------end-
+TypeError: Cannot set property 'e4b-5f54-4291-9712-5fdf' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'cf9-be18-4411-bd35-bec8' of undefined -----------------end-
+TypeError: Cannot set property 'cf9-be18-4411-bd35-bec8' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a4a-b253-43a0-b23e-c64e' of undefined -----------------end-
+TypeError: Cannot set property 'a4a-b253-43a0-b23e-c64e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'cf9-be18-4411-bd35-bec8' of undefined -----------------end-
+TypeError: Cannot set property 'cf9-be18-4411-bd35-bec8' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a50-9c26-4bf6-a64d-93cc' of undefined -----------------end-
+TypeError: Cannot set property 'a50-9c26-4bf6-a64d-93cc' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '11e-11fa-4df8-9bf1-cd4f' of undefined -----------------end-
+TypeError: Cannot set property '11e-11fa-4df8-9bf1-cd4f' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '98a-658f-48bf-985e-a056' of undefined -----------------end-
+TypeError: Cannot set property '98a-658f-48bf-985e-a056' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '674-b886-4912-914c-0c3b' of undefined -----------------end-
+TypeError: Cannot set property '674-b886-4912-914c-0c3b' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '98f-4f24-4960-8e89-becd' of undefined -----------------end-
+TypeError: Cannot set property '98f-4f24-4960-8e89-becd' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '1b3-627b-4015-9ed6-85b4' of undefined -----------------end-
+TypeError: Cannot set property '1b3-627b-4015-9ed6-85b4' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined -----------------end-
+TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '11e-11fa-4df8-9bf1-cd4f' of undefined -----------------end-
+TypeError: Cannot set property '11e-11fa-4df8-9bf1-cd4f' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '674-b886-4912-914c-0c3b' of undefined -----------------end-
+TypeError: Cannot set property '674-b886-4912-914c-0c3b' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '98f-4f24-4960-8e89-becd' of undefined -----------------end-
+TypeError: Cannot set property '98f-4f24-4960-8e89-becd' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined -----------------end-
+TypeError: Cannot set property '462-8add-4ba9-ab3c-e76e' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:36:05   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '22c-b23d-4527-a408-75da' of undefined -----------------end-
+TypeError: Cannot set property '22c-b23d-4527-a408-75da' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '22c-b23d-4527-a408-75da' of undefined -----------------end-
+TypeError: Cannot set property '22c-b23d-4527-a408-75da' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'afa-8bb5-4a93-8fd9-f6dd' of undefined -----------------end-
+TypeError: Cannot set property 'afa-8bb5-4a93-8fd9-f6dd' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '509-9b9e-4fe3-a75e-d2d1' of undefined -----------------end-
+TypeError: Cannot set property '509-9b9e-4fe3-a75e-d2d1' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e0d-b03c-4e72-b848-fef7' of undefined -----------------end-
+TypeError: Cannot set property 'e0d-b03c-4e72-b848-fef7' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '71e-a4e5-4132-85f1-34a3' of undefined -----------------end-
+TypeError: Cannot set property '71e-a4e5-4132-85f1-34a3' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '9ea-0d11-4175-a6da-dcf9' of undefined -----------------end-
+TypeError: Cannot set property '9ea-0d11-4175-a6da-dcf9' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '109-08d4-40a6-b4f9-179c' of undefined -----------------end-
+TypeError: Cannot set property '109-08d4-40a6-b4f9-179c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined -----------------end-
+TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined -----------------end-
+TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '9ea-0d11-4175-a6da-dcf9' of undefined -----------------end-
+TypeError: Cannot set property '9ea-0d11-4175-a6da-dcf9' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '679-9998-4417-850b-5043' of undefined -----------------end-
+TypeError: Cannot set property '679-9998-4417-850b-5043' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '109-08d4-40a6-b4f9-179c' of undefined -----------------end-
+TypeError: Cannot set property '109-08d4-40a6-b4f9-179c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined -----------------end-
+TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined -----------------end-
+TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '69b-b2cb-48c5-9322-f3d4' of undefined -----------------end-
+TypeError: Cannot set property '69b-b2cb-48c5-9322-f3d4' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '129-8358-438e-b4e7-10e5' of undefined -----------------end-
+TypeError: Cannot set property '129-8358-438e-b4e7-10e5' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined -----------------end-
+TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined -----------------end-
+TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '126-4ce2-47cb-8df7-4cdc' of undefined -----------------end-
+TypeError: Cannot set property '126-4ce2-47cb-8df7-4cdc' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '679-9998-4417-850b-5043' of undefined -----------------end-
+TypeError: Cannot set property '679-9998-4417-850b-5043' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'afa-8bb5-4a93-8fd9-f6dd' of undefined -----------------end-
+TypeError: Cannot set property 'afa-8bb5-4a93-8fd9-f6dd' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '3e2-faa7-4463-8387-b1c8' of undefined -----------------end-
+TypeError: Cannot set property '3e2-faa7-4463-8387-b1c8' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'c9f-2487-4101-8308-1262' of undefined -----------------end-
+TypeError: Cannot set property 'c9f-2487-4101-8308-1262' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '129-8358-438e-b4e7-10e5' of undefined -----------------end-
+TypeError: Cannot set property '129-8358-438e-b4e7-10e5' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '509-9b9e-4fe3-a75e-d2d1' of undefined -----------------end-
+TypeError: Cannot set property '509-9b9e-4fe3-a75e-d2d1' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'c38-5550-4b6b-a97b-791d' of undefined -----------------end-
+TypeError: Cannot set property 'c38-5550-4b6b-a97b-791d' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '126-4ce2-47cb-8df7-4cdc' of undefined -----------------end-
+TypeError: Cannot set property '126-4ce2-47cb-8df7-4cdc' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '69b-b2cb-48c5-9322-f3d4' of undefined -----------------end-
+TypeError: Cannot set property '69b-b2cb-48c5-9322-f3d4' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e0d-b03c-4e72-b848-fef7' of undefined -----------------end-
+TypeError: Cannot set property 'e0d-b03c-4e72-b848-fef7' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'afa-8bb5-4a93-8fd9-f6dd' of undefined -----------------end-
+TypeError: Cannot set property 'afa-8bb5-4a93-8fd9-f6dd' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '3e2-faa7-4463-8387-b1c8' of undefined -----------------end-
+TypeError: Cannot set property '3e2-faa7-4463-8387-b1c8' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '509-9b9e-4fe3-a75e-d2d1' of undefined -----------------end-
+TypeError: Cannot set property '509-9b9e-4fe3-a75e-d2d1' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'c9f-2487-4101-8308-1262' of undefined -----------------end-
+TypeError: Cannot set property 'c9f-2487-4101-8308-1262' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e0d-b03c-4e72-b848-fef7' of undefined -----------------end-
+TypeError: Cannot set property 'e0d-b03c-4e72-b848-fef7' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '71e-a4e5-4132-85f1-34a3' of undefined -----------------end-
+TypeError: Cannot set property '71e-a4e5-4132-85f1-34a3' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'c38-5550-4b6b-a97b-791d' of undefined -----------------end-
+TypeError: Cannot set property 'c38-5550-4b6b-a97b-791d' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '71e-a4e5-4132-85f1-34a3' of undefined -----------------end-
+TypeError: Cannot set property '71e-a4e5-4132-85f1-34a3' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined -----------------end-
+TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined -----------------end-
+TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '69b-b2cb-48c5-9322-f3d4' of undefined -----------------end-
+TypeError: Cannot set property '69b-b2cb-48c5-9322-f3d4' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined -----------------end-
+TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined -----------------end-
+TypeError: Cannot set property '9aa-2445-48f3-9ed4-6611' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined -----------------end-
+TypeError: Cannot set property 'b22-30ef-4e40-a29c-7d47' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined -----------------end-
+TypeError: Cannot set property '625-5b96-445e-b217-690c' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:37:23   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6fd-f11c-4ea9-9473-836d' of undefined -----------------end-
+TypeError: Cannot set property '6fd-f11c-4ea9-9473-836d' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '77e-10c1-4ba9-95fb-7296' of undefined -----------------end-
+TypeError: Cannot set property '77e-10c1-4ba9-95fb-7296' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6fd-f11c-4ea9-9473-836d' of undefined -----------------end-
+TypeError: Cannot set property '6fd-f11c-4ea9-9473-836d' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '7d0-3c73-432f-aec9-d984' of undefined -----------------end-
+TypeError: Cannot set property '7d0-3c73-432f-aec9-d984' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a4f-27c3-4715-9884-4547' of undefined -----------------end-
+TypeError: Cannot set property 'a4f-27c3-4715-9884-4547' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '10e-0dde-4149-a762-54cf' of undefined -----------------end-
+TypeError: Cannot set property '10e-0dde-4149-a762-54cf' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6a7-220e-484b-8772-f0d2' of undefined -----------------end-
+TypeError: Cannot set property '6a7-220e-484b-8772-f0d2' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '26d-38cb-4b6d-b4be-6b30' of undefined -----------------end-
+TypeError: Cannot set property '26d-38cb-4b6d-b4be-6b30' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'ea1-fe03-4715-abe1-9bb0' of undefined -----------------end-
+TypeError: Cannot set property 'ea1-fe03-4715-abe1-9bb0' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6b9-5fd6-42f9-8c97-755f' of undefined -----------------end-
+TypeError: Cannot set property '6b9-5fd6-42f9-8c97-755f' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a0b-ba4b-429e-9beb-cad5' of undefined -----------------end-
+TypeError: Cannot set property 'a0b-ba4b-429e-9beb-cad5' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6b9-5fd6-42f9-8c97-755f' of undefined -----------------end-
+TypeError: Cannot set property '6b9-5fd6-42f9-8c97-755f' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:01   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a0b-ba4b-429e-9beb-cad5' of undefined -----------------end-
+TypeError: Cannot set property 'a0b-ba4b-429e-9beb-cad5' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'dac-99f5-42ad-bac5-2516' of undefined -----------------end-
+TypeError: Cannot set property 'dac-99f5-42ad-bac5-2516' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e5b-0e11-43f1-b2b5-d0c6' of undefined -----------------end-
+TypeError: Cannot set property 'e5b-0e11-43f1-b2b5-d0c6' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e8a-7e3d-4e77-af6e-d0a1' of undefined -----------------end-
+TypeError: Cannot set property 'e8a-7e3d-4e77-af6e-d0a1' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '556-5f11-45c2-b2af-4ea6' of undefined -----------------end-
+TypeError: Cannot set property '556-5f11-45c2-b2af-4ea6' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '77e-10c1-4ba9-95fb-7296' of undefined -----------------end-
+TypeError: Cannot set property '77e-10c1-4ba9-95fb-7296' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '7d0-3c73-432f-aec9-d984' of undefined -----------------end-
+TypeError: Cannot set property '7d0-3c73-432f-aec9-d984' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '86d-1058-43c5-a979-17c2' of undefined -----------------end-
+TypeError: Cannot set property '86d-1058-43c5-a979-17c2' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '10e-0dde-4149-a762-54cf' of undefined -----------------end-
+TypeError: Cannot set property '10e-0dde-4149-a762-54cf' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '10e-0dde-4149-a762-54cf' of undefined -----------------end-
+TypeError: Cannot set property '10e-0dde-4149-a762-54cf' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'dac-99f5-42ad-bac5-2516' of undefined -----------------end-
+TypeError: Cannot set property 'dac-99f5-42ad-bac5-2516' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '88b-696f-4714-b6bf-ba56' of undefined -----------------end-
+TypeError: Cannot set property '88b-696f-4714-b6bf-ba56' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6a7-220e-484b-8772-f0d2' of undefined -----------------end-
+TypeError: Cannot set property '6a7-220e-484b-8772-f0d2' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '6a7-220e-484b-8772-f0d2' of undefined -----------------end-
+TypeError: Cannot set property '6a7-220e-484b-8772-f0d2' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '26d-38cb-4b6d-b4be-6b30' of undefined -----------------end-
+TypeError: Cannot set property '26d-38cb-4b6d-b4be-6b30' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a72-d93f-401c-94e7-fc59' of undefined -----------------end-
+TypeError: Cannot set property 'a72-d93f-401c-94e7-fc59' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e5b-0e11-43f1-b2b5-d0c6' of undefined -----------------end-
+TypeError: Cannot set property 'e5b-0e11-43f1-b2b5-d0c6' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'ea1-fe03-4715-abe1-9bb0' of undefined -----------------end-
+TypeError: Cannot set property 'ea1-fe03-4715-abe1-9bb0' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a4f-27c3-4715-9884-4547' of undefined -----------------end-
+TypeError: Cannot set property 'a4f-27c3-4715-9884-4547' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '86d-1058-43c5-a979-17c2' of undefined -----------------end-
+TypeError: Cannot set property '86d-1058-43c5-a979-17c2' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '26d-38cb-4b6d-b4be-6b30' of undefined -----------------end-
+TypeError: Cannot set property '26d-38cb-4b6d-b4be-6b30' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'ea1-fe03-4715-abe1-9bb0' of undefined -----------------end-
+TypeError: Cannot set property 'ea1-fe03-4715-abe1-9bb0' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e8a-7e3d-4e77-af6e-d0a1' of undefined -----------------end-
+TypeError: Cannot set property 'e8a-7e3d-4e77-af6e-d0a1' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '556-5f11-45c2-b2af-4ea6' of undefined -----------------end-
+TypeError: Cannot set property '556-5f11-45c2-b2af-4ea6' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '77e-10c1-4ba9-95fb-7296' of undefined -----------------end-
+TypeError: Cannot set property '77e-10c1-4ba9-95fb-7296' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'e8a-7e3d-4e77-af6e-d0a1' of undefined -----------------end-
+TypeError: Cannot set property 'e8a-7e3d-4e77-af6e-d0a1' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '88b-696f-4714-b6bf-ba56' of undefined -----------------end-
+TypeError: Cannot set property '88b-696f-4714-b6bf-ba56' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '7d0-3c73-432f-aec9-d984' of undefined -----------------end-
+TypeError: Cannot set property '7d0-3c73-432f-aec9-d984' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property '556-5f11-45c2-b2af-4ea6' of undefined -----------------end-
+TypeError: Cannot set property '556-5f11-45c2-b2af-4ea6' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot set property 'a72-d93f-401c-94e7-fc59' of undefined -----------------end-
+TypeError: Cannot set property 'a72-d93f-401c-94e7-fc59' of undefined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:248980:45)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-17/12:38:02   
+ ---END---

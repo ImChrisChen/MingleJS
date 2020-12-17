@@ -65,13 +65,13 @@ interface W extends Window {
 }
 
 interface IInstances {
-    module: IModules
-    instance: ReactInstance
+    module?: IModules
+    instance?: ReactInstance
 }
 
 export default class App {
     modules: Array<IModules> = [];
-    public static instances = {};      // 组件实例
+    public static instances: IInstances = {};      // 组件实例
     $tempContainer: any;
 
     constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
@@ -253,7 +253,7 @@ export default class App {
             let uid = $formItemBox.attr('data-component-uid') ?? '';
             let selfInputName = element.name;
             let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
-            let { module }: IInstances = App.instances[uid];
+            let { module } = App.instances[uid];
 
             for (const key in dataset) {
                 if (!dataset.hasOwnProperty(key)) continue;
@@ -297,6 +297,16 @@ export default class App {
                 }, (hooks, instance: ReactInstance /*获取到的组件实例*/) => {
                     hooks[Hooks.update]?.();
                     this.dynamicReloadComponents(element as HTMLInputElement);
+
+                    let exec = element.dataset.exec;
+                    if (!isUndefined(exec)) {
+                        // TODO 简陋的实现，后续待调整
+                        let o = $(element).closest('form[data-fn=form-action]').find('[type=submit]');
+                        o.click();
+                        // let formUID = $(element).closest('form[data-fn=form-action]').attr('data-component-uid') ?? '';
+                        // console.log(formUID);
+                        // console.log(App.instances);
+                    }
                 });
             });
         }

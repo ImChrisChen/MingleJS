@@ -191,6 +191,13 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         parse : 'boolean',
         desc  : '表单快速填充工具,添加后可以配置表单使用，是一个快速填充表格内容的工具',
     },
+    exec       : {
+        el    : 'switch',
+        parse : 'boolean',
+        value : false,
+        desc  : '是否选择后，立即提交表单加载数据',
+        render: true,
+    },
 };
 
 // TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
