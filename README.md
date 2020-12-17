@@ -9,22 +9,19 @@ React + Typescript + Antd + WUI
 
 
 
-
-
 ## 开发环境
 
 1. 需安装 node  环境  
-2. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
+2. 安装pm2 
+3. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
 
 拉去项目进入根目录，执行以下命令
 
 ~~~shell
-npm install && npm run dev
+npm install && npm run start
 ~~~
 
 浏览器打开 [http://localhost:8080](http://localhost:8080)
-
-
 
 
 
@@ -35,27 +32,24 @@ server {
 	listen       		80;
 	server_name  		"mingle-test.local.aidalan.com";
 
- 	# minglejs 项目
+	set $ACAO '*';
+
+	# mingle.js 项目
 	location / {
 		proxy_pass http://127.0.0.1:8080;
-		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Origin '$ACAO';
 	}
-
-	# mock数据 NodeJS jsonp 服务器,对应项目目录，/server/main.js
+	 
+	# nodejs 服务器mock数据,对应目录项目根目录 /mock/*
 	location /mock {
 		proxy_pass http://127.0.0.1:8081;
-		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Origin '$ACAO';
 	}
 
-	access_log off;
-	proxy_buffer_size 64k;
-	proxy_buffers   4 32k;
-	proxy_busy_buffers_size 64k;
+	access_log on;
+
 	default_type 'text/html';
 	charset utf-8;
-
-	set $ACAO '*';
-	add_header 'Access-Control-Allow-Origin' '$ACAO';
 }
 ~~~
 

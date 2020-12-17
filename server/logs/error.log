@@ -9398,3 +9398,128 @@ TypeError: Cannot set property 'a72-d93f-401c-94e7-fc59' of undefined
  http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A31%3A41%7E2020-12-17+12%3A31%3A41&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
  2020-12-17/12:38:02   
  ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A38%3A37%7E2020-12-17+12%3A38%3A37&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/code-generate  -----------------end-
+ 2020-12-17/14:17:10   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/?date_range=2020-12-17+12%3A38%3A37%7E2020-12-17+12%3A38%3A37&pf=2&dl_game_id=&media_id=&dl_publisher_id=&principal_id=&dl_channel_id=&adv_position_id=&group_type=reg_count#/nav-test.html  -----------------end-
+ 2020-12-17/14:19:52   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:20:17   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:21:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callback89c957944983e47113be9fec78e8ef2e is not a function -----------------end-
+TypeError: callback89c957944983e47113be9fec78e8ef2e is not a function
+    at http://mingle-test.local.aidalan.com/mock/chart/funnel.json?&jsoncallback=callback89c957944983e47113be9fec78e8ef2e:1:1  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callback90b5a19aae325443f3d913312e7f2871 is not a function -----------------end-
+TypeError: callback90b5a19aae325443f3d913312e7f2871 is not a function
+    at http://mingle-test.local.aidalan.com/mock/chart/funnel.json?&jsoncallback=callback90b5a19aae325443f3d913312e7f2871:1:1  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callbackcb3057f992f964ae57527356bfa4a100 is not a function -----------------end-
+TypeError: callbackcb3057f992f964ae57527356bfa4a100 is not a function
+    at http://mingle-test.local.aidalan.com/mock/chart/funnel.json?&jsoncallback=callbackcb3057f992f964ae57527356bfa4a100:1:1  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callbackb41020cd652b3c2e4223a608257eadce is not a function -----------------end-
+TypeError: callbackb41020cd652b3c2e4223a608257eadce is not a function
+    at http://mingle-test.local.aidalan.com/mock/chart/funnel.json?&jsoncallback=callbackb41020cd652b3c2e4223a608257eadce:1:1  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: callback4da66cbfe2ec9917e462734268e167b8 is not a function -----------------end-
+TypeError: callback4da66cbfe2ec9917e462734268e167b8 is not a function
+    at http://mingle-test.local.aidalan.com/mock/chart/funnel.json?&jsoncallback=callback4da66cbfe2ec9917e462734268e167b8:1:1  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:16   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:53   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42392:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:120121:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38432:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:120113:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:119915:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:113622:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:78536:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:103860:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:68236:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:68208:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-17/14:23:55   
+ ---END---
