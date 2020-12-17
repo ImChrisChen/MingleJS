@@ -70,13 +70,15 @@ export function PanelTitle(props: { title: string, handleReload: () => any }) {
         : <></>;
 }
 
-export function DataUpdateTime(props: { content: string }) {
+export function DataUpdateTime({ content, hidden = false }: { content: string, hidden?: boolean }) {
     let style: any = {
         position: 'absolute',
         bottom  : 30,
         left    : 8,
     };
-    return <Typography.Text style={ { ...style } } type="secondary">数据上次更新于: { props.content }</Typography.Text>;
+    return !hidden
+        ? <Typography.Text style={ { ...style } } type="secondary">数据上次更新于: { content }</Typography.Text>
+        : <></>;
 }
 
 export default class DataChart extends Component<IComponentProps, any> {
@@ -802,7 +804,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
             </Spin>
-            <DataUpdateTime content={ this.state.updateDate }/>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
         </>;
     }
 }

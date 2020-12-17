@@ -543,7 +543,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
             </Dropdown>
-            <DataUpdateTime content={ this.state.updateDate }/>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
 
             <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
 
