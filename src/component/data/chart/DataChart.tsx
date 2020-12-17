@@ -327,7 +327,6 @@ export default class DataChart extends Component<IComponentProps, any> {
         **/
 
         let { position, dataSource, colors } = this.formatGroupsData(config);
-        console.log(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
@@ -337,8 +336,9 @@ export default class DataChart extends Component<IComponentProps, any> {
                 {/*<Area position={ position } color={ groupby || colors }/>*/ }
 
                 <LineAdvance area position={ position } point={ {
-                    shape   : config.pointShape as string,
+                    shape   : config.pointShape,
                     position: position,
+                    size    : config.pointSize,
                 } } color={ colors } label="first"/>
 
                 <Tooltip shared/>
@@ -725,6 +725,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 height,
                 chartType,
                 pointShape: this.props.dataset.point,           // point的类型 https://bizcharts.net/product/BizCharts4/category/62/page/85
+                pointSize : this.props.dataset.pointsize,
                 legendLocation,     // 图例位置
                 legendLayout,       // 图例的布局方式
                 dataSource: this.state.data,

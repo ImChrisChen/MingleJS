@@ -1103,6 +1103,14 @@ export default {
                         ],
                         parse  : 'string',
                         value  : 'circle',
+                        desc   : `"点"的形状，目前只在折线图中有效, 
+                            具体展示效果可参考 https://bizcharts.net/product/BizCharts4/category/62/page/85`,
+                    },
+                    pointsize : {
+                        el   : 'input',
+                        parse: 'boolean',
+                        value: 1,
+                        desc : '"点"的大小,目前只在折线图中有效',
                     },
                     // datadirect: {
                     //     el   : 'input',
