@@ -1,127 +1,156 @@
 {
-    "status": true,
-    "message": "ok",
-    "data": [
-        {
-            "location": "广东",
-            "count": 2529
-        },
-        {
-            "location": "江苏",
-            "count": 2365
-        },
-        {
-            "location": "山东",
-            "count": 2195
-        },
-        {
-            "location": "河南",
-            "count": 2051
-        },
-        {
-            "location": "浙江",
-            "count": 1892
-        },
-        {
-            "location": "四川",
-            "count": 1862
-        },
-        {
-            "location": "河北",
-            "count": 1424
-        },
-        {
-            "location": "湖南",
-            "count": 1363
-        },
-        {
-            "location": "湖北",
-            "count": 1090
-        },
-        {
-            "location": "广西",
-            "count": 1048
-        },
-        {
-            "location": "安徽",
-            "count": 1027
-        },
-        {
-            "location": "云南",
-            "count": 944
-        },
-        {
-            "location": "江西",
-            "count": 940
-        },
-        {
-            "location": "贵州",
-            "count": 834
-        },
-        {
-            "location": "陕西",
-            "count": 830
-        },
-        {
-            "location": "重庆",
-            "count": 826
-        },
-        {
-            "location": "辽宁",
-            "count": 812
-        },
-        {
-            "location": "福建",
-            "count": 741
-        },
-        {
-            "location": "北京",
-            "count": 713
-        },
-        {
-            "location": "上海",
-            "count": 704
-        },
-        {
-            "location": "山西",
-            "count": 653
-        },
-        {
-            "location": "黑龙江",
-            "count": 544
-        },
-        {
-            "location": "内蒙古",
-            "count": 478
-        },
-        {
-            "location": "吉林",
-            "count": 468
-        },
-        {
-            "location": "天津",
-            "count": 422
-        },
-        {
-            "location": "新疆",
-            "count": 402
-        },
-        {
-            "location": "甘肃",
-            "count": 389
-        },
-        {
-            "location": "中国",
-            "count": 219
-        },
-        {
-            "location": "海南",
-            "count": 185
-        },
-        {
-            "location": "宁夏",
-            "count": 132
-        }
-    ]
+	"status": true,
+	"message": "ok",
+	"data": [
+		{
+			"location": "广东",
+			"count": 2529,
+			"count2": 2504
+		},
+		{
+			"location": "江苏",
+			"count": 2365,
+			"count2": 4490
+		},
+		{
+			"location": "山东",
+			"count": 2195,
+			"count2": 3999
+		},
+		{
+			"location": "河南",
+			"count": 2051,
+			"count2": 537
+		},
+		{
+			"location": "浙江",
+			"count": 1892,
+			"count2": 4685
+		},
+		{
+			"location": "四川",
+			"count": 1862,
+			"count2": 1642
+		},
+		{
+			"location": "河北",
+			"count": 1424,
+			"count2": 3627
+		},
+		{
+			"location": "湖南",
+			"count": 1363,
+			"count2": 4945
+		},
+		{
+			"location": "湖北",
+			"count": 1090,
+			"count2": 1197
+		},
+		{
+			"location": "广西",
+			"count": 1048,
+			"count2": 4670
+		},
+		{
+			"location": "安徽",
+			"count": 1027,
+			"count2": 4814
+		},
+		{
+			"location": "云南",
+			"count": 944,
+			"count2": 2082
+		},
+		{
+			"location": "江西",
+			"count": 940,
+			"count2": 898
+		},
+		{
+			"location": "贵州",
+			"count": 834,
+			"count2": 3715
+		},
+		{
+			"location": "陕西",
+			"count": 830,
+			"count2": 4160
+		},
+		{
+			"location": "重庆",
+			"count": 826,
+			"count2": 4273
+		},
+		{
+			"location": "辽宁",
+			"count": 812,
+			"count2": 3440
+		},
+		{
+			"location": "福建",
+			"count": 741,
+			"count2": 1413
+		},
+		{
+			"location": "北京",
+			"count": 713,
+			"count2": 3548
+		},
+		{
+			"location": "上海",
+			"count": 704,
+			"count2": 1097
+		},
+		{
+			"location": "山西",
+			"count": 653,
+			"count2": 323
+		},
+		{
+			"location": "黑龙江",
+			"count": 544,
+			"count2": 1773
+		},
+		{
+			"location": "内蒙古",
+			"count": 478,
+			"count2": 2128
+		},
+		{
+			"location": "吉林",
+			"count": 468,
+			"count2": 2090
+		},
+		{
+			"location": "天津",
+			"count": 422,
+			"count2": 2590
+		},
+		{
+			"location": "新疆",
+			"count": 402,
+			"count2": 876
+		},
+		{
+			"location": "甘肃",
+			"count": 389,
+			"count2": 1743
+		},
+		{
+			"location": "中国",
+			"count": 219,
+			"count2": 220
+		},
+		{
+			"location": "海南",
+			"count": 185,
+			"count2": 964
+		},
+		{
+			"location": "宁夏",
+			"count": 132,
+			"count2": 1248
+		}
+	]
 }
-    

@@ -499,6 +499,19 @@ export default {
                         value: 'YYYY-MM-DD',
                         desc : '日期格式，参考 moment.js 👉🏿 http://momentjs.cn/ ',
                     },
+                    mode      : {
+                        el     : 'select',
+                        value  : '',
+                        options: [
+                            { label: 'time', value: 'time' },
+                            { label: 'date', value: 'date' },
+                            { label: 'month', value: 'month' },
+                            { label: 'year', value: 'year' },
+                            { label: 'decade', value: 'decade' },
+                        ],
+                        parse  : 'string',
+                        desc   : '日期面板状态',
+                    },
                     showtime  : {
                         el   : 'switch',
                         parse: 'boolean',
@@ -510,9 +523,10 @@ export default {
                         parse  : 'string',
                         value  : 'date',
                         options: [
-                            { label: 'date', value: 'date' },
+                            { label: 'year', value: 'year' },
                             { label: 'month', value: 'month' },
                             { label: 'week', value: 'week' },
+                            { label: 'date', value: 'date' },
                         ],
                         desc   : '指定范围选择器类型',
                     },
@@ -521,18 +535,6 @@ export default {
                         parse: 'boolean',
                         value: false,
                         desc : '是否单选模式，单选 ｜ 多选',
-                    },
-                    mindate   : {
-                        el   : 'datepicker',
-                        parse: 'string',
-                        value: '',
-                        desc : '最小时间',
-                    },
-                    maxdate   : {
-                        el   : 'datepicker',
-                        parse: 'string',
-                        value: '',
-                        desc : '最大时间',
                     },
                     allowClear: {
                         el    : 'switch',
@@ -551,6 +553,7 @@ export default {
                     value(parsedDataset) {
                         // 今天
                         let date = moment().subtract(0, 'days').format(parsedDataset.format);
+                        console.log(date);
                         return parsedDataset.single ? date : date + '~' + date;
 
                         // let momentDate = moment(date, parsedDataset.format);
@@ -978,7 +981,7 @@ export default {
                         request: true,
                         // value  : domain + '/mock/chart/areauser.json',
                         // value  : domain + '/mock/chart/radar.json',
-                        value  : domain + '/mock/chart/funnel.json',
+                        value  : domain + '/mock/chart/areauser.json',
                         desc   : '图表数据接口',
                     },
                     // name      : {
