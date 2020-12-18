@@ -259,8 +259,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     if (isWuiByString(value)) {
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
-                            node?.append(element);
-                            new App(element);
+                            if (node) {
+                                node.innerHTML = '';
+                                node.append(element);
+                                new App(element);
+                            }
                         } }/>;
 
                     } else {
