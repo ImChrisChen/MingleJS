@@ -559,6 +559,12 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    usenow    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否使用当前时间, 值为false时，时间则为空',
+                    },
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
