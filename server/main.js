@@ -11,9 +11,10 @@ const url = require('url');
 
 const router = require('./router/index');
 const bodyParser = require('body-parser');     // json 解析中间件
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const port = 9001;
 
-app.use(cookieParser());
+// app.use(cookieParser());
 
 app.all('*', (req, res, next) => {
     
@@ -37,8 +38,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(router);
 
-app.listen('8081', function () {
-    console.log('http://localhost:8081');
+app.listen(port, function () {
+    console.log(`http://localhost:${ port }`);
 });
 
 

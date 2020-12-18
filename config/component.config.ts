@@ -246,8 +246,8 @@ export default {
             },
         },
         larksdk: {
-            component: import('@component/app/larksdk/AppLarkSDK'),
-            document : import('@component/app/larksdk/AppLarkSDK.md'),
+            component: import('@component/app/feishu/AppFeishu'),
+            document : import('@component/app/feishu/AppFeishu.md'),
             path     : '/app-lark',
             property : {
                 dataset: {},
@@ -741,7 +741,7 @@ export default {
                     url     : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://localhost:8081/upload',
+                        value: 'http://localhost:9001/upload',
                         desc : '上传的地址',
                     },
                     type    : {
@@ -1279,7 +1279,7 @@ export default {
                     // url     : UniversalProps.url,
                     url     : {
                         el   : 'input',
-                        // value: 'http://192.168.20.121:8081/mgm/menlist/',
+                        // value: 'http://192.168.20.121:9001/mgm/menlist/',
                         // value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
                         value: domain + '/mock/tree.json',
                         parse: 'string',

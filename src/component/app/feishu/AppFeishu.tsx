@@ -6,30 +6,31 @@
  */
 import React, { Component } from 'react';
 import axios from 'axios';
+import { jsonp } from '@utils/request/request';
 
-export default class AppLarkSDK extends Component<any, any> {
+interface IFeishuH5SignAPI {
+    appId: string
+    timestamp: string
+    nonceStr: string
+    signature: string
+    url: string
 
-    private larkSDKUrl = 'https://s3.bytecdn.cn/ee/lark/js_sdk/h5-js-sdk-1.4.13.js';
-    private url = location.href.replace(/#.*$/, '');
-    public sdkData;
+    [key: string]: string
+}
+
+export default class AppFeishu extends Component<any, any> {
 
     constructor(props) {
         super(props);
 
         this.loadSDK(async () => {
-            let res = await this.getSign();
-            console.log(res);
-            alert(window.h5sdk);
-            // noncestr: '4458331152339229349';
-            // signature: '3f9594087fca50c8ed8dbe35987a79a0df594620';
-            // timestamp: '1608200950924';
-            // url: '';
-            window.h5sdk.ready(() => {
+            if (window.h5sdk) {
+                let data = await this.getSign();
                 window.h5sdk.config({
-                    appId    : 'cli_9e07f4ae206c900e', //res.appId
-                    timestamp: +res.timestamp,
-                    nonceStr : res.noncestr,
-                    signature: res.signature,
+                    appId    : data.appId, //res.appId
+                    timestamp: +data.timestamp,
+                    nonceStr : data.noncestr,
+                    signature: data.signature,
                     jsApiList: [
                         'biz.user.getUserInfo',
                         'device.health.getStepCount',
@@ -48,29 +49,28 @@ export default class AppLarkSDK extends Component<any, any> {
                     onSuccess: (res) => {
                         console.log(`config: success ${ JSON.stringify(res) }`);
                         alert(`config: success ${ JSON.stringify(res) }`);
-                        this.sdkData = res;
                     },
                 });
-            });
+                window.h5sdk.ready(() => {
+
+                });
+            }
         });
     }
 
-    createScript() {
-
+    public geo() {
+        alert('geo');
     }
 
-    async getSign() {
-        let res = await axios.get(`https://mina.bytedance.com/openapi/jssdk/demo/getsignature?url=${ this.url }`);
-        if (res.status === 200 && res.data.code === 0) {
-            return res.data.data;
-        } else {
-            return {};
-        }
+    async getSign(): Promise<IFeishuH5SignAPI> {
+        let url = `http://auc.local.aidalan.com/api/external.feishu/h5Sign`;
+        let res = await jsonp(url);
+        return res.status ? res.data : {};
     }
 
     loadSDK(callback) {
         let script: any = document.createElement('script');
-        script.src = this.larkSDKUrl;
+        script.src = `https://s3.bytecdn.cn/ee/lark/js_sdk/h5-js-sdk-1.4.13.js`;
         script.type = 'text/javascript';
         script.onload = script.onreadystatechange = function () {
             if (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete') {

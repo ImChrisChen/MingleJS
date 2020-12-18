@@ -13,6 +13,13 @@
 | before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |
 | update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |
 
+
+
+
+
+
+
+
 ```html
 <script>
 function funcName () {

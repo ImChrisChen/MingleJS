@@ -124,7 +124,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
         });
 
         let { interval } = this.props.dataset;
+        console.log(this.props);
         if (interval) {
+            console.log('----------');
             setInterval(() => {
                 this.FormSubmit({}).then(r => {
                     // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);
