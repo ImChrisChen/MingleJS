@@ -141,7 +141,7 @@ module.exports = {
                             modifyVars: {
                                 dark: true, // 开启暗黑模式
                                 compact: true, // 开启紧凑模式
-                                'primary-color': '#f38ce4',　　//修改antd主题色
+                                // 'primary-color': '#f38ce4',　　//修改antd主题色
                             },
                             javascriptEnabled: true,
                         },

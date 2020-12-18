@@ -295,8 +295,13 @@ export default class App {
                     let exec = element.dataset.exec;
                     if (!isUndefined(exec)) {
                         // TODO 简陋的实现，后续待调整
-                        let o = $(element).closest('form[data-fn=form-action]').find('[type=submit]');
-                        o.click();
+                        let formElement = $(element).closest('form[data-fn=form-action]');
+                        let submitBtn = formElement.find('[type=submit]');
+                        if (submitBtn.length > 0) {
+                            submitBtn.click();
+                        } else {
+                            formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
+                        }
                     }
                 });
             });
