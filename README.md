@@ -42,7 +42,7 @@ server {
 	 
 	# nodejs 服务器mock数据,对应目录项目根目录 /mock/*
 	location /mock {
-		proxy_pass http://127.0.0.1:8081;
+		proxy_pass http://127.0.0.1:9001;
 		add_header Access-Control-Allow-Origin '$ACAO';
 	}
 
@@ -125,6 +125,14 @@ http://mingle.local.aidalan.com/report.html
 ```html
 <div data-fn="data-table"></div>
 ```
+
+
+
+```html
+<div data-fn"data-table-"></div>
+```
+
+
 
 
 
@@ -291,6 +299,8 @@ window.funcName = function () {
      >
 </div>
 ~~~
+
+
 
 
 

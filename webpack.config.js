@@ -141,7 +141,7 @@ module.exports = {
                             modifyVars: {
                                 dark: true, // 开启暗黑模式
                                 compact: true, // 开启紧凑模式
-                                'primary-color': '#f38ce4',　　//修改antd主题色
+                                // 'primary-color': '#f38ce4',　　//修改antd主题色
                             },
                             javascriptEnabled: true,
                         },
@@ -316,9 +316,9 @@ module.exports = {
         host: '0.0.0.0',
         port: 9000,
         proxy: {
-            // '/api': 'http://127.0.0.1:8081',
+            // '/api': 'http://127.0.0.1:9001',
             '/api': {
-                target: 'http://127.0.0.1:8081',
+                target: 'http://127.0.0.1:9001',
                 source: true,
                 changeOrigin: true,
                 pathRewrite: {'^/api': '/'},

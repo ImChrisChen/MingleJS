@@ -49,11 +49,6 @@ interface IModules {
     beforeElement: HTMLElement
 }
 
-interface IArrItem {
-    name: string,
-    value: string
-}
-
 interface IAttributes extends NamedNodeMap {
     style?: any | string
 
@@ -71,7 +66,7 @@ interface IInstances {
 
 export default class App {
     modules: Array<IModules> = [];
-    public static instances: IInstances = {};      // 组件实例
+    static instances: IInstances = {};      // 组件实例
     $tempContainer: any;
 
     constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
@@ -145,7 +140,7 @@ export default class App {
 
                                     let keysArr = componentName.trim().split('-');
                                     // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
-                                    let [, , componentMethod] = keysArr;
+                                    let [ , , componentMethod ] = keysArr;
 
                                     const Modules = await loadModules(keysArr);
                                     const Component = Modules.component.default;            // React组件
@@ -173,13 +168,11 @@ export default class App {
                                     };
                                     this.modules.push(module);
 
-                                    this.renderComponent(module, (hooks) => {
-                                        hooks[Hooks.beforeLoad]?.();
-                                    }, (hooks, instance: ReactInstance) => {
+                                    this.renderComponent(module, (hooks, instance) => {
+                                        hooks[Hooks.beforeLoad]?.(instance);
+                                    }, (hooks, instance) => {
                                         hooks[Hooks.load]?.(instance);
                                         element.style.opacity = '1';
-                                        // Array.from(this.$tempContainer.children()).forEach((el: any) => { //     $(element).append(el).show();
-                                        // });
                                     });
                                     this.eventListener(module);
                                 }
@@ -208,7 +201,7 @@ export default class App {
     }
 
     renderIcons(rootElement: HTMLElement) {
-        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
+        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -248,7 +241,7 @@ export default class App {
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
 
-        [...$formItems].forEach(formItem => {
+        [ ...$formItems ].forEach(formItem => {
             let dataset = formItem.dataset;
             let $formItemBox = $(formItem).parent('[data-component-uid]');
             let uid = $formItemBox.attr('data-component-uid') ?? '';
@@ -268,9 +261,9 @@ export default class App {
                     (module.element as HTMLInputElement).value = '';
                     setTimeout(() => {
                         this.renderComponent(module,
-                            hooks => hooks[Hooks.beforeUpdate]?.(),
-                            (hooks) => {
-                                hooks[Hooks.update]?.();
+                            (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
+                            (hooks, instance) => {
+                                hooks[Hooks.update]?.(instance);
                             },
                         );
                     });
@@ -280,7 +273,7 @@ export default class App {
         });
     }
 
-    private eventListener(module: IModules) {
+    eventListener(module: IModules) {
         let { element } = module;
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
@@ -293,20 +286,22 @@ export default class App {
                 console.log(`onchange - value:${ $(element).val() }`);
 
                 // 组件发生改变的时候重新出发组件渲染，达到值的改变
-                this.renderComponent(module, hooks => {
-                    hooks[Hooks.beforeUpdate]?.();
+                this.renderComponent(module, (hooks, instance) => {
+                    hooks[Hooks.beforeUpdate]?.(instance);
                 }, (hooks, instance: ReactInstance /*获取到的组件实例*/) => {
-                    hooks[Hooks.update]?.();
+                    hooks[Hooks.update]?.(instance);
                     this.dynamicReloadComponents(element as HTMLInputElement);
 
                     let exec = element.dataset.exec;
                     if (!isUndefined(exec)) {
                         // TODO 简陋的实现，后续待调整
-                        let o = $(element).closest('form[data-fn=form-action]').find('[type=submit]');
-                        o.click();
-                        // let formUID = $(element).closest('form[data-fn=form-action]').attr('data-component-uid') ?? '';
-                        // console.log(formUID);
-                        // console.log(App.instances);
+                        let formElement = $(element).closest('form[data-fn=form-action]');
+                        let submitBtn = formElement.find('[type=submit]');
+                        if (submitBtn.length > 0) {
+                            submitBtn.click();
+                        } else {
+                            formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
+                        }
                     }
                 });
             });
@@ -356,6 +351,21 @@ export default class App {
 
     static async globalEventListener() {
 
+        // 判断是否是深色模式
+        const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+
+        // 判断是否匹配深色模式
+        if (darkMode && darkMode.matches) {
+            console.log('深色模式');
+        }
+
+        // 监听主题切换事件
+        darkMode && darkMode.addEventListener('change', e => {
+            // e.matches true 深色模式
+            let darkMode = e.matches;
+            message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
+        });
+
         window.addEventListener('error', async function (e) {
             let msg = e?.message ?? '';        // 错误
             let stack = e?.error?.stack ?? '';
@@ -370,9 +380,9 @@ export default class App {
                 logs.unshift(log);
                 localStorage.setItem('error_log', JSON.stringify(logs));
             } else {
-                localStorage.setItem('error_log', JSON.stringify([log]));
+                localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
-            await axios.post('http://localhost:8081/log', log);
+            await axios.post('http://localhost:9001/log', log);
             message.error(`error, ${ msg }`);
         });
 
@@ -393,7 +403,7 @@ export default class App {
         });
     }
 
-    private renderComponent(module: IModules, beforeCallback: (h) => any, callback: (h, instance: ReactInstance) => any) {
+    renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
             config, componentUID, beforeElement,
@@ -406,7 +416,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [...element.attributes].forEach(item => {
+        [ ...element.attributes ].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
@@ -442,7 +452,7 @@ export default class App {
         }
 
         // 触发 beforeLoad 钩子
-        beforeCallback(hooks);
+        beforeCallback(hooks, instance);
 
         // 组件渲染
         try {

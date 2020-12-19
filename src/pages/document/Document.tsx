@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom';
 import md5 from 'md5';
 import axios from 'axios';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import AppLarkSDK from '@component/app/larksdk/AppLarkSDK';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -54,7 +53,7 @@ class Document extends React.Component<any, any> {
 
     // 获取导航栏路由
     async getRouter() {
-        let res = await axios.get('http://localhost:8081/files/template');
+        let res = await axios.get('http://localhost:9001/files/template');
         let data = res.data.status ? res.data.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
@@ -92,7 +91,6 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <AppLarkSDK/>
                 <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist }/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>

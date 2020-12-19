@@ -204,7 +204,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
 export default {
     // 子应用
     app     : {
-        menu   : {
+        menu  : {
             component: import('@component/app/menu/AppMenu'),
             property : {
                 dataset: {
@@ -217,7 +217,7 @@ export default {
                 },
             },
         },
-        layout : {
+        layout: {
             component: import('@component/app/layout/AppLayout'),
             document : import('@component/app/layout/AppLayout.md'),
             path     : '/app-layout',
@@ -245,16 +245,15 @@ export default {
                 },
             },
         },
-        larksdk: {
-            component: import('@component/app/larksdk/AppLarkSDK'),
-            document : import('@component/app/larksdk/AppLarkSDK.md'),
+        feishu: {
+            component: import('@component/app/feishu/AppFeishu'),
+            document : import('@component/app/feishu/AppFeishu.md'),
             path     : '/app-lark',
             property : {
                 dataset: {},
             },
         },
     },
-    sdk     : {},
     form    : {
         select    : {
             path     : '/form-select',
@@ -560,6 +559,12 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    usenow    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否使用当前时间, 值为false时，时间则为空',
+                    },
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -741,7 +746,7 @@ export default {
                     url     : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://localhost:8081/upload',
+                        value: 'http://localhost:9001/upload',
                         desc : '上传的地址',
                     },
                     type    : {
@@ -1279,7 +1284,7 @@ export default {
                     // url     : UniversalProps.url,
                     url     : {
                         el   : 'input',
-                        // value: 'http://192.168.20.121:8081/mgm/menlist/',
+                        // value: 'http://192.168.20.121:9001/mgm/menlist/',
                         // value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
                         value: domain + '/mock/tree.json',
                         parse: 'string',
