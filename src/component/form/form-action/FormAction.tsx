@@ -142,6 +142,15 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         return str;
     }
 
+    handleShowModal() {
+        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
+        if (isEmptyObject(formDataSmart)) {
+            message.warn('请选择要保存的表单选项');
+            return;
+        }
+        this.setState({ isModalVisible: true });
+    }
+
     handleCancel() {
         this.setState({ isModalVisible: false });
     }
@@ -176,7 +185,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                               </List.Item>
                           }
                     />
-                    <Button onClick={ e => this.setState({ isModalVisible: true }) }
+                    <Button onClick={ () => this.handleShowModal() }
                             type={ 'primary' }> 保存 </Button>
                 </div>
                 <Button onClick={ this.handleToggle.bind(this) }

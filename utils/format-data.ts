@@ -80,7 +80,7 @@ interface IKeyMap {
  */
 export function formatList2Group(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
-    let selectTree: Array<object> = pids.map(pid => {
+    let selectGroup: Array<object> = pids.map(pid => {
         return {
             id        : pid,              // 父子映射关系
             [children]: [],
@@ -89,20 +89,20 @@ export function formatList2Group(list: Array<any>, { id, pid, name, children = '
         };
     });
     list.forEach(item => {
-        let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
+        let superItem: any = selectGroup.find((f: any) => f.id == item[pid]);
 
         let label = templateVerifyParser(name, item);
 
         if (superItem) {
             superItem[children].push({
-                id   : label,
+                id   : id,
                 value: item[id],
                 label: label,
                 pid  : item[pid],       // 父子映射关系
             });
         }
     });
-    return selectTree;
+    return selectGroup;
 }
 
 export function formatList2Tree(list: Array<any>, { id, pid, name }) {
