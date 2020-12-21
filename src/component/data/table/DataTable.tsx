@@ -536,7 +536,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
-        console.log(this.props.dataset);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
