@@ -55,7 +55,7 @@ export default class FormFile extends Component<IComponentProps, any> {
         );
         return (
             <>
-                <Form.Item label={ this.props.dataset.label }>
+                <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
                     { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                     <Upload
                         // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"

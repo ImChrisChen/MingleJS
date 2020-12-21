@@ -70,13 +70,15 @@ export function PanelTitle(props: { title: string, handleReload: () => any }) {
         : <></>;
 }
 
-export function DataUpdateTime(props: { content: string }) {
+export function DataUpdateTime({ content, hidden = false }: { content: string, hidden?: boolean }) {
     let style: any = {
         position: 'absolute',
         bottom  : 30,
         left    : 8,
     };
-    return <Typography.Text style={ { ...style } } type="secondary">数据上次更新于: { props.content }</Typography.Text>;
+    return !hidden
+        ? <Typography.Text style={ { ...style } } type="secondary">数据上次更新于: { content }</Typography.Text>
+        : <></>;
 }
 
 export default class DataChart extends Component<IComponentProps, any> {
@@ -85,7 +87,6 @@ export default class DataChart extends Component<IComponentProps, any> {
         loading   : true,
         data      : [],
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
-
     };
 
     constructor(props) {
@@ -334,8 +335,11 @@ export default class DataChart extends Component<IComponentProps, any> {
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
                 {/*<Area position={ position } color={ groupby || colors }/>*/ }
 
-                <LineAdvance area shape="smooth" position={ position } point={ true }
-                             color={ colors } label="first"/>
+                <LineAdvance area position={ position } point={ {
+                    shape   : config.pointShape,
+                    position: position,
+                    size    : config.pointSize,
+                } } color={ colors } label="first"/>
 
                 <Tooltip shared/>
 
@@ -527,7 +531,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 // position="item*score"
                 position={ position }
                 color="user"
-                shape="circle"
+                shape={ config.pointShape }
             />
             <Line
                 position={ position }
@@ -720,6 +724,8 @@ export default class DataChart extends Component<IComponentProps, any> {
                 title,
                 height,
                 chartType,
+                pointShape: this.props.dataset.point,           // point的类型 https://bizcharts.net/product/BizCharts4/category/62/page/85
+                pointSize : this.props.dataset.pointsize,
                 legendLocation,     // 图例位置
                 legendLayout,       // 图例的布局方式
                 dataSource: this.state.data,
@@ -802,7 +808,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
             </Spin>
-            <DataUpdateTime content={ this.state.updateDate }/>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
         </>;
     }
 }

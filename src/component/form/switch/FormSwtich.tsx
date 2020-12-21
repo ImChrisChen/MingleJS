@@ -33,7 +33,7 @@ export default class FormSwitch extends React.Component<any, any> {
         let { smart, ...dataset } = this.props.dataset;
         dataset.checked = dataset.value;        // switch 的value值是checked
         return <>
-            <Form.Item label={ this.props.dataset.label } required={ this.props.required }>
+            <Form.Item label={ this.props.dataset.label } required={ this.props.required } style={ this.props.style }>
                 { smart ? <FormSmartIcon/> : '' }
                 <Switch
                     onChange={ this.handleChange.bind(this) }

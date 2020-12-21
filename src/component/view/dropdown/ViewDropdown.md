@@ -30,7 +30,7 @@
 
 
 ```html
-<div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/mock/chart/funnel.json">
+<div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json">
     <span data-fn="view-dropdown" data-content="按钮">
         <a w-foreach="data as (item,i)" href="http://taobao.com"><{ item.key }> index: <{i}></a>
     </span>

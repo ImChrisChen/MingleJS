@@ -28,7 +28,7 @@ class Document extends React.Component<any, any> {
         routes        : [],
         collapsed     : false,
         showCodeDesign: false,          // 是否显示组件设计器
-        navRoutes     : [ ...navRoutes ],
+        navRoutes     : [...navRoutes],
     };
 
     constructor(props) {
@@ -53,12 +53,12 @@ class Document extends React.Component<any, any> {
 
     // 获取导航栏路由
     async getRouter() {
-        let res = await axios.get('http://localhost:8081/files/template');
+        let res = await axios.get('/server/files/template');
         let data = res.data.status ? res.data.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;
-            let [ name ] = item.split('.');
+            let [name] = item.split('.');
             pageRoutes.push({
                 name     : name,
                 path     : '/nav-' + item,
@@ -66,11 +66,11 @@ class Document extends React.Component<any, any> {
             });
         }
         let navRoutes = this.state.navRoutes;
-        return [ ...navRoutes, ...pageRoutes ];
+        return [...navRoutes, ...pageRoutes];
     }
 
     getCurrentMenu() {
-        let [ , currentRoute ] = window.location.hash.split('#');
+        let [, currentRoute] = window.location.hash.split('#');
         return currentRoute;
     }
 
@@ -97,7 +97,7 @@ class Document extends React.Component<any, any> {
                         <div className="logo"/>
 
                         {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
-                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ this.getCurrentMenu() ] }>
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [this.getCurrentMenu()] }>
                             { this.state.navRoutes.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target

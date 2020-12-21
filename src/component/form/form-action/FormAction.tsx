@@ -22,7 +22,7 @@ interface IFormData {
 }
 
 interface IFormAction extends IComponentProps {
-    layout?: 'v' | 'h'
+    layout?: 'vertical' | 'horizontal'
     async
 }
 
@@ -73,6 +73,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     async handleSubmit(form, e) {
+        console.log('-----------submit');
         e.preventDefault();
 
         let { url, method, headers } = this.props.dataset;
@@ -156,11 +157,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
     setLayout(formElement: HTMLElement) {
         let layout = this.props.dataset.layout;
 
-        if (layout === 'h') {
+        if (layout === 'horizontal') {
             $(formElement).css({ display: 'flex', flexWrap: 'wrap' });
         }
 
-        if (layout === 'v') {
+        if (layout === 'vertical') {
             console.log(formElement);
         }
     }

@@ -11,4 +11,4 @@ const {getMockData} = require('../controller/mock');
 
 router.get('*.json', getMockData);
 
-module.exports = router
+module.exports = router;
