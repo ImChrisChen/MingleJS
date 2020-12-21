@@ -40,8 +40,8 @@ server {
 		add_header Access-Control-Allow-Origin '$ACAO';
 	}
 	 
-	# nodejs 服务器mock数据,对应目录项目根目录 /mock/*
-	location /mock {
+	# nodejs 服务器mock数据,对应目录项目根目录 /server/*
+	location /server {
 		proxy_pass http://127.0.0.1:9001;
 		add_header Access-Control-Allow-Origin '$ACAO';
 	}
@@ -173,7 +173,7 @@ http://mingle.local.aidalan.com/report.html
 
 本项目提供了Mock数据
 
-直接访问到 http://mingle.local.aidalan.com/mock/ 可以看到所有模拟数据
+直接访问到 http://mingle.local.aidalan.com/server/mock/ 可以看到所有模拟数据
 
 
 

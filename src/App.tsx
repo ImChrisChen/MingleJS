@@ -382,7 +382,7 @@ export default class App {
             } else {
                 localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
-            await axios.post('http://localhost:9001/log', log);
+            await axios.post('/server/log', log);
             message.error(`error, ${ msg }`);
         });
 

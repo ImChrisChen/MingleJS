@@ -18,6 +18,8 @@ const port = 9001;
 
 app.all('*', (req, res, next) => {
     
+    // console.log(req.path);
+    
     //设置允许跨域的域名，*代表允许任意域名跨域
     res.header('Access-Control-Allow-Origin', '*');
     
@@ -36,7 +38,9 @@ app.all('*', (req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(router);
+
+// http://mingle.local.aidalan.com/server
+app.use('/server', router);
 
 app.listen(port, function () {
     console.log(`http://localhost:${ port }`);

@@ -19,7 +19,7 @@ data-slot 的元素，会被使用到对应的区域中，aside, main
 
     <div data-slot="aside">
         <div data-fn="layout-menu"
-             data-url="http://mingle-test.local.aidalan.com/mock/tree.json"
+             data-url="http://mingle-test.local.aidalan.com/server/mock/tree.json"
              data-open="true"
              data-id="id"
              data-pid="parent"
@@ -33,7 +33,7 @@ data-slot 的元素，会被使用到对应的区域中，aside, main
 
 <div data-slot="header">
         <div data-fn="layout-menu"
-             data-url="http://mingle-test.local.aidalan.com/mock/tree.json"
+             data-url="http://mingle-test.local.aidalan.com/server/mock/tree.json"
              data-open="true"
              data-id="id"
              data-pid="parent"
@@ -49,8 +49,8 @@ data-slot 的元素，会被使用到对应的区域中，aside, main
 
     <div data-slot="main">
         <div data-fn="data-table"
-             data-headerurl="http://mingle.local.aidalan.com/mock/table/tableHeader.json"
-             data-url="http://mingle.local.aidalan.com/mock/table/tableContent.json"
+             data-headerurl="http://mingle.local.aidalan.com/server/mock/table/tableHeader.json"
+             data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
              data-pagesize="50"
              data-pages="50,100,200"
              data-pagination="true"

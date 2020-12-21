@@ -80,7 +80,6 @@
 		"autoprefixer": "^10.0.0",
 		"cli-color": "^2.0.0",
 		"codemirror": "^5.58.1",
-		"cookie-parser": "^1.4.5",
 		"express": "^4.17.1",
 		"filemanager-webpack-plugin": "^2.0.5",
 		"gg-editor": "^3.1.3",

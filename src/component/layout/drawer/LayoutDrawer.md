@@ -28,8 +28,8 @@
             <div data-fn="data-table"
                  data-height="400"
                  data-from="user_analysis"
-                 data-headerurl="/mock/table/tableHeader.json"
-                 data-url="/mock/table/tableContent.json"
+                 data-headerurl="/server/mock/table/tableHeader.json"
+                 data-url="/server/mock/table/tableContent.json"
             ></div>
 
         </div>
