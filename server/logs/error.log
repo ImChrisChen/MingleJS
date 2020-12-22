@@ -10972,3 +10972,9 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
  2020-12-22/11:00:59   
  ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/13:40:46   
+ ---END---

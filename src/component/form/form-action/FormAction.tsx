@@ -187,6 +187,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                                       } }>
                                           <span>{ item.name }</span>
                                           <CloseSquareOutlined
+                                              hidden={ !item.isPrivate }
                                               onClick={ e => this.handleDeleteSmart(item.selectTagId, e) }/>
                                       </div> }
                                       description={ <>
