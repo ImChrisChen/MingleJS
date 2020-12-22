@@ -10,7 +10,7 @@ import { IPropertyConfig, parseType } from '@root/config/component.config';
 import { isString } from '@utils/inspect';
 
 // 解析dataset data-*
-export function parserProperty(dataset, defaultDataset): object {
+export function parserDataset(dataset, defaultDataset): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     dataset = JSON.parse(JSON.stringify(dataset));

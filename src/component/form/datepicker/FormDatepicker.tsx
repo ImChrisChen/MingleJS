@@ -100,8 +100,14 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
 
     // datepicker value 格式转化 value = '2020-12-07' |  '2020-12-07~2020-12-07'
     valueFormat(value: string): any | Array<any> {
-        let { format, single, label } = this.props.dataset;
+        let { format, single, label, usenow } = this.props.dataset;
         let dateValue;
+
+        // 不实用当前时间
+        if (!usenow) {
+            return undefined;
+        }
+
         if (single) {
             dateValue = moment(value, format);
         } else {
@@ -118,7 +124,7 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
     render() {
         let { single, usenow, picker, mode, disabled, format, allowClear, showtime, label, required } = this.props.dataset;
 
-        let value = usenow ? this.valueFormat(this.props.value) : undefined;
+        let value = this.valueFormat(this.props.value);
 
         return <Form.Item label={ label } style={ { display: 'flex', ...this.props.style } } required={ required }>
             { this.props.dataset.smart ? <FormSmartIcon/> : '' }

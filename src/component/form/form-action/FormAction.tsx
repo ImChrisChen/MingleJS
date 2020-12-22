@@ -17,6 +17,7 @@ import { isEmptyObject } from '@utils/inspect';
 import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import value from '*.json';
+import App from '@root/src/App';
 
 // 表格提交的数据
 interface IFormData {
@@ -243,12 +244,14 @@ export default class FormAction extends React.Component<IFormAction, any> {
         this.setLayout(form);
     }
 
+    // type=submit
     async handleSubmit(form, e) {
         console.log('-----------submit');
         e.preventDefault();
 
         let { url, method, headers } = this.props.dataset;
-        let formData = FormAction.getFormData(form);
+        let formData = await FormAction.getFormData(form);
+        console.log(formData);
         let verify = this.verifyFormData(form, formData);
 
         if (verify) {
@@ -284,13 +287,12 @@ export default class FormAction extends React.Component<IFormAction, any> {
         });
     }
 
-    handleReset(form: HTMLElement, e) {
-        let defaultFormData = FormAction.getFormData(this.props.beforeElement);
-
-        for (const name in defaultFormData) {
-            if (!defaultFormData.hasOwnProperty(name)) continue;
-            let value = defaultFormData[name];
-            let formItem = form.querySelector(`input[data-fn][name=${ name }]`) as HTMLElement;
+    // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
+    async handleReset(form: HTMLElement, e) {
+        let formItems = [ ...form.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        for (const formItem of formItems) {
+            let property = await App.parseElementProperty(formItem);        // 默认属性
+            let value = property.value;
             formItem && trigger(formItem, value);
         }
     }
@@ -315,13 +317,14 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取表单数据
-    public static getFormData(formElement): IFormData {
+    public static async getFormData(form: HTMLElement): Promise<IFormData> {
         let formData: IFormData = {};
-        let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ];
-        formItems.forEach(formItem => {
+        let formItems = [ ...form.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        for (const formItem of formItems) {
             let { name, value } = formItem;
-            formData[name] = value;
-        });
+            // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
+            formData[name] = value || (await App.parseElementProperty(formItem)).value;
+        }
         return formData;
     }
 

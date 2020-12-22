@@ -572,11 +572,13 @@ export default {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
-                        // 今天
-                        let date = moment().subtract(0, 'days').format(parsedDataset.format);
-                        console.log(date);
-                        return parsedDataset.single ? date : date + '~' + date;
-
+                        let { single, usenow } = parsedDataset;
+                        if (usenow) {
+                            let date = moment().subtract(0, 'days').format(parsedDataset.format);  // 今天
+                            return single ? date : date + '~' + date;
+                        } else {
+                            return '';
+                        }
                         // let momentDate = moment(date, parsedDataset.format);
                         // return parsedDataset.single ? momentDate : [ momentDate, momentDate ];
                         // return [ moment('2020-10-28', parsedDataset.format), moment('2020-10-28', parsedDataset.format) ];
