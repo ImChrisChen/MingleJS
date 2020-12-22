@@ -33,10 +33,7 @@ interface ISmartItemAPI {
     name: string            // 标签名称
     publicUser: string      // 创建人名称
     selectTagId: string     // 唯一ID (删除需要)
-    select: {       // 表单选择项
-        [key: string]: any
-    }
-
+    select: object       // 表单选择项
 }
 
 // data-smart icon
@@ -51,7 +48,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         isModalVisible  : false,
         formSmartVisible: false,
         data            : [] as Array<ISmartItemAPI>,
-        smartElements   : ([ ...this.props.el.querySelectorAll(`input[data-fn][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
+        smartElements   : ([ ...this.props.el.querySelectorAll(`input[data-fn][name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
     };
 
     private form: any = React.createRef();
@@ -142,6 +139,20 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         return str;
     }
 
+    // 选择列表(自动填充表单)
+    handleSelectSmart(index, e) {
+        let current = this.state.data?.[index];
+        let selects = current.select;
+        let el = this.props.el;
+        for (const name in selects) {
+            if (!selects.hasOwnProperty(name)) continue;
+            let value = selects[name];
+            let input = el.querySelector(`input[data-fn][name=${ name }]`) as HTMLInputElement;
+            // TODO 填充时如果 input有data-exec属性 会立即执行查询
+            trigger(input, value);
+        }
+    }
+
     handleShowModal() {
         let formDataSmart = this.getFormDataSmart(this.state.smartElements);
         if (isEmptyObject(formDataSmart)) {
@@ -164,9 +175,10 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                     <List dataSource={ this.state.data }
                           size="small"
                           bordered
-                          renderItem={ item =>
-                              <List.Item>
+                          renderItem={ (item, index) =>
+                              <List.Item onClick={ e => this.handleSelectSmart(index, e) }>
                                   <List.Item.Meta
+                                      style={ { cursor: 'pointer' } }
                                       title={ <div style={ {
                                           display       : 'flex',
                                           justifyContent: 'space-between',

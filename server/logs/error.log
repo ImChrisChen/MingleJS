@@ -10892,3 +10892,83 @@ TypeError: Cannot assign to read only property '0' of string '8'
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2020-12-21/17:26:53   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot assign to read only property '0' of string '1' -----------------end-
+TypeError: Cannot assign to read only property '0' of string '1'
+    at Menus.Cascader._this.handleMenuSelect (http://mingle-test.local.aidalan.com/main.min.js:193376:30)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at invokeGuardedCallbackAndCatchFirstError (http://mingle-test.local.aidalan.com/manifest.min.js:203371:25)
+    at executeDispatch (http://mingle-test.local.aidalan.com/manifest.min.js:203454:3)
+    at executeDispatchesInOrder (http://mingle-test.local.aidalan.com/manifest.min.js:203479:5)
+    at executeDispatchesAndRelease (http://mingle-test.local.aidalan.com/manifest.min.js:206343:5)
+    at executeDispatchesAndReleaseTopLevel (http://mingle-test.local.aidalan.com/manifest.min.js:206352:10)
+    at forEachAccumulated (http://mingle-test.local.aidalan.com/manifest.min.js:206324:8)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/09:57:10   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot assign to read only property '0' of string '1' -----------------end-
+TypeError: Cannot assign to read only property '0' of string '1'
+    at Menus.Cascader._this.handleMenuSelect (http://mingle-test.local.aidalan.com/main.min.js:193376:30)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at invokeGuardedCallbackAndCatchFirstError (http://mingle-test.local.aidalan.com/manifest.min.js:203371:25)
+    at executeDispatch (http://mingle-test.local.aidalan.com/manifest.min.js:203454:3)
+    at executeDispatchesInOrder (http://mingle-test.local.aidalan.com/manifest.min.js:203479:5)
+    at executeDispatchesAndRelease (http://mingle-test.local.aidalan.com/manifest.min.js:206343:5)
+    at executeDispatchesAndReleaseTopLevel (http://mingle-test.local.aidalan.com/manifest.min.js:206352:10)
+    at forEachAccumulated (http://mingle-test.local.aidalan.com/manifest.min.js:206324:8)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/09:57:10   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:14   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:23   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:28   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:34   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:41   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:43   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:45   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F.html  -----------------end-
+ 2020-12-22/11:00:59   
+ ---END---
