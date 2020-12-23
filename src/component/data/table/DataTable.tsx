@@ -23,6 +23,7 @@ import { IComponentProps } from '@interface/common/component';
 import App from '@src/App';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
+import FormAction from '@component/form/form-action/FormAction';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -530,8 +531,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
-    handleReload() {
-        this.FormSubmit({});
+    async handleReload() {
+        let id = this.props.dataset.from;
+        let form = document.querySelector(`#${ id }`) as HTMLElement;
+        if (form) {
+            let formData = await FormAction.getFormData(form);
+            this.FormSubmit(formData);
+        }
     }
 
     // TODO 待解决问题 貌似webpacktable.scss不起作用

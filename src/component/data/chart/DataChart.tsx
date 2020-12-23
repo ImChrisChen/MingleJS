@@ -685,8 +685,13 @@ export default class DataChart extends Component<IComponentProps, any> {
         );
     }
 
-    handleReload() {
-        this.FormSubmit({});
+    async handleReload() {
+        let id = this.props.dataset.from;
+        let form = document.querySelector(`#${ id }`) as HTMLElement;
+        if (form) {
+            let formData = await FormAction.getFormData(form);
+            this.FormSubmit(formData);
+        }
     }
 
     formatConfig(): IChartConfig | any {
