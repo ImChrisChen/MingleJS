@@ -1515,6 +1515,16 @@ export default {
                 },
             },
         },
+        grid  : {
+            component: import('@component/layout/grid/LayoutGrid'),
+            document : import('@component/layout/grid/LayoutGrid.md'),
+            path     : '/layout-grid',
+            property : {
+                dataset: {
+
+                },
+            },
+        },
     },
     handle  : {
         request: {
