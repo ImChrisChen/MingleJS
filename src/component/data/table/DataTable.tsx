@@ -191,7 +191,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     // 提交表单
-    public async FormSubmit(formData) {
+    public async FormSubmit(formData = {}) {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
@@ -533,10 +533,16 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     async handleReload() {
         let id = this.props.dataset.from;
-        let form = document.querySelector(`#${ id }`) as HTMLElement;
-        if (form) {
-            let formData = await FormAction.getFormData(form);
-            this.FormSubmit(formData);
+        if (id) {
+            let form = document.querySelector(`#${ id }`) as HTMLElement;
+            if (form) {
+                let formData = await FormAction.getFormData(form);
+                this.FormSubmit(formData);
+            } else {
+                this.FormSubmit();
+            }
+        } else {
+            this.FormSubmit();
         }
     }
 

@@ -107,7 +107,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     }
 
     // TODO 点击表单提交触发
-    public async FormSubmit(formData) {
+    public async FormSubmit(formData = {}) {
         console.log('DataChart:', formData);
         this.setState({ loading: true });
         let url = formatObject2Url(formData, this.props.dataset.url);
@@ -687,10 +687,16 @@ export default class DataChart extends Component<IComponentProps, any> {
 
     async handleReload() {
         let id = this.props.dataset.from;
-        let form = document.querySelector(`#${ id }`) as HTMLElement;
-        if (form) {
-            let formData = await FormAction.getFormData(form);
-            this.FormSubmit(formData);
+        if (id) {
+            let form = document.querySelector(`#${ id }`) as HTMLElement;
+            if (form) {
+                let formData = await FormAction.getFormData(form);
+                this.FormSubmit(formData);
+            } else {
+                this.FormSubmit();
+            }
+        } else {
+            this.FormSubmit();
         }
     }
 
