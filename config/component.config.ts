@@ -688,6 +688,12 @@ export default {
                     required   : UniversalProps.required,
                     smart      : UniversalProps.smart,
                     group      : UniversalProps.group,
+                    tplSelector: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '要指定的模版的 选择器',
+                    },
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -1520,9 +1526,7 @@ export default {
             document : import('@component/layout/grid/LayoutGrid.md'),
             path     : '/layout-grid',
             property : {
-                dataset: {
-
-                },
+                dataset: {},
             },
         },
     },

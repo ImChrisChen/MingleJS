@@ -20,6 +20,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.props.dataset.tplSelector);
         this.getData().then(options => {
             this.setState({ options });
         });
