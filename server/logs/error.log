@@ -10990,3 +10990,46 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/nav-app-layout.html  -----------------end-
  2020-12-22/17:44:28   
  ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-23/17:44:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0. -----------------end-
+Error: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0.
+    at WordCloudLayer._startWithMaskImage (http://mingle-test.local.aidalan.com/manifest.min.js:167958:38)
+    at Image.image.onload (http://mingle-test.local.aidalan.com/manifest.min.js:167899:15)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-test.html  -----------------end-
+ 2020-12-23/17:45:55   
+ ---END---
+error_log: ---START--- 
+  Uncaught HierarchyRequestError: Failed to execute 'append' on 'Element': The new child element contains the parent. -----------------end-
+Error: Failed to execute 'append' on 'Element': The new child element contains the parent.
+    at http://mingle-test.local.aidalan.com/main.min.js:253471:35
+    at Array.forEach (<anonymous>)
+    at http://mingle-test.local.aidalan.com/main.min.js:253470:24  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-test.html  -----------------end-
+ 2020-12-23/17:51:20   
+ ---END---
+error_log: ---START--- 
+  Uncaught HierarchyRequestError: Failed to execute 'append' on 'Element': The new child element contains the parent. -----------------end-
+Error: Failed to execute 'append' on 'Element': The new child element contains the parent.
+    at http://mingle-test.local.aidalan.com/main.min.js:253471:35
+    at Array.forEach (<anonymous>)
+    at http://mingle-test.local.aidalan.com/main.min.js:253470:24  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-test.html  -----------------end-
+ 2020-12-23/17:51:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught HierarchyRequestError: Failed to execute 'append' on 'Element': The new child element contains the parent. -----------------end-
+Error: Failed to execute 'append' on 'Element': The new child element contains the parent.
+    at http://mingle-test.local.aidalan.com/main.min.js:253471:35
+    at Array.forEach (<anonymous>)
+    at http://mingle-test.local.aidalan.com/main.min.js:253470:24  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-test.html  -----------------end-
+ 2020-12-23/17:53:52   
+ ---END---

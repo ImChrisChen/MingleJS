@@ -331,6 +331,15 @@ export default class App {
                             formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
                         }
                     }
+
+                    let groupname = element.getAttribute('data-group');
+                    let formElement = $(element).closest('form[data-fn]');
+                    let groups = [ ...formElement.find(`input[data-fn][data-group=${ groupname }]`) ];
+                    groups.forEach(el => {
+                        if (el !== element) {
+                            console.log(el);
+                        }
+                    });
                 });
             });
         }

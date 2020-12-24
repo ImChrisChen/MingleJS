@@ -49,14 +49,13 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         isModalVisible  : false,
         formSmartVisible: false,
         data            : [] as Array<ISmartItemAPI>,
-        smartElements   : ([ ...this.props.el.querySelectorAll(`input[data-fn][name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
+        smartElements   : ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
     };
 
     private form: any = React.createRef();
 
     constructor(props) {
         super(props);
-        this.getFormSmartList().then(data => this.setState({ data }));
     }
 
     handleToggle() {
@@ -168,7 +167,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
     }
 
     render() {
-        return <>
+        return this.state.smartElements.length > 0 ? <>
             {/*  列表区域 */ }
             <div className={ 'form-smart-container ' + style.formSmart }
                  style={ { right: this.state.formSmartVisible ? 0 : -200 } }>
@@ -225,7 +224,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
 
                 </Form>
             </Modal>
-        </>;
+        </> : '';
     }
 }
 
@@ -280,6 +279,9 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取关联的table ，chart， list 的实例
     async getViewsInstances() {
         let id = this.props.id;
+        if (!id) {
+            return [];
+        }
         let App = (await import('@src/App')).default;
         let views = [ ...document.querySelectorAll(`[data-from=${ id }]`) ];
         return views.map(view => {
@@ -320,9 +322,19 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取表单数据
     public static async getFormData(form: HTMLElement): Promise<IFormData> {
         let formData: IFormData = {};
-        let formItems = [ ...form.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        let hideInput = $(form).find('.form-tabpanel:hidden').find('input[data-fn][name]');
+        let hideInputName = hideInput.attr('name');
+
+        let formItems = [ ...form.querySelectorAll(`input[data-fn][name]`) ] as Array<HTMLInputElement>;
         for (const formItem of formItems) {
             let { name, value } = formItem;
+
+            // 把 layout-tab 隐藏的内容中的input框不加入form表单的提交
+            if (name === hideInputName) {
+                console.log('被隐藏区域的input', hideInputName, formItem);
+                continue;
+            }
+
             // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
             formData[name] = value || (await App.parseElementProperty(formItem)).value;
         }

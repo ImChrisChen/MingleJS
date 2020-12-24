@@ -103,6 +103,7 @@ interface IUniversalProps<T> {
     name: T
     required: T
     smart: T
+    group: T
 
     [key: string]: T
 }
@@ -184,7 +185,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value: false,
         desc : '表单项是否必填',
     },
-    smart      : {     // form
+    smart      : {     // form组件
         el    : 'switch',
         render: true,
         value : false,
@@ -197,6 +198,13 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value : false,
         desc  : '是否选择后，立即提交表单加载数据',
         render: true,
+    },
+    group      : {      // form组件
+        el    : 'input',
+        parse : 'string',
+        value : '',
+        desc  : 'data-group的值为一致时，他们则为单选的一组，组内的组件只能选择一个，其他成员的值将被清空',
+        render: false,
     },
 };
 
@@ -333,6 +341,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 value      : {
                     el     : 'select',
@@ -412,6 +421,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -444,6 +454,7 @@ export default {
                         desc   : '数据展示值',
                     },
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -490,6 +501,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -565,6 +577,7 @@ export default {
                         value: true,
                         desc : '是否使用当前时间, 值为false时，时间则为空',
                     },
+                    group     : UniversalProps.group,
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -674,6 +687,7 @@ export default {
                     },
                     required   : UniversalProps.required,
                     smart      : UniversalProps.smart,
+                    group      : UniversalProps.group,
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -704,6 +718,7 @@ export default {
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
+                group  : UniversalProps.group,
             },
         },
         input     : {
@@ -732,10 +747,12 @@ export default {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
+                group      : UniversalProps.group,
 
             },
         },
@@ -776,6 +793,7 @@ export default {
                     },
                     disabled: UniversalProps.disabled,
                     required: UniversalProps.required,
+                    group   : UniversalProps.group,
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -790,6 +808,7 @@ export default {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 value  : {
                     el   : 'color',
@@ -1367,10 +1386,10 @@ export default {
                         parse  : 'string',
                     },
                     current    : {
-                        el   : 'number',
-                        parse: 'number',
-                        value: 1,
-                        desc : '默认选中的tab',
+                        el   : 'input',
+                        parse: 'string',
+                        value: '0',
+                        desc : '默认选中的tab的 index',
                     },
                 },
             },
