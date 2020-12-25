@@ -147,7 +147,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         for (const name in selects) {
             if (!selects.hasOwnProperty(name)) continue;
             let value = selects[name];
-            let input = el.querySelector(`input[data-fn][name=${ name }]`) as HTMLInputElement;
+            let input = el.querySelector(`[data-fn][name=${ name }]`) as HTMLInputElement;
             // TODO 填充时如果 input有data-exec属性 会立即执行查询
             trigger(input, value);
         }
@@ -292,7 +292,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     async handleReset(form: HTMLElement, e) {
-        let formItems = [ ...form.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...form.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
         for (const formItem of formItems) {
             let property = await App.parseElementProperty(formItem);        // 默认属性
             let value = property.value;
@@ -302,7 +302,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
-        let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...formElement.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
         formItems.forEach(formItem => {
             let name = formItem.name;
             let value = formData[name];
@@ -322,12 +322,15 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取表单数据
     public static async getFormData(form: HTMLElement): Promise<IFormData> {
         let formData: IFormData = {};
-        let hideInput = $(form).find('.form-tabpanel:hidden').find('input[data-fn][name]');
+        let hideInput = $(form).find('.form-tabpanel:hidden').find('[data-fn][name]');
         let hideInputName = hideInput.attr('name');
 
-        let formItems = [ ...form.querySelectorAll(`input[data-fn][name]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...form.querySelectorAll(`[data-fn][name]`) ] as Array<HTMLInputElement>;
         for (const formItem of formItems) {
             let { name, value } = formItem;
+
+            // TODO 在 非input 元素中编写name 属性时需要通过 getAttirbute 属性获取
+            name = name ? name : formItem.getAttribute('name') ?? '';
 
             // 把 layout-tab 隐藏的内容中的input框不加入form表单的提交
             if (name === hideInputName) {
@@ -338,6 +341,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
             // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
             formData[name] = value || (await App.parseElementProperty(formItem)).value;
         }
+        console.log(formData);
         return formData;
     }
 

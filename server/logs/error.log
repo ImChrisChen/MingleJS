@@ -11113,3 +11113,35 @@ TypeError: Cannot read property 'tree' of null
  http://mingle-test.local.aidalan.com/#/nav-A-form-select-tree.html  -----------------end-
  2020-12-25/12:09:39   
  ---END---
+error_log: ---START--- 
+  Uncaught InvalidCharacterError: Failed to execute 'createElement' on 'Document': The tag name provided ('<div class="layout-list-selected-icon">哈哈哈</div>') is not a valid name. -----------------end-
+Error: Failed to execute 'createElement' on 'Document': The tag name provided ('<div class="layout-list-selected-icon">哈哈哈</div>') is not a valid name.
+    at http://mingle-test.local.aidalan.com/main.min.js:253776:40
+    at Array.forEach (<anonymous>)
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:253771:28)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-layout-list.html  -----------------end-
+ 2020-12-25/14:29:19   
+ ---END---
+error_log: ---START--- 
+  Uncaught InvalidCharacterError: Failed to execute 'createElement' on 'Document': The tag name provided ('<div class="layout-list-selected-icon">哈哈哈</div>') is not a valid name. -----------------end-
+Error: Failed to execute 'createElement' on 'Document': The tag name provided ('<div class="layout-list-selected-icon">哈哈哈</div>') is not a valid name.
+    at http://mingle-test.local.aidalan.com/main.min.js:253776:40
+    at Array.forEach (<anonymous>)
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:253771:28)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223183:9)
+    at commitNestedUnmounts (http://mingle-test.local.aidalan.com/manifest.min.js:223228:5)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223508:7)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-layout-list.html  -----------------end-
+ 2020-12-25/14:29:19   
+ ---END---

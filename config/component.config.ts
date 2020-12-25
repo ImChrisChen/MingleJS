@@ -1564,17 +1564,29 @@ export default {
             path     : '/layout-list',
             property : {
                 dataset: {
-                    cols : {
+                    cols      : {
                         el   : 'number',
                         value: 2,
                         parse: 'number',
                         desc : '每行显示的数量',
                     },
-                    space: {
+                    space     : {
                         el   : 'input',
                         parse: 'number[]',
                         value: '20,10',
                         desc : '前面的值(20)代表上下的间距,后面的值(10)代表左右的间距',
+                    },
+                    selectable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否可以选中列表中的某一项',
+                    },
+                    single    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否单选,开启选择模式后生效(data-selectable="true"时)',
                     },
                 },
             },
