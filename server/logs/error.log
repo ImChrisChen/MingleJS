@@ -11033,3 +11033,83 @@ Error: Failed to execute 'append' on 'Element': The new child element contains t
  http://mingle-test.local.aidalan.com/#/nav-A-test.html  -----------------end-
  2020-12-23/17:53:52   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: value.join(...).filter is not a function -----------------end-
+TypeError: value.join(...).filter is not a function
+    at FormSelectTree.onChange (http://mingle-test.local.aidalan.com/main.min.js:253081:39)
+    at triggerChange (http://mingle-test.local.aidalan.com/main.min.js:226298:7)
+    at Object.onInternalSelect [as onRawSelect] (http://mingle-test.local.aidalan.com/main.min.js:226335:7)
+    at triggerSelect (http://mingle-test.local.aidalan.com/main.min.js:216134:25)
+    at onInternalSelect (http://mingle-test.local.aidalan.com/main.min.js:216212:7)
+    at onInternalOptionSelect (http://mingle-test.local.aidalan.com/main.min.js:216224:7)
+    at onInternalSelect (http://mingle-test.local.aidalan.com/main.min.js:225840:7)
+    at Tree._this.onNodeCheck (http://mingle-test.local.aidalan.com/main.min.js:228325:9)
+    at InternalTreeNode._this.onCheck (http://mingle-test.local.aidalan.com/main.min.js:229081:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-25/10:22:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: value.join(...).filter is not a function -----------------end-
+TypeError: value.join(...).filter is not a function
+    at FormSelectTree.onChange (http://mingle-test.local.aidalan.com/main.min.js:253081:39)
+    at triggerChange (http://mingle-test.local.aidalan.com/main.min.js:226298:7)
+    at Object.onInternalSelect [as onRawSelect] (http://mingle-test.local.aidalan.com/main.min.js:226335:7)
+    at triggerSelect (http://mingle-test.local.aidalan.com/main.min.js:216134:25)
+    at onInternalSelect (http://mingle-test.local.aidalan.com/main.min.js:216212:7)
+    at onInternalOptionSelect (http://mingle-test.local.aidalan.com/main.min.js:216224:7)
+    at onInternalSelect (http://mingle-test.local.aidalan.com/main.min.js:225840:7)
+    at Tree._this.onNodeCheck (http://mingle-test.local.aidalan.com/main.min.js:228325:9)
+    at InternalTreeNode._this.onCheck (http://mingle-test.local.aidalan.com/main.min.js:229081:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2020-12-25/10:22:41   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: componentInstance[componentMethod] is not a function -----------------end-
+TypeError: componentInstance[componentMethod] is not a function
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:249158:70)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:223088:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225873:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:225606:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:237380:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:214104:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:225446:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-form-select-tree.html  -----------------end-
+ 2020-12-25/12:09:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'tree' of null -----------------end-
+TypeError: Cannot read property 'tree' of null
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:249158:53)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-form-select-tree.html  -----------------end-
+ 2020-12-25/12:09:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'tree' of null -----------------end-
+TypeError: Cannot read property 'tree' of null
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:249158:53)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:203302:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203357:31)
+    at safelyDetachRef (http://mingle-test.local.aidalan.com/manifest.min.js:222667:9)
+    at commitUnmount (http://mingle-test.local.aidalan.com/manifest.min.js:223170:9)
+    at unmountHostComponents (http://mingle-test.local.aidalan.com/manifest.min.js:223529:7)
+    at commitDeletion (http://mingle-test.local.aidalan.com/manifest.min.js:223565:5)
+    at commitMutationEffects (http://mingle-test.local.aidalan.com/manifest.min.js:225847:11)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:203253:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-form-select-tree.html  -----------------end-
+ 2020-12-25/12:09:39   
+ ---END---

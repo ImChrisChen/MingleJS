@@ -105,6 +105,7 @@ export function formatList2Group(list: Array<any>, { id, pid, name, children = '
     return selectGroup;
 }
 
+// 列表 => 树
 export function formatList2Tree(list: Array<any>, { id, pid, name }) {
     const isRoot = (item): boolean => Number(item[pid]) === 0;
 
@@ -121,6 +122,11 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }) {
         });
     });
     return treeData;
+}
+
+// 树 => 列表
+export function formatTree2List(tree: object) {
+    return deepEach([ { children: tree } ], node => node);
 }
 
 /**
@@ -165,6 +171,7 @@ export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
     });
     return root;
 }
+
 
 // 验证 && 解析模版 && DOM转化
 function templateVerifyParser(tpl: string, item: object): string {

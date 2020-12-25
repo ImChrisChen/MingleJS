@@ -381,7 +381,7 @@ export default {
                 },
             },
         },
-        selectTree: {
+        selecttree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/FormSelectTree'),
             property : {
@@ -426,7 +426,12 @@ export default {
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
-                value      : {},
+                value      : {
+                    el   : 'input',
+                    parse: 'string[]',
+                    value: '',
+                    desc : '选中的唯一值',
+                },
                 hook       : {},
             },
         },
@@ -1227,6 +1232,59 @@ export default {
                         parse: 'string',
                         desc : '数据源',
                         value: '',
+                    },
+                },
+            },
+        },
+        tree : {
+            path     : '/layout-tree',
+            component: import('@component/data/tree/DataTree'),
+            document : import('@component/data/tree/DataTree.md'),
+            property : {
+                dataset: {
+                    url      : {
+                        el     : 'input',
+                        parse  : 'string',
+                        value  : domain + '/server/mock/tree.json',
+                        request: true,
+                        desc   : '数据源',
+                    },
+                    key      : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'id',
+                    },
+                    value    : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'name',
+                    },
+                    children : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'children',
+                    },
+                    checkeds : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '',
+                        desc : '选中的唯一值, 0个或者多个，用逗号分开',
+                    },
+                    expands  : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '',
+                        desc : '是否展开,唯一值, 0个或者多个，用逗号分开',
+                    },
+                    disabled : UniversalProps.disabled,
+                    draggable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否可拖拽',
                     },
                 },
             },

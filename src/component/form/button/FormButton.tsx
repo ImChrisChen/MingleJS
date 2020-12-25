@@ -14,13 +14,13 @@ import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 export default class FormButton extends React.Component<IComponentProps, any> {
     state: any = {
-        value  : this.props.value,
-        options: [],
+        value      : this.props.value,
+        options    : [],
+        tplSelector: this.props.dataset.tplSelector ?? null,        // 模版选择器
     };
 
     constructor(props) {
         super(props);
-        console.log(this.props.dataset.tplSelector);
         this.getData().then(options => {
             this.setState({ options });
         });
