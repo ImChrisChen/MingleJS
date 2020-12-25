@@ -767,6 +767,14 @@ export default {
 
             },
         },
+        group     : {
+            path     : '/form-group',
+            component: import('@component/form/group/FormGroup'),
+            document : import('@component/form/group/FormGroup.md'),
+            property : {
+                dataset: {},
+            },
+        },
         file      : {
             component: import('@component/form/file/FormFile'),
             path     : '/form-file',
@@ -903,6 +911,10 @@ export default {
             property : {
                 dataset: {},
             },
+        },
+        codediff: {
+            path: '/view-codediff',
+            // document
         },
     },
     data    : {

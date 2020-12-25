@@ -128,6 +128,7 @@ export default class App {
 
                         if (!containerWrap.getAttribute('data-component-uid')) {
 
+
                             // TODO 设置组件唯一ID
                             let componentUID = App.getUUID();
                             containerWrap.setAttribute('data-component-uid', componentUID);

@@ -11,7 +11,6 @@ const url = require('url');
 
 const router = require('./router/index');
 const bodyParser = require('body-parser');     // json 解析中间件
-// const cookieParser = require('cookie-parser');
 const port = 9001;
 
 // app.use(cookieParser());
