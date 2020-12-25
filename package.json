@@ -4,12 +4,13 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"build": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && node script.js",
-		"deploy": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && node script.js && git add . && git commit -m 'deploy' && git push all",
+		"build": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && npm run update-version",
+		"deploy": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && npm run update-version && git add . && git commit -m 'deploy' && git push all",
 		"start": "pm2 start ecosystem.config.js && pm2 start ./server/ecosystem.config.js",
-		"pre": "rm -rf ./dist NODE_ENV=pre webpack && node script.js",
+		"pre": "rm -rf ./dist NODE_ENV=pre webpack && npm run update-version",
 		"mock": "nodemon ./server/main.js",
 		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --colors --config webpack.config.js",
+		"update-version": "node ./script/script.js",
 		"docs": "npx docsify serve ./docs"
 	},
 	"author": "chrischen",

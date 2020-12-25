@@ -115,3 +115,54 @@
 </div>
 ```
 
+
+
+### 结合form-action组件使用
+
+`点击提交可以获取到 layout-list 选中内容的value`
+
+```html
+<form data-fn="form-action">
+    <div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json">
+        <div data-fn="layout-list" data-cols="4" data-space="20,20" data-selectable="true" data-single="false"
+             name="server">
+            <div w-foreach="data as (item,index)" value="<{item.value}>">
+                <button data-fn="layout-window" data-content="编辑 <{item.key}>" data-title="<{item.key}>"
+                        class="ant-btn-primary ant-btn">
+                    <div data-fn="data-chart"
+                         data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                         data-type="line"
+                         data-title="<{ii}>"
+                         data-key="location"
+                         data-value="reg_count"
+                         data-colors="#37c9e3"
+                         data-height="400"
+                    ></div>
+                </button>
+                <div data-fn="data-chart"
+                     data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                     data-type="line"
+                     data-title="<{ii}>"
+                     data-key="location"
+                     data-value="reg_count"
+                     data-colors="#37c9e3"
+                     data-height="400"
+                ></div>
+            </div>
+
+        </div>
+    </div>
+    <button type="submit" class="ant-btn ant-btn-primary">submit</button>
+</form>
+```
+
+
+
+##### 点击提交 form组件获取到的表单数据，可以打开浏览器控制台查看
+
+```javascript
+{
+  "server": "50000,35000"
+}
+```
+
