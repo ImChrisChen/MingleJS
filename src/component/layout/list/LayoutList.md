@@ -6,6 +6,8 @@
 | ---------- | ------------------------------ | ------ |
 | data-space | 控制列表中的每一项的上下的边距 | 20,20  |
 | data-cols   | 每一行显示的数量               | 2      |
+| data-selectable | 是否可以选中列表 | false |
+| data-single | 是否单选,开启选择模式后生效(data-selectable="true"时) | false |
 
 
 
