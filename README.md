@@ -9,22 +9,19 @@ React + Typescript + Antd + WUI
 
 
 
-
-
 ## 开发环境
 
 1. 需安装 node  环境  
-2. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
+2. 安装pm2 
+3. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
 
 拉去项目进入根目录，执行以下命令
 
 ~~~shell
-npm install && npm run dev
+npm install && npm run start
 ~~~
 
 浏览器打开 [http://localhost:8080](http://localhost:8080)
-
-
 
 
 
@@ -35,27 +32,24 @@ server {
 	listen       		80;
 	server_name  		"mingle-test.local.aidalan.com";
 
- 	# minglejs 项目
+	set $ACAO '*';
+
+	# mingle.js 项目
 	location / {
 		proxy_pass http://127.0.0.1:8080;
-		add_header Access-Control-Allow-Origin *;
+		add_header Access-Control-Allow-Origin '$ACAO';
+	}
+	 
+	# nodejs 服务器mock数据,对应目录项目根目录 /server/*
+	location /server {
+		proxy_pass http://127.0.0.1:9001;
+		add_header Access-Control-Allow-Origin '$ACAO';
 	}
 
-	# mock数据 NodeJS jsonp 服务器,对应项目目录，/server/main.js
-	location /mock {
-		proxy_pass http://127.0.0.1:8081;
-		add_header Access-Control-Allow-Origin *;
-	}
+	access_log on;
 
-	access_log off;
-	proxy_buffer_size 64k;
-	proxy_buffers   4 32k;
-	proxy_busy_buffers_size 64k;
 	default_type 'text/html';
 	charset utf-8;
-
-	set $ACAO '*';
-	add_header 'Access-Control-Allow-Origin' '$ACAO';
 }
 ~~~
 
@@ -74,13 +68,23 @@ npm run build
 会生成dist目录， 结构如下
 
 ~~~javascript
-├── dist
-│   ├── chart.min.js
-│   ├── index.html
-│   ├── index.js
-│   ├── main.min.js
-│   ├── manifest.min.js
-│   └── report.html
+./dist
+├── assets 		// 静态资源文件
+│   ├── antv.png
+│   └── form-smart.png
+├── chart.min.js
+├── chart.min.js.map
+├── index.html
+├── index.js		// 框架入口文件
+├── main.css
+├── main.css.map
+├── main.min.js
+├── main.min.js.map
+├── manifest.css
+├── manifest.css.map
+├── manifest.min.js
+├── manifest.min.js.map
+└── report.html		// 打包文件分析
 ~~~
 
 把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
@@ -93,7 +97,6 @@ npm run build
 // 内网测试环境使用
 <script src="https://mingle.local.aidalan.com/index.js"></script>
 
-
 // 正式环境使用
 <script src="https://mingle.aidalan.com/index.js"></script>
 ~~~
@@ -103,8 +106,6 @@ npm run build
 #### 代码打包分析
 
 http://mingle.local.aidalan.com/report.html
-
-
 
 
 
@@ -127,6 +128,14 @@ http://mingle.local.aidalan.com/report.html
 
 
 
+```html
+<div data-fn"data-table-"></div>
+```
+
+
+
+
+
 ### 2.子应用
 
 子应用是在 组件的基础上，添加了业务的处理，通常只针对某些特殊系统去实现某个特殊的功能，才需要考虑以子应用的形式去实现。
@@ -142,7 +151,7 @@ http://mingle.local.aidalan.com/report.html
 
 > 该方式集成度比较高，可复用性差，如果不是必要情况，可以考虑让后端做业务的同学通过组件去自行实现
 >
-> 在这里我希望每个开发 / 维护 MingleJS的 同学能对组件有自己的理解和看法
+> 在这里我希望每个开发 / 维护 minglejs的 同学能对组件有自己的理解和看法
 >
 > **而不是成为盲目支撑需求的工具人**
 
@@ -164,7 +173,7 @@ http://mingle.local.aidalan.com/report.html
 
 本项目提供了Mock数据
 
-直接访问到 http://mingle.local.aidalan.com/mock/ 可以看到所有模拟数据
+直接访问到 http://mingle.local.aidalan.com/server/mock/ 可以看到所有模拟数据
 
 
 
@@ -290,6 +299,8 @@ window.funcName = function () {
      >
 </div>
 ~~~
+
+
 
 
 

@@ -7,8 +7,10 @@
     <input data-fn="form-datepicker"
            data-format="YYYY-MM-DD HH:mm:ss"
            data-label="日期:"
+           data-showtime="true"
            data-mindate="2016-01-01"
            data-maxdate="2020-10-26"
+           data-usenow="true"
            name="date_range"
     />
 
@@ -18,6 +20,8 @@
            value="1"
            data-required="true"
            data-label="平台:"
+           data-exec
+           data-smart="true"
            data-mode="single"
            data-key="id"
            data-value="name"
@@ -42,6 +46,7 @@
            name="media_id"
            value=""
            data-mode="multiple"
+           data-group="example"
            data-size="sm"
            data-label="媒体:"
            data-url="http://e.aidalan.com/option/media/list" id="media_id"
@@ -51,6 +56,7 @@
     <!-- 账号 -->
     <input data-fn="form-select" name="dl_publisher_id" data-mode="multiple" value=""
            data-smart="true"
+           data-group="example"
            data-label="账号:"
            data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"
            data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>">
@@ -58,12 +64,14 @@
     <!-- 负责人 -->
     <input data-fn="form-cascader" name="principal_id" data-mode="multiple"
            data-smart="true"
-           data-groupby="department_name"
-           value=""
            data-size="sm"
            data-label="负责人:"
-           data-url="http://e.aidalan.com/option/game/principal" id="principal_id" data-key="id"
-           data-value="name">
+           data-groupby="department_name"
+           data-url="http://e.aidalan.com/option/game/principal" id="principal_id"
+           data-key="id"
+           data-value="name"
+           value=""
+    />
 
     <!-- 渠道 -->
     <input data-fn="form-select" name="dl_channel_id" data-mode="multiple"
@@ -80,7 +88,7 @@
 
     <button type="reset" class="ant-btn ant-btn-waring">重置</button>
 
-    <button type="submit" class="ant-btn ant-btn-primary">提交</button>
+    <!--    <button type="submit" class="ant-btn ant-btn-primary">提交</button>-->
 
 </form>
 

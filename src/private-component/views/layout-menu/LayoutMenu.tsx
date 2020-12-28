@@ -97,7 +97,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     render() {
-        console.log(this.props.data);
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (

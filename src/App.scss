@@ -13,7 +13,9 @@ input[data-fn] {
 }
 
 [data-fn] {
-    position : relative;
+    position   : relative;
+    transition : all 150ms;
+    opacity    : 0;
 }
 
 .flex-direction-row {

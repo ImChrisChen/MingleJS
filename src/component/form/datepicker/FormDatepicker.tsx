@@ -24,17 +24,10 @@ let res = moment().calendar(null, {
     sameElse: 'DD/MM/YYYY',
 });
 
-interface IDatepickerState {
-    picker: string
-    mode: string
-    single: boolean
-    defaultValue: ''
-}
-
 export default class FormDatepicker extends React.Component<IComponentProps, any> {
 
     state: any = {
-        format: 'YYYY-MM-DD',
+        format: this.props.dataset.format || 'YYYY-MM-DD',
         // mode        : 'decade',          // time | date | month | year | decade
         // defaultValue: [ "2020-09-11", "2020-09-17" ],
         value : [],
@@ -59,29 +52,41 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
     }
 
     // 今天
-    handleSelectDay(diffDay) {
-        // 昨天
-        let beginTime = moment().subtract(diffDay, 'days').format('YYYY-MM-DD');
-        let endTime = moment().subtract(0, 'days').format('YYYY-MM-DD');
+    handleSelectDay(item) {
+        // 过去 n 天
+        let beginTime = moment().subtract(item.amount, item.unit).format(this.state.format);
+        let endTime = moment().format(this.state.format);
 
-        let value = [ beginTime, endTime ];
+        let value = beginTime + '~' + endTime;
+
+        console.log(value);
+
         this.setState({
-            value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
+            // value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
+            value: value,
             open : false,
-        }, () => trigger(this.props.el, value.join(',')));
+        }, () => trigger(this.props.el, value));
     }
 
     renderCustomDay() {
+        // moment().format('YYYY-MM-DD HH:mm:ss'); //当前时间
+        // moment().subtract(10, 'days').format('YYYY-MM-DD'); //当前时间的前10天时间
+        // moment().subtract(1, 'years').format('YYYY-MM-DD'); //当前时间的前1年时间
+        // moment().subtract(3, 'months').format('YYYY-MM-DD'); //当前时间的前3个月时间
+        // moment().subtract(1, 'weeks').format('YYYY-MM-DD'); //当前时间的前一个星期时间
         let dayMap = [
-            { label: '今天', day: 0 },
-            { label: '昨天', day: 1 },
-            { label: '前天', day: 2 },
-            { label: '7天', day: 7 },
-            { label: '30天', day: 30 },
+            { label: '今天', unit: 'days', amount: 0 },
+            { label: '昨天', unit: 'days', amount: 1 },
+            { label: '前天', unit: 'days', amount: 2 },
+            { label: '前7天', unit: 'days', amount: 7 },
+            { label: '前两周', unit: 'weeks', amount: 2 },
+            { label: '30天', unit: 'days', amount: 30 },
+            { label: '前3个月', unit: 'months', amount: 3 },
+            { label: '前1年', unit: 'years', amount: 1 },
         ];
-        return dayMap.map(item => {
-            return <Button key={ item.day }
-                           onClick={ this.handleSelectDay.bind(this, item.day) }>{ item.label } </Button>;
+        return dayMap.map((item, i) => {
+            return <Button key={ i + item.unit }
+                           onClick={ this.handleSelectDay.bind(this, item) }>{ item.label } </Button>;
         });
     }
 
@@ -95,8 +100,14 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
 
     // datepicker value 格式转化 value = '2020-12-07' |  '2020-12-07~2020-12-07'
     valueFormat(value: string): any | Array<any> {
-        let { format, single, label } = this.props.dataset;
+        let { format, single, label, usenow } = this.props.dataset;
         let dateValue;
+
+        // 不实用当前时间
+        if (!usenow) {
+            return undefined;
+        }
+
         if (single) {
             dateValue = moment(value, format);
         } else {
@@ -111,17 +122,20 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
     }
 
     render() {
-        let { single, picker, mode, mindate, maxdate, format, allowClear, label } = this.props.dataset;
+        let { single, usenow, picker, mode, disabled, format, allowClear, showtime, label, required } = this.props.dataset;
 
         let value = this.valueFormat(this.props.value);
 
-        return <Form.Item label={ this.props.dataset.label } style={ { display: 'flex' } }>
+        return <Form.Item label={ label } style={ { display: 'flex', ...this.props.style } } required={ required }>
             { this.props.dataset.smart ? <FormSmartIcon/> : '' }
             { single ?
                 // 单选
                 <DatePicker
                     picker={ picker }
+                    disabled={ disabled }
+                    showTime={ showtime }
                     onChange={ this.handleChange.bind(this) }
+                    renderExtraFooter={ e => this.renderCustomDay() }
                     mode={ mode }
                     format={ format }
                     value={ value }
@@ -129,10 +143,12 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
                 :
                 // 多选
                 <RangePicker
-                    // open={ this.state.open }
+                    disabled={ disabled }
                     onFocus={ this.handleFoucs.bind(this) }
+                    separator={ '~' }
                     onBlur={ this.handleBlur.bind(this) }
                     onChange={ this.handleChange.bind(this) }
+                    showTime={ showtime }
                     format={ format }
                     picker={ picker }
                     allowClear={ allowClear }

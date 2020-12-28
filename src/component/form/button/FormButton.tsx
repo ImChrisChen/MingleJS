@@ -17,9 +17,14 @@ export default class FormButton extends React.Component<IComponentProps, any> {
         value  : this.props.value,
         options: [],
     };
+    tplSelector = this.props.dataset.tplSelector ?? null;        // 模版选择器
 
     constructor(props) {
         super(props);
+        if (this.tplSelector) {
+            let tpl = document.querySelector(this.tplSelector);
+            console.log(tpl);
+        }
         this.getData().then(options => {
             this.setState({ options });
         });
@@ -36,7 +41,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
 
     render() {
         return <>
-            <Form.Item label={ this.props.dataset.label }>
+            <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
                 { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                 <Radio.Group
                     onChange={ this.handleChange.bind(this) }

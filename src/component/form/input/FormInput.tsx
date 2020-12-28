@@ -39,6 +39,7 @@ export default class FormInput extends React.Component<IComponentProps, any> {
                 required={ this.props.dataset.required }
                 label={ this.props.dataset.label }
                 name={ this.props.dataset.label }
+                style={ this.props.style }
             >
                 { smart ? <FormSmartIcon/> : '' }
                 <Input

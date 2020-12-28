@@ -36,8 +36,6 @@ import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 
-type keyMapType = 'key' | 'value' | 'groupby';      // 数据转换映射
-
 interface IComponentDataset {
     el: string
     label: string
@@ -52,9 +50,6 @@ interface IComponentProperty extends IPropertyConfig {
 }
 
 interface ICodeGenerateProps {
-    // visible?: boolean           //是否显示组件设计器
-    // onClose: () => any
-    // [key: string]: any
     name?: string
     config?: any
     visibleCode?: boolean
@@ -62,7 +57,6 @@ interface ICodeGenerateProps {
 }
 
 class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
-    private template = '<input data-fn="form-button" />';
     private form: any = React.createRef<FormInstance>();
 
     state = {
@@ -95,6 +89,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         let componentsProperty: Array<IComponentDataset> = this.state.componentsProperty;
         componentsProperty[index].value = value;
         this.setState({ componentsProperty });
+        console.log(componentsProperty[index]);
     }
 
     getComponents(): Array<any> {
@@ -143,7 +138,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         let arr: Array<IComponentProperty> = [];
         let dataEnum: Array<any> = [];
 
-        //dataset 属性
+        // dataset 属性
         for (const k in dataset) {
             if (!dataset.hasOwnProperty(k)) continue;
             let val: IComponentProperty = dataset[k];
@@ -260,10 +255,6 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         this.reloadChangeComponent(componentName, currentComponent);
     }
 
-    // shouldComponentUpdate(nextProps: Readonly<ICodeGenerateProps>, nextState: Readonly<any>, nextContext: any): boolean {
-    //     return true;
-    // }
-
     handleChangeRadio(index, e) {
         let value = e.target.value;
         this.setAttributeValue(index, value);
@@ -311,11 +302,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
         }).filter(t => t).join(' ');
 
+        // 正则替换生成代码
         let componentUseCode = template.replace(/data-fn="(.*?)"/, v => {
             v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
             return `${ v } ${ attrs }`;
         });
 
+        // 生成钩子函数代码
         if (componentUseCode.includes('hook:')) {
             let funcs = funcNames.map((item: any) => {
                 let { funcName, hookName } = item;
@@ -368,6 +361,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     handleInputChange(index, e) {
         console.log(index, e);
         let value = e.target.value;
+        console.log(value);
         this.setAttributeValue(index, value);
     }
 
@@ -485,14 +479,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     renderInput(key, item) {
-        // return <AutoComplete
-        //     onChange={ this.handleInputChange.bind(this, key) }
-        //     onBlur={ this.handleInputBlur.bind(this, key) }
-        //     options={ item.options || undefined }
-        //     value={ item.value }
-        // >
-        //     <Input.Search size="large" placeholder="input here"/>
-        // </AutoComplete>;
+        console.log(item);
         return <Input
             onChange={ this.handleInputChange.bind(this, key) }
             onBlur={ this.handleInputBlur.bind(this, key) }
@@ -534,10 +521,6 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     renderColorPicker(key, item) {
-        // return <SwatchesPicker
-        //     color={ item.value }
-        //     onChangeComplete={ this.handleChangeColor.bind(this, key) }
-        // />;
         return <SketchPicker
             color={ item.value }
             onChangeComplete={ this.handleChangeColor.bind(this, key) }
