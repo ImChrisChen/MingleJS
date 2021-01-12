@@ -11343,3 +11343,563 @@ TypeError: list.forEach is not a function
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2021-01-11/18:30:56   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:21   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:21   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:21   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:21   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot convert undefined or null to object -----------------end-
+TypeError: Cannot convert undefined or null to object
+    at http://mingle-test.local.aidalan.com/manifest.min.js:60907:16
+    at Array.forEach (<anonymous>)
+    at Object.omit (http://mingle-test.local.aidalan.com/manifest.min.js:60906:8)
+    at Axis.updateXAxes (http://mingle-test.local.aidalan.com/manifest.min.js:95828:18)
+    at Axis.update (http://mingle-test.local.aidalan.com/manifest.min.js:95737:10)
+    at Chart.View.initComponents (http://mingle-test.local.aidalan.com/manifest.min.js:102944:20)
+    at Chart.View.renderLayoutRecursive (http://mingle-test.local.aidalan.com/manifest.min.js:102482:10)
+    at Chart.View.paint (http://mingle-test.local.aidalan.com/manifest.min.js:102425:10)
+    at Chart.View.render (http://mingle-test.local.aidalan.com/manifest.min.js:101446:10)
+    at DataFilter.filter (http://mingle-test.local.aidalan.com/manifest.min.js:98621:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/10:26:22   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/14:41:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/14:41:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/14:41:37   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/14:41:37   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:34   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:35   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:35   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:40   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:49   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:51   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:54   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:54   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:54   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'. -----------------end-
+TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type 'Node'.
+    at createDom (http://mingle-test.local.aidalan.com/manifest.min.js:42757:13)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:117752:56
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:38525:13)
+    at Tooltip.renderItems (http://mingle-test.local.aidalan.com/manifest.min.js:117744:26)
+    at Tooltip.updateInner (http://mingle-test.local.aidalan.com/manifest.min.js:117546:14)
+    at Tooltip.Component.update (http://mingle-test.local.aidalan.com/manifest.min.js:67164:10)
+    at Tooltip.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:77985:22)
+    at Chart.View.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:102225:15)
+    at TooltipAction.showTooltip (http://mingle-test.local.aidalan.com/manifest.min.js:67442:10)
+    at TooltipAction.show (http://mingle-test.local.aidalan.com/manifest.min.js:67414:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-12/17:01:55   
+ ---END---

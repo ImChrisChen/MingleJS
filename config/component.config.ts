@@ -1034,13 +1034,13 @@ export default {
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from'    : {
+                    'from'        : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url       : {
+                    url           : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
@@ -1058,7 +1058,7 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type      : {
+                    type          : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -1077,21 +1077,21 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key       : {
+                    key           : {
                         el     : 'select-multiple',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value     : {
+                    value         : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
                         value  : '',
                         desc   : '图表统计的value值字段名',
                     },
-                    colors    : {
+                    colors        : {
                         el   : 'input',
                         // options: 'fromUrl',
                         value: '#37c9e3',
@@ -1120,26 +1120,26 @@ export default {
                     //     value  : 'horizontal',
                     //     desc   : '图例的布局方式',
                     // },
-                    groupby   : {
+                    groupby       : {
                         el     : 'input',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持), 注意: data-value为多个值时，该选项无效',
                     },
-                    interval  : {
+                    interval      : {
                         el   : 'number',
                         parse: 'number',
                         value: 0,
                         desc : '自动刷新间隔， 分钟为单位, 设置为 0 则关闭',
                     },
-                    height    : {
+                    height        : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
                         desc : '图表高度',
                     },
-                    point     : {
+                    point         : {
                         el     : 'select',
                         options: [
                             { label: '实心圆点', value: 'circle' },
@@ -1167,10 +1167,10 @@ export default {
                         desc   : `"点"的形状，目前只在折线图中有效, 
                             具体展示效果可参考 https://bizcharts.net/product/BizCharts4/category/62/page/85`,
                     },
-                    pointsize : {
+                    pointsize     : {
                         el   : 'input',
                         parse: 'boolean',
-                        value: 1,
+                        value: 3,
                         desc : '"点"的大小,目前只在折线图中有效',
                     },
                     // datadirect: {
@@ -1178,17 +1178,34 @@ export default {
                     //     value: '',
                     //     parse: 'string',
                     // },
-                    title     : {
+                    title         : {
                         el   : 'input',
                         value: '标题',
                         parse: 'string',
                         desc : '标题',
                     },
-                    showupdate: {
+                    showupdate    : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: false,
                         desc : '是否显示数据更新时间',
+                    },
+                    tooltip_suffix: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '鼠标移入的展示提示工具时的值的后缀 （单位）',
+                    },
+                    tooltip_cross : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'x', value: 'x' },
+                            { label: 'y', value: 'y' },
+                            { label: 'xy', value: 'xy' },
+                        ],
+                        parse  : 'string',
+                        value  : '',
+                        desc   : '图标十字准线（辅助查看数据）',
                     },
                 },
             },
