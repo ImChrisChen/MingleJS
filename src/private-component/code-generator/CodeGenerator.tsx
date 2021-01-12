@@ -31,10 +31,12 @@ import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
 import { jsonp } from '@utils/request/request';
-import { isObject, isString, isUndefined } from '@utils/inspect';
+import { isObject, isString, isUndefined, isUrl } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
+import { Simulate } from 'react-dom/test-utils';
+import animationEnd = Simulate.animationEnd;
 
 interface IComponentDataset {
     el: string
@@ -78,7 +80,6 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     constructor(props) {
         super(props);
         formatComponents2Tree(componentConfig).then(tree => {
-            console.log(tree);
             this.setState({
                 componentsTree: tree,
             });
@@ -86,10 +87,10 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     setAttributeValue(index, value) {
-        let componentsProperty: Array<IComponentDataset> = this.state.componentsProperty;
+        // TODO React 设置数组中的某一项的值
+        let componentsProperty: Array<IComponentDataset> = [ ...this.state.componentsProperty ];
         componentsProperty[index].value = value;
         this.setState({ componentsProperty });
-        console.log(componentsProperty[index]);
     }
 
     getComponents(): Array<any> {
@@ -233,6 +234,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         // TODO setState: 异步更新 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
         this.setState({
             componentsProperty: arr,
+            currentComponent,
             componentName,
             dataEnum,
         }, () => this.generateCode());
@@ -242,14 +244,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
         let { name, config } = nextProps;
         if (name && config) {
-            console.log('-------------');
             this.reloadChangeComponent(name, config);
         }
     }
 
     // 选择组件
     async handleChangeComponent(e, v) {
-        console.log(v);
+        // console.log(v);
         let componentName = e.join('-');
         let currentComponent = arraylastItem<any>(v);
         this.reloadChangeComponent(componentName, currentComponent);
@@ -262,7 +263,6 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     handleChangeSwitch(index, value) {
-        console.log(value);
         this.setAttributeValue(index, value);
         this.generateCode();
     }
@@ -278,7 +278,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         let funcNames: Array<object> = [];
         let componentName = this.state.componentName;
         let template = this.getTemplate(componentName);
-        console.log(template, componentName);
+        // console.log(template, componentName);
 
         // 处理属性,生成属性代码
         let attrs = components.map(item => {
@@ -359,16 +359,24 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     // input
     handleInputChange(index, e) {
-        console.log(index, e);
         let value = e.target.value;
-        console.log(value);
         this.setAttributeValue(index, value);
     }
 
-    handleInputBlur(index, e) {
+    async handleInputBlur(index, e, item) {
         let value = e.target.value;
-        this.setAttributeValue(index, value);
-        this.generateCode();
+
+        // TODO 组件设计器修改url后，动态读取对象keys 也要修改, 这里直接重置组件
+        if (item.label === 'data-url' && isUrl(item.value)) {
+            let { componentName, currentComponent } = this.state;
+            if (currentComponent) {
+                (currentComponent as any).property.dataset.url.value = value;
+                await this.reloadChangeComponent(componentName, currentComponent);
+            }
+        } else {
+            this.setAttributeValue(index, value);
+            this.generateCode();
+        }
     }
 
     handleChangeSelect(index, value) {
@@ -382,7 +390,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     handleChangeColor(index, value) {
-        console.log(index, value.hex);
+        // console.log(index, value.hex);
         this.setAttributeValue(index, value.hex);
         this.generateCode();
     }
@@ -479,10 +487,9 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     renderInput(key, item) {
-        console.log(item);
         return <Input
             onChange={ this.handleInputChange.bind(this, key) }
-            onBlur={ this.handleInputBlur.bind(this, key) }
+            onBlur={ e => this.handleInputBlur(key, e, item) }
             value={ item.value }
         />;
     }

@@ -11151,3 +11151,195 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/nav-app-layout.html  -----------------end-
  2020-12-25/17:00:27   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:06:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:06:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:06:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'split' of undefined -----------------end-
+TypeError: Cannot read property 'split' of undefined
+    at Object.parseFields (http://mingle-test.local.aidalan.com/manifest.min.js:131337:16)
+    at Interval.Geometry.position (http://mingle-test.local.aidalan.com/manifest.min.js:61095:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50675:40
+    at http://mingle-test.local.aidalan.com/manifest.min.js:50462:7
+    at each (http://mingle-test.local.aidalan.com/manifest.min.js:50209:13)
+    at compareProps (http://mingle-test.local.aidalan.com/manifest.min.js:50453:17)
+    at GeomHelper.update (http://mingle-test.local.aidalan.com/manifest.min.js:50669:7)
+    at IntervalGeom.render (http://mingle-test.local.aidalan.com/manifest.min.js:50746:23)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214769:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:214719:24)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:06:33   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'value' of undefined -----------------end-
+TypeError: Cannot read property 'value' of undefined
+    at CodeGenerator.handleInputBlur (http://mingle-test.local.aidalan.com/main.min.js:269950:30)
+    at Input._this.onBlur (http://mingle-test.local.aidalan.com/manifest.min.js:16494:9)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197797:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197846:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197901:31)
+    at invokeGuardedCallbackAndCatchFirstError (http://mingle-test.local.aidalan.com/manifest.min.js:197915:25)
+    at executeDispatch (http://mingle-test.local.aidalan.com/manifest.min.js:197998:3)
+    at executeDispatchesInOrder (http://mingle-test.local.aidalan.com/manifest.min.js:198023:5)
+    at executeDispatchesAndRelease (http://mingle-test.local.aidalan.com/manifest.min.js:200887:5)
+    at executeDispatchesAndReleaseTopLevel (http://mingle-test.local.aidalan.com/manifest.min.js:200896:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:15:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'value' of undefined -----------------end-
+TypeError: Cannot read property 'value' of undefined
+    at CodeGenerator.handleInputBlur (http://mingle-test.local.aidalan.com/main.min.js:269950:30)
+    at Input._this.onBlur (http://mingle-test.local.aidalan.com/manifest.min.js:16494:9)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197797:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197846:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197901:31)
+    at invokeGuardedCallbackAndCatchFirstError (http://mingle-test.local.aidalan.com/manifest.min.js:197915:25)
+    at executeDispatch (http://mingle-test.local.aidalan.com/manifest.min.js:197998:3)
+    at executeDispatchesInOrder (http://mingle-test.local.aidalan.com/manifest.min.js:198023:5)
+    at executeDispatchesAndRelease (http://mingle-test.local.aidalan.com/manifest.min.js:200887:5)
+    at executeDispatchesAndReleaseTopLevel (http://mingle-test.local.aidalan.com/manifest.min.js:200896:10)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:15:28   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:231776:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:231796:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:230598:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213051:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213347:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230015:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:230597:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212412:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214425:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216254:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:30:47   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:231776:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:231796:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:230598:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213051:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213347:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230015:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:230597:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212412:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214425:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216254:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:30:47   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:231776:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:231796:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:230598:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213051:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213347:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230015:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:230597:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212412:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214425:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216254:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:30:47   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:231776:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:231796:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:230598:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213051:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213347:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230015:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:230597:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212412:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214425:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216254:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:30:56   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:231776:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:231796:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:230598:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213051:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213347:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230015:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:230597:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212412:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214425:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216254:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:30:56   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:231776:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:231796:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:230598:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213051:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213347:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230015:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:230597:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212412:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214425:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216254:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-11/18:30:56   
+ ---END---
