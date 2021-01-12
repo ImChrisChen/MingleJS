@@ -4,8 +4,8 @@
  * Date: 2020/9/21
  * Time: 12:35 上午
  */
-import React from 'react';
-import { Button, Form, Input, message, Modal, Select, Switch } from 'antd';
+import React, { Component } from 'react';
+import { Button, Card, Form, Input, List, message, Modal, Select, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
@@ -13,8 +13,11 @@ import { trigger } from '@utils/trigger';
 import SmartIcon from '@static/icons/form-smart.png';
 import style from './FormAction.scss';
 import { jsonp } from '@root/utils/request/request';
-
-// import tableData from '@mock/table/tableContent'
+import { isEmptyObject } from '@utils/inspect';
+import { arrayDeleteItem } from '@root/utils/util';
+import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import value from '*.json';
+import App from '@root/src/App';
 
 // 表格提交的数据
 interface IFormData {
@@ -26,36 +29,38 @@ interface IFormAction extends IComponentProps {
     async
 }
 
+interface ISmartItemAPI {
+    isPrivate: boolean      // 是否是私有的
+    name: string            // 标签名称
+    publicUser: string      // 创建人名称
+    selectTagId: string     // 唯一ID (删除需要)
+    select: object       // 表单选择项
+}
+
 // data-smart icon
 export function FormSmartIcon() {
     return <img className={ style.dataSmartIcons } src={ SmartIcon } alt="data-smart标志"/>;
 }
 
-export default class FormAction extends React.Component<IFormAction, any> {
+// form-smart
+class FormSmart extends Component<{ el: HTMLElement }, any> {
 
     state = {
         isModalVisible  : false,
         formSmartVisible: false,
-        smartElements   : ([ ...this.props.el.querySelectorAll(`input[data-fn][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
-
-        // 提交的数据
-        formModelData: {
-            groupName: '',
-            isPublic : false,
-        },
+        data            : [] as Array<ISmartItemAPI>,
+        smartElements   : ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
     };
+
+    private form: any = React.createRef();
 
     constructor(props) {
         super(props);
-        this.init();
     }
 
-    init() {
-        let form: HTMLElement = this.props.el;
-        form.onsubmit = (e) => this.handleSubmit(form, e);
-        form.onreset = (e) => this.handleReset(form, e);
-
-        this.setLayout(form);
+    handleToggle() {
+        $('.form-smart-container').css('right', this.state.formSmartVisible ? -200 : 0);
+        this.setState({ formSmartVisible: !this.state.formSmartVisible });
     }
 
     // 获取form表单中只有 data-smart='true'的属性值
@@ -72,12 +77,181 @@ export default class FormAction extends React.Component<IFormAction, any> {
         return formDataSmart;
     }
 
+    // 创建标签
+    async handleOk(e) {
+
+        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
+        if (isEmptyObject(formDataSmart)) {
+            message.warn('请选择要保存的表单选项');
+            return;
+        }
+
+        let validName = this.form.current.getFieldValue('name');
+        if (!validName) {
+            message.error('请填写组合名称');
+            return;
+        }
+
+        let { name, isPublic } = this.form.current.getFieldsValue();        // 获取表单字段
+        let dataStr = this.formatDataString(formDataSmart);
+
+        let url = `https://auc.local.aidalan.com/user.selectTag/save?public=${ Number(isPublic) }&name=${ name }${ dataStr }`;
+        let res = await jsonp(url);
+        if (res.status) {
+            message.success('创建成功');
+            let data = await this.getFormSmartList();
+            this.setState({ isModalVisible: false, data });
+        } else {
+            message.error(res.msg ?? '创建失败');
+        }
+    }
+
+    // 删除标签
+    async handleDeleteSmart(id, e) {
+        let url = `https://auc.local.aidalan.com/user.selectTag/delete?selectTagId=${ id }`;
+        let res = await jsonp(url);
+
+        if (res.status) {
+            message.success('删除成功');
+            let data = this.state.data;
+            data = arrayDeleteItem(data, item => item.selectTagId === id);
+            this.setState({ data });
+        } else {
+            message.error('删除失败');
+        }
+    }
+
+    async getFormSmartList() {
+        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
+        let names = this.formatDataString(formDataSmart);
+        let url = `https://auc.local.aidalan.com/user.selectTag/lists?keys=${ names }`;
+        let res = await jsonp(url);
+        return res.status ? res.data : [];
+    }
+
+    // {pf: 1} => key[pf]=1
+    formatDataString(formDataSmart: {}): string {
+        let str = '';
+        for (const key in formDataSmart) {
+            let value = formDataSmart[key];
+            str += `&key[${ key }]=${ value }`;
+        }
+        return str;
+    }
+
+    // 选择列表(自动填充表单)
+    handleSelectSmart(index, e) {
+        let current = this.state.data?.[index];
+        let selects = current.select;
+        let el = this.props.el;
+        for (const name in selects) {
+            if (!selects.hasOwnProperty(name)) continue;
+            let value = selects[name];
+            let input = el.querySelector(`[data-fn][name=${ name }]`) as HTMLInputElement;
+            // TODO 填充时如果 input有data-exec属性 会立即执行查询
+            trigger(input, value);
+        }
+    }
+
+    handleShowModal() {
+        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
+        if (isEmptyObject(formDataSmart)) {
+            message.warn('请选择要保存的表单选项');
+            return;
+        }
+        this.setState({ isModalVisible: true });
+    }
+
+    handleCancel() {
+        this.setState({ isModalVisible: false });
+    }
+
+    render() {
+        return this.state.smartElements.length > 0 ? <>
+            {/*  列表区域 */ }
+            <div className={ 'form-smart-container ' + style.formSmart }
+                 style={ { right: this.state.formSmartVisible ? 0 : -200 } }>
+                <div style={ { position: 'relative' } }>
+                    <List dataSource={ this.state.data }
+                          size="small"
+                          bordered
+                          renderItem={ (item, index) =>
+                              <List.Item onClick={ e => this.handleSelectSmart(index, e) }>
+                                  <List.Item.Meta
+                                      style={ { cursor: 'pointer' } }
+                                      title={ <div style={ {
+                                          display       : 'flex',
+                                          justifyContent: 'space-between',
+                                          alignItems    : 'center',
+                                      } }>
+                                          <span>{ item.name }</span>
+                                          <CloseSquareOutlined
+                                              hidden={ !item.isPrivate }
+                                              onClick={ e => this.handleDeleteSmart(item.selectTagId, e) }/>
+                                      </div> }
+                                      description={ <>
+                                          <span>创建人:{ item.publicUser }</span>
+                                          <br/>
+                                          <span>是否公开:{ !item.isPrivate ? 'true' : 'false' }</span>
+                                      </> }
+                                  />
+                              </List.Item>
+                          }
+                    />
+                    <Button onClick={ () => this.handleShowModal() }
+                            type={ 'primary' }> 保存 </Button>
+                </div>
+                <Button onClick={ this.handleToggle.bind(this) }
+                        className={ style.formSmartToggleBtn }> { this.state.formSmartVisible ?
+                    <MenuUnfoldOutlined/> : <MenuFoldOutlined/> }
+                </Button>
+            </div>
+
+            {/* 弹出区域 */ }
+            <Modal title="提交组合信息" visible={ this.state.isModalVisible }
+                   getContainer={ this.props.el }
+                   onOk={ this.handleOk.bind(this) }
+                   onCancel={ this.handleCancel.bind(this) }>
+                <Form ref={ this.form }>
+
+                    <Form.Item label={ '组合名称' } required name={ 'name' }>
+                        <Input placeholder="请输入组合名称"/>
+                    </Form.Item>
+
+                    <Form.Item label={ '是否公开' } name={ 'isPublic' }>
+                        <Switch defaultChecked={ false }/>
+                    </Form.Item>
+
+                </Form>
+            </Modal>
+        </> : '';
+    }
+}
+
+export default class FormAction extends React.Component<IFormAction, any> {
+
+    state = {};
+
+    constructor(props) {
+        super(props);
+        this.init();
+    }
+
+    init() {
+        let form: HTMLElement = this.props.el;
+        form.onsubmit = (e) => this.handleSubmit(form, e);
+        form.onreset = (e) => this.handleReset(form, e);
+        this.setLayout(form);
+    }
+
+    // type=submit
     async handleSubmit(form, e) {
         console.log('-----------submit');
         e.preventDefault();
 
         let { url, method, headers } = this.props.dataset;
-        let formData = FormAction.getFormData(form);
+        let formData = await FormAction.getFormData(form);
+        console.log(formData);
         let verify = this.verifyFormData(form, formData);
 
         if (verify) {
@@ -105,6 +279,9 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取关联的table ，chart， list 的实例
     async getViewsInstances() {
         let id = this.props.id;
+        if (!id) {
+            return [];
+        }
         let App = (await import('@src/App')).default;
         let views = [ ...document.querySelectorAll(`[data-from=${ id }]`) ];
         return views.map(view => {
@@ -113,20 +290,19 @@ export default class FormAction extends React.Component<IFormAction, any> {
         });
     }
 
-    handleReset(form: HTMLElement, e) {
-        let defaultFormData = FormAction.getFormData(this.props.beforeElement);
-
-        for (const name in defaultFormData) {
-            if (!defaultFormData.hasOwnProperty(name)) continue;
-            let value = defaultFormData[name];
-            let formItem = form.querySelector(`input[data-fn][name=${ name }]`) as HTMLElement;
+    // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
+    async handleReset(form: HTMLElement, e) {
+        let formItems = [ ...form.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
+        for (const formItem of formItems) {
+            let property = await App.parseElementProperty(formItem);        // 默认属性
+            let value = property.value;
             formItem && trigger(formItem, value);
         }
     }
 
     verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
-        let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...formElement.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
         formItems.forEach(formItem => {
             let name = formItem.name;
             let value = formData[name];
@@ -144,13 +320,28 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取表单数据
-    public static getFormData(formElement): IFormData {
+    public static async getFormData(form: HTMLElement): Promise<IFormData> {
         let formData: IFormData = {};
-        let formItems = [ ...formElement.querySelectorAll(`input[name][data-fn]`) ];
-        formItems.forEach(formItem => {
+        let hideInput = $(form).find('.form-tabpanel:hidden').find('[data-fn][name]');
+        let hideInputName = hideInput.attr('name');
+
+        let formItems = [ ...form.querySelectorAll(`[data-fn][name]`) ] as Array<HTMLInputElement>;
+        for (const formItem of formItems) {
             let { name, value } = formItem;
-            formData[name] = value;
-        });
+
+            // TODO 在 非input 元素中编写name 属性时需要通过 getAttirbute 属性获取
+            name = name ? name : formItem.getAttribute('name') ?? '';
+
+            // 把 layout-tab 隐藏的内容中的input框不加入form表单的提交
+            if (name === hideInputName) {
+                console.log('被隐藏区域的input', hideInputName, formItem);
+                continue;
+            }
+
+            // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
+            formData[name] = value || (await App.parseElementProperty(formItem)).value;
+        }
+        console.log(formData);
         return formData;
     }
 
@@ -166,80 +357,9 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
     }
 
-    //  保存 data-smart 表单选择条件
-    handleSaveSelects() {
-        this.setState({ isModalVisible: true });
-    }
-
-    handleToggle() {
-        $('.form-smart-container').css('right', this.state.formSmartVisible ? -200 : 0);
-        this.setState({ formSmartVisible: !this.state.formSmartVisible });
-    }
-
-    async handleOk() {
-        let formDataSmart = this.getFormDataSmart(this.state.smartElements);
-        let { groupName, isPublic } = this.state.formModelData;
-        let dataStr = formatDataString(formDataSmart);
-
-        function formatDataString(formDataSmart: {}): string {
-            let str = '';
-            for (const key in formDataSmart) {
-                let value = formDataSmart[key];
-                str += `&key[${ key }]=${ value }`;
-            }
-            return str;
-        }
-
-        let url = `https://auc.local.aidalan.com/user.selectTag/save?public=${ Number(isPublic) }&name=${ groupName }${ dataStr }`;
-        let res = await axios.get(url);
-        console.log(res);
-    }
-
-    handleCancel() {
-        this.setState({ isModalVisible: false });
-    }
-
-    renderFormSmart() {
-        return this.state.smartElements.length > 0 ?
-            <div className={ 'form-smart-container ' + style.formSmart }
-                 style={ { right: this.state.formSmartVisible ? 0 : -200 } }>
-                <div style={ { position: 'relative' } }>
-                    <p> ---------------- </p>
-                    <p> ---------------- </p>
-                    <p> ---------------- </p>
-                    <p> ---------------- </p>
-                    <p> ---------------- </p>
-                    <Button onClick={ this.handleSaveSelects.bind(this) } type={ 'primary' }> 保存 </Button>
-                </div>
-                <Button onClick={ this.handleToggle.bind(this) } className={ style.formSmartToggleBtn }> 收缩 </Button>
-            </div> : '';
-    }
-
     render() {
         return <>
-            { this.renderFormSmart() }
-            <Modal title="提交组合信息" visible={ this.state.isModalVisible }
-                   getContainer={ this.props.el }
-                   onOk={ this.handleOk.bind(this) }
-                   onCancel={ this.handleCancel.bind(this) }>
-                <Form.Item label={ '组合名称' }>
-                    <Input placeholder="请输入组合名称" value={ this.state.formModelData.groupName }
-                           onChange={ (e) => {
-                               let formModelData = this.state.formModelData;
-                               formModelData.groupName = e.target.value;
-                               this.setState({ formModelData });
-                           } }
-                    />
-                </Form.Item>
-
-                <Form.Item label={ '是否公开' }>
-                    <Switch checked={ this.state.formModelData.isPublic } onClick={ (e) => {
-                        let formModelData = this.state.formModelData;
-                        formModelData.isPublic = e;
-                        this.setState({ formModelData });
-                    } }/>
-                </Form.Item>
-            </Modal>
+            <FormSmart el={ this.props.el }/>
         </>;
     }
 }

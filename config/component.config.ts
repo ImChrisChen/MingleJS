@@ -103,6 +103,7 @@ interface IUniversalProps<T> {
     name: T
     required: T
     smart: T
+    group: T
 
     [key: string]: T
 }
@@ -184,7 +185,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value: false,
         desc : '表单项是否必填',
     },
-    smart      : {     // form
+    smart      : {     // form组件
         el    : 'switch',
         render: true,
         value : false,
@@ -197,6 +198,13 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value : false,
         desc  : '是否选择后，立即提交表单加载数据',
         render: true,
+    },
+    group      : {      // form组件
+        el    : 'input',
+        parse : 'string',
+        value : '',
+        desc  : 'data-group的值为一致时，他们则为单选的一组，组内的组件只能选择一个，其他成员的值将被清空',
+        render: false,
     },
 };
 
@@ -333,6 +341,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 value      : {
                     el     : 'select',
@@ -372,7 +381,7 @@ export default {
                 },
             },
         },
-        selectTree: {
+        selecttree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/FormSelectTree'),
             property : {
@@ -412,11 +421,17 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
-                value      : {},
+                value      : {
+                    el   : 'input',
+                    parse: 'string[]',
+                    value: '',
+                    desc : '选中的唯一值',
+                },
                 hook       : {},
             },
         },
@@ -444,6 +459,7 @@ export default {
                         desc   : '数据展示值',
                     },
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -490,6 +506,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -565,6 +582,7 @@ export default {
                         value: true,
                         desc : '是否使用当前时间, 值为false时，时间则为空',
                     },
+                    group     : UniversalProps.group,
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -572,11 +590,13 @@ export default {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
-                        // 今天
-                        let date = moment().subtract(0, 'days').format(parsedDataset.format);
-                        console.log(date);
-                        return parsedDataset.single ? date : date + '~' + date;
-
+                        let { single, usenow } = parsedDataset;
+                        if (usenow) {
+                            let date = moment().subtract(0, 'days').format(parsedDataset.format);  // 今天
+                            return single ? date : date + '~' + date;
+                        } else {
+                            return '';
+                        }
                         // let momentDate = moment(date, parsedDataset.format);
                         // return parsedDataset.single ? momentDate : [ momentDate, momentDate ];
                         // return [ moment('2020-10-28', parsedDataset.format), moment('2020-10-28', parsedDataset.format) ];
@@ -672,6 +692,13 @@ export default {
                     },
                     required   : UniversalProps.required,
                     smart      : UniversalProps.smart,
+                    group      : UniversalProps.group,
+                    tplSelector: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '要指定的模版的 选择器',
+                    },
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -702,6 +729,7 @@ export default {
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
+                group  : UniversalProps.group,
             },
         },
         input     : {
@@ -730,11 +758,21 @@ export default {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
+                group      : UniversalProps.group,
 
+            },
+        },
+        group     : {
+            path     : '/form-group',
+            component: import('@component/form/group/FormGroup'),
+            document : import('@component/form/group/FormGroup.md'),
+            property : {
+                dataset: {},
             },
         },
         file      : {
@@ -774,6 +812,7 @@ export default {
                     },
                     disabled: UniversalProps.disabled,
                     required: UniversalProps.required,
+                    group   : UniversalProps.group,
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -788,6 +827,7 @@ export default {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 value  : {
                     el   : 'color',
@@ -871,6 +911,10 @@ export default {
             property : {
                 dataset: {},
             },
+        },
+        codediff: {
+            path: '/view-codediff',
+            // document
         },
     },
     data    : {
@@ -1204,6 +1248,59 @@ export default {
                 },
             },
         },
+        tree : {
+            path     : '/layout-tree',
+            component: import('@component/data/tree/DataTree'),
+            document : import('@component/data/tree/DataTree.md'),
+            property : {
+                dataset: {
+                    url      : {
+                        el     : 'input',
+                        parse  : 'string',
+                        value  : domain + '/server/mock/tree.json',
+                        request: true,
+                        desc   : '数据源',
+                    },
+                    key      : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'id',
+                    },
+                    value    : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'name',
+                    },
+                    children : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'children',
+                    },
+                    checkeds : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '',
+                        desc : '选中的唯一值, 0个或者多个，用逗号分开',
+                    },
+                    expands  : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '',
+                        desc : '是否展开,唯一值, 0个或者多个，用逗号分开',
+                    },
+                    disabled : UniversalProps.disabled,
+                    draggable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否可拖拽',
+                    },
+                },
+            },
+        },
     },
     tips    : {
         card: {
@@ -1365,10 +1462,10 @@ export default {
                         parse  : 'string',
                     },
                     current    : {
-                        el   : 'number',
-                        parse: 'number',
-                        value: 1,
-                        desc : '默认选中的tab',
+                        el   : 'input',
+                        parse: 'string',
+                        value: '0',
+                        desc : '默认选中的tab的 index',
                     },
                 },
             },
@@ -1479,19 +1576,39 @@ export default {
             path     : '/layout-list',
             property : {
                 dataset: {
-                    cols : {
+                    cols      : {
                         el   : 'number',
                         value: 2,
                         parse: 'number',
                         desc : '每行显示的数量',
                     },
-                    space: {
+                    space     : {
                         el   : 'input',
                         parse: 'number[]',
                         value: '20,10',
                         desc : '前面的值(20)代表上下的间距,后面的值(10)代表左右的间距',
                     },
+                    selectable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否可以选中列表中的某一项',
+                    },
+                    single    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否单选,开启选择模式后生效(data-selectable="true"时)',
+                    },
                 },
+            },
+        },
+        grid  : {
+            component: import('@component/layout/grid/LayoutGrid'),
+            document : import('@component/layout/grid/LayoutGrid.md'),
+            path     : '/layout-grid',
+            property : {
+                dataset: {},
             },
         },
     },

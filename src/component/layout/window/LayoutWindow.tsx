@@ -28,6 +28,7 @@ export default class LayoutWindow extends Component<IComponentProps, any> {
     }
 
     handleClickBtn(e) {
+        e.stopPropagation();
         this.handleShowModel();
     }
 
