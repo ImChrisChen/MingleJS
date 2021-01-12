@@ -50,6 +50,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             this.parseProperty(el, model);
             this.parseTextContent(el, model);
             this.parseForeach(el, model);
+            this.parseExpand(el, model);
         });
 
         return root;
@@ -61,7 +62,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         for (const attr of attrs) {
             let { name, value } = attr;
 
-            if (name === directiveForeach || name === directiveIf || name === 'data-fn') {
+            // if (name === directiveForeach || name === directiveIf || name === 'data-fn') {
+            if (name === directiveForeach || name === directiveIf) {
                 continue;
             }
 
@@ -89,6 +91,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         });
     }
 
+    // 解析 w-foreach
     public static parseForeach(el: HTMLElement, model: object) {
         let attrs = el.attributes;
         if (!attrs[directiveForeach]) return el;
@@ -176,6 +179,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         elseElement && elseElement.remove();
     }
 
+    // 解析 w-if w-else
     public static parseIfelse(el: HTMLElement, model: object) {
         let attrs = el.attributes;
         if (!attrs[directiveIf]) return;
@@ -192,6 +196,32 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             // TODO 有可能是 ~foreach 中的 if 语句
             // console.error(`if内表达式解析语法错误: ${ express }`);
         }
+    }
+
+    // 解析拓展运算符
+    public static parseExpand(el: HTMLElement, model: object) {
+        let attrs = el.attributes;
+        model = { dataset: { url: 'xxxx' } };
+        let modelData = { item: model };
+        for (const item of attrs) {
+            let { name, value } = item;
+            if (name.startsWith('...')) {
+                let [ , expandByte ]: Array<string> = name.split('...');     // "...item.dataset" => "item.dataset"
+                console.log(expandByte, modelData);
+                let fieldArr = expandByte.split('.');
+                let result: object = fieldArr.reduce((model, field) => {
+                    return model[field];
+                }, modelData);
+                let str = '';
+                for (const key in result) {
+                    if (!result.hasOwnProperty(key)) continue;
+                    let value = result[key];
+                    str += ` ${ key }="${ value }"`;
+                }
+                console.log(str);
+            }
+        }
+        // $0.attributes['...item.dataset'].name
     }
 
     public static async getData(dataset) {

@@ -103,6 +103,7 @@ interface IUniversalProps<T> {
     name: T
     required: T
     smart: T
+    group: T
 
     [key: string]: T
 }
@@ -184,7 +185,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value: false,
         desc : '表单项是否必填',
     },
-    smart      : {     // form
+    smart      : {     // form组件
         el    : 'switch',
         render: true,
         value : false,
@@ -197,6 +198,13 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value : false,
         desc  : '是否选择后，立即提交表单加载数据',
         render: true,
+    },
+    group      : {      // form组件
+        el    : 'input',
+        parse : 'string',
+        value : '',
+        desc  : 'data-group的值为一致时，他们则为单选的一组，组内的组件只能选择一个，其他成员的值将被清空',
+        render: false,
     },
 };
 
@@ -212,7 +220,7 @@ export default {
                         el    : 'input',
                         parse : 'string',
                         render: false,
-                        value : domain + '/mock/menulist/uesr-menu.json',
+                        value : domain + '/server/mock/menulist/uesr-menu.json',
                     },
                 },
             },
@@ -265,7 +273,7 @@ export default {
                     enum      : UniversalProps.enum,
                     url       : {
                         el     : 'input',
-                        value  : domain + '/mock/select.json',
+                        value  : domain + '/server/mock/select.json',
                         desc   : '列表数据的接口地址',
                         request: true,
                         parse  : 'string',
@@ -333,6 +341,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 value      : {
                     el     : 'select',
@@ -372,7 +381,7 @@ export default {
                 },
             },
         },
-        selectTree: {
+        selecttree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/FormSelectTree'),
             property : {
@@ -382,7 +391,7 @@ export default {
                     url       : {
                         el     : 'input',
                         parse  : 'string',
-                        value  : domain + '/mock/tree.json',
+                        value  : domain + '/server/mock/tree.json',
                         request: true,
                         desc   : '数据源',
                     },
@@ -412,11 +421,17 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
-                value      : {},
+                value      : {
+                    el   : 'input',
+                    parse: 'string[]',
+                    value: '',
+                    desc : '选中的唯一值',
+                },
                 hook       : {},
             },
         },
@@ -444,6 +459,7 @@ export default {
                         desc   : '数据展示值',
                     },
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -458,7 +474,7 @@ export default {
                     label     : UniversalProps.label,
                     url       : {
                         el     : 'input',
-                        value  : domain + '/mock/select.json',
+                        value  : domain + '/server/mock/select.json',
                         request: true,
                         parse  : 'string',
                     },
@@ -490,6 +506,7 @@ export default {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    group     : UniversalProps.group,
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -565,6 +582,7 @@ export default {
                         value: true,
                         desc : '是否使用当前时间, 值为false时，时间则为空',
                     },
+                    group     : UniversalProps.group,
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -572,11 +590,13 @@ export default {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
-                        // 今天
-                        let date = moment().subtract(0, 'days').format(parsedDataset.format);
-                        console.log(date);
-                        return parsedDataset.single ? date : date + '~' + date;
-
+                        let { single, usenow } = parsedDataset;
+                        if (usenow) {
+                            let date = moment().subtract(0, 'days').format(parsedDataset.format);  // 今天
+                            return single ? date : date + '~' + date;
+                        } else {
+                            return '';
+                        }
                         // let momentDate = moment(date, parsedDataset.format);
                         // return parsedDataset.single ? momentDate : [ momentDate, momentDate ];
                         // return [ moment('2020-10-28', parsedDataset.format), moment('2020-10-28', parsedDataset.format) ];
@@ -672,6 +692,13 @@ export default {
                     },
                     required   : UniversalProps.required,
                     smart      : UniversalProps.smart,
+                    group      : UniversalProps.group,
+                    tplSelector: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '要指定的模版的 选择器',
+                    },
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -702,6 +729,7 @@ export default {
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
+                group  : UniversalProps.group,
             },
         },
         input     : {
@@ -730,11 +758,21 @@ export default {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
+                group      : UniversalProps.group,
 
+            },
+        },
+        group     : {
+            path     : '/form-group',
+            component: import('@component/form/group/FormGroup'),
+            document : import('@component/form/group/FormGroup.md'),
+            property : {
+                dataset: {},
             },
         },
         file      : {
@@ -746,7 +784,7 @@ export default {
                     url     : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http://localhost:9001/upload',
+                        value: 'http:///server/upload',
                         desc : '上传的地址',
                     },
                     type    : {
@@ -774,6 +812,7 @@ export default {
                     },
                     disabled: UniversalProps.disabled,
                     required: UniversalProps.required,
+                    group   : UniversalProps.group,
                 },
                 name   : UniversalProps.name,
                 style  : UniversalProps.style,
@@ -788,6 +827,7 @@ export default {
                     label   : UniversalProps.label,
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
+                    group   : UniversalProps.group,
                 },
                 value  : {
                     el   : 'color',
@@ -872,6 +912,10 @@ export default {
                 dataset: {},
             },
         },
+        codediff: {
+            path: '/view-codediff',
+            // document
+        },
     },
     data    : {
         table: {
@@ -887,14 +931,14 @@ export default {
                     },
                     headerurl  : {
                         el   : 'input',
-                        value: domain + '/mock/table/tableHeader.json',
+                        value: domain + '/server/mock/table/tableHeader.json',
                         // value: 'http://192.168.20.121:8080/mgm/header',
                         parse: 'string',
                         desc : '表头url',
                     },
                     url        : {
                         el   : 'input',
-                        value: domain + '/mock/table/tableContent.json',
+                        value: domain + '/server/mock/table/tableContent.json',
                         // value: 'http://192.168.20.121:8080/mgm/data',
                         parse: 'string',
                         desc : '表数据url',
@@ -990,22 +1034,22 @@ export default {
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from'    : {
+                    'from'        : {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url       : {
+                    url           : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
-                        value  : domain + '/mock/chart/areauser.json',
-                        // value  : domain + '/mock/chart/radar.json',
-                        // value  : domain + '/mock/chart/areauser.json',
-                        // value  : domain + '/mock/chart/memory.json',
-                        // value  : domain + '/mock/chart/disk.json',
-                        // value  : domain + '/mock/chart/disk_default.json',
+                        value  : domain + '/server/mock/chart/areauser.json',
+                        // value  : domain + '/server/mock/chart/radar.json',
+                        // value  : domain + '/server/mock/chart/areauser.json',
+                        // value  : domain + '/server/mock/chart/memory.json',
+                        // value  : domain + '/server/mock/chart/disk.json',
+                        // value  : domain + '/server/mock/chart/disk_default.json',
                         desc   : '图表数据接口',
                     },
                     // name      : {
@@ -1014,7 +1058,7 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type      : {
+                    type          : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -1033,21 +1077,21 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key       : {
+                    key           : {
                         el     : 'select-multiple',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value     : {
+                    value         : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
                         value  : '',
                         desc   : '图表统计的value值字段名',
                     },
-                    colors    : {
+                    colors        : {
                         el   : 'input',
                         // options: 'fromUrl',
                         value: '#37c9e3',
@@ -1076,26 +1120,26 @@ export default {
                     //     value  : 'horizontal',
                     //     desc   : '图例的布局方式',
                     // },
-                    groupby   : {
+                    groupby       : {
                         el     : 'input',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持), 注意: data-value为多个值时，该选项无效',
                     },
-                    interval  : {
+                    interval      : {
                         el   : 'number',
                         parse: 'number',
                         value: 0,
                         desc : '自动刷新间隔， 分钟为单位, 设置为 0 则关闭',
                     },
-                    height    : {
+                    height        : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
                         desc : '图表高度',
                     },
-                    point     : {
+                    point         : {
                         el     : 'select',
                         options: [
                             { label: '实心圆点', value: 'circle' },
@@ -1123,10 +1167,10 @@ export default {
                         desc   : `"点"的形状，目前只在折线图中有效, 
                             具体展示效果可参考 https://bizcharts.net/product/BizCharts4/category/62/page/85`,
                     },
-                    pointsize : {
+                    pointsize     : {
                         el   : 'input',
                         parse: 'boolean',
-                        value: 1,
+                        value: 3,
                         desc : '"点"的大小,目前只在折线图中有效',
                     },
                     // datadirect: {
@@ -1134,17 +1178,34 @@ export default {
                     //     value: '',
                     //     parse: 'string',
                     // },
-                    title     : {
+                    title         : {
                         el   : 'input',
                         value: '标题',
                         parse: 'string',
                         desc : '标题',
                     },
-                    showupdate: {
+                    showupdate    : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: false,
                         desc : '是否显示数据更新时间',
+                    },
+                    tooltip_suffix: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '鼠标移入的展示提示工具时的值的后缀 （单位）',
+                    },
+                    tooltip_cross : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'x', value: 'x' },
+                            { label: 'y', value: 'y' },
+                            { label: 'xy', value: 'xy' },
+                        ],
+                        parse  : 'string',
+                        value  : '',
+                        desc   : '图标十字准线（辅助查看数据）',
                     },
                 },
             },
@@ -1200,6 +1261,59 @@ export default {
                         parse: 'string',
                         desc : '数据源',
                         value: '',
+                    },
+                },
+            },
+        },
+        tree : {
+            path     : '/layout-tree',
+            component: import('@component/data/tree/DataTree'),
+            document : import('@component/data/tree/DataTree.md'),
+            property : {
+                dataset: {
+                    url      : {
+                        el     : 'input',
+                        parse  : 'string',
+                        value  : domain + '/server/mock/tree.json',
+                        request: true,
+                        desc   : '数据源',
+                    },
+                    key      : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'id',
+                    },
+                    value    : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'name',
+                    },
+                    children : {
+                        el     : 'select',
+                        options: 'fromUrl',
+                        parse  : 'string',
+                        value  : 'children',
+                    },
+                    checkeds : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '',
+                        desc : '选中的唯一值, 0个或者多个，用逗号分开',
+                    },
+                    expands  : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        value: '',
+                        desc : '是否展开,唯一值, 0个或者多个，用逗号分开',
+                    },
+                    disabled : UniversalProps.disabled,
+                    draggable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否可拖拽',
                     },
                 },
             },
@@ -1285,8 +1399,8 @@ export default {
                     url     : {
                         el   : 'input',
                         // value: 'http://192.168.20.121:9001/mgm/menlist/',
-                        // value: 'http://mingle-test.local.aidalan.com/mock/menulist/menu.json',
-                        value: domain + '/mock/tree.json',
+                        // value: 'http://mingle-test.local.aidalan.com/server/mock/menulist/menu.json',
+                        value: domain + '/server/mock/tree.json',
                         parse: 'string',
                         desc : '数据源',
                     },
@@ -1365,10 +1479,10 @@ export default {
                         parse  : 'string',
                     },
                     current    : {
-                        el   : 'number',
-                        parse: 'number',
-                        value: 1,
-                        desc : '默认选中的tab',
+                        el   : 'input',
+                        parse: 'string',
+                        value: '0',
+                        desc : '默认选中的tab的 index',
                     },
                 },
             },
@@ -1479,19 +1593,39 @@ export default {
             path     : '/layout-list',
             property : {
                 dataset: {
-                    cols : {
+                    cols      : {
                         el   : 'number',
                         value: 2,
                         parse: 'number',
                         desc : '每行显示的数量',
                     },
-                    space: {
+                    space     : {
                         el   : 'input',
                         parse: 'number[]',
                         value: '20,10',
                         desc : '前面的值(20)代表上下的间距,后面的值(10)代表左右的间距',
                     },
+                    selectable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否可以选中列表中的某一项',
+                    },
+                    single    : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否单选,开启选择模式后生效(data-selectable="true"时)',
+                    },
                 },
+            },
+        },
+        grid  : {
+            component: import('@component/layout/grid/LayoutGrid'),
+            document : import('@component/layout/grid/LayoutGrid.md'),
+            path     : '/layout-grid',
+            property : {
+                dataset: {},
             },
         },
     },
@@ -1513,7 +1647,7 @@ export default {
                     },
                     url    : {
                         el    : 'input',
-                        value : domain + '/mock/menulist/uesr-menu.json',
+                        value : domain + '/server/mock/menulist/uesr-menu.json',
                         parse : 'string',
                         verify: v => isUrl(v),
                     },

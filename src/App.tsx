@@ -1,7 +1,7 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import { loadModules } from '@src/core/base';
-import { parserAttrs, parserProperty } from '@utils/parser-property';
+import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
@@ -128,6 +128,7 @@ export default class App {
 
                         if (!containerWrap.getAttribute('data-component-uid')) {
 
+
                             // TODO 设置组件唯一ID
                             let componentUID = App.getUUID();
                             containerWrap.setAttribute('data-component-uid', componentUID);
@@ -193,11 +194,39 @@ export default class App {
     }
 
     // 通过 Element 获取到组件解析后的 dataset 属性
-    static async parseElementProperty(el: HTMLElement): Promise<object> {
+    static async parseElementProperty(el: HTMLElement): Promise<any> {
         let componentName = el.getAttribute('data-fn') ?? '';
         let componentModule = await loadModules(componentName.split('-'));
         let defaultProperty = componentModule.property;
-        return parserProperty(el.dataset, defaultProperty);
+        let { dataset, hook, ...attrs } = defaultProperty;     // default
+
+        // dataset
+        let parsedDataset = parserDataset(el.dataset, dataset);
+
+        // 普通属性
+        let elAttrs = {};     // key value
+        [ ...el.attributes ].forEach(item => {
+            if (!item.name.includes('data-')) attrs[item.name] = item.value;
+        });
+        let parsedAttrs = parserAttrs(elAttrs, attrs, parsedDataset);
+
+        // 处理 value 属性
+        let defaultValue = typeof defaultProperty?.value?.value === 'function'
+            ? defaultProperty.value.value(parsedDataset)
+            : defaultProperty?.value?.value ?? '';
+
+        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
+        parsedAttrs.value = el['value'] || defaultValue;
+
+        return {
+            dataset: { ...parsedDataset },
+            ...parsedAttrs,
+        };
+    }
+
+    // 通过 Element 获取到组件解析后的 普通 属性
+    static async parseElementAttrs() {
+
     }
 
     renderIcons(rootElement: HTMLElement) {
@@ -303,6 +332,15 @@ export default class App {
                             formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
                         }
                     }
+
+                    let groupname = element.getAttribute('data-group');
+                    let formElement = $(element).closest('form[data-fn]');
+                    let groups = [ ...formElement.find(`input[data-fn][data-group=${ groupname }]`) ];
+                    groups.forEach(el => {
+                        if (el !== element) {
+                            console.log(el);
+                        }
+                    });
                 });
             });
         }
@@ -382,7 +420,7 @@ export default class App {
             } else {
                 localStorage.setItem('error_log', JSON.stringify([ log ]));
             }
-            await axios.post('http://localhost:9001/log', log);
+            await axios.post('/server/log', log);
             message.error(`error, ${ msg }`);
         });
 
@@ -408,11 +446,12 @@ export default class App {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
             config, componentUID, beforeElement,
         } = module;
+
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
 
         // 处理 data-* 属性
         let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-        let parsedDataset = parserProperty(dataset, defaultDataset ?? {});
+        let parsedDataset = parserDataset(dataset, defaultDataset ?? {});
 
         // 普通属性
         let attrs = {};     // key value
@@ -441,12 +480,13 @@ export default class App {
 
         // 处理 value 属性
         let defaultValue = typeof defaultProperty?.value?.value === 'function'
-            ? defaultProperty.value.value(config)
+            ? defaultProperty.value.value(parsedDataset)
             : defaultProperty?.value?.value ?? '';
         // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
         let value = element['value'] || defaultValue;
 
-        // TODO 如果值不想等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
+        // TODO 如果值不相等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
+        // TODO 值不相等时，才触发trigger ，重新渲染
         if (!isUndefined(element['value']) && value !== element['value']) {
             trigger(element, value);
         }

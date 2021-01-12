@@ -23,6 +23,7 @@ import { IComponentProps } from '@interface/common/component';
 import App from '@src/App';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
+import FormAction from '@component/form/form-action/FormAction';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -190,7 +191,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     // 提交表单
-    public async FormSubmit(formData) {
+    public async FormSubmit(formData = {}) {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
@@ -530,13 +531,23 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
-    handleReload() {
-        this.FormSubmit({});
+    async handleReload() {
+        let id = this.props.dataset.from;
+        if (id) {
+            let form = document.querySelector(`#${ id }`) as HTMLElement;
+            if (form) {
+                let formData = await FormAction.getFormData(form);
+                this.FormSubmit(formData);
+            } else {
+                this.FormSubmit();
+            }
+        } else {
+            this.FormSubmit();
+        }
     }
 
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
-        console.log(this.props.dataset);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }

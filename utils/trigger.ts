@@ -5,12 +5,12 @@
  * Time: 5:09 下午
  */
 
-import $ from 'jquery'
+import $ from 'jquery';
 
 export function trigger(el: HTMLInputElement | HTMLElement | undefined, value: string | Array<any>): void {
     if (!el) {
         console.log('该组件没有 props.el');
-        return
+        return;
     }
     $(el).val(value).trigger('change');
 }

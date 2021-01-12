@@ -11,6 +11,13 @@ export function arraylastItem<T>(array: Array<T>): T {
     return array[lastIndex];
 }
 
+// 删除数组中的某一项
+export function arrayDeleteItem(array: Array<any>, callback: (item, index?: number) => boolean) {
+    let i = array.findIndex(callback);
+    array.splice(i, 1);
+    return array;
+}
+
 // 求树最大深度
 export function getDepthMax(node: any, children = 'children') {
 

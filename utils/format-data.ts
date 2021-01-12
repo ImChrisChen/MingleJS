@@ -80,7 +80,7 @@ interface IKeyMap {
  */
 export function formatList2Group(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
-    let selectTree: Array<object> = pids.map(pid => {
+    let selectGroup: Array<object> = pids.map(pid => {
         return {
             id        : pid,              // 父子映射关系
             [children]: [],
@@ -89,22 +89,23 @@ export function formatList2Group(list: Array<any>, { id, pid, name, children = '
         };
     });
     list.forEach(item => {
-        let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
+        let superItem: any = selectGroup.find((f: any) => f.id == item[pid]);
 
         let label = templateVerifyParser(name, item);
 
         if (superItem) {
             superItem[children].push({
-                id   : label,
+                id   : id,
                 value: item[id],
                 label: label,
                 pid  : item[pid],       // 父子映射关系
             });
         }
     });
-    return selectTree;
+    return selectGroup;
 }
 
+// 列表 => 树
 export function formatList2Tree(list: Array<any>, { id, pid, name }) {
     const isRoot = (item): boolean => Number(item[pid]) === 0;
 
@@ -121,6 +122,11 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }) {
         });
     });
     return treeData;
+}
+
+// 树 => 列表
+export function formatTree2List(tree: object) {
+    return deepEach([ { children: tree } ], node => node);
 }
 
 /**
@@ -165,6 +171,7 @@ export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
     });
     return root;
 }
+
 
 // 验证 && 解析模版 && DOM转化
 function templateVerifyParser(tpl: string, item: object): string {
