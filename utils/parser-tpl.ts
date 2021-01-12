@@ -49,6 +49,15 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
     return tpl;
 }
 
+// 解析拓展运算符 ...item.dataset
+export function parseExpand(tpl: string, itemData: IParseModeData) {
+    if (!tpl) return tpl;
+
+    tpl.replace(/\.\.\.(.*?)/, v => {
+        return v;
+    });
+}
+
 function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
     fields.forEach(field => {
         let regExp = createRegExp(type, field);

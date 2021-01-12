@@ -5,6 +5,7 @@
  * Time: 6:31 下午
  */
 
+
 import { IComponentProps } from '@interface/common/component';
 import React, { Component, ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
@@ -23,6 +24,7 @@ import {
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
+
 import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
@@ -30,7 +32,6 @@ import { isArray, isEmptyArray, isEmptyStr } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
 import moment from 'moment';
 import { RedoOutlined } from '@ant-design/icons';
-
 
 interface IChartConfig {
     key: string | Array<string>
