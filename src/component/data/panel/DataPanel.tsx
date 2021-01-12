@@ -10,7 +10,7 @@ import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 import { parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
-import { isArray, isUndefined, isWuiTpl } from '@utils/inspect';
+import { isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
@@ -50,7 +50,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             this.parseProperty(el, model);
             this.parseTextContent(el, model);
             this.parseForeach(el, model);
-            this.parseExpand(el, model);
         });
 
         return root;
@@ -67,12 +66,15 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 continue;
             }
 
-            if (!isWuiTpl(value)) {
-                continue;
+            if (isWuiTpl(value)) {
+                value = parseTpl(value, model, 'tpl');
+                el.setAttribute(name, value);
             }
 
-            let parseValue = parseTpl(value, model, 'tpl');
-            el.setAttribute(name, parseValue);
+            // '...data'
+            if (isExpandSymbol(name)) {
+                this.parseExpand(el, model, name);
+            }
         }
     }
 
@@ -118,13 +120,13 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [ arrayName, itemName ] = value.split('as');
+        let [arrayName, itemName] = value.split('as');
         let indexName = 'index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [ itemName, indexName ] = itemIndex.split(',');
+            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [itemName, indexName] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -133,6 +135,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
         let elseElement;
         let loopData = model[arrayName];
+
+        // w-foreach
         let nodes = loopData.map((item, index) => {
             let itemModel = {
                 [itemName] : item,
@@ -155,7 +159,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 }
             }
 
-            // 表达式成立的时候才克隆节点
+            // w-if (表达式成立 或者 没有 w-if的情况) 的时候才克隆节点 
             if (result) {
                 let cloneNode = el.cloneNode(true) as HTMLElement;
                 this.parseElement(cloneNode, itemModel);
@@ -199,29 +203,30 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     }
 
     // 解析拓展运算符
-    public static parseExpand(el: HTMLElement, model: object) {
-        let attrs = el.attributes;
-        model = { dataset: { url: 'xxxx' } };
-        let modelData = { item: model };
-        for (const item of attrs) {
-            let { name, value } = item;
-            if (name.startsWith('...')) {
-                let [ , expandByte ]: Array<string> = name.split('...');     // "...item.dataset" => "item.dataset"
-                console.log(expandByte, modelData);
-                let fieldArr = expandByte.split('.');
-                let result: object = fieldArr.reduce((model, field) => {
-                    return model[field];
-                }, modelData);
-                let str = '';
-                for (const key in result) {
-                    if (!result.hasOwnProperty(key)) continue;
-                    let value = result[key];
-                    str += ` ${ key }="${ value }"`;
-                }
-                console.log(str);
+    public static parseExpand(el: HTMLElement, model: object, name: string) {
+        el.removeAttribute(name);
+
+        let [, expandByte]: Array<string> = name.split('...');
+        let fieldArr = expandByte.split('.');
+        let itemModel: object = fieldArr.reduce((data, field) => {
+            if (isObject(data)) {
+                return data[field];
+            } else {
+                return {};
+            }
+        }, model);
+
+        for (const key in itemModel) {
+            if (!itemModel.hasOwnProperty(key)) continue;
+            let value = itemModel[key];
+            let attrvalue = el.getAttribute(value);
+
+            // element 上没有这个属性才给它设置
+            if (!attrvalue) {
+                console.log(key, value);
+                el.setAttribute(key, value);
             }
         }
-        // $0.attributes['...item.dataset'].name
     }
 
     public static async getData(dataset) {

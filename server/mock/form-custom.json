@@ -1,1 +1,27 @@
-{	"status": true,	"msg": "ok",	"data": [		{			"component": "form-radio",			"dataset": {				"url": "xxx",				"label": "是是是",				"enum": "1,Android;2,iOS"			}		},		{			"component": "form-select",			"dataset": {				"url": "xxx",				"label": "是是是",				"enum": "1,Android;2,iOS"			}		}	]}
+{
+    "status": true,
+    "msg": "ok",
+    "components": {
+        "data-url": "123",
+        "data-label": "adf"
+    },
+    "data": [
+        {
+            "component": "form-radio",
+            "dataset": {
+                "url": "xxx",
+                "label": "是是是",
+                "enum": "1,Android;2,iOS"
+            }
+        },
+        {
+            "component": "form-select",
+            "dataset": {
+                "url": "xxx",
+                "label": "是是是",
+                "enum": "1,Android;2,iOS"
+            }
+        }
+    ]
+}
+
