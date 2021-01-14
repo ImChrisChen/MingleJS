@@ -5,12 +5,12 @@
  * Time: 8:26 下午
  */
 import { IComponentProps } from '@interface/common/component';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, ReactPropTypes } from 'react';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 import { parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
-import { isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
+import { isArray, isEmptyObject, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
@@ -25,15 +25,22 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     constructor(props) {
         super(props);
+        console.log(props);
+        let { el, dataset } = this.props;
+        DataPanel.renderElement(el, dataset).then(r => r);
+    }
 
-        DataPanel.getData(this.props.dataset).then(data => {
-            let rootElement = DataPanel.parseElement(this.props.el, data);
-            new App(rootElement, true);
+    // 获取到组件实例 才能被外部调用
+    public static async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
+        let data = await this.getData(dataset);
+        let root = await this.parseElement(el, data);
+        console.log(root);
 
-            this.setState({ model: data });
-            this.props.el.style.visibility = 'visible';
-            this.props.el.style.opacity = '1';
-        });
+        if (!isArray(el)) {
+            el.style.visibility = 'visible';
+            el.style.opacity = '1';
+        }
+        new App(root, true);
     }
 
     public static parseElement(rootElement: HTMLElement | Array<HTMLElement>, model: object) {
@@ -45,13 +52,14 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         }
 
         // TODO 解析顺序会影响渲染性能
-        deepEachElement(root, (el: HTMLElement) => {
+        deepEachElement(root, async (el: HTMLElement) => {
+
             this.parseIfelse(el, model);
             this.parseProperty(el, model);
             this.parseTextContent(el, model);
             this.parseForeach(el, model);
-        });
 
+        });
         return root;
     }
 
@@ -86,7 +94,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 let textNode = node.textContent;
                 if (isWuiTpl(textNode ?? '')) {
                     let textContent = parseTpl(textNode ?? '', model, 'tpl');
-                    console.log(textContent);
                     node.textContent = textContent;
                 }
             }
@@ -120,13 +127,13 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [arrayName, itemName] = value.split('as');
+        let [ arrayName, itemName ] = value.split('as');
         let indexName = 'index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -135,6 +142,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
         let elseElement;
         let loopData = model[arrayName];
+        if (!loopData) return;
 
         // w-foreach
         let nodes = loopData.map((item, index) => {
@@ -143,7 +151,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 [indexName]: index,
             };
             let result: any;     // if 表达式的判断结果
-
 
             // 如果foreach元素上没有if的条件判断
             if (isUndefined(express)) {
@@ -159,9 +166,10 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 }
             }
 
-            // w-if (表达式成立 或者 没有 w-if的情况) 的时候才克隆节点 
+            // w-if (表达式成立 或者 没有 w-if的情况) 的时候才克隆节点
             if (result) {
                 let cloneNode = el.cloneNode(true) as HTMLElement;
+                // this.parseExpand(el, itemModel);
                 this.parseElement(cloneNode, itemModel);
                 // this.parseElement(cloneNode, model);
                 // this.parseProperty(cloneNode, itemModel);      // 处理属性解析
@@ -202,11 +210,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         }
     }
 
-    // 解析拓展运算符
+    // 解析 ...object 拓展运算符(属性)
     public static parseExpand(el: HTMLElement, model: object, name: string) {
-        el.removeAttribute(name);
-
-        let [, expandByte]: Array<string> = name.split('...');
+        let [ , expandByte ]: Array<string> = name.split('...');
         let fieldArr = expandByte.split('.');
         let itemModel: object = fieldArr.reduce((data, field) => {
             if (isObject(data)) {
@@ -216,17 +222,20 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             }
         }, model);
 
+        if (!itemModel || isEmptyObject(itemModel)) return;
+
         for (const key in itemModel) {
             if (!itemModel.hasOwnProperty(key)) continue;
             let value = itemModel[key];
-            let attrvalue = el.getAttribute(value);
+            let attrvalue = el.getAttribute(key);
 
             // element 上没有这个属性才给它设置
             if (!attrvalue) {
-                console.log(key, value);
                 el.setAttribute(key, value);
             }
         }
+        // ...items 运算符删除掉
+        el.removeAttribute(name);
     }
 
     public static async getData(dataset) {

@@ -13,6 +13,8 @@ import axios from 'axios';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
+import { componentsWrap } from '@src/private-component/layout-generator/LayoutGenerator.scss';
+import DataPanel from '@component/data/panel/DataPanel';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -65,128 +67,132 @@ interface IInstances {
 }
 
 export default class App {
-    modules: Array<IModules> = [];
-    static instances: IInstances = {};      // 组件实例
-    $tempContainer: any;
+    public static instances: IInstances = {};      // 组件实例
 
     constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
-        if (!root) return;
-        let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
 
-        this.$tempContainer = $(`<div data-template-element></div>`);
+        if (!root) return;
+
+        let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
+        let $tempContainer = $(`<div data-template-element></div>`);
         if ($(`[data-template-element]`).length === 0) {
-            $('body').append(this.$tempContainer);
+            $('body').append($tempContainer);
         }
 
         try {
-            this.init(rootElement).then(r => {
-            });
+            this.init(rootElement).then(r => r);
         } catch (e) {
             console.error(e);
         }
     }
 
     async init(rootElement: HTMLElement) {
-        this.renderIcons(rootElement);
+        App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element, parentNode) => {
-            let beforeElement = element.cloneNode(true) as HTMLElement;
-            let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
 
-            let attributes = element.attributes;
-            if (attributes['data-fn']) {
+            if (!element.attributes['data-fn']) {
+                console.log('-');
+                return;
+            }
 
-                // if (!this.force && (parentNode?.attributes?.['data-fn']?.value === 'data-panel')) {
-                if (!this.force
-                    && $(element).closest('[data-fn=data-panel]').length > 0
-                    && attributes['data-fn'].value !== 'data-panel'
-                ) {
+            if (!this.force && $(element).closest('[data-fn=data-panel]').length > 0 && element.attributes['data-fn'].value !== 'data-panel') {
 
-                    console.warn('上一个是data-panel,当前元素不解析', element);
+                console.warn('上一个是data-panel,当前元素不解析', element);
 
-                } else {
-
-                    let container: HTMLElement, containerWrap: HTMLElement;
-
-                    // 处理组件容器
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        let elementWrap: HTMLElement = document.createElement('div');
-                        container = document.createElement('div');
-                        element.after(elementWrap);
-                        elementWrap.appendChild(element);
-                        elementWrap.appendChild(container);
-                        containerWrap = elementWrap;
-                    } else {
-                        let reactContainer: HTMLElement = document.createElement('div');
-                        element.appendChild(reactContainer);
-                        container = reactContainer;
-                        containerWrap = element;
-                    }
-
-                    let componentNames: string = element.getAttribute('data-fn') ?? '';
-
-                    if (componentNames) {
-
-                        if (!containerWrap.getAttribute('data-component-uid')) {
-
-
-                            // TODO 设置组件唯一ID
-                            let componentUID = App.getUUID();
-                            containerWrap.setAttribute('data-component-uid', componentUID);
-
-                            for (const componentName of componentNames.split(' ')) {
-
-                                if (componentName.startsWith('self-')) {
-                                    console.error(`${ componentName } 模块不属于MingleJS`);
-                                } else {
-
-                                    let keysArr = componentName.trim().split('-');
-                                    // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
-                                    let [ , , componentMethod ] = keysArr;
-
-                                    const Modules = await loadModules(keysArr);
-                                    const Component = Modules.component.default;            // React组件
-                                    const config = Modules.config;
-
-                                    let defaultProperty = Modules.property;
-
-                                    // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-                                    // let elChildren: Array<HTMLElement | any> = [];
-
-                                    let hooks = this.formatHooks(attributes);
-
-                                    let module: IModules = {
-                                        Component,
-                                        element,
-                                        beforeElement,
-                                        container,
-                                        containerWrap,
-                                        elChildren,
-                                        hooks,
-                                        componentMethod,
-                                        defaultProperty,
-                                        config,
-                                        componentUID,
-                                    };
-                                    this.modules.push(module);
-
-                                    this.renderComponent(module, (hooks, instance) => {
-                                        hooks[Hooks.beforeLoad]?.(instance);
-                                    }, (hooks, instance) => {
-                                        hooks[Hooks.load]?.(instance);
-                                        element.style.opacity = '1';
-                                    });
-                                    this.eventListener(module);
-                                }
-                            }
-                        }
-                    }
-
-                }
+            } else {
+                await App.parseElementLoop(element);
             }
         });
     }
 
-    static getUUID() { // 获取唯一值
+    // 更具Element 渲染组件
+    public static async parseElementLoop(element: HTMLElement) {
+
+        let attributes = element.attributes;
+        let beforeElement = element.cloneNode(true) as HTMLElement;
+        let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
+        let container: HTMLElement, containerWrap: HTMLElement;
+        let componentNames: string = attributes['data-fn']?.value ?? '';        // 组件名称
+
+        // 处理组件容器
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            let elementWrap: HTMLElement = document.createElement('div');
+            container = document.createElement('div');
+            element.after(elementWrap);
+            elementWrap.appendChild(element);
+            elementWrap.appendChild(container);
+            containerWrap = elementWrap;
+        } else {
+            let reactContainer: HTMLElement = document.createElement('div');
+            element.appendChild(reactContainer);
+            container = reactContainer;
+            containerWrap = element;
+        }
+        console.log(componentNames);
+
+        // 没有组件名 return 掉
+        if (!componentNames) {
+            console.log('没有组件名');
+            return;
+        }
+
+        // 有uid说明已经被渲染过,不重复渲染，return掉
+        if (containerWrap.attributes['data-component-uid']?.value) {
+            console.log('有uid说明已经被渲染过,不重复渲染，return掉');
+            return;
+        }
+
+        // TODO 设置组件唯一ID
+        let componentUID = App.getUUID();
+        containerWrap.setAttribute('data-component-uid', componentUID);
+
+        for (const componentName of componentNames.split(' ')) {
+
+            // 外部模块
+            if (componentName.startsWith('self-')) {
+                console.error(`${ componentName } 模块不属于MingleJS`);
+                continue;
+            }
+
+            let keysArr = componentName.trim().split('-');
+            // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
+
+            const [ , , componentMethod ] = keysArr;  // 第三项
+            const Modules = await loadModules(keysArr);
+            const Component = Modules.component.default;            // React组件
+            const config = Modules.config;
+
+            let defaultProperty = Modules.property;
+
+            // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
+            // let elChildren: Array<HTMLElement | any> = [];
+
+            let hooks = App.formatHooks(attributes);
+            let module: IModules = {
+                Component,
+                element,
+                beforeElement,
+                container,
+                containerWrap,
+                elChildren,
+                hooks,
+                componentMethod,
+                defaultProperty,
+                config,
+                componentUID,
+            };
+            App.renderComponent(module, (hooks, instance) => {
+                hooks[Hooks.beforeLoad]?.(instance);
+            }, (hooks, instance) => {
+                hooks[Hooks.load]?.(instance);
+                element.style.opacity = '1';
+            });
+            App.eventListener(module);
+        }
+
+    }
+
+    public static getUUID() { // 获取唯一值
         return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
@@ -194,7 +200,7 @@ export default class App {
     }
 
     // 通过 Element 获取到组件解析后的 dataset 属性
-    static async parseElementProperty(el: HTMLElement): Promise<any> {
+    public static async parseElementProperty(el: HTMLElement): Promise<any> {
         let componentName = el.getAttribute('data-fn') ?? '';
         let componentModule = await loadModules(componentName.split('-'));
         let defaultProperty = componentModule.property;
@@ -225,11 +231,11 @@ export default class App {
     }
 
     // 通过 Element 获取到组件解析后的 普通 属性
-    static async parseElementAttrs() {
+    public static async parseElementAttrs() {
 
     }
 
-    renderIcons(rootElement: HTMLElement) {
+    public static renderIcons(rootElement: HTMLElement) {
         let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
@@ -242,7 +248,7 @@ export default class App {
         }
     }
 
-    formatHooks(attributes: IAttributes): object {
+    public static formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
 
         Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
@@ -257,16 +263,8 @@ export default class App {
         return hooks;
     }
 
-    formatInLineStyle(attributes: IAttributes): string {
-        if (attributes['style']) {
-            let { _, value } = attributes['style'];
-            return value;
-        }
-        return '';
-    }
-
     // 重载组件
-    dynamicReloadComponents(element: HTMLInputElement) {
+    public static dynamicReloadComponents(element: HTMLInputElement) {
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
 
@@ -289,7 +287,7 @@ export default class App {
                     ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
                     (module.element as HTMLInputElement).value = '';
                     setTimeout(() => {
-                        this.renderComponent(module,
+                        App.renderComponent(module,
                             (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
                             (hooks, instance) => {
                                 hooks[Hooks.update]?.(instance);
@@ -302,7 +300,7 @@ export default class App {
         });
     }
 
-    eventListener(module: IModules) {
+    public static eventListener(module: IModules) {
         let { element } = module;
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
@@ -315,11 +313,11 @@ export default class App {
                 console.log(`onchange - value:${ $(element).val() }`);
 
                 // 组件发生改变的时候重新出发组件渲染，达到值的改变
-                this.renderComponent(module, (hooks, instance) => {
+                App.renderComponent(module, (hooks, instance) => {
                     hooks[Hooks.beforeUpdate]?.(instance);
                 }, (hooks, instance: ReactInstance /*获取到的组件实例*/) => {
                     hooks[Hooks.update]?.(instance);
-                    this.dynamicReloadComponents(element as HTMLInputElement);
+                    App.dynamicReloadComponents(element as HTMLInputElement);
 
                     let exec = element.dataset.exec;
                     if (!isUndefined(exec)) {
@@ -387,7 +385,7 @@ export default class App {
 
     }
 
-    static async globalEventListener() {
+    public static async globalEventListener() {
 
         // 判断是否是深色模式
         const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
@@ -441,7 +439,7 @@ export default class App {
         });
     }
 
-    renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
+    public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
             config, componentUID, beforeElement,

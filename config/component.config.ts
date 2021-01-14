@@ -590,6 +590,10 @@ export default {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
+                        console.log(parsedDataset);
+                        if (!parsedDataset) {
+                            return '';
+                        }
                         let { single, usenow } = parsedDataset;
                         if (usenow) {
                             let date = moment().subtract(0, 'days').format(parsedDataset.format);  // 今天
