@@ -11,6 +11,7 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 
+
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
 if (docs) {

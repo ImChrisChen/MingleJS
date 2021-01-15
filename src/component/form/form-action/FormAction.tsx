@@ -271,7 +271,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     data   : formData,
                 });
                 console.log(res);
-                message.info(res);
+                if (res.data.status) {
+                    message.success(res.data.msg);
+                } else {
+                    message.error(res?.data?.msg ?? '请求失败');
+                }
             }
         }
     }

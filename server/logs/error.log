@@ -12135,3 +12135,79 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/nav-app-layout.html  -----------------end-
  2021-01-15/15:10:26   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: object with keys {data, status, statusText, headers, config, request}). If you meant to render a collection of children, use an array instead.
+    in span
+    in div
+    in div (created by Notice)
+    in div (created by Notice)
+    in Notice (created by CSSMotion)
+    in DomWrapper (created by CSSMotion)
+    in CSSMotion (created by CSSMotionList)
+    in div (created by CSSMotionList)
+    in CSSMotionList (created by Notification)
+    in div (created by Notification)
+    in Notification -----------------end-
+Error: Objects are not valid as a React child (found: object with keys {data, status, statusText, headers, config, request}). If you meant to render a collection of children, use an array instead.
+    in span
+    in div
+    in div (created by Notice)
+    in div (created by Notice)
+    in Notice (created by CSSMotion)
+    in DomWrapper (created by CSSMotion)
+    in CSSMotion (created by CSSMotionList)
+    in div (created by CSSMotionList)
+    in CSSMotionList (created by Notification)
+    in div (created by Notification)
+    in Notification
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:211641:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:212541:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:214990:28)
+    at updateHostComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215530:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216855:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-form.html  -----------------end-
+ 2021-01-15/17:11:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: object with keys {data, status, statusText, headers, config, request}). If you meant to render a collection of children, use an array instead.
+    in span
+    in div
+    in div (created by Notice)
+    in div (created by Notice)
+    in Notice (created by CSSMotion)
+    in DomWrapper (created by CSSMotion)
+    in CSSMotion (created by CSSMotionList)
+    in div (created by CSSMotionList)
+    in CSSMotionList (created by Notification)
+    in div (created by Notification)
+    in Notification -----------------end-
+Error: Objects are not valid as a React child (found: object with keys {data, status, statusText, headers, config, request}). If you meant to render a collection of children, use an array instead.
+    in span
+    in div
+    in div (created by Notice)
+    in div (created by Notice)
+    in Notice (created by CSSMotion)
+    in DomWrapper (created by CSSMotion)
+    in CSSMotion (created by CSSMotionList)
+    in div (created by CSSMotionList)
+    in CSSMotionList (created by Notification)
+    in div (created by Notification)
+    in Notification
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:211641:15)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:212541:7)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:214990:28)
+    at updateHostComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215530:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216855:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-form.html  -----------------end-
+ 2021-01-15/17:23:11   
+ ---END---

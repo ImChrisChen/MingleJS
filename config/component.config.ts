@@ -392,6 +392,7 @@ export default {
         selecttree: {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/FormSelectTree'),
+            document : import('@component/form/select/tree/FormSelectTree.md'),
             property : {
                 dataset    : {
                     label     : UniversalProps.label,
@@ -446,6 +447,8 @@ export default {
         checkbox  : {
             // document
             component: import('@component/form/checkbox/FormCheckbox'),
+            document : import('@component/form/checkbox/FormCheckbox.md'),
+            path     : '/form-checkbox',
             property : {
                 dataset: {
                     disabled: UniversalProps.disabled,
@@ -477,6 +480,7 @@ export default {
         cascader  : {
             path     : '/form-cascader',
             component: import('@component/form/cascader/FormCascader'),
+            document : import('@component/form/cascader/FormCascader.md'),
             property : {
                 dataset    : {
                     label     : UniversalProps.label,
@@ -529,6 +533,7 @@ export default {
         datepicker: {
             path     : '/form-datepicker',
             component: import('@component/form/datepicker/FormDatepicker'),
+            document : import('@component/form/datepicker/FormDatepicker.md'),
             property : {
                 dataset: {
                     label     : UniversalProps.label,
@@ -618,6 +623,7 @@ export default {
         },
         action    : {
             component: import('@component/form/form-action/FormAction'),
+            path     : '/form-action',
             property : {
                 dataset: {
                     async : {
@@ -629,7 +635,7 @@ export default {
                     url   : {
                         el   : 'input',
                         parse: 'string',
-                        // value: 'http://baidu.com',
+                        value: '',
                         desc : 'form表单提交的url',
                     },
                     method: {
@@ -662,6 +668,7 @@ export default {
                     desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效',
                 },
             },
+            document : import('@component/form/form-action/FormAction.md'),
         },
         radio     : {
             path     : '/form-radio',
