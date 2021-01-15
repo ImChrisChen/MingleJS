@@ -15,6 +15,14 @@ if (isLocation) {
 } else {
     domain = 'http://mingle.local.aidalan.com';
 }
+process.env.file = '//file.superdalan.com';
+process.env.mobile = '//m.aidalan.com';
+process.env.bbs = '//bbs.aidalan.com';
+
+
+const file = '//file.superdalan.com';
+const mobile = '';
+const bbs = '';
 
 // 钩子类型
 export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
@@ -779,16 +787,17 @@ export default {
                 dataset: {},
             },
         },
-        file      : {
-            component: import('@component/form/file/FormFile'),
-            path     : '/form-file',
+        upload    : {
+            component: import('@component/form/upload/FormUpload'),
+            path     : '/form-upload',
             property : {
                 dataset: {
                     label   : UniversalProps.label,
                     url     : {
                         el   : 'input',
                         parse: 'string',
-                        value: 'http:///server/upload',
+                        // value: 'http:///server/upload',
+                        value: `${ file }/upload/byCode`,
                         desc : '上传的地址',
                     },
                     type    : {
@@ -807,6 +816,13 @@ export default {
                         value: false,
                         parse: 'boolean',
                         desc : '是否支持多选文件，开启后按住 ctrl 可选择多个文件',
+                    },
+                    accept  : {
+                        el   : 'input',
+                        value: 'image/*',
+                        parse: 'string',
+                        desc : `允许上传的文件类型，多个类型用逗号分开,具体参见 👇🏻
+                       https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept`,
                     },
                     filename: {
                         el   : 'input',
@@ -919,6 +935,22 @@ export default {
         codediff: {
             path: '/view-codediff',
             // document
+        },
+        panel   : {
+            path     : '/view-panel',
+            document : import('@component/view/panel/ViewPanel.md'),
+            component: import('@component/view/panel/ViewPanel'),
+            property : {
+                dataset: {
+                    url  : UniversalProps.url,
+                    model: {
+                        el   : 'input',
+                        parse: 'JSON',
+                        value: `{"name":"Chris","age":18,"job":"web"}`,
+                        desc : 'JSON 对象字符串',
+                    },
+                },
+            },
         },
     },
     data    : {
@@ -1346,11 +1378,11 @@ export default {
                         value: '标题',
                         desc : '提示窗标题',
                     },
-                    content: {
+                    label  : {
                         el   : 'input',
                         parse: 'string',
-                        value: '提示内容',
-                        desc : '提示内容',
+                        value: '文本',
+                        desc : '文本内容',
                     },
                     width  : {
                         el   : 'number',
@@ -1366,16 +1398,16 @@ export default {
             path     : '/tips-text',
             property : {
                 dataset: {
-                    content: {
+                    label  : {
                         el   : 'input',
                         parse: 'string',
-                        value: '提示内容',
-                        desc : '提示内容',
+                        value: '文本',
+                        desc : '文本内容',
                     },
                     color  : {
                         el   : 'color',
                         parse: 'string',
-                        value: '#108ee9',
+                        value: '#fff',
                         desc : '颜色',
                     },
                     trigger: {
@@ -1473,16 +1505,18 @@ export default {
             path     : '/layout-tab',
             property : {
                 dataset: {
-                    tabPosition: {
+                    position: {
                         el     : 'radio',
                         options: [
                             { label: 'top', value: 'top' },
                             { label: 'left', value: 'left' },
+                            { label: 'right', value: 'right' },
+                            { label: 'bottom', value: 'bottom' },
                         ],
                         value  : 'left',
                         parse  : 'string',
                     },
-                    current    : {
+                    current : {
                         el   : 'input',
                         parse: 'string',
                         value: '0',
@@ -1620,6 +1654,12 @@ export default {
                         parse: 'boolean',
                         value: false,
                         desc : '是否单选,开启选择模式后生效(data-selectable="true"时)',
+                    },
+                    searchable: {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否显示搜索框',
                     },
                 },
             },

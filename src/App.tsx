@@ -91,7 +91,6 @@ export default class App {
         deepEachElement(rootElement, async (element, parentNode) => {
 
             if (!element.attributes['data-fn']) {
-                console.log('-');
                 return;
             }
 
@@ -128,11 +127,10 @@ export default class App {
             container = reactContainer;
             containerWrap = element;
         }
-        console.log(componentNames);
 
         // 没有组件名 return 掉
         if (!componentNames) {
-            console.log('没有组件名');
+            // console.log('没有组件名');
             return;
         }
 

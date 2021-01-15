@@ -17,11 +17,25 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
 let env = process.env.NODE_ENV;
+console.log(env);
 
 //默认生产环境
 if (typeof env === 'undefined') {
     env = 'production';
 }
+
+if (env === 'production') {
+    process.env.file = '//file.superdalan.com';
+    process.env.mobile = '//m.aidalan.com';
+    process.env.bbs = '//bbs.aidalan.com';
+}
+
+if (env === 'development') {
+    process.env.file = '//file.superdalan.com';
+    process.env.mobile = '//m.aidalan.com';
+    process.env.bbs = '//bbs.aidalan.com';
+}
+
 
 const isProduction = env === 'production';
 console.log(env);

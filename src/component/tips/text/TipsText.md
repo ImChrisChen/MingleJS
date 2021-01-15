@@ -8,7 +8,7 @@
 | :----------- | --------------------------- | ------ |
 | data-trigger | 触发事件 ‘click’ \| 'hover' | hover  |
 | color        | 提示文本颜色                | ''     |
-| data-content | 提示内容                    | ‘’     |
+| data-label | 展示文本                    | ‘’     |
 
 
 
@@ -17,8 +17,8 @@
 ```html
 <button class="ant-btn ant-btn-primary"
         data-fn="tips-text"
-        data-title="标题"
-        data-content="内容内容内容内容内容内容内容内容">按钮
+        data-label="查看详情">
+详情内容
 </button>
 ```
 

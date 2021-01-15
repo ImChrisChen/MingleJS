@@ -19,7 +19,7 @@ export default class Tab extends React.Component<IComponentProps, any> {
     }
 
     state: any = {
-        tabPosition: this.props.dataset.tabPosition ?? 'top',
+        position: this.props.dataset.position ?? 'top',
     };
 
     handleChange(e) {
@@ -43,7 +43,7 @@ export default class Tab extends React.Component<IComponentProps, any> {
     }
 
     render() {
-        return <Tabs tabPosition={ this.state.tabPosition }
+        return <Tabs tabPosition={ this.state.position }
                      defaultChecked={ true }
                      defaultActiveKey={ this.props.dataset.current ?? '0' }
                      onChange={ e => this.handleChange(e) }

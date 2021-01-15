@@ -11903,3 +11903,235 @@ TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not of type
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2021-01-12/17:01:55   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/15:42:53   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/15:48:00   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/15:48:55   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/15:51:44   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/15:53:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/15:56:32   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: url.split is not a function -----------------end-
+TypeError: url.split is not a function
+    at extname (http://mingle-test.local.aidalan.com/manifest.min.js:32822:18)
+    at isImageUrl (http://mingle-test.local.aidalan.com/manifest.min.js:32838:19)
+    at internalIconRender (http://mingle-test.local.aidalan.com/manifest.min.js:32545:32)
+    at http://mingle-test.local.aidalan.com/manifest.min.js:32276:18
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:212081:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:214094:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215923:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/?form-component-%3C%7Bindex%7D%3E=12321321#/nav-A-form-upload.html  -----------------end-
+ 2021-01-14/16:54:50   
+ ---END---
+error_log: ---START--- 
+  Uncaught Error: Objects are not valid as a React child (found: object with keys {name, age, job}). If you meant to render a collection of children, use an array instead.
+    in div (created by Context.Consumer)
+    in Typography (created by ResizeObserver)
+    in ResizeObserver (created by LocaleReceiver)
+    in LocaleReceiver (created by Base)
+    in Base (created by Paragraph)
+    in Paragraph (created by ViewPanel)
+    in li (created by ViewPanel)
+    in ul (created by ViewPanel)
+    in ViewPanel
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider -----------------end-
+Error: Objects are not valid as a React child (found: object with keys {name, age, job}). If you meant to render a collection of children, use an array instead.
+    in div (created by Context.Consumer)
+    in Typography (created by ResizeObserver)
+    in ResizeObserver (created by LocaleReceiver)
+    in LocaleReceiver (created by Base)
+    in Base (created by Paragraph)
+    in Paragraph (created by ViewPanel)
+    in li (created by ViewPanel)
+    in ul (created by ViewPanel)
+    in ViewPanel
+    in FormProvider (created by Context.Consumer)
+    in LocaleProvider (created by Context.Consumer)
+    in SizeContextProvider (created by Context.Consumer)
+    in LocaleReceiver (created by ConfigProvider)
+    in ConfigProvider
+    at throwOnInvalidObjectType (http://mingle-test.local.aidalan.com/manifest.min.js:210691:15)
+    at createChild (http://mingle-test.local.aidalan.com/manifest.min.js:210929:7)
+    at reconcileChildrenArray (http://mingle-test.local.aidalan.com/manifest.min.js:211178:25)
+    at reconcileChildFibers (http://mingle-test.local.aidalan.com/manifest.min.js:211583:14)
+    at reconcileChildren (http://mingle-test.local.aidalan.com/manifest.min.js:214040:28)
+    at updateFragment (http://mingle-test.local.aidalan.com/manifest.min.js:214255:3)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:215927:14)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-view-panel.html  -----------------end-
+ 2021-01-15/10:23:46   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: App is not defined -----------------end-
+ReferenceError: App is not defined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:267517:33)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:217301:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:220086:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:219819:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:231593:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:208317:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:219659:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-view-panel.html  -----------------end-
+ 2021-01-15/11:37:09   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: App is not defined -----------------end-
+ReferenceError: App is not defined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:267517:33)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:217301:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:220086:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:219819:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:231593:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:208317:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:219659:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-view-panel.html  -----------------end-
+ 2021-01-15/11:37:09   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: App is not defined -----------------end-
+ReferenceError: App is not defined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:267517:33)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:217301:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:220086:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:219819:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:231593:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:208317:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:219659:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-view-panel.html  -----------------end-
+ 2021-01-15/11:37:11   
+ ---END---
+error_log: ---START--- 
+  Uncaught ReferenceError: App is not defined -----------------end-
+ReferenceError: App is not defined
+    at ref (http://mingle-test.local.aidalan.com/main.min.js:267517:33)
+    at commitAttachRef (http://mingle-test.local.aidalan.com/manifest.min.js:217301:7)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:220086:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197466:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:197515:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:197570:31)
+    at commitRootImpl (http://mingle-test.local.aidalan.com/manifest.min.js:219819:9)
+    at unstable_runWithPriority (http://mingle-test.local.aidalan.com/manifest.min.js:231593:12)
+    at runWithPriority$1 (http://mingle-test.local.aidalan.com/manifest.min.js:208317:10)
+    at commitRoot (http://mingle-test.local.aidalan.com/manifest.min.js:219659:3)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-view-panel.html  -----------------end-
+ 2021-01-15/11:37:11   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-layout.html  -----------------end-
+ 2021-01-15/15:10:14   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-app-layout.html  -----------------end-
+ 2021-01-15/15:10:26   
+ ---END---

@@ -73,7 +73,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
                 console.error(`${ key }属性的值格式验证不通过`);
                 continue;
             }
-            console.log(key, value, parse);
+            // console.log(key, value, parse);
             defaultAttrs[key] = parserProgram(key, value, parse).v;
         }
     }
@@ -99,8 +99,8 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
     if (typeof parse === 'function') {
-        console.log(parse);
-        console.log(value, typeof value);
+        // console.log(parse);
+        // console.log(value, typeof value);
         value = parse(value);
     }
 
