@@ -193,14 +193,27 @@ function templateVerifyParser(tpl: string, item: object): string {
 
 // 列表转化为 antd options
 export function formatList2AntdOptions(list: Array<any>, k: string, v: string): Array<IOptions> {
+
+    // 存在多个data-key值的情况
+    let isMultipleKey = k.includes(',') && k.split(',').length > 1;
+
     return list.map(item => {
 
         let label = templateVerifyParser(v, item);
+        let value = String(item[k]);
+
+        if (isMultipleKey) {
+            let ks = k.split(',');
+            let str = '';
+            ks.forEach(k => {
+                str += String(item[k]) + '|';
+            });
+        }
 
         return {
             // https://ant-design.gitee.io/components/select-cn/#Option-props
             // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
-            value: String(item[k]),
+            value: value,
             label: label,
             // title: label,
         };

@@ -8,13 +8,10 @@
 export interface IComponentProps {
     el: HTMLElement
     elChildren: Array<HTMLElement>
-    elChildNodes: Array<HTMLElement | Node>
-    box?: HTMLElement
     style?: IReactStyle
     dataset?: any
     ref?: () => any
     value?: any
-    beforeElement: HTMLElement | HTMLInputElement
 
     [key: string]: any
 }

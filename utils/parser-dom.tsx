@@ -72,13 +72,6 @@ export function strParseDOMText(strHtml: string): string {
 
 }
 
-export function getFormGroupByElement(formGroup: HTMLElement) {
-    let $inputs = [ ...$(formGroup).children('[name][data-fn]') ];
-    $inputs.forEach(input => {
-        $(input);
-    });
-}
-
 class VNode {
     // 构造函数
     private tag: any;

@@ -39,7 +39,6 @@ interface IModules {
     // { element, Component, container, elChildren }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
     elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
-    // elChildNodes: any | Array<HTMLElement | Node>
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
     containerWrap: HTMLElement      //  组件根容器
@@ -48,7 +47,6 @@ interface IModules {
     defaultProperty: IModuleProperty         //  组件默认值
     config: IComponentConfig        // 组件配置
     componentUID: string            // 组件uid
-    beforeElement: HTMLElement
 }
 
 interface IAttributes extends NamedNodeMap {
@@ -67,6 +65,7 @@ interface IInstances {
 }
 
 export default class App {
+
     public static instances: IInstances = {};      // 组件实例
 
     constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
@@ -90,16 +89,26 @@ export default class App {
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element, parentNode) => {
 
-            if (!element.attributes['data-fn']) {
+            let attributes = element.attributes;
+
+            if (!attributes['data-fn']) {
                 return;
             }
 
-            if (!this.force && $(element).closest('[data-fn=data-panel]').length > 0 && element.attributes['data-fn'].value !== 'data-panel') {
+            // form-group 元素不解析
+            if ($(element).parents('[data-fn=form-group]').length > 0) {
+                console.log('被form-group 包裹，不渲染', element);
+                return;
+            }
+
+            if (!this.force && $(element).parents('[data-fn=data-panel]').length > 0 && attributes['data-fn'].value !== 'data-panel') {
 
                 console.warn('上一个是data-panel,当前元素不解析', element);
 
             } else {
+
                 await App.parseElementLoop(element);
+
             }
         });
     }
@@ -108,7 +117,6 @@ export default class App {
     public static async parseElementLoop(element: HTMLElement) {
 
         let attributes = element.attributes;
-        let beforeElement = element.cloneNode(true) as HTMLElement;
         let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
         let container: HTMLElement, containerWrap: HTMLElement;
         let componentNames: string = attributes['data-fn']?.value ?? '';        // 组件名称
@@ -169,7 +177,6 @@ export default class App {
             let module: IModules = {
                 Component,
                 element,
-                beforeElement,
                 container,
                 containerWrap,
                 elChildren,
@@ -179,6 +186,7 @@ export default class App {
                 config,
                 componentUID,
             };
+
             App.renderComponent(module, (hooks, instance) => {
                 hooks[Hooks.beforeLoad]?.(instance);
             }, (hooks, instance) => {
@@ -197,11 +205,12 @@ export default class App {
         });
     }
 
-    // 通过 Element 获取到组件解析后的 dataset 属性
+    // 通过 Element 获取到组件解析后的所有属性
     public static async parseElementProperty(el: HTMLElement): Promise<any> {
         let componentName = el.getAttribute('data-fn') ?? '';
         let componentModule = await loadModules(componentName.split('-'));
         let defaultProperty = componentModule.property;
+        console.log(defaultProperty);
         let { dataset, hook, ...attrs } = defaultProperty;     // default
 
         // dataset
@@ -210,7 +219,9 @@ export default class App {
         // 普通属性
         let elAttrs = {};     // key value
         [ ...el.attributes ].forEach(item => {
-            if (!item.name.includes('data-')) attrs[item.name] = item.value;
+            if (!item.name.includes('data-')) {
+                elAttrs[item.name] = item.value;
+            }
         });
         let parsedAttrs = parserAttrs(elAttrs, attrs, parsedDataset);
 
@@ -226,11 +237,6 @@ export default class App {
             dataset: { ...parsedDataset },
             ...parsedAttrs,
         };
-    }
-
-    // 通过 Element 获取到组件解析后的 普通 属性
-    public static async parseElementAttrs() {
-
     }
 
     public static renderIcons(rootElement: HTMLElement) {
@@ -440,7 +446,7 @@ export default class App {
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
-            config, componentUID, beforeElement,
+            config, componentUID,
         } = module;
 
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
@@ -460,8 +466,6 @@ export default class App {
         let props = {
             el        : element,
             elChildren: elChildren ?? [],
-            beforeElement,
-            box       : containerWrap,
             dataset   : parsedDataset,
             ...parsedAttrs,
             ref       : componentInstance => {        // 组件实例
