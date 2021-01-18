@@ -4,9 +4,9 @@
 	"data": [
 		{
 			"data-fn": "form-select",
-			"data-label": "区服",
+			"data-label": "区服1",
 			"data-enum": "1,Android;2,iOS;3,MacOS;4,Windows",
-			"data-url": "http://mingle-test.local.aidalan.com/server/mock/select.json",
+			"data-url": "http://mingle.local.aidalan.com/server/mock/select.json",
 			"data-disabled": "false",
 			"data-mode": "multiple",
 			"data-key": "id",

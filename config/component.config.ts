@@ -791,7 +791,17 @@ export default {
             component: import('@component/form/group/FormGroup'),
             document : import('@component/form/group/FormGroup.md'),
             property : {
-                dataset: {},
+                dataset: {
+                    layout: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        value  : 'h',
+                        options: [
+                            { label: 'h', value: 'h' },
+                            { label: 'v', value: 'v' },
+                        ],
+                    },
+                },
             },
         },
         upload    : {
@@ -1538,37 +1548,37 @@ export default {
             path     : '/layout-window',
             property : {
                 dataset: {
-                    title  : {
+                    title : {
                         el   : 'input',
                         parse: 'string',
                         value: '标题',
                         desc : '弹窗的标题',
                     },
-                    content: {
+                    label : {
                         el   : 'input',
                         parse: 'string',
-                        value: '标题',
+                        value: 'submit',
                         desc : '按钮的内容',
                     },
-                    height : {
+                    height: {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
                         desc : '弹窗的高度',
                     },
-                    width  : {
+                    width : {
                         el   : 'number',
                         value: 600,
                         parse: 'number',
                         desc : '弹窗的宽度',
                     },
-                    mask   : {
+                    mask  : {
                         el   : 'switch',
                         value: false,
                         parse: 'boolean',
                         desc : '是否显示遮罩层',
                     },
-                    open   : {
+                    open  : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: false,
@@ -1587,7 +1597,7 @@ export default {
                         value: '标题',
                         desc : '弹窗的标题',
                     },
-                    content : {
+                    label   : {
                         el   : 'input',
                         parse: 'string',
                         value: '点击弹窗',
