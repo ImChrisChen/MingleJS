@@ -47,6 +47,7 @@ export default class Selector extends Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.props);
         this.getData(this.props.dataset.url).then(options => {
             this.setState({ options, loading: false });
         });

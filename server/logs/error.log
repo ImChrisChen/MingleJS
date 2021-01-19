@@ -12211,3 +12211,15 @@ Error: Objects are not valid as a React child (found: object with keys {data, st
  http://mingle-test.local.aidalan.com/#/nav-A-form.html  -----------------end-
  2021-01-15/17:23:11   
  ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/10:07:20   
+ ---END---
+error_log: ---START--- 
+  ResizeObserver loop limit exceeded -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/10:29:56   
+ ---END---

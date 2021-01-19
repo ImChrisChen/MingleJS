@@ -327,7 +327,7 @@ export default {
                         render: false,
                     },
                     key       : {
-                        el     : 'input',
+                        el     : 'select',
                         parse  : 'string',
                         options: 'fromUrl',
                         value  : 'id',

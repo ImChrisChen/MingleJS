@@ -204,10 +204,12 @@ export function formatList2AntdOptions(list: Array<any>, k: string, v: string): 
 
         if (isMultipleKey) {
             let ks = k.split(',');
-            let str = '';
+            value = '';
             ks.forEach(k => {
-                str += String(item[k]) + '|';
+                value += String(item[k]) + '|';
             });
+            value = value.substr(0, value.length - 1);
+            console.log(value);
         }
 
         return {
