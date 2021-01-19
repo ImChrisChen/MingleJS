@@ -128,7 +128,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                                 title={ item.label }>
                                     { children.map(((child, i) => {
                                         let k = child.id || child.path || child.value || i;
-                                        console.log(child, this.pathfield);
                                         return <Menu.Item data-path={ child.path }
                                                           key={ k }
                                                           icon={ <IdcardOutlined/> }>

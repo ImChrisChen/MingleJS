@@ -96,7 +96,7 @@ export default class App {
             }
 
             // form-group 元素不解析
-            if ($(element).parents('[data-fn=form-group]').length > 0) {
+            if (!this.force && $(element).parents('[data-fn=form-group]').length > 0) {
                 console.log('被form-group 包裹，不渲染', element);
                 return;
             }
@@ -210,7 +210,6 @@ export default class App {
         let componentName = el.getAttribute('data-fn') ?? '';
         let componentModule = await loadModules(componentName.split('-'));
         let defaultProperty = componentModule.property;
-        console.log(defaultProperty);
         let { dataset, hook, ...attrs } = defaultProperty;     // default
 
         // dataset
@@ -324,7 +323,8 @@ export default class App {
                     App.dynamicReloadComponents(element as HTMLInputElement);
 
                     let exec = element.dataset.exec;
-                    if (!isUndefined(exec)) {
+                    // if (!isUndefined(exec)) {
+                    if (exec === 'true') {
                         // TODO 简陋的实现，后续待调整
                         let formElement = $(element).closest('form[data-fn=form-action]');
                         let submitBtn = formElement.find('[type=submit]');

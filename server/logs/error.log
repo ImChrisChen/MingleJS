@@ -12319,3 +12319,105 @@ TypeError: list.forEach is not a function
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2021-01-19/11:27:27   
  ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-button.html  -----------------end-
+ 2021-01-19/15:23:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'includes' of undefined -----------------end-
+TypeError: Cannot read property 'includes' of undefined
+    at FormDatepicker.valueFormat (http://mingle-test.local.aidalan.com/main.min.js:265763:23)
+    at FormDatepicker.render (http://mingle-test.local.aidalan.com/main.min.js:265775:26)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215388:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215338:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216848:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-list.html  -----------------end-
+ 2021-01-19/15:56:43   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'includes' of undefined -----------------end-
+TypeError: Cannot read property 'includes' of undefined
+    at FormDatepicker.valueFormat (http://mingle-test.local.aidalan.com/main.min.js:265763:23)
+    at FormDatepicker.render (http://mingle-test.local.aidalan.com/main.min.js:265775:26)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215388:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215338:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216848:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-list.html  -----------------end-
+ 2021-01-19/15:56:43   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'includes' of undefined -----------------end-
+TypeError: Cannot read property 'includes' of undefined
+    at FormDatepicker.valueFormat (http://mingle-test.local.aidalan.com/main.min.js:265763:23)
+    at FormDatepicker.render (http://mingle-test.local.aidalan.com/main.min.js:265775:26)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215388:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215338:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216848:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-list.html  -----------------end-
+ 2021-01-19/15:59:18   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'includes' of undefined -----------------end-
+TypeError: Cannot read property 'includes' of undefined
+    at FormDatepicker.valueFormat (http://mingle-test.local.aidalan.com/main.min.js:265763:23)
+    at FormDatepicker.render (http://mingle-test.local.aidalan.com/main.min.js:265775:26)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215388:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215338:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216848:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-list.html  -----------------end-
+ 2021-01-19/15:59:18   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'includes' of undefined -----------------end-
+TypeError: Cannot read property 'includes' of undefined
+    at FormDatepicker.valueFormat (http://mingle-test.local.aidalan.com/main.min.js:265763:23)
+    at FormDatepicker.render (http://mingle-test.local.aidalan.com/main.min.js:265775:26)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215388:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215338:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216848:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-list.html  -----------------end-
+ 2021-01-19/16:00:31   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: Cannot read property 'includes' of undefined -----------------end-
+TypeError: Cannot read property 'includes' of undefined
+    at FormDatepicker.valueFormat (http://mingle-test.local.aidalan.com/main.min.js:265763:23)
+    at FormDatepicker.render (http://mingle-test.local.aidalan.com/main.min.js:265775:26)
+    at finishClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215388:31)
+    at updateClassComponent (http://mingle-test.local.aidalan.com/manifest.min.js:215338:24)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216848:16)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)
+    at Object.invokeGuardedCallbackDev (http://mingle-test.local.aidalan.com/manifest.min.js:198465:16)
+    at invokeGuardedCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198520:31)
+    at beginWork$1 (http://mingle-test.local.aidalan.com/manifest.min.js:221431:7)
+    at performUnitOfWork (http://mingle-test.local.aidalan.com/manifest.min.js:220382:12)  -----------------end-
+ http://mingle-test.local.aidalan.com/?#/nav-A-form-list.html  -----------------end-
+ 2021-01-19/16:00:31   
+ ---END---
