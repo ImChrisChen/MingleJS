@@ -24,6 +24,7 @@ export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
 
     constructor(props) {
         super(props);
+        console.log(this.props);
         this.getData().then(data => {
             this.setState({ data });
         });
@@ -60,6 +61,7 @@ export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
             width={ this.props.dataset.width }
             data={ this.state.data }
             open={ this.props.dataset.open }
+            pathfield={ this.props.dataset.pathfield }
         />;
     }
 }

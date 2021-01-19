@@ -224,11 +224,17 @@ export default {
             component: import('@component/app/menu/AppMenu'),
             property : {
                 dataset: {
-                    url: {
-                        el    : 'input',
-                        parse : 'string',
-                        render: false,
-                        value : domain + '/server/mock/menulist/uesr-menu.json',
+                    url      : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: domain + '/server/mock/menulist/uesr-menu.json',
+                    },
+                    pathfield: {
+                        el   : 'input',
+                        parse: 'string',
+                        // options: 'fromUrl',
+                        value: 'url',
+                        desc : '菜单URL跳转字段',
                     },
                 },
             },
@@ -1449,7 +1455,7 @@ export default {
             property : {
                 dataset: {
                     // url     : UniversalProps.url,
-                    url     : {
+                    url      : {
                         el   : 'input',
                         // value: 'http://192.168.20.121:9001/mgm/menlist/',
                         // value: 'http://mingle-test.local.aidalan.com/server/mock/menulist/menu.json',
@@ -1457,33 +1463,33 @@ export default {
                         parse: 'string',
                         desc : '数据源',
                     },
-                    open    : {
+                    open     : {
                         el   : 'switch',
                         value: true,
                         parse: 'boolean',
                         desc : '是否默认展开',
                     },
-                    id      : {
+                    id       : {
                         el   : 'input',
                         // value: 'appMenuId',
                         value: 'id',
                         parse: 'string',
                         desc : '菜单ID映射字段名称,例如:id',
                     },
-                    pid     : {
+                    pid      : {
                         el   : 'input',
                         // value: 'r_father',
                         value: 'parent',
                         parse: 'string',
                         desc : '菜单父级映射字段名称,例如:parent_id',
                     },
-                    name    : {
+                    name     : {
                         el   : 'input',
                         value: 'name',
                         parse: 'string',
                         desc : '菜单名称映射字段名称,例如:menu_name',
                     },
-                    layout  : {
+                    layout   : {
                         el     : 'radio',
                         options: [
                             { label: 'vertical', value: 'vertical' },
@@ -1494,24 +1500,31 @@ export default {
                         parse  : 'string',
                         desc   : '菜单类型，现在支持垂直(vertical)、水平(horizontal)、和内嵌模式(inline)三种',
                     },
-                    children: {
+                    children : {
                         el   : 'input',
                         value: 'children',
                         parse: 'string',
                         desc : '子菜单映射字段名称,例如:children',
                     },
-                    width   : {
+                    width    : {
                         el   : 'number',
                         value: 200,
                         parse: 'number',
                         desc : '菜单宽度',
                     },
-                    menulist: {
+                    menulist : {
                         el    : 'input',
                         parse : 'JSON',
                         desc  : '菜单数据',
                         value : `[{"name":"111111111","path":"http://baidu.com","id":"111111","children":[{"name":"child","id":"123213","path":"http://taobao.com"}]},{"name":"2","path":"http://baidu.com","id":"2"}]`,
                         render: false,
+                    },
+                    pathfield: {
+                        el   : 'input',
+                        parse: 'string',
+                        // options: 'fromUrl',
+                        value: 'url',
+                        desc : '菜单URL跳转字段',
                     },
                 },
             },

@@ -12223,3 +12223,99 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2021-01-19/10:29:56   
  ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:230012:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:230032:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:228830:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213670:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213966:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230634:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:228829:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:213031:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:215044:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216873:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/11:24:09   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:230012:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:230032:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:228830:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213670:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213966:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230634:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:228829:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:213031:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:215044:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216873:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/11:24:09   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:230013:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:230033:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:228831:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213670:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213966:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230634:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:228830:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:213031:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:215044:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216873:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/11:24:40   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:230013:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:230033:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:228831:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213670:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213966:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230634:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:228830:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:213031:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:215044:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216873:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/11:24:40   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:230013:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:230033:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:228831:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213670:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213966:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230634:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:228830:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:213031:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:215044:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216873:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/11:27:27   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: list.forEach is not a function -----------------end-
+TypeError: list.forEach is not a function
+    at dig (http://mingle-test.local.aidalan.com/main.min.js:230013:10)
+    at flattenOptions (http://mingle-test.local.aidalan.com/main.min.js:230033:3)
+    at http://mingle-test.local.aidalan.com/main.min.js:228831:14
+    at mountMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213670:19)
+    at Object.useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:213966:16)
+    at useMemo (http://mingle-test.local.aidalan.com/manifest.min.js:230634:21)
+    at Select (http://mingle-test.local.aidalan.com/main.min.js:228830:85)
+    at renderWithHooks (http://mingle-test.local.aidalan.com/manifest.min.js:213031:18)
+    at updateForwardRef (http://mingle-test.local.aidalan.com/manifest.min.js:215044:20)
+    at beginWork (http://mingle-test.local.aidalan.com/manifest.min.js:216873:16)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-19/11:27:27   
+ ---END---

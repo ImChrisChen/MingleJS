@@ -91,7 +91,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist }/>
+                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist } pathfield=""/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
