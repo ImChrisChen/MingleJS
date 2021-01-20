@@ -18,6 +18,8 @@ import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import value from '*.json';
 import App from '@root/src/App';
+import { formatEnumOptions } from '@utils/format-data';
+import FormGroup from '@component/form/group/FormGroup';
 
 // 表格提交的数据
 interface IFormData {
@@ -245,22 +247,20 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // type=submit
-    async handleSubmit(form, e) {
-        console.log('-----------submit');
+    public async handleSubmit(form, e) {
         e.preventDefault();
 
         let { url, method, headers } = this.props.dataset;
         let formData = await FormAction.getFormData(form);
-        console.log(formData);
         let verify = this.verifyFormData(form, formData);
 
         if (verify) {
 
             // 加载 table,chart,list 数据
-            this.getViewsInstances().then(instances => {
-                instances.forEach(async instance => {
+            this.getViewsInstances().then(async instances => {
+                for (const instance of instances) {
                     await instance?.FormSubmit?.(formData);
-                });
+                }
             });
 
             if (url) {
@@ -323,15 +323,48 @@ export default class FormAction extends React.Component<IFormAction, any> {
         return true;
     }
 
+    // 获取处理formGroup数据
+    public static async getFormGroupData(form) {
+        let formGroup = form.querySelector('[data-fn=form-group]');
+        console.log(formGroup);
+
+        let name = formGroup!.getAttribute('name') ?? '';
+        let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
+        let formGroupData: Array<object> = [];
+        for (const formGroupItem of formGroupItems) {
+            let itemData = await this.getDataByElement(formGroupItem);
+            formGroupData.push(itemData);
+        }
+        return {
+            [name]: formGroupData,
+        };
+    }
+
     // 获取表单数据
     public static async getFormData(form: HTMLElement): Promise<IFormData> {
+
+        let formData = this.getDataByElement(form);
+
+        // 处理 data-fn=form-group内的组件
+        let formGroupData = await this.getFormGroupData(form);
+
+        return Object.assign(formData, formGroupData);
+    }
+
+    public static async getDataByElement(form: HTMLElement): Promise<IFormData> {
         let formData: IFormData = {};
+        // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
         let hideInput = $(form).find('.form-tabpanel:hidden').find('[data-fn][name]');
         let hideInputName = hideInput.attr('name');
 
         let formItems = [ ...form.querySelectorAll(`[data-fn][name]`) ] as Array<HTMLInputElement>;
         for (const formItem of formItems) {
             let { name, value } = formItem;
+            // 如果是form-group内的组件则跳过
+            let isFormGroup = $(formItem).parents('[data-fn=form-group]').length > 0;
+            if (isFormGroup) {
+                continue;
+            }
 
             // TODO 在 非input 元素中编写name 属性时需要通过 getAttirbute 属性获取
             name = name ? name : formItem.getAttribute('name') ?? '';
@@ -345,7 +378,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
             // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
             formData[name] = value || (await App.parseElementProperty(formItem)).value;
         }
-        console.log(formData);
         return formData;
     }
 

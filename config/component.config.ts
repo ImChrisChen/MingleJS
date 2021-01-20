@@ -301,17 +301,17 @@ export default {
                                 label: 'multiple',
                                 value: 'multiple',
                             },
-                            // {
-                            //     label: 'tags',       //显示的值
-                            //     value: 'tags',       //生成的代码的值
-                            // },
+                            {
+                                label: 'tags',       //显示的值
+                                value: 'tags',       //生成的代码的值
+                            },
                             {
                                 label: 'single',
                                 value: 'single',
                             },
                         ],
-                        value  : 'multiple',
-                        desc   : '模式',
+                        value  : 'single',
+                        desc   : '模式 在 tags 和 multiple 模式下自动分词的分隔符',
                         parse  : 'string',
                     },
                     autoFocus : {
@@ -784,12 +784,12 @@ export default {
                     required: UniversalProps.required,
                     smart   : UniversalProps.smart,
                     group   : UniversalProps.group,
+                    disabled: UniversalProps.disabled,
                 },
                 name       : UniversalProps.name,
                 style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
                 group      : UniversalProps.group,
-
             },
         },
         group     : {

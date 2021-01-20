@@ -97,7 +97,7 @@ export default class App {
 
             // form-group 元素不解析
             if (!this.force && $(element).parents('[data-fn=form-group]').length > 0) {
-                console.log('被form-group 包裹，不渲染', element);
+                console.warn('被form-group 包裹，不渲染');
                 return;
             }
 

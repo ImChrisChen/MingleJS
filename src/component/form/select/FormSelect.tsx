@@ -95,6 +95,7 @@ export default class Selector extends Component<IComponentProps, any> {
                     { ...dataset }
                     placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
+                    tokenSeparators={ [ ',' ] }     // 自动分词
                     style={ { minWidth: 100 } }
                     value={ value }
                     options={ this.state.options }
@@ -112,12 +113,6 @@ export default class Selector extends Component<IComponentProps, any> {
                             : option.label;
                         return String(option.value).includes(input) || String(label).includes(input);
                     } }/>
-                {/*<Select*/ }
-                {/*    options={ this.state.currentItem['children'] }*/ }
-                {/*    mode="multiple"*/ }
-                {/*    maxTagCount={ 1 }*/ }
-                {/*    style={ { width: 200 } }*/ }
-                {/*/>*/ }
             </Form.Item>
         </>;
     }
