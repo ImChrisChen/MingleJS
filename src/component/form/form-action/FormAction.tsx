@@ -252,6 +252,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         let { url, method, headers } = this.props.dataset;
         let formData = await FormAction.getFormData(form);
+        console.log(formData);
         let verify = this.verifyFormData(form, formData);
 
         if (verify) {
@@ -328,11 +329,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let formGroup = form.querySelector('[data-fn=form-group]');
         console.log(formGroup);
 
-        let name = formGroup!.getAttribute('name') ?? '';
+        let name = formGroup?.getAttribute('name') ?? '';
         let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
         let formGroupData: Array<object> = [];
         for (const formGroupItem of formGroupItems) {
-            let itemData = await this.getDataByElement(formGroupItem);
+            let itemData = await this.getDataByElement(formGroupItem, true);
             formGroupData.push(itemData);
         }
         return {
@@ -343,15 +344,17 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取表单数据
     public static async getFormData(form: HTMLElement): Promise<IFormData> {
 
-        let formData = this.getDataByElement(form);
+        let formData = await this.getDataByElement(form);
 
         // 处理 data-fn=form-group内的组件
         let formGroupData = await this.getFormGroupData(form);
 
+        console.log(formData, formGroupData);
+
         return Object.assign(formData, formGroupData);
     }
 
-    public static async getDataByElement(form: HTMLElement): Promise<IFormData> {
+    public static async getDataByElement(form: HTMLElement, force = false): Promise<IFormData> {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
         let hideInput = $(form).find('.form-tabpanel:hidden').find('[data-fn][name]');
@@ -360,9 +363,10 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let formItems = [ ...form.querySelectorAll(`[data-fn][name]`) ] as Array<HTMLInputElement>;
         for (const formItem of formItems) {
             let { name, value } = formItem;
-            // 如果是form-group内的组件则跳过
             let isFormGroup = $(formItem).parents('[data-fn=form-group]').length > 0;
-            if (isFormGroup) {
+
+            // force强制获取name值 如果是form-group内的组件则跳过
+            if (!force && isFormGroup) {
                 continue;
             }
 
