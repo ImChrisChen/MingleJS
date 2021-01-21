@@ -17,7 +17,6 @@ import { isEmptyObject } from '@utils/inspect';
 import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@root/src/App';
-import value from '*.json';
 
 // 表格提交的数据
 interface IFormData {

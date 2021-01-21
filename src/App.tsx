@@ -266,16 +266,28 @@ export default class App {
         return hooks;
     }
 
-    // 重载组件
+    // 重载组件(模版联动选择)
     public static dynamicReloadComponents(element: HTMLInputElement) {
-        // TODO input调用的元素,外层才是 [data-component-uid]
-        let $formItems = $(element).closest('form').find('[data-fn][name]');
 
-        [ ...$formItems ].forEach(formItem => {
+        // TODO input调用的元素,外层才是 [data-component-uid]
+        let $formItems: Array<HTMLElement> = [];
+
+        // form-group 内的组件，只在组作用域内产生关联关系
+        if ($(element).closest('[data-fn=form-group]').length > 0) {
+            $formItems = [ ...$(element).closest('.form-group-item').find('[data-fn][name]') ];
+        } else {
+            $formItems = [ ...$(element).closest('form').find('[data-fn][name]') ];
+        }
+
+        console.log(element);
+
+
+        $formItems.forEach(formItem => {
             let dataset = formItem.dataset;
 
             // TODO parent 换成 closest 可以适用于 div form表单元素
             let $formItemBox = $(formItem).closest('[data-component-uid]');
+            console.log($formItemBox);
             let uid = $formItemBox.attr('data-component-uid') ?? '';
             let selfInputName = element.name;
             let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
@@ -291,6 +303,7 @@ export default class App {
                 if (regExp.test(value)) {
                     // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
 
+                    console.log(module, uid);
                     ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
                     (module.element as HTMLInputElement).value = '';
                     setTimeout(() => {
