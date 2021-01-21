@@ -270,7 +270,6 @@ export default class App {
     public static dynamicReloadComponents(element: HTMLInputElement) {
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
-        console.log($formItems);
 
         [ ...$formItems ].forEach(formItem => {
             let dataset = formItem.dataset;

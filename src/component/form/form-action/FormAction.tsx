@@ -251,6 +251,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
         let formData = await FormAction.getFormData(form);
         console.log(formData);
+
         let verify = this.verifyFormData(form, formData);
 
         if (verify) {
@@ -317,7 +318,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
             let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-fn]`);
             let required = eval(formItemElem.dataset.required + '');
             if (required && !value) {
-                console.log(formItemElem, name, value);
                 unVerifys.push(name);
             }
         }
@@ -332,7 +332,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 获取处理formGroup数据
     public static async getFormGroupData(form) {
         let formGroup = form.querySelector('[data-fn=form-group]');
-        console.log(formGroup);
 
         let name = formGroup?.getAttribute('name') ?? '';
         let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
@@ -353,8 +352,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         // 处理 data-fn=form-group内的组件
         let formGroupData = await this.getFormGroupData(form);
-
-        console.log(formData, formGroupData);
 
         return Object.assign(formData, formGroupData);
     }

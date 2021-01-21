@@ -108,7 +108,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         el.removeAttribute(directiveForeach);
 
         // w-foreach="data as item" 或者 data as (item,index)
-        if (!/^\w+ as (\w+|\(.+?\))$/.test(value)) {
+        if (!/^(\w+|\w+\.\w+) as (\w+|\(.+?\))$/.test(value)) {
             console.error(`${ name }格式不正确`);
         }
 
@@ -127,8 +127,8 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [ arrayName, itemName ] = value.split('as');
-        let indexName = 'index';
+        let [ arrayName, itemName ]: Array<string> = value.split('as');
+        let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
@@ -140,12 +140,22 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         itemName = itemName.trim();         // item名称
         indexName = indexName ? indexName.trim() : '';       // 下标名称
 
+        let loopData: Array<object> = [];
+        if (arrayName.includes('.')) {          // w-foreach="item.children as it"
+            loopData = arrayName.split('.').reduce((data, item) => {
+                return data?.[item] || [];
+            }, model) as Array<any>;
+        } else {                                // w-foreach="data as item"
+            loopData = model[arrayName];
+        }
+
+        console.log(loopData);
+
         let elseElement;
-        let loopData = model[arrayName];
         if (!loopData) return;
 
         // w-foreach
-        let nodes = loopData.map((item, index) => {
+        let nodes: Array<any> = loopData.map((item, index) => {
             let itemModel = {
                 [itemName] : item,
                 [indexName]: index,
