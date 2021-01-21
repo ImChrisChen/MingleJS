@@ -7,6 +7,7 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUndefined, isUrl } from '@utils/inspect';
 import moment from 'moment';
+import instantiate = WebAssembly.instantiate;
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -632,25 +633,25 @@ export default {
             path     : '/form-action',
             property : {
                 dataset: {
-                    async : {
+                    async   : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: true,
                         desc : '是否是异步处理',
                     },
-                    url   : {
+                    url     : {
                         el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : 'form表单提交的url',
                     },
-                    method: {
+                    method  : {
                         el   : 'radio',
                         parse: 'string',
                         value: 'post',
                         desc : '指定请求类型,提供, get | post | delete | put | options (默认post)',
                     },
-                    layout: {
+                    layout  : {
                         el     : 'radio',
                         options: [
                             { label: 'vertical', value: 'vertical' },
@@ -659,6 +660,19 @@ export default {
                         parse  : 'string',
                         value  : 'horizontal',
                         desc   : '布局模式，vertical 表示垂直布局，horizontal 水平布局',
+                    },
+                    showmsg : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '表单提交后，是否显示URL提示信息',
+                    },
+                    msgfield: {
+                        el     : 'select',
+                        parse  : 'string',
+                        value  : 'message',
+                        options: 'fromUrl',
+                        desc   : 'URL返回的参数 ，指定提交后的提示字段',
                     },
                 },
                 id     : {

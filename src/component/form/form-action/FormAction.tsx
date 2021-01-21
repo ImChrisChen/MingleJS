@@ -16,10 +16,8 @@ import { jsonp } from '@root/utils/request/request';
 import { isEmptyObject } from '@utils/inspect';
 import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import value from '*.json';
 import App from '@root/src/App';
-import { formatEnumOptions } from '@utils/format-data';
-import FormGroup from '@component/form/group/FormGroup';
+import value from '*.json';
 
 // 表格提交的数据
 interface IFormData {
@@ -250,7 +248,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     public async handleSubmit(form, e) {
         e.preventDefault();
 
-        let { url, method, headers } = this.props.dataset;
+        let { url, method, headers, msgfield, showmsg } = this.props.dataset;
         let formData = await FormAction.getFormData(form);
         console.log(formData);
         let verify = this.verifyFormData(form, formData);
@@ -271,12 +269,15 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     headers: headers || { 'Content-Type': 'application/json' },
                     data   : formData,
                 });
-                console.log(res);
-                if (res.data.status) {
-                    message.success(res.data.msg);
-                } else {
-                    message.error(res?.data?.msg ?? '请求失败');
+
+                if (showmsg) {
+                    if (res.data.status) {
+                        message.success(res?.data?.[msgfield] ?? '操作成功');
+                    } else {
+                        message.error(res?.data?.[msgfield] ?? '操作失败');
+                    }
                 }
+
             }
         }
     }
@@ -309,15 +310,17 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
-        let formItems = [ ...formElement.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
-        formItems.forEach(formItem => {
-            let name = formItem.name;
+
+        for (const name in formData) {
+            if (!formData.hasOwnProperty(name)) continue;
             let value = formData[name];
-            let required = eval(formItem.dataset.required + '');
+            let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-fn]`);
+            let required = eval(formItemElem.dataset.required + '');
             if (required && !value) {
+                console.log(formItemElem, name, value);
                 unVerifys.push(name);
             }
-        });
+        }
 
         if (unVerifys.length > 0) {
             message.error(`${ unVerifys.join(',') }的值为空`);
