@@ -288,11 +288,13 @@ export default class FormAction extends React.Component<IFormAction, any> {
             return [];
         }
         let App = (await import('@src/App')).default;
+
+        // table chart list
         let views = [ ...document.querySelectorAll(`[data-from=${ id }]`) ];
         return views.map(view => {
             let uid = view.getAttribute('data-component-uid') ?? '';
-            return App.instances[uid].instance;
-        });
+            return App.instances[uid]?.instance;
+        }).filter(r => r);      // 没有 data-component-uid 则过滤出去
     }
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单

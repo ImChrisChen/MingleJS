@@ -270,14 +270,19 @@ export default class App {
     public static dynamicReloadComponents(element: HTMLInputElement) {
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems = $(element).closest('form').find('[data-fn][name]');
+        console.log($formItems);
 
         [ ...$formItems ].forEach(formItem => {
             let dataset = formItem.dataset;
-            let $formItemBox = $(formItem).parent('[data-component-uid]');
+
+            // TODO parent 换成 closest 可以适用于 div form表单元素
+            let $formItemBox = $(formItem).closest('[data-component-uid]');
             let uid = $formItemBox.attr('data-component-uid') ?? '';
             let selfInputName = element.name;
             let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
-            let { module } = App.instances[uid];
+            let { module } = App.instances?.[uid];
+
+            if (!module) return;
 
             for (const key in dataset) {
                 if (!dataset.hasOwnProperty(key)) continue;
