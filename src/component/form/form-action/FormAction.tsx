@@ -333,6 +333,10 @@ export default class FormAction extends React.Component<IFormAction, any> {
     public static async getFormGroupData(form) {
         let formGroup = form.querySelector('[data-fn=form-group]');
 
+        if (!formGroup) {
+            return {};
+        }
+
         let name = formGroup?.getAttribute('name') ?? '';
         let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
         let formGroupData: Array<object> = [];
