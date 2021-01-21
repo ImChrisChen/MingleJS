@@ -6,7 +6,7 @@
  */
 
 // 正则手册 https://tool.oschina.net/uploads/apidocs/jquery/regexp.html
-import { isDOM, isEmptyObject, isEmptyStr, isString, isUndefined } from '@utils/inspect';
+import { isArray, isDOM, isEmptyObject, isEmptyStr, isObject, isString, isUndefined } from '@utils/inspect';
 import { parserEscape2Html } from '@utils/parser-char';
 
 declare type tplTyle = 'tpl' | 'field'
@@ -27,10 +27,10 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
     } else if (type === 'field') {
         fields = getExpressFields(tpl);
     }
-    // 模版字符替换
+    // 模版字符替换 "<{pf}>" => "2"
     tpl = replaceTplDataValue(fields, itemData, tpl, type);
 
-    // 表达式执行
+    // 表达式执行 如 "<{ 1 + 1 }>" => "2"
     tpl = tpl.replace(/<{(.*?)}>/g, v => {
         let [ , express ] = /<{(.*?)}>/.exec(v) ?? [];
         let exp = isExpress(express.trim());
@@ -47,6 +47,15 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
         }
     });
     return tpl;
+}
+
+// 解析拓展运算符 ...item.dataset
+export function parseExpand(tpl: string, itemData: IParseModeData) {
+    if (!tpl) return tpl;
+
+    tpl.replace(/\.\.\.(.*?)/, v => {
+        return v;
+    });
 }
 
 function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
@@ -70,9 +79,12 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     return value;
                 }, itemData);       // item.name
                 if (isEmptyObject(objectValue)) {   // 如果是空对象，说明没匹配到值
-                    tpl = tpl.replace(regExp, type === 'tpl' ? `<{${ field }}>` : field);
+                    let val = type === 'tpl' ? `<{${ field }}>` : field;
+                    // tpl = tpl.replace(regExp, val);
+                    tpl = replaceSetTpl(tpl, regExp, val);
                 } else {
-                    tpl = tpl.replace(regExp, objectValue);
+                    // tpl = tpl.replace(regExp, objectValue);
+                    tpl = replaceSetTpl(tpl, regExp, objectValue);
                 }
                 // 单级属性访问 例如: "<{product}>"
             } else {
@@ -85,12 +97,21 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                 if (isUndefined(val)) {
                     console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
                 } else {
-                    tpl = tpl.replace(regExp, val);
+                    // tpl = tpl.replace(regExp, val);
+                    tpl = replaceSetTpl(tpl, regExp, val);
                 }
             }
         }
     });
     return tpl;
+}
+
+// 模版替换 统一收拢
+function replaceSetTpl(tpl: string, regExp: RegExp, value: string | object) {
+    if (isObject(value) || isArray(value)) {
+        value = JSON.stringify(value);
+    }
+    return tpl.replace(regExp, value);
 }
 
 function createRegExp(type: tplTyle, field): RegExp {

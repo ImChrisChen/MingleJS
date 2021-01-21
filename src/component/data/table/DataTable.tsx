@@ -23,6 +23,7 @@ import { IComponentProps } from '@interface/common/component';
 import App from '@src/App';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
+import FormAction from '@component/form/form-action/FormAction';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -124,7 +125,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
         });
 
         let { interval } = this.props.dataset;
+        console.log(this.props);
         if (interval) {
+            console.log('----------');
             setInterval(() => {
                 this.FormSubmit({}).then(r => {
                     // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);
@@ -188,7 +191,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     // 提交表单
-    public async FormSubmit(formData) {
+    public async FormSubmit(formData = {}) {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
@@ -257,8 +260,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     if (isWuiByString(value)) {
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
-                            node?.append(element);
-                            new App(element);
+                            if (node) {
+                                node.innerHTML = '';
+                                node.append(element);
+                                new App(element);
+                            }
                         } }/>;
 
                     } else {
@@ -525,13 +531,23 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
-    handleReload() {
-        this.FormSubmit({});
+    async handleReload() {
+        let id = this.props.dataset.from;
+        if (id) {
+            let form = document.querySelector(`#${ id }`) as HTMLElement;
+            if (form) {
+                let formData = await FormAction.getFormData(form);
+                this.FormSubmit(formData);
+            } else {
+                this.FormSubmit();
+            }
+        } else {
+            this.FormSubmit();
+        }
     }
 
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
-        console.log(this.props.dataset);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -543,7 +559,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
             </Dropdown>
-            <DataUpdateTime content={ this.state.updateDate }/>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
 
             <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
 

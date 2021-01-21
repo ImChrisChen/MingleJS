@@ -80,7 +80,7 @@ interface IKeyMap {
  */
 export function formatList2Group(list: Array<any>, { id, pid, name, children = 'children' }: IKeyMap): Array<object> {
     let pids = Array.from(new Set(list.map(item => item[pid])));
-    let selectTree: Array<object> = pids.map(pid => {
+    let selectGroup: Array<object> = pids.map(pid => {
         return {
             id        : pid,              // 父子映射关系
             [children]: [],
@@ -89,22 +89,23 @@ export function formatList2Group(list: Array<any>, { id, pid, name, children = '
         };
     });
     list.forEach(item => {
-        let superItem: any = selectTree.find((f: any) => f.id == item[pid]);
+        let superItem: any = selectGroup.find((f: any) => f.id == item[pid]);
 
         let label = templateVerifyParser(name, item);
 
         if (superItem) {
             superItem[children].push({
-                id   : label,
+                id   : id,
                 value: item[id],
                 label: label,
                 pid  : item[pid],       // 父子映射关系
             });
         }
     });
-    return selectTree;
+    return selectGroup;
 }
 
+// 列表 => 树
 export function formatList2Tree(list: Array<any>, { id, pid, name }) {
     const isRoot = (item): boolean => Number(item[pid]) === 0;
 
@@ -121,6 +122,11 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }) {
         });
     });
     return treeData;
+}
+
+// 树 => 列表
+export function formatTree2List(tree: object) {
+    return deepEach([ { children: tree } ], node => node);
 }
 
 /**
@@ -166,6 +172,7 @@ export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
     return root;
 }
 
+
 // 验证 && 解析模版 && DOM转化
 function templateVerifyParser(tpl: string, item: object): string {
 
@@ -186,14 +193,29 @@ function templateVerifyParser(tpl: string, item: object): string {
 
 // 列表转化为 antd options
 export function formatList2AntdOptions(list: Array<any>, k: string, v: string): Array<IOptions> {
+
+    // 存在多个data-key值的情况
+    let isMultipleKey = k.includes(',') && k.split(',').length > 1;
+
     return list.map(item => {
 
         let label = templateVerifyParser(v, item);
+        let value = String(item[k]);
+
+        if (isMultipleKey) {
+            let ks = k.split(',');
+            value = '';
+            ks.forEach(k => {
+                value += String(item[k]) + '|';
+            });
+            value = value.substr(0, value.length - 1);
+            console.log(value);
+        }
 
         return {
             // https://ant-design.gitee.io/components/select-cn/#Option-props
             // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
-            value: String(item[k]),
+            value: value,
             label: label,
             // title: label,
         };

@@ -6,7 +6,7 @@
  */
 
 const path = require('path');
-const rootpath = path.resolve(__dirname, '../../');
+const rootpath = path.resolve(__dirname, '../');
 const fs = require('fs');
 
 module.exports.getMockData = async (req, res) => {

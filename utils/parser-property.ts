@@ -10,7 +10,7 @@ import { IPropertyConfig, parseType } from '@root/config/component.config';
 import { isString } from '@utils/inspect';
 
 // 解析dataset data-*
-export function parserProperty(dataset, defaultDataset): object {
+export function parserDataset(dataset, defaultDataset): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     dataset = JSON.parse(JSON.stringify(dataset));
@@ -73,6 +73,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
                 console.error(`${ key }属性的值格式验证不通过`);
                 continue;
             }
+            // console.log(key, value, parse);
             defaultAttrs[key] = parserProgram(key, value, parse).v;
         }
     }
@@ -98,8 +99,8 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
     if (typeof parse === 'function') {
-        console.log(parse);
-        console.log(value, typeof value);
+        // console.log(parse);
+        // console.log(value, typeof value);
         value = parse(value);
     }
 

@@ -11,11 +11,13 @@ const url = require('url');
 
 const router = require('./router/index');
 const bodyParser = require('body-parser');     // json 解析中间件
-const cookieParser = require('cookie-parser');
+const port = 9001;
 
-app.use(cookieParser());
+// app.use(cookieParser());
 
 app.all('*', (req, res, next) => {
+    
+    // console.log(req.path);
     
     //设置允许跨域的域名，*代表允许任意域名跨域
     res.header('Access-Control-Allow-Origin', '*');
@@ -35,10 +37,12 @@ app.all('*', (req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(router);
 
-app.listen('8081', function () {
-    console.log('http://localhost:8081');
+// http://mingle.local.aidalan.com/server
+app.use('/server', router);
+
+app.listen(port, function () {
+    console.log(`http://localhost:${ port }`);
 });
 
 

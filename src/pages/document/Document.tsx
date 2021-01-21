@@ -53,7 +53,7 @@ class Document extends React.Component<any, any> {
 
     // 获取导航栏路由
     async getRouter() {
-        let res = await axios.get('http://localhost:8081/files/template');
+        let res = await axios.get('/server/files/template');
         let data = res.data.status ? res.data.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
@@ -91,7 +91,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist }/>
+                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist } pathfield=""/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>

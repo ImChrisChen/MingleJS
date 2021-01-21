@@ -97,6 +97,11 @@ export function isHtmlTpl(v: string): boolean {
     return /(.*?)(<[a-zA-Z]+) (.*?)/.test(v);
 }
 
+// 判断字符串是否是拓展运算符 '...item.dataset'
+export function isExpandSymbol(v: string) {
+    // return v.startsWith('...');
+    return /^(\.\.\.)[a-zA-Z|_|$](.*?)/.test(v);
+}
 
 // 判断字符串中是否包含wui组件
 export function isIncludeWuiComponent(v: string) {

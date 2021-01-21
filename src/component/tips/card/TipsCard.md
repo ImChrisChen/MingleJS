@@ -6,7 +6,7 @@
 | :----------- | --------------------------- | ------ |
 | data-trigger | 触发事件 ‘click’ \| 'hover' | hover  |
 | data-title   | 提示窗标题                  | ''     |
-| data-content | 提示内容                    | ‘’     |
+| data-label | 文本内容                    | ‘查看详细信息’     |
 | width        | 提示窗宽度                  | 300    |
 
 
@@ -17,7 +17,8 @@
 <button class="ant-btn ant-btn-primary"
         data-fn="tips-card"
         data-title="标题"
-        data-content="内容内容内容内容内容内容内容内容">按钮
+        data-label="查看详细信息">
+鼠标移入显示的内容
 </button>
 ```
 

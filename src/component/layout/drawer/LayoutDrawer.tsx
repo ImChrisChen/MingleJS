@@ -13,7 +13,7 @@ export default class LayoutDrawer extends React.Component<IComponentProps, any> 
     constructor(props) {
         super(props);
         this.props.el.onclick = e => this.handleClickBtn(e);
-        this.props.el.innerHTML = this.props.dataset.content;
+        this.props.el.innerHTML = this.props.dataset.label;
     }
 
     state = {

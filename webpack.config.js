@@ -17,18 +17,32 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
 let env = process.env.NODE_ENV;
+console.log(env);
 
 //默认生产环境
 if (typeof env === 'undefined') {
     env = 'production';
 }
 
+if (env === 'production') {
+    process.env.file = '//file.superdalan.com';
+    process.env.mobile = '//m.aidalan.com';
+    process.env.bbs = '//bbs.aidalan.com';
+}
+
+if (env === 'development') {
+    process.env.file = '//file.superdalan.com';
+    process.env.mobile = '//m.aidalan.com';
+    process.env.bbs = '//bbs.aidalan.com';
+}
+
+
 const isProduction = env === 'production';
 console.log(env);
 
 const clc = require('cli-color');
 
-console.log(clc.blue(`-------------是否生产环境: ${isProduction}-------------`));
+console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
 
 module.exports = {
     watch: !isProduction,
@@ -101,15 +115,16 @@ module.exports = {
             '@component': path.resolve(__dirname, 'src/component/'),
             '@interface': path.resolve(__dirname, 'src/interface/'),
             '@services': path.resolve(__dirname, 'src/services/'),
-            '@mock': path.resolve(__dirname, 'src/mock'),
-
+            '@server': path.resolve(__dirname, 'server/'),
+            '@mock': path.resolve(__dirname, 'server/mock'),
+            
             '@public': path.resolve(__dirname, 'public/'),
-
+            
             '@static': path.resolve(__dirname, 'static/'),
-
+            
             '@images': path.resolve(__dirname, 'static/images'),
             '@utils': path.resolve(__dirname, 'utils'),
-
+            
             // 生产环境下使用
             // 'react': path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
             // 'bizcharts': path.resolve(__dirname, './node_modules/bizcharts/umd/BizCharts.min.js'),
@@ -124,7 +139,7 @@ module.exports = {
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    {loader: 'css-loader'},
+                    { loader: 'css-loader' },
                     // { loader: 'postcss-loader', options: { parser: 'sugarss', exec: true } },
                 ],
             },
@@ -132,7 +147,7 @@ module.exports = {
                 test: /\.less$/,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    {loader: 'css-loader'},
+                    { loader: 'css-loader' },
                     {
                         loader: 'less-loader',
                         options: {
@@ -141,7 +156,7 @@ module.exports = {
                             modifyVars: {
                                 dark: true, // 开启暗黑模式
                                 compact: true, // 开启紧凑模式
-                                'primary-color': '#f38ce4',　　//修改antd主题色
+                                // 'primary-color': '#f38ce4',　　//修改antd主题色
                             },
                             javascriptEnabled: true,
                         },
@@ -177,8 +192,8 @@ module.exports = {
                 // test: /\.tsx?$/,
                 test: /(.ts)|(.tsx)$/,
                 use: [
-                    {loader: 'awesome-typescript-loader'},
-                    {loader: 'cache-loader'},
+                    { loader: 'awesome-typescript-loader' },
+                    { loader: 'cache-loader' },
                     // {
                     //     loader: 'thread-loader',
                     //     options: { workers: os.cpus().length },
@@ -216,8 +231,8 @@ module.exports = {
                     },
                 },
             },
-            {enforce: 'pre', test: /\.js$/, loader: 'source-map-loader'},
-
+            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+            
             // {
             //     test: /\.jsx?$/,
             //     use: {
@@ -234,9 +249,9 @@ module.exports = {
         // 'jquery': 'jquery',
     },
     plugins: [
-
+        
         // new PrepackWebpackPlugin(),
-
+        
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -245,9 +260,9 @@ module.exports = {
             disable: isProduction,
             chunkFilename: '[name].css', // manifest.css
         }),
-
+        
         new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
-
+        
         // 处理html
         new HtmlWebpackPlugin({
             // chunks: ['./dist/mingle.min.js'],
@@ -255,7 +270,7 @@ module.exports = {
             filename: path.resolve(__dirname, 'dist/index.html'),
             template: path.resolve(__dirname, 'public/index.html'),
         }),
-
+        
         // JS压缩 生产环境可以使用这个
         // new UglifyJsPlugin(),
         // new UglifyJsPlugin({
@@ -265,7 +280,7 @@ module.exports = {
         //     cache: true,
         //     sourceMap: !isProduction,
         // }),
-
+        
         // Images 压缩
         new ImageWebpackPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
@@ -285,7 +300,7 @@ module.exports = {
                 fileName: '[path].[name].[ext]',
             },
         }),
-
+        
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
@@ -298,7 +313,7 @@ module.exports = {
                 source: false,
             },
         }),
-
+        
         new FileManagerPlugin({
             onEnd: {
                 copy: [
@@ -309,26 +324,28 @@ module.exports = {
                 ],
             },
         }),
-
+        
         // new DashboardPlugin(/*dashboard.setData*/),
     ],
     devServer: {
+        host: '0.0.0.0',
+        port: 9000,
         proxy: {
-            // '/api': 'http://127.0.0.1:8081',
+            // '/api': 'http://127.0.0.1:9001',
             '/api': {
-                target: 'http://127.0.0.1:8081',
+                target: 'http://127.0.0.1:9001',
                 source: true,
                 changeOrigin: true,
-                pathRewrite: {'^/api': '/'},
+                pathRewrite: { '^/api': '/' },
             },
             contentBase: path.resolve(__dirname, '/'),   //静态服务器根目录
             compress: true,             // 是否压缩
-            // host: 'etest.local.aidalan.com',            // 局域网ip
+            // host: '0.0.0.0',            // 局域网ip
             disableHostCheck: true,     //
-            allowedHosts: [
-                'mingle-test.local.aidalan.com',
-            ],
-            port: 9000,
+            // allowedHosts: [
+            //     'mingle-test.local.aidalan.com',
+            // ],
+            // port: 9000,
             historyApiFallback: true,
             headers: {
                 'X-Content-Type-Options': 'nosniff',
@@ -336,7 +353,7 @@ module.exports = {
             lazy: true,
             open: true,     //是否自动打开默认浏览器
             hot: true,      //热更新
-            useLocalIp: true,//是否用自己的IP
+            // useLocalIp: true,//是否用自己的IP
             inline: false,//
         },
     },

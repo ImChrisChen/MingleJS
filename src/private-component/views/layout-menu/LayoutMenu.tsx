@@ -41,6 +41,7 @@ interface ILayoutMenu {
     data: Array<IMenuItem>
     width?: string | number
     layout?: 'horizontal' | 'vertical' | 'vertical-left' | 'vertical-right' | 'inline' | undefined
+    pathfield: string
     open?: boolean
     map?: {
         id: string
@@ -55,9 +56,11 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         theme    : 'light',
         collapsed: !(this.props.open ?? true),
     };
+    pathfield = this.props.pathfield;
 
     constructor(props) {
         super(props);
+        console.log(this.props);
     }
 
     toggleCollapsed = (e) => {
@@ -97,7 +100,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     render() {
-        console.log(this.props.data);
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (
@@ -130,7 +132,8 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                                           key={ k }
                                                           icon={ <IdcardOutlined/> }>
                                             {/* TODO path 是react里面的，input调用使用a链接*/ }
-                                            { child.url ? <a href={ child.url }>{ child.label }</a> : child.label }
+                                            { child[this.pathfield] ?
+                                                <a href={ child[this.pathfield] }>{ child.label }</a> : child.label }
                                             { child.path ?
                                                 <Link to={ child.path ?? '/' }> { child.label } </Link> : child.label }
                                         </Menu.Item>;
@@ -141,6 +144,11 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                                   key={ key }
                                                   data-path={ item.path }
                                                   icon={ <PieChartOutlined/> }>
+                                    {
+                                        item[this.pathfield]
+                                            ? <a href={ item[this.pathfield] }>{ item.label }</a>
+                                            : item.label
+                                    }
                                     { item.path
                                         ? <Link to={ item.path ?? '/' }> { item.label } </Link>
                                         : item.label

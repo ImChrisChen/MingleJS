@@ -1,0 +1,47 @@
+{
+	"status": true,
+	"msg": "ok",
+	"data": [
+		{
+			"data-fn": "form-select",
+			"data-label": "区服1",
+			"data-enum": "1,Android;2,iOS;3,MacOS;4,Windows",
+			"data-url": "http://mingle.local.aidalan.com/server/mock/select.json",
+			"data-disabled": "false",
+			"data-mode": "multiple",
+			"data-key": "id",
+			"data-value": "<{publisher_name}>",
+			"data-groupby": "",
+			"data-required": "false",
+			"data-smart": "false",
+			"name": "form-select",
+			"style": "width: 300px"
+		},
+		{
+			"data-fn": "form-radio",
+			"data-label": "平台",
+			"data-enum": "1,Android;2,iOS;3,MacOS;4,Windows",
+			"data-disabled": "false",
+			"data-size": "middle",
+			"data-type": "button",
+			"data-buttonStyle": "solid",
+			"data-required": "false",
+			"data-smart": "false",
+			"name": "form-select"
+		},
+		{
+			"data-fn": "form-datepicker",
+			"data-label": "label:",
+			"data-disabled": "false",
+			"data-format": "YYYY-MM-DD",
+			"data-showtime": "false",
+			"data-picker": "date",
+			"data-single": "false",
+			"data-required": "false",
+			"data-smart": "false",
+			"data-usenow": "true",
+			"name": "form-select"
+		}
+	]
+}
+
