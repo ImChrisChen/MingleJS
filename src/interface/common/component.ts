@@ -9,6 +9,7 @@ export interface IComponentProps {
     el: HTMLElement
     elChildren: Array<HTMLElement>
     style?: IReactStyle
+    container: HTMLElement
     dataset?: any
     ref?: () => any
     value?: any

@@ -11,7 +11,6 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 
-
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
 if (docs) {
@@ -23,10 +22,16 @@ if (docs) {
             </HashRouter>,
         </ConfigProvider>,
         docs,
+        function () {
+            window['MApp'] = App;
+        },
     );
 } else {
     // public/index.html
-    window.onload = () => new App(document.body);
+    window.onload = () => {
+        new App(document.body);
+        window['MApp'] = App;
+    };
 }
 
 App.globalEventListener();

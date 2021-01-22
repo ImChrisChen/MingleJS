@@ -198,11 +198,22 @@ export default class App {
 
     }
 
+    // 生成组件唯一ID
     public static getUUID() { // 获取唯一值
         return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    }
+
+    // 根据uid获取组件实例
+    public static getInstance(componentUID: string): IInstances {
+        return App?.instances?.[componentUID] ?? {};
+    }
+
+    // 获取所有组件实例
+    public static getInstances(): any {
+        return App?.instances ?? {};
     }
 
     // 通过 Element 获取到组件解析后的所有属性
@@ -462,8 +473,7 @@ export default class App {
 
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
-            element, defaultProperty, Component, container, elChildren, containerWrap, hooks, componentMethod,
-            config, componentUID,
+            element, defaultProperty, Component, container, elChildren, hooks, componentMethod, componentUID,
         } = module;
 
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
