@@ -111,6 +111,7 @@ export default class App {
 
             }
         });
+        App.errorVerify();
     }
 
     // 更具Element 渲染组件
@@ -469,6 +470,23 @@ export default class App {
         window.addEventListener('cut', function (event) {
             message.success('剪切成功');
         });
+    }
+
+    public static errorVerify() {
+        let arr: Array<string> = [];
+        let repeatName: Array<string> = [];
+        let elements = document.querySelectorAll('[name]');
+        for (const element of elements) {
+            let name = element.getAttribute('name');
+            if (name) {
+                if (arr.includes(name)) {
+                    repeatName.push(name);
+                } else {
+                    arr.push(name);
+                }
+            }
+        }
+        message.error(`${ repeatName.filter(t => t).join(',') } 的name属性值重复`);
     }
 
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {

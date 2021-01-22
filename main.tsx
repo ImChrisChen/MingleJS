@@ -30,7 +30,6 @@ if (docs) {
     // public/index.html
     window.onload = () => {
         new App(document.body);
-        window['MApp'] = App;
     };
 }
 
