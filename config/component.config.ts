@@ -125,7 +125,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         desc : '表单控件描述,若没有设置placeholder 属性时，会默认使用label属性的值',
         parse: 'string',
     },
-    placeholder: {
+    placeholder: JSON.parse(JSON.stringify({
         render: false,
         desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
         parse : 'string',
@@ -136,7 +136,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
                 : parsedDataset.label;
             return '请选择' + label;
         },
-    },
+    })),
     style      : {
         render: false,
         parse : 'style',
