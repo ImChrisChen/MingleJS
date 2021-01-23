@@ -420,8 +420,8 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     renderNumberInput(key, item) {
         return <InputNumber
-            min={ 50 } max={ 800 } defaultValue={ 3 }
-            step={ 10 }
+            min={ 0 } max={ 800 } defaultValue={ 3 }
+            step={ 1 }
             onChange={ e => {
                 this.setAttributeValue(key, e);
                 this.generateCode();

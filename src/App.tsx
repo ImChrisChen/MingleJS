@@ -13,8 +13,6 @@ import axios from 'axios';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
-import { componentsWrap } from '@src/private-component/layout-generator/LayoutGenerator.scss';
-import DataPanel from '@component/data/panel/DataPanel';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -53,10 +51,6 @@ interface IAttributes extends NamedNodeMap {
     style?: any | string
 
     [key: string]: any
-}
-
-interface W extends Window {
-    // [key: string]: any
 }
 
 interface IInstances {
@@ -270,8 +264,8 @@ export default class App {
             // @ts-ignore
             let hook = Object.values(Hooks).includes(name);
             if (hook) {
-                if (name && isFunc((window as W)[fnName])) {
-                    hooks[name] = (window as W)[fnName];
+                if (name && isFunc(window[fnName])) {
+                    hooks[name] = window[fnName];
                 }
             }
         });
@@ -486,7 +480,10 @@ export default class App {
                 }
             }
         }
-        message.error(`${ repeatName.filter(t => t).join(',') } 的name属性值重复`);
+        let names = repeatName.filter(t => t).join(',');
+        if (names) {
+            message.error(`${ names } 的name属性值重复`);
+        }
     }
 
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {

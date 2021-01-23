@@ -749,7 +749,54 @@ export default {
                 },
             },
         },
+        slider    : {
+            path     : '/form-slider',
+            component: import('@component/form/slider/FormSlider'),
+            document : import('@component/form/slider/FormSlider.md'),
+            property : {
+                dataset: {
+                    max     : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 100,
+                        desc : '最大值',
+                    },
+                    min     : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 0,
+                        desc : '最小值',
+                    },
+                    range   : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '双滑块模式',
+                    },
+                    step    : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 1,
+                        desc : '步长，取值必须大于 0，并且可被 (max - min) 整除。当 marks 不为空对象时，可以设置 step 为 null，此时 Slider 的可选值仅有 marks 标出来的部分',
+                    },
+                    disabled: UniversalProps.disabled,
+                },
+                value  : {
+                    el   : 'input',
+                    parse: 'number[]',
+                    desc : '默认值',
+                    value(parsedDataset) {
+                        if (parsedDataset && parsedDataset.range) {
+                            return '0,10';
+                        } else {
+                            return '0';
+                        }
+                    },
+                },
+            },
+        },
         switch    : {
+            path     : '/form-switch',
             component: import('@component/form/switch/FormSwtich'),
             property : {
                 dataset: {
@@ -772,6 +819,7 @@ export default {
             },
         },
         input     : {
+            path     : '/form-input',
             component: import('@component/form/input/FormInput'),
             property : {
                 dataset    : {

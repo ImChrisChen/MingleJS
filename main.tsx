@@ -21,11 +21,7 @@ if (docs) {
                 <Document/>
             </HashRouter>,
         </ConfigProvider>,
-        docs,
-        function () {
-            window['MApp'] = App;
-        },
-    );
+        docs);
 } else {
     // public/index.html
     window.onload = () => {
