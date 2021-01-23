@@ -1,12 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-// const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
-// const Dashboard = require('webpack-dashboard');
-// const dashboard = new Dashboard();
-
-// const HappyPack = require('happypack');     // 使用HappyPack开启多进程Loader转换
-// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-// const smp = new SpeedMeasurePlugin();
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
 
@@ -245,8 +238,9 @@ module.exports = {
         // 'react': 'React',
         // 'react-dom': 'ReactDOM',
         // 'antd': true,
-        // 'bizcharts': 'bizcharts',
         // 'jquery': 'jquery',
+        // 'bizcharts': 'bizcharts',
+        'gg-editor': 'gg-editor',
     },
     plugins: [
         

@@ -12667,3 +12667,19 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/nav-app-layout.html  -----------------end-
  2021-01-23/15:06:32   
  ---END---
+error_log: ---START--- 
+  Uncaught Error: invalid container -----------------end-
+Error: invalid container
+    at e.initCanvas (http://mingle-test.local.aidalan.com/main.min.js:91473:916416)
+    at e.init (http://mingle-test.local.aidalan.com/main.min.js:91473:915982)
+    at e [as constructor] (http://mingle-test.local.aidalan.com/main.min.js:91473:915788)
+    at new e (http://mingle-test.local.aidalan.com/main.min.js:91473:954628)
+    at Mind._this.initGraph (http://mingle-test.local.aidalan.com/main.min.js:118553:21)
+    at GraphComponent.initGraph (http://mingle-test.local.aidalan.com/main.min.js:118046:18)
+    at GraphComponent.componentDidMount (http://mingle-test.local.aidalan.com/main.min.js:118006:10)
+    at commitLifeCycles (http://mingle-test.local.aidalan.com/manifest.min.js:218042:22)
+    at commitLayoutEffects (http://mingle-test.local.aidalan.com/manifest.min.js:221031:7)
+    at HTMLUnknownElement.callCallback (http://mingle-test.local.aidalan.com/manifest.min.js:198416:14)  -----------------end-
+ http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
+ 2021-01-23/17:22:45   
+ ---END---

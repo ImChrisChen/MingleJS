@@ -1792,12 +1792,12 @@ export default {
         },
     },
     editor  : {
-        flow    : {     // 流程图
-            component: import('@component/editor/flow/EditorFlow'),
-            property : {
-                dataset: {},
-            },
-        },
+        // flow    : {     // 流程图
+        //     component: import('@component/editor/flow/EditorFlow'),
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
         markdown: {     // markdown 编辑器
             component: import('@component/editor/markdown-editor/MarkdownEditor'),
             path     : '/editor-markdown',
