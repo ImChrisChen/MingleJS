@@ -273,6 +273,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
                 if (showmsg) {
                     if (res.data.status) {
                         message.success(res?.data?.[msgfield] ?? '操作成功');
+                        await this.handleReset(form);
                     } else {
                         message.error(res?.data?.[msgfield] ?? '操作失败');
                     }
@@ -299,7 +300,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
-    async handleReset(form: HTMLElement, e) {
+    async handleReset(form: HTMLElement, e?: any) {
         let formItems = [ ...form.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
         for (const formItem of formItems) {
             let property = await App.parseElementProperty(formItem);        // 默认属性
