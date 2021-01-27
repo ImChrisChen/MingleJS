@@ -12683,3 +12683,9 @@ Error: invalid container
  http://mingle-test.local.aidalan.com/#/code-generate  -----------------end-
  2021-01-23/17:22:45   
  ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-data-tree.html  -----------------end-
+ 2021-01-26/16:52:58   
+ ---END---

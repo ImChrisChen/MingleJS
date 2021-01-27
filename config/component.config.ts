@@ -1037,6 +1037,20 @@ export default {
                 },
             },
         },
+        image   : {
+            path     : '/view-image',
+            component: import('@component/view/image/ViewImage'),
+            document : import('@component/view/image/ViewImage.md'),
+            property : {
+                dataset: {
+                    src: {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                    },
+                },
+            },
+        },
     },
     data    : {
         table: {
