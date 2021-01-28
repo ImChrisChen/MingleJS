@@ -103,6 +103,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-syntax-highlighter": "^13.5.3",
 		"reflect-metadata": "^0.1.13",
-		"speed-measure-webpack-plugin": "^1.3.3"
+		"speed-measure-webpack-plugin": "^1.3.3",
+		"systeminformation": "^5.0.5"
 	}
 }

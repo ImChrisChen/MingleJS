@@ -12689,3 +12689,43 @@ error_log: ---START---
  http://mingle-test.local.aidalan.com/#/nav-A-data-tree.html  -----------------end-
  2021-01-26/16:52:58   
  ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-data-tree.html  -----------------end-
+ 2021-01-28/10:53:42   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: this.getTiming is not a function -----------------end-
+TypeError: this.getTiming is not a function
+    at http://mingle-test.local.aidalan.com/main.min.js:265244:26  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2021-01-28/18:00:15   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: this.getTiming is not a function -----------------end-
+TypeError: this.getTiming is not a function
+    at http://mingle-test.local.aidalan.com/main.min.js:265245:26  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2021-01-28/18:04:39   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: that.getTiming is not a function -----------------end-
+TypeError: that.getTiming is not a function
+    at http://mingle-test.local.aidalan.com/main.min.js:265245:26  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2021-01-28/18:05:25   
+ ---END---
+error_log: ---START--- 
+  Uncaught TypeError: that.getTiming is not a function -----------------end-
+TypeError: that.getTiming is not a function
+    at http://mingle-test.local.aidalan.com/main.min.js:265245:26  -----------------end-
+ http://mingle-test.local.aidalan.com/#/  -----------------end-
+ 2021-01-28/18:05:33   
+ ---END---
+error_log: ---START--- 
+  Script error. -----------------end-
+  -----------------end-
+ http://mingle-test.local.aidalan.com/#/nav-A-data-tree.html  -----------------end-
+ 2021-01-28/18:08:22   
+ ---END---

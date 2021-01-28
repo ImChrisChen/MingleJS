@@ -10,6 +10,7 @@ import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
+import { Monitor } from './src/services/Monitor';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -28,6 +29,9 @@ if (docs) {
         new App(document.body);
     };
 }
+
+
+new Monitor;
 
 App.globalEventListener();
 window['$'] = $;
