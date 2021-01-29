@@ -32,7 +32,9 @@ if (docs) {
 
 window.addEventListener('load', async () => {
     Monitor.getPerformanceTimes(times => {
-        console.table(times);
+        // console.table(times);
+        // Monitor.performances = times;
+        Monitor.performanceLogger(times);
     });
 });
 
