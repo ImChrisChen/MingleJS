@@ -39,7 +39,6 @@ class Document extends React.Component<any, any> {
     async init() {
         let navRoutes = await this.getRouter();
         let list = await formatComponents2Tree(componentConfig);
-        console.log(list);
         let routes = deepEach(list, item => {
             if (item.component && item.document) return item;
         });

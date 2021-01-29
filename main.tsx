@@ -11,6 +11,7 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 import { Monitor } from './src/services/Monitor';
+import { time } from 'systeminformation';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -25,13 +26,16 @@ if (docs) {
         docs);
 } else {
     // public/index.html
-    window.onload = () => {
+    window.addEventListener('load', () => {
         new App(document.body);
-    };
+    });
 }
 
-
-new Monitor;
+window.addEventListener('load', async () => {
+    Monitor.getPerformanceTimes(times => {
+        console.table(times);
+    });
+});
 
 App.globalEventListener();
 window['$'] = $;
