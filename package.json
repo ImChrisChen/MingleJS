@@ -4,14 +4,13 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"build": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && npm run update-version",
-		"deploy": "rm -rf ./dist && webpack --config webpack.config.js --progress --colors -p && npm run update-version && git add . && git commit -m 'deploy' && git push all",
-		"start": "pm2 start ecosystem.config.js && pm2 start ./server/ecosystem.config.js",
-		"pre": "rm -rf ./dist NODE_ENV=pre webpack && npm run update-version",
-		"mock": "nodemon ./server/main.js",
+		"build": "npm run rm-dist && webpack --config webpack.config.js --progress --colors -p && npm run update-version",
+		"deploy": "npm run rm-dist && webpack --config webpack.config.js --progress --colors -p && npm run update-version && git add . && git commit -m 'deploy' && git push all",
+		"start-all": "pm2 start ecosystem.config.js && pm2 start ./server/ecosystem.config.js",
+		"pre": "npm run rm-dist NODE_ENV=pre webpack && npm run update-version",
 		"dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --colors --config webpack.config.js",
-		"update-version": "node ./script/script.js",
-		"docs": "npx docsify serve ./docs"
+		"rm-dist": "rm -rf ./dist",
+		"update-version": "node ./script/script.js"
 	},
 	"author": "chrischen",
 	"license": "ISC",
@@ -104,6 +103,7 @@
 		"react-syntax-highlighter": "^13.5.3",
 		"reflect-metadata": "^0.1.13",
 		"speed-measure-webpack-plugin": "^1.3.3",
-		"systeminformation": "^5.0.5"
+		"systeminformation": "^5.0.5",
+		"winston": "^3.3.3"
 	}
 }

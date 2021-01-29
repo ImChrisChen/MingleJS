@@ -390,7 +390,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <WordCloudChart
                 data={ formatData(config.dataSource) }
                 maskImage={ antvImage }
-                shape={ 'cardioid' }
+                // shape={ 'cardioid' }
                 wordStyle={ {
                     fontSize: [ 30, 40 ],
                 } }

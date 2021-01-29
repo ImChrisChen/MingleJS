@@ -13,6 +13,8 @@ import axios from 'axios';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
+import { Monitor } from '@services/Monitor';
+import { MonotonicInterpolant } from 'react-dnd-html5-backend/lib/MonotonicInterpolant';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -430,22 +432,24 @@ export default class App {
         });
 
         window.addEventListener('error', async function (e) {
+            console.log(e);
             let msg = e?.message ?? '';        // 错误
             let stack = e?.error?.stack ?? '';
-            let date = moment().format('YYYY-MM-DD/HH:mm:ss');
+            let filename = e.filename;          // 报错文件名
+            let error_col = e.colno;            // 报错行
+            let error_line = e.lineno;          // 报错列
             let url = window.location.href;
-            let log = { message: msg, stack, date, url };
+            let log = {
+                message: msg,
+                stack,
+                url,
+                flag   : 'mingle',
+                filename,
+                error_line,
+                error_col,
+            };
 
-            let error_log: string = localStorage.getItem('error_log') || '';
-
-            if (error_log) {
-                let logs: Array<object> = JSON.parse(error_log);
-                logs.unshift(log);
-                localStorage.setItem('error_log', JSON.stringify(logs));
-            } else {
-                localStorage.setItem('error_log', JSON.stringify([ log ]));
-            }
-            await axios.post('/server/log', log);
+            await Monitor.errorLogger(log);
             message.error(`error, ${ msg }`);
         });
 

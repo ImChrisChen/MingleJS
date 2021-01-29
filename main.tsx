@@ -11,7 +11,6 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 import { Monitor } from './src/services/Monitor';
-import { time } from 'systeminformation';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -21,7 +20,7 @@ if (docs) {
         <ConfigProvider { ...globalComponentConfig }>
             <HashRouter>
                 <Document/>
-            </HashRouter>,
+            </HashRouter>
         </ConfigProvider>,
         docs);
 } else {
@@ -42,4 +41,3 @@ window['$'] = $;
 window['Message'] = message;
 window['Notice'] = notification;
 window['Jsonp'] = jsonp;
-
