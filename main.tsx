@@ -42,4 +42,4 @@ App.globalEventListener();
 window['$'] = $;
 window['Message'] = message;
 window['Notice'] = notification;
-window['Jsonp'] = jsonp;
+window['jsonp'] = jsonp;

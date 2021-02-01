@@ -53,6 +53,26 @@ export function isFunc(v): v is Function {
     return typeof v === 'function';
 }
 
+// 获取数据类型
+export function getType(obj): string {
+    const str = Object.prototype.toString.call(obj);
+    const map = {
+        '[object Boolean]'  : 'boolean',
+        '[object Number]'   : 'number',
+        '[object String]'   : 'string',
+        '[object Undefined]': 'undefined',
+        '[object Null]'     : 'null',
+        '[object Function]' : 'function',
+        '[object Array]'    : 'array',
+        '[object Date]'     : 'date',
+        '[object RegExp]'   : 'regExp',
+        '[object Object]'   : 'object',
+        '[object Set]'      : 'set',
+        '[object Map]'      : 'map',
+    };
+    return map[str];
+}
+
 // 判断对象是否是 ReactNode
 export function isReactNode(v: any): boolean {
     return typeof v.$$typeof === 'symbol';

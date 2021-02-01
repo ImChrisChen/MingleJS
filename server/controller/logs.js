@@ -28,14 +28,45 @@ module.exports.getLogs = (req, res, next) => {
 };
 
 module.exports.createLog = (req, res, next) => {
-    let content = req.body;
     // let { message, stack, url } = content;
-    logger.log('error', 'error', content);
-    res.send({
-        msg: '写入成功',
-        data: content,
-        status: true,
-    });
+    // logger.log('error', 'error', content);
+    
+    let content = req.body;
+    let logtype = req.query.type;
+    console.log(logtype);
+    
+    try {
+        switch (logtype) {
+            case 'http':
+                handleHttpLog(content);
+                break;
+            case 'error':
+                handleErrorLog(content);
+                break;
+            case 'performance':
+                handlePerformanceLog(content);
+        }
+        res.send({
+            msg: '写入成功',
+            data: content,
+            status: true,
+        });
+    } catch (e) {
+        console.log(e);
+    }
+    
 };
+
+function handlePerformanceLog(log = {}) {
+    logger.info('PERFORMANCE', log);
+}
+
+function handleHttpLog(log = {}) {
+    logger.info('HTTP', log);
+}
+
+function handleErrorLog(log = {}) {
+    logger.error('ERROR', log);
+}
 
 

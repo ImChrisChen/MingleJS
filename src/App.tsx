@@ -440,10 +440,10 @@ export default class App {
             let error_line = e.lineno;          // 报错列
             let url = window.location.href;
             let log = {
-                message: msg,
+                message : msg,
                 stack,
-                url,
-                flag   : 'mingle',
+                page_url: url,
+                flag    : 'mingle',
                 filename,
                 error_line,
                 error_col,

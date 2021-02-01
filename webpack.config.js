@@ -1,5 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: 6 });
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
 
@@ -10,7 +13,7 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
 let env = process.env.NODE_ENV;
-console.log(env);
+console.log('打包环境:', env);
 
 //默认生产环境
 if (typeof env === 'undefined') {
@@ -28,7 +31,6 @@ if (env === 'development') {
     process.env.mobile = '//m.aidalan.com';
     process.env.bbs = '//bbs.aidalan.com';
 }
-
 
 const isProduction = env === 'production';
 console.log(env);
@@ -184,6 +186,7 @@ module.exports = {
             {
                 // test: /\.tsx?$/,
                 test: /(.ts)|(.tsx)$/,
+                // use: ['happypack/loader?id=typescript'],
                 use: [
                     { loader: 'awesome-typescript-loader' },
                     { loader: 'cache-loader' },
@@ -255,7 +258,10 @@ module.exports = {
             chunkFilename: '[name].css', // manifest.css
         }),
         
-        new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
+        new webpack.WatchIgnorePlugin([
+            /(css)\.d\.ts$/,
+            isProduction ? /(.+?).md$/ : '',
+        ]),
         
         // 处理html
         new HtmlWebpackPlugin({

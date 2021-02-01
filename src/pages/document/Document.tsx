@@ -53,7 +53,7 @@ class Document extends React.Component<any, any> {
     // 获取导航栏路由
     async getRouter() {
         let res = await axios.get('/server/files/template');
-        let data = res.data.status ? res.data.data : [];
+        let data = res.status ? res.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;

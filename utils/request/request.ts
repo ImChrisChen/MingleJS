@@ -9,6 +9,8 @@ import { message } from 'antd';
 import md5 from 'md5';
 import { isWuiTpl } from '@utils/inspect';
 import { parseTpl } from '@utils/parser-tpl';
+import { Monitor } from '@services/Monitor';
+import axios from 'axios';
 
 export interface IApiResult {
     status: boolean
@@ -57,6 +59,14 @@ export function jsonp(url: string): Promise<IApiResult> {
 
         try {
             body?.appendChild(script);
+            Monitor.requestLogger({
+                request_url: url,
+                page_url   : window.location.href,
+                flag       : 'mingle',
+                method     : 'get',
+                dataType   : 'jsonp',
+                headers    : '{}',
+            });
         } catch (e) {
             console.error(e);
         }
@@ -70,57 +80,71 @@ export function jsonp(url: string): Promise<IApiResult> {
     });
 }
 
-window.jsonp = jsonp;
+// window.jsonp = jsonp;
 
-// 允许携带cookie
-// axios.defaults.timeout = 6000;
-// axios.defaults.withCredentials = true;
-// // axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
-// axios.interceptors.request.use(
-//     config => {
-//         // let token = JSON.parse(localStorage.getItem('token') || null);
-//         // if (token) {
-//         // config.headers['secretKey'] = token.secretKey;
-//         // config.headers['timestamp'] = token.timestamp;
-//         // config.headers['uuid'] = token.uuid;
-//         // }
-//
-//         return config;
-//     },
-//     err => {
-//         // console.log(err);
-//     },
-// );
-//
-// // response 响应拦截器
-// axios.interceptors.response.use(
-//     res => {
-//         if (res.status === 200) {
-//             // console.log(`%c ${ res.config.url } API - 响应正常 - success`, 'font-size:12px;color:skyblue;', res);
-//             return res.data;
-//         } else {
-//             console.log(`%c ${ res.config.url } API - 响应异常 - fail`, 'font-size:12px;color: red;', res);
-//             message.error(`${ res.config.url } 接口响应异常`);
-//         }
-//     },
-//     err => {
-//
-//         // 超时处理
-//         let originalRequest = err.config;
-//
-//         // console.log(err.message);     //timeout of 100ms exceeded
-//
-//         if (err.code === 'ECONNABORTED' && err.message.indexOf('timeout') !== -1 && !originalRequest._retry) {
-//
-//             originalRequest._retry = true;
-//             // Message.error('请求超时,尝试重新请求中')
-//
-//             message.error(`${ err.config.url } 接口请求超时`);
-//
-//             // 重新发起请求
-//             return axios.request(originalRequest);
-//         }
-//     },
-// );
+// 允许携带cookie;
+axios.defaults.timeout = 6000;
+axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
+axios.interceptors.request.use(
+    config => {
+        console.log(config);
+        let { url, baseURL, method, headers } = config;
+        if (baseURL) {
+            url = baseURL + url;
+        }
+        // Monitor.requestLogger({
+        //     request_url: url,
+        //     page_url   : window.location.href,
+        //     flag       : 'mingle',
+        //     method     : method,
+        //     dataType   : 'jsonp',
+        //     headers    : headers,
+        // });
+
+        // let token = JSON.parse(localStorage.getItem('token') || null);
+        // if (token) {
+        // config.headers['secretKey'] = token.secretKey;
+        // config.headers['timestamp'] = token.timestamp;
+        // config.headers['uuid'] = token.uuid;
+        // }
+
+        return config;
+    },
+    err => {
+        // console.log(err);
+    },
+);
+
+// response 响应拦截器
+axios.interceptors.response.use(
+    res => {
+        if (res.status === 200) {
+            // console.log(`%c ${ res.config.url } API - 响应正常 - success`, 'font-size:12px;color:skyblue;', res);
+            return res.data;
+        } else {
+            console.log(`%c ${ res.config.url } API - 响应异常 - fail`, 'font-size:12px;color: red;', res);
+            message.error(`${ res.config.url } 接口响应异常`);
+        }
+    },
+    err => {
+
+        // 超时处理
+        let originalRequest = err.config;
+
+        // console.log(err.message);     //timeout of 100ms exceeded
+
+        if (err.code === 'ECONNABORTED' && err.message.indexOf('timeout') !== -1 && !originalRequest._retry) {
+
+            originalRequest._retry = true;
+            // Message.error('请求超时,尝试重新请求中')
+
+            message.error(`${ err.config.url } 接口请求超时`);
+
+            // 重新发起请求
+            return axios.request(originalRequest);
+        }
+    },
+);
 
 

@@ -452,7 +452,6 @@ export default {
             },
         },
         checkbox  : {
-            // document
             component: import('@component/form/checkbox/FormCheckbox'),
             document : import('@component/form/checkbox/FormCheckbox.md'),
             path     : '/form-checkbox',

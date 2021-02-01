@@ -271,11 +271,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
                 });
 
                 if (showmsg) {
-                    if (res.data.status) {
-                        message.success(res?.data?.[msgfield] ?? '操作成功');
+                    if (res.status) {
+                        message.success(res?.[msgfield] ?? '操作成功');
                         await this.handleReset(form);
                     } else {
-                        message.error(res?.data?.[msgfield] ?? '操作失败');
+                        message.error(res?.[msgfield] ?? '操作失败');
                     }
                 }
 
