@@ -12,7 +12,8 @@ import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 import { Monitor } from './src/services/Monitor';
 import DataPanel from './src/component/data/panel/DataPanel';
-import { isString } from './utils/inspect';
+import { isFunc, isString } from './utils/inspect';
+import axios from 'axios';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -42,20 +43,52 @@ window.addEventListener('load', async () => {
 
 interface IMingleOptions {
     el: string
-    data: object
+    data?: object
+    created?: (...args) => any
+    methods?: {
+        [key: string]: (...args: any) => any
+    }
+    mounted?: (...args) => any
 }
 
-class Mingle {
+export class Mingle {
 
-    constructor(options: IMingleOptions) {
-        let { el, data } = options;
-        let node = DataPanel.parseElement(document.querySelector(el) as HTMLElement, data);
+    public $axios = axios;
+    public $get = axios.get;
+    public $post = axios.post;
+    public $jsonp = jsonp;
+
+    constructor(private readonly options: IMingleOptions) {
+        this.run();
+    }
+
+    private async run() {
+        let { el, data, created, methods, mounted } = this.options;
+        data = data || {};
+        methods = methods || {};
+        let o = Object.assign(data, methods, this);
+        let proxyData = new Proxy(o, {
+            // get(target: object & { [p: string]: (...args: any) => any }, p: PropertyKey, receiver: any): any {
+            //     console.log(target, p);
+            // },
+            //
+            // set(target: object & { [p: string]: (...args: any) => any }, p: PropertyKey, value: any, receiver: any): boolean {
+            //     console.log(target, p);
+            //     return true;
+            // },
+        });
+
+        await created?.call(proxyData);
+        let container = document.querySelector(el) as HTMLElement;
+        let node = DataPanel.parseElement(container, data);
+        await Mingle.render(node);
+        await mounted?.call(proxyData);
+    }
+
+    public static render(node: HTMLElement | Array<HTMLElement>) {
         new App(node);
     }
 
-    public static render(node: HTMLElement) {
-        new App(node);
-    }
 }
 
 App.globalEventListener();

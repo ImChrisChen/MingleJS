@@ -9,17 +9,30 @@ const fs = require('fs');
 const path = require('path');
 const logsPath = path.resolve(__dirname, '../logs', 'error.log');
 const logger = require('../logger');
+const { send } = require('../utils/utils');
 
 module.exports.getLog = (req, res, next) => {
 
 };
 
+
+// type 'http' | 'error' | 'performance'
 module.exports.getLogs = (req, res, next) => {
+    
+    let type = req.query.type;
+    
     let isExist = fs.existsSync(logsPath);
     if (isExist) {
         let logs = fs.readFileSync(logsPath).toString();
-        let l = logs.split('\n').map(item => item ? JSON.parse(item) : '').filter(t => t);
-        res.send({
+        let l = logs.split('\n').map(item => item ? JSON.parse(item) : '').filter(t => {
+            if (type) {
+                return t.log_type === type;
+            } else {
+                return t;
+            }
+        });
+        
+        send(req, res, {
             msg: '获得成功',
             data: l,
             status: true,

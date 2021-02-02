@@ -298,12 +298,12 @@ export default class DataChart extends Component<IComponentProps, any> {
                         formatter: (v) => v /*Math.round(v / 10000) + '万'*/,
                     },
                 } }
-                onAxisLabelClick={ (event, chart) => {
-                    // console.log('event', event, 'chart', chart);
-                    // console.log('data', chart.filteredData);
-                    // console.log('mytext', event.target.attrs.text);
-                    // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
-                } }
+                // onAxisLabelClick={ (event, chart) => {
+                //     // console.log('event', event, 'chart', chart);
+                //     // console.log('data', chart.filteredData);
+                //     // console.log('mytext', event.target.attrs.text);
+                //     // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
+                // } }
             >
                 <TooltipCustom config={ config }/>
                 <Coordinate transpose/>

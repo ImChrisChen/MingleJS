@@ -53,10 +53,46 @@ export function isFunc(v): v is Function {
     return typeof v === 'function';
 }
 
+// 判断是否是 JSON 字符串
+export function isJSON(v: string): boolean {
+    if (!isString(v)) {
+        console.warn('It is not a string!');
+        return false;
+    }
+
+    try {
+        let obj = JSON.parse(v);
+        if (obj && isObject(obj)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (e) {
+        console.log('error：' + v + '!!!' + e);
+        return false;
+    }
+}
+
+type IdataType =
+    'boolean'
+    | 'number'
+    | 'string'
+    | 'undefined'
+    | 'null'
+    | 'function'
+    | 'array'
+    | 'date'
+    | 'object'
+    | 'regExp'
+    | 'set'
+    | 'map';
+
 // 获取数据类型
-export function getType(obj): string {
+export function getType(obj): IdataType {
     const str = Object.prototype.toString.call(obj);
-    const map = {
+
+    const map: { [key: string]: IdataType } = {
         '[object Boolean]'  : 'boolean',
         '[object Number]'   : 'number',
         '[object String]'   : 'string',

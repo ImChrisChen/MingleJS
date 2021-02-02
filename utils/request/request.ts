@@ -88,7 +88,6 @@ axios.defaults.withCredentials = true;
 // axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
 axios.interceptors.request.use(
     config => {
-        console.log(config);
         let { url, baseURL, method, headers } = config;
         if (baseURL) {
             url = baseURL + url;

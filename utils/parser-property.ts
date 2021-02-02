@@ -7,7 +7,7 @@
 
 import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
-import { isString } from '@utils/inspect';
+import { isJSON, isString } from '@utils/inspect';
 
 // 解析dataset data-*
 export function parserDataset(dataset, defaultDataset): object {
@@ -132,8 +132,8 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             break;
 
         case 'JSON':
-            let ret = /({.*?}|\[.*?\])/.test(value);
-            if (ret) {
+            // let ret = /({.*?}|\[.*?\])/.test(value);
+            if (isJSON(value)) {
                 value = JSON.parse(value);
             } else {
                 console.error(`data-${ key }的值传入的不是一个JSON`);

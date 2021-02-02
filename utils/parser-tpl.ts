@@ -38,11 +38,11 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
             try {
                 return eval(express);
             } catch (e) {
-                console.warn(`${ express } 表达式格式不正确,运算错误,以替换成空字符串`);
+                // console.warn(`${ express } 表达式格式不正确,运算错误,以替换成空字符串`);
                 return '';
             }
         } else {        // 如果不是表达式,则不解析,返回
-            console.warn(`${ express } 不是表达式,未解析模版`);
+            // console.warn(`${ express } 不是表达式,未解析模版`);
             return type === 'tpl' ? `<{${ express }}>` : express;
         }
     });
@@ -73,7 +73,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
                     let value = data[fieldItem.trim()];
                     if (isUndefined(value)) {
-                        console.warn(`${ field } 未匹配到模版变量，暂不替换`, itemData);
+                        // console.warn(`${ field } 未匹配到模版变量，暂不替换`, itemData);
                         return {};
                     }
                     return value;
@@ -95,7 +95,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
 
                 // 只有对象中有这个属性才会被替换
                 if (isUndefined(val)) {
-                    console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
+                    // console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
                 } else {
                     // tpl = tpl.replace(regExp, val);
                     tpl = replaceSetTpl(tpl, regExp, val);
