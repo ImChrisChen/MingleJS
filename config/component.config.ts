@@ -851,6 +851,12 @@ export default {
                 style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
                 group      : UniversalProps.group,
+                value      : {
+                    el   : 'input',
+                    parse: 'string',
+                    desc : '默认值',
+                    value: '',
+                },
             },
         },
         group     : {

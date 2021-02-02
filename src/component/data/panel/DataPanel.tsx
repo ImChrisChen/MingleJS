@@ -32,7 +32,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 获取到组件实例 才能被外部调用
     public static async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
-        let data = await this.getData(dataset);
+        let data = await this.getData(dataset);     // {}
         let root = await this.parseElement(el, data);
         console.log(root);
 
@@ -44,6 +44,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     }
 
     public static parseElement(rootElement: HTMLElement | Array<HTMLElement>, model: object) {
+
+        if (!rootElement) return rootElement;
+
         let root = rootElement;
 
         // 支持单个element 和 多个 element 处理

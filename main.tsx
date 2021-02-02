@@ -11,6 +11,8 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 import { Monitor } from './src/services/Monitor';
+import DataPanel from './src/component/data/panel/DataPanel';
+import { isString } from './utils/inspect';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -38,8 +40,27 @@ window.addEventListener('load', async () => {
     });
 });
 
+interface IMingleOptions {
+    el: string
+    data: object
+}
+
+class Mingle {
+
+    constructor(options: IMingleOptions) {
+        let { el, data } = options;
+        let node = DataPanel.parseElement(document.querySelector(el) as HTMLElement, data);
+        new App(node);
+    }
+
+    public static render(node: HTMLElement) {
+        new App(node);
+    }
+}
+
 App.globalEventListener();
 window['$'] = $;
 window['Message'] = message;
 window['Notice'] = notification;
 window['jsonp'] = jsonp;
+window['Mingle'] = Mingle;
