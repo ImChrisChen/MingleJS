@@ -5,16 +5,13 @@ import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isArray, isFunc, isUndefined } from '@utils/inspect';
+import { isArray, isCustomElement, isFunc, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
-import moment from 'moment';
-import axios from 'axios';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
 import { Monitor } from '@services/Monitor';
-import { MonotonicInterpolant } from 'react-dnd-html5-backend/lib/MonotonicInterpolant';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -81,6 +78,19 @@ export default class App {
         }
     }
 
+    async init2(rootElement: HTMLElement) {
+
+        deepEachElement(rootElement, async (element, parentNode) => {
+            let { tagName, attributes } = element;
+            if (!isCustomElement(tagName)) {
+                return;
+            }
+
+            await App.parseElementLoop(element);
+        });
+
+    }
+
     async init(rootElement: HTMLElement) {
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element, parentNode) => {
@@ -118,6 +128,7 @@ export default class App {
         let container: HTMLElement, containerWrap: HTMLElement;
         let componentNames: string = attributes['data-fn']?.value ?? '';        // 组件名称
 
+
         // 处理组件容器
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
             let elementWrap: HTMLElement = document.createElement('div');
@@ -132,6 +143,8 @@ export default class App {
             container = reactContainer;
             containerWrap = element;
         }
+
+        container.hidden = true;
 
         // 没有组件名 return 掉
         if (!componentNames) {
@@ -160,7 +173,7 @@ export default class App {
             let keysArr = componentName.trim().split('-');
             // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-            const [ , , componentMethod ] = keysArr;  // 第三项
+            const [, , componentMethod] = keysArr;  // 第三项
             const Modules = await loadModules(keysArr);
             const Component = Modules.component.default;            // React组件
             const config = Modules.config;
@@ -225,7 +238,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
+        [...el.attributes].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -247,7 +260,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -282,14 +295,11 @@ export default class App {
 
         // form-group 内的组件，只在组作用域内产生关联关系
         if ($(element).closest('[data-fn=form-group]').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-fn][name]') ];
+            $formItems = [...$(element).closest('.form-group-item').find('[data-fn][name]')];
         } else {
-            $formItems = [ ...$(element).closest('form').find('[data-fn][name]') ];
+            $formItems = [...$(element).closest('form').find('[data-fn][name]')];
         }
-
-        console.log(element);
-
-
+        
         $formItems.forEach(formItem => {
             let dataset = formItem.dataset;
 
@@ -362,7 +372,7 @@ export default class App {
 
                     let groupname = element.getAttribute('data-group');
                     let formElement = $(element).closest('form[data-fn]');
-                    let groups = [ ...formElement.find(`input[data-fn][data-group=${ groupname }]`) ];
+                    let groups = [...formElement.find(`input[data-fn][data-group=${ groupname }]`)];
                     groups.forEach(el => {
                         if (el !== element) {
                             console.log(el);
@@ -503,7 +513,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
+        [...element.attributes].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
@@ -547,7 +557,10 @@ export default class App {
                 <ConfigProvider { ...globalComponentConfig } >
                     <Component { ...props } value={ value }/>
                 </ConfigProvider>
-                , container, () => callback(hooks, instance),
+                , container, () => {
+                    container.hidden = false;
+                    callback(hooks, instance)
+                },
             );
         } catch (e) {
             console.error(e);

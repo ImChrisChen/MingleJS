@@ -148,6 +148,15 @@ export function isPipe(v: string) {
     return /[0-9]+ |> ([a-zA-Z])/.test(v);
 }
 
+// 判断是否是自定义元素
+export function isCustomElement(tagName: string): boolean {
+    tagName = tagName.toLowerCase();
+    if (tagName === 'icon') {
+        return true;
+    }
+    return /[a-z]-[a-z]/.test(tagName);
+}
+
 // 判断字符串中是否存在html字符串
 export function isHtmlTpl(v: string): boolean {
     return /(.*?)(<[a-zA-Z]+) (.*?)/.test(v);

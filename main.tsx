@@ -12,8 +12,21 @@ import { globalComponentConfig } from './config/component.config';
 import { jsonp } from './utils/request/request';
 import { Monitor } from './src/services/Monitor';
 import DataPanel from './src/component/data/panel/DataPanel';
-import { isFunc, isString } from './utils/inspect';
 import axios from 'axios';
+
+class FormSelect extends HTMLElement {
+
+    input = this.querySelector('input') as HTMLInputElement;
+
+    constructor() {
+        super();
+        // @ts-ignore
+        this.input.value = this.getAttribute('value');
+    }
+}
+
+window.customElements.define('form-select', FormSelect);
+
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -59,6 +72,7 @@ export class Mingle {
     public $jsonp = jsonp;
 
     constructor(private readonly options: IMingleOptions) {
+        // message
         this.run();
     }
 
@@ -80,11 +94,11 @@ export class Mingle {
 
         await created?.call(proxyData);
         let container = document.querySelector(el) as HTMLElement;
-        container.style.display = 'none';
+        container.hidden = true;
         let node = DataPanel.parseElement(container, data);
         await Mingle.render(node);
         await mounted?.call(proxyData);
-        container.style.display = 'block';
+        container.hidden = false;
     }
 
     public static render(node: HTMLElement | Array<HTMLElement>) {
