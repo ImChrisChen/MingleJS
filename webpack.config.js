@@ -258,10 +258,12 @@ module.exports = {
             chunkFilename: '[name].css', // manifest.css
         }),
         
-        new webpack.WatchIgnorePlugin([
-            /(css)\.d\.ts$/,
-            isProduction ? /(.+?).md$/ : '',
-        ]),
+        new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
+        
+        // new webpack.WatchIgnorePlugin([
+        //     /(css)\.d\.ts$/,
+        //     isProduction ? /(.+?).md$/ : '',
+        // ]),
         
         // 处理html
         new HtmlWebpackPlugin({
