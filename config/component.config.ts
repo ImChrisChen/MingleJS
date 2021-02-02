@@ -1032,7 +1032,13 @@ export default {
             component: import('@component/view/panel/ViewPanel'),
             property : {
                 dataset: {
-                    url  : UniversalProps.url,
+                    // url  : UniversalProps.url,
+                    url  : {
+                        el   : 'input',
+                        parse: 'string',
+                        desc : '',
+                        value: '',
+                    },
                     model: {
                         el   : 'input',
                         parse: 'JSON',

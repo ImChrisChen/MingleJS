@@ -80,9 +80,11 @@ export class Mingle {
 
         await created?.call(proxyData);
         let container = document.querySelector(el) as HTMLElement;
+        container.style.display = 'none';
         let node = DataPanel.parseElement(container, data);
         await Mingle.render(node);
         await mounted?.call(proxyData);
+        container.style.display = 'block';
     }
 
     public static render(node: HTMLElement | Array<HTMLElement>) {
