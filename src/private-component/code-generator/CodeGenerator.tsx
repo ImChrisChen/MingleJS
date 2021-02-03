@@ -114,12 +114,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     //  区分form组件 和其他组件的调用标签 input  / div
     getTemplate(componentName) {
-        let [ group ] = componentName.split('-');
-        if (group === 'form') {
-            return '<input data-fn="form-button" />';
-        } else {
-            return '<div data-fn="form-button" ></div>';
-        }
+        // let [ group ] = componentName.split('-');
+        // if (group === 'form') {
+        //     return '<input data-fn="form-button" />';
+        // } else {
+        //     return '<div data-fn="form-button" ></div>';
+        // }
+        return '<:CustomElementDefault: ></:CustomElementDefault:>';
     }
 
     async reloadChangeComponent(componentName: string, currentComponent) {
@@ -303,9 +304,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         }).filter(t => t).join(' ');
 
         // 正则替换生成代码
-        let componentUseCode = template.replace(/data-fn="(.*?)"/, v => {
-            v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
-            return `${ v } ${ attrs }`;
+        let componentUseCode = template.replace(/<:CustomElementDefault:(.*?)/, v => {
+            // v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
+            return `${ v } \n\t ${ attrs }`;
+        });
+
+        componentUseCode = componentUseCode.replace(/:CustomElementDefault:/g, v => {
+            return componentName;
         });
 
         // 生成钩子函数代码
