@@ -5,7 +5,7 @@
  * Time: 8:26 下午
  */
 import { IComponentProps } from '@interface/common/component';
-import React, { ReactNode, ReactPropTypes } from 'react';
+import React, { ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
 import { parseTpl } from '@utils/parser-tpl';
@@ -61,6 +61,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             this.parseProperty(el, model);
             this.parseTextContent(el, model);
             this.parseForeach(el, model);
+            this.parseEventListen(el, model);
 
         });
         return root;
@@ -79,6 +80,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
             if (isWuiTpl(value)) {
                 value = parseTpl(value, model, 'tpl');
+                console.log(value);
                 el.setAttribute(name, value);
                 // console.log(name, value);
                 // el.setStore(name, value);
@@ -93,7 +95,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 文本解析 解析规则 <p> 平台:<{pf}> <p>
     public static parseTextContent(el: HTMLElement, model: object) {
-        [ ...el.childNodes ].forEach(node => {
+        [...el.childNodes].forEach(node => {
 
             // node 节点
             // @ts-ignore
@@ -147,13 +149,13 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [ arrayName, itemName ]: Array<string> = value.split('as');
+        let [arrayName, itemName]: Array<string> = value.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [ itemName, indexName ] = itemIndex.split(',');
+            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [itemName, indexName] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -240,7 +242,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 解析 ...object 拓展运算符(属性)
     public static parseExpand(el: HTMLElement, model: object, name: string) {
-        let [ , expandByte ]: Array<string> = name.split('...');
+        let [, expandByte]: Array<string> = name.split('...');
         let fieldArr = expandByte.split('.');
         let itemModel: object = fieldArr.reduce((data, field) => {
             if (isObject(data)) {
@@ -264,6 +266,32 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         }
         // ...items 运算符删除掉
         el.removeAttribute(name);
+    }
+
+    // 解析自定义监听事件
+    public static parseEventListen(el: HTMLElement, model: object) {
+        for (const { name, value } of el.attributes) {
+            if (name.startsWith('@')) {
+                let [, event] = name.split('@');
+                let [method, arg] = value.split(/\((.+?)\)/);
+                let argument = arg.split(',');
+                argument = argument.map(item => {
+                    try {
+                        return eval(item);      // 参数是字符串
+                    } catch (e) {
+                        let data = parseTpl(item, model, 'field');  // 参数是变量
+                        return data;
+                        // return isJSON(data) ? JSON.parse(data) : data;
+                    }
+                });
+
+                if (!method) continue;
+                $(el).on(event, (...args) => {
+                    console.log(method, value, model);
+                    model[method]?.(...args, ...argument);
+                });
+            }
+        }
     }
 
     public static async getData(dataset) {

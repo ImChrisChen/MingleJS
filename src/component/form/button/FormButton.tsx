@@ -9,7 +9,6 @@ import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
-import { isUndefined } from '@utils/inspect';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 export default class FormButton extends React.Component<IComponentProps, any> {
@@ -39,6 +38,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
         let value = e.target.value;
         console.log(this.props.el);
         this.setState({ value }, () => trigger(this.props.el, value));
+        $(this.props.el).trigger('aaa');
     }
 
     render() {
