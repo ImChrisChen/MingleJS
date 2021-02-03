@@ -14,20 +14,6 @@ import { Monitor } from './src/services/Monitor';
 import DataPanel from './src/component/data/panel/DataPanel';
 import axios from 'axios';
 
-class FormSelect extends HTMLElement {
-
-    input = this.querySelector('input') as HTMLInputElement;
-
-    constructor() {
-        super();
-        // @ts-ignore
-        this.input.value = this.getAttribute('value');
-    }
-}
-
-window.customElements.define('form-select', FormSelect);
-
-
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
 if (docs) {
@@ -81,16 +67,7 @@ export class Mingle {
         data = data || {};
         methods = methods || {};
         let o = Object.assign(data, methods, this);
-        let proxyData = new Proxy(o, {
-            // get(target: object & { [p: string]: (...args: any) => any }, p: PropertyKey, receiver: any): any {
-            //     console.log(target, p);
-            // },
-            //
-            // set(target: object & { [p: string]: (...args: any) => any }, p: PropertyKey, value: any, receiver: any): boolean {
-            //     console.log(target, p);
-            //     return true;
-            // },
-        });
+        let proxyData = new Proxy(o, {});       // Proxy
 
         await created?.call(proxyData);
         let container = document.querySelector(el) as HTMLElement;
