@@ -9,8 +9,8 @@ import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
-import { jsonp } from './utils/request/request';
-import { Monitor } from './src/services/Monitor';
+import { jsonp } from '@utils/request/request';
+import { Monitor } from '@services/Monitor';
 import DataPanel from './src/component/data/panel/DataPanel';
 import axios from 'axios';
 

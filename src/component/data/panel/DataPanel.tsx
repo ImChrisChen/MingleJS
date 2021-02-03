@@ -91,7 +91,23 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 文本解析 解析规则 <p> 平台:<{pf}> <p>
     public static parseTextContent(el: HTMLElement, model: object) {
-        el.childNodes.forEach(node => {
+        console.log(el);
+        [ ...el.childNodes ].forEach(node => {
+
+            // node 节点
+            // @ts-ignore
+            if (node.nodeType === 1) {
+                // #document-frament 节点
+                // @ts-ignore
+                if (node.content && node.content.nodeType === 11 && node.content instanceof DocumentFragment) {
+                    console.log(node);
+                    // @ts-ignore
+                    this.parseTextContent(node.content, model);
+                } else {
+                    this.parseTextContent(node as HTMLElement, model);
+                }
+            }
+
             // 处理文本节点
             if (node.nodeType === 3) {
                 let textNode = node.textContent;

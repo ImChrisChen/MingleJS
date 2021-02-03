@@ -40,6 +40,7 @@ interface IModules {
     Component: any                  //  被调用的组件
     container?: HTMLElement          //  组件渲染的React容器
     // containerWrap: HTMLElement      //  组件根容器
+    templates?: object
     hooks: object                   //  钩子
     // componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
@@ -58,23 +59,12 @@ interface IInstances {
     instance?: ReactInstance
 }
 
-//渲染 Mingle 组件
-class MingleComponent {
-
-    constructor(private readonly el: HTMLElement) {
-        this.render(el);
-    }
-
-    async render(el: HTMLElement) {
-
-    }
-
-}
+type ITemplateName = 'children' | '';
 
 export default class App {
 
     public static instances: IInstances = {};      // 组件实例
-    private static registerComponents: Array<string> = [];         // 注册过的自定义组件
+    public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
     constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
 
@@ -96,7 +86,7 @@ export default class App {
     // web-components
     async init2(rootElement: HTMLElement) {
 
-        deepEachElement(rootElement, async (element, parentNode) => {
+        deepEachElement(rootElement, async (element) => {
             let { tagName } = element;
             tagName = tagName.toLowerCase();
             if (!isCustomElement(tagName)) {
@@ -156,8 +146,18 @@ export default class App {
 
         let { attributes, tagName: componentName } = el;
         componentName = componentName.toLowerCase();
+        let tpls = [ ...el.querySelectorAll('template') ];
+        let templates = {};
 
-        let templates: Array<any> = [];
+        for (const tpl of tpls) {
+            console.log(tpl);
+            let name = tpl.attributes['name']?.value;
+            if (!name) continue;
+            console.log(name, tpl, templates);
+            templates[name] = tpl.content.cloneNode(true);
+        }
+
+        // let templates: Array<any> = [];
 
         // TODO 设置组件唯一ID
         let componentUID = App.getUUID();
@@ -183,6 +183,7 @@ export default class App {
         let module: IModules = {
             Component,
             element: el,
+            templates,
             hooks,
             defaultProperty,
             config,
