@@ -79,7 +79,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
             if (isWuiTpl(value)) {
                 value = parseTpl(value, model, 'tpl');
-                el.setAttribute(name, value);
+                // el.setAttribute(name, value);
+                console.log(name, value);
+                el.setStore(name, value);
             }
 
             // '...data'
@@ -96,6 +98,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             // node 节点
             // @ts-ignore
             if (node.nodeType === 1) {
+
                 // #document-frament 节点
                 // @ts-ignore
                 if (node.content && node.content.nodeType === 11 && node.content instanceof DocumentFragment) {

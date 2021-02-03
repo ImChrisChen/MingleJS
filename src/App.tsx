@@ -71,10 +71,6 @@ export default class App {
         if (!root) return;
 
         let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
-        let $tempContainer = $(`<div data-template-element></div>`);
-        if ($(`[data-template-element]`).length === 0) {
-            $('body').append($tempContainer);
-        }
 
         try {
             this.init2(rootElement).then(r => r);
@@ -152,7 +148,7 @@ export default class App {
         for (const tpl of tpls) {
             let name = tpl.attributes['name']?.value;
             if (!name) continue;
-            templates[name] = tpl.content.cloneNode(true);
+            templates[name] = tpl;
         }
 
         // let templates: Array<any> = [];
