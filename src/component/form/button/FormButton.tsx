@@ -21,6 +21,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.props);
         if (this.tplSelector) {
             let tpl = document.querySelector(this.tplSelector);
             console.log(tpl);

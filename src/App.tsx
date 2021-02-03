@@ -94,7 +94,7 @@ export default class App {
             }
 
             if (App.registerComponents.includes(tagName)) {
-                console.log('有注册过', App.registerComponents, tagName);
+                // console.log('有注册过', App.registerComponents, tagName);
                 return;
             }
 
@@ -150,10 +150,8 @@ export default class App {
         let templates = {};
 
         for (const tpl of tpls) {
-            console.log(tpl);
             let name = tpl.attributes['name']?.value;
             if (!name) continue;
-            console.log(name, tpl, templates);
             templates[name] = tpl.content.cloneNode(true);
         }
 
@@ -425,6 +423,10 @@ export default class App {
 
         // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
         $(element).on('change', (e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+
             // message.success(`onchange - value:${ $(element).val() }`);
             console.log(`onchange - value:${ $(element).val() }`);
 
@@ -580,9 +582,8 @@ export default class App {
     public static renderComponent(module, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, hooks, componentUID,
+            templates,
         } = module;
-
-        console.log(module);
 
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
 
@@ -600,6 +601,7 @@ export default class App {
         let instance: any = null;
         let props = {
             el     : element,
+            templates,
             // elChildren: elChildren ?? [],
             dataset: parsedDataset,
             ...parsedAttrs,
@@ -619,11 +621,12 @@ export default class App {
             ? defaultProperty.value.value(parsedDataset)
             : defaultProperty?.value?.value ?? '';
         // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
-        let value = element['value'] || defaultValue;
+        let elementValue = element.attributes['value'].value;
+        let value = elementValue || defaultValue;
 
         // TODO 如果值不相等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
         // TODO 值不相等时，才触发trigger ，重新渲染
-        if (!isUndefined(element['value']) && value !== element['value']) {
+        if (!isUndefined(elementValue) && value !== elementValue) {
             trigger(element, value);
         }
 

@@ -91,7 +91,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 文本解析 解析规则 <p> 平台:<{pf}> <p>
     public static parseTextContent(el: HTMLElement, model: object) {
-        console.log(el);
         [ ...el.childNodes ].forEach(node => {
 
             // node 节点
@@ -100,7 +99,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 // #document-frament 节点
                 // @ts-ignore
                 if (node.content && node.content.nodeType === 11 && node.content instanceof DocumentFragment) {
-                    console.log(node);
                     // @ts-ignore
                     this.parseTextContent(node.content, model);
                 } else {
@@ -167,8 +165,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         } else {                                // w-foreach="data as item"
             loopData = model[arrayName];
         }
-
-        console.log(loopData);
 
         let elseElement;
         if (!loopData) return;
