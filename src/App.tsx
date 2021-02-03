@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom';
 import { loadModules } from '@src/core/base';
 import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
-import { ConfigProvider, message } from 'antd';
+import { message } from 'antd';
 import { deepEachElement } from '@utils/util';
 import { isArray, isCustomElement, isFunc, isUndefined } from '@utils/inspect';
-import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
+import { IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
 import { Monitor } from '@services/Monitor';
-import { Mingle } from '@root/main';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -82,6 +81,7 @@ export default class App {
     // web-components
     async init2(rootElement: HTMLElement) {
 
+        App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element) => {
             let { tagName } = element;
             tagName = tagName.toLowerCase();
@@ -104,6 +104,7 @@ export default class App {
 
             App.registerComponents.push(tagName);
         });
+        App.errorVerify();
 
     }
 
@@ -139,10 +140,11 @@ export default class App {
 
     // 渲染组件 <form-select></form-select>
     public static async renderCustomElement(el: HTMLElement) {
+        el.hidden = true;
 
         let { attributes, tagName: componentName } = el;
         componentName = componentName.toLowerCase();
-        let tpls = [ ...el.querySelectorAll('template') ];
+        let tpls = [...el.querySelectorAll('template')];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -189,6 +191,7 @@ export default class App {
         }, (hooks, instance) => {
             hooks[Hooks.load]?.(instance);
             el.style.opacity = '1';
+            el.hidden = false;
         });
         App.eventListener(module);
 
@@ -247,7 +250,7 @@ export default class App {
             let keysArr = componentName.trim().split('-');
             // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-            const [ , , componentMethod ] = keysArr;  // 第三项
+            const [, , componentMethod] = keysArr;  // 第三项
             const Modules = await loadModules(keysArr);
             const Component = Modules.component.default;            // React组件
             const config = Modules.config;
@@ -312,7 +315,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
+        [...el.attributes].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -334,8 +337,9 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
+            console.log(icon);
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
             if (!Icon) {
@@ -369,9 +373,9 @@ export default class App {
 
         // form-group 内的组件，只在组作用域内产生关联关系
         if ($(element).closest('[data-fn=form-group]').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-fn][name]') ];
+            $formItems = [...$(element).closest('.form-group-item').find('[data-fn][name]')];
         } else {
-            $formItems = [ ...$(element).closest('form').find('[data-fn][name]') ];
+            $formItems = [...$(element).closest('form').find('[data-fn][name]')];
         }
 
         $formItems.forEach(formItem => {
@@ -448,7 +452,7 @@ export default class App {
 
                 let groupname = element.getAttribute('data-group');
                 let formElement = $(element).closest('form[data-fn]');
-                let groups = [ ...formElement.find(`input[data-fn][data-group=${ groupname }]`) ];
+                let groups = [...formElement.find(`input[data-fn][data-group=${ groupname }]`)];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -589,7 +593,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
+        [...element.attributes].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);

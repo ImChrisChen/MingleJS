@@ -79,9 +79,9 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
             if (isWuiTpl(value)) {
                 value = parseTpl(value, model, 'tpl');
-                // el.setAttribute(name, value);
-                console.log(name, value);
-                el.setStore(name, value);
+                el.setAttribute(name, value);
+                // console.log(name, value);
+                // el.setStore(name, value);
             }
 
             // '...data'

@@ -1,11 +1,9 @@
 <div id="mingle-box">
     <h1><{message}></h1>
 
-    <form-select onchange="console.log(this.value)">
-        <input data-fn="form-select" data-enum="1,Android;2,iOS" value="1" name="pf">
-    </form-select>
+    <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
 
-    <input data-fn="form-select" data-enum="1,Android;2,iOS" value="1" name="pf">
+    <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
 
     <ul>
         <li w-foreach="list as (item,index)" w-click="handleClick(item)">
@@ -14,11 +12,11 @@
     </ul>
 
     <ul>
-        <li w-foreach="logs as (item,i)" data-fn="view-panel" data-model="<{item}>">
+        <view-panel w-foreach="logs as (item,i)" data-model="<{item}>">
             <!--            <button data-fn="layout-window" data-label="<{i}>" data-title="<{i}>">-->
             <!--            <div data-fn="view-panel" data-model="<{item}>"></div>-->
             <!--            </button>-->
-        </li>
+        </view-panel>
     </ul>
 </div>
 
@@ -50,14 +48,14 @@
         },
 
         async created() {
-            this.logs = (await this.getLogsData()).splice(0, 50);
+            this.logs = (await this.getLogsData()).splice(0, 100);
         },
 
         methods: {
             // 获取日志
             async getLogsData() {
-                let res = await this.$get('http://mingle.local.aidalan.com/server/logs');
-                // let res = await this.$get('http://mingle.local.aidalan.com/server/mock/chart/funnel.json');
+                let res = await this.$get('http://mingle-test.local.aidalan.com/server/logs');
+                // let res = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json');
                 return res.status ? res.data : [];
             },
 

@@ -13,28 +13,27 @@ import { jsonp } from '@utils/request/request';
 import { Monitor } from '@services/Monitor';
 import DataPanel from './src/component/data/panel/DataPanel';
 import axios from 'axios';
-import { isObject } from '@utils/inspect';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
-HTMLElement.prototype.setStore = function (key: string, value: any) {
-    if (!key) {
-        console.log(`${ key }格式有误`);
-        return;
-    }
-
-    if (!isObject(this.store)) {
-        this.store = {};
-    }
-
-    console.log(this.store, key, value);
-
-    this.store[key] = value;
-};
-
-HTMLElement.prototype.getStore = function (key: string) {
-    return this.store?.[key];
-};
+// HTMLElement.prototype.setStore = function (key: string, value: any) {
+//     if (!key) {
+//         console.log(`${ key }格式有误`);
+//         return;
+//     }
+//
+//     if (!isObject(this.store)) {
+//         this.store = {};
+//     }
+//
+//     console.log(this.store, key, value);
+//
+//     this.store[key] = value;
+// };
+//
+// HTMLElement.prototype.getStore = function (key: string) {
+//     return this.store?.[key];
+// };
 
 if (docs) {
     // docs;

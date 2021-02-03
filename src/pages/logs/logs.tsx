@@ -20,8 +20,8 @@ export default class Logs extends Component<any, any> {
     }
 
     async getLogs() {
-        let res = await axios.get('/server/logs');
-        console.log(res);
+        // let res = await axios.get('/server/logs');
+        // console.log(res);
     }
 
     render() {

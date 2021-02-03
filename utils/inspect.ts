@@ -151,9 +151,6 @@ export function isPipe(v: string) {
 // 判断是否是自定义元素
 export function isCustomElement(tagName: string): boolean {
     tagName = tagName.toLowerCase();
-    if (tagName === 'icon') {
-        return true;
-    }
     return /[a-z]-[a-z]/.test(tagName);
 }
 
