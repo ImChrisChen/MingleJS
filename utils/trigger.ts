@@ -13,4 +13,5 @@ export function trigger(el: HTMLInputElement | HTMLElement | undefined, value: s
         return;
     }
     $(el).val(value).trigger('change');
+    // $(el).val(value);
 }

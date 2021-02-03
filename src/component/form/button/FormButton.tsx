@@ -36,6 +36,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
 
     handleChange(e: any) {
         let value = e.target.value;
+        console.log(this.props.el);
         this.setState({ value }, () => trigger(this.props.el, value));
     }
 

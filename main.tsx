@@ -17,7 +17,7 @@ import axios from 'axios';
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
 if (docs) {
-    // docs
+    // docs;
     ReactDOM.render(
         <ConfigProvider { ...globalComponentConfig }>
             <HashRouter>
@@ -33,6 +33,7 @@ if (docs) {
 }
 
 window.addEventListener('load', async () => {
+    // new App(document.body);
     Monitor.getPerformanceTimes(times => {
         // console.table(times);
         // Monitor.performances = times;
@@ -90,3 +91,4 @@ window['Message'] = message;
 window['Notice'] = notification;
 window['jsonp'] = jsonp;
 window['Mingle'] = Mingle;
+window['App'] = App;
