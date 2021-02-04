@@ -274,6 +274,10 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
             // element 上没有这个属性才给它设置
             if (!attrvalue) {
+                // 如果是 混合数据类型, 对数据格式做处理，否则会成为 [object,object]
+                if (isObject(value) || isArray(value)) {
+                    value = JSON.stringify(value);
+                }
                 el.setAttribute(key, value);
             }
         }
