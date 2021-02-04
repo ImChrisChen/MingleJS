@@ -107,7 +107,7 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
     switch (parse) {
 
         case 'string':            // 模版解析
-            value = parseTpl(value, document.body);
+            value = parseTpl(value, document.body, 'tpl');
             break;
 
         case 'number':

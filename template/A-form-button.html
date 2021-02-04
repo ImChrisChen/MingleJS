@@ -8,6 +8,21 @@
 
     <icon type="AppleOutlined" color="#f0f00f" size="18"/>
 
+    <form-select
+            data-label="label:"
+            data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
+            data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
+            data-disabled="false"
+            data-mode="single"
+            data-key="id"
+            data-value="<{publisher_name}>"
+            data-groupby=""
+            data-required="false"
+            data-smart="false"
+            name="form-select"
+            value="884"
+    ></form-select>
+
 </div>
 
 <script>
@@ -17,9 +32,9 @@
         data: {
             message: 'Hello world',
             option: [
-                {name: 'Chris', value: '100'},
-                {name: 'Alex', value: '90'},
-                {name: 'Eason', value: '93'},
+                { name: 'Chris', value: '100' },
+                { name: 'Alex', value: '90' },
+                { name: 'Eason', value: '93' },
             ],
         },
         methods: {
@@ -29,7 +44,7 @@
             aaa(e, data) {
                 console.log(data);
                 console.log(JSON.parse(data));
-            }
-        }
+            },
+        },
     });
 </script>

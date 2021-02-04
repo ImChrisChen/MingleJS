@@ -360,10 +360,10 @@ export default {
                 },
                 value      : {
                     el     : 'select',
+                    parse  : 'string',
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     desc   : '默认值',
-                    parse  : 'string',
                 },
                 placeholder: UniversalProps.placeholder,
                 style      : UniversalProps.style,

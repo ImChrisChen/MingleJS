@@ -144,7 +144,7 @@ export default class App {
 
         let { attributes, tagName: componentName } = el;
         componentName = componentName.toLowerCase();
-        let tpls = [...el.querySelectorAll('template')];
+        let tpls = [ ...el.querySelectorAll('template') ];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -250,7 +250,7 @@ export default class App {
             let keysArr = componentName.trim().split('-');
             // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-            const [, , componentMethod] = keysArr;  // 第三项
+            const [ , , componentMethod ] = keysArr;  // 第三项
             const Modules = await loadModules(keysArr);
             const Component = Modules.component.default;            // React组件
             const config = Modules.config;
@@ -315,7 +315,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [...el.attributes].forEach(item => {
+        [ ...el.attributes ].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -337,7 +337,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
+        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
         for (const icon of elements) {
             console.log(icon);
             let { type, color, size } = icon.attributes;
@@ -373,9 +373,9 @@ export default class App {
 
         // form-group 内的组件，只在组作用域内产生关联关系
         if ($(element).closest('[data-fn=form-group]').length > 0) {
-            $formItems = [...$(element).closest('.form-group-item').find('[data-fn][name]')];
+            $formItems = [ ...$(element).closest('.form-group-item').find('[data-fn][name]') ];
         } else {
-            $formItems = [...$(element).closest('form').find('[data-fn][name]')];
+            $formItems = [ ...$(element).closest('form').find('[data-fn][name]') ];
         }
 
         $formItems.forEach(formItem => {
@@ -452,7 +452,7 @@ export default class App {
 
                 let groupname = element.getAttribute('data-group');
                 let formElement = $(element).closest('form[data-fn]');
-                let groups = [...formElement.find(`input[data-fn][data-group=${ groupname }]`)];
+                let groups = [ ...formElement.find(`input[data-fn][data-group=${ groupname }]`) ];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -593,7 +593,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [...element.attributes].forEach(item => {
+        [ ...element.attributes ].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
@@ -621,8 +621,15 @@ export default class App {
             ? defaultProperty.value.value(parsedDataset)
             : defaultProperty?.value?.value ?? '';
         // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
-        let elementValue = element.attributes?.['value']?.value;
+
+        /**
+         * TODO 自定义元素没有 element没有value属性，和html中写入value默认值只能通过 attributes获取到，
+         * 但是值出发改变后只能通过 element.value 来获取新的值，两者存在冲突,已经在trigger方法中处理好
+         */
+        let elementValue = element.attributes?.['value']?.value ?? element['value'];
+
         let value = elementValue || defaultValue;
+        console.log(elementValue, defaultValue);
 
         // TODO 如果值不相等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
         // TODO 值不相等时，才触发trigger ，重新渲染

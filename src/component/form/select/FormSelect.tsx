@@ -35,7 +35,7 @@ interface ISelectProps {
     [key: string]: any
 }
 
-export default class Selector extends Component<IComponentProps, any> {
+export default class FormSelect extends Component<IComponentProps, any> {
 
     state = {
         checkedAll : false,
