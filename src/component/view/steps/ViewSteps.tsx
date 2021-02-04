@@ -31,7 +31,7 @@ export default class ViewSteps extends Component<IComponentProps, ReactNode> {
         setTimeout(() => {
             let steps = [ ...document.querySelectorAll('.layout-step-desc') ] as Array<HTMLElement>;
             steps.forEach((container, index) => {
-                let step = this.props.elChildren[index];
+                let step = this.props.subelements[index];
                 container.append(step);
             });
         });
@@ -43,7 +43,7 @@ export default class ViewSteps extends Component<IComponentProps, ReactNode> {
                    direction={ this.props.dataset.layout || undefined }
                    type={ this.props.dataset.type }
                    onChange={ this.handleChange.bind(this) }>
-                { this.props.elChildren.map((element, index) => {
+                { this.props.subelements.map((element, index) => {
                     return <Step
                         className="layout-step"
                         key={ index }

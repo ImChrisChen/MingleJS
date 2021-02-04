@@ -33,9 +33,9 @@ interface IModuleProperty {
 }
 
 interface IModules {
-    // { element, Component, container, elChildren }
+    // { element, Component, container, subelements }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
-    elChildren?: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
+    subelements?: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
     Component: any                  //  被调用的组件
     container?: HTMLElement          //  组件渲染的React容器
     // containerWrap: HTMLElement      //  组件根容器
@@ -99,7 +99,6 @@ export default class App {
                     super();
                     App.renderCustomElement(this);
                 }
-
             });
 
             App.registerComponents.push(tagName);
@@ -201,7 +200,7 @@ export default class App {
     public static async renderCustomElement1(element: HTMLElement) {
 
         let attributes = element.attributes;
-        let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
+        let subelements: Array<HTMLElement | any> = Array.from(element.children ?? []);
         let container: HTMLElement, containerWrap: HTMLElement;
         let componentNames: string = attributes['data-fn']?.value ?? '';        // 组件名称
 
@@ -258,7 +257,7 @@ export default class App {
             let defaultProperty = Modules.property;
 
             // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-            // let elChildren: Array<HTMLElement | any> = [];
+            // let subelements: Array<HTMLElement | any> = [];
 
             let hooks = App.formatHooks(attributes);
             let module: IModules = {
@@ -266,7 +265,7 @@ export default class App {
                 element,
                 container,
                 // containerWrap,
-                elChildren,
+                subelements,
                 hooks,
                 // componentMethod,
                 defaultProperty,
@@ -602,7 +601,7 @@ export default class App {
             el         : element,
             templates,
             subelements: [],
-            // elChildren: elChildren ?? [],
+            // subelements: subelements ?? [],
             dataset    : parsedDataset,
             ...parsedAttrs,
             ref        : componentInstance => {        // 组件实例

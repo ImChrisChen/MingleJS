@@ -49,7 +49,7 @@
         },
 
         async created() {
-            this.logs = (await this.getLogsData()).splice(0, 100);
+            this.logs = (await this.getLogsData());
         },
 
         methods: {

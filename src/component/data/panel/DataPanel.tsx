@@ -43,7 +43,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     public static async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
         let data = await this.getData(dataset);     // {}
         let root = await this.parseElement(el, data);
-        console.log(root);
 
         if (!isArray(el)) {
             el.style.visibility = 'visible';
@@ -89,7 +88,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
             if (isWuiTpl(value)) {
                 value = parseTpl(value, model, 'tpl');
-                console.log(value);
                 el.setAttribute(name, value);
                 // console.log(name, value);
                 // el.setStore(name, value);
@@ -293,7 +291,6 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
                 let [ method, arg ] = value.split(/\((.+?)\)/);
                 let argument = arg.split(',');
                 argument = argument.map(param => {
-                    console.log(param);
                     try {
                         /**
                          * 参数是字符串 * 当作JS执行,如果报错解析不了

@@ -1,4 +1,4 @@
-<div data-fn="data-panel"
+<data-panel
      data-model='{"status":true,"height":600,"title":"用户列表","msg": "返回成功","data":[{"name":"Chris","age":20},{"name":"Alex","age":30}]}'
 >
     <h2>标题: <{ title }></h2>
@@ -11,59 +11,59 @@
             <h1> 姓名: <{item.name.length * 100}>年龄: <{item.age}>
                 <icon type="AppleOutlined" color="#f0f00f" size="18"/>
             </h1>
-            <input data-fn="form-radio"
+            <form-radio
                    data-label="label:"
                    data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
                    data-disabled="false"
                    data-size="设置大小"
                    data-optionType="button"
                    name="form-select"
-            />
+            ></form-radio>
         </li>
     </ul>
 
-    <button class="ant-btn ant-btn-primary"
-            data-fn="handle-request">
+    <handle-request class="ant-btn ant-btn-primary"
+            >
         Request
-    </button>
+    </handle-request>
 
-    <button class="ant-btn ant-btn-primary" data-fn="layout-window" data-content="Submit">
+    <layout-window class="ant-btn ant-btn-primary"  data-content="Submit">
         <div class="container">
             <h1><{ title }></h1>
-            <div data-fn="data-table"
+            <data-table
                  data-height="400"
                  data-from="user_analysis"
                  data-headerurl="/server/mock/table/tableHeader.json"
                  data-url="/server/mock/table/tableContent.json"
-            ></div>
+            ></data-table>
 
         </div>
-    </button>
+    </layout-window>
 
-</div>
+</data-panel>
 
 
-<div data-fn="layout-tab" data-current="0">
+<layout-tab  data-current="0">
 
     <div data-title="类型1">
-        <div data-fn="data-table"
+        <data-table
              data-height="400"
              data-from="user_analysis"
              data-headerurl="/server/mock/table/tableHeader.json"
              data-url="/server/mock/table/tableContent.json"
-        ></div>
+        ></data-table>
     </div>
 
     <div data-title="类型2">
-        <div data-fn="data-table"
+        <data-table
              data-height="800"
              data-from="user_analysis"
              data-headerurl="/server/mock/table/tableHeader.json"
              data-url="/server/mock/table/tableContent.json"
-        ></div>
+        ></data-table>
     </div>
 
-</div>
+</layout-tab>
 
 
 // 数据统计任务配置
