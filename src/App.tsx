@@ -615,7 +615,6 @@ export default class App {
             },
         };
 
-
         // 处理 value 属性
         let defaultValue = typeof defaultProperty?.value?.value === 'function'
             ? defaultProperty.value.value(parsedDataset)
