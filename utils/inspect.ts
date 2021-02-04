@@ -30,7 +30,7 @@ export function isObject(v): v is object {
 }
 
 export function isEmptyObject(v) {
-    return JSON.stringify(v) === '{}';
+    return isObject(v) && Object.keys(v).length === 0;
 }
 
 export function isArray(v): v is Array<any> {
@@ -38,7 +38,7 @@ export function isArray(v): v is Array<any> {
 }
 
 export function isEmptyArray(v): boolean {
-    return JSON.stringify(v) === '[]';
+    return v.constructor === Array && v.length === 0;
 }
 
 export function isNoEmptyArray(v): boolean {
@@ -50,7 +50,7 @@ export function isUndefined(v): v is undefined {
 }
 
 export function isFunc(v): v is Function {
-    return typeof v === 'function';
+    return typeof v === 'function' && v.constructor === Function;
 }
 
 // 判断是否是 JSON 字符串

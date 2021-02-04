@@ -37,7 +37,7 @@ interface IModules {
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
     subelements?: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
     Component: any                  //  被调用的组件
-    container?: HTMLElement          //  组件渲染的React容器
+    container: HTMLElement          //  组件渲染的React容器
     // containerWrap: HTMLElement      //  组件根容器
     templates?: object
     hooks: object                   //  钩子
@@ -139,10 +139,16 @@ export default class App {
 
     // 渲染组件 <form-select></form-select>
     public static async renderCustomElement(el: HTMLElement) {
-        console.log('renderCustomElement', el);
+        // TODO 设置组件唯一ID
+        let componentUID = App.getUUID();
+        el.setAttribute('data-component-uid', componentUID);
+        
         el.hidden = true;
 
         let subelements = [ ...el.children ].map(child => child.cloneNode(true)) as Array<HTMLElement>;
+        
+        let container = document.createElement('div');
+        el.append(container)
 
         let { attributes, tagName: componentName } = el;
         componentName = componentName.toLowerCase();
@@ -157,9 +163,6 @@ export default class App {
 
         // let templates: Array<any> = [];
 
-        // TODO 设置组件唯一ID
-        let componentUID = App.getUUID();
-        el.setAttribute('data-component-uid', componentUID);
 
         // 外部模块
         if (componentName.startsWith('self-')) {
@@ -183,6 +186,7 @@ export default class App {
             element: el,
             templates,
             subelements,
+            container,
             hooks,
             defaultProperty,
             config,
@@ -583,9 +587,7 @@ export default class App {
 
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
-            element, defaultProperty, Component, hooks, componentUID,
-            subelements,
-            templates,
+            element, defaultProperty, Component, hooks, componentUID, subelements, templates, container,
         } = module;
 
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
@@ -649,7 +651,7 @@ export default class App {
                 // <ConfigProvider { ...globalComponentConfig } >
                 <Component { ...props } value={ value }/>
                 // </ConfigProvider>
-                , element, () => {
+                , container, () => {
                     callback(hooks, instance);
                 },
             );

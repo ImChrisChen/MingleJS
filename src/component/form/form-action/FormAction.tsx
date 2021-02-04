@@ -404,6 +404,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     render() {
+        console.log('formaction');
         return <>
             <FormSmart el={ this.props.el }/>
         </>;

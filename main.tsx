@@ -72,18 +72,42 @@ interface IMingleOptions {
 
 export class Mingle {
 
-    public $axios = axios;
-    public $get = axios.get;
-    public $post = axios.post;
-    public $jsonp = jsonp;
-
-    constructor(private readonly options: IMingleOptions) {
-        // message
-        this.run();
+    constructor(options: IMingleOptions) {
+        this.run(options);
     }
 
-    private async run() {
-        let { el, data, created, methods, mounted } = this.options;
+    // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上，在外部无法调用到函数
+    public $get = async (url, ...args) => {
+        return Mingle.httpResponseInterceptor(await axios.get(url, ...args));
+    };
+
+    public $post = async (url, ...args) => {
+        return Mingle.httpResponseInterceptor(await axios.post(url, ...args));
+    };
+
+    public $delete = async (url, ...args) => {
+        return Mingle.httpResponseInterceptor(await axios.delete(url, ...args));
+    };
+
+    public $put = async (url, ...args) => {
+        return Mingle.httpResponseInterceptor(await axios.put(url, ...args));
+    };
+
+    public $jsonp = async (url) => {
+        return Mingle.httpResponseInterceptor(await jsonp(url));
+    };
+
+    private static async httpResponseInterceptor(res) {
+        if (res?.status) {
+            return res.data;
+        } else {
+            message.error(res?.msg ?? res?.message ?? 'request error !');
+            return [];
+        }
+    }
+
+    private async run(options) {
+        let { el, data, created, methods, mounted } = options;
         data = data || {};
         methods = methods || {};
         let o = Object.assign(data, methods, this);
@@ -94,7 +118,7 @@ export class Mingle {
         if (!container) return;
 
         container.hidden = true;
-        let node = DataPanel.parseElement(container, data);
+        let node = DataPanel.parseElement(container, proxyData);
         await Mingle.render(node);
         await mounted?.call(proxyData);
         container.hidden = false;
