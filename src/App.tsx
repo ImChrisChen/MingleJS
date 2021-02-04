@@ -339,7 +339,6 @@ export default class App {
     public static renderIcons(rootElement: HTMLElement) {
         let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
         for (const icon of elements) {
-            console.log(icon);
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
             if (!Icon) {
@@ -600,12 +599,13 @@ export default class App {
 
         let instance: any = null;
         let props = {
-            el     : element,
+            el         : element,
             templates,
+            subelements: [],
             // elChildren: elChildren ?? [],
-            dataset: parsedDataset,
+            dataset    : parsedDataset,
             ...parsedAttrs,
-            ref    : componentInstance => {        // 组件实例
+            ref        : componentInstance => {        // 组件实例
                 // componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
                 App.instances[componentUID] = {
@@ -628,7 +628,6 @@ export default class App {
         let elementValue = element.attributes?.['value']?.value ?? element['value'];
 
         let value = elementValue || defaultValue;
-        console.log(elementValue, defaultValue);
 
         // TODO 如果值不相等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
         // TODO 值不相等时，才触发trigger ，重新渲染

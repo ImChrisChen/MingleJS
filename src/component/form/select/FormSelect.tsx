@@ -148,7 +148,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
 
     handleClear() {
         this.setState({ checkedAll: false });
-        trigger(this.props.el, '');
+        trigger(this.props.el, '', 'clear');
     }
 
     handleSelectAll(e) {

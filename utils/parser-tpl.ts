@@ -6,7 +6,16 @@
  */
 
 // 正则手册 https://tool.oschina.net/uploads/apidocs/jquery/regexp.html
-import { isArray, isDOM, isEmptyObject, isEmptyStr, isObject, isString, isUndefined } from '@utils/inspect';
+import {
+    isArray,
+    isDOM,
+    isEmptyObject,
+    isEmptyStr,
+    isObject,
+    isObjectKeys,
+    isString,
+    isUndefined,
+} from '@utils/inspect';
 import { parserEscape2Html } from '@utils/parser-char';
 
 declare type tplTyle = 'tpl' | 'field'
@@ -58,6 +67,35 @@ export function parseExpand(tpl: string, itemData: IParseModeData) {
     });
 }
 
+/**
+ * 根据点操作符解析获取对象属性
+ * @param keys  'item.name'
+ * @param model { item: {name: 'Chris'} }
+ *  'Chris'
+ */
+export function getObjectValue(keys: string, model: object = {}): any {
+
+    let isDone = false;
+
+    //多重属性
+    if (keys.includes('.')) {
+        let fieldArr = keys.split('.').filter(t => t);
+        let ov: any = fieldArr.reduce((data, fieldItem) => {
+            // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
+            let value = data[fieldItem.trim()];
+            if (isUndefined(value)) {
+                // console.warn(`${ field } 未匹配到模版变量，暂不替换`, itemData);
+                isDone = true;
+                return {};
+            }
+            return value;
+        }, model);       // item.name
+        return isDone ? undefined : ov;
+    } else {
+        return model[keys];
+    }
+}
+
 function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
     fields.forEach(field => {
         let regExp = createRegExp(type, field);
@@ -66,25 +104,20 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
             let fs = getExpressFields(field);
             tpl = replaceTplDataValue(fs, itemData, tpl, 'field');
         } else {
-            // 多级属性访问 例如: "<{product.detail.title}>"
-            if (/[^0-9]\.[^0-9]/.test(field)) {
-                let fieldArr = field.split('.');
-                let objectValue: any = fieldArr.reduce((data, fieldItem) => {
-                    // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
-                    let value = data[fieldItem.trim()];
-                    if (isUndefined(value)) {
-                        // console.warn(`${ field } 未匹配到模版变量，暂不替换`, itemData);
-                        return {};
-                    }
-                    return value;
-                }, itemData);       // item.name
-                if (isEmptyObject(objectValue)) {   // 如果是空对象，说明没匹配到值
+
+            // 多级属性访问 例如: "product.detail.title"
+            if (isObjectKeys(field)) {
+
+                let objectValue = getObjectValue(field, itemData);      // 解析后的值
+
+                // if (isEmptyObject(objectValue)) {   // 如果是空对象，说明没匹配到值
+                if (isUndefined(objectValue)) {   // 如果是undefined，说明没匹配到值,或者值本来就是 undefined 都不做替换
                     let val = type === 'tpl' ? `<{${ field }}>` : field;
                     // tpl = tpl.replace(regExp, val);
-                    tpl = replaceSetTpl(tpl, regExp, val);
+                    tpl = setTpl(tpl, regExp, val);
                 } else {
                     // tpl = tpl.replace(regExp, objectValue);
-                    tpl = replaceSetTpl(tpl, regExp, objectValue);
+                    tpl = setTpl(tpl, regExp, objectValue);
                 }
                 // 单级属性访问 例如: "<{product}>"
             } else {
@@ -98,7 +131,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
                     // console.warn(` ${ field } 未匹配到模版变量，暂不替换`, itemData);
                 } else {
                     // tpl = tpl.replace(regExp, val);
-                    tpl = replaceSetTpl(tpl, regExp, val);
+                    tpl = setTpl(tpl, regExp, val);
                 }
             }
         }
@@ -107,7 +140,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
 }
 
 // 模版替换 统一收拢
-function replaceSetTpl(tpl: string, regExp: RegExp, value: string | object) {
+function setTpl(tpl: string, regExp: RegExp, value: string | object) {
     if (isObject(value) || isArray(value)) {
         value = JSON.stringify(value);
     }

@@ -12,11 +12,12 @@
     </ul>
 
     <ul>
-        <view-panel w-foreach="logs as (item,i)" data-model="<{item}>">
+        <li w-foreach="logs as (item,i)" data-model="<{item}>" ...item>
+            <{item}>
             <!--            <button data-fn="layout-window" data-label="<{i}>" data-title="<{i}>">-->
             <!--            <div data-fn="view-panel" data-model="<{item}>"></div>-->
             <!--            </button>-->
-        </view-panel>
+        </li>
     </ul>
 </div>
 
@@ -27,22 +28,22 @@
         data: {
             message: 'Hello World',
             list: [
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
             ],
             logs: [
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
-                {name: 'Chris', value: 'Chris'},
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
             ],
             pf: $('[name=pf]').val(),
         },
@@ -61,7 +62,7 @@
 
             handleClick(item) {
                 console.log(item);
-            }
+            },
         },
     });
 </script>

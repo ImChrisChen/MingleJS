@@ -62,7 +62,7 @@ export function isJSON(v: string): boolean {
 
     try {
         let obj = JSON.parse(v);
-        if (obj && isObject(obj)) {
+        if (isObject(obj) || isArray(obj)) {
             return true;
         } else {
             return false;
@@ -72,6 +72,17 @@ export function isJSON(v: string): boolean {
         console.log('error：' + v + '!!!' + e);
         return false;
     }
+}
+
+/**
+ * 判断是否是多层调用对象的key的结构
+ * 如:
+ * 'item.name'  => true
+ * 'item.100'   => false
+ * @param v
+ */
+export function isObjectKeys(v: string): boolean {
+    return /[^0-9]\.[^0-9]/.test(v);
 }
 
 type IdataType =

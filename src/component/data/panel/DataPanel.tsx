@@ -8,9 +8,18 @@ import { IComponentProps } from '@interface/common/component';
 import React, { ReactNode } from 'react';
 import { jsonp } from '@utils/request/request';
 import { deepEachElement } from '@utils/util';
-import { parseTpl } from '@utils/parser-tpl';
+import { getObjectValue, parseTpl } from '@utils/parser-tpl';
 import $ from 'jquery';
-import { isArray, isEmptyObject, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
+import {
+    isArray,
+    isEmptyObject,
+    isExpandSymbol,
+    isJSON,
+    isObject,
+    isString,
+    isUndefined,
+    isWuiTpl,
+} from '@utils/inspect';
 import { elementWrap } from '@utils/parser-dom';
 import App from '@src/App';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
@@ -95,7 +104,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 文本解析 解析规则 <p> 平台:<{pf}> <p>
     public static parseTextContent(el: HTMLElement, model: object) {
-        [...el.childNodes].forEach(node => {
+        [ ...el.childNodes ].forEach(node => {
 
             // node 节点
             // @ts-ignore
@@ -149,13 +158,13 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             express = parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [arrayName, itemName]: Array<string> = value.split('as');
+        let [ arrayName, itemName ]: Array<string> = value.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -242,17 +251,21 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
 
     // 解析 ...object 拓展运算符(属性)
     public static parseExpand(el: HTMLElement, model: object, name: string) {
-        let [, expandByte]: Array<string> = name.split('...');
-        let fieldArr = expandByte.split('.');
-        let itemModel: object = fieldArr.reduce((data, field) => {
-            if (isObject(data)) {
-                return data[field];
-            } else {
-                return {};
-            }
-        }, model);
+        let [ , key ]: Array<string> = name.split('...');
 
-        if (!itemModel || isEmptyObject(itemModel)) return;
+        let itemModel = getObjectValue(key, model);
+
+        // let fieldArr = expandByte.split('.');
+        // let itemModel: object = fieldArr.reduce((data, field) => {
+        //     if (isObject(data)) {
+        //         return data[field];
+        //     } else {
+        //         return {};
+        //     }
+        // }, model);
+        // if (!itemModel || isEmptyObject(itemModel)) return;
+
+        if (isUndefined(itemModel)) return;
 
         for (const key in itemModel) {
             if (!itemModel.hasOwnProperty(key)) continue;
@@ -272,23 +285,40 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     public static parseEventListen(el: HTMLElement, model: object) {
         for (const { name, value } of el.attributes) {
             if (name.startsWith('@')) {
-                let [, event] = name.split('@');
-                let [method, arg] = value.split(/\((.+?)\)/);
+                let [ , event ] = name.split('@');
+                let [ method, arg ] = value.split(/\((.+?)\)/);
                 let argument = arg.split(',');
-                argument = argument.map(item => {
+                argument = argument.map(param => {
+                    console.log(param);
                     try {
-                        return eval(item);      // 参数是字符串
+                        /**
+                         * 参数是字符串 * 当作JS执行,如果报错解析不了
+                         * "'name'" => 'name'
+                         * 'window' => window 对象
+                         * 'message' => eval后 error 报错 解析不了，走到catch 说明使用的是 data 里面的
+                         */
+                        // widnow下的属性方法 包括 window
+                        if (param in window) {
+                            /**
+                             * TODO 很有可能是eval 解析成了全局的属性方法 eval('window') eval('location') 等等,此时会和属性有冲突 -- 先不开放全局属性解析
+                             */
+                            console.warn(`属性 ${ param }  与全局属性冲突,不提供全局属性解析,只开放data对象里的属性作为解析,`);
+                            return model[param];   // data['window']
+                        } else {
+                            // "'name'" => 'name' 不在window里面,直接用 data 对象的值去解析
+                            // TODO handleClick(location.href) 存在这种情况的解析
+                            return eval(param);
+                        }
                     } catch (e) {
-                        let data = parseTpl(item, model, 'field');  // 参数是变量
-                        return data;
-                        // return isJSON(data) ? JSON.parse(data) : data;
+                        let pv = getObjectValue(param, model);
+                        return pv;
                     }
                 });
 
                 if (!method) continue;
+                console.log(event, method, argument, model);
                 $(el).on(event, (...args) => {
-                    console.log(method, value, model);
-                    model[method]?.(...args, ...argument);
+                    model?.[method]?.(...args, ...argument);
                 });
             }
         }
