@@ -33,7 +33,7 @@ export default class CodeEditor extends Component<any, any> {
         let el = $(this.props.dataset.value);
         let elementContainer = document.querySelector('.show-code') as HTMLElement;
         $('.show-code').html('').append(el);
-        new App(elementContainer);
+        // new App(elementContainer);
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {

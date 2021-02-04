@@ -242,12 +242,12 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     // 组件的Props更新时触发
-    componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
-        let { name, config } = nextProps;
-        if (name && config) {
-            this.reloadChangeComponent(name, config);
-        }
-    }
+    // componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
+    //     let { name, config } = nextProps;
+    //     if (name && config) {
+    //         this.reloadChangeComponent(name, config);
+    //     }
+    // }
 
     // 选择组件
     async handleChangeComponent(e, v) {

@@ -289,32 +289,42 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             if (name.startsWith('@')) {
                 let [ , event ] = name.split('@');
                 let [ method, arg ] = value.split(/\((.+?)\)/);
-                let argument = arg.split(',');
-                argument = argument.map(param => {
-                    try {
-                        /**
-                         * 参数是字符串 * 当作JS执行,如果报错解析不了
-                         * "'name'" => 'name'
-                         * 'window' => window 对象
-                         * 'message' => eval后 error 报错 解析不了，走到catch 说明使用的是 data 里面的
-                         */
-                        // widnow下的属性方法 包括 window
-                        if (param in window) {
+                event = event.trim();
+                method = method.trim();
+                arg = arg?.trim();
+                // 有参数
+
+                let argument: Array<any> = [];
+
+                // 有参数的情况
+                if (arg) {
+                    argument = arg.split(',');
+                    argument = argument.map(param => {
+                        try {
                             /**
-                             * TODO 很有可能是eval 解析成了全局的属性方法 eval('window') eval('location') 等等,此时会和属性有冲突 -- 先不开放全局属性解析
+                             * 参数是字符串 * 当作JS执行,如果报错解析不了
+                             * "'name'" => 'name'
+                             * 'window' => window 对象
+                             * 'message' => eval后 error 报错 解析不了，走到catch 说明使用的是 data 里面的
                              */
-                            console.warn(`属性 ${ param }  与全局属性冲突,不提供全局属性解析,只开放data对象里的属性作为解析,`);
-                            return model[param];   // data['window']
-                        } else {
-                            // "'name'" => 'name' 不在window里面,直接用 data 对象的值去解析
-                            // TODO handleClick(location.href) 存在这种情况的解析
-                            return eval(param);
+                            // widnow下的属性方法 包括 window
+                            if (param in window) {
+                                /**
+                                 * TODO 很有可能是eval 解析成了全局的属性方法 eval('window') eval('location') 等等,此时会和属性有冲突 -- 先不开放全局属性解析
+                                 */
+                                console.warn(`属性 ${ param }  与全局属性冲突,不提供全局属性解析,只开放data对象里的属性作为解析,`);
+                                return model[param];   // data['window']
+                            } else {
+                                // "'name'" => 'name' 不在window里面,直接用 data 对象的值去解析
+                                // TODO handleClick(location.href) 存在这种情况的解析
+                                return eval(param);
+                            }
+                        } catch (e) {
+                            let pv = getObjectValue(param, model);
+                            return pv;
                         }
-                    } catch (e) {
-                        let pv = getObjectValue(param, model);
-                        return pv;
-                    }
-                });
+                    });
+                }
 
                 if (!method) continue;
                 console.log(event, method, argument, model);

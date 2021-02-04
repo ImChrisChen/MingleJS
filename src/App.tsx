@@ -139,7 +139,10 @@ export default class App {
 
     // 渲染组件 <form-select></form-select>
     public static async renderCustomElement(el: HTMLElement) {
+        console.log('renderCustomElement', el);
         el.hidden = true;
+
+        let subelements = [ ...el.children ].map(child => child.cloneNode(true)) as Array<HTMLElement>;
 
         let { attributes, tagName: componentName } = el;
         componentName = componentName.toLowerCase();
@@ -179,6 +182,7 @@ export default class App {
             Component,
             element: el,
             templates,
+            subelements,
             hooks,
             defaultProperty,
             config,
@@ -577,9 +581,10 @@ export default class App {
         }
     }
 
-    public static renderComponent(module, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
+    public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, hooks, componentUID,
+            subelements,
             templates,
         } = module;
 
@@ -598,13 +603,13 @@ export default class App {
 
         let instance: any = null;
         let props = {
-            el         : element,
+            el     : element,
             templates,
-            subelements: [],
+            subelements,
             // subelements: subelements ?? [],
-            dataset    : parsedDataset,
+            dataset: parsedDataset,
             ...parsedAttrs,
-            ref        : componentInstance => {        // 组件实例
+            ref    : componentInstance => {        // 组件实例
                 // componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
                 App.instances[componentUID] = {

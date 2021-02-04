@@ -91,6 +91,8 @@ export class Mingle {
 
         await created?.call(proxyData);
         let container = document.querySelector(el) as HTMLElement;
+        if (!container) return;
+
         container.hidden = true;
         let node = DataPanel.parseElement(container, data);
         await Mingle.render(node);
