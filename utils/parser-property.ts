@@ -119,7 +119,7 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             break;
 
         case 'string[]':             // 分割成数组
-            value = value ? value.split(',') : [];
+            value = value ? value.split(',').filter(t => t) : [];
             break;
 
         case 'number[]':             // 分割成数组
