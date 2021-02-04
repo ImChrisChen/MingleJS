@@ -21,7 +21,7 @@ export function trigger(el: el, value: string | Array<any>, event_type: string =
         value = value.join(',');
     }
 
-    $(el).val(value).trigger(event_type);
-    $(el).attr('value', value);
+    // TODO 必须先设置好属性，再触发事件，先后顺序不可替换( 同步 el.value 和 el.attributes.value.value)
+    $(el).attr('value', value).val(value).trigger(event_type);
 }
 
