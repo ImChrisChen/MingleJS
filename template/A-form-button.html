@@ -15,18 +15,18 @@
     </ul>
 
     <form-select
-        data-label="label:"
-        data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
-        data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
-        data-disabled="false"
-        data-mode="single"
-        data-key="id"
-        data-value="<{publisher_name}>"
-        data-groupby=""
-        data-required="false"
-        data-smart="false"
-        @clear="handleClear(window,location.href)"
-        @select="handelSelect()"
+            data-label="label:"
+            data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
+            data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
+            data-disabled="false"
+            data-mode="single"
+            data-key="id"
+            data-value="<{publisher_name}>"
+            data-groupby=""
+            data-required="false"
+            data-smart="false"
+            @clear="handleClear(window,location.href)"
+            @select="handelSelect()"
     >
         <slot name="footer"></slot>
     </form-select>
@@ -35,29 +35,23 @@
 
 </div>
 
-<script>
-
-    function deom() {
-
-    }
+<script for="name">
 
     new Mingle({
         el: '.a-form-bottom',
         data: {
             message: 'Hello world',
             option: [
-                {name: 'Chris', value: '100'},
-                {name: 'Alex', value: '90'},
-                {name: 'Eason', value: '93'},
+                { name: 'Chris', value: '100' },
+                { name: 'Alex', value: '90' },
+                { name: 'Eason', value: '93' },
             ],
             list: [],
             options: [],
         },
         async created() {
             console.log(this, 'this');
-            this.options = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json')
-
-            console.log(this);
+            this.options = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json');
         },
         methods: {
             handelSelect() {
@@ -69,14 +63,14 @@
             },
 
             handleClear(e, data) {
-                let formSelect = $(`<form-select 
-                     data-label='label:'
-                     data-enum='1,Android;2,iOS;3,MacOS;4,Windows'
-                     data-key='id'
-                     data-value='<{publisher_name}>'
-                     data-groupby=''
-                     ></form-select>`)
-                document.body.append(formSelect.get(0))
+                let formSelect = $(`<form-select
+                     data-label="label:"
+                     data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
+                     data-key="id"
+                     data-value="<{publisher_name}>"
+                     data-groupby=""
+                     ></form-select>`);
+                document.body.append(formSelect.get(0));
             },
         },
     });

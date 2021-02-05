@@ -119,7 +119,8 @@ export class Mingle {
         if (!container) return;
 
         container.hidden = true;
-        let node = DataPanel.parseElement(container, proxyData);
+
+        let node = DataPanel.parseElement(container, data);
         await Mingle.render(node);
         await mounted?.call(proxyData);
         container.hidden = false;
