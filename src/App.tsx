@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { loadModules } from '@src/core/base';
 import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
-import { message } from 'antd';
+import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
 import { isArray, isCustomElement, isFunc, isUndefined } from '@utils/inspect';
-import { IComponentConfig } from '@root/config/component.config';
+import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { elementWrap } from '@utils/parser-dom';
 import { trigger } from '@utils/trigger';
@@ -142,17 +142,17 @@ export default class App {
         // TODO 设置组件唯一ID
         let componentUID = App.getUUID();
         el.setAttribute('data-component-uid', componentUID);
-        
+
         el.hidden = true;
 
-        let subelements = [ ...el.children ].map(child => child.cloneNode(true)) as Array<HTMLElement>;
-        
+        let subelements = [...el.children].map(child => child.cloneNode(true)) as Array<HTMLElement>;
+
         let container = document.createElement('div');
-        el.append(container)
+        el.append(container);
 
         let { attributes, tagName: componentName } = el;
         componentName = componentName.toLowerCase();
-        let tpls = [ ...el.querySelectorAll('template') ];
+        let tpls = [...el.querySelectorAll('template')];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -257,7 +257,7 @@ export default class App {
             let keysArr = componentName.trim().split('-');
             // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-            const [ , , componentMethod ] = keysArr;  // 第三项
+            const [, , componentMethod] = keysArr;  // 第三项
             const Modules = await loadModules(keysArr);
             const Component = Modules.component.default;            // React组件
             const config = Modules.config;
@@ -322,7 +322,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
+        [...el.attributes].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -344,7 +344,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -359,7 +359,7 @@ export default class App {
     public static formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
 
-        Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
+        for (const { name, value: fnName } of attributes) {
             // @ts-ignore
             let hook = Object.values(Hooks).includes(name);
             if (hook) {
@@ -367,21 +367,23 @@ export default class App {
                     hooks[name] = window[fnName];
                 }
             }
-        });
+        }
         return hooks;
     }
 
     // 重载组件(模版联动选择)
-    public static dynamicReloadComponents(element: HTMLInputElement) {
+    public static dynamicReloadComponents(element: HTMLElement) {
 
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems: Array<HTMLElement> = [];
 
         // form-group 内的组件，只在组作用域内产生关联关系
-        if ($(element).closest('[data-fn=form-group]').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-fn][name]') ];
+        // if ($(element).closest('[data-fn=form-group]').length > 0) {
+        if ($(element).closest('form-group').length > 0) {
+            // $formItems = [ ...$(element).closest('.form-group-item').find('[data-fn][name]') ];
+            $formItems = [...$(element).closest('.form-group-item').find('[data-component-uid][name]')];
         } else {
-            $formItems = [ ...$(element).closest('form').find('[data-fn][name]') ];
+            $formItems = [...$(element).closest('form-action').find('[data-component-uid][name]')];
         }
 
         $formItems.forEach(formItem => {
@@ -391,8 +393,10 @@ export default class App {
             let $formItemBox = $(formItem).closest('[data-component-uid]');
             // console.log($formItemBox);
             let uid = $formItemBox.attr('data-component-uid') ?? '';
-            let selfInputName = element.name;
-            let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
+            // let selfInputName = element['name'] ?? element.attributes?.['name'].value;
+            let selfAttrName = element.getAttribute('name');
+            console.log(selfAttrName);
+            let regExp = new RegExp(`<{(.*?)${ selfAttrName }(.*?)}>`);        // 验证是否包含模版变量 <{pf}>
             let { module } = App.instances?.[uid];
 
             if (!module) return;
@@ -447,7 +451,7 @@ export default class App {
                 // if (!isUndefined(exec)) {
                 if (exec === 'true') {
                     // TODO 简陋的实现，后续待调整
-                    let formElement = $(element).closest('form[data-fn=form-action]');
+                    let formElement = $(element).closest('form-action');
                     let submitBtn = formElement.find('[type=submit]');
                     if (submitBtn.length > 0) {
                         submitBtn.click();
@@ -457,8 +461,8 @@ export default class App {
                 }
 
                 let groupname = element.getAttribute('data-group');
-                let formElement = $(element).closest('form[data-fn]');
-                let groups = [ ...formElement.find(`input[data-fn][data-group=${ groupname }]`) ];
+                let formElement = $(element).closest('form-action');
+                let groups = [...formElement.find(`[data-component-uid][data-group=${ groupname }]`)];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -598,7 +602,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
+        [...element.attributes].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
@@ -608,7 +612,6 @@ export default class App {
             el     : element,
             templates,
             subelements,
-            // subelements: subelements ?? [],
             dataset: parsedDataset,
             ...parsedAttrs,
             ref    : componentInstance => {        // 组件实例
@@ -648,9 +651,9 @@ export default class App {
         try {
             // 组件名必须大写
             ReactDOM.render(
-                // <ConfigProvider { ...globalComponentConfig } >
-                <Component { ...props } value={ value }/>
-                // </ConfigProvider>
+                <ConfigProvider { ...globalComponentConfig } >
+                    <Component { ...props } value={ value }/>
+                </ConfigProvider>
                 , container, () => {
                     callback(hooks, instance);
                 },

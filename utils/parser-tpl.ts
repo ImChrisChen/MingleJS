@@ -123,7 +123,7 @@ function replaceTplDataValue(fields, itemData, tpl, type: tplTyle = 'tpl') {
             } else {
                 let key = field.trim();
                 let val = isDOM(itemData)
-                    ? encodeURIComponent((itemData.querySelector(`input[name=${ key }]`) as HTMLInputElement)?.value ?? '')
+                    ? encodeURIComponent((itemData.querySelector(`[data-component-uid][name=${ key }]`) as HTMLElement)?.attributes['value'].value ?? '')
                     : (itemData[key]);
 
                 // 只有对象中有这个属性才会被替换

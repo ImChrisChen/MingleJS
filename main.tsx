@@ -1,6 +1,7 @@
-// import 'antd/dist/antd.compact.less' // 紧凑模de式
-import './src/App.less';
+// import './src/App.less';
 import './src/App.scss';
+import 'antd/dist/antd.compact.less'; // 紧凑模de式
+// import 'antd/dist/antd.dark.less'
 import React from 'react';
 import { ConfigProvider, message, notification } from 'antd';
 import App from './src/App';
@@ -76,7 +77,7 @@ export class Mingle {
         this.run(options);
     }
 
-    // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上，在外部无法调用到函数
+    // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到
     public $get = async (url, ...args) => {
         return Mingle.httpResponseInterceptor(await axios.get(url, ...args));
     };
