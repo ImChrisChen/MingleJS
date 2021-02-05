@@ -638,6 +638,12 @@ export default class App {
 
         let value = elementValue || defaultValue;
 
+        // 如果没有设置默认值(没有设置为undefined)，则给element 元素添加默认组件配置的默认值
+        if (isUndefined(elementValue)) {
+            element.setAttribute('value', value);
+            element['value'] = value;
+        }
+
         // TODO 如果值不相等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
         // TODO 值不相等时，才触发trigger ，重新渲染
         if (!isUndefined(elementValue) && value !== elementValue) {
