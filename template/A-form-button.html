@@ -1,8 +1,7 @@
-< class="a-form-bottom">
+<div class="a-form-bottom">
 
     <form-radio data-label="平台" name="pf" value="2"
                 @handleclick="handleClick('name', message)"
-                @clear="handleClear(message)"
     >
         <template name="<{message}>">
             <div><{message}></div>
@@ -12,7 +11,7 @@
     <icon type="AppleOutlined" color="#f0f00f" size="18"></icon>
 
     <ul>
-        <li w-foreach="options as item"><{item}></li>
+        <li w-foreach="optionss as item"><{item}></li>
     </ul>
 
     <form-select
@@ -57,7 +56,7 @@
         async created() {
             console.log(this, 'this');
             this.options = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json')
-           
+
             console.log(this);
         },
         methods: {
@@ -70,7 +69,14 @@
             },
 
             handleClear(e, data) {
-                console.log(data);
+                let formSelect = $(`<form-select 
+                     data-label='label:'
+                     data-enum='1,Android;2,iOS;3,MacOS;4,Windows'
+                     data-key='id'
+                     data-value='<{publisher_name}>'
+                     data-groupby=''
+                     ></form-select>`)
+                document.body.append(formSelect.get(0))
             },
         },
     });

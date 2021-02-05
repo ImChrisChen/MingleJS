@@ -1,5 +1,5 @@
 
-form [data-component-uid] {
+form-action[data-component-uid] {
     margin-right : 20px;
     min-width    : 120px;
 }
@@ -13,7 +13,7 @@ input[data-fn] {
     display : none;
 }
 
-[data-fn] {
+[data-component-uid] {
     position   : relative;
     transition : all 150ms;
     opacity    : 0;
@@ -39,7 +39,7 @@ input[data-fn] {
     flex-direction : column-reverse;
 }
 
-[data-fn=data-panel] {
+data-panel {
     transition : all 0.3s;
     visibility : hidden;
     opacity    : 0;

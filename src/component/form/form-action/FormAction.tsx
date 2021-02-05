@@ -146,7 +146,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         for (const name in selects) {
             if (!selects.hasOwnProperty(name)) continue;
             let value = selects[name];
-            let input = el.querySelector(`[data-fn][name=${ name }]`) as HTMLInputElement;
+            let input = el.querySelector(`[data-component-uid][name=${ name }]`) as HTMLElement;
             // TODO 填充时如果 input有data-exec属性 会立即执行查询
             trigger(input, value);
         }
@@ -301,7 +301,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     async handleReset(form: HTMLElement, e?: any) {
-        let formItems = [ ...form.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
         for (const formItem of formItems) {
             let property = await App.parseElementProperty(formItem);        // 默认属性
             let value = property.value;
@@ -315,7 +315,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         for (const name in formData) {
             if (!formData.hasOwnProperty(name)) continue;
             let value = formData[name];
-            let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-fn]`);
+            let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
             let required = eval(formItemElem.dataset.required + '');
             if (required && !value) {
                 unVerifys.push(name);
@@ -331,7 +331,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 获取处理formGroup数据
     public static async getFormGroupData(form) {
-        let formGroup = form.querySelector('[data-fn=form-group]');
+        let formGroup = form.querySelector('[form-group]');
 
         if (!formGroup) {
             return {};
@@ -354,7 +354,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         let formData = await this.getDataByElement(form);
 
-        // 处理 data-fn=form-group内的组件
+        // 处理 form-group 内的组件
         let formGroupData = await this.getFormGroupData(form);
 
         return Object.assign(formData, formGroupData);
@@ -363,13 +363,16 @@ export default class FormAction extends React.Component<IFormAction, any> {
     public static async getDataByElement(form: HTMLElement, force = false): Promise<IFormData> {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
-        let hideInput = $(form).find('.form-tabpanel:hidden').find('[data-fn][name]');
-        let hideInputName = hideInput.attr('name');
+        let $hideInput = $(form).find('.form-tabpanel:hidden').find('[data-component-uid][name]');
+        let hideInputName = $hideInput.attr('name');
 
-        let formItems = [ ...form.querySelectorAll(`[data-fn][name]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...form.querySelectorAll(`[data-component-uid][name]`) ] as Array<HTMLElement>;
         for (const formItem of formItems) {
-            let { name, value } = formItem;
-            let isFormGroup = $(formItem).parents('[data-fn=form-group]').length > 0;
+            // let { name, value } = formItem;
+            // let { name, value } = formItem;
+            let name = formItem.getAttribute('name');
+            let value = formItem.getAttribute('value');
+            let isFormGroup = $(formItem).parents('form-group').length > 0;
 
             // force强制获取name值 如果是form-group内的组件则跳过
             if (!force && isFormGroup) {
