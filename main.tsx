@@ -12,8 +12,8 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { jsonp } from '@utils/request/request';
 import { Monitor } from '@services/Monitor';
-import DataPanel from './src/component/data/panel/DataPanel';
 import axios from 'axios';
+import { parseElement } from './utils/parser-element';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -53,10 +53,7 @@ if (docs) {
 }
 
 window.addEventListener('load', async () => {
-    // new App(document.body);
     Monitor.getPerformanceTimes(times => {
-        // console.table(times);
-        // Monitor.performances = times;
         Monitor.performanceLogger(times);
     });
 });
@@ -120,7 +117,7 @@ export class Mingle {
 
         container.hidden = true;
 
-        let node = DataPanel.parseElement(container, data);
+        let node = parseElement(container, data);
         await Mingle.render(node);
         await mounted?.call(proxyData);
         container.hidden = false;
