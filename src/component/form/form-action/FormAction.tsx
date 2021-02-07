@@ -17,6 +17,8 @@ import { isEmptyObject } from '@utils/inspect';
 import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@root/src/App';
+import { Inject } from 'typescript-ioc';
+import { ComponentService } from '@services/Component.service';
 
 // 表格提交的数据
 interface IFormData {
@@ -231,6 +233,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {};
 
+    @Inject componentSerive: ComponentService;
+
     constructor(props) {
         super(props);
         this.init();
@@ -238,8 +242,17 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
-        form.onsubmit = (e) => this.handleSubmit(form, e);
-        form.onreset = (e) => this.handleReset(form, e);
+        let submitBtn = form.querySelector('[type=submit]') as HTMLElement;
+        let resetBtn = form.querySelector('[type=reset]') as HTMLElement;
+        if (submitBtn) {
+            submitBtn.onclick = e => this.handleSubmit(form, e);
+        }
+        if (resetBtn) {
+            resetBtn.onclick = e => this.handleReset(form, e);
+        }
+
+        // form.onsubmit = (e) => this.handleSubmit(form, e);
+        // form.onreset = (e) => this.handleReset(form, e);
         this.setLayout(form);
     }
 
@@ -249,7 +262,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
         let formData = await FormAction.getFormData(form);
-        console.log(formData);
+        console.log('formData:', formData);
 
         let verify = this.verifyFormData(form, formData);
 
@@ -301,7 +314,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     async handleReset(form: HTMLElement, e?: any) {
-        let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
+        // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
+        let formItems = this.componentSerive.getFormComponents(form);
         for (const formItem of formItems) {
             let property = await App.parseElementProperty(formItem);        // 默认属性
             let value = property.value;
@@ -315,7 +329,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
         for (const name in formData) {
             if (!formData.hasOwnProperty(name)) continue;
             let value = formData[name];
-            let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
+            // let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
+            let formItemElem: HTMLElement = this.componentSerive.getFormComponentByName(name);
             let required = eval(formItemElem.dataset.required + '');
             if (required && !value) {
                 unVerifys.push(name);

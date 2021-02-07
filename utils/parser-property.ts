@@ -96,7 +96,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
 }
 
-export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
+function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
 
     if (typeof parse === 'function') {
         // console.log(parse);

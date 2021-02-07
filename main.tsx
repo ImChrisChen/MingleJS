@@ -17,25 +17,6 @@ import { parseElement } from './utils/parser-element';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
-// HTMLElement.prototype.setStore = function (key: string, value: any) {
-//     if (!key) {
-//         console.log(`${ key }格式有误`);
-//         return;
-//     }
-//
-//     if (!isObject(this.store)) {
-//         this.store = {};
-//     }
-//
-//     console.log(this.store, key, value);
-//
-//     this.store[key] = value;
-// };
-//
-// HTMLElement.prototype.getStore = function (key: string) {
-//     return this.store?.[key];
-// };
-
 if (docs) {
     // docs;
     ReactDOM.render(
@@ -117,7 +98,7 @@ export class Mingle {
 
         container.hidden = true;
 
-        let node = parseElement(container, data);
+        let node = parseElement(container, data, methods);
         await Mingle.render(node);
         await mounted?.call(proxyData);
         container.hidden = false;

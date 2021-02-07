@@ -6,7 +6,7 @@
     <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
 
     <ul>
-        <li w-foreach="list as (item,index)" w-click="handleClick(item)">
+        <li w-foreach="list as (item,index)" @click="handleClick(item)">
             name: <{item.name}> value: <{item.value}>
         </li>
     </ul>
@@ -19,6 +19,8 @@
             <!--            </button>-->
         </li>
     </ul>
+
+    <button @click="onClick"></button>
 </div>
 
 <script>
@@ -53,6 +55,11 @@
         },
 
         methods: {
+
+            onClick(item) {
+                console.log(item);
+            },
+
             // 获取日志
             async getLogsData() {
                 let res = await this.$get('http://mingle-test.local.aidalan.com/server/logs');

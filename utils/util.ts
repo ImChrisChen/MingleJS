@@ -127,7 +127,7 @@ export function getBrowerInfo(): IBrowserInfo {
 }
 
 //利用原生Js获取操作系统版本
-export function getOS():string {
+export function getOS(): string {
     let sUserAgent = navigator.userAgent;
     let isWin = (navigator.platform == 'Win32') || (navigator.platform == 'Windows');
     let isMac = (navigator.platform == 'Mac68K') || (navigator.platform == 'MacPPC') || (navigator.platform == 'Macintosh') || (navigator.platform == 'MacIntel');

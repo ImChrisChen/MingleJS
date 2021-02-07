@@ -148,11 +148,11 @@ export function isWuiByString(v: string) {
 }
 
 // 判断 DOM 是否是 Wui组件
-export function isWuiByElement(v: HTMLElement) {
-    let name = v.dataset.fn;
-    if (!name) return false;
-    return /^[a-zA-Z]/.test(name);
-}
+// export function isWuiByElement(v: HTMLElement) {
+//     let name = v.dataset.fn;
+//     if (!name) return false;
+//     return /^[a-zA-Z]/.test(name);
+// }
 
 // 判断是否是管道操作符
 export function isPipe(v: string) {
@@ -161,7 +161,7 @@ export function isPipe(v: string) {
 
 // 判断是否是自定义元素
 export function isCustomElement(tagName: string): boolean {
-    tagName = tagName.toLowerCase();
+    // tagName = tagName.toLowerCase();
     return /[a-z]-[a-z]/.test(tagName);
 }
 
@@ -181,6 +181,16 @@ export function isIncludeWuiComponent(v: string) {
     return /(<[a-zA-Z])(.*?)(data-fn=("|'|`|)[a-zA-Z]("|'|`|))(.*?)>/.test(v);
 }
 
+
+// 检测字符串是不是表达式
+export function isExpress(express: string) {
+    //表达式
+    if (/[\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // 判断是否是Class https://zhuanlan.zhihu.com/p/53385348
 export function isClass(obj, strict?): obj is ClassDecorator {

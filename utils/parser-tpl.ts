@@ -10,7 +10,7 @@ import {
     isArray,
     isDOM,
     isEmptyObject,
-    isEmptyStr,
+    isEmptyStr, isExpress,
     isObject,
     isObjectKeys,
     isString,
@@ -56,15 +56,6 @@ export function parseTpl(tpl: string, itemData: IParseModeData = document.body, 
         }
     });
     return tpl;
-}
-
-// 解析拓展运算符 ...item.dataset
-export function parseExpand(tpl: string, itemData: IParseModeData) {
-    if (!tpl) return tpl;
-
-    tpl.replace(/\.\.\.(.*?)/, v => {
-        return v;
-    });
 }
 
 /**
@@ -174,18 +165,8 @@ export function getExpressFields(tpl): Array<string> {
     return fields.filter(item => isNaN(Number(item)));
 }
 
-// 检测字符串是不是表达式
-export function isExpress(express: string) {
-    //表达式
-    if (/[\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 export function parsePipeExpress(tpl: string) {
-    tpl.replace(/[0-9]+ |> ([a-zA-Z])/, v => {
+    return tpl.replace(/[0-9]+ |> ([a-zA-Z])/, v => {
         return v;
     });
 }

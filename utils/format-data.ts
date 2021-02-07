@@ -172,7 +172,6 @@ export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
     return root;
 }
 
-
 // 验证 && 解析模版 && DOM转化
 function templateVerifyParser(tpl: string, item: object): string {
 
