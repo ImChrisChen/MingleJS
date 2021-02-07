@@ -33,6 +33,22 @@
 
     <template w-slot="footer"> template</template>
 
+    <ul>
+        <li w-foreach="obj as (item,index)">
+            item: <{item}>
+            <br>
+            index: <{index}>
+        </li>
+    </ul>
+
+    <ul>
+        <li w-foreach="option as (item,index)">
+            item: <{item}>
+            <br>
+            index: <{index}>
+        </li>
+    </ul>
+
 </div>
 
 <script for="name">
@@ -48,6 +64,11 @@
             ],
             list: [],
             options: [],
+            obj: {
+                name: 'Chris',
+                age: 20,
+                sex: '男',
+            },
         },
         async created() {
             console.log(this, 'this');
