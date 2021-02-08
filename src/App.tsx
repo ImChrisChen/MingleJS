@@ -158,8 +158,6 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        console.log(keysArr);
-
         const Modules = await loadModules(keysArr);
         const Component = Modules.component.default;            // React组件
         const config = Modules.config;
