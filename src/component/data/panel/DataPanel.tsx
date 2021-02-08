@@ -6,13 +6,16 @@
  */
 import { IComponentProps } from '@interface/common/component';
 import React, { ReactNode } from 'react';
-import { jsonp } from '@utils/request/request';
 import { isArray } from '@utils/inspect';
 import App from '@src/App';
-import { parseElement } from '@utils/parser-element';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
+import { ParserElementService } from '@services/ParserElement.service';
 
 // DOM 解析
 export default class DataPanel extends React.Component<IComponentProps, ReactNode> {
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly parserElementService: ParserElementService;
 
     public state = {
         html : this.props.el.innerHTML,
@@ -22,13 +25,13 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     constructor(props) {
         super(props);
         let { el, dataset } = this.props;
-        DataPanel.renderElement(el, dataset).then(r => r);
+        this.renderElement(el, dataset).then(r => r);
     }
 
     // 获取到组件实例 才能被外部调用
-    public static async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
+    public async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
         let data = await this.getData(dataset);     // {}
-        let root = await parseElement(el, data);
+        let root = await this.parserElementService.parseElement(el, data);
 
         if (!isArray(el)) {
             el.style.visibility = 'visible';
@@ -37,10 +40,10 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
         new App(root, true);
     }
 
-    public static async getData(dataset) {
+    public async getData(dataset) {
         let { url, model } = dataset;
         if (url) {
-            let res = await jsonp(url);
+            let res = await this.httpClientService.jsonp(url);
             return res.status ? res : {};
         } else if (model) {
             return model;

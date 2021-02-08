@@ -8,7 +8,6 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { jsonp } from '@utils/request/request';
 import { formatList2Group, formatTreeKey } from '@utils/format-data';
 import { getDepthMax } from '@utils/util';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';

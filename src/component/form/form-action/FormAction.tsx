@@ -12,13 +12,13 @@ import axios from 'axios';
 import { trigger } from '@utils/trigger';
 import SmartIcon from '@static/icons/form-smart.png';
 import style from './FormAction.scss';
-import { jsonp } from '@root/utils/request/request';
 import { isEmptyObject } from '@utils/inspect';
 import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@root/src/App';
 import { Inject } from 'typescript-ioc';
 import { ComponentService } from '@services/Component.service';
+import { HttpClientService } from '@root/src/services/HttpClient.service';
 
 // 表格提交的数据
 interface IFormData {
@@ -45,7 +45,7 @@ export function FormSmartIcon() {
 
 // form-smart
 class FormSmart extends Component<{ el: HTMLElement }, any> {
-
+    @Inject private readonly httpClientService: HttpClientService;
     state = {
         isModalVisible  : false,
         formSmartVisible: false,
@@ -97,7 +97,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         let dataStr = this.formatDataString(formDataSmart);
 
         let url = `https://auc.local.aidalan.com/user.selectTag/save?public=${ Number(isPublic) }&name=${ name }${ dataStr }`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         if (res.status) {
             message.success('创建成功');
             let data = await this.getFormSmartList();
@@ -110,7 +110,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
     // 删除标签
     async handleDeleteSmart(id, e) {
         let url = `https://auc.local.aidalan.com/user.selectTag/delete?selectTagId=${ id }`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
 
         if (res.status) {
             message.success('删除成功');
@@ -126,7 +126,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         let formDataSmart = this.getFormDataSmart(this.state.smartElements);
         let names = this.formatDataString(formDataSmart);
         let url = `https://auc.local.aidalan.com/user.selectTag/lists?keys=${ names }`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
 

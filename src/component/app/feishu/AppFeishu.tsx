@@ -5,8 +5,9 @@
  * Time: 5:37 下午
  */
 import React, { Component } from 'react';
-import axios from 'axios';
-import { jsonp } from '@utils/request/request';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
+
 
 interface IFeishuH5SignAPI {
     appId: string
@@ -19,6 +20,7 @@ interface IFeishuH5SignAPI {
 }
 
 export default class AppFeishu extends Component<any, any> {
+    @Inject private readonly httpClientService: HttpClientService;
 
     constructor(props) {
         super(props);
@@ -64,7 +66,7 @@ export default class AppFeishu extends Component<any, any> {
 
     async getSign(): Promise<IFeishuH5SignAPI> {
         let url = `http://auc.local.aidalan.com/api/external.feishu/h5Sign`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : {};
     }
 

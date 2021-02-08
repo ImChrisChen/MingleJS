@@ -10,10 +10,10 @@ import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
-import { jsonp } from '@utils/request/request';
 import { Monitor } from '@services/Monitor';
-import axios from 'axios';
-import { parseElement } from './utils/parser-element';
+import { Inject } from 'typescript-ioc';
+import { ParserElementService } from './src/services/ParserElement.service';
+import { HttpClientService } from './src/services/HttpClient.service';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
@@ -51,29 +51,32 @@ interface IMingleOptions {
 
 export class Mingle {
 
+    @Inject private static parserElementService: ParserElementService;
+    @Inject private static httpClientService: HttpClientService;
+
     constructor(options: IMingleOptions) {
         this.run(options);
     }
 
     // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到
     public $get = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await axios.get(url, ...args));
+        return Mingle.httpResponseInterceptor(await Mingle.httpClientService.get(url, ...args));
     };
 
     public $post = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await axios.post(url, ...args));
+        return Mingle.httpResponseInterceptor(await Mingle.httpClientService.post(url, ...args));
     };
 
     public $delete = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await axios.delete(url, ...args));
+        return Mingle.httpResponseInterceptor(await Mingle.httpClientService.delete(url, ...args));
     };
 
     public $put = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await axios.put(url, ...args));
+        return Mingle.httpResponseInterceptor(await Mingle.httpClientService.put(url, ...args));
     };
 
     public $jsonp = async (url) => {
-        return Mingle.httpResponseInterceptor(await jsonp(url));
+        return Mingle.httpResponseInterceptor(await Mingle.httpClientService.jsonp(url));
     };
 
     public createComponent = (name: string, property: object) => {
@@ -113,7 +116,7 @@ export class Mingle {
 
         container.hidden = true;
 
-        let node = parseElement(container, data, methods);
+        let node = Mingle.parserElementService.parseElement(container, data, methods);
         await Mingle.render(node);
         await mounted?.call(proxyData);
         container.hidden = false;
@@ -122,13 +125,11 @@ export class Mingle {
     public static render(node: HTMLElement | Array<HTMLElement>) {
         new App(node);
     }
-
 }
 
 App.globalEventListener();
 window['$'] = $;
 window['Message'] = message;
 window['Notice'] = notification;
-window['jsonp'] = jsonp;
 window['Mingle'] = Mingle;
 window['App'] = App;

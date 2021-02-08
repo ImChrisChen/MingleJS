@@ -5,6 +5,8 @@
  * Time: 2:36 上午
  */
 
+import { isUndefined } from "./inspect";
+
 // 获取数组最后一项
 export function arraylastItem<T>(array: Array<T>): T {
     let lastIndex = array.length - 1;
@@ -58,6 +60,36 @@ export function deepEachElement(root, callback?: (el: HTMLElement, parentNode: a
         });
     }
 }
+
+/**
+ * 根据点操作符解析获取对象属性
+ * @param keys  'item.name'
+ * @param model { item: {name: 'Chris'} }
+ *  'Chris'
+ */
+export function getObjectValue(keys: string, model: object = {}): any {
+
+    let isDone = false;
+
+    //多重属性
+    if (keys.includes('.')) {
+        let fieldArr = keys.split('.').filter(t => t);
+        let ov: any = fieldArr.reduce((data, fieldItem) => {
+            // TODO 取数据的时候要过滤掉两边的空格，否则key值有空格时会拿不到数据返回成为undefined,(模版替换的时候就不需要加trim,不然会匹配不到字符串无法替换)
+            let value = data[fieldItem.trim()];
+            if (isUndefined(value)) {
+                // console.warn(`${ field } 未匹配到模版变量，暂不替换`, itemData);
+                isDone = true;
+                return {};
+            }
+            return value;
+        }, model);       // item.name
+        return isDone ? undefined : ov;
+    } else {
+        return model[keys];
+    }
+}
+
 
 // 前递归 => root => left => right => children
 export function deepEach(

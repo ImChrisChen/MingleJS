@@ -5,10 +5,10 @@
  * Time: 10:39 下午
  */
 import { IOptions } from '@root/config/component.config';
-import { parseTpl } from '@utils/parser-tpl';
 import { isDOMString, isWuiTpl } from '@utils/inspect';
 import { strParseVirtualDOM } from '@utils/parser-dom';
 import { deepEach } from '@utils/util';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
@@ -178,7 +178,8 @@ function templateVerifyParser(tpl: string, item: object): string {
     let label: string;
 
     if (isWuiTpl(tpl)) { // template
-        label = parseTpl(tpl, item);
+        // label = parseTpl(tpl, item);
+        label = new ParserTemplateService().parseTpl(tpl, item, 'field');
     } else {
         label = item[tpl];
     }

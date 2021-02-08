@@ -26,17 +26,16 @@ import React, { Component, PureComponent } from 'react';
 import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { parseEnum } from '@utils/parser-tpl';
 import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
-import { jsonp } from '@utils/request/request';
 import { isObject, isString, isUndefined, isUrl } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
-import { Simulate } from 'react-dom/test-utils';
-import animationEnd = Simulate.animationEnd;
+import { parseEnum } from '@utils/parser-property';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 
 interface IComponentDataset {
     el: string
@@ -60,6 +59,7 @@ interface ICodeGenerateProps {
 
 class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     private form: any = React.createRef<FormInstance>();
+    @Inject private readonly httpClientService: HttpClientService;
 
     state = {
         components        : this.getComponents(),
@@ -151,7 +151,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             if (k === 'url' && val.request) {
-                let res = await jsonp(val.value);
+                let res = await this.httpClientService.jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
                 if (dataItem && isObject(dataItem)) {
                     for (const itemKey in dataItem) {

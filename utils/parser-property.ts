@@ -4,10 +4,9 @@
  * Date: 2020/9/19
  * Time: 11:23 上午
  */
-
-import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
-import { isJSON, isString } from '@utils/inspect';
+import { isEmptyStr, isJSON, isString } from '@utils/inspect';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 // 解析dataset data-*
 export function parserDataset(dataset, defaultDataset): object {
@@ -107,7 +106,7 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
     switch (parse) {
 
         case 'string':            // 模版解析
-            value = parseTpl(value, document.body, 'tpl');
+            value = new ParserTemplateService().parseTpl(value, document.body, 'tpl');
             break;
 
         case 'number':
@@ -153,4 +152,47 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
     }
 
     return { k: key, v: value };
+}
+
+// 解析管道操作符
+function parsePipeExpress(tpl: string) {
+    return tpl.replace(/[0-9]+ |> ([a-zA-Z])/, v => {
+        return v;
+    });
+}
+
+// 1,Android;2,iOS => [{1:Android},{2:iOS}]
+export function parseEnum(enumStr: string): Array<object> {
+    return parseStr2JSONArray(enumStr, ';', ',');
+}
+
+// inline-style 解析成 react-style
+export function parseLineStyle(style: string): object {
+    let res = parseCamelCase(style);
+    let stylesJson = parseStr2JSONArray(res, ';', ':');
+    return Object.assign({}, ...stylesJson);
+}
+
+export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: string): Array<object> {
+    if (isEmptyStr(str)) return [];
+
+    // return str.split(';').reduce((arr: Array<object>, group) => {
+    return str.split(rowStplit).reduce((arr: Array<object>, group) => {
+        // let [ key, val ] = group.split(',');
+        let [ key, val ] = group.split(cellSplit);
+        if (!isEmptyStr(key) && !isEmptyStr(val)) {
+            key = key.trim();
+            val = val.trim();
+            arr.push({ [key]: val });
+        }
+        return arr;
+    }, []);
+}
+
+// 中横线转化为 小驼峰
+export function parseCamelCase(string: string): string {
+    return string.replace(/-(.)/g, function (ret) {
+        ret = ret.substr(1);
+        return ret.toUpperCase();
+    });
 }

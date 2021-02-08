@@ -8,7 +8,6 @@
 
 import { IComponentProps } from '@interface/common/component';
 import React, { Component, ReactNode } from 'react';
-import { jsonp } from '@utils/request/request';
 import {
     Annotation,
     Area,
@@ -52,6 +51,8 @@ interface IChartConfig {
 
 import DataSet from '@antv/data-set';
 import { ChartTootipCustom } from './component/ChartTootipCustom';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 
 const { DataView } = DataSet;
 
@@ -94,6 +95,8 @@ function TooltipCustom(props: { config: any }) {
 
 export default class DataChart extends Component<IComponentProps, any> {
 
+    @Inject private readonly httpClientService: HttpClientService;
+
     state = {
         loading   : true,
         data      : [],
@@ -128,7 +131,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     }
 
     async getData(url) {
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
 
