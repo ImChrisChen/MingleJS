@@ -84,6 +84,8 @@ export default class App {
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element) => {
             let { localName: tagName } = element;
+            tagName = tagName.trim();
+
             if (!isCustomElement(tagName)) {
                 return;
             }
@@ -102,16 +104,28 @@ export default class App {
 
             App.registerComponents.push(tagName);
         });
+
         App.errorVerify();
 
     }
 
     // 渲染组件 <form-select></form-select>
     public static async renderCustomElement(el: HTMLElement) {
-        // TODO 设置组件唯一ID
-        let componentUID = App.getUUID();
-        el.setAttribute('data-component-uid', componentUID);
+        let { localName: componentName } = el;
+        componentName = componentName.trim();
 
+        if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
+            componentName = el.attributes['data-fn'].value;
+        }
+
+        if (!componentName) {
+            console.log(`没有${ componentName }这个组件`);
+            return;
+        }
+
+        // TODO 设置组件唯一ID
+        let componentUID = App.createUUID();
+        el.setAttribute('data-component-uid', componentUID);
         el.hidden = true;
 
         let subelements = [ ...el.children ].map(child => child/*.cloneNode(true)*/) as Array<HTMLElement>;
@@ -119,7 +133,7 @@ export default class App {
         let container = document.createElement('div');
         el.append(container);
 
-        let { attributes, localName: componentName } = el;
+        let { attributes } = el;
 
         // form-component
         if (componentName.startsWith('form')) {
@@ -144,8 +158,9 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
+        console.log(keysArr);
+
         const Modules = await loadModules(keysArr);
-        console.log(Modules, el);
         const Component = Modules.component.default;            // React组件
         const config = Modules.config;
 
@@ -176,7 +191,7 @@ export default class App {
     }
 
     // 生成组件唯一ID
-    public static getUUID() { // 获取唯一值
+    public static createUUID() { // 获取唯一值
         return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
