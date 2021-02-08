@@ -76,6 +76,21 @@ export class Mingle {
         return Mingle.httpResponseInterceptor(await jsonp(url));
     };
 
+    public createComponent = (name: string, property: object) => {
+        let element = document.createElement(name);
+        for (const key in property) {
+            if (!property.hasOwnProperty(key)) continue;
+            let value = property[key];
+            if (key === 'name' || key === 'value') {
+                element['name'] = key;
+                element['value'] = value;
+            }
+            element.setAttribute(key, value);
+        }
+        return element;
+    };
+
+    // response
     private static async httpResponseInterceptor(res) {
         if (res?.status) {
             return res.data;

@@ -5,8 +5,12 @@
 
     <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
 
+    <el>
+        哈哈哈
+    </el>
+
     <ul>
-        <li w-foreach="list as (item,index)" @click="handleClick(item)">
+        <li w-foreach="list as (item,index)" @click="handleClick(item,this)">
             name: <{item.name}> value: <{item.value}>
         </li>
     </ul>
@@ -52,12 +56,17 @@
 
         async created() {
             this.logs = (await this.getLogsData());
+            let formSelect = this.createComponent('form-select', {
+                'data-label': 'form-select',
+                'data-enum': '1,Android;2,iOS;3,MacOS;4,Windows',
+            });
+            console.log(formSelect);
         },
 
         methods: {
 
-            onClick(item) {
-                console.log(item);
+            onClick(e) {
+                console.log(e);
             },
 
             // 获取日志

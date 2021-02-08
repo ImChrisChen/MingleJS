@@ -135,7 +135,6 @@ export default class App {
             templates[name] = tpl;
         }
 
-
         // 外部模块
         if (componentName.startsWith('self-')) {
             console.error(`${ componentName } 模块不属于MingleJS`);
@@ -145,8 +144,6 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        console.log(keysArr, componentName);
-        // const [ , , componentMethod ] = keysArr;  // 第三项
         const Modules = await loadModules(keysArr);
         console.log(Modules, el);
         const Component = Modules.component.default;            // React组件
