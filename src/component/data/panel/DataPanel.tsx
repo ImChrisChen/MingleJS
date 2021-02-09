@@ -31,7 +31,10 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     // 获取到组件实例 才能被外部调用
     public async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
         let data = await this.getData(dataset);     // {}
-        let root = await this.parserElementService.parseElement(el, data);
+        let root = await this.parserElementService.parseElement(el, data, {
+            methods : {},
+            callthis: {},
+        });
 
         if (!isArray(el)) {
             el.style.visibility = 'visible';
