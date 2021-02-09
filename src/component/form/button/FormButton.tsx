@@ -9,15 +9,21 @@ import { trigger } from '@utils/trigger';
 import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 export default class FormButton extends React.Component<IComponentProps, any> {
     state: any = {
         value  : this.props.value,
         options: [],
     };
+    tplSelector = this.props.dataset.tplSelector ?? null;        // 模版选择器
 
     constructor(props) {
         super(props);
+        if (this.tplSelector) {
+            let tpl = document.querySelector(this.tplSelector);
+            console.log(tpl);
+        }
         this.getData().then(options => {
             this.setState({ options });
         });
@@ -29,12 +35,15 @@ export default class FormButton extends React.Component<IComponentProps, any> {
 
     handleChange(e: any) {
         let value = e.target.value;
+        console.log(this.props.el);
         this.setState({ value }, () => trigger(this.props.el, value));
+        $(this.props.el).trigger('aaa');
     }
 
     render() {
         return <>
-            <Form.Item label={ this.props.dataset.label }>
+            <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
+                { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                 <Radio.Group
                     onChange={ this.handleChange.bind(this) }
                     value={ this.state.value }

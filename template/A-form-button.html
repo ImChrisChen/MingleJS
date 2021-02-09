@@ -1,0 +1,98 @@
+<div class="form-button-test">
+
+    <form-radio data-label="平台" name="pf" value="2"
+                @handleclick="handleClick('name', message)"
+    >
+        <template name="<{message}>">
+            <div><{message}></div>
+        </template>
+    </form-radio>
+
+    <icon type="AppleOutlined" color="#f0f00f" size="18"></icon>
+
+    <ul>
+        <li w-foreach="optionss as item"><{item}></li>
+    </ul>
+
+    <form-select
+            data-label="label:"
+            data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
+            data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
+            data-disabled="false"
+            data-mode="single"
+            data-key="id"
+            data-value="<{publisher_name}>"
+            data-groupby=""
+            data-required="false"
+            data-smart="false"
+            @clear="handleClear(window,location.href)"
+            @select="handelSelect()"
+    >
+        <slot name="footer"></slot>
+    </form-select>
+
+    <template w-slot="footer"> template</template>
+
+    <ul>
+        <li w-foreach="obj as (item,index)">
+            item: <{item}>
+            <br>
+            index: <{index}>
+        </li>
+    </ul>
+
+    <ul>
+        <li w-foreach="option as (item,index)">
+            item: <{item}>
+            <br>
+            index: <{index}>
+        </li>
+    </ul>
+
+</div>
+
+<script>
+
+    new Mingle({
+        el: '.form-button-test',
+        data: {
+            message: 'Hello world',
+            option: [
+                { name: 'Chris', value: '100' },
+                { name: 'Alex', value: '90' },
+                { name: 'Eason', value: '93' },
+            ],
+            list: [],
+            options: [],
+            obj: {
+                name: 'Chris',
+                age: 20,
+                sex: '男',
+            },
+        },
+        async created() {
+            console.log(this, 'this');
+            this.options = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json');
+        },
+        methods: {
+            handelSelect() {
+
+            },
+
+            handleClick(...args) {
+                console.log('handleClick', ...args);
+            },
+
+            handleClear(e, data) {
+                let formSelect = $(`<form-select
+                     data-label="label:"
+                     data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
+                     data-key="id"
+                     data-value="<{publisher_name}>"
+                     data-groupby=""
+                     ></form-select>`);
+                document.body.append(formSelect.get(0));
+            },
+        },
+    });
+</script>

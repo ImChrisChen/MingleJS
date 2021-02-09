@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2020/12/25 * Time: 5:59 下午 */import React, { Component } from 'react';import { IComponentProps } from '@interface/common/component';export default class ViewCodediff extends Component<IComponentProps, any> {    render() {        return <div>        </div>;    }}

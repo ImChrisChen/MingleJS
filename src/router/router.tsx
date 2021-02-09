@@ -11,6 +11,7 @@ import developMarkdown from '@root/README.md';
 import { IRouteItem } from '@interface/common/component';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutGenerator';
+import Logs from '@src/pages/logs/logs';
 
 // nav
 export default [
@@ -26,8 +27,8 @@ export default [
     },
     {
         name     : '日志统计',
-        path     : '/error',
-        component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
+        path     : '/logs',
+        component: <Logs/>,
     },
     {
         name     : '组件设计器',

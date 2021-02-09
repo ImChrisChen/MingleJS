@@ -50,3 +50,26 @@ export function create<T>(_constructor: { new(...args: Array<any>): T }): T {
     });
     return new _constructor(...paramInstances);
 }
+
+
+/**
+ * --------------------------- 代码演示 --------------------------------------
+ */
+
+@injectable
+class A {
+    constructor() {
+        console.log('A constructor');
+    }
+}
+
+class B {
+    constructor(private readonly a: A) {
+        console.log(this.a);
+    }
+}
+
+let b = create(B);
+
+
+

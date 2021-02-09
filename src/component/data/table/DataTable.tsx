@@ -5,21 +5,26 @@
  * Time: 7:35 下午
  */
 
-import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
+import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
 import * as React from 'react';
-import { parseTpl } from '@utils/parser-tpl';
-import { strParseVirtualDOM } from '@utils/parser-dom';
+import { strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { IApiResult, jsonp } from '@utils/request/request';
-import { isHtmlTpl, isNumber, isString, isWuiTpl } from '@utils/inspect';
+import { isHtmlTpl, isNumber, isString, isWuiByString, isWuiTpl } from '@utils/inspect';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
+import App from '@src/App';
+import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
+import moment from 'moment';
+import FormAction from '@component/form/form-action/FormAction';
+import { Inject } from 'typescript-ioc';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -79,8 +84,6 @@ interface ITableState {
 
 // ! 操作符    https://github.com/Microsoft/TypeScript-Vue-Starter/issues/36
 
-const expandable = { expandedRowRender: record => <p>{ record.description }</p> };
-
 export default class DataTable extends React.Component<ITableProps, any> {
 
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
@@ -101,14 +104,15 @@ export default class DataTable extends React.Component<ITableProps, any> {
         // scroll           : {        //  表格是否可以滚动
         //     y: this.props.dataset.height || undefined,
         // },
+
+        updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
-    private fieldTpl!: string;
+
+    @Inject parserTemplateService: ParserTemplateService;
+
     private url: string = this.props.url;
     private searchInput;
-    private baseParams = {
-        page   : 1,
-        pageNum: 100,
-    };
+    @Inject private readonly httpClientService: HttpClientService;
 
     constructor(props: ITableProps) {
         super(props);
@@ -124,6 +128,17 @@ export default class DataTable extends React.Component<ITableProps, any> {
             });
             this.handleDragSelect();
         });
+
+        let { interval } = this.props.dataset;
+        console.log(this.props);
+        if (interval) {
+            console.log('----------');
+            setInterval(() => {
+                this.FormSubmit({}).then(r => {
+                    // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);
+                });
+            }, interval * 60 * 1000);
+        }
     }
 
     handleShowSizeChange(page, pageSize) {    // pageSize 变化的回调
@@ -181,14 +196,19 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     // 提交表单
-    public async FormSubmit(formData, e) {
+    public async FormSubmit(formData = {}) {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
         let url = formatObject2Url(formData, this.props.dataset.url);
         let tableContent = await this.getTableContent(url);
+        let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        this.setState({ dataSource: tableContent, loading: false });
+        this.setState({
+            dataSource: tableContent,
+            loading   : false,
+            updateDate: updateDate,
+        });
     }
 
     sum(list): ITableContentItem {
@@ -225,7 +245,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
-        let res = await jsonp(tableUrl);
+        let res = await this.httpClientService.jsonp(tableUrl);
         // let { data }: ITableApiRes<ITableContentItem> = tableContent;
         let { data }: any = res;
         let tableContent: Array<ITableContentItem> = data.map((item, index) => {
@@ -236,12 +256,27 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析wui模版
                 if (isWuiTpl(value)) {
-                    value = parseTpl(value, item, 'tpl');
+                    value = this.parserTemplateService.parseTpl(value, item, 'tpl');
                 }
 
                 // 解析html模版
                 if (isHtmlTpl(value)) {
-                    value = strParseVirtualDOM(value);          // 字符串dom转化
+
+                    if (isWuiByString(value)) {
+                        let element = strParseDOM(value);
+                        value = <div ref={ node => {
+                            if (node) {
+                                node.innerHTML = '';
+                                node.append(element);
+                                new App(element);
+                            }
+                        } }/>;
+
+                    } else {
+                        value = strParseVirtualDOM(value);          // 字符串dom转化
+                        console.log(value);
+                    }
+
                 }
 
                 item[key] = value;
@@ -253,23 +288,14 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 dataIndex   : index,
                 name        : '',
                 introduction: <h1>1111</h1>,
-                // [this.fieldTpl]: '12321321'
             };
-
-            // if (this.fieldTpl) {
-            //     let fieldStr = parseTpl(this.fieldTpl, item);
-            //     let fieldJSX = strParseVirtualDOM(fieldStr);
-            //     result[this.fieldTpl] = fieldJSX;
-            // }
             return result;
         });
-        // let sumItem = this.sum(tableContent);
-        // tableContent.unshift(sumItem);
         return tableContent;
     }
 
     async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
-        let res = await jsonp(headerUrl);
+        let res = await this.httpClientService.jsonp(headerUrl);
         let { data }: ITableApiRes<ITableHeaderItem> = res;
 
         let tableHeader: Array<ITableHeaderItem> = [];
@@ -510,9 +536,23 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
+    async handleReload() {
+        let id = this.props.dataset.from;
+        if (id) {
+            let form = document.querySelector(`#${ id }`) as HTMLElement;
+            if (form) {
+                let formData = await FormAction.getFormData(form);
+                this.FormSubmit(formData);
+            } else {
+                this.FormSubmit();
+            }
+        } else {
+            this.FormSubmit();
+        }
+    }
+
     // TODO 待解决问题 貌似webpacktable.scss不起作用
     render() {
-        console.log(this.props);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -524,6 +564,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
             </Dropdown>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
+
+            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
 
             <Table
                 style={ this.props.style }

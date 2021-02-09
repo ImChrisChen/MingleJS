@@ -8,6 +8,8 @@ import React from 'react';
 import { Form, Input } from 'antd';
 import { InputProps } from 'antd/es/input';
 import { trigger } from '@utils/trigger';
+import { isUndefined } from '@root/utils/inspect';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 interface IComponentProps extends InputProps {
     el: HTMLInputElement
@@ -31,24 +33,18 @@ export default class FormInput extends React.Component<IComponentProps, any> {
     }
 
     render() {
+        let { smart, ...dataset } = this.props.dataset;
         return <>
             <Form.Item
                 required={ this.props.dataset.required }
                 label={ this.props.dataset.label }
                 name={ this.props.dataset.label }
-                // rules={
-                //     [
-                //         {
-                //             required: true
-                //         }
-                //     ]
-                // }
-                // validateStatus="error"
-                // help="Should be combination of numbers & alphabets"
+                style={ this.props.style }
             >
+                { smart ? <FormSmartIcon/> : '' }
                 <Input
-
-                    { ...this.props.dataset }
+                    value={ this.props.value }
+                    { ...dataset }
                     onChange={ this.handleChange.bind(this) }
                     placeholder={ this.props.placeholder }
                 />

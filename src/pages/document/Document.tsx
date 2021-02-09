@@ -17,12 +17,16 @@ import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import md5 from 'md5';
-import axios from 'axios';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
+import { HttpClientService } from '@root/src/services/HttpClient.service';
+import { Inject } from 'typescript-ioc';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 class Document extends React.Component<any, any> {
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private static readonly http: HttpClientService;
+
     state: any = {
         menulist      : [],
         routes        : [],
@@ -33,25 +37,28 @@ class Document extends React.Component<any, any> {
 
     constructor(props) {
         super(props);
+        this.init();
+    }
 
-        this.getRouter().then(navRoutes => {
-            this.setState({ navRoutes });
+    async init() {
+        let navRoutes = await this.getRouter();
+        let list = await formatComponents2Tree(componentConfig);
+        let routes = deepEach(list, item => {
+            if (item.component && item.document) return item;
         });
 
-        formatComponents2Tree(componentConfig).then(list => {
-            let routes = deepEach(list, item => {
-                if (item.component) return item;
-            });
-            this.setState({
-                menulist: list, routes,
-            });
+        this.setState({
+            navRoutes,
+            menulist: list,
+            routes,
         });
     }
 
     // 获取导航栏路由
     async getRouter() {
-        let res = await axios.get('/api/files/template');
-        let data = res.data.status ? res.data.data : [];
+        let res = await this.httpClientService.get('/server/files/template');
+        console.log(res);
+        let data = res.status ? res.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;
@@ -80,7 +87,7 @@ class Document extends React.Component<any, any> {
                     path={ route.path }
                     render={ () => <MarkdownEditor
                         visibleEditor={ false }
-                        value={ route.document['default'] }/> }/>;
+                        value={ route.document.default }/> }/>;
             } else {
                 return undefined;
             }
@@ -88,7 +95,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist }/>
+                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist } pathfield=""/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>

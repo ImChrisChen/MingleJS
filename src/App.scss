@@ -1,19 +1,22 @@
 
-form [data-component-uid] {
-    margin-right : 10px;
+form-action[data-component-uid] {
+    margin-right : 20px;
     min-width    : 120px;
 }
 
 [data-component-uid] {
     position : relative;
+    display: block;
 }
 
 input[data-fn] {
     display : none;
 }
 
-[data-fn] {
-    position : relative;
+[data-component-uid] {
+    position   : relative;
+    transition : all 150ms;
+    opacity    : 0;
 }
 
 .flex-direction-row {
@@ -36,7 +39,7 @@ input[data-fn] {
     flex-direction : column-reverse;
 }
 
-[data-fn=data-panel] {
+data-panel {
     transition : all 0.3s;
     visibility : hidden;
     opacity    : 0;

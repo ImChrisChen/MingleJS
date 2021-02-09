@@ -4,13 +4,12 @@
  * Date: 2020/9/19
  * Time: 11:23 上午
  */
-
-import { parseEnum, parseLineStyle, parseTpl } from '@utils/parser-tpl';
 import { IPropertyConfig, parseType } from '@root/config/component.config';
-import { isString } from '@utils/inspect';
+import { isEmptyStr, isJSON, isString } from '@utils/inspect';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 // 解析dataset data-*
-export function parserProperty(dataset, defaultDataset): object {
+export function parserDataset(dataset, defaultDataset): object {
 
     // TODO 这里需要深拷贝处理一下，值和DOM元素是引用关系(避免破坏传入的参数，造成不必要的影响)
     dataset = JSON.parse(JSON.stringify(dataset));
@@ -73,6 +72,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
                 console.error(`${ key }属性的值格式验证不通过`);
                 continue;
             }
+            // console.log(key, value, parse);
             defaultAttrs[key] = parserProgram(key, value, parse).v;
         }
     }
@@ -95,12 +95,18 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
 
 }
 
-export function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
+function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
+
+    if (typeof parse === 'function') {
+        // console.log(parse);
+        // console.log(value, typeof value);
+        value = parse(value);
+    }
 
     switch (parse) {
 
         case 'string':            // 模版解析
-            value = parseTpl(value, document.body);
+            value = new ParserTemplateService().parseTpl(value, document.body, 'tpl');
             break;
 
         case 'number':
@@ -112,7 +118,7 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             break;
 
         case 'string[]':             // 分割成数组
-            value = value ? value.split(',') : [];
+            value = value ? value.split(',').filter(t => t) : [];
             break;
 
         case 'number[]':             // 分割成数组
@@ -125,8 +131,8 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
             break;
 
         case 'JSON':
-            let ret = /({.*?}|\[.*?\])/.test(value);
-            if (ret) {
+            // let ret = /({.*?}|\[.*?\])/.test(value);
+            if (isJSON(value)) {
                 value = JSON.parse(value);
             } else {
                 console.error(`data-${ key }的值传入的不是一个JSON`);
@@ -146,4 +152,47 @@ export function parserProgram(key, value, parse?: parseType): { k: string, v: an
     }
 
     return { k: key, v: value };
+}
+
+// 解析管道操作符
+function parsePipeExpress(tpl: string) {
+    return tpl.replace(/[0-9]+ |> ([a-zA-Z])/, v => {
+        return v;
+    });
+}
+
+// 1,Android;2,iOS => [{1:Android},{2:iOS}]
+export function parseEnum(enumStr: string): Array<object> {
+    return parseStr2JSONArray(enumStr, ';', ',');
+}
+
+// inline-style 解析成 react-style
+export function parseLineStyle(style: string): object {
+    let res = parseCamelCase(style);
+    let stylesJson = parseStr2JSONArray(res, ';', ':');
+    return Object.assign({}, ...stylesJson);
+}
+
+export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: string): Array<object> {
+    if (isEmptyStr(str)) return [];
+
+    // return str.split(';').reduce((arr: Array<object>, group) => {
+    return str.split(rowStplit).reduce((arr: Array<object>, group) => {
+        // let [ key, val ] = group.split(',');
+        let [ key, val ] = group.split(cellSplit);
+        if (!isEmptyStr(key) && !isEmptyStr(val)) {
+            key = key.trim();
+            val = val.trim();
+            arr.push({ [key]: val });
+        }
+        return arr;
+    }, []);
+}
+
+// 中横线转化为 小驼峰
+export function parseCamelCase(string: string): string {
+    return string.replace(/-(.)/g, function (ret) {
+        ret = ret.substr(1);
+        return ret.toUpperCase();
+    });
 }

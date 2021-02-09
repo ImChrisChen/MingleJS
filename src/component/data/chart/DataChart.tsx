@@ -5,9 +5,9 @@
  * Time: 6:31 下午
  */
 
+
 import { IComponentProps } from '@interface/common/component';
-import React, { ReactNode } from 'react';
-import { jsonp } from '@utils/request/request';
+import React, { Component, ReactNode } from 'react';
 import {
     Annotation,
     Area,
@@ -23,12 +23,14 @@ import {
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
-import { Spin } from 'antd';
+
+import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
-import DataSet from '@antv/data-set';
-import { isArray, isEmptyArray } from '@utils/inspect';
+import { isArray, isEmptyArray, isEmptyStr } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
+import moment from 'moment';
+import { RedoOutlined } from '@ant-design/icons';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -47,13 +49,58 @@ interface IChartConfig {
     [key: string]: any
 }
 
+import DataSet from '@antv/data-set';
+import { ChartTootipCustom } from './component/ChartTootipCustom';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
+
 const { DataView } = DataSet;
 
-export default class DataChart extends React.Component<IComponentProps, any> {
+export function PanelTitle(props: { title: string, handleReload: () => any }) {
+    let style: any = {
+        textAlign : 'center',
+        // background: '#f0f2f5',
+        fontSize  : '18px',
+        height    : '28px',
+        lineHeight: '28px',
+        color     : '#464c54',
+        marginTop : '0px',
+        cursor    : 'pointer',
+    };
+    return props.title ?
+        <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }<RedoOutlined
+            onClick={ props.handleReload }/></Typography.Title>
+        : <></>;
+}
+
+export function DataUpdateTime({ content, hidden = false }: { content: string, hidden?: boolean }) {
+    let style: any = {
+        position: 'absolute',
+        bottom  : 30,
+        left    : 8,
+    };
+    return !hidden
+        ? <Typography.Text style={ { ...style } } type="secondary">数据上次更新于: { content }</Typography.Text>
+        : <></>;
+}
+
+function TooltipCustom(props: { config: any }) {
+    let config = props.config;
+    return <Tooltip shared showCrosshairs={ !isEmptyStr(config.tooltip_cross) } crosshairs={ { type: 'xy' } }>
+        { (title, items) =>
+            <ChartTootipCustom config={ { title, items } } suffix={ config.tooltip_suffix }/>
+        }
+    </Tooltip>;
+}
+
+export default class DataChart extends Component<IComponentProps, any> {
+
+    @Inject private readonly httpClientService: HttpClientService;
 
     state = {
-        loading: true,
-        data   : [],
+        loading   : true,
+        data      : [],
+        updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
 
     constructor(props) {
@@ -62,22 +109,29 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         this.getData(this.props.dataset.url).then(data => {
             this.setState({ data, loading: false });
         });
+
+        let { interval } = this.props.dataset;
+        if (interval) {
+            setInterval(() => {
+                this.FormSubmit({}).then(r => {
+                    // message.success(`图表数据自动更新了,每次更新间隔为${ interval }分钟`);
+                });
+            }, interval * 60 * 1000);
+        }
     }
 
     // TODO 点击表单提交触发
-    public async FormSubmit(formData) {
+    public async FormSubmit(formData = {}) {
         console.log('DataChart:', formData);
         this.setState({ loading: true });
         let url = formatObject2Url(formData, this.props.dataset.url);
         let data = await this.getData(url);
-        this.setState({ data, loading: false });
-    }
-
-    async handleFormSubmit(formData) {
+        let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+        this.setState({ data, loading: false, updateDate });
     }
 
     async getData(url) {
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
 
@@ -181,7 +235,9 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         return <Chart height={ config.height } data={ config.dataSource } autoFit>
             <Coordinate type="polar"/>
             <Axis visible={ false }/>
-            <Tooltip showTitle={ false }/>
+
+            {/*<Tooltip showTitle={ false }/>*/ }
+            <TooltipCustom config={ config }/>
             <Interval
                 position={ config.position }
                 adjust="stack"
@@ -198,17 +254,19 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         </Chart>;
     }
 
-    // 柱状图
+    // 柱状图 (支持分组统计)
     public static bar(config) {
-        let { position, groupby, colors } = config;
+
+        let { colors, position, dataSource } = this.formatGroupsData(config);
+
         return <>
-            <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
+            <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
 
-                <Interval position={ position } color={ groupby || colors }
+                <Interval position={ position } color={ colors }
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
-                <Tooltip shared/>
+                <TooltipCustom config={ config }/>
                 <Legend
                     // layout={ config.legendLayout }
                     // position={ config.legendLocation }
@@ -243,13 +301,14 @@ export default class DataChart extends React.Component<IComponentProps, any> {
                         formatter: (v) => v /*Math.round(v / 10000) + '万'*/,
                     },
                 } }
-                onAxisLabelClick={ (event, chart) => {
-                    // console.log('event', event, 'chart', chart);
-                    // console.log('data', chart.filteredData);
-                    // console.log('mytext', event.target.attrs.text);
-                    // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
-                } }
+                // onAxisLabelClick={ (event, chart) => {
+                //     // console.log('event', event, 'chart', chart);
+                //     // console.log('data', chart.filteredData);
+                //     // console.log('mytext', event.target.attrs.text);
+                //     // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
+                // } }
             >
+                <TooltipCustom config={ config }/>
                 <Coordinate transpose/>
                 <Interval
                     position={ `${ config.key }*${ config.value }` }
@@ -276,28 +335,31 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         </>;
     }
 
-    // 折线图
+    // 折线图 (支持分组统计)
     public static line(config) {
-        let { position, groupby, colors, chartType } = config;
-
         /*
         * TODO line 单独配置
         * area 是否展示区域
         * point 是否展示点
         **/
 
+        let { position, dataSource, colors } = this.formatGroupsData(config);
         return <>
-            <Chart height={ config.height } padding="auto" data={ config.dataSource } autoFit
+            <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
                    interactions={ [ 'active-region' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
                 {/*<Area position={ position } color={ groupby || colors }/>*/ }
 
-                <LineAdvance area shape="smooth" position={ position } point={ true }
-                             color={ groupby || colors } label="first"/>
+                <LineAdvance area position={ position } point={ {
+                    shape   : config.pointShape,
+                    position: position,
+                    size    : config.pointSize,
+                } } color={ colors } label="first"/>
 
-                <Tooltip shared/>
+                {/*<Tooltip shared/>*/ }
+                <TooltipCustom config={ config }/>
 
                 <Legend
                     visible={ true }
@@ -331,7 +393,7 @@ export default class DataChart extends React.Component<IComponentProps, any> {
             <WordCloudChart
                 data={ formatData(config.dataSource) }
                 maskImage={ antvImage }
-                shape={ 'cardioid' }
+                // shape={ 'cardioid' }
                 wordStyle={ {
                     fontSize: [ 30, 40 ],
                 } }
@@ -458,8 +520,6 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         //     { item: 'UX', a: 50, b: 60 },
         // ];
         let data = config.dataSource;
-
-        const { DataView } = DataSet;
         const dv = new DataView().source(data);
         dv.transform({
             type  : 'fold',
@@ -484,12 +544,13 @@ export default class DataChart extends React.Component<IComponentProps, any> {
             interactions={ [ 'legend-highlight' ] }
         >
             <Coordinate type="polar" radius={ 0.8 }/>
-            <Tooltip shared/>
+            {/*<Tooltip shared/>*/ }
+            <TooltipCustom config={ config }/>
             <Point
                 // position="item*score"
                 position={ position }
                 color="user"
-                shape="circle"
+                shape={ config.pointShape }
             />
             <Line
                 position={ position }
@@ -531,7 +592,6 @@ export default class DataChart extends React.Component<IComponentProps, any> {
             //     { name: '分类 20', value: 16 },
             // ],
         };
-        const { DataView } = DataSet;
         const dv = new DataView();
         dv.source(data, {
             type: 'hierarchy',
@@ -573,6 +633,21 @@ export default class DataChart extends React.Component<IComponentProps, any> {
             autoFit
             data={ nodes }
         >
+            <TooltipCustom config={ config }/>
+            <Legend
+                visible={ true }
+                itemName={ {
+                    spacing  : 20, // 文本同滑轨的距离
+                    style    : {
+                        // stroke: 'blue',
+                        fill: 'red',
+                    },
+                    formatter: (text, item, index) => {
+                        return text;
+                    },
+                } }
+            />
+
             <Polygon
                 color="name"
                 // color={ config.key }
@@ -644,6 +719,21 @@ export default class DataChart extends React.Component<IComponentProps, any> {
         );
     }
 
+    async handleReload() {
+        let id = this.props.dataset.from;
+        if (id) {
+            let form = document.querySelector(`#${ id }`) as HTMLElement;
+            if (form) {
+                let formData = await FormAction.getFormData(form);
+                this.FormSubmit(formData);
+            } else {
+                this.FormSubmit();
+            }
+        } else {
+            this.FormSubmit();
+        }
+    }
+
     formatConfig(): IChartConfig | any {
         let {
             key,       // data数据 key 值映射
@@ -656,11 +746,18 @@ export default class DataChart extends React.Component<IComponentProps, any> {
             groupby,
             legendLocation,     // 图例位置
             legendLayout,
-
+            tooltip_suffix,      // <Tooltip> 内容里值的后缀(单位)
+            tooltip_cross,         // 图标十字准线
         } = this.props.dataset;
+
         if (isEmptyArray(colors) || colors === '') {
             colors = '#37c9e3';
         }
+
+        if (isArray(colors) && colors.length === 1) {
+            colors = colors[0];
+        }
+
         try {
             // let value = series[0][0];
             // let genreName = series[0][1];       // 地区
@@ -674,13 +771,54 @@ export default class DataChart extends React.Component<IComponentProps, any> {
                 title,
                 height,
                 chartType,
+                pointShape: this.props.dataset.point,           // point的类型 https://bizcharts.net/product/BizCharts4/category/62/page/85
+                pointSize : this.props.dataset.pointsize,
                 legendLocation,     // 图例位置
                 legendLayout,       // 图例的布局方式
                 dataSource: this.state.data,
+                tooltip_suffix,
+                tooltip_cross,
             };
         } catch (e) {
             return {};
         }
+    }
+
+    //分组统计数据格式转化
+    private static formatGroupsData(config) {
+        let dv = new DataView().source(config.dataSource);
+        let k = 'type';                     // 固定的type值
+        let fields: Array<any> = config.value;     // fiedls 是数组,data-value ['value1','value2'] 超过一项认定为分组统计
+        let p = '';                         // position 根据单维度统计和多维度统计 做不同的调整
+        let c = '';                         // colors 多维度统计时固定为 'type',   单维度统计时为动态的 key 或者 value
+        let v = '';                         // value  多维度统计时固定为 'value'   单维度统计时为动态的 动态的 value值 例如： ['value1','value2']
+
+        // 分组统计 value: ['value1','value2']
+        if (config.value.length > 1) {
+            c = k;
+            v = 'value';
+            p = `${ config.key }*${ v }`;
+        } else {
+            // 单维度统计 value: ['value1']
+            c = config.groupby;
+            v = config.value[0];
+            p = `${ config.key }*${ config.value[0] }`;
+        }
+
+        dv.transform({
+            type  : 'fold',
+            fields: fields,
+            key   : k,
+            value : v,
+        });
+        return {
+            ...config,
+
+            // 主要转化的数据
+            position  : p,
+            colors    : c,
+            dataSource: dv.rows,
+        };
     }
 
     public static renderChart(config): ReactNode {
@@ -715,11 +853,11 @@ export default class DataChart extends React.Component<IComponentProps, any> {
     render() {
         let config = this.formatConfig();
         return <>
-            <h2 hidden={ !this.props.dataset.title }
-                style={ { textAlign: 'center', padding: '10px 20px' } }>{ this.props.dataset.title }</h2>
+            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
             </Spin>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
         </>;
     }
 }

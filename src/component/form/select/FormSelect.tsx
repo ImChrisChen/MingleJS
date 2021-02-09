@@ -9,10 +9,12 @@ import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
-import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
 import { strParseDOM } from '@utils/parser-dom';
 import React, { Component } from 'react';
+import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 // import axios from 'axios'
 
 const { Option, OptGroup } = Select;
@@ -34,7 +36,8 @@ interface ISelectProps {
     [key: string]: any
 }
 
-export default class Selector extends Component<IComponentProps, any> {
+export default class FormSelect extends Component<IComponentProps, any> {
+    @Inject private readonly httpClientService: HttpClientService;
 
     state = {
         checkedAll : false,
@@ -46,6 +49,7 @@ export default class Selector extends Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
+        console.log(this.props);
         this.getData(this.props.dataset.url).then(options => {
             this.setState({ options, loading: false });
         });
@@ -54,7 +58,7 @@ export default class Selector extends Component<IComponentProps, any> {
     async getData(url) {
         let { groupby, key, value, enum: enumList } = this.props.dataset;
         if (url) {
-            let { data } = await jsonp(url);
+            let { data } = await this.httpClientService.jsonp(url);
 
             if (groupby) {
                 return formatList2Group(data, {
@@ -74,7 +78,7 @@ export default class Selector extends Component<IComponentProps, any> {
     }
 
     render() {
-        let dataset = this.props.dataset;
+        let { smart, ...dataset } = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
         if (dataset.mode === 'multiple') {
@@ -85,13 +89,15 @@ export default class Selector extends Component<IComponentProps, any> {
             }
         }
         return <>
-            <Form.Item label={ dataset.label } style={ { display: 'flex' } }
+            <Form.Item label={ dataset.label } style={ { display: 'flex', ...this.props.style } }
                        required={ this.props.dataset.required }>
+                { smart ? <FormSmartIcon/> : '' }
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
                     { ...dataset }
                     placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
+                    tokenSeparators={ [ ',' ] }     // 自动分词
                     style={ { minWidth: 100 } }
                     value={ value }
                     options={ this.state.options }
@@ -109,12 +115,6 @@ export default class Selector extends Component<IComponentProps, any> {
                             : option.label;
                         return String(option.value).includes(input) || String(label).includes(input);
                     } }/>
-                {/*<Select*/ }
-                {/*    options={ this.state.currentItem['children'] }*/ }
-                {/*    mode="multiple"*/ }
-                {/*    maxTagCount={ 1 }*/ }
-                {/*    style={ { width: 200 } }*/ }
-                {/*/>*/ }
             </Form.Item>
         </>;
     }
@@ -150,7 +150,7 @@ export default class Selector extends Component<IComponentProps, any> {
 
     handleClear() {
         this.setState({ checkedAll: false });
-        trigger(this.props.el, '');
+        trigger(this.props.el, '', 'clear');
     }
 
     handleSelectAll(e) {

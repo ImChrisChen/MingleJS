@@ -13,9 +13,12 @@
 | before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |
 | update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |
 
+`load 和 update 钩子函数都将会接受一个参数, 该参数是组件的实例`
+
+
 ```html
 <script>
-function funcName () {
+function funcName (instance) {
   	// Coding 触发组件钩子
 }   
 </script>
@@ -23,7 +26,7 @@ function funcName () {
 // or 
 
 <script>
-window.funcName = function () {
+window.funcName = function (instance) {
   	// Coding 触发组件钩子
 }   
 </script>
@@ -37,7 +40,7 @@ MingleJS 提供了几个全局方法以便于后端开发者，在不得已的�
 
 #### jQuery
 
-这个没有不知道的吧，不用多说了
+可以直接使用 $
 
 
 
@@ -109,7 +112,6 @@ Notice.open({
 </div>
 ~~~
 
-
 #### data-url数据格式
 
 ```json
@@ -139,7 +141,6 @@ Notice.open({
 }
 ```
 
-
 ## Form 表单和表格/图表/ 列表 之间的关联
 
 ~~~html
@@ -153,7 +154,9 @@ Notice.open({
 
     <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
     
-    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>	
+    <button type="reset" class="ant-btn ant-btn-waring">重置</button>
+
+    <button type="submit" class="ant-btn ant-btn-primary">提交</button>
     
 </form>
 

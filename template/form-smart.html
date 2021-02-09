@@ -1,0 +1,40 @@
+<form-action>
+
+    <!-- 平台 -->
+    <form-select name="pf"
+           data-smart
+           value="1"
+           data-required="true"
+           data-label="平台:"
+           data-mode="single"
+           data-key="id"
+           data-value="name"
+                 data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm"></form-select>
+
+    <!-- 游戏 -->
+    <form-select  name="dl_game_id" data-mode="multiple"
+           data-smart
+           data-label="游戏:"
+           data-key="game_id"
+           data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"
+           data-tags="tags"
+           value=""
+           data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"
+           data-size="sm"
+    ></form-select>
+
+    <!-- 媒体 -->
+    <form-select  name="media_id" value="" data-mode="multiple" data-size="sm"
+           data-smart=""
+           data-label="媒体:"
+           data-url="http://e.aidalan.com/option/media/list" id="media_id" data-value="media_name"
+                 data-key="media_id"></form-select>
+
+    <!-- 账号 -->
+    <form-select  name="dl_publisher_id" data-mode="multiple" value=""
+           data-label="账号:"
+           data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"
+                 data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>"></form-select>
+
+
+</form-action>
