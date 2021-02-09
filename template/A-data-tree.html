@@ -1,7 +1,7 @@
 <div id="mingle-box">
     <h1><{message}></h1>
 
-    <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
+    <form-select data-enum="1,Android;2,iOS" value="1" name="pf" @before-load="beforeLoad"></form-select>
 
     <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
 
@@ -10,7 +10,7 @@
     </el>
 
     <ul>
-        <li w-foreach="list as (item,index)" @click="handleClick(item,this)">
+        <li w-foreach="list as (item,index)" @click="handleClick(item,this,index)">
             name: <{item.name}> value: <{item.value}>
         </li>
     </ul>
@@ -76,8 +76,8 @@
                 return res.status ? res.data : [];
             },
 
-            handleClick(item) {
-                console.log(item);
+            handleClick(item, self, index) {
+                console.log(item, self, index);
             },
         },
     });
