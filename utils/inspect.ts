@@ -30,7 +30,7 @@ export function isObject(v): v is object {
 }
 
 export function isEmptyObject(v) {
-    return JSON.stringify(v) === '{}';
+    return isObject(v) && Object.keys(v).length === 0;
 }
 
 export function isArray(v): v is Array<any> {
@@ -38,7 +38,7 @@ export function isArray(v): v is Array<any> {
 }
 
 export function isEmptyArray(v): boolean {
-    return JSON.stringify(v) === '[]';
+    return v.constructor === Array && v.length === 0;
 }
 
 export function isNoEmptyArray(v): boolean {
@@ -50,7 +50,7 @@ export function isUndefined(v): v is undefined {
 }
 
 export function isFunc(v): v is Function {
-    return typeof v === 'function';
+    return typeof v === 'function' && v.constructor === Function;
 }
 
 // 判断是否是 JSON 字符串
@@ -62,7 +62,7 @@ export function isJSON(v: string): boolean {
 
     try {
         let obj = JSON.parse(v);
-        if (obj && isObject(obj)) {
+        if (isObject(obj) || isArray(obj)) {
             return true;
         } else {
             return false;
@@ -72,6 +72,17 @@ export function isJSON(v: string): boolean {
         console.log('error：' + v + '!!!' + e);
         return false;
     }
+}
+
+/**
+ * 判断是否是多层调用对象的key的结构
+ * 如:
+ * 'item.name'  => true
+ * 'item.100'   => false
+ * @param v
+ */
+export function isObjectKeys(v: string): boolean {
+    return /[^0-9]\.[^0-9]/.test(v);
 }
 
 type IdataType =
@@ -137,11 +148,11 @@ export function isWuiByString(v: string) {
 }
 
 // 判断 DOM 是否是 Wui组件
-export function isWuiByElement(v: HTMLElement) {
-    let name = v.dataset.fn;
-    if (!name) return false;
-    return /^[a-zA-Z]/.test(name);
-}
+// export function isWuiByElement(v: HTMLElement) {
+//     let name = v.dataset.fn;
+//     if (!name) return false;
+//     return /^[a-zA-Z]/.test(name);
+// }
 
 // 判断是否是管道操作符
 export function isPipe(v: string) {
@@ -150,10 +161,7 @@ export function isPipe(v: string) {
 
 // 判断是否是自定义元素
 export function isCustomElement(tagName: string): boolean {
-    tagName = tagName.toLowerCase();
-    if (tagName === 'icon') {
-        return true;
-    }
+    // tagName = tagName.toLowerCase();
     return /[a-z]-[a-z]/.test(tagName);
 }
 
@@ -173,6 +181,16 @@ export function isIncludeWuiComponent(v: string) {
     return /(<[a-zA-Z])(.*?)(data-fn=("|'|`|)[a-zA-Z]("|'|`|))(.*?)>/.test(v);
 }
 
+
+// 检测字符串是不是表达式
+export function isExpress(express: string) {
+    //表达式
+    if (/[\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // 判断是否是Class https://zhuanlan.zhihu.com/p/53385348
 export function isClass(obj, strict?): obj is ClassDecorator {

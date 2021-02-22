@@ -1,1 +1,0 @@
-/** * Created by WebStorm. * User: MacBook * Date: 2020/10/16 * Time: 上午11:49 */import { Inject } from "typescript-ioc";import * as React from "react";class Util {    public format() {        console.log('format');    }}class Person extends React.Component<any, any> {    constructor(props, @Inject private util: Util) {        super(props)    }}

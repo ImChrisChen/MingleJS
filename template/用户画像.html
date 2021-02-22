@@ -1,149 +1,151 @@
-<form data-fn="form-action"
-      data-method="post"
-      id="user_analysis"
+<form-action
+        data-method="post"
+        id="user_analysis"
 >
 
     <!-- 日期 -->
-    <input data-fn="form-datepicker"
-           data-format="YYYY-MM-DD HH:mm:ss"
-           data-label="日期:"
-           data-showtime="true"
-           data-mindate="2016-01-01"
-           data-maxdate="2020-10-26"
-           data-usenow="true"
-           name="date_range"
-    />
+    <form-datepicker
+            data-format="YYYY-MM-DD HH:mm:ss"
+            data-label="日期:"
+            data-showtime="true"
+            data-mindate="2016-01-01"
+            data-maxdate="2020-10-26"
+            data-usenow="true"
+            name="date_range"
+
+    ></form-datepicker>
 
     <!-- 平台 -->
-    <input data-fn="form-select" name="pf"
-           style="width: 300px"
-           value="1"
-           data-required="true"
-           data-label="平台:"
-           data-exec="true"
-           data-smart="true"
-           data-mode="single"
-           data-key="id"
-           data-value="name"
-           data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm">
+    <form-select name="pf"
+                 style="width: 300px"
+                 value="1"
+                 data-required="true"
+                 data-label="平台:"
+                 data-exec="true"
+                 data-smart="true"
+                 data-mode="single"
+                 data-key="id"
+                 data-value="name"
+                 data-url="http://e.aidalan.com/option/pf/list" id="pf" data-size="sm"></form-select>
 
     <!-- 游戏 -->
-    <input data-fn="form-select" name="dl_game_id" data-mode="multiple"
-           data-smart="true"
-           data-label="游戏:"
-           data-key="game_id"
-           data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"
-           data-tags="tags"
-           value=""
-           data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"
-           data-size="sm"
-    >
+    <form-select name="dl_game_id" data-mode="multiple"
+                 data-smart="true"
+                 data-label="游戏:"
+                 data-key="game_id"
+                 data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"
+                 data-tags="tags"
+                 value=""
+                 data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"
+                 data-size="sm"
+    ></form-select>
     <!--    data-groupby="game_original_name"-->
 
     <!-- 媒体 -->
-    <input data-fn="form-select"
-           data-smart="true"
-           name="media_id"
-           value=""
-           data-mode="multiple"
-           data-group="example"
-           data-size="sm"
-           data-label="媒体:"
-           data-url="http://e.aidalan.com/option/media/list" id="media_id"
-           data-value="media_name"
-           data-key="media_id">
+    <form-select
+            data-smart="true"
+            name="media_id"
+            value=""
+            data-mode="multiple"
+            data-group="example"
+            data-size="sm"
+            data-label="媒体:"
+            data-url="http://e.aidalan.com/option/media/list" id="media_id"
+            data-value="media_name"
+            data-key="media_id"></form-select>
 
     <!-- 账号 -->
-    <input data-fn="form-select" name="dl_publisher_id" data-mode="multiple" value=""
-           data-smart="true"
-           data-group="example"
-           data-label="账号:"
-           data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"
-           data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>">
+    <form-select name="dl_publisher_id" data-mode="multiple" value=""
+                 data-smart="true"
+                 data-group="example"
+                 data-label="账号:"
+                 data-size="sm" data-url="http://e.aidalan.com/option/game/publisher?pf=<{pf}>" id="publisher_id"
+                 data-key="publisher_id" data-value="<span class='ti-<{pf}>'></span> <{publisher_name}>"></form-select>
 
     <!-- 负责人 -->
-    <input data-fn="form-cascader" name="principal_id" data-mode="multiple"
-           data-smart="true"
-           data-size="sm"
-           data-label="负责人:"
-           data-groupby="department_name"
-           data-url="http://e.aidalan.com/option/game/principal" id="principal_id"
-           data-key="id"
-           data-value="name"
-           value=""
-    />
+    <form-cascader name="principal_id" data-mode="multiple"
+                   data-smart="true"
+                   data-size="sm"
+                   data-label="负责人:"
+                   data-groupby="department_name"
+                   data-url="http://e.aidalan.com/option/game/principal" id="principal_id"
+                   data-key="id"
+                   data-value="name"
+                   value=""
+    ></form-cascader>
 
     <!-- 渠道 -->
-    <input data-fn="form-select" name="dl_channel_id" data-mode="multiple"
-           data-label="渠道:"
-           data-url="http://e.aidalan.com/option/game/channel?pf=<{pf}>" id="channel_id" data-size="sm"
-           data-value="<span class='ti-<{pf}>'></span> <{channel_name}>" data-key="channel_id" value="">
+    <form-select name="dl_channel_id" data-mode="multiple"
+                 data-label="渠道:"
+                 data-url="http://e.aidalan.com/option/game/channel?pf=<{pf}>" id="channel_id" data-size="sm"
+                 data-value="<span class='ti-<{pf}>'></span> <{channel_name}>" data-key="channel_id"
+                 value=""></form-select>
 
     <!-- 广告位 -->
-    <input data-fn="form-input" name="adv_position_id" data-label="广告位">
+    <form-input name="adv_position_id" data-label="广告位"></form-input>
 
     <!-- 用户分析 -->
-    <input data-fn="form-radio" data-label="用户分析" name="group_type" value="reg_count"
-           data-enum="reg_count,注册;login_count,活跃;pay_count,付费;" id="group_type">
+    <form-radio data-label="用户分析" name="group_type" value="reg_count"
+                data-enum="reg_count,注册;login_count,活跃;pay_count,付费;" id="group_type"></form-radio>
 
     <button type="reset" class="ant-btn ant-btn-waring">重置</button>
 
-    <!--    <button type="submit" class="ant-btn ant-btn-primary">提交</button>-->
+    <button type="submit" class="ant-btn ant-btn-primary">提交</button>
 
-</form>
+</form-action>
 
-<div data-fn="layout-list" data-space="10,10" data-cols="2">
+<layout-list data-space="10,10" data-cols="2">
 
     <!-- 地域用户画像 -->
-    <div data-fn="data-chart"
-         data-from="user_analysis"
-         data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
-         data-type="line"
-         data-colors="#6ad6b6"
-         data-key="location"
-         data-value="count"
-    ></div>
-    <div data-fn="data-table"
-         data-height="400"
-         data-from="user_analysis"
-         data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
-         data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
-    ></div>
-    <div data-fn="data-chart"
-         data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=brand&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
-         data-from="user_analysis"
-         data-type="pie"
-         data-colors="#6ad6b6"
-         data-name="品牌"
-         data-key="brand"
-         data-value="count"
-         data-datadirect="y"
-    ></div>
-    <div data-fn="data-table"
-         data-height="400"
-         data-from="user_analysis"
-         data-headerurl="http://e.aidalan.com/presenter/user/os/header?group_type=<{group_type}>"
-         data-url="http://e.aidalan.com/presenter/user/os/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
-    ></div>
+    <data-chart
+            data-from="user_analysis"
+            data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+            data-type="line"
+            data-colors="#6ad6b6"
+            data-key="location"
+            data-value="count"
+    ></data-chart>
+    <data-table
+            data-height="400"
+            data-from="user_analysis"
+            data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
+            data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+    ></data-table>
+    <data-chart
+            data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=brand&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+            data-from="user_analysis"
+            data-type="pie"
+            data-colors="#6ad6b6"
+            data-name="品牌"
+            data-key="brand"
+            data-value="count"
+            data-datadirect="y"
+    ></data-chart>
+    <data-table
+            data-height="400"
+            data-from="user_analysis"
+            data-headerurl="http://e.aidalan.com/presenter/user/os/header?group_type=<{group_type}>"
+            data-url="http://e.aidalan.com/presenter/user/os/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+    ></data-table>
 
     <!-- 品牌用户画像 -->
-    <div data-fn="data-chart"
-         data-from="user_analysis"
-         data-type="bar"
-         data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=device&amp;pf=<{pf}>&amp;date_way=multi&amp;group_way=<{group_way}>&amp;date_range=<{date_range}>&amp;dl_game_id=<{dl_game_id}>&amp;dl_channel_id=<{dl_channel_id}>&amp;media_id=<{media_id}>&amp;dl_adv_position_id=<{dl_adv_position_id}>&amp;dl_publisher_id=<{dl_publisher_id}>&amp;principal_id=<{principal_id}>&amp;original_id=<{original_id}>&amp;group_type=<{group_type}>"
-         data-colors="#6ad6b6"
-         data-name="设备"
-         data-key="device"
-         data-value="count"
-         data-height="400"
-         data-datadirect="y">
-    </div>
-    <div data-fn="data-table"
-         data-autosum="true"
-         data-frozen="2,1"
-         data-height="400"
-         data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
-         data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>">
+    <data-chart
+            data-from="user_analysis"
+            data-type="bar"
+            data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=device&amp;pf=<{pf}>&amp;date_way=multi&amp;group_way=<{group_way}>&amp;date_range=<{date_range}>&amp;dl_game_id=<{dl_game_id}>&amp;dl_channel_id=<{dl_channel_id}>&amp;media_id=<{media_id}>&amp;dl_adv_position_id=<{dl_adv_position_id}>&amp;dl_publisher_id=<{dl_publisher_id}>&amp;principal_id=<{principal_id}>&amp;original_id=<{original_id}>&amp;group_type=<{group_type}>"
+            data-colors="#6ad6b6"
+            data-name="设备"
+            data-key="device"
+            data-value="count"
+            data-height="400"
+            data-datadirect="y">
+    </data-chart>
+    <data-table
+            data-autosum="true"
+            data-frozen="2,1"
+            data-height="400"
+            data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
+            data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>">
 
-    </div>
-</div>
+    </data-table>
+</layout-list>

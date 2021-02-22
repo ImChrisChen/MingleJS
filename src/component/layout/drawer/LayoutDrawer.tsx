@@ -45,7 +45,7 @@ export default class LayoutDrawer extends React.Component<IComponentProps, any> 
             visible={ this.state.visible }
         >
             <div ref={ element => {
-                element?.append(...this.props.elChildren);
+                element?.append(...this.props.subelements);
             } }/>
         </Drawer>;
     }

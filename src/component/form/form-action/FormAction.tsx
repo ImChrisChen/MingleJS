@@ -12,11 +12,13 @@ import axios from 'axios';
 import { trigger } from '@utils/trigger';
 import SmartIcon from '@static/icons/form-smart.png';
 import style from './FormAction.scss';
-import { jsonp } from '@root/utils/request/request';
 import { isEmptyObject } from '@utils/inspect';
 import { arrayDeleteItem } from '@root/utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@root/src/App';
+import { Inject } from 'typescript-ioc';
+import { ComponentService } from '@services/Component.service';
+import { HttpClientService } from '@root/src/services/HttpClient.service';
 
 // 表格提交的数据
 interface IFormData {
@@ -43,7 +45,7 @@ export function FormSmartIcon() {
 
 // form-smart
 class FormSmart extends Component<{ el: HTMLElement }, any> {
-
+    @Inject private readonly httpClientService: HttpClientService;
     state = {
         isModalVisible  : false,
         formSmartVisible: false,
@@ -95,7 +97,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         let dataStr = this.formatDataString(formDataSmart);
 
         let url = `https://auc.local.aidalan.com/user.selectTag/save?public=${ Number(isPublic) }&name=${ name }${ dataStr }`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         if (res.status) {
             message.success('创建成功');
             let data = await this.getFormSmartList();
@@ -108,7 +110,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
     // 删除标签
     async handleDeleteSmart(id, e) {
         let url = `https://auc.local.aidalan.com/user.selectTag/delete?selectTagId=${ id }`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
 
         if (res.status) {
             message.success('删除成功');
@@ -124,7 +126,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         let formDataSmart = this.getFormDataSmart(this.state.smartElements);
         let names = this.formatDataString(formDataSmart);
         let url = `https://auc.local.aidalan.com/user.selectTag/lists?keys=${ names }`;
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
 
@@ -146,7 +148,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         for (const name in selects) {
             if (!selects.hasOwnProperty(name)) continue;
             let value = selects[name];
-            let input = el.querySelector(`[data-fn][name=${ name }]`) as HTMLInputElement;
+            let input = el.querySelector(`[data-component-uid][name=${ name }]`) as HTMLElement;
             // TODO 填充时如果 input有data-exec属性 会立即执行查询
             trigger(input, value);
         }
@@ -231,6 +233,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {};
 
+    @Inject componentSerive: ComponentService;
+
     constructor(props) {
         super(props);
         this.init();
@@ -238,8 +242,17 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
-        form.onsubmit = (e) => this.handleSubmit(form, e);
-        form.onreset = (e) => this.handleReset(form, e);
+        let submitBtn = form.querySelector('[type=submit]') as HTMLElement;
+        let resetBtn = form.querySelector('[type=reset]') as HTMLElement;
+        if (submitBtn) {
+            submitBtn.onclick = e => this.handleSubmit(form, e);
+        }
+        if (resetBtn) {
+            resetBtn.onclick = e => this.handleReset(form, e);
+        }
+
+        // form.onsubmit = (e) => this.handleSubmit(form, e);
+        // form.onreset = (e) => this.handleReset(form, e);
         this.setLayout(form);
     }
 
@@ -249,7 +262,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
         let formData = await FormAction.getFormData(form);
-        console.log(formData);
+        console.log('formData:', formData);
 
         let verify = this.verifyFormData(form, formData);
 
@@ -301,7 +314,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     async handleReset(form: HTMLElement, e?: any) {
-        let formItems = [ ...form.querySelectorAll(`[name][data-fn]`) ] as Array<HTMLInputElement>;
+        // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
+        let formItems = this.componentSerive.getFormComponents(form);
         for (const formItem of formItems) {
             let property = await App.parseElementProperty(formItem);        // 默认属性
             let value = property.value;
@@ -315,7 +329,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
         for (const name in formData) {
             if (!formData.hasOwnProperty(name)) continue;
             let value = formData[name];
-            let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-fn]`);
+            // let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
+            let formItemElem: HTMLElement = this.componentSerive.getFormComponentByName(name);
             let required = eval(formItemElem.dataset.required + '');
             if (required && !value) {
                 unVerifys.push(name);
@@ -331,7 +346,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 获取处理formGroup数据
     public static async getFormGroupData(form) {
-        let formGroup = form.querySelector('[data-fn=form-group]');
+        let formGroup = form.querySelector('[form-group]');
 
         if (!formGroup) {
             return {};
@@ -354,7 +369,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         let formData = await this.getDataByElement(form);
 
-        // 处理 data-fn=form-group内的组件
+        // 处理 form-group 内的组件
         let formGroupData = await this.getFormGroupData(form);
 
         return Object.assign(formData, formGroupData);
@@ -363,13 +378,16 @@ export default class FormAction extends React.Component<IFormAction, any> {
     public static async getDataByElement(form: HTMLElement, force = false): Promise<IFormData> {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
-        let hideInput = $(form).find('.form-tabpanel:hidden').find('[data-fn][name]');
-        let hideInputName = hideInput.attr('name');
+        let $hideInput = $(form).find('.form-tabpanel:hidden').find('[data-component-uid][name]');
+        let hideInputName = $hideInput.attr('name');
 
-        let formItems = [ ...form.querySelectorAll(`[data-fn][name]`) ] as Array<HTMLInputElement>;
+        let formItems = [ ...form.querySelectorAll(`[data-component-uid][name]`) ] as Array<HTMLElement>;
         for (const formItem of formItems) {
-            let { name, value } = formItem;
-            let isFormGroup = $(formItem).parents('[data-fn=form-group]').length > 0;
+            // let { name, value } = formItem;
+            // let { name, value } = formItem;
+            let name = formItem.getAttribute('name');
+            let value = formItem.getAttribute('value');
+            let isFormGroup = $(formItem).parents('form-group').length > 0;
 
             // force强制获取name值 如果是form-group内的组件则跳过
             if (!force && isFormGroup) {
@@ -404,6 +422,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     render() {
+        console.log('formaction');
         return <>
             <FormSmart el={ this.props.el }/>
         </>;

@@ -7,14 +7,12 @@
 
 import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
 import * as React from 'react';
-import { parseTpl } from '@utils/parser-tpl';
-import { elementParseAllStr, strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
+import { strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { IApiResult, jsonp } from '@utils/request/request';
 import { isHtmlTpl, isNumber, isString, isWuiByString, isWuiTpl } from '@utils/inspect';
 import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
@@ -24,6 +22,9 @@ import App from '@src/App';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
 import FormAction from '@component/form/form-action/FormAction';
+import { Inject } from 'typescript-ioc';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -106,8 +107,12 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
+
+    @Inject parserTemplateService: ParserTemplateService;
+
     private url: string = this.props.url;
     private searchInput;
+    @Inject private readonly httpClientService: HttpClientService;
 
     constructor(props: ITableProps) {
         super(props);
@@ -240,7 +245,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
-        let res = await jsonp(tableUrl);
+        let res = await this.httpClientService.jsonp(tableUrl);
         // let { data }: ITableApiRes<ITableContentItem> = tableContent;
         let { data }: any = res;
         let tableContent: Array<ITableContentItem> = data.map((item, index) => {
@@ -251,7 +256,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析wui模版
                 if (isWuiTpl(value)) {
-                    value = parseTpl(value, item, 'tpl');
+                    value = this.parserTemplateService.parseTpl(value, item, 'tpl');
                 }
 
                 // 解析html模版
@@ -290,7 +295,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
-        let res = await jsonp(headerUrl);
+        let res = await this.httpClientService.jsonp(headerUrl);
         let { data }: ITableApiRes<ITableHeaderItem> = res;
 
         let tableHeader: Array<ITableHeaderItem> = [];

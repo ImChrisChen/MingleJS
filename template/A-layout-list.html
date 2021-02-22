@@ -1,1 +1,70 @@
-<form data-fn="form-action">    <div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json">        <div data-fn="layout-list" data-cols="2" data-space="20,20" data-single="false"             name="server">            <div w-foreach="data as (item,index)" value="<{item.value}>">                <button data-fn="layout-window" data-content="编辑 <{item.key}>" data-title="<{item.key}>"                        class="ant-btn-primary ant-btn">                    <div data-fn="data-chart"                         data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"                         data-type="line"                         data-title="<{ii}>"                         data-key="location"                         data-value="reg_count"                         data-colors="#37c9e3"                         data-height="400"                    ></div>                </button>                <div data-fn="data-chart"                     data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"                     data-type="line"                     data-title="<{ii}>"                     data-key="location"                     data-value="reg_count"                     data-colors="#37c9e3"                     data-height="400"                ></div>            </div>        </div>    </div>    <button type="submit" class="ant-btn ant-btn-primary">submit</button></form>
+<div id="app">
+
+    <form-action>
+        <layout-list data-cols="2" data-space="20,20" data-single="false" name="server">
+            <div w-foreach="list as (item,index)" value="<{item.value}>">
+                <layout-window data-content="编辑 <{item.key}>" data-title="<{item.key}>"
+                               class="ant-btn-primary ant-btn">
+                    <data-chart
+                        data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                        data-type="line"
+                        data-title="<{ii}>"
+                        data-key="location"
+                        data-value="reg_count"
+                        data-colors="#37c9e3"
+                        data-height="400"
+                    ></data-chart>
+                </layout-window>
+                <data-chart
+                    data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                    data-type="line"
+                    data-title="<{ii}>"
+                    data-key="location"
+                    data-value="reg_count"
+                    data-colors="#37c9e3"
+                    data-height="400"
+                ></data-chart>
+            </div>
+        </layout-list>
+        <button type="submit" class="ant-btn ant-btn-primary">submit</button>
+    </form-action>
+
+</div>
+
+<script>
+    new Mingle({
+        el: '#app',
+        data: {
+            list: [
+                {
+                    'key': '渠道1',
+                    'value': 50000,
+                    'value1': 500000,
+                },
+                {
+                    'key': '渠道2',
+                    'value': 35000,
+                    'value1': 350000,
+                },
+                {
+                    'key': '渠道3',
+                    'value': 25000,
+                    'value1': 250000,
+                },
+                {
+                    'key': '渠道4',
+                    'value': 15000,
+                    'value1': 150000,
+                },
+                {
+                    'key': '渠道5',
+                    'value': 8000,
+                    'value1': 80000,
+                },
+            ],
+        },
+        created() {
+            console.log(this);
+        }
+    });
+</script>

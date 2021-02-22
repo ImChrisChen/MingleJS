@@ -144,11 +144,11 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         desc  : '样式',
     },
     url        : {
-        el    : 'input',
-        value : '',
-        desc  : '数据源',
-        parse : 'string',
-        verify: value => isUrl(value),
+        el   : 'input',
+        value: '',
+        desc : '数据源',
+        parse: 'string',
+        // verify: value => isUrl(value),
     },
     'enum'     : {
         el   : 'list',
@@ -360,10 +360,10 @@ export default {
                 },
                 value      : {
                     el     : 'select',
+                    parse  : 'string',
                     options: [],            // 通过解析enum来得到
                     value  : '',
                     desc   : '默认值',
-                    parse  : 'string',
                 },
                 placeholder: UniversalProps.placeholder,
                 style      : UniversalProps.style,

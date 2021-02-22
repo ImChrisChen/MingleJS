@@ -33,14 +33,15 @@ interface IModuleProperty {
 }
 
 interface IModules {
-    // { element, Component, container, elChildren }
+    // { element, Component, container, subelements }
     element: HTMLElement            //  调用组件的元素，拥有data-fn属性的
-    elChildren: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
+    subelements?: Array<HTMLElement>  //  组件被渲染之前，@element 中的模版中的子节点(只存在于容器元素中/如非input)
     Component: any                  //  被调用的组件
     container: HTMLElement          //  组件渲染的React容器
-    containerWrap: HTMLElement      //  组件根容器
+    // containerWrap: HTMLElement      //  组件根容器
+    templates?: object
     hooks: object                   //  钩子
-    componentMethod: string         //  组件方法
+    // componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
     config: IComponentConfig        // 组件配置
     componentUID: string            // 组件uid
@@ -57,19 +58,18 @@ interface IInstances {
     instance?: ReactInstance
 }
 
+type ITemplateName = 'children' | '';
+
 export default class App {
 
     public static instances: IInstances = {};      // 组件实例
+    public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
     constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
 
         if (!root) return;
 
         let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
-        let $tempContainer = $(`<div data-template-element></div>`);
-        if ($(`[data-template-element]`).length === 0) {
-            $('body').append($tempContainer);
-        }
 
         try {
             this.init(rootElement).then(r => r);
@@ -78,138 +78,118 @@ export default class App {
         }
     }
 
-    async init2(rootElement: HTMLElement) {
+    // web-components
+    async init(rootElement: HTMLElement) {
 
-        deepEachElement(rootElement, async (element, parentNode) => {
-            let { tagName, attributes } = element;
+        App.renderIcons(rootElement);
+        deepEachElement(rootElement, async (element) => {
+            let { localName: tagName } = element;
+            tagName = tagName.trim();
+
             if (!isCustomElement(tagName)) {
                 return;
             }
 
-            await App.parseElementLoop(element);
-        });
-
-    }
-
-    async init(rootElement: HTMLElement) {
-        App.renderIcons(rootElement);
-        deepEachElement(rootElement, async (element, parentNode) => {
-
-            let attributes = element.attributes;
-
-            if (!attributes['data-fn']) {
+            if (App.registerComponents.includes(tagName)) {
+                // console.log('有注册过', App.registerComponents, tagName);
                 return;
             }
 
-            // form-group 元素不解析
-            if (!this.force && $(element).parents('[data-fn=form-group]').length > 0) {
-                console.warn('被form-group 包裹，不渲染');
-                return;
-            }
+            window.customElements.define(tagName, class extends HTMLElement {
+                constructor() {
+                    super();
+                    App.renderCustomElement(this);
+                }
+            });
 
-            if (!this.force && $(element).parents('[data-fn=data-panel]').length > 0 && attributes['data-fn'].value !== 'data-panel') {
-
-                console.warn('上一个是data-panel,当前元素不解析', element);
-
-            } else {
-
-                await App.parseElementLoop(element);
-
-            }
+            App.registerComponents.push(tagName);
         });
+
         App.errorVerify();
+
     }
 
-    // 更具Element 渲染组件
-    public static async parseElementLoop(element: HTMLElement) {
+    // 渲染组件 <form-select></form-select>
+    public static async renderCustomElement(el: HTMLElement) {
+        let { localName: componentName } = el;
+        componentName = componentName.trim();
 
-        let attributes = element.attributes;
-        let elChildren: Array<HTMLElement | any> = Array.from(element.children ?? []);
-        let container: HTMLElement, containerWrap: HTMLElement;
-        let componentNames: string = attributes['data-fn']?.value ?? '';        // 组件名称
-
-
-        // 处理组件容器
-        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            let elementWrap: HTMLElement = document.createElement('div');
-            container = document.createElement('div');
-            element.after(elementWrap);
-            elementWrap.appendChild(element);
-            elementWrap.appendChild(container);
-            containerWrap = elementWrap;
-        } else {
-            let reactContainer: HTMLElement = document.createElement('div');
-            element.appendChild(reactContainer);
-            container = reactContainer;
-            containerWrap = element;
+        if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
+            componentName = el.attributes['data-fn'].value;
         }
 
-        container.hidden = true;
-
-        // 没有组件名 return 掉
-        if (!componentNames) {
-            // console.log('没有组件名');
-            return;
-        }
-
-        // 有uid说明已经被渲染过,不重复渲染，return掉
-        if (containerWrap.attributes['data-component-uid']?.value) {
-            console.log('有uid说明已经被渲染过,不重复渲染，return掉');
+        if (!componentName) {
+            console.log(`没有${ componentName }这个组件`);
             return;
         }
 
         // TODO 设置组件唯一ID
-        let componentUID = App.getUUID();
-        containerWrap.setAttribute('data-component-uid', componentUID);
+        let componentUID = App.createUUID();
+        el.setAttribute('data-component-uid', componentUID);
+        el.hidden = true;
 
-        for (const componentName of componentNames.split(' ')) {
+        let subelements = [ ...el.children ].map(child => child/*.cloneNode(true)*/) as Array<HTMLElement>;
 
-            // 外部模块
-            if (componentName.startsWith('self-')) {
-                console.error(`${ componentName } 模块不属于MingleJS`);
-                continue;
-            }
+        let container = document.createElement('div');
+        el.append(container);
 
-            let keysArr = componentName.trim().split('-');
-            // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
+        let { attributes } = el;
 
-            const [, , componentMethod] = keysArr;  // 第三项
-            const Modules = await loadModules(keysArr);
-            const Component = Modules.component.default;            // React组件
-            const config = Modules.config;
-
-            let defaultProperty = Modules.property;
-
-            // TODO 组件内的render是异步渲染的,所以需要在执行render之前获取到DOM子节点
-            // let elChildren: Array<HTMLElement | any> = [];
-
-            let hooks = App.formatHooks(attributes);
-            let module: IModules = {
-                Component,
-                element,
-                container,
-                containerWrap,
-                elChildren,
-                hooks,
-                componentMethod,
-                defaultProperty,
-                config,
-                componentUID,
-            };
-
-            App.renderComponent(module, (hooks, instance) => {
-                hooks[Hooks.beforeLoad]?.(instance);
-            }, (hooks, instance) => {
-                hooks[Hooks.load]?.(instance);
-                element.style.opacity = '1';
-            });
-            App.eventListener(module);
+        // form-component
+        if (componentName.startsWith('form')) {
+            el.setAttribute('form-component', '');
         }
+
+        let tpls = [ ...el.querySelectorAll('template') ];
+        let templates = {};
+
+        for (const tpl of tpls) {
+            let name = tpl.attributes['name']?.value;
+            if (!name) continue;
+            templates[name] = tpl;
+        }
+
+        // 外部模块
+        if (componentName.startsWith('self-')) {
+            console.error(`${ componentName } 模块不属于MingleJS`);
+            return;
+        }
+
+        let keysArr = componentName.trim().split('-');
+        // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
+
+        const Modules = await loadModules(keysArr);
+        const Component = Modules.component.default;            // React组件
+        const config = Modules.config;
+
+        let defaultProperty = Modules.property;
+
+        let hooks = App.formatHooks(attributes);
+        let module: IModules = {
+            Component,
+            element: el,
+            templates,
+            subelements,
+            container,
+            hooks,
+            defaultProperty,
+            config,
+            componentUID,
+        };
+
+        App.renderComponent(module, (hooks, instance) => {
+            hooks[Hooks.beforeLoad]?.(instance);
+        }, (hooks, instance) => {
+            hooks[Hooks.load]?.(instance);
+            el.style.opacity = '1';
+            el.hidden = false;
+        });
+        App.eventListener(module);
 
     }
 
     // 生成组件唯一ID
-    public static getUUID() { // 获取唯一值
+    public static createUUID() { // 获取唯一值
         return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
@@ -228,7 +208,7 @@ export default class App {
 
     // 通过 Element 获取到组件解析后的所有属性
     public static async parseElementProperty(el: HTMLElement): Promise<any> {
-        let componentName = el.getAttribute('data-fn') ?? '';
+        let componentName = el.localName ?? '';
         let componentModule = await loadModules(componentName.split('-'));
         let defaultProperty = componentModule.property;
         let { dataset, hook, ...attrs } = defaultProperty;     // default
@@ -238,7 +218,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [...el.attributes].forEach(item => {
+        [ ...el.attributes ].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -260,7 +240,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
+        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -275,7 +255,7 @@ export default class App {
     public static formatHooks(attributes: IAttributes): object {
         let hooks: { [key: string]: any } = {};
 
-        Array.from(attributes).forEach(({ name, value: fnName }: { name: string, value: string }) => {
+        for (const { name, value: fnName } of attributes) {
             // @ts-ignore
             let hook = Object.values(Hooks).includes(name);
             if (hook) {
@@ -283,32 +263,35 @@ export default class App {
                     hooks[name] = window[fnName];
                 }
             }
-        });
+        }
         return hooks;
     }
 
     // 重载组件(模版联动选择)
-    public static dynamicReloadComponents(element: HTMLInputElement) {
+    public static dynamicReloadComponents(element: HTMLElement) {
 
         // TODO input调用的元素,外层才是 [data-component-uid]
         let $formItems: Array<HTMLElement> = [];
 
         // form-group 内的组件，只在组作用域内产生关联关系
-        if ($(element).closest('[data-fn=form-group]').length > 0) {
-            $formItems = [...$(element).closest('.form-group-item').find('[data-fn][name]')];
+        // if ($(element).closest('[data-fn=form-group]').length > 0) {
+        if ($(element).closest('form-group').length > 0) {
+            $formItems = [ ...$(element).closest('.form-group-item').find('[data-component-uid][name]') ];
         } else {
-            $formItems = [...$(element).closest('form').find('[data-fn][name]')];
+            $formItems = [ ...$(element).closest('form-action').find('[data-component-uid][name]') ];
         }
-        
+
         $formItems.forEach(formItem => {
             let dataset = formItem.dataset;
 
             // TODO parent 换成 closest 可以适用于 div form表单元素
             let $formItemBox = $(formItem).closest('[data-component-uid]');
-            console.log($formItemBox);
+            // console.log($formItemBox);
             let uid = $formItemBox.attr('data-component-uid') ?? '';
-            let selfInputName = element.name;
-            let regExp = new RegExp(`<{(.*?)${ selfInputName }(.*?)}>`);
+            // let selfInputName = element['name'] ?? element.attributes?.['name'].value;
+            let selfAttrName = element.getAttribute('name');
+            console.log(selfAttrName);
+            let regExp = new RegExp(`<{(.*?)${ selfAttrName }(.*?)}>`);        // 验证是否包含模版变量 <{pf}>
             let { module } = App.instances?.[uid];
 
             if (!module) return;
@@ -343,44 +326,45 @@ export default class App {
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
 
-        if (element.tagName === 'INPUT') {
+        // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
+        $(element).on('change', (e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            e.stopPropagation();
 
-            // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
-            $(element).on('change', (e) => {
-                // message.success(`onchange - value:${ $(element).val() }`);
-                console.log(`onchange - value:${ $(element).val() }`);
+            // message.success(`onchange - value:${ $(element).val() }`);
+            console.log(`onchange - value:${ $(element).val() }`);
 
-                // 组件发生改变的时候重新出发组件渲染，达到值的改变
-                App.renderComponent(module, (hooks, instance) => {
-                    hooks[Hooks.beforeUpdate]?.(instance);
-                }, (hooks, instance: ReactInstance /*获取到的组件实例*/) => {
-                    hooks[Hooks.update]?.(instance);
-                    App.dynamicReloadComponents(element as HTMLInputElement);
+            // 组件发生改变的时候重新出发组件渲染，达到值的改变
+            App.renderComponent(module, (hooks, instance) => {
+                hooks[Hooks.beforeUpdate]?.(instance);
+            }, (hooks, instance: ReactInstance /*获取到的组件实例*/) => {
+                hooks[Hooks.update]?.(instance);
+                App.dynamicReloadComponents(element as HTMLInputElement);
 
-                    let exec = element.dataset.exec;
-                    // if (!isUndefined(exec)) {
-                    if (exec === 'true') {
-                        // TODO 简陋的实现，后续待调整
-                        let formElement = $(element).closest('form[data-fn=form-action]');
-                        let submitBtn = formElement.find('[type=submit]');
-                        if (submitBtn.length > 0) {
-                            submitBtn.click();
-                        } else {
-                            formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
-                        }
+                let exec = element.dataset.exec;
+                // if (!isUndefined(exec)) {
+                if (exec === 'true') {
+                    // TODO 简陋的实现，后续待调整
+                    let formElement = $(element).closest('form-action');
+                    let submitBtn = formElement.find('[type=submit]');
+                    if (submitBtn.length > 0) {
+                        submitBtn.click();
+                    } else {
+                        formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
                     }
+                }
 
-                    let groupname = element.getAttribute('data-group');
-                    let formElement = $(element).closest('form[data-fn]');
-                    let groups = [...formElement.find(`input[data-fn][data-group=${ groupname }]`)];
-                    groups.forEach(el => {
-                        if (el !== element) {
-                            console.log(el);
-                        }
-                    });
+                let groupname = element.getAttribute('data-group');
+                let formElement = $(element).closest('form-action');
+                let groups = [ ...formElement.find(`[data-component-uid][data-group=${ groupname }]`) ];
+                groups.forEach(el => {
+                    if (el !== element) {
+                        console.log(el);
+                    }
                 });
             });
-        }
+        });
 
         // element.addEventListener('DOMNodeInserted', function () {
         //     console.log('DOMNodeInserted');
@@ -483,7 +467,7 @@ export default class App {
     public static errorVerify() {
         let arr: Array<string> = [];
         let repeatName: Array<string> = [];
-        let elements = document.querySelectorAll('[name]');
+        let elements = document.querySelectorAll('[name][data-component-uid]');
         for (const element of elements) {
             let name = element.getAttribute('name');
             if (name) {
@@ -502,7 +486,7 @@ export default class App {
 
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
-            element, defaultProperty, Component, container, elChildren, hooks, componentMethod, componentUID,
+            element, defaultProperty, Component, hooks, componentUID, subelements, templates, container,
         } = module;
 
         let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
@@ -513,19 +497,20 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [...element.attributes].forEach(item => {
+        [ ...element.attributes ].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
 
         let instance: any = null;
         let props = {
-            el        : element,
-            elChildren: elChildren ?? [],
-            dataset   : parsedDataset,
+            el     : element,
+            templates,
+            subelements,
+            dataset: parsedDataset,
             ...parsedAttrs,
-            ref       : componentInstance => {        // 组件实例
-                componentMethod && componentInstance[componentMethod]();
+            ref    : componentInstance => {        // 组件实例
+                // componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
                 App.instances[componentUID] = {
                     instance: componentInstance, module,
@@ -539,11 +524,24 @@ export default class App {
             ? defaultProperty.value.value(parsedDataset)
             : defaultProperty?.value?.value ?? '';
         // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
-        let value = element['value'] || defaultValue;
+
+        /**
+         * TODO 自定义元素没有 element没有value属性，和html中写入value默认值只能通过 attributes获取到，
+         * 但是值出发改变后只能通过 element.value 来获取新的值，两者存在冲突,已经在trigger方法中处理好
+         */
+        let elementValue = element.attributes?.['value']?.value ?? element['value'];
+
+        let value = elementValue || defaultValue;
+
+        // 如果没有设置默认值(没有设置为undefined)，则给element 元素添加默认组件配置的默认值
+        if (isUndefined(elementValue)) {
+            element.setAttribute('value', value);
+            element['value'] = value;
+        }
 
         // TODO 如果值不相等，说明使用了默认值，这时要改变到 input element 的value,只有 form表单元素才会触发
         // TODO 值不相等时，才触发trigger ，重新渲染
-        if (!isUndefined(element['value']) && value !== element['value']) {
+        if (!isUndefined(elementValue) && value !== elementValue) {
             trigger(element, value);
         }
 
@@ -558,8 +556,7 @@ export default class App {
                     <Component { ...props } value={ value }/>
                 </ConfigProvider>
                 , container, () => {
-                    container.hidden = false;
-                    callback(hooks, instance)
+                    callback(hooks, instance);
                 },
             );
         } catch (e) {

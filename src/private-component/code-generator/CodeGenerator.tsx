@@ -26,17 +26,16 @@ import React, { Component, PureComponent } from 'react';
 import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { parseEnum } from '@utils/parser-tpl';
 import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
 import { withRouter } from 'react-router';
-import { jsonp } from '@utils/request/request';
 import { isObject, isString, isUndefined, isUrl } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
-import { Simulate } from 'react-dom/test-utils';
-import animationEnd = Simulate.animationEnd;
+import { parseEnum } from '@utils/parser-property';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 
 interface IComponentDataset {
     el: string
@@ -60,6 +59,7 @@ interface ICodeGenerateProps {
 
 class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     private form: any = React.createRef<FormInstance>();
+    @Inject private readonly httpClientService: HttpClientService;
 
     state = {
         components        : this.getComponents(),
@@ -114,12 +114,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     //  区分form组件 和其他组件的调用标签 input  / div
     getTemplate(componentName) {
-        let [ group ] = componentName.split('-');
-        if (group === 'form') {
-            return '<input data-fn="form-button" />';
-        } else {
-            return '<div data-fn="form-button" ></div>';
-        }
+        // let [ group ] = componentName.split('-');
+        // if (group === 'form') {
+        //     return '<input data-fn="form-button" />';
+        // } else {
+        //     return '<div data-fn="form-button" ></div>';
+        // }
+        return '<:CustomElementDefault: ></:CustomElementDefault:>';
     }
 
     async reloadChangeComponent(componentName: string, currentComponent) {
@@ -150,7 +151,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             if (k === 'url' && val.request) {
-                let res = await jsonp(val.value);
+                let res = await this.httpClientService.jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
                 if (dataItem && isObject(dataItem)) {
                     for (const itemKey in dataItem) {
@@ -241,12 +242,12 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     }
 
     // 组件的Props更新时触发
-    componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
-        let { name, config } = nextProps;
-        if (name && config) {
-            this.reloadChangeComponent(name, config);
-        }
-    }
+    // componentWillReceiveProps(nextProps: Readonly<ICodeGenerateProps>, nextContext: any) {
+    //     let { name, config } = nextProps;
+    //     if (name && config) {
+    //         this.reloadChangeComponent(name, config);
+    //     }
+    // }
 
     // 选择组件
     async handleChangeComponent(e, v) {
@@ -303,9 +304,13 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         }).filter(t => t).join(' ');
 
         // 正则替换生成代码
-        let componentUseCode = template.replace(/data-fn="(.*?)"/, v => {
-            v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
-            return `${ v } ${ attrs }`;
+        let componentUseCode = template.replace(/<:CustomElementDefault:(.*?)/, v => {
+            // v = v.replace(/data-fn="(.*?)"/, `data-fn='${ this.state.componentName }'\n\t`);      //替换组件名称
+            return `${ v } \n\t ${ attrs }`;
+        });
+
+        componentUseCode = componentUseCode.replace(/:CustomElementDefault:/g, v => {
+            return componentName;
         });
 
         // 生成钩子函数代码
