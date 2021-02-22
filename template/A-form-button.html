@@ -17,7 +17,7 @@
     <form-select
             data-label="label:"
             data-enum="1,Android;2,iOS;3,MacOS;4,Windows"
-            data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
+            data-url="http://mingle.local.aidalan.com/server/mock/select.json"
             data-disabled="false"
             data-mode="single"
             data-key="id"
@@ -72,7 +72,7 @@
         },
         async created() {
             console.log(this, 'this');
-            this.options = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json');
+            this.options = await this.$get('http://mingle.local.aidalan.com/server/mock/chart/funnel.json');
         },
         methods: {
             handelSelect() {

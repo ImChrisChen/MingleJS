@@ -71,8 +71,8 @@
 
             // 获取日志
             async getLogsData() {
-                let res = await this.$get('http://mingle-test.local.aidalan.com/server/logs');
-                // let res = await this.$get('http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json');
+                let res = await this.$get('http://mingle.local.aidalan.com/server/logs');
+                // let res = await this.$get('http://mingle.local.aidalan.com/server/mock/chart/funnel.json');
                 return res.status ? res.data : [];
             },
 

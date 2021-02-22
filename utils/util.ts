@@ -5,22 +5,33 @@
  * Time: 2:36 上午
  */
 
-import { isUndefined } from "./inspect";
+import { isUndefined } from './inspect';
 
-// 获取数组最后一项
+/**
+ * 获取数组最后一项
+ * @param array
+ */
 export function arraylastItem<T>(array: Array<T>): T {
     let lastIndex = array.length - 1;
     return array[lastIndex];
 }
 
-// 删除数组中的某一项
+/**
+ * 删除数组中的某一项
+ * @param array
+ * @param callback
+ */
 export function arrayDeleteItem(array: Array<any>, callback: (item, index?: number) => boolean) {
     let i = array.findIndex(callback);
     array.splice(i, 1);
     return array;
 }
 
-// 求树最大深度
+/**
+ * 求树最大深度
+ * @param node     树的根节点
+ * @param children 字节点key值
+ */
 export function getDepthMax(node: any, children = 'children') {
 
     if (!node[children] || node[children].length === 0) {
@@ -32,31 +43,43 @@ export function getDepthMax(node: any, children = 'children') {
     return 1 + Math.max(...maxChildDepth);
 }
 
-// 等待
+/**
+ * 等待函数
+ * @param time
+ */
 export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time));
 
-// DOM 尾递归
+/**
+ * DOM 尾递归 - 从根节点到root节点
+ * @param root
+ * @param callback
+ */
 export function deepEachElementTail(root, callback?: (el: HTMLElement) => void) {
     // 这里输出的是根节点
     if (!root) return;
 
-    if (root.children.length) {
-        Array.from(root.children).forEach(item => {
-            return deepEachElementTail(item, callback);
+    if (root.children.length > 0) {
+        [ ...root.children ].forEach(item => {
+            deepEachElementTail(item, callback);
         });
     }
     callback && callback(root);
 }
 
-// DOM 前递归
+/**
+ * DOM 前递归 - 深度优先
+ * @param root
+ * @param callback
+ * @param parentNode
+ */
 export function deepEachElement(root, callback?: (el: HTMLElement, parentNode: any) => void, parentNode?) {
     if (!root) return;
 
     callback && callback(root, parentNode);
 
-    if (root.children.length) {
-        Array.from(root.children).forEach(item => {
-            return deepEachElement(item, callback, root);
+    if (root.children.length > 0) {
+        [ ...root.children ].forEach(item => {
+            deepEachElement(item, callback, root);
         });
     }
 }
@@ -65,7 +88,6 @@ export function deepEachElement(root, callback?: (el: HTMLElement, parentNode: a
  * 根据点操作符解析获取对象属性
  * @param keys  'item.name'
  * @param model { item: {name: 'Chris'} }
- *  'Chris'
  */
 export function getObjectValue(keys: string, model: object = {}): any {
 
@@ -91,7 +113,14 @@ export function getObjectValue(keys: string, model: object = {}): any {
 }
 
 
-// 前递归 => root => left => right => children
+/**
+ * 前递归 => root => left => right => children
+ * @param tree
+ * @param callback
+ * @param parent
+ * @param resultArr
+ * @param children
+ */
 export function deepEach(
     tree: Array<object> = [],
     // callback: (node?: object | any, i?: number | any, parent?: object | any, resultArr?: Array<object> | any) => {},
@@ -147,7 +176,10 @@ interface IBrowserInfo {
     ver: string
 }
 
-// 获取浏览器信息 / 版本
+
+/**
+ * 获取浏览器信息 / 版本
+ */
 export function getBrowerInfo(): IBrowserInfo {
     let Sys = {} as IBrowserInfo;
     let ua = navigator.userAgent.toLowerCase();
@@ -158,7 +190,9 @@ export function getBrowerInfo(): IBrowserInfo {
     return Sys;
 }
 
-//利用原生Js获取操作系统版本
+/**
+ * 利用原生Js获取操作系统版本
+ */
 export function getOS(): string {
     let sUserAgent = navigator.userAgent;
     let isWin = (navigator.platform == 'Win32') || (navigator.platform == 'Windows');
