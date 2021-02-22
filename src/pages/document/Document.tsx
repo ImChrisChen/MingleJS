@@ -17,12 +17,16 @@ import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import md5 from 'md5';
-import axios from 'axios';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
+import { HttpClientService } from '@root/src/services/HttpClient.service';
+import { Inject } from 'typescript-ioc';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 class Document extends React.Component<any, any> {
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private static readonly http: HttpClientService;
+
     state: any = {
         menulist      : [],
         routes        : [],
@@ -39,7 +43,6 @@ class Document extends React.Component<any, any> {
     async init() {
         let navRoutes = await this.getRouter();
         let list = await formatComponents2Tree(componentConfig);
-        console.log(list);
         let routes = deepEach(list, item => {
             if (item.component && item.document) return item;
         });
@@ -53,8 +56,9 @@ class Document extends React.Component<any, any> {
 
     // 获取导航栏路由
     async getRouter() {
-        let res = await axios.get('/server/files/template');
-        let data = res.data.status ? res.data.data : [];
+        let res = await this.httpClientService.get('/server/files/template');
+        console.log(res);
+        let data = res.status ? res.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;

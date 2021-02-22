@@ -43,7 +43,7 @@ export default class FormInput extends React.Component<IComponentProps, any> {
             >
                 { smart ? <FormSmartIcon/> : '' }
                 <Input
-
+                    value={ this.props.value }
                     { ...dataset }
                     onChange={ this.handleChange.bind(this) }
                     placeholder={ this.props.placeholder }

@@ -8,7 +8,6 @@
 const express = require('express');
 const app = new express();
 const url = require('url');
-
 const router = require('./router/index');
 const bodyParser = require('body-parser');     // json 解析中间件
 const port = 9001;
@@ -45,7 +44,6 @@ app.listen(port, function () {
     console.log(`http://localhost:${ port }`);
 });
 
-
 function fullUrl(req) {
     return decodeURIComponent(url.format({
         protocol: req.protocol,
@@ -53,4 +51,5 @@ function fullUrl(req) {
         pathname: req.originalUrl,
     })).split('?')[0];
 }
+
 

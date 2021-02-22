@@ -8,7 +8,6 @@
 
 import { IComponentProps } from '@interface/common/component';
 import React, { Component, ReactNode } from 'react';
-import { jsonp } from '@utils/request/request';
 import {
     Annotation,
     Area,
@@ -52,6 +51,8 @@ interface IChartConfig {
 
 import DataSet from '@antv/data-set';
 import { ChartTootipCustom } from './component/ChartTootipCustom';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 
 const { DataView } = DataSet;
 
@@ -94,6 +95,8 @@ function TooltipCustom(props: { config: any }) {
 
 export default class DataChart extends Component<IComponentProps, any> {
 
+    @Inject private readonly httpClientService: HttpClientService;
+
     state = {
         loading   : true,
         data      : [],
@@ -128,7 +131,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     }
 
     async getData(url) {
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
 
@@ -298,12 +301,12 @@ export default class DataChart extends Component<IComponentProps, any> {
                         formatter: (v) => v /*Math.round(v / 10000) + '万'*/,
                     },
                 } }
-                onAxisLabelClick={ (event, chart) => {
-                    // console.log('event', event, 'chart', chart);
-                    // console.log('data', chart.filteredData);
-                    // console.log('mytext', event.target.attrs.text);
-                    // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
-                } }
+                // onAxisLabelClick={ (event, chart) => {
+                //     // console.log('event', event, 'chart', chart);
+                //     // console.log('data', chart.filteredData);
+                //     // console.log('mytext', event.target.attrs.text);
+                //     // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
+                // } }
             >
                 <TooltipCustom config={ config }/>
                 <Coordinate transpose/>
@@ -390,7 +393,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <WordCloudChart
                 data={ formatData(config.dataSource) }
                 maskImage={ antvImage }
-                shape={ 'cardioid' }
+                // shape={ 'cardioid' }
                 wordStyle={ {
                     fontSize: [ 30, 40 ],
                 } }

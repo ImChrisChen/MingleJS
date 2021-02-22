@@ -9,10 +9,11 @@ import { Form, message, Modal, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { isString, isUndefined } from '@root/utils/inspect';
+import { isString } from '@root/utils/inspect';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
-import axios from 'axios';
 import qs from 'qs';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -24,6 +25,9 @@ function getBase64(file) {
 }
 
 export default class FormUpload extends Component<IComponentProps, any> {
+
+    @Inject private readonly httpClientService: HttpClientService;
+
     state = {
         previewVisible: false,
         previewImage  : '',
@@ -67,7 +71,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
                 name: file.name,           // 文件名
                 type: 'm.resume',
             };
-            let res = await axios.post(url, qs.stringify(data));
+            let res = await this.httpClientService.post(url, qs.stringify(data));
             if (res.status) {
                 let fileurl = res.data;
                 let fileList = [ ...this.state.fileList ];

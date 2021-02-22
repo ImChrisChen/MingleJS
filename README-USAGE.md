@@ -112,7 +112,6 @@ Notice.open({
 </div>
 ~~~
 
-
 #### data-url数据格式
 
 ```json

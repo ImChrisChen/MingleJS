@@ -30,7 +30,7 @@ export function isObject(v): v is object {
 }
 
 export function isEmptyObject(v) {
-    return JSON.stringify(v) === '{}';
+    return isObject(v) && Object.keys(v).length === 0;
 }
 
 export function isArray(v): v is Array<any> {
@@ -38,7 +38,7 @@ export function isArray(v): v is Array<any> {
 }
 
 export function isEmptyArray(v): boolean {
-    return JSON.stringify(v) === '[]';
+    return v.constructor === Array && v.length === 0;
 }
 
 export function isNoEmptyArray(v): boolean {
@@ -50,7 +50,74 @@ export function isUndefined(v): v is undefined {
 }
 
 export function isFunc(v): v is Function {
-    return typeof v === 'function';
+    return typeof v === 'function' && v.constructor === Function;
+}
+
+// 判断是否是 JSON 字符串
+export function isJSON(v: string): boolean {
+    if (!isString(v)) {
+        console.warn('It is not a string!');
+        return false;
+    }
+
+    try {
+        let obj = JSON.parse(v);
+        if (isObject(obj) || isArray(obj)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (e) {
+        console.log('error：' + v + '!!!' + e);
+        return false;
+    }
+}
+
+/**
+ * 判断是否是多层调用对象的key的结构
+ * 如:
+ * 'item.name'  => true
+ * 'item.100'   => false
+ * @param v
+ */
+export function isObjectKeys(v: string): boolean {
+    return /[^0-9]\.[^0-9]/.test(v);
+}
+
+type IdataType =
+    'boolean'
+    | 'number'
+    | 'string'
+    | 'undefined'
+    | 'null'
+    | 'function'
+    | 'array'
+    | 'date'
+    | 'object'
+    | 'regExp'
+    | 'set'
+    | 'map';
+
+// 获取数据类型
+export function getType(obj): IdataType {
+    const str = Object.prototype.toString.call(obj);
+
+    const map: { [key: string]: IdataType } = {
+        '[object Boolean]'  : 'boolean',
+        '[object Number]'   : 'number',
+        '[object String]'   : 'string',
+        '[object Undefined]': 'undefined',
+        '[object Null]'     : 'null',
+        '[object Function]' : 'function',
+        '[object Array]'    : 'array',
+        '[object Date]'     : 'date',
+        '[object RegExp]'   : 'regExp',
+        '[object Object]'   : 'object',
+        '[object Set]'      : 'set',
+        '[object Map]'      : 'map',
+    };
+    return map[str];
 }
 
 // 判断对象是否是 ReactNode
@@ -81,15 +148,21 @@ export function isWuiByString(v: string) {
 }
 
 // 判断 DOM 是否是 Wui组件
-export function isWuiByElement(v: HTMLElement) {
-    let name = v.dataset.fn;
-    if (!name) return false;
-    return /^[a-zA-Z]/.test(name);
-}
+// export function isWuiByElement(v: HTMLElement) {
+//     let name = v.dataset.fn;
+//     if (!name) return false;
+//     return /^[a-zA-Z]/.test(name);
+// }
 
 // 判断是否是管道操作符
 export function isPipe(v: string) {
     return /[0-9]+ |> ([a-zA-Z])/.test(v);
+}
+
+// 判断是否是自定义元素
+export function isCustomElement(tagName: string): boolean {
+    // tagName = tagName.toLowerCase();
+    return /[a-z]-[a-z]/.test(tagName);
 }
 
 // 判断字符串中是否存在html字符串
@@ -108,6 +181,16 @@ export function isIncludeWuiComponent(v: string) {
     return /(<[a-zA-Z])(.*?)(data-fn=("|'|`|)[a-zA-Z]("|'|`|))(.*?)>/.test(v);
 }
 
+
+// 检测字符串是不是表达式
+export function isExpress(express: string) {
+    //表达式
+    if (/[\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/.test(express)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // 判断是否是Class https://zhuanlan.zhihu.com/p/53385348
 export function isClass(obj, strict?): obj is ClassDecorator {

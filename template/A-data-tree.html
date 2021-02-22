@@ -1,1 +1,84 @@
-<div data-fn="data-tree"     data-url="http://mingle.local.aidalan.com/server/mock/tree.json"     data-key="id"     data-value="name"     data-children="children"></div>
+<div id="mingle-box">
+    <h1><{message}></h1>
+
+    <form-select data-enum="1,Android;2,iOS" value="1" name="pf" @before-load="beforeLoad"></form-select>
+
+    <form-select data-enum="1,Android;2,iOS" value="1" name="pf"></form-select>
+
+    <el>
+        哈哈哈
+    </el>
+
+    <ul>
+        <li w-foreach="list as (item,index)" @click="handleClick(item,this,index)">
+            name: <{item.name}> value: <{item.value}>
+        </li>
+    </ul>
+
+    <ul>
+        <li w-foreach="logs as (item,i)" data-model="<{item}>" ...item>
+            <{item}>
+            <!--            <button data-fn="layout-window" data-label="<{i}>" data-title="<{i}>">-->
+            <!--            <div data-fn="view-panel" data-model="<{item}>"></div>-->
+            <!--            </button>-->
+        </li>
+    </ul>
+
+    <button @click="onClick"></button>
+</div>
+
+<script>
+
+    new Mingle({
+        el: '#mingle-box',
+        data: {
+            message: 'Hello World',
+            list: [
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+            ],
+            logs: [
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+                { name: 'Chris', value: 'Chris' },
+            ],
+            pf: $('[name=pf]').val(),
+        },
+
+        async created() {
+            this.logs = (await this.getLogsData());
+            let formSelect = this.createComponent('form-select', {
+                'data-label': 'form-select',
+                'data-enum': '1,Android;2,iOS;3,MacOS;4,Windows',
+            });
+            console.log(formSelect);
+        },
+
+        methods: {
+
+            onClick(e) {
+                console.log(e);
+            },
+
+            // 获取日志
+            async getLogsData() {
+                let res = await this.$get('http://mingle.local.aidalan.com/server/logs');
+                // let res = await this.$get('http://mingle.local.aidalan.com/server/mock/chart/funnel.json');
+                return res.status ? res.data : [];
+            },
+
+            handleClick(item, self, index) {
+                console.log(item, self, index);
+            },
+        },
+    });
+</script>

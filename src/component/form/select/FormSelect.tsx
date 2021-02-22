@@ -9,11 +9,12 @@ import { Button, Checkbox, Form, Select, Typography } from 'antd';
 import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
-import { jsonp } from '@utils/request/request';
 import { Divider } from 'antd/es';
 import { strParseDOM } from '@utils/parser-dom';
 import React, { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 // import axios from 'axios'
 
 const { Option, OptGroup } = Select;
@@ -35,7 +36,8 @@ interface ISelectProps {
     [key: string]: any
 }
 
-export default class Selector extends Component<IComponentProps, any> {
+export default class FormSelect extends Component<IComponentProps, any> {
+    @Inject private readonly httpClientService: HttpClientService;
 
     state = {
         checkedAll : false,
@@ -56,7 +58,7 @@ export default class Selector extends Component<IComponentProps, any> {
     async getData(url) {
         let { groupby, key, value, enum: enumList } = this.props.dataset;
         if (url) {
-            let { data } = await jsonp(url);
+            let { data } = await this.httpClientService.jsonp(url);
 
             if (groupby) {
                 return formatList2Group(data, {
@@ -148,7 +150,7 @@ export default class Selector extends Component<IComponentProps, any> {
 
     handleClear() {
         this.setState({ checkedAll: false });
-        trigger(this.props.el, '');
+        trigger(this.props.el, '', 'clear');
     }
 
     handleSelectAll(e) {

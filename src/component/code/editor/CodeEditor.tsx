@@ -7,7 +7,6 @@
 
 import { Controlled as CodeMirror } from 'react-codemirror2'; // https://codemirror.net/doc/manual.html#config
 import React, { Component } from 'react';
-import { Divider, Space } from 'antd';
 import App from '@root/src/App';
 import './CodeEditor.css';
 import $ from 'jquery';
@@ -18,9 +17,9 @@ require('codemirror/mode/xml/xml');
 
 export default class CodeEditor extends Component<any, any> {
 
-    // state = {
-    //     value: this.props.dataset.value ?? `<input data-fn="" />`,
-    // };
+    state = {
+        value: '',
+    };
 
     constructor(props) {
         super(props);
@@ -34,7 +33,7 @@ export default class CodeEditor extends Component<any, any> {
         let el = $(this.props.dataset.value);
         let elementContainer = document.querySelector('.show-code') as HTMLElement;
         $('.show-code').html('').append(el);
-        new App(elementContainer);
+        // new App(elementContainer);
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
@@ -81,8 +80,7 @@ export default class CodeEditor extends Component<any, any> {
                     this.setState({ value });
                 } }
                 onChange={ (editor, data, value) => {
-                    // console.log(editor, data, value);
-                    // this.setState({ value });
+                    this.setState({ value });
                 } }
             />
         </>;

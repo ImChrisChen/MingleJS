@@ -60,7 +60,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
 
     toggleCollapsed = (e) => {

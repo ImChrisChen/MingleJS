@@ -6,7 +6,7 @@
  */
 
 import React, { ReactElement } from 'react';
-import { isArray } from '@utils/inspect';
+import { isArray, isEmptyStr } from '@utils/inspect';
 
 // 真实DOM => 字符串 (一个)
 export function elementParseStr(el: HTMLElement) {
