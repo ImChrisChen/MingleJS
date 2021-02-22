@@ -8,18 +8,14 @@
 const path = require('path');
 const rootpath = path.resolve(__dirname, '../');
 const fs = require('fs');
+const { send } = require('../utils/utils');
 
 module.exports.getMockData = async (req, res) => {
     let [filename] = req.url.split('?');
     let filepath = rootpath + filename;
-    let fileContent = await readFile(filepath);      // JSONString
-    let functionName = req.query['jsoncallback'];
-    if (functionName) {
-        res.send(`${functionName}(${fileContent})`);
-    } else {
-        res.send(fileContent);
-    }
-}
+    let content = await readFile(filepath);      // JSONString
+    send(req, res, content);
+};
 
 async function readFile(path) {
     try {

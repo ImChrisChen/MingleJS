@@ -1,0 +1,19 @@
+<layout-tab  data-position="top">
+    <div data-title="步骤1">
+
+        <data-panel  data-url="http://mingle.local.aidalan.com/server/mock/form-custom.json">
+
+            <input w-foreach="data as (item,index)" name="form-component-<{index}>" ...item />
+
+            <button class="ant-btn ant-btn-primary">提交</button>
+
+        </data-panel>
+
+    </div>
+    <div data-title="步骤2">
+        <data-panel  data-url="http://mingle.local.aidalan.com/server/mock/form-custom.json">
+            <input w-foreach="data as (item,index)" name="form-component-<{index}>" ...item/>
+        </data-panel>
+    </div>
+</layout-tab>
+

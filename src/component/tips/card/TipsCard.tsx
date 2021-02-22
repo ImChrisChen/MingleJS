@@ -1,1 +1,35 @@
-/** * Created by WebStorm. * User: MacBook * Date: 2020/12/9 * Time: 4:41 下午 */import React, { Component } from 'react';import { IComponentProps } from '@interface/common/component';import { Button, Popover } from 'antd';import { strParseVirtualDOM } from '@utils/parser-dom';import $ from 'jquery';export default class TipsCard extends Component<IComponentProps, any> {    render() {        setTimeout(() => {            $(this.props.elChildren).remove();            this.props.el.childNodes[0].textContent = '';        });        let { title, content } = this.props.dataset;        return <Popover content={ content }                        title={ title }                        style={ { width: this.props.dataset.width ?? 300 } }                        trigger={ this.props.dataset.trigger ?? 'hover' }        >            <span>{ strParseVirtualDOM(this.props.beforeElement.innerHTML) }</span>        </Popover>;    }}
+/**
+ * Created by WebStorm.
+ * User: MacBook
+ * Date: 2020/12/9
+ * Time: 4:41 下午
+ */
+import React, { Component } from 'react';
+import { IComponentProps } from '@interface/common/component';
+import { Button, Popover } from 'antd';
+import $ from 'jquery';
+import App from '@root/src/App';
+
+export default class TipsCard extends Component<IComponentProps, any> {
+    render() {
+        setTimeout(() => {
+            $(this.props.subelements).remove();
+            this.props.el.childNodes[0].textContent = '';
+        });
+        let { title, label, width, trigger } = this.props.dataset;
+        return <Popover
+            content={ () => {
+                return <div ref={ element => {
+                    if (element) {
+                        element.innerHTML = '';
+                        element.append(...this.props.subelements);
+                    }
+                } }>
+                </div>;
+            } }
+            title={ title }
+            style={ { width: width ?? 300 } }
+            trigger={ trigger ?? 'hover' }
+        > { label } </Popover>;
+    }
+}

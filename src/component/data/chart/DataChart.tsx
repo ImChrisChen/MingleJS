@@ -5,9 +5,9 @@
  * Time: 6:31 下午
  */
 
+
 import { IComponentProps } from '@interface/common/component';
 import React, { Component, ReactNode } from 'react';
-import { jsonp } from '@utils/request/request';
 import {
     Annotation,
     Area,
@@ -23,14 +23,14 @@ import {
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
+
 import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { formatObject2Url } from '@utils/format-data';
-import { isArray, isEmptyArray } from '@utils/inspect';
+import { isArray, isEmptyArray, isEmptyStr } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
 import moment from 'moment';
 import { RedoOutlined } from '@ant-design/icons';
-
 
 interface IChartConfig {
     key: string | Array<string>
@@ -50,6 +50,9 @@ interface IChartConfig {
 }
 
 import DataSet from '@antv/data-set';
+import { ChartTootipCustom } from './component/ChartTootipCustom';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
 
 const { DataView } = DataSet;
 
@@ -81,7 +84,18 @@ export function DataUpdateTime({ content, hidden = false }: { content: string, h
         : <></>;
 }
 
+function TooltipCustom(props: { config: any }) {
+    let config = props.config;
+    return <Tooltip shared showCrosshairs={ !isEmptyStr(config.tooltip_cross) } crosshairs={ { type: 'xy' } }>
+        { (title, items) =>
+            <ChartTootipCustom config={ { title, items } } suffix={ config.tooltip_suffix }/>
+        }
+    </Tooltip>;
+}
+
 export default class DataChart extends Component<IComponentProps, any> {
+
+    @Inject private readonly httpClientService: HttpClientService;
 
     state = {
         loading   : true,
@@ -117,7 +131,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     }
 
     async getData(url) {
-        let res = await jsonp(url);
+        let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
 
@@ -221,7 +235,9 @@ export default class DataChart extends Component<IComponentProps, any> {
         return <Chart height={ config.height } data={ config.dataSource } autoFit>
             <Coordinate type="polar"/>
             <Axis visible={ false }/>
-            <Tooltip showTitle={ false }/>
+
+            {/*<Tooltip showTitle={ false }/>*/ }
+            <TooltipCustom config={ config }/>
             <Interval
                 position={ config.position }
                 adjust="stack"
@@ -250,7 +266,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 <Interval position={ position } color={ colors }
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
-                <Tooltip shared/>
+                <TooltipCustom config={ config }/>
                 <Legend
                     // layout={ config.legendLayout }
                     // position={ config.legendLocation }
@@ -285,13 +301,14 @@ export default class DataChart extends Component<IComponentProps, any> {
                         formatter: (v) => v /*Math.round(v / 10000) + '万'*/,
                     },
                 } }
-                onAxisLabelClick={ (event, chart) => {
-                    // console.log('event', event, 'chart', chart);
-                    // console.log('data', chart.filteredData);
-                    // console.log('mytext', event.target.attrs.text);
-                    // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
-                } }
+                // onAxisLabelClick={ (event, chart) => {
+                //     // console.log('event', event, 'chart', chart);
+                //     // console.log('data', chart.filteredData);
+                //     // console.log('mytext', event.target.attrs.text);
+                //     // console.log('selectedRecord', chart.getSnapRecords(event)[0]._origin);
+                // } }
             >
+                <TooltipCustom config={ config }/>
                 <Coordinate transpose/>
                 <Interval
                     position={ `${ config.key }*${ config.value }` }
@@ -341,7 +358,8 @@ export default class DataChart extends Component<IComponentProps, any> {
                     size    : config.pointSize,
                 } } color={ colors } label="first"/>
 
-                <Tooltip shared/>
+                {/*<Tooltip shared/>*/ }
+                <TooltipCustom config={ config }/>
 
                 <Legend
                     visible={ true }
@@ -375,7 +393,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <WordCloudChart
                 data={ formatData(config.dataSource) }
                 maskImage={ antvImage }
-                shape={ 'cardioid' }
+                // shape={ 'cardioid' }
                 wordStyle={ {
                     fontSize: [ 30, 40 ],
                 } }
@@ -526,7 +544,8 @@ export default class DataChart extends Component<IComponentProps, any> {
             interactions={ [ 'legend-highlight' ] }
         >
             <Coordinate type="polar" radius={ 0.8 }/>
-            <Tooltip shared/>
+            {/*<Tooltip shared/>*/ }
+            <TooltipCustom config={ config }/>
             <Point
                 // position="item*score"
                 position={ position }
@@ -614,6 +633,21 @@ export default class DataChart extends Component<IComponentProps, any> {
             autoFit
             data={ nodes }
         >
+            <TooltipCustom config={ config }/>
+            <Legend
+                visible={ true }
+                itemName={ {
+                    spacing  : 20, // 文本同滑轨的距离
+                    style    : {
+                        // stroke: 'blue',
+                        fill: 'red',
+                    },
+                    formatter: (text, item, index) => {
+                        return text;
+                    },
+                } }
+            />
+
             <Polygon
                 color="name"
                 // color={ config.key }
@@ -712,6 +746,8 @@ export default class DataChart extends Component<IComponentProps, any> {
             groupby,
             legendLocation,     // 图例位置
             legendLayout,
+            tooltip_suffix,      // <Tooltip> 内容里值的后缀(单位)
+            tooltip_cross,         // 图标十字准线
         } = this.props.dataset;
 
         if (isEmptyArray(colors) || colors === '') {
@@ -740,6 +776,8 @@ export default class DataChart extends Component<IComponentProps, any> {
                 legendLocation,     // 图例位置
                 legendLayout,       // 图例的布局方式
                 dataSource: this.state.data,
+                tooltip_suffix,
+                tooltip_cross,
             };
         } catch (e) {
             return {};

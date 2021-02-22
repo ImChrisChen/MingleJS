@@ -6,11 +6,22 @@
  */
 
 import $ from 'jquery';
+import { isArray } from '@utils/inspect';
 
-export function trigger(el: HTMLInputElement | HTMLElement | undefined, value: string | Array<any>): void {
+type el = HTMLElement | HTMLInputElement
+
+export function trigger(el: el, value: string | Array<any>, event_type: string = 'change') {
+
     if (!el) {
-        console.log('该组件没有 props.el');
+        console.log(`请输入正确参数  el:${ el }`);
         return;
     }
-    $(el).val(value).trigger('change');
+
+    if (isArray(value)) {
+        value = value.join(',');
+    }
+
+    // TODO 必须先设置好属性，再触发事件，先后顺序不可替换( 同步 el.value 和 el.attributes.value.value)
+    $(el).attr('value', value).val(value).trigger(event_type);
 }
+

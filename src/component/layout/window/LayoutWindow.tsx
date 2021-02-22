@@ -24,7 +24,7 @@ export default class LayoutWindow extends Component<IComponentProps, any> {
     constructor(props) {
         super(props);
         this.props.el.onclick = e => this.handleClickBtn(e);
-        this.props.el.innerHTML = this.props.dataset.content;
+        this.props.el.innerHTML = this.props.dataset.label;
     }
 
     handleClickBtn(e) {
@@ -89,7 +89,7 @@ export default class LayoutWindow extends Component<IComponentProps, any> {
             }
         >
             <div ref={ element => {
-                element?.append(...this.props.elChildren);
+                element?.append(...this.props.subelements);
             } }/>
         </Modal>;
     }

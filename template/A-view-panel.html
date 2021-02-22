@@ -1,0 +1,44 @@
+<data-panel  data-url="http://mingle.local.aidalan.com/server/mock/chart/servers.json">
+
+    <layout-list  data-selectable="true" data-cols="4">
+        <div w-foreach="data as (item,i)" class="ant-card" value="<{item.location}>">
+            <{item.location}> : <{item.count}>
+            <layout-window href="javascript:void(0)"
+               data-title="<{item.location}>"
+               data-label="查看 - <{item.location}>">
+                <view-panel  data-model="<{item}>"></view-panel>
+            </layout-window>
+        </div>
+    </layout-list>
+
+    <data-table>
+        <layout-window >
+            <form>
+                
+            </form>
+        </layout-window>
+    </data-table>
+
+</data-panel>
+
+<tips-card  data-title="哈哈哈" data-label="tips-card">
+    <view-panel
+         data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json"
+    >
+    </view-panel>
+</tips-card>
+<script>
+    new Mingle({
+        el: '',
+        data: {
+            list: []
+        },
+        async created() {
+            
+        },
+        methods: {
+            
+        }
+    })
+</script>
+

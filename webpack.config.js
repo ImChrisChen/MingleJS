@@ -1,12 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
-// const DashboardPlugin = require('webpack-dashboard/plugin');        //webpack日志插件
-// const Dashboard = require('webpack-dashboard');
-// const dashboard = new Dashboard();
-
-// const HappyPack = require('happypack');     // 使用HappyPack开启多进程Loader转换
-// const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-// const smp = new SpeedMeasurePlugin();
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: 6 });
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
 
@@ -17,10 +13,23 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
 const glob = require('glob');
 let env = process.env.NODE_ENV;
+console.log('打包环境:', env);
 
 //默认生产环境
 if (typeof env === 'undefined') {
     env = 'production';
+}
+
+if (env === 'production') {
+    process.env.file = '//file.superdalan.com';
+    process.env.mobile = '//m.aidalan.com';
+    process.env.bbs = '//bbs.aidalan.com';
+}
+
+if (env === 'development') {
+    process.env.file = '//file.superdalan.com';
+    process.env.mobile = '//m.aidalan.com';
+    process.env.bbs = '//bbs.aidalan.com';
 }
 
 const isProduction = env === 'production';
@@ -177,6 +186,7 @@ module.exports = {
             {
                 // test: /\.tsx?$/,
                 test: /(.ts)|(.tsx)$/,
+                // use: ['happypack/loader?id=typescript'],
                 use: [
                     { loader: 'awesome-typescript-loader' },
                     { loader: 'cache-loader' },
@@ -231,8 +241,9 @@ module.exports = {
         // 'react': 'React',
         // 'react-dom': 'ReactDOM',
         // 'antd': true,
-        // 'bizcharts': 'bizcharts',
         // 'jquery': 'jquery',
+        // 'bizcharts': 'bizcharts',
+        'gg-editor': 'gg-editor',
     },
     plugins: [
         
@@ -248,6 +259,11 @@ module.exports = {
         }),
         
         new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
+        
+        // new webpack.WatchIgnorePlugin([
+        //     /(css)\.d\.ts$/,
+        //     isProduction ? /(.+?).md$/ : '',
+        // ]),
         
         // 处理html
         new HtmlWebpackPlugin({

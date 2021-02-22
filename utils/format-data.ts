@@ -5,10 +5,10 @@
  * Time: 10:39 下午
  */
 import { IOptions } from '@root/config/component.config';
-import { parseTpl } from '@utils/parser-tpl';
 import { isDOMString, isWuiTpl } from '@utils/inspect';
 import { strParseVirtualDOM } from '@utils/parser-dom';
 import { deepEach } from '@utils/util';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 // 将 data-enum的数组对象 装换成 select框需要的数组对象格式
 export function formatEnumOptions(list: Array<any>, label: string = 'label', value: string = 'value'): Array<any> {
@@ -172,14 +172,14 @@ export function formatTreeKey(root, before: IKeyMap, after: IKeyMap) {
     return root;
 }
 
-
 // 验证 && 解析模版 && DOM转化
 function templateVerifyParser(tpl: string, item: object): string {
 
     let label: string;
 
     if (isWuiTpl(tpl)) { // template
-        label = parseTpl(tpl, item);
+        // label = parseTpl(tpl, item);
+        label = new ParserTemplateService().parseTpl(tpl, item, 'field');
     } else {
         label = item[tpl];
     }
@@ -193,14 +193,29 @@ function templateVerifyParser(tpl: string, item: object): string {
 
 // 列表转化为 antd options
 export function formatList2AntdOptions(list: Array<any>, k: string, v: string): Array<IOptions> {
+
+    // 存在多个data-key值的情况
+    let isMultipleKey = k.includes(',') && k.split(',').length > 1;
+
     return list.map(item => {
 
         let label = templateVerifyParser(v, item);
+        let value = String(item[k]);
+
+        if (isMultipleKey) {
+            let ks = k.split(',');
+            value = '';
+            ks.forEach(k => {
+                value += String(item[k]) + '|';
+            });
+            value = value.substr(0, value.length - 1);
+            console.log(value);
+        }
 
         return {
             // https://ant-design.gitee.io/components/select-cn/#Option-props
             // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
-            value: String(item[k]),
+            value: value,
             label: label,
             // title: label,
         };

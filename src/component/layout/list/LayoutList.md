@@ -18,7 +18,7 @@
 <div data-fn="layout-list" data-space="20,20" data-cols="2">
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json"
                data-type="bar"
                data-key="key"
                data-value="value"
@@ -29,7 +29,7 @@
     </div>
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json"
                data-type="pie"
                data-key="key"
                data-value="value"
