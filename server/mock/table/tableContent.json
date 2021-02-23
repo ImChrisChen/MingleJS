@@ -6,7 +6,7 @@
             "location": "广东",
             "reg_count": 3796,
             "number": 1,
-            "reg_rate": "<a href='http://baidu.com?id=<{number}>&location=<{location}>'>百度</a>"
+            "reg_rate": "<layout-window data-content=\"编辑 <{item.key}>\" data-title=\"<{item.key}>\"\n                               class=\"ant-btn-primary ant-btn\">\n                    <data-chart\n                        data-url=\"http://mingle.local.aidalan.com/server/mock/table/tableContent.json\"\n                        data-type=\"line\"\n                        data-title=\"<{ii}>\"\n                        data-key=\"location\"\n                        data-value=\"reg_count\"\n                        data-colors=\"#37c9e3\"\n                        data-height=\"400\"\n                    ></data-chart>\n                </layout-window>"
         },
         {
             "location": "江苏",
