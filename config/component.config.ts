@@ -1172,6 +1172,12 @@ export default {
                         value: false,
                         desc : '是否显示数据更新时间',
                     },
+                    headfield  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '表头遍历字段',
+                    },
                 },
             },
         },

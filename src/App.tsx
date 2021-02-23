@@ -128,7 +128,8 @@ export default class App {
         el.setAttribute('data-component-uid', componentUID);
         el.hidden = true;
 
-        let subelements = [ ...el.children ].map(child => child/*.cloneNode(true)*/) as Array<HTMLElement>;
+        // 获取到组件的子元素（排除template标签)
+        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
         el.append(container);

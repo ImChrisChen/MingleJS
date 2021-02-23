@@ -86,6 +86,13 @@ interface ITableState {
 
 export default class DataTable extends React.Component<ITableProps, any> {
 
+    @Inject private readonly parserTemplateService: ParserTemplateService;
+    @Inject private readonly httpClientService: HttpClientService;
+
+    private searchInput;
+    private tableHeaderNode = this.props.templates['table-header'];
+    private tableBodyNode = this.props.templates['table-body'];
+
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
@@ -107,12 +114,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
-
-    @Inject parserTemplateService: ParserTemplateService;
-
-    private url: string = this.props.url;
-    private searchInput;
-    @Inject private readonly httpClientService: HttpClientService;
 
     constructor(props: ITableProps) {
         super(props);
@@ -301,11 +302,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
         let tableHeader: Array<ITableHeaderItem> = [];
         for (const item of data) {
 
-            let fn: any = null;
+            let sortCallback: any = null;
 
             if (item.sortable) {
                 let field = item.field;
-                fn = (a, b): number => {
+                sortCallback = (a, b): number => {
                     let aVal = a[field];
                     let bVal = b[field];
 
@@ -391,7 +392,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // ellipsis    : true,      // 自动省略
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 // fixed       : false,
-                sorter      : fn,
+                sorter      : sortCallback,
             });
         }
 
