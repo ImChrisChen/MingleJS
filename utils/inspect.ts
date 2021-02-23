@@ -34,7 +34,8 @@ export function isEmptyObject(v) {
 }
 
 export function isArray(v): v is Array<any> {
-    return typeof v === 'object' && v.constructor === Array;
+    // return typeof v === 'object' && v.constructor === Array;
+    return Array.isArray(v);
 }
 
 export function isEmptyArray(v): boolean {

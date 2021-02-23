@@ -7,7 +7,6 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUndefined, isUrl } from '@utils/inspect';
 import moment from 'moment';
-import instantiate = WebAssembly.instantiate;
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -225,11 +224,11 @@ export default {
             component: import('@component/app/menu/AppMenu'),
             property : {
                 dataset: {
-                    url      : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: domain + '/server/mock/menulist/uesr-menu.json',
-                    },
+                    // url      : {
+                    //     el   : 'input',
+                    //     parse: 'string',
+                    //     value: domain + '/server/mock/menulist/uesr-menu.json',
+                    // },
                     pathfield: {
                         el   : 'input',
                         parse: 'string',
@@ -238,6 +237,7 @@ export default {
                         desc : '菜单URL跳转字段',
                     },
                 },
+
             },
         },
         layout: {

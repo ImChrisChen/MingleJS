@@ -5,7 +5,7 @@
  * Time: 10:39 下午
  */
 import { IOptions } from '@root/config/component.config';
-import { isDOMString, isWuiTpl } from '@utils/inspect';
+import { isArray, isDOMString, isWuiTpl } from '@utils/inspect';
 import { strParseVirtualDOM } from '@utils/parser-dom';
 import { deepEach } from '@utils/util';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
@@ -116,7 +116,10 @@ export function formatList2Tree(list: Array<any>, { id, pid, name }) {
             treeData.push(item);
         }
         deepEach(treeData, node => {
-            if (Number(node[id]) === Number(item[pid])) {
+            if (
+                Number(node[id]) === Number(item[pid])
+                && isArray(node.children)
+            ) {
                 node.children.push(item);
             }
         });

@@ -103,7 +103,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (
             <div style={ {
-                width             : (this.state.collapsed ? 80 : width),
+                width             : (this.state.collapsed ? 60 : width),
                 height, background: '#fff',
                 position          : 'relative',
             } }>
@@ -123,13 +123,14 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                             if (children && children.length > 0) {
                                 return <SubMenu data-path={ item.path }
                                                 key={ key }
-                                                icon={ <MailOutlined/> }
+                                    // icon={ <MailOutlined/> }
                                                 title={ item.label }>
                                     { children.map(((child, i) => {
                                         let k = child.id || child.path || child.value || i;
                                         return <Menu.Item data-path={ child.path }
                                                           key={ k }
-                                                          icon={ <IdcardOutlined/> }>
+                                            // icon={ <IdcardOutlined/> }
+                                        >
                                             {/* TODO path 是react里面的，input调用使用a链接*/ }
                                             { child[this.pathfield] ?
                                                 <a href={ child[this.pathfield] }>{ child.label }</a> : child.label }
@@ -142,7 +143,8 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                 return <Menu.Item mode={ 'horizontal' }
                                                   key={ key }
                                                   data-path={ item.path }
-                                                  icon={ <PieChartOutlined/> }>
+                                    // icon={ <PieChartOutlined/> }
+                                >
                                     {
                                         item[this.pathfield]
                                             ? <a href={ item[this.pathfield] }>{ item.label }</a>
