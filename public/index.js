@@ -8,7 +8,7 @@
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
     
-    const development = Number.parseInt(formatUrl2Object(window.location.href).development) === 1;
+    const development = Number.parseInt(url2Obj(window.location.href).development) === 1;
     const hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
     const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
     const version = new Date().getTime();
@@ -48,7 +48,7 @@
         return link;
     }
     
-    function formatUrl2Object(url, o = {}) {
+    function url2Obj(url, o = {}) {
         let search = url;
         if (url.includes('?')) {
             [, search] = url.split('?');

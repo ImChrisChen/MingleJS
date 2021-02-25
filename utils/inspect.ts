@@ -5,6 +5,41 @@
  * Time: 下午3:41
  */
 
+type IdataType =
+    'boolean'
+    | 'number'
+    | 'string'
+    | 'undefined'
+    | 'null'
+    | 'function'
+    | 'array'
+    | 'date'
+    | 'object'
+    | 'regExp'
+    | 'set'
+    | 'map';
+
+// 获取数据类型
+export function getType(obj): IdataType {
+    const str = Object.prototype.toString.call(obj);
+
+    const map: { [key: string]: IdataType } = {
+        '[object Boolean]'  : 'boolean',
+        '[object Number]'   : 'number',
+        '[object String]'   : 'string',
+        '[object Undefined]': 'undefined',
+        '[object Null]'     : 'null',
+        '[object Function]' : 'function',
+        '[object Array]'    : 'array',
+        '[object Date]'     : 'date',
+        '[object RegExp]'   : 'regExp',
+        '[object Object]'   : 'object',
+        '[object Set]'      : 'set',
+        '[object Map]'      : 'map',
+    };
+    return map[str];
+}
+
 export function isNumber(v): v is number {
     return typeof v === 'number';
 }
@@ -86,41 +121,6 @@ export function isObjectKeys(v: string): boolean {
     return /[^0-9]\.[^0-9]/.test(v);
 }
 
-type IdataType =
-    'boolean'
-    | 'number'
-    | 'string'
-    | 'undefined'
-    | 'null'
-    | 'function'
-    | 'array'
-    | 'date'
-    | 'object'
-    | 'regExp'
-    | 'set'
-    | 'map';
-
-// 获取数据类型
-export function getType(obj): IdataType {
-    const str = Object.prototype.toString.call(obj);
-
-    const map: { [key: string]: IdataType } = {
-        '[object Boolean]'  : 'boolean',
-        '[object Number]'   : 'number',
-        '[object String]'   : 'string',
-        '[object Undefined]': 'undefined',
-        '[object Null]'     : 'null',
-        '[object Function]' : 'function',
-        '[object Array]'    : 'array',
-        '[object Date]'     : 'date',
-        '[object RegExp]'   : 'regExp',
-        '[object Object]'   : 'object',
-        '[object Set]'      : 'set',
-        '[object Map]'      : 'map',
-    };
-    return map[str];
-}
-
 // 判断对象是否是 ReactNode
 export function isReactNode(v: any): boolean {
     return typeof v.$$typeof === 'symbol';
@@ -144,16 +144,17 @@ export function isWuiTpl(v: string): boolean {
 }
 
 // 判断字符串是否是wui组件
-export function isWuiByString(v: string) {
+export function isWuiComponent(v: string) {
     return /(.*?)(<[a-zA-Z]+)(.*?)/.test(v);
 }
 
 // 判断 DOM 是否是 Wui组件
-// export function isWuiByElement(v: HTMLElement) {
-//     let name = v.dataset.fn;
-//     if (!name) return false;
-//     return /^[a-zA-Z]/.test(name);
-// }
+export function isWuiComponentByElement(v: HTMLElement) {
+    if (v.localName === 'icon') {
+        return true;
+    }
+    return /[a-zA-Z]-[a-zA-Z]/.test(v.localName);
+}
 
 // 判断是否是管道操作符
 export function isPipe(v: string) {

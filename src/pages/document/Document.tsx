@@ -8,7 +8,6 @@
 import React from 'react';
 import { deepEach } from '@utils/util';
 import componentConfig from '@root/config/component.config';
-import { formatComponents2Tree } from '@utils/format-data';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
@@ -20,12 +19,13 @@ import md5 from 'md5';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
 import { HttpClientService } from '@root/src/services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
+import { FormatDataService } from '@services/FormatData.service';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 class Document extends React.Component<any, any> {
     @Inject private readonly httpClientService: HttpClientService;
-    @Inject private static readonly http: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state: any = {
         menulist      : [],
@@ -42,7 +42,7 @@ class Document extends React.Component<any, any> {
 
     async init() {
         let navRoutes = await this.getRouter();
-        let list = await formatComponents2Tree(componentConfig);
+        let list = await this.formatDataService.components2MenuTree(componentConfig);
         let routes = deepEach(list, item => {
             if (item.component && item.document) return item;
         });

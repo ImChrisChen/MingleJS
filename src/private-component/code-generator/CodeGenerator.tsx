@@ -22,20 +22,20 @@ import {
     Switch,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
 import { arraylastItem } from '@root/utils/util';
-import { withRouter } from 'react-router';
-import { isObject, isString, isUndefined, isUrl } from '@utils/inspect';
+// import { withRouter } from 'react-router';
+import { isObject, isUndefined, isUrl } from '@utils/inspect';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 import { parseEnum } from '@utils/parser-property';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
 
 interface IComponentDataset {
     el: string
@@ -60,6 +60,7 @@ interface ICodeGenerateProps {
 class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     private form: any = React.createRef<FormInstance>();
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state = {
         components        : this.getComponents(),
@@ -79,7 +80,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     constructor(props) {
         super(props);
-        formatComponents2Tree(componentConfig).then(tree => {
+        this.formatDataService.components2MenuTree(componentConfig).then(tree => {
             this.setState({
                 componentsTree: tree,
             });
@@ -162,7 +163,8 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             if (k === 'enum') {
-                dataEnum = formatEnumOptions(parseEnum(val.value));           // 1,Android;2,iOS => // [{label:'',value:''}]
+                dataEnum = this.formatDataService.enum2AntdOptions(parseEnum(val.value));           // 1,Android;2,iOS => //
+                // [{label:'',value:''}]
             }
 
             // value验证不通过

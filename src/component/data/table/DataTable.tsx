@@ -13,8 +13,7 @@ import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { isHtmlTpl, isNumber, isString, isWuiByString, isWuiTpl } from '@utils/inspect';
-import { formatObject2Url } from '@utils/format-data';
+import { isHtmlTpl, isNumber, isString, isWuiComponent, isWuiTpl } from '@utils/inspect';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
@@ -25,6 +24,7 @@ import FormAction from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -88,6 +88,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     @Inject private readonly parserTemplateService: ParserTemplateService;
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     private searchInput;
     private tableHeaderNode = this.props.templates['table-header'];
@@ -201,7 +202,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
-        let url = formatObject2Url(formData, this.props.dataset.url);
+        let url = this.formatDataService.obj2Url(formData, this.props.dataset.url);
         let tableContent = await this.getTableContent(url);
         let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -263,7 +264,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // 解析html模版
                 if (isHtmlTpl(value)) {
 
-                    if (isWuiByString(value)) {
+                    if (isWuiComponent(value)) {
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {

@@ -56,7 +56,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         theme    : 'light',
         collapsed: !(this.props.open ?? true),
     };
-    pathfield = this.props.pathfield;
+    pathfield = this.props.pathfield ?? '';
 
     constructor(props) {
         super(props);
@@ -98,6 +98,16 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
             : '';
     }
 
+    renderMenuChild(item) {
+        if (item?.[this.pathfield]) {
+            return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
+        } else if (item?.path) {
+            return <Link to={ item.path ?? '/' }> { item.label } </Link>;
+        } else {
+            return item.label;
+        }
+    }
+
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '200px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
@@ -132,10 +142,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                             // icon={ <IdcardOutlined/> }
                                         >
                                             {/* TODO path 是react里面的，input调用使用a链接*/ }
-                                            { child[this.pathfield] ?
-                                                <a href={ child[this.pathfield] }>{ child.label }</a> : child.label }
-                                            { child.path ?
-                                                <Link to={ child.path ?? '/' }> { child.label } </Link> : child.label }
+                                            { this.renderMenuChild(child) }
                                         </Menu.Item>;
                                     })) }
                                 </SubMenu>;
@@ -145,15 +152,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                                                   data-path={ item.path }
                                     // icon={ <PieChartOutlined/> }
                                 >
-                                    {
-                                        item[this.pathfield]
-                                            ? <a href={ item[this.pathfield] }>{ item.label }</a>
-                                            : item.label
-                                    }
-                                    { item.path
-                                        ? <Link to={ item.path ?? '/' }> { item.label } </Link>
-                                        : item.label
-                                    }
+                                    { this.renderMenuChild(item) }
                                 </Menu.Item>;
                             }
                         })
