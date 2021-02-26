@@ -263,7 +263,7 @@ window.funcName = function () {
 ├── utils									// 封装的常用函数
 │   ├── format-data.ts
 │   ├── inspect.ts
-│   ├── parser-dom.tsx
+│   ├── trans-dom.tsx
 │   ├── parser-property.ts
 │   ├── parser-tpl.ts
 │   ├── request

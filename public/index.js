@@ -9,18 +9,20 @@
 (function (document) {
     
     const development = Number.parseInt(url2Obj(window.location.href).development) === 1;
+    console.log(`是否开发环境:`, development);
     const hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
     const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
     const version = new Date().getTime();
     
+    //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
         let url = hostname + file + '?date=' + version;
         if (isJavascript(file)) {
             return createScript(file, url);
         } else {
-            return createStyle(file, url);
+            return development ? undefined : createStyle(file, url);        // 开发环境不需要引入css,都是集成在js中的
         }
-    });
+    }).filter(t => t);
     
     document.body.append(...scripts);
     

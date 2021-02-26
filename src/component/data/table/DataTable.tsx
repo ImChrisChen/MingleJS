@@ -7,7 +7,7 @@
 
 import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
 import * as React from 'react';
-import { strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
+import { strParseDOM, strParseVirtualDOM } from '@utils/trans-dom';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';

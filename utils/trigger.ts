@@ -10,10 +10,16 @@ import { isArray } from '@utils/inspect';
 
 type el = HTMLElement | HTMLInputElement
 
+/**
+ * 事件触发
+ * @param el
+ * @param value
+ * @param event_type
+ */
 export function trigger(el: el, value: string | Array<any>, event_type: string = 'change') {
 
     if (!el) {
-        console.log(`请输入正确参数  el:${ el }`);
+        console.warn(`请输入正确参数  el:${ el }`);
         return;
     }
 

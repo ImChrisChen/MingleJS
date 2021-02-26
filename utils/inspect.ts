@@ -19,7 +19,10 @@ type IdataType =
     | 'set'
     | 'map';
 
-// 获取数据类型
+/**
+ * 获取数据类型
+ * @param obj
+ */
 export function getType(obj): IdataType {
     const str = Object.prototype.toString.call(obj);
 
@@ -111,7 +114,7 @@ export function isJSON(v: string): boolean {
 }
 
 /**
- * 判断是否是多层调用对象的key的结构
+ * 判断模版中是否是多层调用对象的key的结构
  * 如:
  * 'item.name'  => true
  * 'item.100'   => false
@@ -172,7 +175,7 @@ export function isHtmlTpl(v: string): boolean {
     return /(.*?)(<[a-zA-Z]+) (.*?)/.test(v);
 }
 
-// 判断字符串是否是拓展运算符 '...item.dataset'
+// 判断字符串是否是DOM拓展运算符(框架内自己实现的语法) '...item.dataset'
 export function isExpandSymbol(v: string) {
     // return v.startsWith('...');
     return /^(\.\.\.)[a-zA-Z|_|$](.*?)/.test(v);

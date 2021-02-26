@@ -27,7 +27,7 @@ if (docs) {
 } else {
     // public/index.html
     window.addEventListener('load', () => {
-        new App(document.body);
+        // new App(document.body);
     });
 }
 

@@ -99,7 +99,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     }
 }
 
-// 公共配置属性Interface
+// 公共配置属性 Interface
 interface IUniversalProps<T> {
     label: T
     placeholder: T

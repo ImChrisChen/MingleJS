@@ -5,36 +5,16 @@
  * Time: 11:56 下午
  */
 
-import { Button, Checkbox, Form, Select, Typography } from 'antd';
+import { Button, Checkbox, Form, Select } from 'antd';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { Divider } from 'antd/es';
-import { strParseDOM } from '@utils/parser-dom';
+import { strParseDOM } from '@utils/trans-dom';
 import React, { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { FormatDataService } from '@services/FormatData.service';
-// import axios from 'axios'
-
-const { Option, OptGroup } = Select;
-const { Title } = Typography;
-
-interface ISelectState<T> {
-    // selectProps?: T
-    selectProps: any
-    checkedAll: boolean
-
-    [key: string]: any
-}
-
-interface ISelectProps {
-    // theme: string
-    // options: Array<any>
-    // value?: any
-
-    [key: string]: any
-}
 
 export default class FormSelect extends Component<IComponentProps, any> {
     @Inject private readonly httpClientService: HttpClientService;

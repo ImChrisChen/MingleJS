@@ -8,7 +8,7 @@ import { deepEachElement } from '@utils/util';
 import { isArray, isCustomElement, isFunc, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
-import { elementWrap } from '@utils/parser-dom';
+import { elementWrap } from '@utils/trans-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
 import { Monitor } from '@services/Monitor';
@@ -57,8 +57,6 @@ interface IInstances {
     module?: IModules
     instance?: ReactInstance
 }
-
-type ITemplateName = 'children' | '';
 
 export default class App {
 

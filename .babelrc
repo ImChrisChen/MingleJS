@@ -14,12 +14,5 @@
             }
         ]
     ],
-    "plugins": [
-        [
-            "@babel/plugin-transform-runtime",
-            {
-                "helpers": false
-            }
-        ]
-    ]
+    "plugins": ["@babel/plugin-transform-runtime"]
 }
