@@ -1884,6 +1884,22 @@ export default {
             },
         },
     },
+    hello   : {
+        word: {
+            component: import('@src/component/hello/word/HelloWord'),
+            property : {
+                title  : {
+                    el   : 'input',
+                    parse: 'string',
+                    value: 'Hello Chris',
+                    desc : 'title',
+                },
+                dataset: {
+                    url: {},
+                },
+            },
+        },
+    },
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
 // 组件全局配置
