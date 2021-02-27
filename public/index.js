@@ -40,6 +40,7 @@
         let script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = url;
+        script.async = false;       // TODO 使JavaScript同步加载,否则会影响到加载顺序
         return script;
     }
     
