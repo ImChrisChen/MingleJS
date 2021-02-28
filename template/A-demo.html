@@ -1,0 +1,40 @@
+<div class="demo">
+    <h1><{title}></h1>
+    <ul>
+        <li w-foreach="list as item" @click="handleClick(item,$event)">
+            <{item.name}>
+        </li>
+    </ul>
+
+    <hello-word title="Hello World ~" data-url="https://"></hello-word>
+
+    <layout-list data-cols="4">
+        <div w-foreach="list as (item,i)" w-if="i % 2 === 0"><{i}> <{item.name}></div>
+    </layout-list>
+
+</div>
+<script>
+    new Mingle({
+        el: '.demo',
+        data: {
+            title: '123',
+            list: [
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+            ],
+            obj: {},
+            count: 0,
+        },
+        created() {
+        },
+        methods: {
+            handleClick(item, $event) {
+                console.log(item, $event);
+            },
+        },
+    });
+</script>
