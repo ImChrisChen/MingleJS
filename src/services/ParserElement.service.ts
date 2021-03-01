@@ -12,7 +12,7 @@ import { elementWrap } from '@utils/trans-dom';
 import { deepEachElement, getObjectValue } from '@utils/util';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 
-interface IFunctions {
+export interface IFunctions {
     methods: {
         [key: string]: (...args) => any
     },

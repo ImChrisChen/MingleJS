@@ -101,12 +101,14 @@ export class Mingle {
 
         await created?.call(o);     // 很有可能会修改到 data里面的数据,所以等 created 执行完后才解析模版
 
-        let node = this.parserElementService.parseElement(container, data, {
-            methods : methods,
-            callthis: o,
-        });
-        let vnode = this.virtualDOM.getVnode(node as HTMLElement);
-        console.log(vnode);
+        let funcs = { methods: methods, callthis: o };
+
+        let node = this.parserElementService.parseElement(container, data, funcs);
+        
+        // 虚拟DOM实现
+        // let vnode = this.virtualDOM.getVnode(container as HTMLElement, data, funcs);
+        // let node = this.virtualDOM.vnodeToHtml(vnode);
+        // $(container).parent().html('').append(node);
 
         await this.render(node);
         await mounted?.call(o);
