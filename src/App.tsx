@@ -127,7 +127,7 @@ export default class App {
         el.hidden = true;
 
         // 获取到组件的子元素（排除template标签)
-        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
+        let subelements = [...el.children].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
         el.append(container);
@@ -139,7 +139,7 @@ export default class App {
             el.setAttribute('form-component', '');
         }
 
-        let tpls = [ ...el.querySelectorAll('template') ];
+        let tpls = [...el.querySelectorAll('template')];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -217,7 +217,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
+        [...el.attributes].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -239,7 +239,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -275,9 +275,9 @@ export default class App {
         // form-group 内的组件，只在组作用域内产生关联关系
         // if ($(element).closest('[data-fn=form-group]').length > 0) {
         if ($(element).closest('form-group').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-component-uid][name]') ];
+            $formItems = [...$(element).closest('.form-group-item').find('[data-component-uid][name]')];
         } else {
-            $formItems = [ ...$(element).closest('form-action').find('[data-component-uid][name]') ];
+            $formItems = [...$(element).closest('form-action').find('[data-component-uid][name]')];
         }
 
         $formItems.forEach(formItem => {
@@ -356,7 +356,7 @@ export default class App {
 
                 let groupname = element.getAttribute('data-group');
                 let formElement = $(element).closest('form-action');
-                let groups = [ ...formElement.find(`[data-component-uid][data-group=${ groupname }]`) ];
+                let groups = [...formElement.find(`[data-component-uid][data-group=${ groupname }]`)];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -496,7 +496,7 @@ export default class App {
 
         // 普通属性
         let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
+        [...element.attributes].forEach(item => {
             if (!item.name.includes('data-')) attrs[item.name] = item.value;
         });
         let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);

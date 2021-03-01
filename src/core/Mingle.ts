@@ -97,18 +97,17 @@ export class Mingle {
     async renderView(container, data, funcs) {
 
         // 虚拟DOM实现
-        let d = JSON.parse(JSON.stringify(data));
         let vnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
-
         let node = this.virtualDOM.vnodeToHtml(vnode);
-
         $(container).html('');
-
-        for (const child of node.childNodes) {
+        for (const child of [...node.childNodes]) {
             container.append(child);
         }
+        this.render(container);
 
-        await this.render(container);
+        // 原始DOM实现
+        // let node = this.parserElementService.parseElement(container, data, funcs);
+        // await this.render(node);
     }
 
     private async run(options) {
@@ -130,8 +129,6 @@ export class Mingle {
         await this.renderView(container, data, funcs);
 
         await mounted?.call(o);
-
-        // let node = this.parserElementService.parseElement(container, data, funcs);
 
 
     }
