@@ -149,7 +149,13 @@ export class VirtualDOM extends ParserTemplateService {
                 method = method?.trim();
                 arg = arg?.trim();
 
-                let args = this.parseArguments(arg.split(','), model);
+                if (!method) continue;
+                let args: Array<any> = [];
+
+                if (arg) {
+                    args = this.parseArguments(arg.split(','), model);
+                }
+
                 let { methods, callthis } = functions;
 
                 let e: IEventItem = {
@@ -262,11 +268,7 @@ export class VirtualDOM extends ParserTemplateService {
                 let { attrs, events } = this.getAttributesByElement(node, model, functions);
                 node.nodeValue = this.parseTpl(node.nodeValue || '', model, 'field');
 
-                console.log('before', vnode);
-
                 vnode = new VNode(nodeName, attrs, node.nodeValue, nodeType, events);
-
-                console.log('after', vnode);
 
                 let childNodes: any = node.childNodes;
                 for (const childNode of childNodes) {

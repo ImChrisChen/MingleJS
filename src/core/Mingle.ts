@@ -29,6 +29,8 @@ export class Mingle {
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
 
+    private containerNode;
+
     constructor(options: IMingleOptions) {
 
         let defaultOptions = {
@@ -92,31 +94,45 @@ export class Mingle {
         new App(node);
     }
 
+    async renderView(container, data, funcs) {
+
+        // 虚拟DOM实现
+        let d = JSON.parse(JSON.stringify(data));
+        let vnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
+
+        let node = this.virtualDOM.vnodeToHtml(vnode);
+
+        $(container).html('');
+
+        for (const child of node.childNodes) {
+            container.append(child);
+        }
+
+        await this.render(container);
+    }
+
     private async run(options) {
         let { el, data, created, methods, mounted } = options;
 
         let container = document.querySelector(el) as HTMLElement;
+        this.containerNode = container.cloneNode(true);     // 缓存节点模版
+
         let o = Object.assign(data, methods, this);
-        o = new ProxyData(o);
+        o = new ProxyData(o, () => {
+            this.renderView(container, data, funcs);
+            console.log('update');
+        });
 
         await created?.call(o);     // 很有可能会修改到 data里面的数据,所以等 created 执行完后才解析模版
 
         let funcs = { methods: methods, callthis: o };
 
+        await this.renderView(container, data, funcs);
+
+        await mounted?.call(o);
+
         // let node = this.parserElementService.parseElement(container, data, funcs);
 
-        // 虚拟DOM实现
-        let vnode = this.virtualDOM.getVnode(container as HTMLElement, data, funcs);
-        console.log(vnode);
-        let node = this.virtualDOM.vnodeToHtml(vnode);
-        console.log(node);
-
-        if (node) {
-            let parentEl = container.parentElement;
-            parentEl && parentEl.replaceChild(node, container);
-            await this.render(node);
-            await mounted?.call(o);
-        }
 
     }
 }
