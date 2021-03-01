@@ -11,6 +11,7 @@ import { ParserElementService } from '@services/ParserElement.service';
 import { HttpClientService } from '@services/HttpClient.service';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
+import { VirtualDOM } from '@src/core/VirtualDOM';
 
 interface IMingleOptions {
     el: string
@@ -26,8 +27,10 @@ export class Mingle {
 
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly virtualDOM: VirtualDOM;
 
     constructor(options: IMingleOptions) {
+
         let defaultOptions = {
             el     : 'body',
             data   : {},
@@ -38,6 +41,16 @@ export class Mingle {
             methods: {},
         };
         this.run(Object.assign(defaultOptions, options));
+    }
+
+    // response
+    private static async httpResponseInterceptor(res) {
+        if (res?.status) {
+            return res.data;
+        } else {
+            message.error(res?.msg ?? res?.message ?? 'request error !');
+            return [];
+        }
     }
 
     // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到
@@ -75,14 +88,8 @@ export class Mingle {
         return element;
     };
 
-    // response
-    private static async httpResponseInterceptor(res) {
-        if (res?.status) {
-            return res.data;
-        } else {
-            message.error(res?.msg ?? res?.message ?? 'request error !');
-            return [];
-        }
+    render(node: HTMLElement | Array<HTMLElement>) {
+        new App(node);
     }
 
     private async run(options) {
@@ -98,13 +105,11 @@ export class Mingle {
             methods : methods,
             callthis: o,
         });
+        let vnode = this.virtualDOM.getVnode(node as HTMLElement);
+        console.log(vnode);
 
         await this.render(node);
         await mounted?.call(o);
-    }
-
-    render(node: HTMLElement | Array<HTMLElement>) {
-        new App(node);
     }
 }
 
