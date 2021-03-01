@@ -12,6 +12,7 @@ import $ from 'jquery';
 import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { child } from 'winston';
+import { data } from 'autoprefixer';
 
 const events = {
     click: [        // 可以有多个事件
@@ -31,7 +32,7 @@ interface IMingleVnode {
     data: object
     value: string
     type: number
-    events: object
+    events: IMingleEvents
     children: Array<any>
 }
 
@@ -73,8 +74,15 @@ class VNode {
         this.children = [];
     }
 
-    public appendChild(vnode: IMingleVnode) {
-        vnode && this.children.push(vnode);
+    public append(vnode: IMingleVnode) {
+        if (isUndefined(vnode)) {
+            return;
+        }
+
+        Array.isArray(vnode)
+            ? this.children.push(...vnode)
+            : this.children.push(vnode);
+
     }
 }
 
@@ -181,6 +189,9 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     private parseExpress(express: string, model: object): string {
+        if (isUndefined(express)) {
+            return express;
+        }
         return this.parseTpl(express, model, 'field');
     }
 
@@ -235,64 +246,85 @@ export class VirtualDOM extends ParserTemplateService {
         if (nodeType === 1) {               // element
             let nodeName = node.localName;
 
-            const render = () => {
+            const render = (model) => {
+
                 let { attrs, events } = this.getAttributesByElement(node, model, functions);
+                node.nodeValue = this.parseTpl(node.nodeValue || '', model, 'field');
+
+                console.log('before', vnode);
 
                 vnode = new VNode(nodeName, attrs, node.nodeValue, nodeType, events);
+
+                console.log('after', vnode);
+
                 let childNodes: any = node.childNodes;
                 for (const childNode of childNodes) {
-                    vnode.appendChild(this.getVnode(childNode, model, functions));
+                    vnode.append(this.getVnode(childNode, model, functions));
                 }
             };
 
-            // if (node.attributes[directiveIf]?.value) {
-            //     let express = node.attributes[directiveIf].value;
-            //     express = this.parseExpress(express, model);
-            //     let result = this.parseIF(express);
-            //     if (result) {
-            //         // render
-            //         render();
-            //     } else {
-            //
-            //     }
-            // }
-            //
-            // if (node.attributes[directiveForeach]?.value) {
-            //     let express = node.attributes[directiveForeach]?.value;
-            //     let ifExpress = node.attributes[directiveIf]?.value;
-            //     ifExpress = this.parseExpress(ifExpress, model);
-            //
-            //     // w-foreach="data as item" 或者 data as (item,index)
-            //     if (!/^(\w+|\w+\.\w+) as (\w+|\(.+?\))$/.test(express)) {
-            //         console.error(`${ name }格式不正确`);
-            //     }
-            //
-            //     express = this.parseExpress(express, model);
-            //     let { arrayName, itemName, indexName, loopData } = this.getForEachVars(express, model);
-            //
-            //     for (const key in loopData) {
-            //         if (!loopData.hasOwnProperty(key)) continue;
-            //         let value = loopData[key];
-            //         let itemModel = {
-            //             [itemName] : value,
-            //             [indexName]: key,       // index
-            //         };
-            //
-            //         ifExpress = this.parseExpress(ifExpress, itemModel);
-            //         let result: boolean;
-            //         try {
-            //             result = Boolean(eval(ifExpress));
-            //         } catch (e) {
-            //             console.warn(`${ ifExpress }表达式格式错误`);
-            //             result = false;
-            //         }
-            //
-            //
-            //     }
-            //
-            // }
-            //
-            render();
+            // 只有if的情况
+            if (node.getAttribute(directiveIf) && !node.getAttribute(directiveForeach)) {
+                if (node.getAttribute(directiveIf)) {
+                    let express = node.attributes[directiveIf].value;
+                    express = this.parseExpress(express, model);
+                    let result = this.parseIF(express);
+                    result && render(model);
+                } else {
+                    render(model);
+                }
+            } else if (node.attributes[directiveForeach]?.value) {
+                let foreachSyntax = node.attributes[directiveForeach]?.value;
+                let ifExpress = node.attributes?.[directiveIf]?.value;
+
+                // w-foreach="data as item" 或者 data as (item,index)
+                if (!/^(\w+|\w+\.\w+) as (\w+|\(.+?\))$/.test(foreachSyntax)) {
+                    console.error(`${ foreachSyntax }格式不正确`);
+                }
+
+                // foreachSyntax = this.parseExpress(foreachSyntax, model);
+                ifExpress = this.parseExpress(ifExpress, model);
+
+                let { arrayName, itemName, indexName, loopData } = this.getForEachVars(foreachSyntax, model);
+
+                for (const key in loopData) {
+                    let ifResult: boolean;
+
+                    if (!loopData.hasOwnProperty(key)) continue;
+                    let value = loopData[key];
+                    let itemModel = {
+                        [itemName] : value,
+                        [indexName]: key,       // index
+                    };
+
+                    let newifExpress = this.parseExpress(ifExpress, itemModel);
+
+                    // 表示没有 w-if标签
+                    if (isUndefined(newifExpress)) {
+                        ifResult = true;
+                    }
+
+                    try {
+                        ifResult = Boolean(eval(newifExpress));
+                    } catch (e) {
+                        console.warn(`${ newifExpress }表达式格式错误`);
+                        ifResult = false;
+                    }
+
+                    console.log(ifResult);
+
+                    if (ifResult) {
+                        render(itemModel);
+                        // console.log(vnode);
+                        // node = node.cloneNode(true)
+                    }
+
+                }
+
+            } else {
+                render(model);
+            }
+
 
         } else if (nodeType === 3) {        // 文本节点
             if (node.nodeValue && node.nodeValue.trim()) {
@@ -305,19 +337,60 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     public vnodeToHtml(vnode: IMingleVnode) {
+        if (!vnode) {
+            return '';
+        }
+
         let { type, data, tag, events, children, value } = vnode;
         let el;
         if (type === 1) {
             el = document.createElement(tag);
+
+            // events
+            for (const event in events) {
+                if (!events.hasOwnProperty(event)) continue;
+                let eventItems = events[event];
+
+                for (const eventItem of eventItems) {
+                    el.addEventListener(eventItem.type, (e) => {
+                        let { call, func, args } = eventItem.listener;
+                        args = args || [];
+
+                        if (args.length > 0) {
+                            args = args.map(arg => arg === '$event' ? e : arg === 'this' ? el : arg);
+                            func?.call(call, ...args);
+                        } else {
+                            func?.call(call);
+                        }
+
+                    });
+                }
+
+            }
+
+            // attributes
             for (const key in data) {
                 if (!data.hasOwnProperty(key)) continue;
+
+                if (
+                    key === directiveForeach
+                    || key === directiveIf
+                    || key === directiveElse
+                ) {
+                    continue;
+                }
+
                 let value = data[key];
                 el.setAttribute(key, value);
             }
+
+            // children
             for (const child of children) {
                 let text = this.vnodeToHtml(child);
                 el.append(text);
             }
+
+            //  text
         } else if (type === 3) {
             el = value;
         }

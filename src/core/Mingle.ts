@@ -103,15 +103,21 @@ export class Mingle {
 
         let funcs = { methods: methods, callthis: o };
 
-        let node = this.parserElementService.parseElement(container, data, funcs);
-        
-        // 虚拟DOM实现
-        // let vnode = this.virtualDOM.getVnode(container as HTMLElement, data, funcs);
-        // let node = this.virtualDOM.vnodeToHtml(vnode);
-        // $(container).parent().html('').append(node);
+        // let node = this.parserElementService.parseElement(container, data, funcs);
 
-        await this.render(node);
-        await mounted?.call(o);
+        // 虚拟DOM实现
+        let vnode = this.virtualDOM.getVnode(container as HTMLElement, data, funcs);
+        console.log(vnode);
+        let node = this.virtualDOM.vnodeToHtml(vnode);
+        console.log(node);
+
+        if (node) {
+            let parentEl = container.parentElement;
+            parentEl && parentEl.replaceChild(node, container);
+            await this.render(node);
+            await mounted?.call(o);
+        }
+
     }
 }
 
