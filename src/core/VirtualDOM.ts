@@ -205,6 +205,17 @@ export class VirtualDOM extends ParserTemplateService {
         }
     }
 
+    // 触发自定义事件
+    private trigger(eventName: string) {
+        // 创建自定义事件
+        let event = document.createEvent('HTMLEvents');
+        // 初始化testEvent事件
+        event.initEvent(eventName, false, true);
+        // event.data = { 'click': true };
+        // 触发自定义事件
+        window.dispatchEvent(event);
+    }
+
     private getForEachVars(express: string, model: object) {
         let [ arrayName, itemName ]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
