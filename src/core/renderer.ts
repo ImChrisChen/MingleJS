@@ -12,49 +12,60 @@ interface IVnode {
     events: any
 }
 
-// const vnode = {
-//     tag     : 'layout-list',
-//     props   : {
-//         name        : '',
-//         value       : '',
-//         'data-cols' : 2,
-//         'data-space': '20,20',
-//     },
-//     children: [
-//         {
-//             tag     : 'data-table',
-//             props   : {},
-//             children: [],
-//             events  : {},
-//         },
-//         {
-//             tag     : 'data-table',
-//             props   : {},
-//             children: [],
-//             events  : {},
-//         },
-//         {
-//             tag     : 'data-table',
-//             props   : {},
-//             children: [],
-//             events  : {},
-//         },
-//     ],
-//     events  : {
-//         click: [
-//             {
-//                 type: 'click',
-//                 func: function () {
-//                     alert(this);
-//                 },
-//             },
-//         ],
-//     },
-// };
+const vnodes = {
+    tag     : 'layout-list',
+    props   : {
+        name        : '',
+        value       : '',
+        'data-cols' : 2,
+        'data-space': '20,20',
+    },
+    children: [
+        {
+            tag     : 'data-table',
+            props   : {},
+            children: [],
+            events  : {},
+        },
+        {
+            tag     : 'data-table',
+            props   : {},
+            children: [],
+            events  : {},
+        },
+        {
+            tag     : 'data-table',
+            props   : {},
+            children: [],
+            events  : {},
+        },
+    ],
+    events  : {
+        click: [
+            {
+                type: 'click',
+                func: function () {
+                    alert(this);
+                },
+            },
+        ],
+    },
+};
+const v = {
+    tag  : 'data-table',
+    props: {
+        role: 'table',
+    },
+};
+
 
 const vnode = {
     tag     : 'form-datepicker',
+    slots   : {
+        header: 'header',
+    },
     props   : {
+        id             : 'table',
         'data-label'   : 'label',
         'data-format'  : 'YYYY-MM-DD',
         'data-showtime': false,

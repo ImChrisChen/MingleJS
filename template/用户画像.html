@@ -1,17 +1,17 @@
 <form-action
-        data-method="post"
-        id="user_analysis"
+    data-method="post"
+    id="user_analysis"
 >
 
     <!-- 日期 -->
     <form-datepicker
-            data-format="YYYY-MM-DD HH:mm:ss"
-            data-label="日期:"
-            data-showtime="true"
-            data-mindate="2016-01-01"
-            data-maxdate="2020-10-26"
-            data-usenow="true"
-            name="date_range"
+        data-format="YYYY-MM-DD HH:mm:ss"
+        data-label="日期:"
+        data-showtime="true"
+        data-mindate="2016-01-01"
+        data-maxdate="2020-10-26"
+        data-usenow="true"
+        name="date_range"
 
     ></form-datepicker>
 
@@ -43,16 +43,16 @@
 
     <!-- 媒体 -->
     <form-select
-            data-smart="true"
-            name="media_id"
-            value=""
-            data-mode="multiple"
-            data-group="example"
-            data-size="sm"
-            data-label="媒体:"
-            data-url="http://e.aidalan.com/option/media/list" id="media_id"
-            data-value="media_name"
-            data-key="media_id"></form-select>
+        data-smart="true"
+        name="media_id"
+        value=""
+        data-mode="multiple"
+        data-group="example"
+        data-size="sm"
+        data-label="媒体:"
+        data-url="http://e.aidalan.com/option/media/list" id="media_id"
+        data-value="media_name"
+        data-key="media_id"></form-select>
 
     <!-- 账号 -->
     <form-select name="dl_publisher_id" data-mode="multiple" value=""
@@ -94,58 +94,66 @@
 
 </form-action>
 
-<layout-list data-space="10,10" data-cols="2">
+<layout-window>
+
+</layout-window>
+
+<tempalte id="diglog"></tempalte>
+
+<button @click.dialog="diglog">submit</button>
+
+<layout-list data-space="10,10" data-cols="2" diglog="diglog">
 
     <!-- 地域用户画像 -->
     <data-chart
-            data-from="user_analysis"
-            data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
-            data-type="line"
-            data-colors="#6ad6b6"
-            data-key="location"
-            data-value="count"
+        data-from="user_analysis"
+        data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=location&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+        data-type="line"
+        data-colors="#6ad6b6"
+        data-key="location"
+        data-value="count"
     ></data-chart>
     <data-table
-            data-height="400"
-            data-from="user_analysis"
-            data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
-            data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+        data-height="400"
+        data-from="user_analysis"
+        data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
+        data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
     ></data-table>
     <data-chart
-            data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=brand&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
-            data-from="user_analysis"
-            data-type="pie"
-            data-colors="#6ad6b6"
-            data-name="品牌"
-            data-key="brand"
-            data-value="count"
-            data-datadirect="y"
+        data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=brand&pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+        data-from="user_analysis"
+        data-type="pie"
+        data-colors="#6ad6b6"
+        data-name="品牌"
+        data-key="brand"
+        data-value="count"
+        data-datadirect="y"
     ></data-chart>
     <data-table
-            data-height="400"
-            data-from="user_analysis"
-            data-headerurl="http://e.aidalan.com/presenter/user/os/header?group_type=<{group_type}>"
-            data-url="http://e.aidalan.com/presenter/user/os/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
+        data-height="400"
+        data-from="user_analysis"
+        data-headerurl="http://e.aidalan.com/presenter/user/os/header?group_type=<{group_type}>"
+        data-url="http://e.aidalan.com/presenter/user/os/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>"
     ></data-table>
 
     <!-- 品牌用户画像 -->
     <data-chart
-            data-from="user_analysis"
-            data-type="bar"
-            data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=device&amp;pf=<{pf}>&amp;date_way=multi&amp;group_way=<{group_way}>&amp;date_range=<{date_range}>&amp;dl_game_id=<{dl_game_id}>&amp;dl_channel_id=<{dl_channel_id}>&amp;media_id=<{media_id}>&amp;dl_adv_position_id=<{dl_adv_position_id}>&amp;dl_publisher_id=<{dl_publisher_id}>&amp;principal_id=<{principal_id}>&amp;original_id=<{original_id}>&amp;group_type=<{group_type}>"
-            data-colors="#6ad6b6"
-            data-name="设备"
-            data-key="device"
-            data-value="count"
-            data-height="400"
-            data-datadirect="y">
+        data-from="user_analysis"
+        data-type="bar"
+        data-url="http://e.aidalan.com/presenter/user/normal/chart?the_group=device&amp;pf=<{pf}>&amp;date_way=multi&amp;group_way=<{group_way}>&amp;date_range=<{date_range}>&amp;dl_game_id=<{dl_game_id}>&amp;dl_channel_id=<{dl_channel_id}>&amp;media_id=<{media_id}>&amp;dl_adv_position_id=<{dl_adv_position_id}>&amp;dl_publisher_id=<{dl_publisher_id}>&amp;principal_id=<{principal_id}>&amp;original_id=<{original_id}>&amp;group_type=<{group_type}>"
+        data-colors="#6ad6b6"
+        data-name="设备"
+        data-key="device"
+        data-value="count"
+        data-height="400"
+        data-datadirect="y">
     </data-chart>
     <data-table
-            data-autosum="true"
-            data-frozen="2,1"
-            data-height="400"
-            data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
-            data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>">
+        data-autosum="true"
+        data-frozen="2,1"
+        data-height="400"
+        data-headerurl="http://e.aidalan.com/presenter/user/location/header?group_type=<{group_type}>"
+        data-url="http://e.aidalan.com/presenter/user/location/data?pf=<{pf}>&date_way=multi&group_way=<{group_way}>&date_range=<{date_range}>&dl_game_id=<{dl_game_id}>&dl_channel_id=<{dl_channel_id}>&media_id=<{media_id}>&dl_adv_position_id=<{dl_adv_position_id}>&dl_publisher_id=<{dl_publisher_id}>&principal_id=<{principal_id}>&original_id=<{original_id}>&group_type=<{group_type}>">
 
     </data-table>
 </layout-list>

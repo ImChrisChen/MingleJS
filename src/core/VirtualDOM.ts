@@ -6,7 +6,7 @@
  */
 import { IFunctions } from '@services/ParserElement.service';
 import { getObjectValue } from '@utils/util';
-import { isArray, isObject, isUndefined } from '@utils/inspect';
+import { isArray, isEmptyObject, isObject, isUndefined } from '@utils/inspect';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 
@@ -93,24 +93,27 @@ export class VirtualDOM extends ParserTemplateService {
 
     }
 
-    public getVnode(node: HTMLElement, model: any, functions: IFunctions) {
+    public getVnode(node: HTMLElement, model: any, functions: IFunctions, parent?: IMingleVnode) {
         let nodeType = node.nodeType;
         let vnode;
 
         if (nodeType === 1) {               // element
             let nodeName = node.localName;
+            let { attrs, events } = this.getAttributesByElement(node, model, functions);
+            let nodeValue = this.parseTpl(node.nodeValue || '', model, 'field');
 
-            const render = (model) => {
+            const render = (model, fn?: (...args) => any) => {
 
-                let { attrs, events } = this.getAttributesByElement(node, model, functions);
-                node.nodeValue = this.parseTpl(node.nodeValue || '', model, 'field');
+                vnode = new VNode(nodeName, attrs, nodeValue, nodeType, events);
 
-                vnode = new VNode(nodeName, attrs, node.nodeValue, nodeType, events);
+                fn?.(vnode);
 
                 let childNodes: any = node.childNodes;
-                for (const childNode of [...childNodes]) {
-                    vnode.append(this.getVnode(childNode, model, functions));
+                for (const childNode of [ ...childNodes ]) {
+                    vnode.append(this.getVnode(childNode, model, functions, vnode));
                 }
+
+
             };
 
             // 只有if的情况
@@ -132,7 +135,6 @@ export class VirtualDOM extends ParserTemplateService {
                     console.error(`${ foreachSyntax }格式不正确`);
                 }
 
-                // foreachSyntax = this.parseExpress(foreachSyntax, model);
                 ifExpress = this.parseExpress(ifExpress, model);
 
                 let { arrayName, itemName, indexName, loopData } = this.getForEachVars(foreachSyntax, model);
@@ -152,24 +154,26 @@ export class VirtualDOM extends ParserTemplateService {
                     // 表示没有 w-if标签
                     if (isUndefined(newifExpress)) {
                         ifResult = true;
+                    } else {
+                        try {
+                            ifResult = Boolean(eval(newifExpress));
+                        } catch (e) {
+                            console.warn(`${ newifExpress }表达式格式错误`);
+                            ifResult = false;
+                        }
                     }
-
-                    try {
-                        ifResult = Boolean(eval(newifExpress));
-                    } catch (e) {
-                        console.warn(`${ newifExpress }表达式格式错误`);
-                        ifResult = false;
-                    }
-
-                    console.log(ifResult);
 
                     if (ifResult) {
-                        render(itemModel);
-                        // console.log(vnode);
-                        // node = node.cloneNode(true)
+                        render(itemModel, function (vnode) {
+                            if (parent && isArray(parent.children)) {
+                                parent.children.push(vnode);
+                            }
+                        });
                     }
-
                 }
+
+                // TODO 应该有更好的方案
+                parent?.children.pop();
 
             } else {
                 render(model);
@@ -294,12 +298,12 @@ export class VirtualDOM extends ParserTemplateService {
     private getAttributesByElement(el: HTMLElement, model: object, functions: IFunctions): { attrs: object, events: object } {
         let attrs = {};
         let events: IMingleEvents = {};
-        for (const { name, value } of [...el.attributes]) {
+        for (const { name, value } of [ ...el.attributes ]) {
 
             // 事件
             if (name.startsWith('@')) {
-                let [, event] = name.split('@');      // 事件名称 'click'
-                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [ , event ] = name.split('@');      // 事件名称 'click'
+                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -325,7 +329,7 @@ export class VirtualDOM extends ParserTemplateService {
                 };
 
                 if (isUndefined(events[event])) {
-                    events[event] = [e];
+                    events[event] = [ e ];
                 } else {
                     events[event].push(e);
                 }
@@ -373,13 +377,13 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     private getForEachVars(express: string, model: object) {
-        let [arrayName, itemName]: Array<string> = express.split('as');
+        let [ arrayName, itemName ]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
