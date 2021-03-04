@@ -395,7 +395,7 @@ export default {
                     },
                 },
             },
-            name: '下拉框',
+            name     : '下拉框',
         },
         selecttree: {
             path     : '/form-selecttree',
@@ -403,6 +403,7 @@ export default {
             document : import('@component/form/select/tree/FormSelectTree.md'),
             property : {
                 dataset    : {
+                    disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
@@ -439,6 +440,7 @@ export default {
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
                     group     : UniversalProps.group,
+
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -451,7 +453,7 @@ export default {
                 },
                 hook       : {},
             },
-            name: '树形下拉框'
+            name     : '树形下拉框',
         },
         checkbox  : {
             component: import('@component/form/checkbox/FormCheckbox'),
@@ -484,7 +486,7 @@ export default {
                 name   : UniversalProps.name,
                 value  : {},
             },
-            name: '复选框'
+            name     : '复选框',
         },
         cascader  : {
             path     : '/form-cascader',
@@ -492,6 +494,7 @@ export default {
             document : import('@component/form/cascader/FormCascader.md'),
             property : {
                 dataset    : {
+                    disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
                         el     : 'input',
@@ -538,7 +541,7 @@ export default {
                     parse: 'string',
                 },
             },
-            name: '级联选择器'
+            name     : '级联选择器',
         },
         datepicker: {
             path     : '/form-datepicker',
@@ -630,7 +633,7 @@ export default {
                     },
                 },
             },
-            name: '时间选择器'
+            name     : '时间选择器',
         },
         action    : {
             component: import('@component/form/form-action/FormAction'),
@@ -693,16 +696,16 @@ export default {
                 },
             },
             document : import('@component/form/form-action/FormAction.md'),
-            name: 'form表单'
+            name     : 'form表单',
         },
         radio     : {
             path     : '/form-radio',
             component: import('@component/form/button/FormButton'),
             property : {
                 dataset: {
+                    disabled   : UniversalProps.disabled,
                     label      : UniversalProps.label,
                     enum       : UniversalProps.enum,
-                    disabled   : UniversalProps.disabled,
                     size       : UniversalProps.size,
                     type       : {  // optionType
                         el     : 'radio',
@@ -753,7 +756,7 @@ export default {
                     parse  : 'string',
                 },
             },
-            name: '单选框'
+            name     : '单选框',
         },
         slider    : {
             path     : '/form-slider',
@@ -800,7 +803,7 @@ export default {
                     },
                 },
             },
-            name: '滑动选择器'
+            name     : '滑动选择器',
         },
         switch    : {
             path     : '/form-switch',
@@ -824,7 +827,7 @@ export default {
                 style  : UniversalProps.style,
                 group  : UniversalProps.group,
             },
-            name: '开关选择器'
+            name     : '开关选择器',
         },
         input     : {
             path     : '/form-input',
@@ -867,7 +870,7 @@ export default {
                     value: '',
                 },
             },
-            name: '文本框'
+            name     : '文本框',
         },
         group     : {
             path     : '/form-group',
@@ -886,7 +889,7 @@ export default {
                     },
                 },
             },
-            name: '表单组'
+            name     : '表单组',
         },
         upload    : {
             component: import('@component/form/upload/FormUpload'),
@@ -939,7 +942,7 @@ export default {
                 style  : UniversalProps.style,
                 smart  : UniversalProps.smart,
             },
-            name: '文件上传'
+            name     : '文件上传',
         },
         color     : {
             component: import('@component/form/color/FormColor'),
@@ -960,7 +963,7 @@ export default {
                 smart  : UniversalProps.smart,
                 style  : UniversalProps.style,
             },
-            name: '颜色选择器'
+            name     : '颜色选择器',
         },
     },
     view    : {
@@ -998,7 +1001,7 @@ export default {
                     },
                 },
             },
-            name: '步骤'
+            name     : '步骤',
         },
         dropdown: {
             component: import('@component/view/dropdown/ViewDropdown'),
