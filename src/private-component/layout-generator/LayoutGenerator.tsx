@@ -5,22 +5,22 @@
  * Time: 3:20 下午
  */
 
-import React, { Component, Fragment, memo, PureComponent } from 'react';
-import { Card, Divider } from 'antd';
+import React, { Component, PureComponent } from 'react';
+import { Button, Divider } from 'antd';
 import style from './LayoutGenerator.scss';
 import componentConfig from '@root/config/component.config';
 
-import { DndProvider } from 'react-dnd';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
-import { useDrag, useDrop } from 'react-dnd';
-import { deepEach } from '@utils/util';
+import { deepEachElement } from '@utils/util';
 import Title from 'antd/lib/typography/Title';
-import { optimize } from 'webpack';
 import CodeGenerator from '@src/private-component/code-generator/CodeGenerator';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService } from '@services/FormatData.service';
+import { IVnode, Renderer } from '@src/core/renderer';
+import { isEmptyObject } from '@utils/inspect';
+import App from '@src/App';
 
 const ItemTypes = {
     BOX: 'box',
@@ -53,8 +53,14 @@ export const Box = ({ name, config, onDragInEnd }: IBoxProps) => {
     return (<div ref={ drag } className={ style.componentsItem } style={ { opacity } }>{ name }</div>);
 };
 
+interface IDustbin {
+    onAddComponent: (...args) => any
+
+    [key: string]: any
+}
+
 // 拖拽到的区域
-export const Dustbin = (props) => {
+export const Dustbin = (props: IDustbin) => {
     const [ { canDrop, isOver }, drop ] = useDrop({
         accept : ItemTypes.BOX,
         drop   : (...args) => {
@@ -70,16 +76,22 @@ export const Dustbin = (props) => {
 
     // @ts-ignore
     return <div ref={ drop } className={ style.layoutWorkContent }>
+        <Button style={ { position: 'absolute', bottom: '20px' } }
+                onClick={ e => props.onAddComponent() }
+        >添加组件</Button>
         { props.children }
     </div>;
 };
 
 class Example extends PureComponent<{ options: Array<any> }, any> {
 
+    @Inject private readonly renderer: Renderer;
+
     state = {
         componentConfig: {},        // 组件配置
         componentName  : '',        // 组件名称
         code           : '',
+        vnode          : {},
     };
 
     // 拖拽进去操作台后触发的事件
@@ -92,6 +104,39 @@ class Example extends PureComponent<{ options: Array<any> }, any> {
         console.log('.....', code);
         this.setState({ code });
     }
+
+    findNode(id: string): IVnode {
+        let res;
+        deepEachElement(this.state.vnode, (node) => {
+            if (node.id === id) {
+                res = node;
+                return;
+            }
+        });
+        console.log(res);
+        return res;
+    }
+
+    createVnode(id, tag, props = {}, children = [], events = {}) {
+        return {
+            id, tag, props, children, events,
+        };
+    }
+
+    /**
+     * @param target {string}     目标组件ID
+     * @param type {string}       类型 'children' | 'slots' | ''
+     */
+    handleAddComponent(target?, type?) {
+        let tag = prompt('请输入组件名称') || 'form-select';
+        let vnode = this.createVnode(String(Math.random()), tag);
+        console.log(vnode);
+        this.setState({
+            vnode,
+        });
+        // let node = this.renderer.h(this.vnode);
+    }
+
 
     render() {
         return <div className={ style.layoutGenerate }>
@@ -116,8 +161,21 @@ class Example extends PureComponent<{ options: Array<any> }, any> {
             </div>
             {/* 内容区域 */ }
             <div className={ style.layoutContent } style={ { overflow: 'hidden', clear: 'both' } }>
-                <Dustbin>
-                    <ExecCode code={ this.state.code }/>
+                <Dustbin onAddComponent={ this.handleAddComponent.bind(this) }>
+                    <div ref={ el => {
+
+                        if (isEmptyObject(this.state.vnode)) {
+                            return;
+                        }
+
+                        let node = this.renderer.h(this.state.vnode as IVnode);
+                        console.log(node);
+                        if (el) {
+                            el.append(node);
+                            new App(el);
+                        }
+                    } }></div>
+                    {/*<ExecCode code={ this.state.code }/>*/ }
                 </Dustbin>
             </div>
             {/* 组件设计器 */ }
@@ -144,14 +202,16 @@ export class LayoutGenerator extends Component<any, any> {
     constructor(props) {
         super(props);
         this.formatDataService.components2MenuTree(componentConfig).then(components => {
+            console.log(components);
             this.setState({ components });
         });
     }
 
+
     render() {
         return <>
             <DndProvider backend={ HTML5Backend }>
-                <Example options={ this.state.components }/>
+                <Example key={ 0 } options={ this.state.components }/>
             </DndProvider>
         </>;
     }

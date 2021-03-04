@@ -4,8 +4,10 @@
  * Date: 2021/2/26
  * Time: 3:42 下午
  */
+import { isArray } from '@utils/inspect';
 
-interface IVnode {
+export interface IVnode {
+    id?: string
     tag: string
     children: Array<IVnode>
     props: object
@@ -63,6 +65,7 @@ const vnode = {
     tag     : 'form-datepicker',
     slots   : {
         header: 'header',
+
     },
     props   : {
         id             : 'table',
@@ -105,16 +108,17 @@ export class Renderer {
             }
         }
 
-        for (const child of children) {
-            // let { tag, props, children, events } = child;
-            // let childElm = this.h(tag, props, children, events);
+        if (isArray(children)) {
+            for (const child of children) {
+                // let { tag, props, children, events } = child;
+                // let childElm = this.h(tag, props, children, events);
 
-            let childElm = this.h(child);
-            el.append(childElm);
+                let childElm = this.h(child);
+                el.append(childElm);
+            }
         }
 
         return el;
-
     }
 
 }
