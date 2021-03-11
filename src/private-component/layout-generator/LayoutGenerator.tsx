@@ -172,7 +172,7 @@ class Example extends PureComponent<{ options: Array<any> }, any> {
                         console.log(node);
                         if (el) {
                             el.append(node);
-                            new App(el);
+                            // new App(el);
                         }
                     } }></div>
                     {/*<ExecCode code={ this.state.code }/>*/ }

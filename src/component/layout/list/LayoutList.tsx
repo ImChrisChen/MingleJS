@@ -15,7 +15,7 @@ import { AudioOutlined } from '@ant-design/icons';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 
-    private selectable = this.props.dataset.selectable;
+    private selectable = this.props.dataset.selectablesubelements;
     private single = this.props.dataset.single;       //是否单选
     private searchable = this.props.dataset.searchable;
 
@@ -99,7 +99,6 @@ export default class LayoutList extends Component<IComponentProps, any> {
                 if (!node) return;
                 node.innerHTML = '';
 
-                console.log(subelements);
                 subelements = subelements.map((element, index) => {
                     let search = element.innerText.includes(this.state.searchText);
                     if (search) {

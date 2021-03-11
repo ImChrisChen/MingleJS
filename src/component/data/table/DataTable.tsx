@@ -270,7 +270,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                             if (node) {
                                 node.innerHTML = '';
                                 node.append(element);
-                                new App(element);
+                                // new App(element);
                             }
                         } }/>;
 

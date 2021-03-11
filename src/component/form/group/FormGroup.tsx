@@ -7,7 +7,6 @@
 import { MinusCircleOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import App from '@src/App';
 import style from './FormGroup.scss';
 
 export default class FormGroup extends Component<IComponentProps, any> {
@@ -21,6 +20,7 @@ export default class FormGroup extends Component<IComponentProps, any> {
     constructor(props) {
         super(props);
         this.getElements().then(elements => {
+            console.log(elements);
             this.elements = elements;
             this.addGroup();
         });
@@ -35,6 +35,7 @@ export default class FormGroup extends Component<IComponentProps, any> {
     addGroup() {
         let formList = this.state.formList;
         let node = this.renderFormItem(this.elements);
+        console.log(node);
         formList.push(node);
         this.setState({ formList });
     }
@@ -45,7 +46,7 @@ export default class FormGroup extends Component<IComponentProps, any> {
                    ref={ element => {
                        if (element) {
                            element.append(...cloneElements);
-                           new App(element);
+                           // new App(element);
                        }
                    } }>
             <PlusCircleOutlined className={ style.addIcon } onClick={ e => this.handleAddGroup(e) }/>
@@ -61,7 +62,7 @@ export default class FormGroup extends Component<IComponentProps, any> {
     }
 
     render() {
-        console.log(this.state);
+        console.log('state', this.state);
         return <ul className="form-group">
             { this.state.formList.map(node => node) }
         </ul>;

@@ -92,6 +92,8 @@ export default class App {
                 // console.log('有注册过', App.registerComponents, tagName);
                 return;
             }
+           
+            console.log(tagName);
 
             window.customElements.define(tagName, class extends HTMLElement {
                 constructor() {
@@ -123,6 +125,12 @@ export default class App {
         let { localName: componentName } = el;
         componentName = componentName.trim();
 
+        if (el.getAttribute('data-component-uid')) {
+            // console.log('渲染过了');
+            return;
+        }
+
+
         if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
             componentName = el.attributes['data-fn'].value;
         }
@@ -135,14 +143,14 @@ export default class App {
         // TODO 设置组件唯一ID
         let componentUID = App.createUUID();
         el.setAttribute('data-component-uid', componentUID);
-        el.hidden = true;
+        // el.hidden = true;
 
         // 获取到组件的子元素（排除template标签)
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
-        // let container = document.createElement('div');
-        let container = el;
-        // el.append(container);
+        let container = document.createElement('div');
+        // let container = el;
+        el.append(container);
 
         let { attributes } = el;
 
@@ -192,8 +200,8 @@ export default class App {
             hooks[Hooks.beforeLoad]?.(instance);
         }, (hooks, instance) => {
             hooks[Hooks.load]?.(instance);
-            el.style.opacity = '1';
-            el.hidden = false;
+            // el.style.opacity = '1';
+            // el.hidden = false;
         });
         App.eventListener(module);
 

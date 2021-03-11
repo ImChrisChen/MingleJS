@@ -30,12 +30,12 @@ if (docs) {
     // });
 }
 
-window.addEventListener('load', async () => {
-    new App(document.body);
-    Monitor.getPerformanceTimes(times => {
-        Monitor.performanceLogger(times);
-    });
-});
+// window.addEventListener('load', async () => {
+//     new App(document.body);
+//     Monitor.getPerformanceTimes(times => {
+//         Monitor.performanceLogger(times);
+//     });
+// });
 
 
 App.globalEventListener();

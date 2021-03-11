@@ -9,14 +9,9 @@ form-action[data-component-uid] {
     display: block;
 }
 
-input[data-fn] {
-    display : none;
-}
-
 [data-component-uid] {
     position   : relative;
     transition : all 150ms;
-    opacity    : 0;
 }
 
 .flex-direction-row {
@@ -37,12 +32,6 @@ input[data-fn] {
 .flex-direction-recolumn {
     display        : flex;
     flex-direction : column-reverse;
-}
-
-data-panel {
-    transition : all 0.3s;
-    visibility : hidden;
-    opacity    : 0;
 }
 
 ::-webkit-scrollbar { /*滚动条整体样式*/
