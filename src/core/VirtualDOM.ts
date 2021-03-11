@@ -6,7 +6,7 @@
  */
 import { IFunctions } from '@services/ParserElement.service';
 import { getObjectValue } from '@utils/util';
-import { isArray, isEmptyObject, isObject, isUndefined } from '@utils/inspect';
+import { isArray, isObject, isUndefined } from '@utils/inspect';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 
@@ -23,13 +23,15 @@ const events = {
     ],
 };
 
-interface IMingleVnode {
+export interface IMingleVnode {
     tag: string
     data: object
-    value: string
+    value: string | null
     type: number
     events: IMingleEvents
-    children: Array<any>
+    children: Array<IMingleVnode>
+    el: HTMLElement
+    isChanged: boolean
 }
 
 interface IMingleEvents {
@@ -51,16 +53,18 @@ interface IListener {
 
 class VNode {
 
-    children: Array<any>;
 
     // 构造函数
     private tag: string;           // 标签名称
     private data: object;          // 属性
-    private value: string;         // nodeValue | textContent
+    private value: string | null;         // nodeValue | textContent
     private type: number;          // 节点类型 nodeType
     private events: object;        // 事件
+    private el: HTMLElement;
+    private children: Array<IMingleVnode>;
+    private isChanged: boolean;     // false则无改变，需要重写生成DOM
 
-    constructor(tag, data, value, type, events) {
+    constructor(tag, data, value, type, events, el) {
         // tag:用来表述 标签  data：用来描述属性  value：用来描述文本 type：用来描述类型
         this.tag = tag;     //文本节点时 tagName是undefined
         this.data = data;
@@ -68,6 +72,8 @@ class VNode {
         this.type = type;
         this.events = events;
         this.children = [];
+        this.el = el;
+        this.isChanged = false;
     }
 
     public append(vnode: IMingleVnode) {
@@ -100,16 +106,17 @@ export class VirtualDOM extends ParserTemplateService {
         if (nodeType === 1) {               // element
             let nodeName = node.localName;
             let { attrs, events } = this.getAttributesByElement(node, model, functions);
-            let nodeValue = this.parseTpl(node.nodeValue || '', model, 'field');
+            // let nodeValue = this.parseTpl(node.nodeValue, model, 'field');
+            let nodeValue = node.nodeValue;     // 节点的 nodeValue 为null
 
             const render = (model, fn?: (...args) => any) => {
 
-                vnode = new VNode(nodeName, attrs, nodeValue, nodeType, events);
+                vnode = new VNode(nodeName, attrs, nodeValue, nodeType, events, node);
 
                 fn?.(vnode);
 
                 let childNodes: any = node.childNodes;
-                for (const childNode of [ ...childNodes ]) {
+                for (const childNode of [...childNodes]) {
                     vnode.append(this.getVnode(childNode, model, functions, vnode));
                 }
 
@@ -184,7 +191,7 @@ export class VirtualDOM extends ParserTemplateService {
             if (node.nodeValue && node.nodeValue.trim()) {
 
                 let nodeValue = this.parseTpl(node.nodeValue, model, 'tpl');
-                vnode = new VNode(undefined, undefined, nodeValue, nodeType, {});
+                vnode = new VNode(undefined, undefined, nodeValue, nodeType, {}, node);
             }
         }
         return vnode;
@@ -195,8 +202,14 @@ export class VirtualDOM extends ParserTemplateService {
             return '';
         }
 
-        let { type, data, tag, events, children, value } = vnode;
+        let { type, data, tag, events, children, value, isChanged } = vnode;
         let el;
+
+        if (isChanged) {
+            console.log('直接返回真实DOM元素');
+            return vnode.el;
+        }
+
         if (type === 1) {
             el = document.createElement(tag);
 
@@ -298,12 +311,12 @@ export class VirtualDOM extends ParserTemplateService {
     private getAttributesByElement(el: HTMLElement, model: object, functions: IFunctions): { attrs: object, events: object } {
         let attrs = {};
         let events: IMingleEvents = {};
-        for (const { name, value } of [ ...el.attributes ]) {
+        for (const { name, value } of [...el.attributes]) {
 
             // 事件
             if (name.startsWith('@')) {
-                let [ , event ] = name.split('@');      // 事件名称 'click'
-                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [, event] = name.split('@');      // 事件名称 'click'
+                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -329,7 +342,7 @@ export class VirtualDOM extends ParserTemplateService {
                 };
 
                 if (isUndefined(events[event])) {
-                    events[event] = [ e ];
+                    events[event] = [e];
                 } else {
                     events[event].push(e);
                 }
@@ -377,13 +390,13 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     private getForEachVars(express: string, model: object) {
-        let [ arrayName, itemName ]: Array<string> = express.split('as');
+        let [arrayName, itemName]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [ itemName, indexName ] = itemIndex.split(',');
+            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [itemName, indexName] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称

@@ -11,7 +11,7 @@ import { ParserElementService } from '@services/ParserElement.service';
 import { HttpClientService } from '@services/HttpClient.service';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
-import { VirtualDOM } from '@src/core/VirtualDOM';
+import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 
 interface IMingleOptions {
     el: string
@@ -28,6 +28,7 @@ export class Mingle {
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
+    private oldVnode;
 
     private containerNode;
 
@@ -98,7 +99,11 @@ export class Mingle {
 
         // 虚拟DOM实现
         let vnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
-        let node = this.virtualDOM.vnodeToHtml(vnode);
+        // let node = this.virtualDOM.vnodeToHtml(vnode);
+        let node = this.diff(this.oldVnode, vnode);
+        console.log('vnode:', vnode);
+        console.log('node:', node);
+
         $(container).html('');
         for (const child of [...node.childNodes]) {
             container.append(child);
@@ -108,6 +113,122 @@ export class Mingle {
         // 原始DOM实现
         // let node = this.parserElementService.parseElement(container, data, funcs);
         // await this.render(node);
+    }
+
+    private diffProps(oldVnode: IMingleVnode, vnode: IMingleVnode) {
+        let oldProps = oldVnode.data || {};
+        let newProps = vnode.data || {};
+        let el = vnode.el;
+
+        for (const key in newProps) {
+            if (!newProps.hasOwnProperty(key)) {
+                continue;
+            }
+
+            //如果新的节点里有这个属性
+            if (key in newProps) {
+                let oldValue = oldProps[key];
+                let newValue = newProps[key];
+
+                if (oldValue !== newValue) {
+                    //  并且新老节点属性不相等，则更新属性
+                    el.setAttribute(key, newProps[key]);
+                    vnode.isChanged = true;
+                }
+            } else {
+                el.removeAttribute(key);
+                vnode.isChanged = true;
+            }
+
+        }
+
+    }
+
+    private diffChildren(oldVnode: IMingleVnode, vnode: IMingleVnode) {
+        let oldChildren = oldVnode.children;
+        let newChildren = vnode.children;
+
+        for (let i = 0; i < newChildren.length; i++) {
+            let newCh = newChildren[i];
+            let oldCh = oldChildren[i];
+            let el = newCh.el;
+            // 节点
+            if (newCh.value === null) {
+
+                if (oldCh) {
+
+                    if (oldCh.value === null) {
+                        //    都是节点的情况下
+                        console.log('都是更新节点的情况下');
+
+                        if (newCh.children.length === oldCh.children.length) {
+                            console.log('节点长度都一样的情况');
+                            // vnode.isChanged = true;
+
+                        } else {
+
+                            console.log('长度不一样，判断是否需要更新或者移动');
+
+                        }
+
+
+                    } else {
+                        console.log('字符串变成节点');
+                        el.textContent = '';
+                        vnode.isChanged = true;
+                        // 创建新的节点并,追加到children
+                    }
+                } else {
+                    console.log('老节点没有，然后出现新节点');
+                }
+
+                // 文本
+            } else {
+                if (typeof oldCh.value === 'string') {
+                    if (oldCh.value !== newCh.value) {
+                        el.textContent = newCh.value;
+                        vnode.isChanged = true;
+                        console.log('字符串变成字符串');
+                    }
+                } else {
+                    //    节点变成字符串
+                    el.textContent = newCh.value;
+                    vnode.isChanged = true;
+                }
+            }
+
+
+        }
+
+        for (const newChild of newChildren) {
+
+
+        }
+
+    }
+
+    private diff(oldVnode: IMingleVnode, vnode: IMingleVnode) {
+        let dom;
+
+        // 虚拟DOM
+        if (oldVnode) {
+            if (oldVnode.tag === vnode.tag) {
+                // 属性更新
+                this.diffProps(oldVnode, vnode);
+                this.diffChildren(oldVnode, vnode);
+
+                // dom = this.virtualDOM.vnodeToHtml(vnode);
+            } else {
+                // dom = this.virtualDOM.vnodeToHtml(vnode);
+            }
+
+            // 真实DOM
+        } else {
+            // dom = this.virtualDOM.vnodeToHtml(vnode);
+        }
+        dom = this.virtualDOM.vnodeToHtml(vnode);
+        this.oldVnode = vnode;
+        return dom;
     }
 
     private async run(options) {
