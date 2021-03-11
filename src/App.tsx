@@ -63,7 +63,7 @@ export default class App {
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
-    constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
+    constructor(root: HTMLElement | Array<HTMLElement>) {
 
         if (!root) return;
 
@@ -140,8 +140,9 @@ export default class App {
         // 获取到组件的子元素（排除template标签)
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
-        let container = document.createElement('div');
-        el.append(container);
+        // let container = document.createElement('div');
+        let container = el;
+        // el.append(container);
 
         let { attributes } = el;
 
