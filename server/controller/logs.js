@@ -48,6 +48,8 @@ module.exports.createLog = (req, res, next) => {
     let logtype = req.query.type;
     console.log(logtype);
     
+    return;
+    
     try {
         switch (logtype) {
             case 'http':

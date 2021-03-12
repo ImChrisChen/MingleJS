@@ -26,7 +26,6 @@ import {
 
 import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
-import { formatObject2Url } from '@utils/format-data';
 import { isArray, isEmptyArray, isEmptyStr } from '@utils/inspect';
 import antvImage from '@static/images/antv.png';
 import moment from 'moment';
@@ -53,6 +52,7 @@ import DataSet from '@antv/data-set';
 import { ChartTootipCustom } from './component/ChartTootipCustom';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
 
 const { DataView } = DataSet;
 
@@ -96,6 +96,7 @@ function TooltipCustom(props: { config: any }) {
 export default class DataChart extends Component<IComponentProps, any> {
 
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state = {
         loading   : true,
@@ -124,7 +125,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     public async FormSubmit(formData = {}) {
         console.log('DataChart:', formData);
         this.setState({ loading: true });
-        let url = formatObject2Url(formData, this.props.dataset.url);
+        let url = this.formatDataService.obj2Url(formData, this.props.dataset.url);
         let data = await this.getData(url);
         let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
         this.setState({ data, loading: false, updateDate });

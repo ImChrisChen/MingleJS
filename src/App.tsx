@@ -8,7 +8,7 @@ import { deepEachElement } from '@utils/util';
 import { isArray, isCustomElement, isFunc, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
-import { elementWrap } from '@utils/parser-dom';
+import { elementWrap } from '@utils/trans-dom';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
 import { Monitor } from '@services/Monitor';
@@ -58,22 +58,23 @@ interface IInstances {
     instance?: ReactInstance
 }
 
-type ITemplateName = 'children' | '';
+let count = 0;
 
 export default class App {
 
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
-    constructor(root: HTMLElement | Array<HTMLElement>, private readonly force: boolean = false) {
+    constructor(root: HTMLElement) {
+
+        console.log('初始化App');
+        console.log(count++);
 
         if (!root) return;
 
-        let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
-
         try {
-            this.init(rootElement).then(r => r);
-        } catch (e) {
+            this.init(root).then(r => r);
+        } catch(e) {
             console.error(e);
         }
     }
@@ -98,8 +99,19 @@ export default class App {
             window.customElements.define(tagName, class extends HTMLElement {
                 constructor() {
                     super();
+                    /**
+                     * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
+                     *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                     */
+                }
+
+                /**
+                 * 元素链接成功后
+                 */
+                connectedCallback() {
                     App.renderCustomElement(this);
                 }
+
             });
 
             App.registerComponents.push(tagName);
@@ -114,6 +126,12 @@ export default class App {
         let { localName: componentName } = el;
         componentName = componentName.trim();
 
+        if (el.getAttribute('data-component-uid')) {
+            console.log('渲染过了');
+            return;
+        }
+
+
         if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
             componentName = el.attributes['data-fn'].value;
         }
@@ -126,11 +144,13 @@ export default class App {
         // TODO 设置组件唯一ID
         let componentUID = App.createUUID();
         el.setAttribute('data-component-uid', componentUID);
-        el.hidden = true;
+        // el.hidden = true;
 
-        let subelements = [ ...el.children ].map(child => child/*.cloneNode(true)*/) as Array<HTMLElement>;
+        // 获取到组件的子元素（排除template标签)
+        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
+        // let container = el;
         el.append(container);
 
         let { attributes } = el;
@@ -181,8 +201,8 @@ export default class App {
             hooks[Hooks.beforeLoad]?.(instance);
         }, (hooks, instance) => {
             hooks[Hooks.load]?.(instance);
-            el.style.opacity = '1';
-            el.hidden = false;
+            // el.style.opacity = '1';
+            // el.hidden = false;
         });
         App.eventListener(module);
 
@@ -509,7 +529,7 @@ export default class App {
             subelements,
             dataset: parsedDataset,
             ...parsedAttrs,
-            ref    : componentInstance => {        // 组件实例
+            ref: componentInstance => {        // 组件实例
                 // componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
                 App.instances[componentUID] = {
@@ -559,7 +579,7 @@ export default class App {
                     callback(hooks, instance);
                 },
             );
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }

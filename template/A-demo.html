@@ -1,0 +1,58 @@
+<div class="demo">
+
+    <ul>
+        <li w-foreach="list as (item,index)" @click="add()"><{index}></li>
+    </ul>
+
+    <p><{count}></p>
+    <!--    <button @click="add()" handle-click="showWindow">增加</button>-->
+    <!--    <table id="id"></table>-->
+    <!--    <button @click="reduce()">减少</button>-->
+    <!--    <form-datepicker-->
+    <!--        data-label="label:"-->
+    <!--        data-disabled="false"-->
+    <!--        data-format="YYYY-MM-DD"-->
+    <!--        data-showtime="false"-->
+    <!--        data-picker="date"-->
+    <!--        data-single="false"-->
+    <!--        data-required="false"-->
+    <!--        data-smart="false"-->
+    <!--        data-usenow="true"-->
+    <!--        name="form-select"-->
+    <!--    ></form-datepicker>-->
+    <!--    <p>1</p>-->
+    <!--    <p>2</p>-->
+    <!--    <p>3</p>-->
+    <!--    <p>4</p>-->
+</div>
+
+<script>
+    new Mingle({
+        el: '.demo',
+        data: {
+            title: 'Hello World ~',
+            count: 0,
+            visible: true,
+            list: [
+                { name: 'Chris' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+            ],
+            obj: {},
+        },
+        created() {
+        },
+        methods: {
+            add() {
+                this.count++;
+            },
+            reduce() {
+                this.count--;
+            },
+        },
+    });
+</script>

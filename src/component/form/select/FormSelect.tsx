@@ -5,39 +5,20 @@
  * Time: 11:56 下午
  */
 
-import { Button, Checkbox, Form, Select, Typography } from 'antd';
-import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
+import { Button, Checkbox, Form, Select } from 'antd';
 import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
 import { Divider } from 'antd/es';
-import { strParseDOM } from '@utils/parser-dom';
+import { strParseDOM } from '@utils/trans-dom';
 import React, { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
-// import axios from 'axios'
-
-const { Option, OptGroup } = Select;
-const { Title } = Typography;
-
-interface ISelectState<T> {
-    // selectProps?: T
-    selectProps: any
-    checkedAll: boolean
-
-    [key: string]: any
-}
-
-interface ISelectProps {
-    // theme: string
-    // options: Array<any>
-    // value?: any
-
-    [key: string]: any
-}
+import { FormatDataService } from '@services/FormatData.service';
 
 export default class FormSelect extends Component<IComponentProps, any> {
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state = {
         checkedAll : false,
@@ -61,18 +42,18 @@ export default class FormSelect extends Component<IComponentProps, any> {
             let { data } = await this.httpClientService.jsonp(url);
 
             if (groupby) {
-                return formatList2Group(data, {
+                return this.formatDataService.list2Group(data, {
                     id  : key,
                     name: value,
                     pid : groupby,
                 });
             } else {
-                return formatList2AntdOptions(data, key, value);
+                return this.formatDataService.list2AntdOptions(data, key, value);
             }
 
         } else if (enumList) {
 
-            return formatEnumOptions(enumList);
+            return this.formatDataService.enum2AntdOptions(enumList);
 
         }
     }

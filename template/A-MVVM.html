@@ -1,1 +1,29 @@
-<div class="mvvm">    <h1 w-if="visible"><{title}></h1>    <button class="ant-btn ant-btn-primary" @click="handleSubmit()">Submit</button></div><script>    new Mingle({        el: '.mvvm',        data: {            visible: true,            title: 'Hello World !',            o: {                name: 'Chris',            },        },        created() {            console.log(this);        },        methods: {            handleSubmit() {                this.visible = !this.visible;            },        },    });</script>
+<div class="mvvm">
+    <h1><{count}></h1>
+    <button class="ant-btn ant-btn-primary" @click="handleSubmit()">Submit</button>
+</div>
+
+<script>
+    new Mingle({
+        el: '.mvvm',
+        data: {
+            visible: true,
+            count: 0,
+            title: 'Hello World !',
+            o: {
+                name: 'Chris',
+            },
+        },
+        created() {
+            console.log(this);
+        },
+        methods: {
+            handleSubmit() {
+                // this.visible = this.visible;
+                // this.title = this.title + this.count ++
+                console.log(this.count);
+                this.count++;
+            },
+        },
+    });
+</script>

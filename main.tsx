@@ -1,7 +1,6 @@
 // import './src/App.less';
 import './src/App.scss';
 import 'antd/dist/antd.compact.less'; // 紧凑模de式
-// import 'antd/dist/antd.dark.less'
 import React from 'react';
 import { ConfigProvider, message, notification } from 'antd';
 import App from './src/App';
@@ -26,16 +25,18 @@ if (docs) {
         docs);
 } else {
     // public/index.html
-    window.addEventListener('load', () => {
-        new App(document.body);
-    });
+    // window.addEventListener('load', () => {
+    //     // new App(document.body);
+    // });
 }
 
-window.addEventListener('load', async () => {
-    Monitor.getPerformanceTimes(times => {
-        Monitor.performanceLogger(times);
-    });
-});
+// window.addEventListener('load', async () => {
+//     new App(document.body);
+//     Monitor.getPerformanceTimes(times => {
+//         Monitor.performanceLogger(times);
+//     });
+// });
+
 
 App.globalEventListener();
 

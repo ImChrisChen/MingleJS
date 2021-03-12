@@ -40,7 +40,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
             el.style.visibility = 'visible';
             el.style.opacity = '1';
         }
-        new App(root, true);
+        // new App(root);
     }
 
     public async getData(dataset) {

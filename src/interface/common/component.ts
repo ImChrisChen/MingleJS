@@ -8,6 +8,7 @@
 export interface IComponentProps {
     el: HTMLElement
     subelements: Array<HTMLElement>
+    templates: object
     style?: IReactStyle
     container: HTMLElement
     dataset?: any

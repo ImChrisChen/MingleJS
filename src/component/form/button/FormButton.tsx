@@ -6,12 +6,16 @@
  */
 import React from 'react';
 import { trigger } from '@utils/trigger';
-import { formatEnumOptions } from '@utils/format-data';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { Inject } from 'typescript-ioc';
+import { FormatDataService } from '@services/FormatData.service';
 
 export default class FormButton extends React.Component<IComponentProps, any> {
+
+    @Inject private readonly formatDataService: FormatDataService;
+
     state: any = {
         value  : this.props.value,
         options: [],
@@ -30,7 +34,7 @@ export default class FormButton extends React.Component<IComponentProps, any> {
     }
 
     async getData() {
-        return formatEnumOptions(this.props.dataset.enum);
+        return this.formatDataService.enum2AntdOptions(this.props.dataset.enum);
     }
 
     handleChange(e: any) {
