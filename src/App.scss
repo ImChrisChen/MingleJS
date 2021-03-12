@@ -1,12 +1,15 @@
-
-form-action[data-component-uid] {
-    margin-right : 20px;
-    min-width    : 120px;
-}
+//form-action[data-component-uid] {
+//    margin-right : 20px;
+//    min-width    : 120px;
+//}
 
 [data-component-uid] {
     position : relative;
-    display: block;
+    display  : block;
+}
+
+form-action [data-component-uid] {
+    margin : 0 10px;
 }
 
 [data-component-uid] {
