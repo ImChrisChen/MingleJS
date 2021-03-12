@@ -91,11 +91,13 @@ export class Mingle {
         return element;
     };
 
-    render(node: HTMLElement | Array<HTMLElement>) {
+    render(node: HTMLElement) {
+        console.log(node);
         new App(node);
     }
 
-    async renderView(container, data, funcs) {
+    async renderView(container, data, methods, proxyData) {
+        let funcs = { methods: methods, callthis: proxyData };
 
         // 虚拟DOM实现
         let vnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
@@ -105,7 +107,7 @@ export class Mingle {
         console.log('node:', node);
 
         $(container).html('');
-        for (const child of [...node.childNodes]) {
+        for (const child of [ ...node.childNodes ]) {
             container.append(child);
         }
         this.render(container);
@@ -238,18 +240,16 @@ export class Mingle {
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
 
         let o = Object.assign(data, methods, this);
-        o = new ProxyData(o, () => {
-            this.renderView(container, data, funcs);
+        let proxyData = new ProxyData(o, () => {
+            this.renderView(container, data, methods, proxyData);
             console.log('update');
         });
 
-        await created?.call(o);     // 很有可能会修改到 data里面的数据,所以等 created 执行完后才解析模版
+        await created?.call(proxyData);     // 很有可能会修改到 data里面的数据,所以等 created 执行完后才解析模版
 
-        let funcs = { methods: methods, callthis: o };
+        await this.renderView(container, data, methods, proxyData);
 
-        await this.renderView(container, data, funcs);
-
-        await mounted?.call(o);
+        await mounted?.call(proxyData);
 
 
     }

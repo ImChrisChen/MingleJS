@@ -40,7 +40,7 @@ export class HtmlRenderer extends React.Component<IHtmlRendererProps, any> {
                 if (isEmptyArray(scripts)) {
                     // new App(container as HTMLElement);
                 }
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
 

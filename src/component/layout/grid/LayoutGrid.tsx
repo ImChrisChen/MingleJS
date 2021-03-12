@@ -17,11 +17,7 @@ export default class LayoutGrid extends Component<IComponentProps, any> {
                     let span = child.getAttribute('data-grid');
                     if (span) {
                         return <Col span={ span } key={ index }>
-                            <div ref={ el => {
-                                if (el) {
-                                    el.append(child);
-                                }
-                            } }/>
+                            <div ref={ el => el && el.append(child) }/>
                         </Col>;
                     }
                 }) }

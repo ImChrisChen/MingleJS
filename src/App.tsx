@@ -58,20 +58,23 @@ interface IInstances {
     instance?: ReactInstance
 }
 
+let count = 0;
+
 export default class App {
 
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
-    constructor(root: HTMLElement | Array<HTMLElement>) {
+    constructor(root: HTMLElement) {
+
+        console.log('初始化App');
+        console.log(count++);
 
         if (!root) return;
 
-        let rootElement: HTMLElement = isArray(root) ? elementWrap(root) : root;
-
         try {
-            this.init(rootElement).then(r => r);
-        } catch (e) {
+            this.init(root).then(r => r);
+        } catch(e) {
             console.error(e);
         }
     }
@@ -92,8 +95,6 @@ export default class App {
                 // console.log('有注册过', App.registerComponents, tagName);
                 return;
             }
-           
-            console.log(tagName);
 
             window.customElements.define(tagName, class extends HTMLElement {
                 constructor() {
@@ -126,7 +127,7 @@ export default class App {
         componentName = componentName.trim();
 
         if (el.getAttribute('data-component-uid')) {
-            // console.log('渲染过了');
+            console.log('渲染过了');
             return;
         }
 
@@ -578,7 +579,7 @@ export default class App {
                     callback(hooks, instance);
                 },
             );
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }
