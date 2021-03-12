@@ -274,6 +274,10 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         this.generateCode();
     }
 
+    static GenerateCode() {
+
+    }
+
     // 生成代码
     generateCode() {
         message.success('generate');

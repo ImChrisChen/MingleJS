@@ -19,7 +19,6 @@ process.env.file = '//file.superdalan.com';
 process.env.mobile = '//m.aidalan.com';
 process.env.bbs = '//bbs.aidalan.com';
 
-
 const file = '//file.superdalan.com';
 const mobile = '';
 const bbs = '';
@@ -97,6 +96,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
             }
         }
     }
+    name?: string
 }
 
 // 公共配置属性 Interface
@@ -395,6 +395,7 @@ export default {
                     },
                 },
             },
+            name     : '下拉框',
         },
         selecttree: {
             path     : '/form-selecttree',
@@ -402,6 +403,7 @@ export default {
             document : import('@component/form/select/tree/FormSelectTree.md'),
             property : {
                 dataset    : {
+                    disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
@@ -438,6 +440,7 @@ export default {
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
                     group     : UniversalProps.group,
+
                 },
                 placeholder: UniversalProps.placeholder,
                 name       : UniversalProps.name,
@@ -450,6 +453,7 @@ export default {
                 },
                 hook       : {},
             },
+            name     : '树形下拉框',
         },
         checkbox  : {
             component: import('@component/form/checkbox/FormCheckbox'),
@@ -482,6 +486,7 @@ export default {
                 name   : UniversalProps.name,
                 value  : {},
             },
+            name     : '复选框',
         },
         cascader  : {
             path     : '/form-cascader',
@@ -489,6 +494,7 @@ export default {
             document : import('@component/form/cascader/FormCascader.md'),
             property : {
                 dataset    : {
+                    disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
                         el     : 'input',
@@ -535,6 +541,7 @@ export default {
                     parse: 'string',
                 },
             },
+            name     : '级联选择器',
         },
         datepicker: {
             path     : '/form-datepicker',
@@ -626,6 +633,7 @@ export default {
                     },
                 },
             },
+            name     : '时间选择器',
         },
         action    : {
             component: import('@component/form/form-action/FormAction'),
@@ -688,15 +696,16 @@ export default {
                 },
             },
             document : import('@component/form/form-action/FormAction.md'),
+            name     : 'form表单',
         },
         radio     : {
             path     : '/form-radio',
             component: import('@component/form/button/FormButton'),
             property : {
                 dataset: {
+                    disabled   : UniversalProps.disabled,
                     label      : UniversalProps.label,
                     enum       : UniversalProps.enum,
-                    disabled   : UniversalProps.disabled,
                     size       : UniversalProps.size,
                     type       : {  // optionType
                         el     : 'radio',
@@ -747,6 +756,7 @@ export default {
                     parse  : 'string',
                 },
             },
+            name     : '单选框',
         },
         slider    : {
             path     : '/form-slider',
@@ -793,6 +803,7 @@ export default {
                     },
                 },
             },
+            name     : '滑动选择器',
         },
         switch    : {
             path     : '/form-switch',
@@ -816,6 +827,7 @@ export default {
                 style  : UniversalProps.style,
                 group  : UniversalProps.group,
             },
+            name     : '开关选择器',
         },
         input     : {
             path     : '/form-input',
@@ -858,6 +870,7 @@ export default {
                     value: '',
                 },
             },
+            name     : '文本框',
         },
         group     : {
             path     : '/form-group',
@@ -876,6 +889,7 @@ export default {
                     },
                 },
             },
+            name     : '表单组',
         },
         upload    : {
             component: import('@component/form/upload/FormUpload'),
@@ -928,6 +942,7 @@ export default {
                 style  : UniversalProps.style,
                 smart  : UniversalProps.smart,
             },
+            name     : '文件上传',
         },
         color     : {
             component: import('@component/form/color/FormColor'),
@@ -948,6 +963,7 @@ export default {
                 smart  : UniversalProps.smart,
                 style  : UniversalProps.style,
             },
+            name     : '颜色选择器',
         },
     },
     view    : {
@@ -985,6 +1001,7 @@ export default {
                     },
                 },
             },
+            name     : '步骤',
         },
         dropdown: {
             component: import('@component/view/dropdown/ViewDropdown'),
@@ -1186,13 +1203,13 @@ export default {
             path     : '/data-chart',
             property : {
                 dataset: {
-                    'from'        : {
+                    'from': {
                         el    : 'input',
                         parse : 'string',
                         value : '',
                         render: false,
                     },
-                    url           : {
+                    url   : {
                         el     : 'input',
                         parse  : 'string',
                         request: true,
@@ -1202,7 +1219,7 @@ export default {
                         // value  : domain + '/server/mock/chart/memory.json',
                         // value  : domain + '/server/mock/chart/disk.json',
                         // value  : domain + '/server/mock/chart/disk_default.json',
-                        desc   : '图表数据接口',
+                        desc: '图表数据接口',
                     },
                     // name      : {
                     //     el   : 'input',
@@ -1210,7 +1227,7 @@ export default {
                     //     value: '',
                     //     desc : '图表统计维度名称key_field的字段意思,例如:data-key_field="location", 那该值就是: 地域',
                     // },
-                    type          : {
+                    type  : {
                         el     : 'select',
                         parse  : 'string',
                         options: [
@@ -1229,22 +1246,22 @@ export default {
                         value  : 'bar',
                         desc   : '图表类型,默认柱状图',
                     },
-                    key           : {
+                    key   : {
                         el     : 'select-multiple',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '图表统计维度的字段名',
                     },
-                    value         : {
+                    value : {
                         el     : 'select-multiple',
                         parse  : 'string[]',
                         options: 'fromUrl',
                         value  : '',
                         desc   : '图表统计的value值字段名',
                     },
-                    colors        : {
-                        el   : 'input',
+                    colors: {
+                        el: 'input',
                         // options: 'fromUrl',
                         value: '#37c9e3',
                         parse: 'string[]',
@@ -1272,26 +1289,26 @@ export default {
                     //     value  : 'horizontal',
                     //     desc   : '图例的布局方式',
                     // },
-                    groupby       : {
+                    groupby  : {
                         el     : 'input',
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
                         desc   : '分组统计,不填写默认不分组(需要数据格式支持), 注意: data-value为多个值时，该选项无效',
                     },
-                    interval      : {
+                    interval : {
                         el   : 'number',
                         parse: 'number',
                         value: 0,
                         desc : '自动刷新间隔， 分钟为单位, 设置为 0 则关闭',
                     },
-                    height        : {
+                    height   : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
                         desc : '图表高度',
                     },
-                    point         : {
+                    point    : {
                         el     : 'select',
                         options: [
                             { label: '实心圆点', value: 'circle' },
@@ -1319,7 +1336,7 @@ export default {
                         desc   : `"点"的形状，目前只在折线图中有效, 
                             具体展示效果可参考 https://bizcharts.net/product/BizCharts4/category/62/page/85`,
                     },
-                    pointsize     : {
+                    pointsize: {
                         el   : 'input',
                         parse: 'boolean',
                         value: 3,
@@ -1549,7 +1566,7 @@ export default {
                 dataset: {
                     // url     : UniversalProps.url,
                     url      : {
-                        el   : 'input',
+                        el: 'input',
                         // value: 'http://192.168.20.121:9001/mgm/menlist/',
                         // value: 'http://mingle-test.local.aidalan.com/server/mock/menulist/menu.json',
                         value: domain + '/server/mock/tree.json',
@@ -1563,14 +1580,14 @@ export default {
                         desc : '是否默认展开',
                     },
                     id       : {
-                        el   : 'input',
+                        el: 'input',
                         // value: 'appMenuId',
                         value: 'id',
                         parse: 'string',
                         desc : '菜单ID映射字段名称,例如:id',
                     },
                     pid      : {
-                        el   : 'input',
+                        el: 'input',
                         // value: 'r_father',
                         value: 'parent',
                         parse: 'string',
@@ -1904,10 +1921,10 @@ export default {
 
 // 组件全局配置
 export const globalComponentConfig: any = {
-    locale                  : zhCN,
-    componentSize           : 'small',
-    direction               : 'ltr',        // ltr | rtl
-    space                   : { size: 'small' },
+    locale       : zhCN,
+    componentSize: 'small',
+    direction    : 'ltr',        // ltr | rtl
+    space        : { size: 'small' },
     // virtual                 : true,
     dropdownMatchSelectWidth: true,
 };

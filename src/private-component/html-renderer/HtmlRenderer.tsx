@@ -38,9 +38,9 @@ export class HtmlRenderer extends React.Component<IHtmlRendererProps, any> {
                 container?.append(...element.children);
                 codes.map(code => eval(code));
                 if (isEmptyArray(scripts)) {
-                    new App(container as HTMLElement);
+                    // new App(container as HTMLElement);
                 }
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
 

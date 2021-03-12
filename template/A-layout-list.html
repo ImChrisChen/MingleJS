@@ -1,34 +1,10 @@
 <div id="app">
-
-    <form-action>
-        <layout-list data-cols="2" data-space="20,20" data-single="false" name="server">
-            <div w-foreach="list as (item,index)" value="<{item.value}>">
-                <layout-window data-content="编辑 <{item.key}>" data-title="<{item.key}>"
-                               class="ant-btn-primary ant-btn">
-                    <data-chart
-                        data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
-                        data-type="line"
-                        data-title="<{ii}>"
-                        data-key="location"
-                        data-value="reg_count"
-                        data-colors="#37c9e3"
-                        data-height="400"
-                    ></data-chart>
-                </layout-window>
-                <data-chart
-                    data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
-                    data-type="line"
-                    data-title="<{ii}>"
-                    data-key="location"
-                    data-value="reg_count"
-                    data-colors="#37c9e3"
-                    data-height="400"
-                ></data-chart>
-            </div>
-        </layout-list>
-        <button type="submit" class="ant-btn ant-btn-primary">submit</button>
-    </form-action>
-
+    <layout-list data-cols="2" data-space="20,20" data-single="false" name="server">
+        <div w-foreach="list as (item,i)">
+            <view-image w-if="i % 2 === 0"></view-image>
+        </div>
+    </layout-list>
+    <button type="submit" class="ant-btn ant-btn-primary">submit</button>
 </div>
 
 <script>
@@ -65,6 +41,6 @@
         },
         created() {
             console.log(this);
-        }
+        },
     });
 </script>
