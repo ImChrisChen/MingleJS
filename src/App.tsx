@@ -67,8 +67,7 @@ export default class App {
 
     constructor(root: HTMLElement) {
 
-        console.log('初始化App');
-        console.log(count++);
+        // console.log(count++);
 
         if (!root) return;
 

@@ -12,6 +12,7 @@ import { HttpClientService } from '@services/HttpClient.service';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
+import { MVVM } from '@src/core/MVVM';
 
 interface IMingleOptions {
     el: string
@@ -23,11 +24,28 @@ interface IMingleOptions {
     mounted?: (...args) => any
 }
 
+/**
+ * 判断vnode 是否是元素节点
+ * @param vnode
+ */
+function isElem(vnode: IMingleVnode): boolean {
+    return vnode.value === null;
+}
+
+/**
+ * 判断vnode 是否是文本节点
+ * @param vnode
+ */
+function isText(vnode: IMingleVnode): boolean {
+    return typeof vnode.value === 'undefined';
+}
+
 export class Mingle {
 
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
+    @Inject private readonly mvvm: MVVM;
     private oldVnode;
 
     private containerNode;
@@ -35,11 +53,16 @@ export class Mingle {
     constructor(options: IMingleOptions) {
 
         let defaultOptions = {
-            el     : 'body',
-            data   : {},
-            created: function () {
+            el  : 'body',
+            data: {},
+            created() {
+                // console.log('数据已经收集，页面还未生成');
             },
-            mounted: function () {
+            mounted() {
+                // console.log('组件挂载完毕');
+            },
+            updated() {
+                // console.log('组件更新');
             },
             methods: {},
         };
@@ -92,7 +115,6 @@ export class Mingle {
     };
 
     render(node: HTMLElement) {
-        console.log(node);
         new App(node);
     }
 
@@ -100,17 +122,28 @@ export class Mingle {
         let funcs = { methods: methods, callthis: proxyData };
 
         // 虚拟DOM实现
-        let vnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
-        // let node = this.virtualDOM.vnodeToHtml(vnode);
-        let node = this.diff(this.oldVnode, vnode);
-        console.log('vnode:', vnode);
-        console.log('node:', node);
-
+        let vnode: IMingleVnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
+        let node = this.virtualDOM.vnodeToHtml(vnode);
         $(container).html('');
-        for (const child of [ ...node.childNodes ]) {
+        for (const child of [...node.childNodes]) {
             container.append(child);
         }
         this.render(container);
+
+        // if (this.oldVnode) {
+        //     this.mvvm.patch(this.oldVnode, vnode);
+        // } else {
+        //     let node = this.virtualDOM.vnodeToHtml(vnode);
+        //     $(container).html('');
+        //     for (const child of [...node.childNodes]) {
+        //         container.append(child);
+        //     }
+        //     this.render(container);
+        // }
+
+        // this.oldVnode = vnode;
+        // vnode = this.mvvm.patch2(this.oldVnode, vnode);
+        // let node = this.virtualDOM.vnodeToHtml(vnode);
 
         // 原始DOM实现
         // let node = this.parserElementService.parseElement(container, data, funcs);
@@ -136,10 +169,12 @@ export class Mingle {
                     //  并且新老节点属性不相等，则更新属性
                     el.setAttribute(key, newProps[key]);
                     vnode.isChanged = true;
+                    console.log('props => props');
                 }
             } else {
                 el.removeAttribute(key);
                 vnode.isChanged = true;
+                console.log('props => 空 ');
             }
 
         }
@@ -154,52 +189,52 @@ export class Mingle {
             let newCh = newChildren[i];
             let oldCh = oldChildren[i];
             let el = newCh.el;
+
             // 节点
-            if (newCh.value === null) {
-
+            if (isElem(newCh)) {
                 if (oldCh) {
-
-                    if (oldCh.value === null) {
+                    if (isElem(oldCh)) {
                         //    都是节点的情况下
-                        console.log('都是更新节点的情况下');
+                        // console.log('el => el');
 
                         if (newCh.children.length === oldCh.children.length) {
-                            console.log('节点长度都一样的情况');
+                            console.log('el.length === el.length');
                             // vnode.isChanged = true;
-
                         } else {
-
-                            console.log('长度不一样，判断是否需要更新或者移动');
-
+                            console.log('el.length !== el.length');
+                            // console.log('长度不一样，判断是否需要更新或者移动');
                         }
+                    }
 
-
-                    } else {
-                        console.log('字符串变成节点');
+                    if (isText(oldCh)) {
+                        console.log('text => el');
                         el.textContent = '';
                         vnode.isChanged = true;
                         // 创建新的节点并,追加到children
                     }
                 } else {
-                    console.log('老节点没有，然后出现新节点');
-                }
-
-                // 文本
-            } else {
-                if (typeof oldCh.value === 'string') {
-                    if (oldCh.value !== newCh.value) {
-                        el.textContent = newCh.value;
-                        vnode.isChanged = true;
-                        console.log('字符串变成字符串');
-                    }
-                } else {
-                    //    节点变成字符串
-                    el.textContent = newCh.value;
-                    vnode.isChanged = true;
+                    console.log(' 空 => el');
                 }
             }
 
+            // 文本
+            if (isText(newCh)) {
 
+                if (isElem(oldCh)) {
+                    //    节点变成字符串
+                    el.textContent = newCh.value;
+                    vnode.isChanged = true;
+                    console.log('el => text');
+                }
+
+                if (isText(oldCh)) {
+                    if (oldCh.value !== newCh.value) {
+                        el.textContent = newCh.value;
+                        vnode.isChanged = true;
+                        console.log('text => text');
+                    }
+                }
+            }
         }
 
         for (const newChild of newChildren) {
@@ -234,7 +269,7 @@ export class Mingle {
     }
 
     private async run(options) {
-        let { el, data, created, methods, mounted } = options;
+        let { el, data, created, methods, mounted, updated } = options;
 
         let container = document.querySelector(el) as HTMLElement;
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
@@ -242,7 +277,7 @@ export class Mingle {
         let o = Object.assign(data, methods, this);
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);
-            console.log('update');
+            updated?.();
         });
 
         await created?.call(proxyData);     // 很有可能会修改到 data里面的数据,所以等 created 执行完后才解析模版
