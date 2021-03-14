@@ -1,18 +1,15 @@
 # MingleJS 开发文档
 
-
 React + Typescript + Antd + WUI
 
 在融汇WUI的思想，实现的一套提供给后端开发者使用的前端组件库
 
 `组件调用方式和组件传参，还是和WUI保持一致`
 
-
-
 ## 开发环境
 
-1. 需安装 node  环境  
-2. 安装pm2 
+1. 需安装 node 环境
+2. 安装pm2
 3. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
 
 拉去项目进入根目录，执行以下命令
@@ -21,9 +18,7 @@ React + Typescript + Antd + WUI
 npm install && npm run start
 ~~~
 
-浏览器打开 [http://localhost:8080](http://localhost:8080)
-
-
+浏览器打开 [http://localhost:9000](http://localhost:9000)
 
 ## Nginx配置
 
@@ -36,7 +31,7 @@ server {
 
 	# mingle.js 项目
 	location / {
-		proxy_pass http://127.0.0.1:8080;
+		proxy_pass http://127.0.0.1:9000;
 		add_header Access-Control-Allow-Origin '$ACAO';
 	}
 	 
@@ -53,10 +48,6 @@ server {
 }
 ~~~
 
-
-
-
-
 ## 打包部署
 
 项目根目录运行
@@ -68,10 +59,11 @@ npm run build
 会生成dist目录， 结构如下
 
 ~~~javascript
-./dist
+.
+/dist
 ├── assets 		// 静态资源文件
-│   ├── antv.png
-│   └── form-smart.png
+│   ├── antv.png
+│   └── form - smart.png
 ├── chart.min.js
 ├── chart.min.js.map
 ├── index.html
@@ -89,52 +81,41 @@ npm run build
 
 把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
 
-
-
 #### 使用方式
 
 ~~~html
 // 内网测试环境使用
-<script src="https://mingle.local.aidalan.com/index.js"></script>
+<script src="http://mingle.local.aidalan.com/index.js"></script>
 
 // 正式环境使用
-<script src="https://mingle.aidalan.com/index.js"></script>
+<script src="http://mingle.aidalan.com/index.js"></script>
 ~~~
-
-
 
 #### 代码打包分析
 
 http://mingle.local.aidalan.com/report.html
 
-
-
 ## 项目说明
 
 `本项目调用组件大致分为两个概念`
-
-
 
 ### 1.组件
 
 组件通常是通过业务 提取出的高灵活性，高复用的视图层组件（通常不参杂业务逻辑）
 
-统一在html节点上添加data-fn属性调用对应的组件 data-fn调用组件 
+统一在html节点上添加data-fn属性调用对应的组件 data-fn调用组件
 
 代码实例：
+
 ```html
+
 <div data-fn="data-table"></div>
 ```
 
-
-
 ```html
+
 <div data-fn"data-table-"></div>
 ```
-
-
-
-
 
 ### 2.子应用
 
@@ -147,74 +128,57 @@ http://mingle.local.aidalan.com/report.html
 <app-aside></app-aside>
 ```
 
-
-
 > 该方式集成度比较高，可复用性差，如果不是必要情况，可以考虑让后端做业务的同学通过组件去自行实现
 >
 > 在这里我希望每个开发 / 维护 minglejs的 同学能对组件有自己的理解和看法
 >
 > **而不是成为盲目支撑需求的工具人**
 
-
-
-
-
 ## 使用说明
 
-1. 表单组件调用方式为 <input data-fn="form-xxx" />非表单组件则用 <div data-fn="layout-xx"></div>
-2. 组件所有属性均通过 <input data-*="属性值"> 组件默认值通过设置 input 上的value值即可
-3. 组件均有生命周期
-
-
-
-
+1. 表单组件调用方式为 web-components形式
+2. 组件所有属性均通过 data-*="属性值" 组件默认值通过设置上的value值即可
 
 ## 模拟数据
 
 本项目提供了Mock数据
 
-直接访问到 http://mingle.local.aidalan.com/server/mock/ 可以看到所有模拟数据
+直接访问到 http://localhost:9000/server/mock/ 可以看到所有模拟数据
 
+[comment]: <> (## 组件生命周期)
 
+[comment]: <> (MingleJS 包含4个组件生命周期)
 
+[comment]: <> (| 组件生命周期  | 使用方式                                         | 触发时机   |)
 
+[comment]: <> (| ------------- | ------------------------------------------------ | ---------- |)
 
-## 组件生命周期
+[comment]: <> (| before-load   | `<input data-fn="xx" @before-load="funcName">`   | 组件渲染前 |)
 
+[comment]: <> (| load          | `<input data-fn="xx" @load="funcName">`          | 组件渲染后 |)
 
+[comment]: <> (| before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |)
 
-MingleJS 包含4个组件生命周期
-
-| 组件生命周期  | 使用方式                                         | 触发时机   |
-| ------------- | ------------------------------------------------ | ---------- |
-| before-load   | `<input data-fn="xx" @before-load="funcName">`   | 组件渲染前 |
-| load          | `<input data-fn="xx" @load="funcName">`          | 组件渲染后 |
-| before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |
-| update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |
+[comment]: <> (| update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |)
 
 ```html
+
 <script>
-function funcName () {
-  	// Coding 触发组件钩子
-}   
+    function funcName() {
+        // Coding 触发组件钩子
+    }
 </script>
 
-// or 
+// or
 
 <script>
-window.funcName = function () {
-  	// Coding 触发组件钩子
-}   
+    window.funcName = function () {
+        // Coding 触发组件钩子
+    }
 </script>
 ```
 
-
-
-
-
 ## 目录结构
-
-
 
 ```bash
 ├── README.md
@@ -272,39 +236,29 @@ window.funcName = function () {
 └── webpack.config.js						// 打包配置
 ```
 
-
-
-
-
 ## 表单 和 数据（图表/表格/列表）之间的关联
 
 ~~~html
 // 表单组件 // 表单ID，用于关联需要控制的数据。
-<form id="game-list" data-fn="form-action" data-async="true">				
-    <input data-fn="form-button" 
-           data-label="平台:"
-           data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows" 
-           name="platform"
-           />
+<form-action id="game-list" data-fn="form-action" data-async="true">
+    <form-button
+        data-label="平台:"
+        data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows"
+        name="platform"
+    ></form-button>
 
-    <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
-    
-    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>	
-    
-</form>
+    <form-input data-label="游戏名称:" name="gameName" style="width: 200px"></form-input>
+
+    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
+
+</form-action>
 
 // 表格组件
-<div data-fn="data-table" 
-     data-from="game-list"			// 需要关联的表单ID
-     >
-</div>
+<data-table
+    data-from="game-list"            // 需要关联的表单ID
+>
+</data-table>
 ~~~
-
-
-
-
-
-
 
 ## 样式
 
@@ -313,7 +267,8 @@ window.funcName = function () {
 在实例化组件之前，获取到style属性的值，然后转换成JSX的style样式。设置进组件内
 
 ~~~html
-<input data-fn="form-input" style="width:200px" />
+
+<form-input style="width:200px"></form-input>
 ~~~
 
 
