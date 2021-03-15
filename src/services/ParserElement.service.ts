@@ -26,12 +26,56 @@ export class ParserElementService extends ParserTemplateService {
     }
 
     /**
+     * DOM 拓展运算符(属性) 实现语法糖 ...variable
+     * item = { type='text', name:"chris", value:1 }
+     * 解析例子: <p ...item></p>  -> <input type="text" name="pf" value="1" />
+     * @param el
+     * @param model
+     * @param name
+     * @private
+     */
+    private static parseExpand(el: HTMLElement, model: object, name: string) {
+        let [, key]: Array<string> = name.split('...');
+
+        let itemModel = getObjectValue(key, model);
+
+        // let fieldArr = expandByte.split('.');
+        // let itemModel: object = fieldArr.reduce((data, field) => {
+        //     if (isObject(data)) {
+        //         return data[field];
+        //     } else {
+        //         return {};
+        //     }
+        // }, model);
+        // if (!itemModel || isEmptyObject(itemModel)) return;
+
+        if (isUndefined(itemModel)) return;
+
+        for (const key in itemModel) {
+            if (!itemModel.hasOwnProperty(key)) continue;
+            let value = itemModel[key];
+            let attrvalue = el.getAttribute(key);
+
+            // element 上没有这个属性才给它设置
+            if (!attrvalue) {
+                // 如果是 混合数据类型, 对数据格式做处理，否则会成为 [object,object]
+                if (isObject(value) || isArray(value)) {
+                    value = JSON.stringify(value);
+                }
+                el.setAttribute(key, value);
+            }
+        }
+        // ...items 运算符删除掉
+        el.removeAttribute(name);
+    }
+
+    /**
      * 递归解析DOM
      * @param rootElement          被解析的根元素
      * @param model { Object }     解析文本用到的数据
      * @param functions { Object } 解析函数用到的数据
      */
-    public parseElement(rootElement: HTMLElement | Array<HTMLElement>, model: object, functions: IFunctions) {
+    public parseElement(rootElement: HTMLElement, model: object, functions: IFunctions) {
 
         if (!rootElement) return rootElement;
 
@@ -54,7 +98,6 @@ export class ParserElementService extends ParserTemplateService {
         });
         return root;
     }
-
 
     /**
      * 属性解析 - 对改DOM上的属性进行模版解析,
@@ -87,7 +130,6 @@ export class ParserElementService extends ParserTemplateService {
         }
     }
 
-
     /**
      * 文本解析 - 对该DOM上的文本进行解析
      * 解析规则: <p> 平台:<{pf}> <p>  解析后 ->  <p>1</p>
@@ -97,7 +139,7 @@ export class ParserElementService extends ParserTemplateService {
      * @private
      */
     private parseTextContent(el: HTMLElement, model: object, functions) {
-        [ ...el.childNodes ].forEach(node => {
+        [...el.childNodes].forEach(node => {
 
             // node 节点
             // @ts-ignore
@@ -123,7 +165,6 @@ export class ParserElementService extends ParserTemplateService {
             }
         });
     }
-
 
     /**
      * 解析 w-foreach语法 - 对该DOM上的 w-foreach="data as item" 语法进行解析
@@ -161,13 +202,13 @@ export class ParserElementService extends ParserTemplateService {
             express = this.parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [ arrayName, itemName ]: Array<string> = value.split('as');
+        let [arrayName, itemName]: Array<string> = value.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [ itemName, indexName ] = itemIndex.split(',');
+            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [itemName, indexName] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -235,7 +276,6 @@ export class ParserElementService extends ParserTemplateService {
         elseElement && elseElement.remove();
     }
 
-
     /**
      * 解析 w-if w-else
      * @param el
@@ -261,50 +301,6 @@ export class ParserElementService extends ParserTemplateService {
     }
 
     /**
-     * DOM 拓展运算符(属性) 实现语法糖 ...variable
-     * item = { type='text', name:"chris", value:1 }
-     * 解析例子: <p ...item></p>  -> <input type="text" name="pf" value="1" />
-     * @param el
-     * @param model
-     * @param name
-     * @private
-     */
-    private static parseExpand(el: HTMLElement, model: object, name: string) {
-        let [ , key ]: Array<string> = name.split('...');
-
-        let itemModel = getObjectValue(key, model);
-
-        // let fieldArr = expandByte.split('.');
-        // let itemModel: object = fieldArr.reduce((data, field) => {
-        //     if (isObject(data)) {
-        //         return data[field];
-        //     } else {
-        //         return {};
-        //     }
-        // }, model);
-        // if (!itemModel || isEmptyObject(itemModel)) return;
-
-        if (isUndefined(itemModel)) return;
-
-        for (const key in itemModel) {
-            if (!itemModel.hasOwnProperty(key)) continue;
-            let value = itemModel[key];
-            let attrvalue = el.getAttribute(key);
-
-            // element 上没有这个属性才给它设置
-            if (!attrvalue) {
-                // 如果是 混合数据类型, 对数据格式做处理，否则会成为 [object,object]
-                if (isObject(value) || isArray(value)) {
-                    value = JSON.stringify(value);
-                }
-                el.setAttribute(key, value);
-            }
-        }
-        // ...items 运算符删除掉
-        el.removeAttribute(name);
-    }
-
-    /**
      * 解析自定义监听事件 model (解析参数) methods (解析方法)
      * @param el
      * @param model
@@ -319,8 +315,8 @@ export class ParserElementService extends ParserTemplateService {
 
         for (const { name, value } of el.attributes) {
             if (name.startsWith('@')) {
-                let [ , event ] = name.split('@');
-                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [, event] = name.split('@');
+                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();

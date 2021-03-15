@@ -7,7 +7,6 @@
 import { IComponentProps } from '@interface/common/component';
 import React, { ReactNode } from 'react';
 import { isArray } from '@utils/inspect';
-import App from '@src/App';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { ParserElementService } from '@services/ParserElement.service';
@@ -29,7 +28,7 @@ export default class DataPanel extends React.Component<IComponentProps, ReactNod
     }
 
     // 获取到组件实例 才能被外部调用
-    public async renderElement(el: HTMLElement | Array<HTMLElement>, dataset: object = {}) {
+    public async renderElement(el: HTMLElement, dataset: object = {}) {
         let data = await this.getData(dataset);     // {}
         let root = await this.parserElementService.parseElement(el, data, {
             methods : {},

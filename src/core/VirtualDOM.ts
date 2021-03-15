@@ -120,7 +120,6 @@ export class VirtualDOM extends ParserTemplateService {
                     vnode.append(this.getVnode(childNode, model, functions, vnode));
                 }
 
-
             };
 
             // 只有if的情况
