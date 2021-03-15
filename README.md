@@ -64,12 +64,18 @@ React + Typescript + Antd + WUI
 npm run start-all
 ~~~
 
-npm run start-all 会执行两个进程
+npm run start-all  这条命令会通过pm2 执行两个任务，具体可查看 package.json命令配置
 
 - webpack-dev-server 	[http://localhost:9000](http://localhost:9000)
 - node 数据模拟服务器    [http://localhost:9001](http://localhost:9001)
 
 
+
+#### 查看开发日志
+
+~~~shell
+pm2 log [对于的进程name 或者 id]
+~~~
 
 用浏览器访问 http://localhost:9000 或者 http://mingle-test.local.aidalan.com (需要配置nginx)
 
@@ -129,9 +135,7 @@ http://mingle.local.aidalan.com/report.html
 
 ## 项目说明
 
-`本项目调用组件大致分为两个概念`
-
-统一使用
+`本项目组件大致分为 “组件” 和 “子应用” 两个概念`
 
 ### 1.组件
 
@@ -177,7 +181,7 @@ http://mingle.local.aidalan.com/report.html
 
 直接访问到 http://localhost:9000/server/mock/ 可以看到所有模拟数据
 
-如果想要添加直接可以在mock下面，新建 json 文件即可，数据访问地址路由和目录结构相对应
+如果想要添加直接可以在 mock文件夹 下面，新建 json 文件即可，数据访问地址路由和目录结构相对应
 
 
 
