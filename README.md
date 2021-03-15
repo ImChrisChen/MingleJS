@@ -4,49 +4,76 @@ React + Typescript + Antd + WUI
 
 在融汇WUI的思想，实现的一套提供给后端开发者使用的前端组件库
 
-`组件调用方式和组件传参，还是和WUI保持一致`
+组件调用方式基于自定义元素 [Web Components](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components) 的规范实现
 
-## 开发环境
+## 开发环境]
 
-1. 需安装 node 环境
-2. 安装pm2
-3. 配置nginx代理解决跨域（部分组件需要用到远程数据，本项目的url传入方式注定无法通过webpack-dev-server实现跨域）
+1. 需安装 node 环境 👉🏿 [node官网](https://nodejs.org/zh-cn/)
+
+2. 安装 pm2  进程管理工具 
+
+	~~~shell
+	npm install -g pm2
+	~~~
+
+3. 配置nginx代理解决跨域（由于项目特殊原因，接口的url时动态获取到的，所以直接用nginx配置域名跨越会比webpack-dev-server 要来的方便许多）
+
+	Nginx 配置
+
+	~~~nginx
+	server {
+		listen       		80;
+		server_name  		"mingle-test.local.aidalan.com";
+		root "/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com/dist/";
+	
+		set $ACAO '*';
+	
+		# mingle.js 项目
+		location / {
+			proxy_pass http://127.0.0.1:9000;
+			add_header Access-Control-Allow-Origin '$ACAO';
+		}
+	
+		# 框架入口文件不设置缓存，更新版本号后,保证每次都能加载到最新
+		location = /index.js {
+			add_header Cache-Control no-cache;
+			add_header Pragma no-cache;
+			add_header Expires 0;
+		}
+	
+		# nodejs 服务器mock数据,对应目录项目根目录 /mock/*
+		location /server {
+			proxy_pass http://127.0.0.1:9001;
+			add_header Access-Control-Allow-Origin '$ACAO';
+		}
+	
+		access_log on;
+	
+		default_type 'text/html';
+		charset utf-8;
+	}
+	~~~
+
+	
+
+## 项目启动
 
 拉去项目进入根目录，执行以下命令
 
 ~~~shell
-npm install && npm run start
+npm run start-all
 ~~~
 
-浏览器打开 [http://localhost:9000](http://localhost:9000)
+npm run start-all 会执行两个进程
 
-## Nginx配置
+- webpack-dev-server 	[http://localhost:9000](http://localhost:9000)
+- node 数据模拟服务器    [http://localhost:9001](http://localhost:9001)
 
-~~~shell script
-server {
-	listen       		80;
-	server_name  		"mingle-test.local.aidalan.com";
 
-	set $ACAO '*';
 
-	# mingle.js 项目
-	location / {
-		proxy_pass http://127.0.0.1:9000;
-		add_header Access-Control-Allow-Origin '$ACAO';
-	}
-	 
-	# nodejs 服务器mock数据,对应目录项目根目录 /server/*
-	location /server {
-		proxy_pass http://127.0.0.1:9001;
-		add_header Access-Control-Allow-Origin '$ACAO';
-	}
+用浏览器访问 http://localhost:9000 或者 http://mingle-test.local.aidalan.com (需要配置nginx)
 
-	access_log on;
 
-	default_type 'text/html';
-	charset utf-8;
-}
-~~~
 
 ## 打包部署
 
@@ -59,15 +86,14 @@ npm run build
 会生成dist目录， 结构如下
 
 ~~~javascript
-.
-/dist
-├── assets 		// 静态资源文件
-│   ├── antv.png
-│   └── form - smart.png
-├── chart.min.js
+./dist
+├── assets						// 静态资源
+│   ├── antv.png
+│   └── form-smart.png
+├── chart.min.js				
 ├── chart.min.js.map
 ├── index.html
-├── index.js		// 框架入口文件
+├── index.js					// 框架入口文件（外部使用，只需要引入index.js就可以了）
 ├── main.css
 ├── main.css.map
 ├── main.min.js
@@ -76,10 +102,12 @@ npm run build
 ├── manifest.css.map
 ├── manifest.min.js
 ├── manifest.min.js.map
-└── report.html		// 打包文件分析
+└── report.html					// 打包分析文件
 ~~~
 
 把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
+
+
 
 #### 使用方式
 
@@ -91,35 +119,37 @@ npm run build
 <script src="http://mingle.aidalan.com/index.js"></script>
 ~~~
 
+
+
 #### 代码打包分析
 
 http://mingle.local.aidalan.com/report.html
+
+
 
 ## 项目说明
 
 `本项目调用组件大致分为两个概念`
 
+统一使用
+
 ### 1.组件
 
 组件通常是通过业务 提取出的高灵活性，高复用的视图层组件（通常不参杂业务逻辑）
 
-统一在html节点上添加data-fn属性调用对应的组件 data-fn调用组件
-
 代码实例：
 
 ```html
-
-<div data-fn="data-table"></div>
+<data-table></data-table>  // 表格组件
 ```
 
-```html
 
-<div data-fn"data-table-"></div>
-```
 
 ### 2.子应用
 
 子应用是在 组件的基础上，添加了业务的处理，通常只针对某些特殊系统去实现某个特殊的功能，才需要考虑以子应用的形式去实现。
+
+子应用全部放在 ”app“ 下面 例如 app-xxx
 
 代码示例：
 
@@ -139,137 +169,85 @@ http://mingle.local.aidalan.com/report.html
 1. 表单组件调用方式为 web-components形式
 2. 组件所有属性均通过 data-*="属性值" 组件默认值通过设置上的value值即可
 
+
+
 ## 模拟数据
 
 本项目提供了Mock数据
 
 直接访问到 http://localhost:9000/server/mock/ 可以看到所有模拟数据
 
-[comment]: <> (## 组件生命周期)
+如果想要添加直接可以在mock下面，新建 json 文件即可，数据访问地址路由和目录结构相对应
 
-[comment]: <> (MingleJS 包含4个组件生命周期)
 
-[comment]: <> (| 组件生命周期  | 使用方式                                         | 触发时机   |)
 
-[comment]: <> (| ------------- | ------------------------------------------------ | ---------- |)
+例如：
 
-[comment]: <> (| before-load   | `<input data-fn="xx" @before-load="funcName">`   | 组件渲染前 |)
+数据地址为 http://mingle.local.aidalan.com/server/mock/table/tableContent.json
 
-[comment]: <> (| load          | `<input data-fn="xx" @load="funcName">`          | 组件渲染后 |)
+对应的目录结构就是项目更目录 `/server/mock/table/tableContent.json`
 
-[comment]: <> (| before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |)
 
-[comment]: <> (| update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |)
+
+## 项目目录结构
 
 ```html
-
-<script>
-    function funcName() {
-        // Coding 触发组件钩子
-    }
-</script>
-
-// or
-
-<script>
-    window.funcName = function () {
-        // Coding 触发组件钩子
-    }
-</script>
-```
-
-## 目录结构
-
-```bash
-├── README.md
+.
+├── README-USAGE.md			// 使用文档
+├── README.md				// 开发文档
 ├── config
-│   └── component.config.ts					//组件配置文件(很重要)
-├── dist									//打包生成的文件
-│   ├── chart.min.js
-│   ├── index.html
-│   ├── index.js							
-│   ├── main.min.js
-│   ├── manifest.min.js					
-│   └── report.html
-├── ecosystem.config.js
-├── main.tsx								// 入口文件
-├── mock									// mock数据
-│   ├── chart
-│   ├── form
-│   ├── list
-│   └── table
-├── package-lock.json
+│   ├── component.config.ts
+│   └── directive.config.ts
+├── dist			// 打包后生成的代码
+├── ecosystem.config.js		// pm2 配置文件
+├── main.tsx				// 项目入口文件
 ├── package.json
 ├── postcss.config.js
-├── public									// 
-│   ├── chart.html
-│   ├── demo.html
-│   ├── form
+├── public			
 │   ├── index.html
 │   └── index.js
-├── script.js
-├── src										// 
-│   ├── App.scss	
+├── script					// 脚本文件
+│   ├── script.js
+│   └── template-generate.js
+├── server					// node 服务（具有日志收集，mock数据，API提供等功能）
+│   ├── controller
+│   ├── ecosystem.config.js
+│   ├── logger.js
+│   ├── logs
+│   ├── main.js
+│   ├── mock
+│   ├── router
+│   ├── uploads
+│   └── utils
+├── src						// 
+│   ├── App.less
+│   ├── App.scss
 │   ├── App.scss.d.ts
-│   ├── App.tsx								// 
-│   ├── component							// 组件（对外提供的组件都在这里）
-│   ├── core								// 
-│   ├── document							// 组件设计器（包括文档）
-│   ├── interface							// 接口声明文件
-│   ├── router								// 
-│   └── services
-├── static									// 静态资源文件
+│   ├── App.tsx
+│   ├── api
+│   ├── component				// 对外开发的组件
+│   ├── core
+│   ├── interface				
+│   ├── pages					
+│   ├── private-component 		// 私有组件
+│   ├── router
+│   └── services				// 服务类
+├── static						// 静态资源
+│   ├── docs-image
+│   ├── icons
 │   └── images
 ├── tsconfig.json
-├── types									// types
+├── types						// typescript 属性定义
 │   ├── index.d.ts
 │   └── typings.d.ts
-├── utils									// 封装的常用函数
-│   ├── format-data.ts
+├── utils						// 工具库
 │   ├── inspect.ts
-│   ├── trans-dom.tsx
 │   ├── parser-property.ts
-│   ├── parser-tpl.ts
-│   ├── request
+│   ├── trans-dom.tsx
 │   ├── trigger.ts
 │   └── util.ts
-└── webpack.config.js						// 打包配置
+└── webpack.config.js			
 ```
-
-## 表单 和 数据（图表/表格/列表）之间的关联
-
-~~~html
-// 表单组件 // 表单ID，用于关联需要控制的数据。
-<form-action id="game-list" data-fn="form-action" data-async="true">
-    <form-button
-        data-label="平台:"
-        data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows"
-        name="platform"
-    ></form-button>
-
-    <form-input data-label="游戏名称:" name="gameName" style="width: 200px"></form-input>
-
-    <button type="submit" class="ant-btn ant-btn-primary">Submit</button>
-
-</form-action>
-
-// 表格组件
-<data-table
-    data-from="game-list"            // 需要关联的表单ID
->
-</data-table>
-~~~
-
-## 样式
-
-`在input中输入style属性，可直接作作用于当前组件的style属性`
-
-在实例化组件之前，获取到style属性的值，然后转换成JSX的style样式。设置进组件内
-
-~~~html
-
-<form-input style="width:200px"></form-input>
-~~~
 
 
 

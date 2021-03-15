@@ -26,9 +26,8 @@ export class ExecCode extends Component<IExecCodeProps, any> {
                 if (node) {
                     if ($(this.props.code).length > 0) {
                         node.innerHTML = '';
-                        console.log(this.props.code);
                         node?.append($(this.props.code).get(0));
-                        // new App(node);
+                        new App(node);      // TODO 组件设计器中可以直接预览，不用触发 new Mingle()
                     }
                 }
             } }/>
