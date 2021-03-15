@@ -1,0 +1,46 @@
+<div class="demo">
+    <{count}>
+    <p w-if="visible" title="p1">if:<{count}></p>
+    <p w-if="!visible" title="p2">else:<{count}></p>
+    <button @click="add">add</button>
+    <button @click="reduce">reduce</button>
+    <button @click="show">show</button>
+    <button @click="hide">hide</button>
+</div>
+
+<script>
+    new Mingle({
+        el: '.demo',
+        data: {
+            title: 'Hello World ~',
+            count: 0,
+            visible: true,
+            list: [
+                {name: 'Chris'},
+                {name: 'name'},
+                {name: 'name'},
+                {name: 'name'},
+                {name: 'name'},
+                {name: 'name'},
+                {name: 'name'},
+            ],
+            obj: {},
+        },
+        created() {
+        },
+        methods: {
+            show() {
+                this.visible = true;
+            },
+            hide() {
+                this.visible = false;
+            },
+            add() {
+                this.count++;
+            },
+            reduce() {
+                this.count--;
+            },
+        },
+    });
+</script>

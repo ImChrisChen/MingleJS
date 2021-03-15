@@ -7,14 +7,13 @@
 
 import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
 import * as React from 'react';
-import { strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
+import { strParseDOM, strParseVirtualDOM } from '@utils/trans-dom';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { isHtmlTpl, isNumber, isString, isWuiByString, isWuiTpl } from '@utils/inspect';
-import { formatObject2Url } from '@utils/format-data';
+import { isHtmlTpl, isNumber, isString, isWuiComponent, isWuiTpl } from '@utils/inspect';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
@@ -25,6 +24,7 @@ import FormAction from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -86,6 +86,14 @@ interface ITableState {
 
 export default class DataTable extends React.Component<ITableProps, any> {
 
+    @Inject private readonly parserTemplateService: ParserTemplateService;
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
+
+    private searchInput;
+    private tableHeaderNode = this.props.templates['table-header'];
+    private tableBodyNode = this.props.templates['table-body'];
+
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
@@ -107,12 +115,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
-
-    @Inject parserTemplateService: ParserTemplateService;
-
-    private url: string = this.props.url;
-    private searchInput;
-    @Inject private readonly httpClientService: HttpClientService;
 
     constructor(props: ITableProps) {
         super(props);
@@ -200,7 +202,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
-        let url = formatObject2Url(formData, this.props.dataset.url);
+        let url = this.formatDataService.obj2Url(formData, this.props.dataset.url);
         let tableContent = await this.getTableContent(url);
         let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -262,13 +264,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // 解析html模版
                 if (isHtmlTpl(value)) {
 
-                    if (isWuiByString(value)) {
+                    if (isWuiComponent(value)) {
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {
                                 node.innerHTML = '';
                                 node.append(element);
-                                new App(element);
+                                // new App(element);
                             }
                         } }/>;
 
@@ -301,11 +303,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
         let tableHeader: Array<ITableHeaderItem> = [];
         for (const item of data) {
 
-            let fn: any = null;
+            let sortCallback: any = null;
 
             if (item.sortable) {
                 let field = item.field;
-                fn = (a, b): number => {
+                sortCallback = (a, b): number => {
                     let aVal = a[field];
                     let bVal = b[field];
 
@@ -391,7 +393,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // ellipsis    : true,      // 自动省略
                 Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 // fixed       : false,
-                sorter      : fn,
+                sorter      : sortCallback,
             });
         }
 

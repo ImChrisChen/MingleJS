@@ -8,15 +8,16 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { formatList2Group, formatTreeKey } from '@utils/format-data';
 import { getDepthMax } from '@utils/util';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';
 import md5 from 'md5';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
 
 export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state = {
         collapsed: !this.props.dataset.open,
@@ -44,14 +45,14 @@ export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
         let deep = getDepthMax({ children: data }, 'children') - 1;
 
         if (deep > 1) {
-            data = formatTreeKey(data, { id, pid, name, children }, {
+            data = this.formatDataService.treeKeyReplace(data, { id, pid, name, children }, {
                 id      : 'value',
                 pid     : 'pid',
                 name    : 'label',
                 children: 'children',
             });
         } else {
-            data = formatList2Group(data, { id, pid, name, children });
+            data = this.formatDataService.list2Group(data, { id, pid, name, children });
         }
         return data;
     }

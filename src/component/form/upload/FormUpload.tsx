@@ -105,6 +105,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
                 <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
                     { this.props.dataset.smart ? <FormSmartIcon/> : '' }
                     <Upload
+                        disabled={ this.props.dataset.disabled }
                         customRequest={ option => this.handleUpload(option) }
                         accept=".png,.jpg"
                         listType={ this.props.dataset.type }

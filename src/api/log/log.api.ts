@@ -1,0 +1,1 @@
+/** * Created by WebStorm. * User: MacBook * Date: 2021/1/29 * Time: 6:41 下午 */export class LogApi {    getLog(id?: string) {    }    getLogs() {    }    createLog() {    }    deleteLog() {    }}

@@ -346,7 +346,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // 获取处理formGroup数据
     public static async getFormGroupData(form) {
-        let formGroup = form.querySelector('[form-group]');
+        let formGroup = form.querySelector('form-group');
 
         if (!formGroup) {
             return {};
@@ -371,6 +371,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         // 处理 form-group 内的组件
         let formGroupData = await this.getFormGroupData(form);
+        console.log('formGroupData', formGroupData);
 
         return Object.assign(formData, formGroupData);
     }
@@ -422,7 +423,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     render() {
-        console.log('formaction');
         return <>
             <FormSmart el={ this.props.el }/>
         </>;
