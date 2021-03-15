@@ -127,8 +127,6 @@ http://mingle.local.aidalan.com/report.html
 
 
 
-
-
 ## 项目说明
 
 `本项目调用组件大致分为两个概念`

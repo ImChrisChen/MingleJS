@@ -10,8 +10,7 @@
         "pre": "npm run rm-dist NODE_ENV=pre webpack && npm run update-version",
         "dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --colors --config webpack.config.js",
         "rm-dist": "rm -rf ./dist",
-        "update-version": "node ./script/script.js",
-        "version": "webpack -v"
+        "update-version": "node ./script/script.js"
     },
     "author": "chrischen",
     "license": "ISC",

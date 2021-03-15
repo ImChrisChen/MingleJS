@@ -21,6 +21,7 @@ interface IMingleOptions {
     methods?: {
         [key: string]: (...args: any) => any
     }
+    updated?: (...args) => any
     mounted?: (...args) => any
 }
 
