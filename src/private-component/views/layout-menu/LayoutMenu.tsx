@@ -123,7 +123,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                 return this.renderMenuItem(item, key);
             }
         });
-
     }
 
     render() {

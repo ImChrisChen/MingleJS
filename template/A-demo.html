@@ -1,11 +1,16 @@
 <div class="demo">
-    <{count}>
-    <p w-if="visible" title="p1">if:<{count}></p>
-    <p w-if="!visible" title="p2">else:<{count}></p>
-    <button @click="add">add</button>
-    <button @click="reduce">reduce</button>
-    <button @click="show">show</button>
-    <button @click="hide">hide</button>
+    <!--    <{count}>-->
+    <!--    <p w-if="visible" title="p1">if:<{count}></p>-->
+    <!--    <p w-if="!visible" title="p2">else:<{count}></p>-->
+    <!--    <button @click="add">add</button>-->
+    <!--    <button @click="reduce">reduce</button>-->
+    <!--    <button @click="show">show</button>-->
+    <!--    <button @click="hide">hide</button>-->
+    <layout-window data-fn="layout-window" data-title="所属组人员" data-height="400" data-width="600" 
+                   data-label="查看"
+                   data-mask="false" data-open="false">&nbsp; &nbsp;
+        <data-table data-title="xxxxxxx1"></data-table>
+    </layout-window>
 </div>
 
 <script>
@@ -16,13 +21,13 @@
             count: 0,
             visible: true,
             list: [
-                {name: 'Chris'},
-                {name: 'name'},
-                {name: 'name'},
-                {name: 'name'},
-                {name: 'name'},
-                {name: 'name'},
-                {name: 'name'},
+                { name: 'Chris' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
+                { name: 'name' },
             ],
             obj: {},
         },
