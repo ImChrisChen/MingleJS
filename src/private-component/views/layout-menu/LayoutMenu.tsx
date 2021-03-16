@@ -103,32 +103,21 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         return <Menu.Item mode={ 'horizontal' }
                           key={ index }
                           data-path={ item.path }
-            // icon={ <PieChartOutlined/> }
         >
             { renderMenuChild(item) }
         </Menu.Item>;
     }
 
     renderMenuChildren(data) {
-        // this.props.data
         return data.map((item, index) => {
             let children = item.children;
             let key = item.id || item.path || item.value || index;
             if (children && children.length > 0) {
-                return <SubMenu
-                    className={ style.layoutSubmenu }
-                    data-path={ item.path }
-                    key={ key }
-                    // icon={ <MailOutlined/> }
-                    title={ item.label }>
-                    { children.map(((child, i) => {
-                        let k = child.id || child.path || child.value || i;
-                        if (child.children && child.children.length > 0) {
-                            return this.renderMenuChildren(child.children);
-                        } else {
-                            return this.renderMenuItem(child, k);
-                        }
-                    })) }
+                return <SubMenu className={ style.layoutSubmenu }
+                                data-path={ item.path }
+                                key={ key }
+                                title={ item.label }>
+                    { this.renderMenuChildren(children) }
                 </SubMenu>;
             } else {
                 return this.renderMenuItem(item, key);
@@ -138,7 +127,6 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     render() {
-        console.log(this.props.data);
         let width = this.props.layout === 'horizontal' ? '100%' : '160px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (
