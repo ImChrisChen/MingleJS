@@ -80,6 +80,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     collapsedButton() {
         return this.props.layout !== 'horizontal'
             ? <Button
+                hidden
                 type="primary"
                 className={ `layout-menu-toggle-btn ${ style.layoutMenuToggleBtn }` }
                 onClick={ this.toggleCollapsed.bind(this) }
@@ -109,7 +110,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     }
 
     render() {
-        let width = this.props.layout === 'horizontal' ? '100%' : '200px';
+        let width = this.props.layout === 'horizontal' ? '100%' : '160px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
         return (
             <div style={ {

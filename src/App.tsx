@@ -210,7 +210,7 @@ export default class App {
 
     // 生成组件唯一ID
     public static createUUID() { // 获取唯一值
-        return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function(c) {
+        return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
@@ -269,7 +269,7 @@ export default class App {
                 console.warn(`没有${ type.value }这个icon图标`);
                 continue;
             }
-            ReactDOM.render(<Icon style={ { color: color?.value, fontSize: size?.value + 'px' } } />, icon);
+            ReactDOM.render(<Icon style={ { color: color?.value, fontSize: size?.value + 'px' } }/>, icon);
         }
     }
 
@@ -372,7 +372,7 @@ export default class App {
                     if (submitBtn.length > 0) {
                         submitBtn.click();
                     } else {
-                        formElement.append(`<button type='submit' style='display: none;'/>`).find('[type=submit]').click();
+                        formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
                     }
                 }
 
@@ -446,7 +446,7 @@ export default class App {
             message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
         });
 
-        window.addEventListener('error', async function(e) {
+        window.addEventListener('error', async function (e) {
             console.log(e);
             let msg = e?.message ?? '';        // 错误
             let stack = e?.error?.stack ?? '';
@@ -468,19 +468,19 @@ export default class App {
             message.error(`error, ${ msg }`);
         });
 
-        window.addEventListener('online', function() {
+        window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });
 
-        window.addEventListener('offline', function() {
+        window.addEventListener('offline', function () {
             message.error('浏览器失去网络链接');
         });
 
-        window.addEventListener('copy', function() {
+        window.addEventListener('copy', function () {
             message.success('复制成功');
         });
 
-        window.addEventListener('cut', function(event) {
+        window.addEventListener('cut', function (event) {
             message.success('剪切成功');
         });
     }
@@ -574,7 +574,7 @@ export default class App {
             // 组件名必须大写
             ReactDOM.render(
                 <ConfigProvider { ...globalComponentConfig } >
-                    <Component { ...props } value={ value } />
+                    <Component { ...props } value={ value }/>
                 </ConfigProvider>
                 , container, () => {
                     callback(hooks, instance);
