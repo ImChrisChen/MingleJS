@@ -1,6 +1,6 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { loadModules } from '@src/core/base';
+import { loadModule } from '@src/core/base';
 import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
@@ -176,8 +176,8 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        const Modules = await loadModules(keysArr);
-        const Component = Modules.component.default;            // React组件
+        const Modules = loadModule(keysArr);
+        const Component = (await Modules.component).default;            // React组件
         const config = Modules.config;
 
         let defaultProperty = Modules.property;
@@ -190,6 +190,8 @@ export default class App {
             subelements,
             container,
             hooks,
+
+            // @ts-ignore
             defaultProperty,
             config,
             componentUID,
@@ -208,7 +210,7 @@ export default class App {
 
     // 生成组件唯一ID
     public static createUUID() { // 获取唯一值
-        return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
+        return 'xxx-xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function(c) {
             let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
@@ -227,8 +229,9 @@ export default class App {
     // 通过 Element 获取到组件解析后的所有属性
     public static async parseElementProperty(el: HTMLElement): Promise<any> {
         let componentName = el.localName ?? '';
-        let componentModule = await loadModules(componentName.split('-'));
+        let componentModule = loadModule(componentName.split('-'));
         let defaultProperty = componentModule.property;
+        // @ts-ignore
         let { dataset, hook, ...attrs } = defaultProperty;     // default
 
         // dataset
@@ -266,7 +269,7 @@ export default class App {
                 console.warn(`没有${ type.value }这个icon图标`);
                 continue;
             }
-            ReactDOM.render(<Icon style={ { color: color?.value, fontSize: size?.value + 'px' } }/>, icon);
+            ReactDOM.render(<Icon style={ { color: color?.value, fontSize: size?.value + 'px' } } />, icon);
         }
     }
 
@@ -369,7 +372,7 @@ export default class App {
                     if (submitBtn.length > 0) {
                         submitBtn.click();
                     } else {
-                        formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
+                        formElement.append(`<button type='submit' style='display: none;'/>`).find('[type=submit]').click();
                     }
                 }
 
@@ -443,7 +446,7 @@ export default class App {
             message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
         });
 
-        window.addEventListener('error', async function (e) {
+        window.addEventListener('error', async function(e) {
             console.log(e);
             let msg = e?.message ?? '';        // 错误
             let stack = e?.error?.stack ?? '';
@@ -465,19 +468,19 @@ export default class App {
             message.error(`error, ${ msg }`);
         });
 
-        window.addEventListener('online', function () {
+        window.addEventListener('online', function() {
             message.success('浏览器已获得网络链接');
         });
 
-        window.addEventListener('offline', function () {
+        window.addEventListener('offline', function() {
             message.error('浏览器失去网络链接');
         });
 
-        window.addEventListener('copy', function () {
+        window.addEventListener('copy', function() {
             message.success('复制成功');
         });
 
-        window.addEventListener('cut', function (event) {
+        window.addEventListener('cut', function(event) {
             message.success('剪切成功');
         });
     }
@@ -571,7 +574,7 @@ export default class App {
             // 组件名必须大写
             ReactDOM.render(
                 <ConfigProvider { ...globalComponentConfig } >
-                    <Component { ...props } value={ value }/>
+                    <Component { ...props } value={ value } />
                 </ConfigProvider>
                 , container, () => {
                     callback(hooks, instance);

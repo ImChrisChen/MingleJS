@@ -217,7 +217,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
 };
 
 // TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
-export default {
+export const componentConfig = {
     // 子应用
     app     : {
         menu  : {
