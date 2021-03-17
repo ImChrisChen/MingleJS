@@ -107,7 +107,7 @@ export function isJSON(v: string): boolean {
             return false;
         }
 
-    } catch (e) {
+    } catch(e) {
         console.log('error：' + v + '!!!' + e);
         return false;
     }
@@ -172,7 +172,8 @@ export function isCustomElement(tagName: string): boolean {
 
 // 判断字符串中是否存在html字符串
 export function isHtmlTpl(v: string): boolean {
-    return /(.*?)(<[a-zA-Z]+) (.*?)/.test(v);
+    // return /(.*?)(<[a-zA-Z]+) (.*?)/.test(v);  // <div data-fn="layout-window"></div>
+    return /(.*?)(<[a-zA-]+)(.*?)/.test(v);         // <layout-window></layout-window>
 }
 
 // 判断字符串是否是DOM拓展运算符(框架内自己实现的语法) '...item.dataset'

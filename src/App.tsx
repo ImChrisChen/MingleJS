@@ -1,6 +1,6 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { loadModules } from '@src/core/base';
+import { loadModule } from '@utils/load-module';
 import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
@@ -176,8 +176,8 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        const Modules = await loadModules(keysArr);
-        const Component = Modules.component.default;            // React组件
+        const Modules = loadModule(keysArr);
+        const Component = (await Modules.component).default;            // React组件
         const config = Modules.config;
 
         let defaultProperty = Modules.property;
@@ -190,6 +190,8 @@ export default class App {
             subelements,
             container,
             hooks,
+
+            // @ts-ignore
             defaultProperty,
             config,
             componentUID,
@@ -227,8 +229,9 @@ export default class App {
     // 通过 Element 获取到组件解析后的所有属性
     public static async parseElementProperty(el: HTMLElement): Promise<any> {
         let componentName = el.localName ?? '';
-        let componentModule = await loadModules(componentName.split('-'));
+        let componentModule = loadModule(componentName.split('-'));
         let defaultProperty = componentModule.property;
+        // @ts-ignore
         let { dataset, hook, ...attrs } = defaultProperty;     // default
 
         // dataset

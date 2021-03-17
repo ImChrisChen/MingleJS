@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { deepEach } from '@utils/util';
-import componentConfig from '@root/config/component.config';
+import { componentConfig } from '@root/config/component.config';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';

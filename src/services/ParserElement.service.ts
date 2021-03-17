@@ -35,7 +35,7 @@ export class ParserElementService extends ParserTemplateService {
      * @private
      */
     private static parseExpand(el: HTMLElement, model: object, name: string) {
-        let [, key]: Array<string> = name.split('...');
+        let [ , key ]: Array<string> = name.split('...');
 
         let itemModel = getObjectValue(key, model);
 
@@ -139,7 +139,7 @@ export class ParserElementService extends ParserTemplateService {
      * @private
      */
     private parseTextContent(el: HTMLElement, model: object, functions) {
-        [...el.childNodes].forEach(node => {
+        [ ...el.childNodes ].forEach(node => {
 
             // node 节点
             // @ts-ignore
@@ -202,13 +202,13 @@ export class ParserElementService extends ParserTemplateService {
             express = this.parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [arrayName, itemName]: Array<string> = value.split('as');
+        let [ arrayName, itemName ]: Array<string> = value.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -250,7 +250,7 @@ export class ParserElementService extends ParserTemplateService {
                 // console.log(parseExpress);
                 try {
                     result = eval(parseExpress);
-                } catch (e) {
+                } catch(e) {
                     console.warn(`${ parseExpress }表达式解析错误`);
                     result = false;
                 }
@@ -294,7 +294,7 @@ export class ParserElementService extends ParserTemplateService {
             } else {
                 $(el).remove();
             }
-        } catch (e) {
+        } catch(e) {
             // TODO 有可能是 ~foreach 中的 if 语句
             // console.error(`if内表达式解析语法错误: ${ express }`);
         }
@@ -315,8 +315,8 @@ export class ParserElementService extends ParserTemplateService {
 
         for (const { name, value } of el.attributes) {
             if (name.startsWith('@')) {
-                let [, event] = name.split('@');
-                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [ , event ] = name.split('@');
+                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -360,7 +360,7 @@ export class ParserElementService extends ParserTemplateService {
                                 return eval(param);
 
                             }
-                        } catch (e) {
+                        } catch(e) {
                             let pv = getObjectValue(param, model);
                             return pv;
                         }

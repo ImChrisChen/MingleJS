@@ -79,7 +79,6 @@ export default class ViewPanel extends Component<IComponentProps, any> {
         let { url, model } = dataset;
         if (url) {
             let res = await this.httpClientService.jsonp(url);
-            console.log(res);
             return res.status ? res.data : {};
         } else if (model) {
             return model;
