@@ -1,8 +1,8 @@
 /**
  * Created by WebStorm.
  * User: MacBook
- * Date: 2020/10/16
- * Time: 下午2:34
+ * Date: 2021/3/17
+ * Time: 10:22 上午
  */
 
 import { componentConfig } from '@root/config/component.config';
@@ -36,7 +36,6 @@ export async function loadModules(keys: Array<string>) {
     }
     return module;
 }
-
 
 export function loadModule(keys: Array<string>) {
     let mod = componentConfig[keys[0]][keys[1]];

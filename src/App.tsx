@@ -1,6 +1,6 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { loadModule } from '@src/core/base';
+import { loadModule } from '@utils/load-module';
 import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
