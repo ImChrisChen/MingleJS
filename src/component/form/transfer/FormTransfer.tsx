@@ -5,61 +5,84 @@
  * Time: 9:54 上午
  */
 
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { Transfer, Button } from 'antd';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
+import { IComponentProps } from '@interface/common/component';
+import { FormatDataService } from '@services/FormatData.service';
+import { trigger } from '@utils/trigger';
 
-export default class FormTransfer extends Component {
+
+interface IFormTransferProps extends IComponentProps {
+    dataset: {
+        pagesize: number
+        width: number | string,
+        height: number | string,
+        url: string
+        key: string
+        value: string
+        titles: Array<string>
+    }
+}
+
+export default class FormTransfer extends Component<IFormTransferProps, ReactNode> {
+
+
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
+
     state = {
         mockData  : [],
-        targetKeys: [],
+        targetKeys: [],     // 渲染到右边
     };
 
-    componentDidMount() {
-        this.getMock();
+    constructor(props) {
+        super(props);
     }
 
-    getMock = () => {
-        const targetKeys: Array<any> = [];
-        const mockData: Array<any> = [];
-        for (let i = 0; i < 20; i++) {
-            const data = {
-                key        : i.toString(),
-                title      : `content${ i + 1 }`,
-                description: `description of content${ i + 1 }`,
-                chosen     : Math.random() * 2 > 1,
-            };
-            if (data.chosen) {
-                targetKeys.push(data.key);
-            }
-            mockData.push(data);
+    componentDidMount() {
+        this.getData().then(data => {
+            this.setState({
+                mockData: data,
+            });
+        });
+    }
+
+    async getData() {
+        let { url, key, value } = this.props.dataset;
+        let { data } = await this.httpClientService.jsonp(url);
+        if (data && data.length > 0) {
+            return this.formatDataService.list2AntdOptions(data, key, value);
         }
-        this.setState({ mockData, targetKeys });
-    };
+        return [];
+    }
 
     handleChange = targetKeys => {
-        this.setState({ targetKeys });
+        // this.setState({ targetKeys });
+        trigger(this.props.el, targetKeys, 'change');
     };
 
-    renderFooter = () => (
-        <Button size="small" style={ { float: 'right', margin: 5 } } onClick={ this.getMock }>
-            reload
-        </Button>
-    );
-
     render() {
+        let { pagesize, width, height, titles } = this.props.dataset;
+        let value = this.props.value;
+        value = value.split(',').filter(t => t);
         return (
             <Transfer
                 dataSource={ this.state.mockData }
                 showSearch
+                titles={ titles }
                 listStyle={ {
-                    width : 250,
-                    height: 300,
+                    width,
+                    height,
                 } }
-                operations={ [ 'to right', 'to left' ] }
-                targetKeys={ this.state.targetKeys }
+                rowKey={ record => record.value }
+                // operations={ [ 'to right', 'to left' ] }
+                targetKeys={ value }
                 onChange={ this.handleChange }
-                render={ (item: any) => `${ item.title }-${ item.description }` }
-                footer={ this.renderFooter }
+                render={ (item: any) => `${ item.label }` }
+                pagination={ { pageSize: pagesize } }
+                // footer={ this.renderFooter }
             />
         );
     }

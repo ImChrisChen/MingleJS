@@ -219,7 +219,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
 // TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
 export const componentConfig = {
     // 子应用
-    app     : {
+    app   : {
         menu  : {
             component: import('@component/app/menu/AppMenu'),
             property : {
@@ -277,7 +277,7 @@ export const componentConfig = {
         //     },
         // },
     },
-    form    : {
+    form  : {
         select    : {
             path     : '/form-select',
             component: import('@component/form/select/FormSelect'),
@@ -968,9 +968,66 @@ export const componentConfig = {
         transfer  : {
             component: import('@component/form/transfer/FormTransfer'),
             path     : '/form-transfer',
+            property : {
+                dataset: {
+                    url     : {
+                        el     : 'input',
+                        value  : domain + '/server/mock/select.json',
+                        desc   : '列表数据的接口地址',
+                        request: true,
+                        parse  : 'string',
+                        verify : value => isUrl(value),
+                    },
+                    key     : {
+                        el     : 'select',
+                        parse  : 'string',
+                        options: 'fromUrl',
+                        value  : 'id',
+                        desc   : '数据源唯一id',
+                    },
+                    value   : {
+                        el     : 'input',
+                        parse  : 'null',
+                        options: 'fromUrl',
+                        value  : 'publisher_name',    // TODO 主要要传模版的时候，不能去用 string 解析
+                        desc   : '要展示的内容模版/字段',
+                    },
+                    pagesize: {
+                        el   : 'input',
+                        parse: 'number',
+                        desc : '每页显示数量',
+                        value: 100,
+                    },
+                    height  : {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '高度',
+                        value: 300,
+                    },
+                    width   : {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '宽度',
+                        value: 240,
+                    },
+                    titles  : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        desc : '标题',
+
+                        value: 'source,target',
+                    },
+                },
+                value  : {
+                    el   : 'input',
+                    parse: 'string[]',
+                    value: '1,2',
+                    desc : '默认值',
+                },
+            },
         },
     },
-    view    : {
+    view  : {
         steps   : {
             path     : '/view-steps',
             component: import('@component/view/steps/ViewSteps'),
@@ -1080,7 +1137,7 @@ export const componentConfig = {
             },
         },
     },
-    data    : {
+    data  : {
         table: {
             component: import('@component/data/table/DataTable'),
             path     : '/data-table',
@@ -1433,7 +1490,7 @@ export const componentConfig = {
             },
         },
     },
-    tips    : {
+    tips  : {
         card: {
             component: import('@component/tips/card/TipsCard'),
             document : import('@component/tips/card/TipsCard.md'),
@@ -1503,7 +1560,7 @@ export const componentConfig = {
         },
         list: {},
     },
-    layout  : {
+    layout: {
         menu    : {
             component: import('@component/layout/menu/LayoutMenu'),
             path     : '/layout-menu',
@@ -1758,7 +1815,7 @@ export const componentConfig = {
             },
         },
     },
-    handle  : {
+    handle: {
         request: {
             component: import('@component/handle/request/HandleRequest'),
             document : import('@component/handle/request/HandleRequest.md'),
@@ -1784,7 +1841,7 @@ export const componentConfig = {
             },
         },
     },
-    editor  : {
+    editor: {
         // flow    : {     // 流程图
         //     component: import('@component/editor/flow/EditorFlow'),
         //     property : {

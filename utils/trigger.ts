@@ -16,7 +16,10 @@ type el = HTMLElement | HTMLInputElement
  * @param value
  * @param event_type
  */
-export function trigger(el: el, value: string | Array<any>, event_type: string = 'change') {
+
+type IEventType = 'change' | string
+
+export function trigger(el: el, value: string | Array<any>, event_type: IEventType = 'change') {
 
     if (!el) {
         console.warn(`请输入正确参数  el:${ el }`);

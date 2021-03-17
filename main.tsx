@@ -9,13 +9,11 @@ import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
-import { Monitor } from '@services/Monitor';
 import { Mingle } from './src/core/Mingle';
 
 let docs = document.querySelector('#__MINGLE_DOCS__');
 
 if (docs) {
-    // docs;
     ReactDOM.render(
         <ConfigProvider { ...globalComponentConfig }>
             <HashRouter>
@@ -23,11 +21,6 @@ if (docs) {
             </HashRouter>
         </ConfigProvider>,
         docs);
-} else {
-    // public/index.html
-    // window.addEventListener('load', () => {
-    //     // new App(document.body);
-    // });
 }
 
 // window.addEventListener('load', async () => {
