@@ -304,7 +304,7 @@ MingleJS 提供了几个全局方法以便于后端开发者，在不得已的�
 <div id="App">
     <!-- define-component 组件可以进行自定义组件 -->
     <define-component w-foreach="components as component" 
-                      data-fn="<{component.tag}>" ...component >
+                      module="<{component.tag}>" ...component >
     </define-component>
 </div>
 <script>

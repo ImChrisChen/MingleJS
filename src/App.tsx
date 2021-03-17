@@ -5,7 +5,7 @@ import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isCustomElement, isFunc, isUndefined } from '@utils/inspect';
+import { isCustomElement, isFunc, isPromise, isReactComponent, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
@@ -85,34 +85,58 @@ export default class App {
             let { localName: tagName } = element;
             tagName = tagName.trim();
 
-            if (!isCustomElement(tagName)) {
+            if (!tagName) {
                 return;
             }
 
-            if (App.registerComponents.includes(tagName)) {
-                // console.log('有注册过', App.registerComponents, tagName);
-                return;
-            }
+            // 如果是自定义组件
+            if (isCustomElement(tagName)) {
+                console.log('1', tagName);
 
-            window.customElements.define(tagName, class extends HTMLElement {
-                constructor() {
-                    super();
+                if (App.registerComponents.includes(tagName)) {
+                    // console.log('有注册过', App.registerComponents, tagName);
+                    return;
+                }
+
+                window.customElements.define(tagName, class extends HTMLElement {
+                    constructor() {
+                        super();
+                        /**
+                         * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
+                         *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                         */
+                    }
+
                     /**
-                     * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
-                     *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                     * 元素链接成功后
                      */
+                    connectedCallback() {
+                        App.renderCustomElement(this);
+                    }
+
+                });
+
+                App.registerComponents.push(tagName);
+
+            } else {        // data-fn 函数功能
+
+                console.log('2', tagName);
+
+                let methods = element.getAttribute('data-fn');
+                if (!methods) {
+                    return;
                 }
 
-                /**
-                 * 元素链接成功后
-                 */
-                connectedCallback() {
-                    App.renderCustomElement(this);
+                let Module = loadModule(methods.split('-'));
+                const Component = (await Module.component).default;
+
+                // 不是react组件,直接 new Class
+                if (!isReactComponent(Component)) {
+                    console.log(Component);
+                    new Component(element);
                 }
 
-            });
-
-            App.registerComponents.push(tagName);
+            }
         });
 
         App.errorVerify();
@@ -129,9 +153,8 @@ export default class App {
             return;
         }
 
-
-        if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
-            componentName = el.attributes['data-fn'].value;
+        if (componentName === 'define-component' && el.attributes?.['module']?.value) {
+            componentName = el.attributes['module'].value;
         }
 
         if (!componentName) {
@@ -176,12 +199,15 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        const Modules = loadModule(keysArr);
-        const Component = (await Modules.component).default;            // React组件
-        const config = Modules.config;
+        const Module = loadModule(keysArr);
+        const Component = (await Module.component).default;            // React组件
 
-        let defaultProperty = Modules.property;
+        if (!isReactComponent(Component)) {
+            return;
+        }
 
+        const config = Module.config;
+        let defaultProperty = Module.property;
         let hooks = App.formatHooks(attributes);
         let module: IModules = {
             Component,

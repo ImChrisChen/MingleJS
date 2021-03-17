@@ -7,10 +7,26 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'antd';
 import { IComponentProps } from '@interface/common/component';
-import $ from 'jquery';
 import Draggable from 'react-draggable';
+import './LayoutWindow.css';
 
-export default class LayoutWindow extends Component<IComponentProps, any> {
+export default class LayoutWindow {
+
+    private iframe;
+
+    constructor(el) {
+        let iframe = document.createElement('iframe');
+        console.log(el);
+        iframe.name = el.getAttribute('target');
+        iframe.height = '400';
+        iframe.width = '600';
+        iframe.classList.add('layout-window-iframe');
+        document.body.append(iframe);
+        this.iframe = iframe;
+    }
+}
+
+class LayoutWindows extends Component<IComponentProps, any> {
 
     state = {
         loading : false,
