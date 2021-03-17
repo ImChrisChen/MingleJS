@@ -268,14 +268,14 @@ export const componentConfig = {
                 },
             },
         },
-        feishu: {
-            component: import('@component/app/feishu/AppFeishu'),
-            document : import('@component/app/feishu/AppFeishu.md'),
-            path     : '/app-lark',
-            property : {
-                dataset: {},
-            },
-        },
+        // feishu: {
+        //     component: import('@component/app/feishu/AppFeishu'),
+        //     document : import('@component/app/feishu/AppFeishu.md'),
+        //     path     : '/app-lark',
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
     },
     form    : {
         select    : {
@@ -946,7 +946,7 @@ export const componentConfig = {
         },
         color     : {
             component: import('@component/form/color/FormColor'),
-            path     : 'form-color',
+            path     : '/form-color',
             property : {
                 dataset: {
                     label   : UniversalProps.label,
@@ -964,6 +964,10 @@ export const componentConfig = {
                 style  : UniversalProps.style,
             },
             name     : '颜色选择器',
+        },
+        transfer  : {
+            component: import('@component/form/transfer/FormTransfer'),
+            path     : '/form-transfer',
         },
     },
     view    : {
@@ -1038,10 +1042,6 @@ export const componentConfig = {
             property : {
                 dataset: {},
             },
-        },
-        codediff: {
-            path: '/view-codediff',
-            // document
         },
         panel   : {
             path     : '/view-panel',
@@ -1379,61 +1379,6 @@ export const componentConfig = {
                 },
             },
         },
-        panel: {
-            component: import('@component/data/panel/DataPanel'),
-            property : {
-                dataset: {
-                    url  : UniversalProps.url,
-                    model: {
-                        el   : 'input',
-                        parse: 'JSON',
-                        value: `{}`,
-                    },
-                },
-            },
-        },
-        list : {
-            component: import('@component/data/list/DataList'),
-            document : import('@component/data/list/DataList.md'),
-            path     : 'data-list',
-            property : {
-                dataset: {
-                    layout: {
-                        el     : 'radio',
-                        options: [
-                            { label: '水平', value: 'horizontal' },
-                            { label: '垂直', value: 'vertical' },
-                        ],
-                        value  : 'vertical',
-                        parse  : 'string',
-                    },
-                    col   : {
-                        el   : 'number',
-                        parse: 'number',
-                        value: 4,
-                        desc : '每行显示的列数',
-                    },
-                    gutter: {
-                        el   : 'input',
-                        parse: 'number[]',
-                        value: '12,12',
-                        desc : 'list的间隔，数组第一项为 左右的间隔，第二项为上下的间隔',
-                    },
-                    border: {
-                        el   : 'switch',
-                        parse: 'boolean',
-                        value: true,
-                        desc : '是否显示边框',
-                    },
-                    url   : {
-                        el   : 'input',
-                        parse: 'string',
-                        desc : '数据源',
-                        value: '',
-                    },
-                },
-            },
-        },
         tree : {
             path     : '/layout-tree',
             component: import('@component/data/tree/DataTree'),
@@ -1559,7 +1504,7 @@ export const componentConfig = {
         list: {},
     },
     layout  : {
-        menu  : {
+        menu    : {
             component: import('@component/layout/menu/LayoutMenu'),
             path     : '/layout-menu',
             property : {
@@ -1639,7 +1584,7 @@ export const componentConfig = {
                 },
             },
         },
-        tab   : {
+        tab     : {
             component: import('@component/layout/tab/LayoutTab'),
             document : import('@component/layout/tab/LayoutTab.md'),
             path     : '/layout-tab',
@@ -1665,7 +1610,7 @@ export const componentConfig = {
                 },
             },
         },
-        window: {
+        'window': {
             component: import('@component/layout/window/LayoutWindow'),
             document : import('@component/layout/window/LayoutWindow.md'),
             path     : '/layout-window',
@@ -1710,7 +1655,7 @@ export const componentConfig = {
                 },
             },
         },
-        drawer: {
+        drawer  : {
             component: import('@component/layout/drawer/LayoutDrawer'),
             property : {
                 dataset: {
@@ -1765,7 +1710,7 @@ export const componentConfig = {
                 },
             },
         },
-        list  : {
+        list    : {
             component: import('@component/layout/list/LayoutList'),
             document : import('@component/layout/list/LayoutList.md'),
             path     : '/layout-list',
@@ -1804,7 +1749,7 @@ export const componentConfig = {
                 },
             },
         },
-        grid  : {
+        grid    : {
             component: import('@component/layout/grid/LayoutGrid'),
             document : import('@component/layout/grid/LayoutGrid.md'),
             path     : '/layout-grid',
@@ -1866,56 +1811,13 @@ export const componentConfig = {
                 },
             },
         },
-        code    : {     // 代码编辑器
-            component: import('@component/code/editor/CodeEditor'),
-            path     : '/editor-code',
-            property : {
-                dataset: {},
-            },
-        },
-    },
-    template: {
-        panel: {
-            component: import('@src/private-component/template/ViewPanel'),
-            property : {
-                dataset: {
-                    title : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '标题',
-                        desc : '标题',
-                    },
-                    desc  : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '描述',
-                        desc : '描述',
-                    },
-                    avatar: {
-                        el   : 'input',
-                        parse: 'string',
-                        value: 'Chris',
-                        desc : '头像名称',
-                    },
-                },
-            },
-        },
-    },
-    hello   : {
-        word: {
-            component: import('@src/component/hello/word/HelloWord'),
-            property : {
-                title  : {
-                    el   : 'input',
-                    parse: 'string',
-                    value: 'Hello Chris',
-                    desc : 'title',
-                },
-                dataset: {
-                    url: {},
-                },
-            },
-        },
+        // code    : {     // 代码编辑器
+        //     component: import('@component/code/editor/CodeEditor'),
+        //     path     : '/editor-code',
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
     },
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 
