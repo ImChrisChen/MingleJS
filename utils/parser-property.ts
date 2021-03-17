@@ -103,7 +103,7 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
         value = parse(value);
     }
 
-    switch (parse) {
+    switch(parse) {
 
         case 'string':            // 模版解析
             value = new ParserTemplateService().parseTpl(value, document.body, 'tpl');
@@ -118,7 +118,7 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
             break;
 
         case 'string[]':             // 分割成数组
-            value = value ? value.split(',').filter(t => t) : [];
+            value = value ? (value.split(',').filter(t => t)) : [];
             break;
 
         case 'number[]':             // 分割成数组

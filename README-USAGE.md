@@ -58,7 +58,7 @@
 
 ~~~html
 <button @click="handleClick"> Submit </button> 			// "@click" 原生事件
-<form-datapicker @onClear="handleClearDate"></form-datapicker>		// "@onClear" 自定义事件
+<form-datapicker @onClear="handleClearDate"></form-datapicker>		// "@onClear" 元素自定义事件
 ~~~
 
 ~~~javascript
