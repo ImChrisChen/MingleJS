@@ -47,7 +47,6 @@ export default class LayoutWindow extends Component<IComponentProps, any> {
         this.setState({ visible: false });
     };
 
-    // TODO 待处理问题，当页面存在多个panel区域中都有弹窗的时候
     render() {
         return <Modal
             visible={ this.state.visible }

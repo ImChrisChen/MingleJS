@@ -217,9 +217,9 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
 };
 
 // TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
-export default {
+export const componentConfig = {
     // 子应用
-    app     : {
+    app   : {
         menu  : {
             component: import('@component/app/menu/AppMenu'),
             property : {
@@ -268,16 +268,16 @@ export default {
                 },
             },
         },
-        feishu: {
-            component: import('@component/app/feishu/AppFeishu'),
-            document : import('@component/app/feishu/AppFeishu.md'),
-            path     : '/app-lark',
-            property : {
-                dataset: {},
-            },
-        },
+        // feishu: {
+        //     component: import('@component/app/feishu/AppFeishu'),
+        //     document : import('@component/app/feishu/AppFeishu.md'),
+        //     path     : '/app-lark',
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
     },
-    form    : {
+    form  : {
         select    : {
             path     : '/form-select',
             component: import('@component/form/select/FormSelect'),
@@ -946,7 +946,7 @@ export default {
         },
         color     : {
             component: import('@component/form/color/FormColor'),
-            path     : 'form-color',
+            path     : '/form-color',
             property : {
                 dataset: {
                     label   : UniversalProps.label,
@@ -965,8 +965,69 @@ export default {
             },
             name     : '颜色选择器',
         },
+        transfer  : {
+            component: import('@component/form/transfer/FormTransfer'),
+            path     : '/form-transfer',
+            property : {
+                dataset: {
+                    url     : {
+                        el     : 'input',
+                        value  : domain + '/server/mock/select.json',
+                        desc   : '列表数据的接口地址',
+                        request: true,
+                        parse  : 'string',
+                        verify : value => isUrl(value),
+                    },
+                    key     : {
+                        el     : 'select',
+                        parse  : 'string',
+                        options: 'fromUrl',
+                        value  : 'id',
+                        desc   : '数据源唯一id',
+                    },
+                    value   : {
+                        el     : 'input',
+                        parse  : 'null',
+                        options: 'fromUrl',
+                        value  : 'publisher_name',    // TODO 主要要传模版的时候，不能去用 string 解析
+                        desc   : '要展示的内容模版/字段',
+                    },
+                    pagesize: {
+                        el   : 'input',
+                        parse: 'number',
+                        desc : '每页显示数量',
+                        value: 100,
+                    },
+                    height  : {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '高度',
+                        value: 300,
+                    },
+                    width   : {
+                        el   : 'number',
+                        parse: 'number',
+                        desc : '宽度',
+                        value: 240,
+                    },
+                    titles  : {
+                        el   : 'input',
+                        parse: 'string[]',
+                        desc : '标题',
+
+                        value: 'source,target',
+                    },
+                },
+                value  : {
+                    el   : 'input',
+                    parse: 'string[]',
+                    value: '1,2',
+                    desc : '默认值',
+                },
+            },
+        },
     },
-    view    : {
+    view  : {
         steps   : {
             path     : '/view-steps',
             component: import('@component/view/steps/ViewSteps'),
@@ -1039,10 +1100,6 @@ export default {
                 dataset: {},
             },
         },
-        codediff: {
-            path: '/view-codediff',
-            // document
-        },
         panel   : {
             path     : '/view-panel',
             document : import('@component/view/panel/ViewPanel.md'),
@@ -1080,7 +1137,7 @@ export default {
             },
         },
     },
-    data    : {
+    data  : {
         table: {
             component: import('@component/data/table/DataTable'),
             path     : '/data-table',
@@ -1379,61 +1436,6 @@ export default {
                 },
             },
         },
-        panel: {
-            component: import('@component/data/panel/DataPanel'),
-            property : {
-                dataset: {
-                    url  : UniversalProps.url,
-                    model: {
-                        el   : 'input',
-                        parse: 'JSON',
-                        value: `{}`,
-                    },
-                },
-            },
-        },
-        list : {
-            component: import('@component/data/list/DataList'),
-            document : import('@component/data/list/DataList.md'),
-            path     : 'data-list',
-            property : {
-                dataset: {
-                    layout: {
-                        el     : 'radio',
-                        options: [
-                            { label: '水平', value: 'horizontal' },
-                            { label: '垂直', value: 'vertical' },
-                        ],
-                        value  : 'vertical',
-                        parse  : 'string',
-                    },
-                    col   : {
-                        el   : 'number',
-                        parse: 'number',
-                        value: 4,
-                        desc : '每行显示的列数',
-                    },
-                    gutter: {
-                        el   : 'input',
-                        parse: 'number[]',
-                        value: '12,12',
-                        desc : 'list的间隔，数组第一项为 左右的间隔，第二项为上下的间隔',
-                    },
-                    border: {
-                        el   : 'switch',
-                        parse: 'boolean',
-                        value: true,
-                        desc : '是否显示边框',
-                    },
-                    url   : {
-                        el   : 'input',
-                        parse: 'string',
-                        desc : '数据源',
-                        value: '',
-                    },
-                },
-            },
-        },
         tree : {
             path     : '/layout-tree',
             component: import('@component/data/tree/DataTree'),
@@ -1488,7 +1490,7 @@ export default {
             },
         },
     },
-    tips    : {
+    tips  : {
         card: {
             component: import('@component/tips/card/TipsCard'),
             document : import('@component/tips/card/TipsCard.md'),
@@ -1558,8 +1560,8 @@ export default {
         },
         list: {},
     },
-    layout  : {
-        menu  : {
+    layout: {
+        menu    : {
             component: import('@component/layout/menu/LayoutMenu'),
             path     : '/layout-menu',
             property : {
@@ -1639,7 +1641,7 @@ export default {
                 },
             },
         },
-        tab   : {
+        tab     : {
             component: import('@component/layout/tab/LayoutTab'),
             document : import('@component/layout/tab/LayoutTab.md'),
             path     : '/layout-tab',
@@ -1665,7 +1667,7 @@ export default {
                 },
             },
         },
-        window: {
+        'window': {
             component: import('@component/layout/window/LayoutWindow'),
             document : import('@component/layout/window/LayoutWindow.md'),
             path     : '/layout-window',
@@ -1710,7 +1712,7 @@ export default {
                 },
             },
         },
-        drawer: {
+        drawer  : {
             component: import('@component/layout/drawer/LayoutDrawer'),
             property : {
                 dataset: {
@@ -1765,7 +1767,7 @@ export default {
                 },
             },
         },
-        list  : {
+        list    : {
             component: import('@component/layout/list/LayoutList'),
             document : import('@component/layout/list/LayoutList.md'),
             path     : '/layout-list',
@@ -1804,7 +1806,7 @@ export default {
                 },
             },
         },
-        grid  : {
+        grid    : {
             component: import('@component/layout/grid/LayoutGrid'),
             document : import('@component/layout/grid/LayoutGrid.md'),
             path     : '/layout-grid',
@@ -1813,7 +1815,7 @@ export default {
             },
         },
     },
-    handle  : {
+    handle: {
         request: {
             component: import('@component/handle/request/HandleRequest'),
             document : import('@component/handle/request/HandleRequest.md'),
@@ -1839,7 +1841,7 @@ export default {
             },
         },
     },
-    editor  : {
+    editor: {
         // flow    : {     // 流程图
         //     component: import('@component/editor/flow/EditorFlow'),
         //     property : {
@@ -1866,56 +1868,13 @@ export default {
                 },
             },
         },
-        code    : {     // 代码编辑器
-            component: import('@component/code/editor/CodeEditor'),
-            path     : '/editor-code',
-            property : {
-                dataset: {},
-            },
-        },
-    },
-    template: {
-        panel: {
-            component: import('@src/private-component/template/ViewPanel'),
-            property : {
-                dataset: {
-                    title : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '标题',
-                        desc : '标题',
-                    },
-                    desc  : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '描述',
-                        desc : '描述',
-                    },
-                    avatar: {
-                        el   : 'input',
-                        parse: 'string',
-                        value: 'Chris',
-                        desc : '头像名称',
-                    },
-                },
-            },
-        },
-    },
-    hello   : {
-        word: {
-            component: import('@src/component/hello/word/HelloWord'),
-            property : {
-                title  : {
-                    el   : 'input',
-                    parse: 'string',
-                    value: 'Hello Chris',
-                    desc : 'title',
-                },
-                dataset: {
-                    url: {},
-                },
-            },
-        },
+        // code    : {     // 代码编辑器
+        //     component: import('@component/code/editor/CodeEditor'),
+        //     path     : '/editor-code',
+        //     property : {
+        //         dataset: {},
+        //     },
+        // },
     },
 } as IModulesConfig<IPropertyConfig<IOptions>>;
 

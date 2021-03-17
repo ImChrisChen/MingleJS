@@ -27,7 +27,7 @@ import {
 import { message, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { isArray, isEmptyArray, isEmptyStr } from '@utils/inspect';
-import antvImage from '@static/images/antv.png';
+// import antvImage from '@static/images/antv.png';
 import moment from 'moment';
 import { RedoOutlined } from '@ant-design/icons';
 
@@ -393,7 +393,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         return <>
             <WordCloudChart
                 data={ formatData(config.dataSource) }
-                maskImage={ antvImage }
+                // maskImage={ '' }
                 // shape={ 'cardioid' }
                 wordStyle={ {
                     fontSize: [ 30, 40 ],

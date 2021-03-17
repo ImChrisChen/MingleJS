@@ -1,11 +1,11 @@
 /**
  * Created by WebStorm.
  * User: MacBook
- * Date: 2020/10/16
- * Time: 下午2:34
+ * Date: 2021/3/17
+ * Time: 10:22 上午
  */
 
-import moduleConfig from '@root/config/component.config';
+import { componentConfig } from '@root/config/component.config';
 
 // 递归加载模块
 async function getModules(keys, object) {
@@ -29,7 +29,7 @@ async function getModules(keys, object) {
 
 // TODO 后续可优化成读取目录的形式，不过感觉要配合 命令行生成目录会比较好
 export async function loadModules(keys: Array<string>) {
-    let module = await getModules(keys, moduleConfig);
+    let module = await getModules(keys, componentConfig);
     if (!module.component) {
         console.error(`没有${ keys }这个组件`);
         return false;
@@ -37,3 +37,13 @@ export async function loadModules(keys: Array<string>) {
     return module;
 }
 
+export function loadModule(keys: Array<string>) {
+    let mod = componentConfig[keys[0]][keys[1]];
+    console.log(mod);
+    return {
+        component: mod.component,
+        property : mod.property,
+        path     : mod.path,
+        config   : mod,
+    };
+}

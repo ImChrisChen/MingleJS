@@ -23,7 +23,7 @@ import {
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { PureComponent } from 'react';
-import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
+import { IOptions, IPropertyConfig, componentConfig } from '@root/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { arraylastItem } from '@root/utils/util';
@@ -583,7 +583,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                             let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
                             let formItem;
-                            switch (item.el) {
+                            switch(item.el) {
                                 case 'switch':
                                     formItem = this.renderSwitch(key, item);
                                     break;
