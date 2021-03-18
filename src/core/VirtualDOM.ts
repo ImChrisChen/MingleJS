@@ -116,7 +116,7 @@ export class VirtualDOM extends ParserTemplateService {
                 fn?.(vnode);
 
                 let childNodes: any = node.childNodes;
-                for (const childNode of [...childNodes]) {
+                for (const childNode of [ ...childNodes ]) {
                     vnode.append(this.getVnode(childNode, model, functions, vnode));
                 }
 
@@ -163,7 +163,7 @@ export class VirtualDOM extends ParserTemplateService {
                     } else {
                         try {
                             ifResult = Boolean(eval(newifExpress));
-                        } catch (e) {
+                        } catch(e) {
                             console.warn(`${ newifExpress }表达式格式错误`);
                             ifResult = false;
                         }
@@ -296,7 +296,7 @@ export class VirtualDOM extends ParserTemplateService {
                     return eval(param);
 
                 }
-            } catch (e) {
+            } catch(e) {
                 let pv = getObjectValue(param, model);
                 return pv;
             }
@@ -310,12 +310,12 @@ export class VirtualDOM extends ParserTemplateService {
     private getAttributesByElement(el: HTMLElement, model: object, functions: IFunctions): { attrs: object, events: object } {
         let attrs = {};
         let events: IMingleEvents = {};
-        for (const { name, value } of [...el.attributes]) {
+        for (const { name, value } of [ ...el.attributes ]) {
 
             // 事件
             if (name.startsWith('@')) {
-                let [, event] = name.split('@');      // 事件名称 'click'
-                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [ , event ] = name.split('@');      // 事件名称 'click'
+                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -341,13 +341,19 @@ export class VirtualDOM extends ParserTemplateService {
                 };
 
                 if (isUndefined(events[event])) {
-                    events[event] = [e];
+                    events[event] = [ e ];
                 } else {
                     events[event].push(e);
                 }
 
+            } else if (name.startsWith('^')) {      // 不解析该属性
+
+                let [ , nativeName ] = name.split('^');     // "^href" => "href"
+                attrs[nativeName] = value;
+
             } else {        // 属性
-                attrs[name] = value;
+                console.log(name, value);
+                attrs[name] = this.parseTpl(value, model, 'tpl');
             }
         }
         return {
@@ -370,7 +376,7 @@ export class VirtualDOM extends ParserTemplateService {
     private parseIF(express: string): boolean {
         try {
             return Boolean(eval(express));
-        } catch (e) {
+        } catch(e) {
             // TODO 有可能是 ~foreach 中的 if 语句
             console.error(`if内表达式解析语法错误: ${ express }`);
             return false;
@@ -389,13 +395,13 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     private getForEachVars(express: string, model: object) {
-        let [arrayName, itemName]: Array<string> = express.split('as');
+        let [ arrayName, itemName ]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称

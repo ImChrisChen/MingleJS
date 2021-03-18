@@ -67,7 +67,6 @@ export class FormatDataService {
                     value += String(item[k]) + '|';
                 });
                 value = value.substr(0, value.length - 1);
-                console.log(value);
             }
 
             return {
@@ -240,7 +239,7 @@ export class FormatDataService {
 
         if (isWuiTpl(tpl)) { // template
             // label = parseTpl(tpl, item);
-            label = this.parserTemplateService.parseTpl(tpl, item, 'field');
+            label = this.parserTemplateService.parseTpl(tpl, item, 'tpl');
         } else {
             label = item[tpl];
         }

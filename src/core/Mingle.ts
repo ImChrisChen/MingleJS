@@ -124,13 +124,13 @@ export class Mingle {
         let funcs = { methods: methods, callthis: proxyData };
 
         // 虚拟DOM实现
-        // let vnode: IMingleVnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
-        // let node = this.virtualDOM.vnodeToHtml(vnode);
-        // $(container).html('');
-        // for (const child of [ ...node.childNodes ]) {
-        //     container.append(child);
-        // }
-        // this.render(container);
+        let vnode: IMingleVnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
+        let node = this.virtualDOM.vnodeToHtml(vnode);
+        $(container).html('');
+        for (const child of [ ...node.childNodes ]) {
+            container.append(child);
+        }
+        this.render(container);
 
         // if (this.oldVnode) {
         //     this.mvvm.patch(this.oldVnode, vnode);
@@ -148,8 +148,8 @@ export class Mingle {
         // let node = this.virtualDOM.vnodeToHtml(vnode);
 
         // 原始DOM实现
-        let node = this.parserElementService.parseElement(container, data, funcs);
-        await this.render(node);
+        // let node = this.parserElementService.parseElement(container, data, funcs);
+        // await this.render(node);
     }
 
     private diffProps(oldVnode: IMingleVnode, vnode: IMingleVnode) {

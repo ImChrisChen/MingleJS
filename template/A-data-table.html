@@ -2,7 +2,7 @@
     <layout-list data-cols="2" data-space="10,10">
         <data-table data-height="400" data-headitemfield="headeritem">
             <ul>
-                <layout-window w-foreach="headerData as (item,i)" @click="handleClick(item)" ...item></layout-window>
+                <layout-window w-foreach="headerData as (item,i)" @click="handleClick(item)"></layout-window>
             </ul>
         </data-table>
     </layout-list>
@@ -45,6 +45,6 @@
 
 <script>
     window.onload = function () {
-        new Mingle()
-    }
+        new Mingle();
+    };
 </script>
