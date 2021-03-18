@@ -50,6 +50,33 @@
 
 
 
+#### 不使用模版解析 属性
+
+语法：  在属性名前面添加 `^` 符号  `^href=""`
+
+~~~html
+<input type="text" ^value="<{value}>" />		// input.value => "<{value}>"
+<input type="text" value="<{value}>" />		// input.value => "Hello World ~ "
+~~~
+
+~~~js
+new Mingle({
+	data: {
+        value: "Hello World ~ "
+    }
+})
+~~~
+
+
+
+#### 不解析当前元素
+
+语法：w-readonly
+
+
+
+
+
 #### 事件解析
 
 事件解析用的 @操作符号 例如： @[事件名称]=“[函数名称]”

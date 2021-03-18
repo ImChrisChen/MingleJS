@@ -6,7 +6,7 @@
  */
 import { IFunctions } from '@services/ParserElement.service';
 import { getObjectValue } from '@utils/util';
-import { isArray, isObject, isUndefined } from '@utils/inspect';
+import { isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
 import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 
@@ -351,9 +351,15 @@ export class VirtualDOM extends ParserTemplateService {
                 let [ , nativeName ] = name.split('^');     // "^href" => "href"
                 attrs[nativeName] = value;
 
+            } else if (isExpandSymbol(name)) {
+
+                let props = this.parseExpand(name, model);
+                attrs = Object.assign(attrs, props);
+
             } else {        // 属性
-                console.log(name, value);
-                attrs[name] = this.parseTpl(value, model, 'tpl');
+                if (isWuiTpl(value)) {
+                    attrs[name] = this.parseTpl(value, model, 'tpl');
+                }
             }
         }
         return {
@@ -426,6 +432,29 @@ export class VirtualDOM extends ParserTemplateService {
             arrayName, itemName, indexName,
             loopData,
         };
+    }
+
+    private parseExpand(name, model): object {
+        let [ , key ]: Array<string> = name.split('...');
+        let itemModel = getObjectValue(key, model);
+        let props = {};
+
+        if (isUndefined(itemModel)) {
+            return {};
+        }
+
+        for (const key in itemModel) {
+            if (!itemModel.hasOwnProperty(key)) continue;
+            let value = itemModel[key];
+
+            // element 上没有这个属性才给它设置
+            // 如果是 混合数据类型, 对数据格式做处理，否则会成为 [object,object]
+            if (isObject(value) || isArray(value)) {
+                value = JSON.stringify(value);
+            }
+            props[key] = value;
+        }
+        return props;
     }
 
 }
