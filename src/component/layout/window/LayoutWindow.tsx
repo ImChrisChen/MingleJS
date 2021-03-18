@@ -11,48 +11,101 @@ import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
 
+interface ILayoutModalProps {
+    content: HTMLElement
+    onClose: (...args) => any
+    dataset?: any
+
+    [key: string]: any
+}
+
+class LayoutModal extends Component<ILayoutModalProps, any> {
+
+    constructor(prosp) {
+        super(prosp);
+        console.log(prosp);
+    }
+
+    render() {
+        let { content, onClose } = this.props;
+        return <div ref={ el => el && el.append(content) } style={ { width: 'inherit', height: 'inherit' } }>
+            <div
+                style={ {
+                    display       : 'flex',
+                    justifyContent: 'space-between',
+                    alignItems    : 'center',
+                    padding       : '8px 0',
+                    borderBottom  : '1px solid #ccc',
+                    cursor        : 'move',
+                } }>
+                <div></div>
+                <h2 style={ { marginBottom: 0 } }>{ this.props.dataset.title }</h2>
+                <Button onClick={ onClose }>关闭</Button>
+            </div>
+        </div>;
+    }
+}
+
 export default class LayoutWindow {
 
-    private iframe;
     private el: HTMLElement;
     private delay: number = 400;       // ms
+    private target = `layout-window-iframe`;
+    private props;
 
-    constructor(el) {
-        this.el = el;
+    constructor(props) {
+        console.log(props);
+        this.props = props;
+        this.el = props.el;
 
-        el.addEventListener('click', e => {
+        let elTarget = this.el.getAttribute('target');
+        if (!elTarget) {
+            this.el.setAttribute('target', this.target);
+        } else {
+            return;
+        }
+
+        this.el.addEventListener('click', e => {
             let layoutWindowContainer = $('.layout-window-container');
             // 复用同一个iframe
             if (layoutWindowContainer.length > 0) {
                 layoutWindowContainer.fadeIn(this.delay);
             } else {
-                this.createIframe();
+                this.renderIframe();
             }
         });
     }
 
-    createIframe() {
+    renderIframe() {
         let iframe = document.createElement('iframe');
-        iframe.name = this.el.getAttribute('target') || '';
-        iframe.height = '400';
-        iframe.width = '600';
-        iframe.classList.add('layout-window-iframe');
-        this.iframe = iframe;
 
-        let iframeModal = <div ref={ el => el && el.append(iframe) }>
-            <Button onClick={ this.handleClose }>关闭</Button>
-        </div>;
+        iframe.name = this.target;
+        iframe.classList.add('layout-window-iframe');
+
+        // let iframeModal = <div ref={ el => el && el.append(iframe) } style={ { width: 'inherit', height: 'inherit' } }>
+        //     <Button onClick={ this.handleClose }>关闭</Button>
+        // </div>;
 
         let container = document.createElement('div');
         container.classList.add('layout-window-container');
+
+        container.style.height = '520px';
+        container.style.width = '720px';
+
         document.body.append(container);
-        ReactDOM.render(iframeModal, container);
+        ReactDOM.render(
+            <LayoutModal
+                { ...this.props }
+                content={ iframe }
+                onClose={ this.handleClose }
+            />,
+            container,
+        );
     }
 
     handleClose = () => {
         $('.layout-window-container').fadeOut(this.delay);
     };
-
 }
 
 class LayoutWindows extends Component<IComponentProps, any> {

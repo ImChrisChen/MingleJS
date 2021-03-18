@@ -153,7 +153,7 @@ http://mingle.local.aidalan.com/report.html
 
 子应用是在 组件的基础上，添加了业务的处理，通常只针对某些特殊系统去实现某个特殊的功能，才需要考虑以子应用的形式去实现。
 
-子应用全部放在 ”app“ 下面 例如 app-xxx
+子应用全部放在 ”app“ 下面 例如 app-xxx （以 <app- 开头的所有组件）
 
 代码示例：
 
@@ -167,6 +167,22 @@ http://mingle.local.aidalan.com/report.html
 > 在这里我希望每个开发 / 维护 minglejs的 同学能对组件有自己的理解和看法
 >
 > **而不是成为盲目支撑需求的工具人**
+
+
+
+### 3.功能模块
+
+具体结构可参考  /config/component.config.ts
+
+格式 : data-fn="模块-模块"
+
+~~~html
+<a data-fn="layout-window" href="https://baidu.com"></a>
+~~~
+
+==⚠️注意：功能模块必须导出一个 非React组件的  class 模块==
+
+ 
 
 ## 使用说明
 
