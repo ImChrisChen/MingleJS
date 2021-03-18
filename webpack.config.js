@@ -1,8 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HappyPack = require('happypack');
-const os = require('os');
-const happyThreadPool = HappyPack.ThreadPool({ size: 6 });
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
 

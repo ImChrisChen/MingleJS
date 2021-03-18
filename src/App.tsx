@@ -5,7 +5,7 @@ import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isClass, isCustomElement, isFunc, isPromise, isReactComponent, isUndefined } from '@utils/inspect';
+import { isCustomElement, isFunc, isPromise, isReactComponent, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
