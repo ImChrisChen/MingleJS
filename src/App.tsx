@@ -5,12 +5,13 @@ import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isCustomElement, isFunc, isUndefined } from '@utils/inspect';
+import { isClass, isCustomElement, isFunc, isPromise, isReactComponent, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
 import { Monitor } from '@services/Monitor';
+// import { INativeProps } from '@interface/common/component';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -85,34 +86,59 @@ export default class App {
             let { localName: tagName } = element;
             tagName = tagName.trim();
 
-            if (!isCustomElement(tagName)) {
+            if (!tagName) {
                 return;
             }
 
-            if (App.registerComponents.includes(tagName)) {
-                // console.log('有注册过', App.registerComponents, tagName);
-                return;
-            }
+            // 如果是自定义组件
+            if (isCustomElement(tagName)) {
+                if (App.registerComponents.includes(tagName)) {
+                    // console.log('有注册过', App.registerComponents, tagName);
+                    return;
+                }
 
-            window.customElements.define(tagName, class extends HTMLElement {
-                constructor() {
-                    super();
+                window.customElements.define(tagName, class extends HTMLElement {
+                    constructor() {
+                        super();
+                        /**
+                         * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
+                         *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                         */
+                    }
+
                     /**
-                     * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
-                     *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                     * 元素链接成功后
                      */
+                    connectedCallback() {
+                        App.renderCustomElement(this);
+                    }
+
+                });
+
+                App.registerComponents.push(tagName);
+
+            } else {        // data-fn 函数功能
+
+                let methods = element.getAttribute('data-fn');
+                if (!methods) {
+                    return;
                 }
 
-                /**
-                 * 元素链接成功后
-                 */
-                connectedCallback() {
-                    App.renderCustomElement(this);
+                let Module = loadModule(methods.split('-'));
+                const Component = (await Module.component).default;
+
+                // 不是react组件,直接 new Class
+                if (!isReactComponent(Component)) {
+                    let defaultProperty = Module.property;
+                    let { dataset, attrs } = App.parseProps(element, defaultProperty);
+                    new Component({
+                        el: element,
+                        dataset,
+                        ...attrs,
+                    });         // 统一使用 class 写法
                 }
 
-            });
-
-            App.registerComponents.push(tagName);
+            }
         });
 
         App.errorVerify();
@@ -129,9 +155,8 @@ export default class App {
             return;
         }
 
-
-        if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
-            componentName = el.attributes['data-fn'].value;
+        if (componentName === 'define-component' && el.attributes?.['module']?.value) {
+            componentName = el.attributes['module'].value;
         }
 
         if (!componentName) {
@@ -176,12 +201,15 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        const Modules = loadModule(keysArr);
-        const Component = (await Modules.component).default;            // React组件
-        const config = Modules.config;
+        const Module = loadModule(keysArr);
+        const Component = (await Module.component).default;            // React组件
 
-        let defaultProperty = Modules.property;
+        if (!isReactComponent(Component)) {
+            return;
+        }
 
+        const config = Module.config;
+        let defaultProperty = Module.property;
         let hooks = App.formatHooks(attributes);
         let module: IModules = {
             Component,
@@ -224,40 +252,6 @@ export default class App {
     // 获取所有组件实例
     public static getInstances(): any {
         return App?.instances ?? {};
-    }
-
-    // 通过 Element 获取到组件解析后的所有属性
-    public static async parseElementProperty(el: HTMLElement): Promise<any> {
-        let componentName = el.localName ?? '';
-        let componentModule = loadModule(componentName.split('-'));
-        let defaultProperty = componentModule.property;
-        // @ts-ignore
-        let { dataset, hook, ...attrs } = defaultProperty;     // default
-
-        // dataset
-        let parsedDataset = parserDataset(el.dataset, dataset);
-
-        // 普通属性
-        let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
-            if (!item.name.includes('data-')) {
-                elAttrs[item.name] = item.value;
-            }
-        });
-        let parsedAttrs = parserAttrs(elAttrs, attrs, parsedDataset);
-
-        // 处理 value 属性
-        let defaultValue = typeof defaultProperty?.value?.value === 'function'
-            ? defaultProperty.value.value(parsedDataset)
-            : defaultProperty?.value?.value ?? '';
-
-        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
-        parsedAttrs.value = el['value'] || defaultValue;
-
-        return {
-            dataset: { ...parsedDataset },
-            ...parsedAttrs,
-        };
     }
 
     public static renderIcons(rootElement: HTMLElement) {
@@ -505,31 +499,63 @@ export default class App {
         }
     }
 
+    // 通过 Element 获取到组件解析后的所有属性
+    public static async parseElementProperty(el: HTMLElement): Promise<any> {
+        let componentName = el.localName ?? '';
+        let componentModule = loadModule(componentName.split('-'));
+
+        let defaultProperty = componentModule.property;
+
+        let { dataset, attrs } = this.parseProps(el, defaultProperty);
+
+        return { dataset, ...attrs };
+    }
+
+    public static parseProps(el: HTMLElement, defaultProperty) {
+
+        // @ts-ignore
+        let { dataset, hook, ...attrs } = defaultProperty;     // default
+
+        // dataset
+        let parsedDataset = parserDataset(el.dataset, dataset ?? {});
+
+        // 普通属性
+        let elAttrs = {};     // key value
+        [ ...el.attributes ].forEach(item => {
+            if (!item.name.includes('data-')) {
+                elAttrs[item.name] = item.value;
+            }
+        });
+        let parsedAttrs = parserAttrs(elAttrs, attrs, parsedDataset);
+
+        // 处理 value 属性
+        let defaultValue = typeof defaultProperty?.value?.value === 'function'
+            ? defaultProperty.value.value(parsedDataset)
+            : defaultProperty?.value?.value ?? '';
+
+        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
+        parsedAttrs.value = el['value'] || defaultValue;
+
+        return {
+            dataset: parsedDataset,
+            attrs  : parsedAttrs,
+        };
+    }
+
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, hooks, componentUID, subelements, templates, container,
         } = module;
 
-        let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
-
-        // 处理 data-* 属性
-        let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-        let parsedDataset = parserDataset(dataset, defaultDataset ?? {});
-
-        // 普通属性
-        let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
-            if (!item.name.includes('data-')) attrs[item.name] = item.value;
-        });
-        let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
+        let { dataset: parsedDataset, attrs } = this.parseProps(element, defaultProperty);
 
         let instance: any = null;
         let props = {
-            el     : element,
             templates,
             subelements,
+            el     : element,
             dataset: parsedDataset,
-            ...parsedAttrs,
+            ...attrs,
             ref: componentInstance => {        // 组件实例
                 // componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;

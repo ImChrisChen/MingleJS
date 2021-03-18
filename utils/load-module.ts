@@ -39,7 +39,6 @@ export async function loadModules(keys: Array<string>) {
 
 export function loadModule(keys: Array<string>) {
     let mod = componentConfig[keys[0]][keys[1]];
-    console.log(mod);
     return {
         component: mod.component,
         property : mod.property,

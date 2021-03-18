@@ -234,3 +234,11 @@ export function isUrl(url: string): boolean {
     return rule.test(url);
 }
 
+// 是否是 Promise 对象
+export function isPromise(o): boolean {
+    return o instanceof Promise;
+}
+
+export function isReactComponent(o) {
+    return !!o.prototype.isReactComponent;
+}

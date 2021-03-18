@@ -5,6 +5,7 @@
  * Time: 11:09 上午
  */
 
+// react 组件模块 
 export interface IComponentProps {
     el: HTMLElement
     subelements: Array<HTMLElement>
@@ -13,6 +14,16 @@ export interface IComponentProps {
     container: HTMLElement
     dataset?: any
     ref?: () => any
+    value?: any
+
+    [key: string]: any
+}
+
+// class 模块
+export interface INativeProps {
+    el: HTMLElement
+    style?: IReactStyle
+    dataset?: any
     value?: any
 
     [key: string]: any

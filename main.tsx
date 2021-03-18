@@ -38,3 +38,4 @@ window['Message'] = message;
 window['Notice'] = notification;
 window['Mingle'] = Mingle;
 window['App'] = App;
+window['React'] = React;
