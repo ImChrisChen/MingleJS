@@ -7,7 +7,7 @@
 import { IFunctions } from '@services/ParserElement.service';
 import { getObjectValue } from '@utils/util';
 import { isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
-import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
+import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@root/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 const events = {
@@ -99,15 +99,19 @@ export class VirtualDOM extends ParserTemplateService {
 
     }
 
-    public getVnode(node: HTMLElement, model: any, functions: IFunctions, parent?: IMingleVnode) {
+    public getVnode(node: HTMLElement, model: any, functions: IFunctions, parent?: IMingleVnode, readOnly = false) {
         let nodeType = node.nodeType;
         let vnode;
 
         if (nodeType === 1) {               // element
             let nodeName = node.localName;
-            let { attrs, events } = this.getAttributesByElement(node, model, functions);
-            // let nodeValue = this.parseTpl(node.nodeValue, model, 'field');
             let nodeValue = node.nodeValue;     // 节点的 nodeValue 为null
+
+            if (node.getAttribute(directiveReadonly)) {
+                readOnly = true;
+            }
+
+            let { attrs, events } = this.getAttributesByElement(node, model, functions);
 
             const render = (model, fn?: (...args) => any) => {
 
@@ -117,7 +121,7 @@ export class VirtualDOM extends ParserTemplateService {
 
                 let childNodes: any = node.childNodes;
                 for (const childNode of [ ...childNodes ]) {
-                    vnode.append(this.getVnode(childNode, model, functions, vnode));
+                    vnode.append(this.getVnode(childNode, model, functions, vnode, readOnly));
                 }
 
             };
@@ -188,8 +192,11 @@ export class VirtualDOM extends ParserTemplateService {
 
         } else if (nodeType === 3) {        // 文本节点
             if (node.nodeValue && node.nodeValue.trim()) {
+                console.log(node.nodeValue);
 
-                let nodeValue = this.parseTpl(node.nodeValue, model, 'tpl');
+                let nodeValue = readOnly
+                    ? node.nodeValue
+                    : this.parseTpl(node.nodeValue, model, 'tpl');
                 vnode = new VNode(undefined, undefined, nodeValue, nodeType, {}, node);
             }
         }
@@ -357,9 +364,12 @@ export class VirtualDOM extends ParserTemplateService {
                 attrs = Object.assign(attrs, props);
 
             } else {        // 属性
+
                 if (isWuiTpl(value)) {
                     attrs[name] = this.parseTpl(value, model, 'tpl');
                 }
+
+                attrs[name] = value;
             }
         }
         return {
