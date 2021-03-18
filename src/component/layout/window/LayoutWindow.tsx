@@ -10,6 +10,7 @@ import { IComponentProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
+import { CloseOutlined } from '@ant-design/icons';
 
 interface ILayoutModalProps {
     content: HTMLElement
@@ -40,7 +41,7 @@ class LayoutModal extends Component<ILayoutModalProps, any> {
                 } }>
                 <div></div>
                 <h2 style={ { marginBottom: 0 } }>{ this.props.dataset.title }</h2>
-                <Button onClick={ onClose }>关闭</Button>
+                <CloseOutlined style={ { marginRight: 20 } } onClick={ onClose }/>
             </div>
         </div>;
     }

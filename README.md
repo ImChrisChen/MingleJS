@@ -186,7 +186,7 @@ http://mingle.local.aidalan.com/report.html
 
 ## 使用说明
 
-1. 表单组件调用方式为 web-components形式
+1. 表单组件调用方式为 web-components形式（3.功能模块除外）
 2. 组件所有属性均通过 data-*="属性值" 组件默认值通过设置上的value值即可
 
 

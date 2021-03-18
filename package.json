@@ -22,7 +22,6 @@
         "@turf/turf": "^5.1.6",
         "@types/axios": "^0.14.0",
         "@types/jquery": "^3.5.1",
-        "@types/node": "^14.11.2",
         "@types/react-highlight-words": "^0.16.1",
         "@types/react-window": "^1.8.2",
         "@types/uglifyjs-webpack-plugin": "^1.1.0",
@@ -58,7 +57,6 @@
         "webpack-dev-server": "^3.11.0"
     },
     "dependencies": {
-        "@ant-design/charts": "^1.0.0",
         "@ant-design/icons": "^4.3.0",
         "@antv/data-set": "^0.11.7",
         "@types/express": "^4.17.9",
