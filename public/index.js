@@ -8,35 +8,17 @@
 
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
+    let development = Number.parseInt(url2Obj(window.location.href).development) === 1;
+    let version = new Date().getTime();
+    let files = getUrls();
     
-    let currentScript = document.currentScript;
-    console.log(currentScript);
-    
-    const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
-    const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
-    const BizCharts = `https://g.alicdn.com/code/lib/bizcharts/4.1.9/BizCharts.min.js`;
-    const JQuery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
-    
-    const development = Number.parseInt(url2Obj(window.location.href).development) === 1;
+    console.log(files);
     console.log(`是否开发环境:`, development);
-    const hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
-    const files = [
-        React,
-        ReactDOM,
-        JQuery,
-        
-        // BizCharts,
-        `${ hostname }main.min.js`,
-        `${ hostname }manifest.min.js`,
-        `${ hostname }chart.min.js`,
-        `${ hostname }main.css`,
-        `${ hostname }manifest.css`,
-    ];
-    const version = new Date().getTime();
     
     //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
         let url = `${ file }?date=${ version }`;
+        
         if (isJavascript(file)) {
             return createScript(file, url);
         } else {
@@ -44,7 +26,39 @@
         }
     }).filter(t => t);
     
-    document.body.append(...scripts);
+    document.body.parentElement.append(...scripts);
+    
+    function getLibs() {
+        let currentScript = document.currentScript;
+        let imports = currentScript.getAttribute('import') || '';
+        let libNames = (imports ? imports.split(',') : []).filter(e => e);
+        
+        const libsMap = {
+            charts: `https://g.alicdn.com/code/lib/bizcharts/4.1.9/BizCharts.min.js`,
+        };
+        return (libNames.length > 0) ? libNames.map(name => libsMap[name]) : [];
+    }
+    
+    function getUrls() {
+        const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
+        const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
+        const JQuery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
+        
+        let hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
+        
+        return [
+            React,
+            ReactDOM,
+            JQuery,
+            
+            ...getLibs(),
+            
+            `${ hostname }main.min.js`,
+            `${ hostname }manifest.min.js`,
+            `${ hostname }main.css`,
+            `${ hostname }manifest.css`,
+        ];
+    }
     
     // 判读文件后缀是否是js
     function isJavascript(file) {
@@ -84,6 +98,5 @@
         });
         return o;
     }
-    
     
 })(window.document);
