@@ -5,8 +5,12 @@
  * Time: 9:56 下午
  */
 
+
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
+    
+    let currentScript = document.currentScript;
+    console.log(currentScript);
     
     const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
     const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
@@ -22,17 +26,17 @@
         JQuery,
         
         // BizCharts,
-        'main.min.js',
-        'manifest.min.js',
-        'chart.min.js',
-        'main.css',
-        'manifest.css',
+        `${ hostname }main.min.js`,
+        `${ hostname }manifest.min.js`,
+        `${ hostname }chart.min.js`,
+        `${ hostname }main.css`,
+        `${ hostname }manifest.css`,
     ];
     const version = new Date().getTime();
     
     //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
-        let url = hostname + file + '?date=' + version;
+        let url = `${ file }?date=${ version }`;
         if (isJavascript(file)) {
             return createScript(file, url);
         } else {
