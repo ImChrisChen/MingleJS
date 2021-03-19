@@ -107,8 +107,10 @@ export class VirtualDOM extends ParserTemplateService {
             let nodeName = node.localName;
             let nodeValue = node.nodeValue;     // 节点的 nodeValue 为null
 
-            if (node.getAttribute(directiveReadonly)) {
+            // w-readonly 只要有些属性就生效
+            if (!isUndefined(node.attributes['w-readonly'])) {
                 readOnly = true;
+                console.log(readOnly, node);
             }
 
             let { attrs, events } = this.getAttributesByElement(node, model, functions);
@@ -192,11 +194,11 @@ export class VirtualDOM extends ParserTemplateService {
 
         } else if (nodeType === 3) {        // 文本节点
             if (node.nodeValue && node.nodeValue.trim()) {
-                console.log(node.nodeValue);
 
                 let nodeValue = readOnly
                     ? node.nodeValue
                     : this.parseTpl(node.nodeValue, model, 'tpl');
+                console.log(node.nodeValue, readOnly);
                 vnode = new VNode(undefined, undefined, nodeValue, nodeType, {}, node);
             }
         }

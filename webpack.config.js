@@ -47,10 +47,8 @@ module.exports = {
     devtool: isProduction ? 'cheap-module-source-map' : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
         // [name]是对应的入口文件的key, [name].js 就是main.js
-        main: isProduction
-            ? './main.production.ts'
-            : './main.tsx',    // https://webpack.js.org/guides/code-splitting/
-        // vendoer: [
+        // main: isProduction ? './main.production.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
+        main: './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
         //     'react',
         //     'react-dom',
         //     'antd',
