@@ -8,10 +8,26 @@
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
     
+    const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
+    const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
+    const BizCharts = `https://g.alicdn.com/code/lib/bizcharts/4.1.9/BizCharts.min.js`;
+    const JQuery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
+    
     const development = Number.parseInt(url2Obj(window.location.href).development) === 1;
     console.log(`是否开发环境:`, development);
     const hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
-    const files = ['main.min.js', 'manifest.min.js', 'chart.min.js', 'main.css', 'manifest.css'];
+    const files = [
+        React,
+        ReactDOM,
+        JQuery,
+        
+        // BizCharts,
+        'main.min.js',
+        'manifest.min.js',
+        'chart.min.js',
+        'main.css',
+        'manifest.css',
+    ];
     const version = new Date().getTime();
     
     //TODO 如果是开发环境则不用生成css

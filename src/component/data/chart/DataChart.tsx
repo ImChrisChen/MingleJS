@@ -58,7 +58,7 @@ const { DataView } = DataSet;
 
 export function PanelTitle(props: { title: string, handleReload: () => any }) {
     let style: any = {
-        textAlign : 'center',
+        textAlign: 'center',
         // background: '#f0f2f5',
         fontSize  : '18px',
         height    : '28px',
@@ -320,7 +320,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                             position: 'middle', // top|middle|bottom|left|right
                             offsetX : -15,
                             // content: numeral(val).format('0,0'),
-                            style   : {
+                            style: {
                                 fill: '#fff',
                             },
                         }),
@@ -523,7 +523,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         let data = config.dataSource;
         const dv = new DataView().source(data);
         dv.transform({
-            type  : 'fold',
+            type: 'fold',
             // fields: [ 'a', 'b' ], // 展开字段集
             fields: config.value, // 展开字段集
             key   : 'user', // key字段
@@ -780,7 +780,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 tooltip_suffix,
                 tooltip_cross,
             };
-        } catch (e) {
+        } catch(e) {
             return {};
         }
     }
@@ -823,7 +823,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     }
 
     public static renderChart(config): ReactNode {
-        switch (config.chartType) {
+        switch(config.chartType) {
             case 'bar':
                 return this.bar(config);
             case 'hbar':

@@ -238,8 +238,10 @@ module.exports = {
         // 'react': 'React',
         // 'react-dom': 'ReactDOM',
         // 'antd': true,
-        // 'jquery': 'jquery',
-        // 'bizcharts': 'bizcharts',
+        'jquery': '$',
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        'bizcharts': 'BizCharts',
         'gg-editor': 'gg-editor',
     },
     plugins: [
@@ -314,13 +316,15 @@ module.exports = {
         }),
         
         new FileManagerPlugin({
-            onEnd: {
-                copy: [
-                    {
-                        source: './public/index.js',
-                        destination: './dist/index.js',
-                    },
-                ],
+            events: {
+                onEnd: {
+                    copy: [
+                        {
+                            source: './public/index.js',
+                            destination: './dist/index.js',
+                        },
+                    ],
+                },
             },
         }),
         
