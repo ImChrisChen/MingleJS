@@ -15,7 +15,6 @@ import LayoutMenu from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
-import md5 from 'md5';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
 import { HttpClientService } from '@root/src/services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
@@ -96,7 +95,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist } pathfield=""/>
+                <LayoutMenu data={ this.state.menulist } pathfield=""/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>

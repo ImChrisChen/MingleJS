@@ -13,23 +13,31 @@ import {
     Area,
     Axis,
     Chart,
-    Coordinate, Geom, Guide,
+    Coordinate,
+    Geom,
+    Guide,
     Interaction,
     Interval,
     Legend,
     Line,
     LineAdvance,
-    Point, Polygon,
+    Point,
+    Polygon,
     Tooltip,
     WordCloudChart,
 } from 'bizcharts';
 
-import { message, Spin, Typography } from 'antd';
+import { Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { isArray, isEmptyArray, isEmptyStr } from '@utils/inspect';
 // import antvImage from '@static/images/antv.png';
 import moment from 'moment';
 import { RedoOutlined } from '@ant-design/icons';
+import DataSet from '@antv/data-set';
+import { ChartTootipCustom } from './component/ChartTootipCustom';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -47,12 +55,6 @@ interface IChartConfig {
 
     [key: string]: any
 }
-
-import DataSet from '@antv/data-set';
-import { ChartTootipCustom } from './component/ChartTootipCustom';
-import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
 
 const { DataView } = DataSet;
 
@@ -160,7 +162,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         //TODO
         return <>
             <Chart height={ config.height } data={ config.dataSource } scale={ cols } autoFit
-                   interactions={ [ 'element-single-selected' ] }>
+                   interactions={ ['element-single-selected'] }>
                 <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
                 {/*<Tooltip shared showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
@@ -170,14 +172,14 @@ export default class DataChart extends Component<IComponentProps, any> {
                     adjust="stack"
                     color={ config.key }
                     label={
-                        [ '*', {
+                        ['*', {
                             content: (data) => {
                                 return `
                                     ${ data[config.key] }: ${ data[config.value] }
                                     百分比: ${ (data[config.value] / valueSum * 100).toFixed(2) }%
                                 `;
                             },
-                        } ] }
+                        }] }
                 />
             </Chart>
         </>;
@@ -206,7 +208,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         //TODO
         return <>
             <Chart height={ config.height } data={ config.dataSource } scale={ cols } autoFit
-                   interactions={ [ 'element-single-selected' ] }>
+                   interactions={ ['element-single-selected'] }>
                 <Coordinate type="theta" radius={ 0.85 }/>
                 {/*<Tooltip showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
@@ -216,14 +218,14 @@ export default class DataChart extends Component<IComponentProps, any> {
                     adjust="stack"
                     color={ config.key }
                     label={
-                        [ '*', {
+                        ['*', {
                             content: (data) => {
                                 return `
                                     ${ data[config.key] }: ${ data[config.value] }
                                     百分比: ${ (data[config.value] / valueSum * 100).toFixed(2) }%
                                 `;
                             },
-                        } ] }
+                        }] }
                 />
             </Chart>
         </>;
@@ -248,9 +250,9 @@ export default class DataChart extends Component<IComponentProps, any> {
                     lineWidth: 1,
                     stroke   : '#fff',
                 } }
-                label={ [ config.key, {
+                label={ [config.key, {
                     offset: -15,
-                } ] }
+                }] }
             />
         </Chart>;
     }
@@ -262,10 +264,10 @@ export default class DataChart extends Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ ['active-region'] }>
 
                 <Interval position={ position } color={ colors }
-                          adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
+                          adjust={ [{ type: 'dodge', marginRatio: 0 }] }/>
 
                 <TooltipCustom config={ config }/>
                 <Legend
@@ -347,7 +349,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         let { position, dataSource, colors } = this.formatGroupsData(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ ['active-region'] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
@@ -396,7 +398,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 // maskImage={ '' }
                 // shape={ 'cardioid' }
                 wordStyle={ {
-                    fontSize: [ 30, 40 ],
+                    fontSize: [30, 40],
                 } }
             />
         </>;
@@ -433,7 +435,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <Chart
                 height={ config.height }
                 data={ dv.rows }
-                padding={ [ 20, 120, 95 ] }
+                padding={ [20, 120, 95] }
                 forceFit
             >
                 <Tooltip
@@ -443,7 +445,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 />
                 <Axis name={ percent } grid={ null } label={ null }/>
                 <Axis name={ config.key } label={ null } line={ null } grid={ null } tickLine={ null }/>
-                <Coordinate scale={ [ 1, -1 ] } transpose type="rect"/>
+                <Coordinate scale={ [1, -1] } transpose type="rect"/>
                 <Legend/>
                 { dv.rows.map((obj: any, i) => {
                     return (
@@ -471,7 +473,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                     shape="funnel"
                     color={ [
                         config.key,
-                        [ '#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF' ],
+                        ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'],
                     ] }
                     tooltip={ [
                         // 'action*pv*percent',
@@ -498,7 +500,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                                     stroke   : 'rgba(0, 0, 0, 0.15)',
                                 },
                             },
-                        } ] }
+                        }] }
                 >
                 </Interval>
             </Chart>
@@ -542,7 +544,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                     max: 80,
                 },
             } }
-            interactions={ [ 'legend-highlight' ] }
+            interactions={ ['legend-highlight'] }
         >
             <Coordinate type="polar" radius={ 0.8 }/>
             {/*<Tooltip shared/>*/ }
@@ -600,7 +602,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             field: config.value/*'value'*/,
             type : 'hierarchy.treemap',
             tile : 'treemapResquarify',
-            as   : [ 'x', 'y' ],
+            as   : ['x', 'y'],
         });
         // 将 DataSet 处理后的结果转换为 G2 接受的数据
         const nodes: Array<any> = [];
@@ -657,7 +659,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                     lineWidth: 1,
                     stroke   : '#fff',
                 } }
-                label={ [ config.key/*'name'*/, {
+                label={ [config.key/*'name'*/, {
                     offset : 0,
                     style  : {
                         textBaseline: 'middle',
@@ -670,7 +672,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                         //     return obj[config.key];
                         // }
                     },
-                } ] }
+                }] }
             />
         </Chart>;
     }
@@ -780,7 +782,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 tooltip_suffix,
                 tooltip_cross,
             };
-        } catch(e) {
+        } catch (e) {
             return {};
         }
     }
@@ -823,7 +825,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     }
 
     public static renderChart(config): ReactNode {
-        switch(config.chartType) {
+        switch (config.chartType) {
             case 'bar':
                 return this.bar(config);
             case 'hbar':
