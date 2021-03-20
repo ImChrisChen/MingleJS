@@ -234,10 +234,11 @@ module.exports = {
             // },
         ],
     },
+    
+    // TODO 格式 { 'package包名称' : 'script标签引入全局变量名称' },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
-        // 'react': 'React',
-        // 'react-dom': 'ReactDOM',
-        // 'antd': true,
+        '@ant-design/icons': 'icons',
+        // 'antd': 'antd',
         'jquery': '$',
         'react': 'React',
         'react-dom': 'ReactDOM',

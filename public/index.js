@@ -43,6 +43,11 @@
         const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
         const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
         const JQuery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
+
+        // const AntdJS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.js`;
+        // const AntdCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.css`;
+
+        const AntdIcons = `https://cdn.bootcdn.net/ajax/libs/ant-design-icons/4.5.0/index.umd.min.js`
         
         let hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
         
@@ -50,13 +55,13 @@
             React,
             ReactDOM,
             JQuery,
-            
+            AntdIcons,
             ...getLibs(),
-            
             `${ hostname }main.min.js`,
             `${ hostname }manifest.min.js`,
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
+
         ];
     }
     
