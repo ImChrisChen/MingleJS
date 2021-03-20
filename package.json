@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "NODE_ENV=development webpack-dev-server --disableHostCheck=true --hot --inline --progress --profile --colors --config webpack.config.js",
+        
         "start-all": "pm2 start ecosystem.config.js && pm2 start ./server/ecosystem.config.js",
         
         "build:doc": "npm run rm-dist && NODE_ENV=production-doc webpack --config webpack.config.js --progress --color && npm run update-version",

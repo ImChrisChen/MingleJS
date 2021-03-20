@@ -9,6 +9,8 @@ import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { Mingle } from './src/core/Mingle';
 
+console.log(Mingle);
+
 let container = document.querySelector('#__MINGLE_DOCS__');
 
 container && ReactDOM.render(

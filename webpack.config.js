@@ -6,7 +6,6 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 
 const glob = require('glob');
 const clc = require('cli-color');
-const os = require("os");
 
 let env = process.env.NODE_ENV;
 let isProduction = env !== 'development';
@@ -27,7 +26,7 @@ module.exports = {
     devtool: isProduction ? 'cheap-module-source-map' : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
         // [name]是对应的入口文件的key, [name].js 就是main.js
-        main: isProduction ? './main.prod.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
+        main: isLib ? './main.prod.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
     },
     output: {
         path: path.resolve(__dirname, isDoc ? 'dist': 'lib'),
@@ -161,10 +160,6 @@ module.exports = {
                 use: [
                     { loader: 'awesome-typescript-loader' },
                     { loader: 'cache-loader' },
-                    // {
-                    //     loader: 'thread-loader',
-                    //     options: { workers: os.cpus().length },
-                    // },
                 ],
                 include: path.resolve(__dirname, '/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
@@ -270,8 +265,7 @@ module.exports = {
         
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
-            //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: 'static',     // 生成html文件
+            analyzerMode: isProduction ? 'static' : false,  // 生成html文件
             //analyzerHost: '0.0.0.0',
             //defaultSizes: 'parsed',
             // analyzerPort: '9200',
