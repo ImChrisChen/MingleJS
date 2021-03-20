@@ -1,5 +1,5 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css 分离
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   // 打包分析
 const HtmlWebpackPlugin = require('html-webpack-plugin');           //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
@@ -16,9 +16,8 @@ console.log('当前环境:', env);
 console.log(clc.blue(`-------------是否生产环境: ${isProduction}-------------`));
 
 module.exports = {
-    watch: !isProduction,
     watchOptions: {
-        ignored: [/node_module/, /(css)\.d\.ts$/],
+        ignored: /node_modules/,
         aggregateTimeout: 300,
         poll: 1000,  //每秒询问次数，越小越好
     },
@@ -29,10 +28,11 @@ module.exports = {
         main: isLib ? './main.prod.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
     },
     output: {
-        path: path.resolve(__dirname, isDoc ? 'dist': 'lib'),
+        path: path.resolve(__dirname, isDoc ? 'dist' : 'lib'),
         filename: '[name].min.js',
-        // publicPath: '/assets/',
-        libraryTarget: 'umd',
+        library: {
+            type: "umd"
+        },
         chunkFilename: '[name].min.js',//非入口(non-entry) chunk 文件(关联文件)的名称
     },
     optimization: {
@@ -82,37 +82,34 @@ module.exports = {
             '@services': path.resolve(__dirname, 'src/services/'),
             '@server': path.resolve(__dirname, 'server/'),
             '@mock': path.resolve(__dirname, 'server/mock'),
-            
+
             '@public': path.resolve(__dirname, 'public/'),
-            
+
             '@static': path.resolve(__dirname, 'static/'),
-            
+
             '@images': path.resolve(__dirname, 'static/images'),
             '@utils': path.resolve(__dirname, 'utils'),
-            
-            // 生产环境下使用
-            // 'react': path.resolve(__dirname, './node_modules/react/umd/react.production.min.js'),
-            // 'bizcharts': path.resolve(__dirname, './node_modules/bizcharts/umd/BizCharts.min.js'),
+
         },
         modules: [path.resolve(__dirname, 'node_modules')],
-        // mainFields: ['main'],        // 生产环境下使用
+        fallback: {
+            path: require.resolve("path-browserify")
+        }
     },
     module: {
-        // noParse: [/jquery|bizcharts/, /react\.min\.js$/],
         rules: [
             {
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    { loader: 'css-loader' },
-                    // { loader: 'postcss-loader', options: { parser: 'sugarss', exec: true } },
+                    {loader: 'css-loader'},
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    { loader: 'css-loader' },
+                    {loader: 'css-loader'},
                     {
                         loader: 'less-loader',
                         options: {
@@ -141,25 +138,21 @@ module.exports = {
                             namedExport: true,
                             camelCase: true,
                             sass: true,
-                            localIdentName: '[name]__[local]__[hash:base64:5]',
+                            localIdentName: '[name]__[local]__[hash:4]',
                         },
                     },
                     {
                         loader: 'sass-loader',
                         options: {
-                            // outputStyle: 'expanded',
                             sourceMap: true,
                         },
                     },
                 ],
             },
             {
-                // test: /\.tsx?$/,
-                test: /(.ts)|(.tsx)$/,
-                // use: ['happypack/loader?id=typescript'],
+                test: /\.tsx?$/,
                 use: [
-                    { loader: 'awesome-typescript-loader' },
-                    { loader: 'cache-loader' },
+                    {loader: 'ts-loader'},
                 ],
                 include: path.resolve(__dirname, '/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
@@ -169,21 +162,6 @@ module.exports = {
                 test: /.(md|txt|html)$/,
                 use: 'raw-loader',
             },
-            // {
-            //     test: /.md$/,
-            //     use: [
-            //         {
-            //             loader: 'html-loader',
-            //         },
-            //         {
-            //             loader: 'markdown-loader',
-            //             options: {
-            //                 // pedantic: true,
-            //                 // renderer,
-            //             },
-            //         },
-            //     ],
-            // },
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: {
@@ -193,56 +171,36 @@ module.exports = {
                     },
                 },
             },
-            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
-            
-            // {
-            //     test: /\.jsx?$/,
-            //     use: {
-            //         loader: 'babel-loader',
-            //     },
-            // },
+            {enforce: 'pre', test: /\.js$/, loader: 'source-map-loader'},
         ],
     },
-    
+
     // TODO 格式 { 'package包名称' : 'script标签引入全局变量名称' },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
         '@ant-design/icons': 'icons',
-        // 'antd': 'antd',
         'jquery': '$',
         'react': 'React',
         'react-dom': 'ReactDOM',
         'bizcharts': 'BizCharts',
-        'gg-editor': 'gg-editor',
+        // 'gg-editor': 'gg-editor',
     },
     plugins: [
-        
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: '[name].css',     // main.css
-            minimize: true,
-            disable: isProduction,
-            chunkFilename: '[name].css', // manifest.css
-        }),
-        
+
         // 处理html
         new HtmlWebpackPlugin({
-            // chunks: ['./dist/mingle.min.js'],
             title: isProduction ? 'MingleJS Production' : 'MingleJS Development',            // html title
-            filename: path.resolve(__dirname, 'dist/index.html'),
-            template: path.resolve(__dirname, 'public/index.html'),
+            // filename: path.resolve(__dirname, 'dist/index.html'),
+            template: './public/index.html',
         }),
-        
-        // JS压缩 生产环境可以使用这个
-        // new UglifyJsPlugin(),
-        // new UglifyJsPlugin({
-        //     // beautify: false,
-        //     // comments: false,
-        //     uglifyOptions: {},
-        //     cache: true,
-        //     sourceMap: !isProduction,
-        // }),
-        
+
+
+        new MiniCssExtractPlugin({
+            filename: '[name].css',     // main.css
+            // minimize: true,
+            // disable: isProduction,
+            chunkFilename: '[name].css', // manifest.css
+        }),
+
         // Images 压缩
         new ImageWebpackPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
@@ -262,19 +220,16 @@ module.exports = {
                 fileName: '[path].[name].[ext]',
             },
         }),
-        
+
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             analyzerMode: isProduction ? 'static' : false,  // 生成html文件
-            //analyzerHost: '0.0.0.0',
-            //defaultSizes: 'parsed',
-            // analyzerPort: '9200',
             generateStatsFile: false,
             statsOptions: {
                 source: false,
             },
         }),
-        
+
         new FileManagerPlugin({
             events: {
                 onEnd: {
@@ -291,31 +246,33 @@ module.exports = {
     devServer: {
         host: '0.0.0.0',
         port: 9000,
+        open: true,     //是否自动打开默认浏览器
         proxy: {
-            // '/api': 'http://127.0.0.1:9001',
             '/api': {
                 target: 'http://127.0.0.1:9001',
                 source: true,
                 changeOrigin: true,
-                pathRewrite: { '^/api': '/' },
+                pathRewrite: {'^/api': '/'},
             },
             contentBase: path.resolve(__dirname, '/'),   //静态服务器根目录
-            compress: true,             // 是否压缩
-            // host: '0.0.0.0',            // 局域网ip
-            disableHostCheck: true,     //
-            // allowedHosts: [
-            //     'mingle-test.local.aidalan.com',
-            // ],
-            historyApiFallback: true,
+            // compress: true,             // 是否压缩
             headers: {
                 'X-Content-Type-Options': 'nosniff',
+                'Access-Control-Allow-Origin': '*'
             },
-            lazy: true,
-            open: true,     //是否自动打开默认浏览器
-            hot: true,      //热更新
-            // useLocalIp: true,//是否用自己的IP
-            inline: false,//
+            allowedHosts: ['mingle-test.local.aidalan.com'],
         },
     },
+    cache: {
+        type: "filesystem",
+        buildDependencies: {
+            config: []
+        },
+        version: "1.0"
+    },
+    stats: {
+        errorDetails: true
+    },
+    target: 'web'
 };
 

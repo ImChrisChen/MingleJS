@@ -5,12 +5,11 @@ import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isCustomElement, isFunc, isPromise, isReactComponent, isUndefined } from '@utils/inspect';
+import { isCustomElement, isFunc, isReactComponent, isUndefined } from '@utils/inspect';
 import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@root/config/directive.config';
-import { Monitor } from '@services/Monitor';
 // import { INativeProps } from '@interface/common/component';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
@@ -73,7 +72,7 @@ export default class App {
 
         try {
             this.init(root).then(r => r);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -170,7 +169,7 @@ export default class App {
         // el.hidden = true;
 
         // 获取到组件的子元素（排除template标签)
-        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
+        let subelements = [...el.children].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
         // let container = el;
@@ -183,7 +182,7 @@ export default class App {
             el.setAttribute('form-component', '');
         }
 
-        let tpls = [ ...el.querySelectorAll('template') ];
+        let tpls = [...el.querySelectorAll('template')];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -255,7 +254,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -291,9 +290,9 @@ export default class App {
         // form-group 内的组件，只在组作用域内产生关联关系
         // if ($(element).closest('[data-fn=form-group]').length > 0) {
         if ($(element).closest('form-group').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-component-uid][name]') ];
+            $formItems = [...$(element).closest('.form-group-item').find('[data-component-uid][name]')];
         } else {
-            $formItems = [ ...$(element).closest('form-action').find('[data-component-uid][name]') ];
+            $formItems = [...$(element).closest('form-action').find('[data-component-uid][name]')];
         }
 
         $formItems.forEach(formItem => {
@@ -372,7 +371,7 @@ export default class App {
 
                 let groupname = element.getAttribute('data-group');
                 let formElement = $(element).closest('form-action');
-                let groups = [ ...formElement.find(`[data-component-uid][data-group=${ groupname }]`) ];
+                let groups = [...formElement.find(`[data-component-uid][data-group=${ groupname }]`)];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -465,7 +464,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
+        [...el.attributes].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -550,7 +549,7 @@ export default class App {
                     callback(hooks, instance);
                 },
             );
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }

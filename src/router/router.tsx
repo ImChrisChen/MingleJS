@@ -14,16 +14,16 @@ import Logs from '@src/pages/logs/logs';
 
 // nav
 export default [
-    {
-        name     : '使用文档',
-        path     : '/',
-        component: <MarkdownEditor value={ usageMarkdown } visibleEditor={ false }/>,
-    },
-    {
-        name     : '开发文档',
-        path     : '/development-docs',
-        component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
-    },
+    // {
+    //     name     : '使用文档',
+    //     path     : '/',
+    //     component: <MarkdownEditor value={ usageMarkdown } visibleEditor={ false }/>,
+    // },
+    // {
+    //     name     : '开发文档',
+    //     path     : '/development-docs',
+    //     component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
+    // },
     {
         name     : '日志统计',
         path     : '/logs',
