@@ -46,6 +46,7 @@
 
         // const AntdJS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.js`;
         // const AntdCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.css`;
+        // let AntdCompactCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.compact.min.css`;
 
         const AntdIcons = `https://cdn.bootcdn.net/ajax/libs/ant-design-icons/4.5.0/index.umd.min.js`
         
@@ -55,6 +56,7 @@
             React,
             ReactDOM,
             JQuery,
+            // AntdCompactCSS,
             AntdIcons,
             ...getLibs(),
             `${ hostname }main.min.js`,

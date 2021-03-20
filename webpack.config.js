@@ -1,45 +1,25 @@
 const path = require('path');
-const webpack = require('webpack');
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');    // css 分离
-
-// https://www.npmjs.com/package/webpack-bundle-analyzer
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   // 打包分析
 const HtmlWebpackPlugin = require('html-webpack-plugin');           //打包html的插件
 const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
-const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 https://www.cnblogs.com/1rookie/p/11369196.html
+const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 
 const glob = require('glob');
-let env = process.env.NODE_ENV;
-console.log('打包环境:', env);
-
-//默认生产环境
-if (typeof env === 'undefined') {
-    env = 'production';
-}
-
-if (env === 'production') {
-    process.env.file = '//file.superdalan.com';
-    process.env.mobile = '//m.aidalan.com';
-    process.env.bbs = '//bbs.aidalan.com';
-}
-
-if (env === 'development') {
-    process.env.file = '//file.superdalan.com';
-    process.env.mobile = '//m.aidalan.com';
-    process.env.bbs = '//bbs.aidalan.com';
-}
-
-const isProduction = env === 'production';
-console.log(env);
-
 const clc = require('cli-color');
+const os = require("os");
 
-console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
+let env = process.env.NODE_ENV;
+let isProduction = env !== 'development';
+let isDoc = env === 'production-doc';
+let isLib = env === 'production-lib';
+
+console.log('当前环境:', env);
+console.log(clc.blue(`-------------是否生产环境: ${isProduction}-------------`));
 
 module.exports = {
     watch: !isProduction,
     watchOptions: {
-        ignored: /node_module/,
+        ignored: [/node_module/, /(css)\.d\.ts$/],
         aggregateTimeout: 300,
         poll: 1000,  //每秒询问次数，越小越好
     },
@@ -47,16 +27,10 @@ module.exports = {
     devtool: isProduction ? 'cheap-module-source-map' : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
         // [name]是对应的入口文件的key, [name].js 就是main.js
-        // main: isProduction ? './main.production.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
-        main: './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
-        //     'react',
-        //     'react-dom',
-        //     'antd',
-        // ],
-        // chart: ['bizcharts'],
+        main: isProduction ? './main.prod.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, isDoc ? 'dist': 'lib'),
         filename: '[name].min.js',
         // publicPath: '/assets/',
         libraryTarget: 'umd',
@@ -247,8 +221,6 @@ module.exports = {
     },
     plugins: [
         
-        // new PrepackWebpackPlugin(),
-        
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -257,13 +229,6 @@ module.exports = {
             disable: isProduction,
             chunkFilename: '[name].css', // manifest.css
         }),
-        
-        new webpack.WatchIgnorePlugin([/(css)\.d\.ts$/]),
-        
-        // new webpack.WatchIgnorePlugin([
-        //     /(css)\.d\.ts$/,
-        //     isProduction ? /(.+?).md$/ : '',
-        // ]),
         
         // 处理html
         new HtmlWebpackPlugin({
@@ -306,7 +271,7 @@ module.exports = {
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             //TODO 生产环境关闭，不然build后会一直无法执行到script.js更新版本号
-            analyzerMode: env === 'document' ? 'disabled' : (isProduction ? 'static' : false),
+            analyzerMode: 'static',     // 生成html文件
             //analyzerHost: '0.0.0.0',
             //defaultSizes: 'parsed',
             // analyzerPort: '9200',
@@ -328,8 +293,6 @@ module.exports = {
                 },
             },
         }),
-        
-        // new DashboardPlugin(/*dashboard.setData*/),
     ],
     devServer: {
         host: '0.0.0.0',
@@ -349,7 +312,6 @@ module.exports = {
             // allowedHosts: [
             //     'mingle-test.local.aidalan.com',
             // ],
-            // port: 9000,
             historyApiFallback: true,
             headers: {
                 'X-Content-Type-Options': 'nosniff',

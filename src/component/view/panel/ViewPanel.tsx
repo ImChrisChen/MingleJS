@@ -49,7 +49,6 @@ export default class ViewPanel extends Component<IComponentProps, any> {
                         if (node) {
                             node.innerHTML = '';
                             node.append(element);
-                            // new App(element);
                         }
                     } }/>;
 
