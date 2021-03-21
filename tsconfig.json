@@ -60,15 +60,6 @@
 		"baseUrl": "./",
 		/* Base directory to resolve non-absolute module names. */
 		"paths": {
-			"@root/*": [
-				"./*"
-			],
-			"@conf": [
-				"config/*"
-			],
-			"@core": [
-				"src/core/*"
-			],
 			"@mock/*": [
 				"/server/mock/*"
 			],

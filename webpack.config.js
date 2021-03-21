@@ -6,6 +6,7 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 
 const glob = require('glob');
 const clc = require('cli-color');
+const webpack = require("webpack");
 
 let env = process.env.NODE_ENV;
 let isProduction = env !== 'development';
@@ -74,13 +75,11 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
             '@root': path.resolve(__dirname, './'),
-            '@conf': path.resolve(__dirname, './config'),
-            '@core': path.resolve(__dirname, 'src/core'),
+            
             '@src': path.resolve(__dirname, 'src'),
             '@component': path.resolve(__dirname, 'src/component/'),
             '@interface': path.resolve(__dirname, 'src/interface/'),
             '@services': path.resolve(__dirname, 'src/services/'),
-            '@server': path.resolve(__dirname, 'server/'),
             '@mock': path.resolve(__dirname, 'server/mock'),
 
             '@public': path.resolve(__dirname, 'public/'),
@@ -182,9 +181,15 @@ module.exports = {
         'react': 'React',
         'react-dom': 'ReactDOM',
         'bizcharts': 'BizCharts',
-        // 'gg-editor': 'gg-editor',
+        'gg-editor': 'gg-editor',
     },
     plugins: [
+
+        // new webpack.ProvidePlugin({
+        //     process: 'process/browser',
+        // }),
+        
+        new webpack.HotModuleReplacementPlugin(),
 
         // 处理html
         new HtmlWebpackPlugin({
@@ -192,7 +197,6 @@ module.exports = {
             // filename: path.resolve(__dirname, 'dist/index.html'),
             template: './public/index.html',
         }),
-
 
         new MiniCssExtractPlugin({
             filename: '[name].css',     // main.css
@@ -260,8 +264,11 @@ module.exports = {
                 'X-Content-Type-Options': 'nosniff',
                 'Access-Control-Allow-Origin': '*'
             },
-            allowedHosts: ['mingle-test.local.aidalan.com'],
         },
+        // https: true,
+        firewall: false,        // 已解决 [webpack-dev-server] Invalid Host/Origin header
+        // allowedHosts: ['mingle-test.local.aidalan.com'],
+        // disableHostCheck: true,
     },
     cache: {
         type: "filesystem",
