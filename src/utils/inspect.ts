@@ -234,3 +234,16 @@ export function isUrl(url: string): boolean {
     return rule.test(url);
 }
 
+// 是否是 Promise 对象
+export function isPromise(o): boolean {
+    return o instanceof Promise;
+}
+
+export function isReactComponent(o) {
+    return !!o.prototype.isReactComponent;
+}
+
+// 判断 元素的 属性是否存在 (有些属性就为true，不管有没有值)
+export function isExistAttr(attrName: string, el: HTMLElement) {
+    return el.getAttribute(attrName) !== null;
+}

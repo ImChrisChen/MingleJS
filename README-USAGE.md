@@ -50,6 +50,42 @@
 
 
 
+#### 不使用模版解析 属性
+
+语法：  在属性名前面添加 `^` 符号  `^href=""`
+
+~~~html
+<input type="text" ^value="<{value}>" />		// input.value => "<{value}>"
+<input type="text" value="<{value}>" />		// input.value => "Hello World ~ "
+~~~
+
+~~~js
+new Mingle({
+	data: {
+        value: "Hello World ~ "
+    }
+})
+~~~
+
+#### 不解析当前元素下的 文本元素
+
+语法：在元素上 添加 w-readonly 指令
+
+~~~html
+<div w-readonly>
+    <{title}>					// <{title}>
+    <h1> <{title}> </h1>		// <h1> <{title}> </h1>
+</div>
+~~~
+
+~~~javascript
+new Mingle({
+    data: {
+        title: "Hello Mingle ~ "
+    }
+})
+~~~
+
 #### 事件解析
 
 事件解析用的 @操作符号 例如： @[事件名称]=“[函数名称]”
@@ -304,7 +340,7 @@ MingleJS 提供了几个全局方法以便于后端开发者，在不得已的�
 <div id="App">
     <!-- define-component 组件可以进行自定义组件 -->
     <define-component w-foreach="components as component" 
-                      data-fn="<{component.tag}>" ...component >
+                      module="<{component.tag}>" ...component >
     </define-component>
 </div>
 <script>

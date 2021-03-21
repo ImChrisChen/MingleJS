@@ -10,7 +10,6 @@ import { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { getDepthMax } from '@utils/util';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';
-import md5 from 'md5';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { FormatDataService } from '@services/FormatData.service';
@@ -59,7 +58,6 @@ export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
 
     render() {
         return <LayoutMenuPrivate
-            key={ md5(this.state.data) }
             layout={ this.props.dataset.layout }
             width={ this.props.dataset.width }
             data={ this.state.data }

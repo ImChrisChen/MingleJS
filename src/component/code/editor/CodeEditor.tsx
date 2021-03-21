@@ -7,7 +7,6 @@
 
 import { Controlled as CodeMirror } from 'react-codemirror2'; // https://codemirror.net/doc/manual.html#config
 import React, { Component } from 'react';
-import App from '@root/src/App';
 import './CodeEditor.css';
 import $ from 'jquery';
 
@@ -33,7 +32,6 @@ export default class CodeEditor extends Component<any, any> {
         let el = $(this.props.dataset.value);
         let elementContainer = document.querySelector('.show-code') as HTMLElement;
         $('.show-code').html('').append(el);
-        // new App(elementContainer);
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {

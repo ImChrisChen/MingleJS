@@ -5,7 +5,7 @@
  * Time: 10:22 上午
  */
 
-import { componentConfig } from '@root/config/component.config';
+import { componentConfig } from '@src/config/component.config';
 
 // 递归加载模块
 async function getModules(keys, object) {
@@ -39,7 +39,6 @@ export async function loadModules(keys: Array<string>) {
 
 export function loadModule(keys: Array<string>) {
     let mod = componentConfig[keys[0]][keys[1]];
-    console.log(mod);
     return {
         component: mod.component,
         property : mod.property,

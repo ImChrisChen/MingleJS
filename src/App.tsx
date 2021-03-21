@@ -5,12 +5,12 @@ import { parserAttrs, parserDataset } from '@utils/parser-property';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
-import { isCustomElement, isFunc, isUndefined } from '@utils/inspect';
-import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
+import { isCustomElement, isFunc, isReactComponent, isUndefined } from '@utils/inspect';
+import { globalComponentConfig, IComponentConfig } from '@src/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
-import { Hooks } from '@root/config/directive.config';
-import { Monitor } from '@services/Monitor';
+import { Hooks } from '@src/config/directive.config';
+// import { INativeProps } from '@interface/common/component';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -72,7 +72,7 @@ export default class App {
 
         try {
             this.init(root).then(r => r);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -85,34 +85,59 @@ export default class App {
             let { localName: tagName } = element;
             tagName = tagName.trim();
 
-            if (!isCustomElement(tagName)) {
+            if (!tagName) {
                 return;
             }
 
-            if (App.registerComponents.includes(tagName)) {
-                // console.log('有注册过', App.registerComponents, tagName);
-                return;
-            }
+            // 如果是自定义组件
+            if (isCustomElement(tagName)) {
+                if (App.registerComponents.includes(tagName)) {
+                    // console.log('有注册过', App.registerComponents, tagName);
+                    return;
+                }
 
-            window.customElements.define(tagName, class extends HTMLElement {
-                constructor() {
-                    super();
+                window.customElements.define(tagName, class extends HTMLElement {
+                    constructor() {
+                        super();
+                        /**
+                         * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
+                         *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                         */
+                    }
+
                     /**
-                     * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
-                     *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                     * 元素链接成功后
                      */
+                    connectedCallback() {
+                        App.renderCustomElement(this);
+                    }
+
+                });
+
+                App.registerComponents.push(tagName);
+
+            } else {        // data-fn 函数功能
+
+                let methods = element.getAttribute('data-fn');
+                if (!methods) {
+                    return;
                 }
 
-                /**
-                 * 元素链接成功后
-                 */
-                connectedCallback() {
-                    App.renderCustomElement(this);
+                let Module = loadModule(methods.split('-'));
+                const Component = (await Module.component).default;
+
+                // 不是react组件,直接 new Class
+                if (!isReactComponent(Component)) {
+                    let defaultProperty = Module.property;
+                    let { dataset, attrs } = App.parseProps(element, defaultProperty);
+                    new Component({
+                        el: element,
+                        dataset,
+                        ...attrs,
+                    });         // 统一使用 class 写法
                 }
 
-            });
-
-            App.registerComponents.push(tagName);
+            }
         });
 
         App.errorVerify();
@@ -129,9 +154,8 @@ export default class App {
             return;
         }
 
-
-        if (componentName === 'define-component' && el.attributes?.['data-fn']?.value) {
-            componentName = el.attributes['data-fn'].value;
+        if (componentName === 'define-component' && el.attributes?.['module']?.value) {
+            componentName = el.attributes['module'].value;
         }
 
         if (!componentName) {
@@ -145,7 +169,7 @@ export default class App {
         // el.hidden = true;
 
         // 获取到组件的子元素（排除template标签)
-        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
+        let subelements = [...el.children].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
         // let container = el;
@@ -158,7 +182,7 @@ export default class App {
             el.setAttribute('form-component', '');
         }
 
-        let tpls = [ ...el.querySelectorAll('template') ];
+        let tpls = [...el.querySelectorAll('template')];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -176,12 +200,15 @@ export default class App {
         let keysArr = componentName.trim().split('-');
         // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
 
-        const Modules = loadModule(keysArr);
-        const Component = (await Modules.component).default;            // React组件
-        const config = Modules.config;
+        const Module = loadModule(keysArr);
+        const Component = (await Module.component).default;            // React组件
 
-        let defaultProperty = Modules.property;
+        if (!isReactComponent(Component)) {
+            return;
+        }
 
+        const config = Module.config;
+        let defaultProperty = Module.property;
         let hooks = App.formatHooks(attributes);
         let module: IModules = {
             Component,
@@ -226,42 +253,8 @@ export default class App {
         return App?.instances ?? {};
     }
 
-    // 通过 Element 获取到组件解析后的所有属性
-    public static async parseElementProperty(el: HTMLElement): Promise<any> {
-        let componentName = el.localName ?? '';
-        let componentModule = loadModule(componentName.split('-'));
-        let defaultProperty = componentModule.property;
-        // @ts-ignore
-        let { dataset, hook, ...attrs } = defaultProperty;     // default
-
-        // dataset
-        let parsedDataset = parserDataset(el.dataset, dataset);
-
-        // 普通属性
-        let elAttrs = {};     // key value
-        [ ...el.attributes ].forEach(item => {
-            if (!item.name.includes('data-')) {
-                elAttrs[item.name] = item.value;
-            }
-        });
-        let parsedAttrs = parserAttrs(elAttrs, attrs, parsedDataset);
-
-        // 处理 value 属性
-        let defaultValue = typeof defaultProperty?.value?.value === 'function'
-            ? defaultProperty.value.value(parsedDataset)
-            : defaultProperty?.value?.value ?? '';
-
-        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
-        parsedAttrs.value = el['value'] || defaultValue;
-
-        return {
-            dataset: { ...parsedDataset },
-            ...parsedAttrs,
-        };
-    }
-
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
+        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -297,9 +290,9 @@ export default class App {
         // form-group 内的组件，只在组作用域内产生关联关系
         // if ($(element).closest('[data-fn=form-group]').length > 0) {
         if ($(element).closest('form-group').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-component-uid][name]') ];
+            $formItems = [...$(element).closest('.form-group-item').find('[data-component-uid][name]')];
         } else {
-            $formItems = [ ...$(element).closest('form-action').find('[data-component-uid][name]') ];
+            $formItems = [...$(element).closest('form-action').find('[data-component-uid][name]')];
         }
 
         $formItems.forEach(formItem => {
@@ -378,7 +371,7 @@ export default class App {
 
                 let groupname = element.getAttribute('data-group');
                 let formElement = $(element).closest('form-action');
-                let groups = [ ...formElement.find(`[data-component-uid][data-group=${ groupname }]`) ];
+                let groups = [...formElement.find(`[data-component-uid][data-group=${ groupname }]`)];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -429,62 +422,6 @@ export default class App {
 
     }
 
-    public static async globalEventListener() {
-
-        // 判断是否是深色模式
-        const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-
-        // 判断是否匹配深色模式
-        if (darkMode && darkMode.matches) {
-            console.log('深色模式');
-        }
-
-        // 监听主题切换事件
-        darkMode && darkMode.addEventListener('change', e => {
-            // e.matches true 深色模式
-            let darkMode = e.matches;
-            message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
-        });
-
-        window.addEventListener('error', async function (e) {
-            console.log(e);
-            let msg = e?.message ?? '';        // 错误
-            let stack = e?.error?.stack ?? '';
-            let filename = e.filename;          // 报错文件名
-            let error_col = e.colno;            // 报错行
-            let error_line = e.lineno;          // 报错列
-            let url = window.location.href;
-            let log = {
-                message : msg,
-                stack,
-                page_url: url,
-                flag    : 'mingle',
-                filename,
-                error_line,
-                error_col,
-            };
-
-            await Monitor.errorLogger(log);
-            message.error(`error, ${ msg }`);
-        });
-
-        window.addEventListener('online', function () {
-            message.success('浏览器已获得网络链接');
-        });
-
-        window.addEventListener('offline', function () {
-            message.error('浏览器失去网络链接');
-        });
-
-        window.addEventListener('copy', function () {
-            message.success('复制成功');
-        });
-
-        window.addEventListener('cut', function (event) {
-            message.success('剪切成功');
-        });
-    }
-
     public static errorVerify() {
         let arr: Array<string> = [];
         let repeatName: Array<string> = [];
@@ -505,31 +442,63 @@ export default class App {
         }
     }
 
+    // 通过 Element 获取到组件解析后的所有属性
+    public static async parseElementProperty(el: HTMLElement): Promise<any> {
+        let componentName = el.localName ?? '';
+        let componentModule = loadModule(componentName.split('-'));
+
+        let defaultProperty = componentModule.property;
+
+        let { dataset, attrs } = this.parseProps(el, defaultProperty);
+
+        return { dataset, ...attrs };
+    }
+
+    public static parseProps(el: HTMLElement, defaultProperty) {
+
+        // @ts-ignore
+        let { dataset, hook, ...attrs } = defaultProperty;     // default
+
+        // dataset
+        let parsedDataset = parserDataset(el.dataset, dataset ?? {});
+
+        // 普通属性
+        let elAttrs = {};     // key value
+        [...el.attributes].forEach(item => {
+            if (!item.name.includes('data-')) {
+                elAttrs[item.name] = item.value;
+            }
+        });
+        let parsedAttrs = parserAttrs(elAttrs, attrs, parsedDataset);
+
+        // 处理 value 属性
+        let defaultValue = typeof defaultProperty?.value?.value === 'function'
+            ? defaultProperty.value.value(parsedDataset)
+            : defaultProperty?.value?.value ?? '';
+
+        // TODO 因为input的value默认为 ""(页面上不写value值也是"") , 所以这里不能使用 '??' 操作符,否则无法获取到 defaultValue
+        parsedAttrs.value = el['value'] || defaultValue;
+
+        return {
+            dataset: parsedDataset,
+            attrs  : parsedAttrs,
+        };
+    }
+
     public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
         let {
             element, defaultProperty, Component, hooks, componentUID, subelements, templates, container,
         } = module;
 
-        let { dataset: defaultDataset, hook, ...defaultAttrs } = defaultProperty;
-
-        // 处理 data-* 属性
-        let dataset = (element as (HTMLInputElement | HTMLDivElement)).dataset;
-        let parsedDataset = parserDataset(dataset, defaultDataset ?? {});
-
-        // 普通属性
-        let attrs = {};     // key value
-        [ ...element.attributes ].forEach(item => {
-            if (!item.name.includes('data-')) attrs[item.name] = item.value;
-        });
-        let parsedAttrs = parserAttrs(attrs, defaultAttrs, parsedDataset);
+        let { dataset: parsedDataset, attrs } = this.parseProps(element, defaultProperty);
 
         let instance: any = null;
         let props = {
-            el     : element,
             templates,
             subelements,
+            el     : element,
             dataset: parsedDataset,
-            ...parsedAttrs,
+            ...attrs,
             ref: componentInstance => {        // 组件实例
                 // componentMethod && componentInstance[componentMethod]();
                 instance = componentInstance;
@@ -580,7 +549,7 @@ export default class App {
                     callback(hooks, instance);
                 },
             );
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }

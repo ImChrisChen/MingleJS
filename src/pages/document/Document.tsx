@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { deepEach } from '@utils/util';
-import { componentConfig } from '@root/config/component.config';
+import { componentConfig } from '@src/config/component.config';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
@@ -15,9 +15,8 @@ import LayoutMenu from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
-import md5 from 'md5';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import { HttpClientService } from '@root/src/services/HttpClient.service';
+import { HttpClientService } from '@src/services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService } from '@services/FormatData.service';
 
@@ -58,7 +57,6 @@ class Document extends React.Component<any, any> {
     // 获取导航栏路由
     async getRouter() {
         let res = await this.httpClientService.get('/server/files/template');
-        console.log(res);
         let data = res.status ? res.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
@@ -96,7 +94,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist } pathfield=""/>
+                <LayoutMenu data={ this.state.menulist } pathfield=""/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>

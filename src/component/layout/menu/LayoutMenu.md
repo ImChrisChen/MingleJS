@@ -11,7 +11,6 @@ import { IComponentProps } from '@interface/common/component';
 import { list2Group, treeKeyReplace } from '@utils/format-data';
 import { getDepthMax } from '@utils/util';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';
-import md5 from 'md5';
 
 export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
 
@@ -54,7 +53,6 @@ export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
 
     render() {
         return <LayoutMenuPrivate
-            key={ md5(this.state.data) }
             layout={ this.props.dataset.layout }
             width={ this.props.dataset.width }
             data={ this.state.data }
