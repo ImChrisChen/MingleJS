@@ -5,10 +5,11 @@
  * Time: 6:49 下午
  */
 import { IFunctions } from '@services/ParserElement.service';
-import { getObjectValue } from '@utils/util';
-import { isArray, isObject, isUndefined } from '@utils/inspect';
-import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
+import { arraylastItem, getObjectValue } from '@utils/util';
+import { isArray, isExistAttr, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
+import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
+import preventExtensions = Reflect.preventExtensions;
 
 const events = {
     click: [        // 可以有多个事件
@@ -32,6 +33,8 @@ export interface IMingleVnode {
     children: Array<IMingleVnode>
     el: HTMLElement
     isChanged: boolean
+    vid: number
+    nextRender: boolean
 }
 
 interface IMingleEvents {
@@ -51,8 +54,9 @@ interface IListener {
     call: object
 }
 
-class VNode {
+let vid = 0;
 
+class VNode {
 
     // 构造函数
     private tag: string;           // 标签名称
@@ -63,6 +67,8 @@ class VNode {
     private el: HTMLElement;
     private children: Array<IMingleVnode>;
     private isChanged: boolean;     // false则无改变，需要重写生成DOM
+    private vid: number;
+    private nextRender: boolean;
 
     constructor(tag, data, value, type, events, el) {
         // tag:用来表述 标签  data：用来描述属性  value：用来描述文本 type：用来描述类型
@@ -74,6 +80,7 @@ class VNode {
         this.children = [];
         this.el = el;
         this.isChanged = false;
+        this.vid = vid++;
     }
 
     public append(vnode: IMingleVnode) {
@@ -99,42 +106,69 @@ export class VirtualDOM extends ParserTemplateService {
 
     }
 
-    public getVnode(node: HTMLElement, model: any, functions: IFunctions, parent?: IMingleVnode) {
+    public getVnode(
+        node: HTMLElement,
+        model: any, functions: IFunctions,
+        parent?: IMingleVnode,
+        readOnly = false,
+    ): IMingleVnode {
         let nodeType = node.nodeType;
         let vnode;
 
         if (nodeType === 1) {               // element
             let nodeName = node.localName;
-            let { attrs, events } = this.getAttributesByElement(node, model, functions);
-            // let nodeValue = this.parseTpl(node.nodeValue, model, 'field');
             let nodeValue = node.nodeValue;     // 节点的 nodeValue 为null
 
+            // w-readonly 只要有些属性就生效
+            // if (!isUndefined(node.attributes['w-readonly'])) {
+            if (isExistAttr(directiveReadonly, node)) {
+                readOnly = true;
+            }
+
+            let { attrs, events } = this.getAttributesByElement(node, model, functions);
+
+            // 渲染当前节点
             const render = (model, fn?: (...args) => any) => {
 
                 vnode = new VNode(nodeName, attrs, nodeValue, nodeType, events, node);
 
-                fn?.(vnode);
-
                 let childNodes: any = node.childNodes;
-                for (const childNode of [...childNodes]) {
-                    vnode.append(this.getVnode(childNode, model, functions, vnode));
+                for (const childNode of [ ...childNodes ]) {
+                    vnode.append(this.getVnode(childNode, model, functions, vnode, readOnly));
                 }
+
+                return vnode;
 
             };
 
-            // 只有if的情况
-            if (node.getAttribute(directiveIf) && !node.getAttribute(directiveForeach)) {
+            // 有 else
+            if (isExistAttr(directiveElse, node)) {
+                if (parent?.children && parent.children.length > 0) {
+                    let prevVnode = arraylastItem<IMingleVnode>(parent.children);
+                    // prevVnode.nextRender === true 则上一个删掉，渲染当前 else元素
+                    if (prevVnode.nextRender) {
+                        parent.children.pop();      // delete 上一个
+                        render(model);
+                    } else {    // 当前不渲染，上一个元素不用处理
+
+                    }
+                }
+            } else if (isExistAttr(directiveIf, node) && !isExistAttr(directiveForeach, node)) {       // 只有if的情况
+
                 if (node.getAttribute(directiveIf)) {
-                    let express = node.attributes[directiveIf].value;
+                    // let express = node.attributes[directiveIf].value;
+                    let express = node.getAttribute(directiveIf) || '';
                     express = this.parseExpress(express, model);
                     let result = this.parseIF(express);
-                    result && render(model);
+                    let vn = render(model);
+                    vn.nextRender = !result;        // 用下一个节点来判断
                 } else {
                     render(model);
                 }
-            } else if (node.attributes[directiveForeach]?.value) {
-                let foreachSyntax = node.attributes[directiveForeach]?.value;
-                let ifExpress = node.attributes?.[directiveIf]?.value;
+
+            } else if (isExistAttr(directiveForeach, node)) {      // if 和 foreach 都有的情况
+                let foreachSyntax = node.getAttribute(directiveForeach) ?? '';
+                let ifExpress = node.getAttribute(directiveIf) ?? '';
 
                 // w-foreach="data as item" 或者 data as (item,index)
                 if (!/^(\w+|\w+\.\w+) as (\w+|\(.+?\))$/.test(foreachSyntax)) {
@@ -157,27 +191,25 @@ export class VirtualDOM extends ParserTemplateService {
 
                     let newifExpress = this.parseExpress(ifExpress, itemModel);
 
-                    // 表示没有 w-if标签
-                    if (isUndefined(newifExpress)) {
-                        ifResult = true;
-                    } else {
+                    // 存在 w-if 元素
+                    if (isExistAttr(directiveIf, node)) {
                         try {
                             ifResult = Boolean(eval(newifExpress));
-                        } catch (e) {
+                        } catch(e) {
                             console.warn(`${ newifExpress }表达式格式错误`);
                             ifResult = false;
                         }
+                    } else {        // 不存在条件则为true，默认渲染
+                        ifResult = true;
                     }
 
                     if (ifResult) {
-                        render(itemModel, function (vnode) {
-                            if (parent && isArray(parent.children)) {
-                                parent.children.push(vnode);
-                            }
-                        });
+                        let vn = render(itemModel);
+                        if (parent && isArray(parent.children)) {
+                            parent.children.push(vn);
+                        }
                     }
                 }
-
                 // TODO 应该有更好的方案
                 parent?.children.pop();
 
@@ -189,13 +221,16 @@ export class VirtualDOM extends ParserTemplateService {
         } else if (nodeType === 3) {        // 文本节点
             if (node.nodeValue && node.nodeValue.trim()) {
 
-                let nodeValue = this.parseTpl(node.nodeValue, model, 'tpl');
+                let nodeValue = readOnly
+                    ? node.nodeValue
+                    : this.parseTpl(node.nodeValue, model, 'tpl');
                 vnode = new VNode(undefined, undefined, nodeValue, nodeType, {}, node);
             }
         }
         return vnode;
     }
 
+    // vnode上已经没有特殊指令了
     public vnodeToHtml(vnode: IMingleVnode) {
         if (!vnode) {
             return '';
@@ -231,17 +266,17 @@ export class VirtualDOM extends ParserTemplateService {
 
                     });
                 }
-
             }
 
             // attributes
             for (const key in data) {
                 if (!data.hasOwnProperty(key)) continue;
 
-                if (
-                    key === directiveForeach
+                // TODO 把不必要的属性排除掉
+                if (key === directiveForeach
                     || key === directiveIf
                     || key === directiveElse
+                    || key === directiveReadonly
                 ) {
                     continue;
                 }
@@ -296,7 +331,7 @@ export class VirtualDOM extends ParserTemplateService {
                     return eval(param);
 
                 }
-            } catch (e) {
+            } catch(e) {
                 let pv = getObjectValue(param, model);
                 return pv;
             }
@@ -310,12 +345,21 @@ export class VirtualDOM extends ParserTemplateService {
     private getAttributesByElement(el: HTMLElement, model: object, functions: IFunctions): { attrs: object, events: object } {
         let attrs = {};
         let events: IMingleEvents = {};
-        for (const { name, value } of [...el.attributes]) {
+        for (const { name, value } of [ ...el.attributes ]) {
+
+            // // 把不必要的属性排除掉
+            // if (name === directiveForeach
+            //     || name === directiveIf
+            //     || name === directiveElse
+            //     || name === directiveReadonly
+            // ) {
+            //     continue;
+            // }
 
             // 事件
             if (name.startsWith('@')) {
-                let [, event] = name.split('@');      // 事件名称 'click'
-                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [ , event ] = name.split('@');      // 事件名称 'click'
+                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -341,12 +385,27 @@ export class VirtualDOM extends ParserTemplateService {
                 };
 
                 if (isUndefined(events[event])) {
-                    events[event] = [e];
+                    events[event] = [ e ];
                 } else {
                     events[event].push(e);
                 }
 
+            } else if (name.startsWith('^')) {      // 不解析该属性
+
+                let [ , nativeName ] = name.split('^');     // "^href" => "href"
+                attrs[nativeName] = value;
+
+            } else if (isExpandSymbol(name)) {
+
+                let props = this.parseExpand(name, model);
+                attrs = Object.assign(attrs, props);
+
             } else {        // 属性
+
+                if (isWuiTpl(value)) {
+                    attrs[name] = this.parseTpl(value, model, 'tpl');
+                }
+
                 attrs[name] = value;
             }
         }
@@ -370,7 +429,7 @@ export class VirtualDOM extends ParserTemplateService {
     private parseIF(express: string): boolean {
         try {
             return Boolean(eval(express));
-        } catch (e) {
+        } catch(e) {
             // TODO 有可能是 ~foreach 中的 if 语句
             console.error(`if内表达式解析语法错误: ${ express }`);
             return false;
@@ -389,13 +448,13 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     private getForEachVars(express: string, model: object) {
-        let [arrayName, itemName]: Array<string> = express.split('as');
+        let [ arrayName, itemName ]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -420,6 +479,29 @@ export class VirtualDOM extends ParserTemplateService {
             arrayName, itemName, indexName,
             loopData,
         };
+    }
+
+    private parseExpand(name, model): object {
+        let [ , key ]: Array<string> = name.split('...');
+        let itemModel = getObjectValue(key, model);
+        let props = {};
+
+        if (isUndefined(itemModel)) {
+            return {};
+        }
+
+        for (const key in itemModel) {
+            if (!itemModel.hasOwnProperty(key)) continue;
+            let value = itemModel[key];
+
+            // element 上没有这个属性才给它设置
+            // 如果是 混合数据类型, 对数据格式做处理，否则会成为 [object,object]
+            if (isObject(value) || isArray(value)) {
+                value = JSON.stringify(value);
+            }
+            props[key] = value;
+        }
+        return props;
     }
 
 }

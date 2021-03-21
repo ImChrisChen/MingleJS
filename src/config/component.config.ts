@@ -1095,7 +1095,7 @@ export const componentConfig = {
         },
         calendar: {
             path     : 'view-calendar',
-            component: import('@component/view/calendar/calendar'),
+            component: import('@component/view/calendar/ViewCalendar'),
             property : {
                 dataset: {},
             },

@@ -9,7 +9,6 @@ import React from 'react';
 import { Form, Switch } from 'antd';
 import { trigger } from '@utils/trigger';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
-import { isUndefined } from '@root/utils/inspect';
 
 export default class FormSwitch extends React.Component<any, any> {
     state: any = {

@@ -5,7 +5,7 @@
  * Time: 3:30 下午
  */
 
-import { directiveElse, directiveForeach, directiveIf } from '@root/config/directive.config';
+import { directiveElse, directiveForeach, directiveIf } from '@src/config/directive.config';
 import { isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
 import $ from 'jquery';
 import { elementWrap } from '@utils/trans-dom';

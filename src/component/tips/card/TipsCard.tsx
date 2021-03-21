@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { Button, Popover } from 'antd';
 import $ from 'jquery';
-import App from '@root/src/App';
 
 export default class TipsCard extends Component<IComponentProps, any> {
     render() {

@@ -14,33 +14,69 @@
 
     <!--    <form-transfer></form-transfer>-->
 
-    <a data-fn="layout-window" href="http://wui-test.local.aidalan.com/mingle/demo.html">data-table</a>
+    <!--    <input type="text" ^value="<{inputValue}>" ~value>-->
 
-    <a data-fn="layout-window" href="http://wui-test.local.aidalan.com/mingle/chart.html">data-chart</a>
+    <!--    <form-select-->
+    <!--        data-label="label:"-->
+    <!--        data-enum="1,Android;2,iOS;3,MacOS;4,Windows"-->
+    <!--        data-url="http://mingle.local.aidalan.com/server/mock/select.json"-->
+    <!--        data-disabled="false"-->
+    <!--        data-mode="single"-->
+    <!--        data-key="id"-->
+    <!--        ^data-value="<{publisher_name}>"-->
+    <!--        data-groupby=""-->
+    <!--        data-required="false"-->
+    <!--        data-smart="false"-->
+    <!--        name="form-select"-->
+    <!--    ></form-select>-->
 
+    <!--    <a data-fn="layout-window" ^href="http://wui-test.local.aidalan.com/mingle/demo.html">data-table</a>-->
+
+    <!--    <a data-fn="layout-window" href="http://wui-test.local.aidalan.com/mingle/chart.html">data-chart</a>-->
+
+    <!--    <h1 w-if="true" @click="handleClick"> <{title}> </h1>-->
+    <!--    <h1 w-readonly> <{title}> </h1>-->
+
+    <h1>center</h1>
+    <h1 w-if="false"> h1 </h1>
+    <h2 w-else> h2 </h2>
+
+    <ul>
+        <li w-foreach="list as (item,index)" w-if="index === 0">
+            <h1><{index}> <{item.name}></h1>
+        </li>
+        <!--        <li w-else></li>-->
+    </ul>
 </div>
 
 <script>
     new Mingle({
         el: '.demo',
         data: {
+            publisher_name: '-----------',
+            inputValue: '100',
             title: 'Hello World ~',
             count: 0,
             visible: true,
             list: [
                 { name: 'Chris' },
-                { name: 'name' },
-                { name: 'name' },
-                { name: 'name' },
-                { name: 'name' },
-                { name: 'name' },
-                { name: 'name' },
+                { name: 'name1' },
+                { name: 'name2' },
+                { name: 'name3' },
+                { name: 'name4' },
+                { name: 'name5' },
+                { name: 'name6' },
             ],
             obj: {},
         },
         created() {
         },
         methods: {
+
+            handleClick(e) {
+                console.log(e);
+            },
+
             show() {
                 this.visible = true;
             },
