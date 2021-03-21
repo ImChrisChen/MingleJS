@@ -6,10 +6,10 @@ import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { deepEachElement } from '@utils/util';
 import { isCustomElement, isFunc, isReactComponent, isUndefined } from '@utils/inspect';
-import { globalComponentConfig, IComponentConfig } from '@root/config/component.config';
+import { globalComponentConfig, IComponentConfig } from '@src/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
-import { Hooks } from '@root/config/directive.config';
+import { Hooks } from '@src/config/directive.config';
 // import { INativeProps } from '@interface/common/component';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。

@@ -19,6 +19,7 @@ function run() {
         let time = moment().format('YYYY-MM-DD/h:mm:ss/a');
         file = file.replace(/version = (.*?);/, `version = "${ time }";`);
         
+        // TODO 需要根据不同打包区分 dist目录和lib目录
         let saved = fs.writeFileSync(resolve(__dirname, '../dist/index.js'), file);
         
         if (typeof saved === 'undefined') {

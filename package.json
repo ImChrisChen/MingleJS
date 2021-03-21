@@ -6,10 +6,11 @@
     "scripts": {
         "dev": "NODE_ENV=development webpack serve --config webpack.config.js",
         "start-all": "pm2 start ecosystem.config.js && pm2 start ./server/ecosystem.config.js",
-        "build:doc": "npm run rm-dist && NODE_ENV=production-doc webpack --config webpack.config.js --progress --color && npm run update-version",
-        "build:lib": "npm run rm-dist && NODE_ENV=production-lib webpack --config webpack.config.js --progress --color && npm run update-version",
+        "build:doc": "npm run rm-doc && NODE_ENV=production-doc webpack --config webpack.config.js --progress --color && npm run update-version",
+        "build:lib": "npm run rm-lib && NODE_ENV=production-lib webpack --config webpack.config.js --progress --color && npm run update-version",
         "deploy": "npm run rm-dist && webpack --config webpack.config.js --progress --color && npm run update-version && git add . && git commit -m 'deploy' && git push all",
-        "rm-dist": "rm -rf ./dist",
+        "rm-doc": "rm -rf ./dist",
+        "rm-lib": "rm -rf ./lib",
         "update-version": "node ./script/script.js"
     },
     "author": "chrischen",

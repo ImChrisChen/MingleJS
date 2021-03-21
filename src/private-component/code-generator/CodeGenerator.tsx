@@ -23,10 +23,10 @@ import {
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { PureComponent } from 'react';
-import { IOptions, IPropertyConfig, componentConfig } from '@root/config/component.config';
+import { IOptions, IPropertyConfig, componentConfig } from '@src/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { arraylastItem } from '@root/utils/util';
+import { arraylastItem } from '@src/utils/util';
 // import { withRouter } from 'react-router';
 import { isObject, isUndefined, isUrl } from '@utils/inspect';
 import { SketchPicker } from 'react-color';

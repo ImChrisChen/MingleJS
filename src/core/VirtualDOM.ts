@@ -7,7 +7,7 @@
 import { IFunctions } from '@services/ParserElement.service';
 import { arraylastItem, getObjectValue } from '@utils/util';
 import { isArray, isExistAttr, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
-import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@root/config/directive.config';
+import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import preventExtensions = Reflect.preventExtensions;
 

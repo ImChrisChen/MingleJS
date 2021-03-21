@@ -6,7 +6,7 @@
  */
 import { isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined } from '@utils/inspect';
 import { ParserCharService } from '@services/ParserChar.service';
-import { getObjectValue } from '@root/utils/util';
+import { getObjectValue } from '@utils/util';
 
 declare type IParseModeData = HTMLElement | object | null;
 declare type tplTyle = 'tpl' | 'field'

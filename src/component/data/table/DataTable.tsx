@@ -21,7 +21,7 @@ import moment from 'moment';
 import FormAction from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
+import { HttpClientService, IApiResult } from '@src/services/HttpClient.service';
 import { FormatDataService } from '@services/FormatData.service';
 
 interface ITableHeaderItem {

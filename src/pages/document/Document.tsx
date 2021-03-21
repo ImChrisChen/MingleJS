@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { deepEach } from '@utils/util';
-import { componentConfig } from '@root/config/component.config';
+import { componentConfig } from '@src/config/component.config';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
@@ -16,7 +16,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import { HttpClientService } from '@root/src/services/HttpClient.service';
+import { HttpClientService } from '@src/services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService } from '@services/FormatData.service';
 

@@ -6,7 +6,7 @@ import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
-import { globalComponentConfig } from './config/component.config';
+import { globalComponentConfig } from '@src/config/component.config';
 import { Mingle } from './src/core/Mingle';
 
 let container = document.querySelector('#__MINGLE_DOCS__');

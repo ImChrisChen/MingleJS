@@ -63,6 +63,7 @@
             `${ hostname }manifest.min.js`,
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
+            `${ hostname }data-set.js`
 
         ];
     }

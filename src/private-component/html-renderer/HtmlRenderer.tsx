@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import App from '@root/src/App';
 import { strParseDOM } from '@utils/trans-dom';
 import { isEmptyArray } from '@utils/inspect';
 

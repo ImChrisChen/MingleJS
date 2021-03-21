@@ -13,12 +13,12 @@ import { trigger } from '@utils/trigger';
 import SmartIcon from '@static/icons/form-smart.png';
 import style from './FormAction.scss';
 import { isEmptyObject } from '@utils/inspect';
-import { arrayDeleteItem } from '@root/utils/util';
+import { arrayDeleteItem } from '@utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import App from '@root/src/App';
+import App from '@src/App';
 import { Inject } from 'typescript-ioc';
 import { ComponentService } from '@services/Component.service';
-import { HttpClientService } from '@root/src/services/HttpClient.service';
+import { HttpClientService } from '@src/services/HttpClient.service';
 
 // 表格提交的数据
 interface IFormData {

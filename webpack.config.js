@@ -78,17 +78,17 @@ module.exports = {
             '@root': path.resolve(__dirname, './'),
 
             '@src': path.resolve(__dirname, 'src'),
-            '@component': path.resolve(__dirname, 'src/component/'),
-            '@interface': path.resolve(__dirname, 'src/interface/'),
-            '@services': path.resolve(__dirname, 'src/services/'),
+            '@component': path.resolve(__dirname, 'src/component'),
+            '@interface': path.resolve(__dirname, 'src/interface'),
+            '@services': path.resolve(__dirname, 'src/services'),
             '@mock': path.resolve(__dirname, 'server/mock'),
 
-            '@public': path.resolve(__dirname, 'public/'),
+            '@public': path.resolve(__dirname, 'public'),
 
-            '@static': path.resolve(__dirname, 'static/'),
+            '@static': path.resolve(__dirname, 'static'),
 
             '@images': path.resolve(__dirname, 'static/images'),
-            '@utils': path.resolve(__dirname, 'utils'),
+            '@utils': path.resolve(__dirname, 'src/utils'),
 
         },
         modules: [path.resolve(__dirname, 'node_modules')],
@@ -177,6 +177,7 @@ module.exports = {
 
     // TODO 格式 { 'package包名称' : 'script标签引入全局变量名称' },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
+        '@antv/data-set': 'DataSet',
         '@ant-design/icons': 'icons',
         'jquery': '$',
         'react': 'React',
@@ -241,8 +242,12 @@ module.exports = {
                     copy: [
                         {
                             source: './public/index.js',
-                            destination: './dist/index.js',
+                            destination: `./${isDoc ? 'dist' : 'lib'}/index.js`,
                         },
+                        {
+                            source: './public/data-set.js',
+                            destination: `./${isDoc ? 'dist' : 'lib'}/data-set.js`
+                        }
                     ],
                 },
             },
