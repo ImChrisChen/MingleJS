@@ -177,6 +177,8 @@ module.exports = {
 
     // TODO 格式 { 'package包名称' : 'script标签引入全局变量名称' },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
+        // 'antd': 'antd',      // TODO 目前分离无效
+        'highlight.js': 'hljs',
         '@antv/data-set': 'DataSet',
         '@ant-design/icons': 'icons',
         'jquery': '$',

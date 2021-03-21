@@ -52,12 +52,15 @@
         
         let hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
         
+        const hljs = `https://cdn.bootcdn.net/ajax/libs/highlight.js/10.6.0/highlight.min.js`;
+        
         return [
             React,
             ReactDOM,
             JQuery,
             // AntdCompactCSS,
             AntdIcons,
+            hljs,
             ...getLibs(),
             `${ hostname }main.min.js`,
             `${ hostname }manifest.min.js`,
