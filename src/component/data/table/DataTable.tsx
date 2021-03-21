@@ -5,25 +5,23 @@
  * Time: 7:35 下午
  */
 
-import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
+import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
 import * as React from 'react';
 import { strParseDOM, strParseVirtualDOM } from '@utils/trans-dom';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
 import { isHtmlTpl, isNumber, isString, isWuiComponent, isWuiTpl } from '@utils/inspect';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
-import App from '@src/App';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
 import FormAction from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
+import { HttpClientService, IApiResult } from '@src/services/HttpClient.service';
 import { FormatDataService } from '@services/FormatData.service';
 
 interface ITableHeaderItem {
@@ -440,17 +438,15 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 setTimeout(() => this.searchInput.select(), 100);
             }
         },
-        render                       : text =>
-            this.state.searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
-                    searchWords={ [ this.state.searchText ] }
-                    autoEscape
-                    textToHighlight={ text ? text.toString() : '' }
-                />
-            ) : (
-                text
-            ),
+        // render                       : text =>
+        //     this.state.searchedColumn === dataIndex ? (
+        //         <Highlighter
+        //             highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
+        //             searchWords={ [ this.state.searchText ] }
+        //             autoEscape
+        //             textToHighlight={ text ? text.toString() : '' }
+        //         />
+        //     ) : (text),
     });
 
     handleReset = clearFilters => {

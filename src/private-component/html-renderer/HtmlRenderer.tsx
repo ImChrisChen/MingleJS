@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import App from '@root/src/App';
 import { strParseDOM } from '@utils/trans-dom';
 import { isEmptyArray } from '@utils/inspect';
 
@@ -38,7 +37,6 @@ export class HtmlRenderer extends React.Component<IHtmlRendererProps, any> {
                 container?.append(...element.children);
                 codes.map(code => eval(code));
                 if (isEmptyArray(scripts)) {
-                    // new App(container as HTMLElement);
                 }
             } catch(e) {
                 console.error(e);

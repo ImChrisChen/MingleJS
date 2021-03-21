@@ -8,7 +8,7 @@
 import React, { Component, PureComponent } from 'react';
 import { Button, Divider } from 'antd';
 import style from './LayoutGenerator.scss';
-import { componentConfig } from '@root/config/component.config';
+import { componentConfig } from '@src/config/component.config';
 
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -172,7 +172,6 @@ class Example extends PureComponent<{ options: Array<any> }, any> {
                         console.log(node);
                         if (el) {
                             el.append(node);
-                            // new App(el);
                         }
                     } }></div>
                     {/*<ExecCode code={ this.state.code }/>*/ }

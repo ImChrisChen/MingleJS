@@ -9,7 +9,7 @@ import { deepEach } from '@utils/util';
 import { isArray, isDOMString, isWuiTpl } from '@utils/inspect';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { strParseVirtualDOM } from '@utils/trans-dom';
-import { IOptions } from '@root/config/component.config';
+import { IOptions } from '@src/config/component.config';
 import { Inject } from 'typescript-ioc';
 
 interface IKeyMap {

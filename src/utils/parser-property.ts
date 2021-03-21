@@ -4,7 +4,7 @@
  * Date: 2020/9/19
  * Time: 11:23 上午
  */
-import { IPropertyConfig, parseType } from '@root/config/component.config';
+import { IPropertyConfig, parseType } from '@src/config/component.config';
 import { isEmptyStr, isJSON, isString } from '@utils/inspect';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 

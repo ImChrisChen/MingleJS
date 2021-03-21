@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { IComponentProps } from '@root/src/interface/common/component';
+import { IComponentProps } from '@src/interface/common/component';
 import GGEditor, { Flow, Mind } from 'gg-editor';
 
 const data = {

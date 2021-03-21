@@ -5,7 +5,7 @@
  * Time: 10:22 上午
  */
 
-import { componentConfig } from '@root/config/component.config';
+import { componentConfig } from '@src/config/component.config';
 
 // 递归加载模块
 async function getModules(keys, object) {

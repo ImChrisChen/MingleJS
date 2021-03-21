@@ -67,15 +67,24 @@ new Mingle({
 })
 ~~~
 
+#### 不解析当前元素下的 文本元素
 
+语法：在元素上 添加 w-readonly 指令
 
-#### 不解析当前元素
+~~~html
+<div w-readonly>
+    <{title}>					// <{title}>
+    <h1> <{title}> </h1>		// <h1> <{title}> </h1>
+</div>
+~~~
 
-语法：w-readonly
-
-
-
-
+~~~javascript
+new Mingle({
+    data: {
+        title: "Hello Mingle ~ "
+    }
+})
+~~~
 
 #### 事件解析
 

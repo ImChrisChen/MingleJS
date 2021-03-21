@@ -9,7 +9,7 @@ import { Form, message, Modal, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { isString } from '@root/utils/inspect';
+import { isString } from '@utils/inspect';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import qs from 'qs';
 import { Inject } from 'typescript-ioc';
