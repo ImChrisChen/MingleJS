@@ -10,6 +10,18 @@ const { resolve } = require('path');
 const moment = require('moment');
 const clc = require('cli-color');
 const { templateCompile } = require('./template-generate');
+const command = require('commander')
+
+let args = format(command.parse(process.argv).args);
+
+function format(args) {
+    let o = {}
+    for (const arg of args) {
+        let [name,value] = arg.split('=')
+        o[name] = value;
+    }
+    return o
+}
 
 function run() {
     templateCompile();
@@ -20,7 +32,12 @@ function run() {
         file = file.replace(/version = (.*?);/, `version = "${ time }";`);
         
         // TODO 需要根据不同打包区分 dist目录和lib目录
-        let saved = fs.writeFileSync(resolve(__dirname, '../dist/index.js'), file);
+        
+        let pathname = args['type'] === 'doc' 
+            ? resolve(__dirname, '../dist/index.js') 
+            : resolve(__dirname, '../lib/index.js');
+
+        let saved = fs.writeFileSync(pathname, file);
         
         if (typeof saved === 'undefined') {
             console.log(clc.blue(`
