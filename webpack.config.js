@@ -7,7 +7,8 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文�
 const glob = require('glob');
 const clc = require('cli-color');
 const webpack = require("webpack");
-const browserify = require('browserify')
+
+const {entries} = require('./script/read-all');
 
 let env = process.env.NODE_ENV;
 let isProduction = env !== 'development';
@@ -29,6 +30,7 @@ module.exports = {
         // [name]是对应的入口文件的key, [name].js 就是main.js
         main: isLib ? './main.prod.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
     },
+    // entry: entries(),
     output: {
         path: path.resolve(__dirname, isDoc ? 'dist' : 'lib'),
         filename: '[name].min.js',
@@ -37,6 +39,7 @@ module.exports = {
         },
         chunkFilename: '[name].min.js',//非入口(non-entry) chunk 文件(关联文件)的名称
     },
+    // 公共模块提取
     optimization: {
         removeAvailableModules: true,
         removeEmptyChunks: true,
