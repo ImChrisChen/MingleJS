@@ -7,6 +7,7 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文�
 const glob = require('glob');
 const clc = require('cli-color');
 const webpack = require("webpack");
+const browserify = require('browserify')
 
 let env = process.env.NODE_ENV;
 let isProduction = env !== 'development';
@@ -75,7 +76,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
             '@root': path.resolve(__dirname, './'),
-            
+
             '@src': path.resolve(__dirname, 'src'),
             '@component': path.resolve(__dirname, 'src/component/'),
             '@interface': path.resolve(__dirname, 'src/interface/'),
@@ -92,7 +93,7 @@ module.exports = {
         },
         modules: [path.resolve(__dirname, 'node_modules')],
         fallback: {
-            path: require.resolve("path-browserify")
+            path: require.resolve("path-browserify"),
         }
     },
     module: {
@@ -185,10 +186,10 @@ module.exports = {
     },
     plugins: [
 
-        // new webpack.ProvidePlugin({
-        //     process: 'process/browser',
-        // }),
-        
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+
         new webpack.HotModuleReplacementPlugin(),
 
         // 处理html

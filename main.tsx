@@ -8,8 +8,11 @@ import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from './config/component.config';
 import { Mingle } from './src/core/Mingle';
+const path = require('path');
 
 console.log(Mingle);
+console.log(process);
+console.log(path);
 
 let container = document.querySelector('#__MINGLE_DOCS__');
 
