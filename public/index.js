@@ -53,6 +53,7 @@
         let hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
         
         const hljs = `https://cdn.bootcdn.net/ajax/libs/highlight.js/10.6.0/highlight.min.js`;
+        const DataSet = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;
         
         return [
             React,
@@ -60,6 +61,7 @@
             JQuery,
             // AntdCompactCSS,
             AntdIcons,
+            DataSet,
             hljs,
             ...getLibs(),
             `${ hostname }main.min.js`,
