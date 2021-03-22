@@ -14,6 +14,8 @@ import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { MVVM } from '@src/core/MVVM';
 import { Monitor } from '@services/Monitor';
+import { componentConfig } from '@src/config/component.config';
+import { FormatDataService } from '@services/FormatData.service';
 
 interface IMingleOptions {
     el: string
@@ -48,6 +50,7 @@ export class Mingle {
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
     @Inject private readonly mvvm: MVVM;
+    @Inject public static readonly formatDataService: FormatDataService;
     private oldVnode;
 
     private containerNode;
@@ -79,6 +82,11 @@ export class Mingle {
             message.error(res?.msg ?? res?.message ?? 'request error !');
             return [];
         }
+    }
+
+    // 是所有组件配置
+    public static async getComponentConfigs() {
+        return await this.formatDataService.components2MenuTree(componentConfig);
     }
 
     // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到
@@ -349,5 +357,3 @@ export class Mingle {
     }
 
 }
-
-
