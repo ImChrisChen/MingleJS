@@ -68,7 +68,7 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
             }
 
             // 属性函数验证
-            if (verify && !verify(value)) {
+            if (value && verify && !verify(value)) {
                 console.error(`${ key }属性的值格式验证不通过`);
                 continue;
             }
