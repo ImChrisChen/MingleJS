@@ -116,7 +116,8 @@ export class Mingle {
         return element;
     };
 
-    render(node: HTMLElement) {
+    // 渲染DOM
+    public static render(node: HTMLElement) {
         new App(node);
     }
 
@@ -131,7 +132,7 @@ export class Mingle {
         for (const child of [ ...node.childNodes ]) {
             container.append(child);
         }
-        this.render(container);
+        Mingle.render(container);
 
         // if (this.oldVnode) {
         //     this.mvvm.patch(this.oldVnode, vnode);
@@ -289,9 +290,8 @@ export class Mingle {
 
         await mounted?.call(proxyData);
 
-
     }
-    
+
     public static async globalEventListener() {
 
         // 判断是否是深色模式

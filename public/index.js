@@ -13,7 +13,7 @@
     let files = getUrls();
     
     console.log(files);
-    console.log(`是否开发环境:`, development);
+    // console.log(`是否开发环境:`, development);
     
     //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
@@ -68,7 +68,7 @@
             `${ hostname }manifest.min.js`,
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
-            `${ hostname }data-set.js`
+            // `${ hostname }data-set.js`
 
         ];
     }

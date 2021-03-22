@@ -15,17 +15,18 @@ function isDir(pathname) {
 
 function readDir(src) {
     let files = fs.readdirSync(src);
-    let components = {};
+    let components = {}
+    ;
     for (let file of files) {
         let pathname = resolve(src, file);
         if (isDir(pathname)) {
-            let c = readDir(pathname)
+            let c = readDir(pathname);
             components = Object.assign(components, c);
         } else {        // 文件
             if (!file.includes('d.ts')) {       // 排除 .d.ts
                 let ext = extname(pathname);
                 if (ext === '.tsx' || ext === '.ts') {
-                    [file] = file.split('.')
+                    [file] = file.split('.');
                     components[file] = pathname;
                 }
             }
