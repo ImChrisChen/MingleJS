@@ -151,7 +151,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                 val.value = val.value();
             }
 
-            if (k === 'url' && val.request) {
+            if (k === 'url' && val.request && val.value) {
                 let res = await this.httpClientService.jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
                 if (dataItem && isObject(dataItem)) {
@@ -179,6 +179,8 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                 if (fieldOptions.length > 0) {
                     options = fieldOptions;
                     el = 'select-multiple';
+                } else {
+                    options = fieldOptions;
                 }
             }
 
