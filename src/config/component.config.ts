@@ -287,8 +287,9 @@ export const componentConfig = {
                     label     : UniversalProps.label,
                     enum      : UniversalProps.enum,
                     url       : {
-                        el     : 'input',
-                        value  : domain + '/server/mock/select.json',
+                        el: 'input',
+                        // value  : domain + '/server/mock/select.json',
+                        value  : '',
                         desc   : '列表数据的接口地址',
                         request: true,
                         parse  : 'string',
@@ -409,7 +410,7 @@ export const componentConfig = {
                     url       : {
                         el     : 'input',
                         parse  : 'string',
-                        value  : domain + '/server/mock/tree.json',
+                        // value  : domain + '/server/mock/tree.json',
                         request: true,
                         desc   : '数据源',
                     },
@@ -497,8 +498,9 @@ export const componentConfig = {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
-                        el     : 'input',
-                        value  : domain + '/server/mock/select.json',
+                        el: 'input',
+                        // value  : domain + '/server/mock/select.json',
+                        value  : '',
                         request: true,
                         parse  : 'string',
                     },
@@ -971,8 +973,9 @@ export const componentConfig = {
             property : {
                 dataset: {
                     url     : {
-                        el     : 'input',
-                        value  : domain + '/server/mock/select.json',
+                        el: 'input',
+                        // value  : domain + '/server/mock/select.json',
+                        value  : '',
                         desc   : '列表数据的接口地址',
                         request: true,
                         parse  : 'string',

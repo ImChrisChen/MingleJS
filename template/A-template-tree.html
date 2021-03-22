@@ -26,7 +26,7 @@
             list: [],
         },
         async created() {
-            let data = await this.$jsonp(`http://mingle.local.aidalan.com/server/mock/tree.json`);
+            let data = await this.$jsonp(`http://mingle-test.local.aidalan.com/server/mock/tree.json`);
             console.log(data);
             this.list = data;
         },
