@@ -52,6 +52,9 @@ export type elType =
     | 'color'
     | 'select-multiple';
 
+// 组件 ｜ 交互
+export type componentType = 'view' | 'interaction';
+
 export interface IOptions {
     label: string
     value: string | number
@@ -97,6 +100,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
         }
     }
     name?: string
+    type?: componentType
 }
 
 // 公共配置属性 Interface
@@ -397,6 +401,7 @@ export const componentConfig = {
                 },
             },
             name     : '下拉框',
+            type     : 'view',
         },
         selecttree: {
             path     : '/form-selecttree',
@@ -408,8 +413,8 @@ export const componentConfig = {
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
-                        el     : 'input',
-                        parse  : 'string',
+                        el   : 'input',
+                        parse: 'string',
                         // value  : domain + '/server/mock/tree.json',
                         request: true,
                         desc   : '数据源',
@@ -455,6 +460,7 @@ export const componentConfig = {
                 hook       : {},
             },
             name     : '树形下拉框',
+            type     : 'view',
         },
         checkbox  : {
             component: import('@component/form/checkbox/FormCheckbox'),
@@ -488,6 +494,7 @@ export const componentConfig = {
                 value  : {},
             },
             name     : '复选框',
+            type     : 'view',
         },
         cascader  : {
             path     : '/form-cascader',
@@ -544,6 +551,7 @@ export const componentConfig = {
                 },
             },
             name     : '级联选择器',
+            type     : 'view',
         },
         datepicker: {
             path     : '/form-datepicker',
@@ -636,6 +644,7 @@ export const componentConfig = {
                 },
             },
             name     : '时间选择器',
+            type     : 'view',
         },
         action    : {
             component: import('@component/form/form-action/FormAction'),
@@ -699,6 +708,7 @@ export const componentConfig = {
             },
             document : import('@component/form/form-action/FormAction.md'),
             name     : 'form表单',
+            type     : 'view',
         },
         radio     : {
             path     : '/form-radio',
@@ -759,6 +769,7 @@ export const componentConfig = {
                 },
             },
             name     : '单选框',
+            type     : 'view',
         },
         slider    : {
             path     : '/form-slider',
@@ -806,6 +817,7 @@ export const componentConfig = {
                 },
             },
             name     : '滑动选择器',
+            type     : 'view',
         },
         switch    : {
             path     : '/form-switch',
@@ -830,6 +842,7 @@ export const componentConfig = {
                 group  : UniversalProps.group,
             },
             name     : '开关选择器',
+            type     : 'view',
         },
         input     : {
             path     : '/form-input',
@@ -873,6 +886,7 @@ export const componentConfig = {
                 },
             },
             name     : '文本框',
+            type     : 'view',
         },
         group     : {
             path     : '/form-group',
@@ -892,6 +906,7 @@ export const componentConfig = {
                 },
             },
             name     : '表单组',
+            type     : 'view',
         },
         upload    : {
             component: import('@component/form/upload/FormUpload'),
@@ -945,6 +960,7 @@ export const componentConfig = {
                 smart  : UniversalProps.smart,
             },
             name     : '文件上传',
+            type     : 'view',
         },
         color     : {
             component: import('@component/form/color/FormColor'),
@@ -966,6 +982,7 @@ export const componentConfig = {
                 style  : UniversalProps.style,
             },
             name     : '颜色选择器',
+            type     : 'view',
         },
         transfer  : {
             component: import('@component/form/transfer/FormTransfer'),
@@ -1028,6 +1045,8 @@ export const componentConfig = {
                     desc : '默认值',
                 },
             },
+            name     : '穿梭框',
+            type     : 'view',
         },
     },
     view  : {
@@ -1066,6 +1085,7 @@ export const componentConfig = {
                 },
             },
             name     : '步骤',
+            type     : 'view',
         },
         dropdown: {
             component: import('@component/view/dropdown/ViewDropdown'),
@@ -1095,6 +1115,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         calendar: {
             path     : 'view-calendar',
@@ -1102,6 +1123,7 @@ export const componentConfig = {
             property : {
                 dataset: {},
             },
+            type     : 'view',
         },
         panel   : {
             path     : '/view-panel',
@@ -1124,6 +1146,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         image   : {
             path     : '/view-image',
@@ -1138,6 +1161,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
     },
     data  : {
@@ -1257,6 +1281,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         chart: {
             component: import('@component/data/chart/DataChart'),
@@ -1438,6 +1463,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         tree : {
             path     : '/layout-tree',
@@ -1491,6 +1517,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
     },
     tips  : {
@@ -1530,6 +1557,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'interaction',
         },
         text: {
             component: import('@component/tips/text/TipsText'),
@@ -1560,6 +1588,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'interaction',
         },
         list: {},
     },
@@ -1643,6 +1672,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         tab     : {
             component: import('@component/layout/tab/LayoutTab'),
@@ -1669,6 +1699,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         'window': {
             component: import('@component/layout/window/LayoutWindow'),
@@ -1714,6 +1745,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'interaction',
         },
         drawer  : {
             component: import('@component/layout/drawer/LayoutDrawer'),
@@ -1769,6 +1801,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'interaction',
         },
         list    : {
             component: import('@component/layout/list/LayoutList'),
@@ -1808,6 +1841,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'view',
         },
         grid    : {
             component: import('@component/layout/grid/LayoutGrid'),
@@ -1816,7 +1850,9 @@ export const componentConfig = {
             property : {
                 dataset: {},
             },
+            type     : 'view',
         },
+
     },
     handle: {
         request: {
