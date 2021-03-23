@@ -917,7 +917,6 @@ export const componentConfig = {
                     url     : {
                         el   : 'input',
                         parse: 'string',
-                        // value: 'http:///server/upload',
                         value: `${ file }/upload/byCode`,
                         desc : '上传的地址',
                     },
@@ -1721,7 +1720,7 @@ export const componentConfig = {
                     },
                     height: {
                         el   : 'number',
-                        value: 400,
+                        value: 800,
                         parse: 'number',
                         desc : '弹窗的高度',
                     },
@@ -1875,6 +1874,29 @@ export const componentConfig = {
                         value : domain + '/server/mock/menulist/uesr-menu.json',
                         parse : 'string',
                         verify: v => isUrl(v),
+                    },
+                },
+            },
+        },
+        operate: {
+            component: import('@component/handle/operate/HandleOperate'),
+            property : {
+                dataset: {
+                    // trigger: {
+                    //     el     : 'radio',
+                    //     options: [
+                    //         { label: 'click', value: 'click' },
+                    //         { label: 'hover', value: 'hover' },
+                    //     ],
+                    // },
+                    operate: {
+                        el     : 'select',
+                        options: [
+                            { label: '弹窗', value: 'layout-window' },
+                            { label: 'form提交', value: 'form-submit' },
+                        ],
+                        value  : '',
+                        parse  : 'string',
                     },
                 },
             },

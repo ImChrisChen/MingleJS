@@ -5,32 +5,51 @@
  * Time: 3:43 下午
  */
 
-import React from 'react';
-import { IComponentProps } from '@interface/common/component';
+import React, { Component } from 'react';
+import { INativeProps } from '@interface/common/component';
 import { Drawer } from 'antd';
+import ReactDOM from 'react-dom';
+import style from './LayoutDrawer.scss';
 
-export default class LayoutDrawer extends React.Component<IComponentProps, any> {
-    constructor(props) {
-        super(props);
-        this.props.el.onclick = e => this.handleClickBtn(e);
-        this.props.el.innerHTML = this.props.dataset.label;
+export default class LayoutDrawer {
+
+    props: INativeProps;
+
+    constructor(props: INativeProps) {
+        this.props = props;
+        this.renderDrawer();
     }
+
+    renderDrawer() {
+        console.log(this.props);
+
+        let container = document.createElement('div');
+        container.classList.add('layout-drawer-container');
+        document.body.append(container);
+
+        ReactDOM.render(<PrivateDrawer { ...this.props } />, container);
+    }
+}
+
+export class PrivateDrawer extends Component<any, any> {
 
     state = {
-        visible: this.props.dataset.open ?? false,
+        visible: false,
     };
+    private readonly target: string = 'layout-drawer';
 
-    handleClickBtn(e) {
-        this.showDrawer();
+    constructor(props) {
+        super(props);
+        console.log(props);
+        let el = this.props.el;
+        let target = el.getAttribute('target');
+        if (!target) {
+            el.setAttribute('target', this.target);
+        }
+        el.addEventListener('click', () => {
+            this.setState({ visible: true });
+        });
     }
-
-    showDrawer() {
-        this.setState({ visible: true });
-    };
-
-    onClose() {
-        this.setState({ visible: false });
-    };
 
     render() {
         let { dataset } = this.props;
@@ -41,12 +60,53 @@ export default class LayoutDrawer extends React.Component<IComponentProps, any> 
             placement={ dataset.layout ?? 'right' }
             closable={ dataset.closable ?? true }
             mask={ dataset.mask ?? false }
-            onClose={ this.onClose.bind(this) }
+            onClose={ () => this.setState({ visible: false }) }
             visible={ this.state.visible }
         >
-            <div ref={ element => {
-                element?.append(...this.props.subelements);
-            } }/>
+            <iframe className={ style.iframe } name={ this.target }></iframe>
         </Drawer>;
     }
+
 }
+
+// export class LayoutDrawers extends Component<IComponentProps, any> {
+//     constructor(props) {
+//         super(props);
+//         this.props.el.onclick = e => this.handleClickBtn(e);
+//         // this.props.el.innerHTML = this.props.dataset.label;
+//     }
+//
+//     state = {
+//         visible: this.props.dataset.open ?? false,
+//     };
+//
+//     handleClickBtn(e) {
+//         this.showDrawer();
+//     }
+//
+//     showDrawer() {
+//         this.setState({ visible: true });
+//     };
+//
+//     onClose() {
+//         this.setState({ visible: false });
+//     };
+//
+//     render() {
+//         let { dataset } = this.props;
+//         return <Drawer
+//             title={ dataset.title }
+//             width={ dataset.width ?? 400 }
+//             height={ dataset.height ?? 400 }
+//             placement={ dataset.layout ?? 'right' }
+//             closable={ dataset.closable ?? true }
+//             mask={ dataset.mask ?? false }
+//             onClose={ this.onClose.bind(this) }
+//             visible={ this.state.visible }
+//         >
+//             <iframe name="target" ref={ element => {
+//                 // element?.append(...this.props.subelements);
+//             } }/>
+//         </Drawer>;
+//     }
+// }

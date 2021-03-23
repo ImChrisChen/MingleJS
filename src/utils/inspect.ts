@@ -230,6 +230,9 @@ export function isClass(obj, strict?): obj is ClassDecorator {
 
 // 是否url
 export function isUrl(url: string): boolean {
+    if (url.startsWith('/') || url.includes('//')) {
+        return true;
+    }
     let rule = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
     return rule.test(url);
 }

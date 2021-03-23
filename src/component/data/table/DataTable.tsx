@@ -91,6 +91,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     private searchInput;
     private tableHeaderNode = this.props.templates['table-header'];
     private tableBodyNode = this.props.templates['table-body'];
+    private timer;
 
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
@@ -133,13 +134,18 @@ export default class DataTable extends React.Component<ITableProps, any> {
         console.log(this.props);
         if (interval) {
             console.log('----------');
-            setInterval(() => {
+            this.timer = setInterval(() => {
                 this.FormSubmit({}).then(r => {
                     // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);
                 });
             }, interval * 60 * 1000);
         }
     }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
 
     handleShowSizeChange(page, pageSize) {    // pageSize 变化的回调
         this.setState({
@@ -222,16 +228,16 @@ export default class DataTable extends React.Component<ITableProps, any> {
             obj.money_cost += item.money_cost;
         });
         return {
-            cost                : obj.cost.toFixed(2),
-            money_cost          : obj.money_cost.toFixed(2),
-            key                 : 0,
-            'id'                : '合计',
-            'adv_position_id'   : undefined,
-            'pf'                : undefined,
-            'date'              : '', // '2020-09-23'
-            'game_name'         : '',
-            'position_name'     : '',
-            'channel_name'      : '',
+            cost             : obj.cost.toFixed(2),
+            money_cost       : obj.money_cost.toFixed(2),
+            key              : 0,
+            'id'             : '合计',
+            'adv_position_id': undefined,
+            'pf'             : undefined,
+            'date'           : '', // '2020-09-23'
+            'game_name'      : '',
+            'position_name'  : '',
+            'channel_name'   : '',
             // 'cost':'',
             // 'money_cost'?: number,
             'principal_name'    : '',
@@ -341,7 +347,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch (item.field) {
+                switch(item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;
@@ -374,13 +380,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // antd
                 ...filters,       // 搜索
 
-                title       : <div className={ style.tableHeaderCell }
-                                   style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
+                title: <div className={ style.tableHeaderCell }
+                            style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
                 // title    : item.text,
-                dataIndex   : item.field,
-                id          : item.field,
-                align       : 'center',
-                render      : function (text, item, i) {
+                dataIndex: item.field,
+                id       : item.field,
+                align    : 'center',
+                render   : function (text, item, i) {
                     return text;
                 },     // 自定义渲染表格中的每一项
                 // className: style.tableHeaderCell,
@@ -389,9 +395,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     // console.log(column);
                 },
                 // ellipsis    : true,      // 自动省略
-                Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+                Breakpoint: 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 // fixed       : false,
-                sorter      : sortCallback,
+                sorter: sortCallback,
             });
         }
 

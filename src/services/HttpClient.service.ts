@@ -139,6 +139,10 @@ export class HttpClientService {
             };
             let script: HTMLScriptElement = document.createElement('script');
 
+            if (!url) {
+                reject();
+            }
+
             if (url.includes('?')) {
                 url = url + `&jsoncallback=${ funcName }`;
             } else {
@@ -160,7 +164,7 @@ export class HttpClientService {
                     dataType   : 'jsonp',
                     headers    : '{}',
                 });
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
 

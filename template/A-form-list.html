@@ -1,1 +1,65 @@
-<form-action>    <!-- 平台 -->    <form-select            name="pf"            style="width: 300px"            value="1"            data-required="true"            data-label="平台:"            data-exec            data-smart="true"            data-mode="single"            data-key="id"            data-value="name"            data-url="http://e.aidalan.com/option/pf/list" data-size="sm">    </form-select>    <form-group name="group">        <!-- 日期 -->        <form-datepicker                data-format="YYYY-MM-DD HH:mm:ss"                data-label="日期:"                data-showtime="true"                data-mindate="2016-01-01"                data-maxdate="2020-10-26"                data-usenow="true"                name="date_range"        ></form-datepicker>        <!-- 平台 -->        <form-select                name="pf"                style="width: 300px"                value="1"                data-required="true"                data-label="平台:"                data-exec                data-smart="true"                data-mode="single"                data-key="id"                data-value="name"                data-url="http://e.aidalan.com/option/pf/list" data-size="sm"></form-select>        <!-- 游戏 -->        <form-select                name="dl_game_id" data-mode="multiple"                data-smart="true"                data-label="游戏:"                data-key="game_id"                data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"                data-tags="tags"                value=""                data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"                data-size="sm"        ></form-select>    </form-group>    <button class="ant-btn ant-btn-primary" type="submit">Submit</button></form-action>
+<form-action>
+
+    <!-- 平台 -->
+    <form-select
+            name="pf"
+            style="width: 300px"
+            value="1"
+            data-required="true"
+            data-label="平台:"
+            data-exec
+            data-smart="true"
+            data-mode="single"
+            data-key="id"
+            data-value="name"
+            data-url="http://e.aidalan.com/option/pf/list" data-size="sm">
+    </form-select>
+
+    <form-group name="group">
+        <!-- 日期 -->
+        <form-datepicker
+                data-format="YYYY-MM-DD HH:mm:ss"
+                data-label="日期:"
+                data-showtime="true"
+                data-mindate="2016-01-01"
+                data-maxdate="2020-10-26"
+                data-usenow="true"
+                name="date_range"
+        ></form-datepicker>
+
+        <!-- 平台 -->
+        <form-select
+                name="pf"
+                style="width: 300px"
+                value="1"
+                data-required="true"
+                data-label="平台:"
+                data-exec
+                data-smart="true"
+                data-mode="single"
+                data-key="id"
+                data-value="name"
+                data-url="http://e.aidalan.com/option/pf/list" data-size="sm"></form-select>
+
+        <!-- 游戏 -->
+        <form-select
+            name="dl_game_id" data-mode="multiple"
+            data-smart="true"
+            data-label="游戏:"
+            data-key="game_id"
+            data-value="<{pf}> - <{game_name}><span class='sr-only'><{game_original_name}></span>"
+            data-tags="tags"
+            value=""
+            data-url="http://e.aidalan.com/option/game/name?pf=<{pf}>" id="game_id"
+            data-size="sm"
+        ></form-select>
+
+    </form-group>
+
+    <button class="ant-btn ant-btn-primary" type="submit">Submit</button>
+
+</form-action>
+
+<script>
+    new Mingle({});
+</script>

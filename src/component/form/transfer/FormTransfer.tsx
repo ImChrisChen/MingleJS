@@ -28,7 +28,6 @@ interface IFormTransferProps extends IComponentProps {
 
 export default class FormTransfer extends Component<IFormTransferProps, ReactNode> {
 
-
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
 
@@ -51,9 +50,11 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
 
     async getData() {
         let { url, key, value } = this.props.dataset;
-        let { data } = await this.httpClientService.jsonp(url);
-        if (data && data.length > 0) {
-            return this.formatDataService.list2AntdOptions(data, key, value);
+        if (url) {
+            let { data } = await this.httpClientService.jsonp(url);
+            if (data && data.length > 0) {
+                return this.formatDataService.list2AntdOptions(data, key, value);
+            }
         }
         return [];
     }

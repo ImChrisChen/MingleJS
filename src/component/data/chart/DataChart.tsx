@@ -99,6 +99,7 @@ export default class DataChart extends Component<IComponentProps, any> {
 
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
+    private timer;
 
     state = {
         loading   : true,
@@ -115,27 +116,12 @@ export default class DataChart extends Component<IComponentProps, any> {
 
         let { interval } = this.props.dataset;
         if (interval) {
-            setInterval(() => {
+            this.timer = setInterval(() => {
                 this.FormSubmit({}).then(r => {
                     // message.success(`图表数据自动更新了,每次更新间隔为${ interval }分钟`);
                 });
             }, interval * 60 * 1000);
         }
-    }
-
-    // TODO 点击表单提交触发
-    public async FormSubmit(formData = {}) {
-        console.log('DataChart:', formData);
-        this.setState({ loading: true });
-        let url = this.formatDataService.obj2Url(formData, this.props.dataset.url);
-        let data = await this.getData(url);
-        let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
-        this.setState({ data, loading: false, updateDate });
-    }
-
-    async getData(url) {
-        let res = await this.httpClientService.jsonp(url);
-        return res.status ? res.data : [];
     }
 
     // 环型图
@@ -162,7 +148,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         //TODO
         return <>
             <Chart height={ config.height } data={ config.dataSource } scale={ cols } autoFit
-                   interactions={ ['element-single-selected'] }>
+                   interactions={ [ 'element-single-selected' ] }>
                 <Coordinate type="theta" radius={ 0.85 } innerRadius={ 0.75 }/>
                 {/*<Tooltip shared showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
@@ -172,17 +158,32 @@ export default class DataChart extends Component<IComponentProps, any> {
                     adjust="stack"
                     color={ config.key }
                     label={
-                        ['*', {
+                        [ '*', {
                             content: (data) => {
                                 return `
                                     ${ data[config.key] }: ${ data[config.value] }
                                     百分比: ${ (data[config.value] / valueSum * 100).toFixed(2) }%
                                 `;
                             },
-                        }] }
+                        } ] }
                 />
             </Chart>
         </>;
+    }
+
+    // TODO 点击表单提交触发
+    public async FormSubmit(formData = {}) {
+        console.log('DataChart:', formData);
+        this.setState({ loading: true });
+        let url = this.formatDataService.obj2Url(formData, this.props.dataset.url);
+        let data = await this.getData(url);
+        let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
+        this.setState({ data, loading: false, updateDate });
+    }
+
+    async getData(url) {
+        let res = await this.httpClientService.jsonp(url);
+        return res.status ? res.data : [];
     }
 
     // 饼状图
@@ -208,7 +209,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         //TODO
         return <>
             <Chart height={ config.height } data={ config.dataSource } scale={ cols } autoFit
-                   interactions={ ['element-single-selected'] }>
+                   interactions={ [ 'element-single-selected' ] }>
                 <Coordinate type="theta" radius={ 0.85 }/>
                 {/*<Tooltip showTitle={ false }/>*/ }
                 <Axis visible={ false }/>
@@ -218,14 +219,14 @@ export default class DataChart extends Component<IComponentProps, any> {
                     adjust="stack"
                     color={ config.key }
                     label={
-                        ['*', {
+                        [ '*', {
                             content: (data) => {
                                 return `
                                     ${ data[config.key] }: ${ data[config.value] }
                                     百分比: ${ (data[config.value] / valueSum * 100).toFixed(2) }%
                                 `;
                             },
-                        }] }
+                        } ] }
                 />
             </Chart>
         </>;
@@ -250,9 +251,9 @@ export default class DataChart extends Component<IComponentProps, any> {
                     lineWidth: 1,
                     stroke   : '#fff',
                 } }
-                label={ [config.key, {
+                label={ [ config.key, {
                     offset: -15,
-                }] }
+                } ] }
             />
         </Chart>;
     }
@@ -264,10 +265,10 @@ export default class DataChart extends Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ ['active-region'] }>
+                   interactions={ [ 'active-region' ] }>
 
                 <Interval position={ position } color={ colors }
-                          adjust={ [{ type: 'dodge', marginRatio: 0 }] }/>
+                          adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
 
                 <TooltipCustom config={ config }/>
                 <Legend
@@ -285,6 +286,50 @@ export default class DataChart extends Component<IComponentProps, any> {
                         },
                     } }
                 />
+            </Chart>
+        </>;
+    }
+
+    // 折线图 (支持分组统计)
+    public static line(config) {
+        /*
+        * TODO line 单独配置
+        * area 是否展示区域
+        * point 是否展示点
+        **/
+
+        let { position, dataSource, colors } = this.formatGroupsData(config);
+        return <>
+            <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
+                   interactions={ [ 'active-region' ] }>
+
+                {/*<Line position={ position } color={ groupby || colors }/>*/ }
+                {/*<Point position={ position } color={ groupby || colors }/>*/ }
+                {/*<Area position={ position } color={ groupby || colors }/>*/ }
+
+                <LineAdvance area position={ position } point={ {
+                    shape   : config.pointShape,
+                    position: position,
+                    size    : config.pointSize,
+                } } color={ colors } label="first"/>
+
+                {/*<Tooltip shared/>*/ }
+                <TooltipCustom config={ config }/>
+
+                <Legend
+                    visible={ true }
+                    itemName={ {
+                        spacing  : 20, // 文本同滑轨的距离
+                        style    : {
+                            // stroke: 'blue',
+                            fill: 'red',
+                        },
+                        formatter: (text, item, index) => {
+                            return text;
+                        },
+                    } }
+                />
+
             </Chart>
         </>;
     }
@@ -338,50 +383,6 @@ export default class DataChart extends Component<IComponentProps, any> {
         </>;
     }
 
-    // 折线图 (支持分组统计)
-    public static line(config) {
-        /*
-        * TODO line 单独配置
-        * area 是否展示区域
-        * point 是否展示点
-        **/
-
-        let { position, dataSource, colors } = this.formatGroupsData(config);
-        return <>
-            <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ ['active-region'] }>
-
-                {/*<Line position={ position } color={ groupby || colors }/>*/ }
-                {/*<Point position={ position } color={ groupby || colors }/>*/ }
-                {/*<Area position={ position } color={ groupby || colors }/>*/ }
-
-                <LineAdvance area position={ position } point={ {
-                    shape   : config.pointShape,
-                    position: position,
-                    size    : config.pointSize,
-                } } color={ colors } label="first"/>
-
-                {/*<Tooltip shared/>*/ }
-                <TooltipCustom config={ config }/>
-
-                <Legend
-                    visible={ true }
-                    itemName={ {
-                        spacing  : 20, // 文本同滑轨的距离
-                        style    : {
-                            // stroke: 'blue',
-                            fill: 'red',
-                        },
-                        formatter: (text, item, index) => {
-                            return text;
-                        },
-                    } }
-                />
-
-            </Chart>
-        </>;
-    }
-
     // 词云
     public static word(config) {
         function formatData(data) {
@@ -398,7 +399,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 // maskImage={ '' }
                 // shape={ 'cardioid' }
                 wordStyle={ {
-                    fontSize: [30, 40],
+                    fontSize: [ 30, 40 ],
                 } }
             />
         </>;
@@ -435,7 +436,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             <Chart
                 height={ config.height }
                 data={ dv.rows }
-                padding={ [20, 120, 95] }
+                padding={ [ 20, 120, 95 ] }
                 forceFit
             >
                 <Tooltip
@@ -445,7 +446,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 />
                 <Axis name={ percent } grid={ null } label={ null }/>
                 <Axis name={ config.key } label={ null } line={ null } grid={ null } tickLine={ null }/>
-                <Coordinate scale={ [1, -1] } transpose type="rect"/>
+                <Coordinate scale={ [ 1, -1 ] } transpose type="rect"/>
                 <Legend/>
                 { dv.rows.map((obj: any, i) => {
                     return (
@@ -473,7 +474,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                     shape="funnel"
                     color={ [
                         config.key,
-                        ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'],
+                        [ '#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF' ],
                     ] }
                     tooltip={ [
                         // 'action*pv*percent',
@@ -500,7 +501,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                                     stroke   : 'rgba(0, 0, 0, 0.15)',
                                 },
                             },
-                        }] }
+                        } ] }
                 >
                 </Interval>
             </Chart>
@@ -544,7 +545,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                     max: 80,
                 },
             } }
-            interactions={ ['legend-highlight'] }
+            interactions={ [ 'legend-highlight' ] }
         >
             <Coordinate type="polar" radius={ 0.8 }/>
             {/*<Tooltip shared/>*/ }
@@ -602,7 +603,7 @@ export default class DataChart extends Component<IComponentProps, any> {
             field: config.value/*'value'*/,
             type : 'hierarchy.treemap',
             tile : 'treemapResquarify',
-            as   : ['x', 'y'],
+            as   : [ 'x', 'y' ],
         });
         // 将 DataSet 处理后的结果转换为 G2 接受的数据
         const nodes: Array<any> = [];
@@ -659,7 +660,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                     lineWidth: 1,
                     stroke   : '#fff',
                 } }
-                label={ [config.key/*'name'*/, {
+                label={ [ config.key/*'name'*/, {
                     offset : 0,
                     style  : {
                         textBaseline: 'middle',
@@ -672,9 +673,38 @@ export default class DataChart extends Component<IComponentProps, any> {
                         //     return obj[config.key];
                         // }
                     },
-                }] }
+                } ] }
             />
         </Chart>;
+    }
+
+    public static renderChart(config): ReactNode {
+        switch(config.chartType) {
+            case 'bar':
+                return this.bar(config);
+            case 'hbar':
+                return this.hbar(config);
+            case 'line':
+                return this.line(config);
+            case  'pie':
+                return this.pie(config);
+            case  'rose':
+                return this.rose(config);
+            case  'loop':
+                return this.loop(config);
+            case 'word':
+                return this.word(config);
+            case 'funnel':
+                return this.funnel(config);
+            case 'radar':
+                return this.radar(config);
+            // case 'water':
+            //     return this.water(config);
+            case 'rect':
+                return this.rect(config);
+            default:
+                return this.line(config);
+        }
     }
 
     public static water(config) {
@@ -737,6 +767,47 @@ export default class DataChart extends Component<IComponentProps, any> {
         }
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    //分组统计数据格式转化
+    private static formatGroupsData(config) {
+        let dv = new DataView().source(config.dataSource);
+        let k = 'type';                     // 固定的type值
+        let fields: Array<any> = config.value;     // fiedls 是数组,data-value ['value1','value2'] 超过一项认定为分组统计
+        let p = '';                         // position 根据单维度统计和多维度统计 做不同的调整
+        let c = '';                         // colors 多维度统计时固定为 'type',   单维度统计时为动态的 key 或者 value
+        let v = '';                         // value  多维度统计时固定为 'value'   单维度统计时为动态的 动态的 value值 例如： ['value1','value2']
+
+        // 分组统计 value: ['value1','value2']
+        if (config.value.length > 1) {
+            c = k;
+            v = 'value';
+            p = `${ config.key }*${ v }`;
+        } else {
+            // 单维度统计 value: ['value1']
+            c = config.groupby;
+            v = config.value[0];
+            p = `${ config.key }*${ config.value[0] }`;
+        }
+
+        dv.transform({
+            type  : 'fold',
+            fields: fields,
+            key   : k,
+            value : v,
+        });
+        return {
+            ...config,
+
+            // 主要转化的数据
+            position  : p,
+            colors    : c,
+            dataSource: dv.rows,
+        };
+    }
+
     formatConfig(): IChartConfig | any {
         let {
             key,       // data数据 key 值映射
@@ -782,74 +853,8 @@ export default class DataChart extends Component<IComponentProps, any> {
                 tooltip_suffix,
                 tooltip_cross,
             };
-        } catch (e) {
+        } catch(e) {
             return {};
-        }
-    }
-
-    //分组统计数据格式转化
-    private static formatGroupsData(config) {
-        let dv = new DataView().source(config.dataSource);
-        let k = 'type';                     // 固定的type值
-        let fields: Array<any> = config.value;     // fiedls 是数组,data-value ['value1','value2'] 超过一项认定为分组统计
-        let p = '';                         // position 根据单维度统计和多维度统计 做不同的调整
-        let c = '';                         // colors 多维度统计时固定为 'type',   单维度统计时为动态的 key 或者 value
-        let v = '';                         // value  多维度统计时固定为 'value'   单维度统计时为动态的 动态的 value值 例如： ['value1','value2']
-
-        // 分组统计 value: ['value1','value2']
-        if (config.value.length > 1) {
-            c = k;
-            v = 'value';
-            p = `${ config.key }*${ v }`;
-        } else {
-            // 单维度统计 value: ['value1']
-            c = config.groupby;
-            v = config.value[0];
-            p = `${ config.key }*${ config.value[0] }`;
-        }
-
-        dv.transform({
-            type  : 'fold',
-            fields: fields,
-            key   : k,
-            value : v,
-        });
-        return {
-            ...config,
-
-            // 主要转化的数据
-            position  : p,
-            colors    : c,
-            dataSource: dv.rows,
-        };
-    }
-
-    public static renderChart(config): ReactNode {
-        switch (config.chartType) {
-            case 'bar':
-                return this.bar(config);
-            case 'hbar':
-                return this.hbar(config);
-            case 'line':
-                return this.line(config);
-            case  'pie':
-                return this.pie(config);
-            case  'rose':
-                return this.rose(config);
-            case  'loop':
-                return this.loop(config);
-            case 'word':
-                return this.word(config);
-            case 'funnel':
-                return this.funnel(config);
-            case 'radar':
-                return this.radar(config);
-            // case 'water':
-            //     return this.water(config);
-            case 'rect':
-                return this.rect(config);
-            default:
-                return this.line(config);
         }
     }
 

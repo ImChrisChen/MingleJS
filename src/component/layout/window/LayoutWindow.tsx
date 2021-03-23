@@ -6,110 +6,30 @@
  */
 import React, { Component } from 'react';
 import { Button, Modal } from 'antd';
-import { IComponentProps } from '@interface/common/component';
+import { INativeProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
-import { CloseOutlined } from '@ant-design/icons';
-
-interface ILayoutModalProps {
-    content: HTMLElement
-    onClose: (...args) => any
-    dataset?: any
-
-    [key: string]: any
-}
-
-class LayoutModal extends Component<ILayoutModalProps, any> {
-
-    constructor(prosp) {
-        super(prosp);
-        console.log(prosp);
-    }
-
-    render() {
-        let { content, onClose } = this.props;
-        return <div ref={ el => el && el.append(content) } style={ { width: 'inherit', height: 'inherit' } }>
-            <div
-                style={ {
-                    display       : 'flex',
-                    justifyContent: 'space-between',
-                    alignItems    : 'center',
-                    padding       : '8px 0',
-                    borderBottom  : '1px solid #ccc',
-                    cursor        : 'move',
-                } }>
-                <div></div>
-                <h2 style={ { marginBottom: 0 } }>{ this.props.dataset.title }</h2>
-                <CloseOutlined style={ { marginRight: 20 } } onClick={ onClose }/>
-            </div>
-        </div>;
-    }
-}
 
 export default class LayoutWindow {
 
-    private el: HTMLElement;
-    private delay: number = 400;       // ms
-    private target = `layout-window-iframe`;
-    private props;
+    props: INativeProps;
 
-    constructor(props) {
-        console.log(props);
+    constructor(props: INativeProps) {
         this.props = props;
-        this.el = props.el;
-
-        let elTarget = this.el.getAttribute('target');
-        if (!elTarget) {
-            this.el.setAttribute('target', this.target);
-        } else {
-            return;
-        }
-
-        this.el.addEventListener('click', e => {
-            let layoutWindowContainer = $('.layout-window-container');
-            // 复用同一个iframe
-            if (layoutWindowContainer.length > 0) {
-                layoutWindowContainer.fadeIn(this.delay);
-            } else {
-                this.renderIframe();
-            }
-        });
+        this.render();
     }
 
-    renderIframe() {
-        let iframe = document.createElement('iframe');
-
-        iframe.name = this.target;
-        iframe.classList.add('layout-window-iframe');
-
-        // let iframeModal = <div ref={ el => el && el.append(iframe) } style={ { width: 'inherit', height: 'inherit' } }>
-        //     <Button onClick={ this.handleClose }>关闭</Button>
-        // </div>;
-
+    render() {
         let container = document.createElement('div');
         container.classList.add('layout-window-container');
-
-        container.style.height = '520px';
-        container.style.width = '720px';
-
         document.body.append(container);
-        ReactDOM.render(
-            <LayoutModal
-                { ...this.props }
-                content={ iframe }
-                onClose={ this.handleClose }
-            />,
-            container,
-        );
-    }
 
-    handleClose = () => {
-        $('.layout-window-container').fadeOut(this.delay);
-    };
+        ReactDOM.render(<PrivateLayoutWindow { ...this.props } />, container);
+    }
 }
 
-class LayoutWindows extends Component<IComponentProps, any> {
+class PrivateLayoutWindow extends Component<any, any> {
 
     state = {
         loading : false,
@@ -118,12 +38,18 @@ class LayoutWindows extends Component<IComponentProps, any> {
         height  : this.props.dataset.height ?? 400,
         disabled: true,
     };
-    rnd: any;
+
+    private readonly target: string = 'layout-window-iframe';
 
     constructor(props) {
         super(props);
-        this.props.el.onclick = e => this.handleClickBtn(e);
-        this.props.el.innerHTML = this.props.dataset.label;
+        let el = this.props.el;
+
+        let target = el.getAttribute('target');
+        if (!target) {
+            el.setAttribute('target', this.target);
+        }
+        this.props.el.addEventListener('click', e => this.handleClickBtn(e));
     }
 
     handleClickBtn(e) {
@@ -186,9 +112,9 @@ class LayoutWindows extends Component<IComponentProps, any> {
                 ]
             }
         >
-            <div ref={ element => {
-                element?.append(...this.props.subelements);
-            } }/>
+            <iframe className="layout-window-iframe" style={ { minHeight: this.state.height } }
+                    name={ this.target }/>
+            {/*<div ref={ element => element?.append(...this.props.subelements) }/>*/ }
         </Modal>;
     }
 

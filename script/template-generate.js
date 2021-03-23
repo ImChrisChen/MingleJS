@@ -15,7 +15,7 @@ function replaceHtml(rootpath) {
     files.forEach(file => {
         let filepath = path.resolve(rootpath, file);
         let content = fs.readFileSync(filepath).toString();
-        let afterContent = content.replace(/http:\/\/mingle-test.local.aidalan.com/g, 'http://mingle.local.aidalan.com');
+        let afterContent = content.replace(/http:\/\/mingle.local.aidalan.com/g, '/');
     
         // let afterContent = content.replace(/http:\/\/mingle.local.aidalan.com/g, 'http://mingle-test.local.aidalan.com');
     
