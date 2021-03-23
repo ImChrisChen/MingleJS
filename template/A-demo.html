@@ -1,25 +1,15 @@
-<div class="demo">
-    <button data-fn="handle-operate" data-operate="layout-window">
-        Submit
-    </button>
+<div id="demo1">
 
-    <a data-fn="layout-window" href="#">百度</a>
+<!--    <layout-list data-cols="1">-->
+        <data-table data-title="table"></data-table>
+<!--    </layout-list>-->
 
-    <a data-fn="layout-window" href="https://baidu.com">百度s</a>
-
-    <a data-fn="layout-drawer" href="#">编辑</a>
-
-    <form-select data-fn="form-select"></form-select>
-
-    <layout-drawer data-label="哈哈"></layout-drawer>
-
-    <a data-fn="layout-drawer" href="https://baidu.com">baodu</a>
 
 </div>
 
 <script>
     new Mingle({
-        el: '.demo',
+        el: '#demo1',
         data: {
             publisher_name: '-----------',
             inputValue: '100',
@@ -27,13 +17,13 @@
             count: 0,
             visible: true,
             list: [
-                { name: 'Chris' },
-                { name: 'name1' },
-                { name: 'name2' },
-                { name: 'name3' },
-                { name: 'name4' },
-                { name: 'name5' },
-                { name: 'name6' },
+                {name: 'Chris'},
+                {name: 'name1'},
+                {name: 'name2'},
+                {name: 'name3'},
+                {name: 'name4'},
+                {name: 'name5'},
+                {name: 'name6'},
             ],
             obj: {},
         },
