@@ -13,7 +13,7 @@
     let files = getUrls();
     
     console.log(files);
-    console.log(`是否开发环境:`, development);
+    // console.log(`是否开发环境:`, development);
     
     //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
@@ -53,6 +53,7 @@
         let hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
         
         const hljs = `https://cdn.bootcdn.net/ajax/libs/highlight.js/10.6.0/highlight.min.js`;
+        const DataSet = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;
         
         return [
             React,
@@ -60,13 +61,14 @@
             JQuery,
             // AntdCompactCSS,
             AntdIcons,
+            DataSet,
             hljs,
             ...getLibs(),
             `${ hostname }main.min.js`,
             `${ hostname }manifest.min.js`,
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
-            `${ hostname }data-set.js`
+            // `${ hostname }data-set.js`
 
         ];
     }

@@ -1,1 +1,43 @@
-<app-layout >    <div data-slot="aside">        <layout-menu             data-url="http://mingle.local.aidalan.com/server/mock/tree.json"             data-open="true"             data-id="id"             data-pid="parent"             data-name="name"             data-layout="inline"             data-children="children"             data-width="200"        ></layout-menu>    </div>    <div data-slot="header">        <layout-menu             data-url="http://mingle.local.aidalan.com/server/mock/tree.json"             data-open="true"             data-id="id"             data-pid="parent"             data-name="name"             data-layout="horizontal"             data-children="children"             data-width="200"        ></layout-menu>    </div>    <div data-slot="main">        <data-table             data-headerurl="http://mingle.local.aidalan.com/server/mock/table/tableHeader.json"             data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"             data-pagesize="50"             data-pages="50,100,200"             data-pagination="true"             data-position="bottomRight"></data-table>    </div></app-layout>
+<app-layout >
+
+    <div data-slot="aside">
+        <layout-menu
+            data-url="http://mingle.local.aidalan.com/server/mock/tree.json"
+            data-open="true"
+            data-id="id"
+            data-pid="parent"
+            data-name="name"
+            data-layout="inline"
+            data-children="children"
+            data-width="200"
+        ></layout-menu>
+
+    </div>
+
+    <div data-slot="header">
+
+        <layout-menu
+            data-url="http://mingle.local.aidalan.com/server/mock/tree.json"
+            data-open="true"
+            data-id="id"
+            data-pid="parent"
+            data-name="name"
+            data-layout="horizontal"
+            data-children="children"
+            data-width="200"
+        ></layout-menu>
+
+    </div>
+
+
+    <div data-slot="main">
+        <data-table
+            data-headerurl="http://mingle.local.aidalan.com/server/mock/table/tableHeader.json"
+            data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+            data-pagesize="50"
+            data-pages="50,100,200"
+            data-pagination="true"
+            data-position="bottomRight"></data-table>
+    </div>
+
+</app-layout>

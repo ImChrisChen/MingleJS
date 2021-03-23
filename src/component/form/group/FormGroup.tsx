@@ -4,7 +4,7 @@
  * Date: 2020/12/25
  * Time: 5:30 下午
  */
-import { MinusCircleOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import React, { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import style from './FormGroup.scss';
