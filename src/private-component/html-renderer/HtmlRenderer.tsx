@@ -37,7 +37,9 @@ export class HtmlRenderer extends React.Component<IHtmlRendererProps, any> {
                 if (container) {
                     container.innerHTML = '';
                     container?.append(...element.children);
-                    codes.map(code => eval(code));
+                    setTimeout(() => {
+                        codes.map(code => eval(code));
+                    }, 500);
                 }
             } catch(e) {
                 console.error(e);
