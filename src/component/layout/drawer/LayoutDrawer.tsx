@@ -34,7 +34,8 @@ export default class LayoutDrawer {
 export class PrivateDrawer extends Component<any, any> {
 
     state = {
-        visible: false,
+        visible  : false,
+        iframeUrl: '',
     };
     private readonly target: string = 'layout-drawer';
 
@@ -47,7 +48,10 @@ export class PrivateDrawer extends Component<any, any> {
             el.setAttribute('target', this.target);
         }
         el.addEventListener('click', () => {
-            this.setState({ visible: true });
+            this.setState({
+                iframeUrl: el.getAttribute('href'),
+                visible  : true,
+            });
         });
     }
 
@@ -63,7 +67,7 @@ export class PrivateDrawer extends Component<any, any> {
             onClose={ () => this.setState({ visible: false }) }
             visible={ this.state.visible }
         >
-            <iframe className={ style.iframe } name={ this.target }></iframe>
+            <iframe className={ style.iframe } src={ this.state.iframeUrl } name={ this.target }></iframe>
         </Drawer>;
     }
 

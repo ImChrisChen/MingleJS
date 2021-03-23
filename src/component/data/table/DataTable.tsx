@@ -12,7 +12,7 @@ import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { isHtmlTpl, isNumber, isString, isWuiComponent, isWuiTpl } from '@utils/inspect';
+import { isDataFn, isHtmlTpl, isNumber, isString, isWuiComponent, isWuiTpl } from '@utils/inspect';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
@@ -23,6 +23,7 @@ import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { HttpClientService, IApiResult } from '@src/services/HttpClient.service';
 import { FormatDataService } from '@services/FormatData.service';
+import App from '@src/App';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -269,12 +270,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 if (isHtmlTpl(value)) {
 
                     if (isWuiComponent(value)) {
+                        let dataFn = isDataFn(value);
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {
                                 node.innerHTML = '';
                                 node.append(element);
-                                // new App(element);
+                                dataFn && new App(element);
                             }
                         } }/>;
 

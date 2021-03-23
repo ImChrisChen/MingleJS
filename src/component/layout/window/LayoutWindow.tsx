@@ -32,11 +32,12 @@ export default class LayoutWindow {
 class PrivateLayoutWindow extends Component<any, any> {
 
     state = {
-        loading : false,
-        visible : this.props.dataset.open ?? false,
-        width   : this.props.dataset.width ?? 600,
-        height  : this.props.dataset.height ?? 400,
-        disabled: true,
+        loading  : false,
+        visible  : this.props.dataset.open ?? false,
+        width    : this.props.dataset.width ?? 600,
+        height   : this.props.dataset.height ?? 400,
+        disabled : true,
+        iframeUrl: '',
     };
 
     private readonly target: string = 'layout-window-iframe';
@@ -58,7 +59,10 @@ class PrivateLayoutWindow extends Component<any, any> {
     }
 
     handleShowModel() {
-        this.setState({ visible: true });
+        this.setState({
+            iframeUrl: this.props.el.getAttribute('href'),
+            visible  : true,
+        });
     };
 
     handleOk() {
@@ -113,6 +117,7 @@ class PrivateLayoutWindow extends Component<any, any> {
             }
         >
             <iframe className="layout-window-iframe" style={ { minHeight: this.state.height } }
+                    src={ this.state.iframeUrl }
                     name={ this.target }/>
             {/*<div ref={ element => element?.append(...this.props.subelements) }/>*/ }
         </Modal>;
