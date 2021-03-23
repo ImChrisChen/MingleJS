@@ -80,7 +80,6 @@ export default class FormGroup extends Component<IComponentProps, any> {
     }
 
     render() {
-        console.log('state', this.state);
         return <ul className="form-group">
             { this.state.formList.map(node => node) }
         </ul>;

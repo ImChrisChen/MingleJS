@@ -7,7 +7,6 @@
 
 import React from 'react';
 import { strParseDOM } from '@utils/trans-dom';
-import { isEmptyArray } from '@utils/inspect';
 
 interface IHtmlRendererProps {
     html: string

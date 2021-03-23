@@ -44,13 +44,16 @@ function isText(vnode: IMingleVnode): boolean {
     return typeof vnode.value === 'undefined';
 }
 
+const formatDataService = new FormatDataService;
+
 export class Mingle {
 
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
     @Inject private readonly mvvm: MVVM;
-    @Inject public static readonly formatDataService: FormatDataService;
+
+    // TODO 静态方法不能使用依赖注入
     private oldVnode;
 
     private containerNode;
@@ -86,7 +89,7 @@ export class Mingle {
 
     // 是所有组件配置
     public static async getComponentConfigs() {
-        return await this.formatDataService.components2MenuTree(componentConfig);
+        return await formatDataService.components2MenuTree(componentConfig);
     }
 
     // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到

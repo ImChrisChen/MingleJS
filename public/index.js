@@ -9,6 +9,7 @@
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
     let development = Number.parseInt(url2Obj(window.location.href).development) === 1;
+    let currentScript = document.currentScript;
     let version = new Date().getTime();
     let files = getUrls();
     
@@ -29,7 +30,6 @@
     document.body.parentElement.append(...scripts);
     
     function getLibs() {
-        let currentScript = document.currentScript;
         let imports = currentScript.getAttribute('import') || '';
         let libNames = (imports ? imports.split(',') : []).filter(e => e);
         
@@ -56,6 +56,9 @@
         const DataSet = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;
     
         return [
+            `${ hostname }main.css`,
+            `${ hostname }manifest.css`,
+    
             React,
             ReactDOM,
             JQuery,
@@ -66,10 +69,8 @@
             ...getLibs(),
             `${ hostname }main.min.js`,
             `${ hostname }manifest.min.js`,
-            `${ hostname }main.css`,
-            `${ hostname }manifest.css`,
             // `${ hostname }data-set.js`
-    
+
         ];
     }
     
