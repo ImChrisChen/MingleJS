@@ -164,6 +164,10 @@ export function isPipe(v: string) {
     return /[0-9]+ |> ([a-zA-Z])/.test(v);
 }
 
+export function isDataFn(v: string): boolean {
+    return v.includes('data-fn');
+}
+
 // 判断是否是自定义元素
 export function isCustomElement(tagName: string): boolean {
     // tagName = tagName.toLowerCase();
@@ -230,6 +234,9 @@ export function isClass(obj, strict?): obj is ClassDecorator {
 
 // 是否url
 export function isUrl(url: string): boolean {
+    if (url.startsWith('/') || url.includes('//')) {
+        return true;
+    }
     let rule = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/;
     return rule.test(url);
 }

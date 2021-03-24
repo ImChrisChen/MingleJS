@@ -227,7 +227,7 @@ export class ParserElementService extends ParserTemplateService {
 
         let elseElement;
         if (!isObject(loopData) && !isArray(loopData)) {
-            console.error(`w-foreach 请使用正确的数据格式`, arrayName, model, loopData);
+            // console.warn(`w-foreach 请使用正确的数据格式`, arrayName, model, loopData);
             return;
         }
 

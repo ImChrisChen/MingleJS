@@ -25,11 +25,33 @@ export default class FormGroup extends Component<IComponentProps, any> {
         });
     }
 
+    // 只获取第一层级
+    getComponentVnode(el) {
+        let vnode = {
+            tag  : el.localName,
+            props: {},
+        };
+        for (const { name, value } of [ ...el.attributes ]) {
+            // TODO 有这个属性的组件说明已经被渲染过了
+            if (name === 'data-component-uid') {
+                continue;
+            }
+            vnode.props[name] = value;
+        }
+        return vnode;
+    }
+
+    toElement(el: HTMLElement): HTMLElement {
+        let { tag, props } = this.getComponentVnode(el);
+        let element = document.createElement(tag);
+        for (const key in props) {
+            element.setAttribute(key, props[key]);
+        }
+        return element;
+    }
+
     async getElements() {
-        let elements = this.props.subelements.map(item => {
-            item.removeAttribute('data-component-uid');
-            return item.cloneNode(true);
-        }) as Array<HTMLElement>;
+        let elements = this.props.subelements.map(item => this.toElement(item));
         $(this.props.subelements).remove();      // 从页面中删除掉input元素，避免name值冲突
         return elements;
     }
@@ -58,7 +80,6 @@ export default class FormGroup extends Component<IComponentProps, any> {
     }
 
     render() {
-        console.log('state', this.state);
         return <ul className="form-group">
             { this.state.formList.map(node => node) }
         </ul>;

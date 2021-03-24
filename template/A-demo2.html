@@ -1,0 +1,25 @@
+<div id="demo2">
+    <!--    <layout-list data-cols="1">-->
+    <data-table data-title="table" data-height="400"></data-table>
+    <!--    </layout-list>-->
+
+    <h1><{count}></h1>
+    <Button @click="add">add</Button>
+    <button @click="reduce">reduce</button>
+</div>
+
+<script>
+    new Mingle({
+        el: '#demo2',
+        data: {count: 0},
+
+        methods: {
+            add() {
+                this.count++;
+            },
+            reduce() {
+                this.count--
+            }
+        }
+    })
+</script>
