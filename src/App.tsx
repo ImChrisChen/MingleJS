@@ -154,6 +154,10 @@ export default class App {
             return;
         }
 
+        // TODO 设置组件唯一ID
+        let componentUID = App.createUUID();
+        el.setAttribute('data-component-uid', componentUID);
+
         if (componentName === 'define-component' && el.attributes?.['module']?.value) {
             componentName = el.attributes['module'].value;
         }
@@ -162,11 +166,6 @@ export default class App {
             console.log(`没有${ componentName }这个组件`);
             return;
         }
-
-        // TODO 设置组件唯一ID
-        let componentUID = App.createUUID();
-        el.setAttribute('data-component-uid', componentUID);
-        // el.hidden = true;
 
         // 获取到组件的子元素（排除template标签)
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;

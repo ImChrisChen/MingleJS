@@ -21,12 +21,9 @@ export default class LayoutDrawer {
     }
 
     renderDrawer() {
-        console.log(this.props);
-
         let container = document.createElement('div');
         container.classList.add('layout-drawer-container');
         document.body.append(container);
-
         ReactDOM.render(<PrivateDrawer { ...this.props } />, container);
     }
 }
@@ -41,7 +38,6 @@ export class PrivateDrawer extends Component<any, any> {
 
     constructor(props) {
         super(props);
-        console.log(props);
         let el = this.props.el;
         let target = el.getAttribute('target');
         if (!target) {

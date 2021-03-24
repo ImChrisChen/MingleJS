@@ -1,5 +1,5 @@
 <div id="A-template-tree">
-    <ul>
+    <ul w-foreach="options as option">
         <li w-foreach="list as item">
             <p> id: <{item.id}> </p>
             <p> name: <{item.name}> </p>
@@ -23,9 +23,10 @@
     new Mingle({
         el: '#A-template-tree',
         data: {
+            options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
             list: [],
         },
-        async mounted() {
+        async created() {
             let data = await this.$jsonp(`/server/mock/tree.json`);
             console.log(data);
             this.list = data;
