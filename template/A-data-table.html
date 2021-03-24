@@ -1,24 +1,9 @@
 <div class="a-data-table">
     <layout-list data-cols="2" data-space="10,10">
-        <data-table data-height="400" data-headitemfield="headeritem">
-            <ul>
-                <layout-window w-foreach="headerData as (item,i)" @click="handleClick(item)" ...item></layout-window>
-            </ul>
-        </data-table>
+        <data-table data-headitemfield="headeritem" data-height="400"></data-table>
     </layout-list>
 
-    <layout-window data-content="<{item.text}> 编辑>" data-title="<{item.text}>"
-                   class="ant-btn-primary ant-btn">
-        <data-chart
-            data-url="/server/mock/table/tableContent.json"
-            data-type="pie"
-            data-title="<{i}>"
-            data-key="location"
-            data-value="reg_count"
-            data-colors="#37c9e3"
-            data-height="400"
-        ></data-chart>
-    </layout-window>
+    <handle-request data-url="https://baidu.com">请求</handle-request>
 
 </div>
 <script>

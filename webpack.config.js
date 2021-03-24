@@ -249,10 +249,10 @@ module.exports = {
                             source: './public/index.js',
                             destination: `./${isDoc ? 'dist' : 'lib'}/index.js`,
                         },
-                        {
-                            source: './public/data-set.js',
-                            destination: `./${isDoc ? 'dist' : 'lib'}/data-set.js`
-                        }
+                        // {
+                        //     source: './public/data-set.js',
+                        //     destination: `./${isDoc ? 'dist' : 'lib'}/data-set.js`
+                        // }
                     ],
                 },
             },

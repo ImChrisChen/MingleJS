@@ -5,7 +5,7 @@
  * Time: 12:35 上午
  */
 import React, { Component } from 'react';
-import { Button, Card, Form, Input, List, message, Modal, Select, Switch } from 'antd';
+import { Button, Form, Input, List, message, Modal, Select, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
@@ -17,7 +17,6 @@ import { arrayDeleteItem } from '@utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@src/App';
 import { Inject } from 'typescript-ioc';
-import { ComponentService } from '@services/Component.service';
 import { HttpClientService } from '@src/services/HttpClient.service';
 
 // 表格提交的数据
@@ -233,7 +232,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {};
 
-    @Inject componentSerive: ComponentService;
+    // @Inject private readonly componentSerive: ComponentService;
 
     constructor(props) {
         super(props);
@@ -284,7 +283,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
                 });
 
                 if (showmsg) {
-                    if (res.status) {
+                    if (res?.status) {
                         message.success(res?.[msgfield] ?? '操作成功');
                         await this.handleReset(form);
                     } else {
@@ -315,7 +314,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     async handleReset(form: HTMLElement, e?: any) {
         // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
-        let formItems = this.componentSerive.getFormComponents(form);
+        // let formItems = this.componentSerive.getFormComponents(form);
+        let formItems = [ ...form.querySelectorAll(`[name][data-component-uid][form-component]`) ] as Array<HTMLElement>;
         for (const formItem of formItems) {
             let property = await App.parseElementProperty(formItem);        // 默认属性
             let value = property.value;
@@ -330,7 +330,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
             if (!formData.hasOwnProperty(name)) continue;
             let value = formData[name];
             // let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
-            let formItemElem: HTMLElement = this.componentSerive.getFormComponentByName(name);
+            // let formItemElem: HTMLElement = this.componentSerive.getFormComponentByName(name);
+            let formItemElem = document.querySelector(`[name=${ name }][data-component-uid][form-component]`) as HTMLElement;
             let required = eval(formItemElem.dataset.required + '');
             if (required && !value) {
                 unVerifys.push(name);

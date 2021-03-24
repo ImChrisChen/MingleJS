@@ -1,78 +1,36 @@
-<div class="demo">
-    <!--    <{count}>-->
-    <!--    <p w-if="visible" title="p1">if:<{count}></p>-->
-    <!--    <p w-if="!visible" title="p2">else:<{count}></p>-->
-    <!--    <button @click="add">add</button>-->
-    <!--    <button @click="reduce">reduce</button>-->
-    <!--    <button @click="show">show</button>-->
-    <!--    <button @click="hide">hide</button>-->
-    <!--    <layout-window data-fn="layout-window" data-title="所属组人员" data-height="400" data-width="600" -->
-    <!--                   data-label="查看"-->
-    <!--                   data-mask="false" data-open="false">&nbsp; &nbsp;-->
-    <!--        <data-table data-title="xxxxxxx1"></data-table>-->
-    <!--    </layout-window>-->
+<div id="demo1">
 
-    <!--    <form-transfer></form-transfer>-->
-
-    <!--    <input type="text" ^value="<{inputValue}>" ~value>-->
-
-    <!--    <form-select-->
-    <!--        data-label="label:"-->
-    <!--        data-enum="1,Android;2,iOS;3,MacOS;4,Windows"-->
-    <!--        data-url="http://mingle.local.aidalan.com/server/mock/select.json"-->
-    <!--        data-disabled="false"-->
-    <!--        data-mode="single"-->
-    <!--        data-key="id"-->
-    <!--        ^data-value="<{publisher_name}>"-->
-    <!--        data-groupby=""-->
-    <!--        data-required="false"-->
-    <!--        data-smart="false"-->
-    <!--        name="form-select"-->
-    <!--    ></form-select>-->
-
-    <!--    <a data-fn="layout-window" ^href="http://wui-test.local.aidalan.com/mingle/demo.html">data-table</a>-->
-
-    <!--    <a data-fn="layout-window" href="http://wui-test.local.aidalan.com/mingle/chart.html">data-chart</a>-->
-
-    <!--    <h1 w-if="true" @click="handleClick"> <{title}> </h1>-->
-    <!--    <h1 w-readonly> <{title}> </h1>-->
-
-    <h1>center</h1>
-    <h1 w-if="false"> h1 </h1>
-    <h2 w-else> h2 </h2>
+    <!--    <layout-list data-cols="1">-->
+    <!--    <data-table data-title="table"></data-table>-->
+    <!--    </layout-list>-->
 
     <ul>
-        <li w-foreach="list as (item,index)" w-if="index === 0">
-            <h1><{index}> <{item.name}></h1>
+        <li w-foreach="list as item">
+            <a data-fn="layout-window" href="#">submit</a>
         </li>
-        <!--        <li w-else></li>-->
     </ul>
+
 </div>
 
 <script>
     new Mingle({
-        el: '.demo',
+        el: '#demo1',
         data: {
             publisher_name: '-----------',
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,
             visible: true,
-            list: [
-                { name: 'Chris' },
-                { name: 'name1' },
-                { name: 'name2' },
-                { name: 'name3' },
-                { name: 'name4' },
-                { name: 'name5' },
-                { name: 'name6' },
-            ],
-            obj: {},
+            list: new Array(10).fill({ name: Math.random(1000) }),
+            obj: {
+                game_id: '4',
+                pf: '2',
+            },
         },
         created() {
+            // this.list = new Array(10000).fill({ name: Math.random(1000) });
         },
         methods: {
-
             handleClick(e) {
                 console.log(e);
             },

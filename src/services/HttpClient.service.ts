@@ -117,11 +117,7 @@ export class HttpClientService {
     public async jsonp(url: string): Promise<IApiResult> {
         if (isWuiTpl(url)) url = this.parserTemplateService.parseTpl(url);
 
-        console.log(new Date().getTime());
         let funcName = 'callback' + (new Date().getTime() + '_' + Math.floor(Math.random() * 1000));         // 解决jsonp短时间内无法循环请求的问题
-
-        console.log(funcName);
-
         let isDone = false;
         let timeout = 15000;     // 超时时间
         return new Promise((resolve, reject) => {
@@ -138,6 +134,10 @@ export class HttpClientService {
                 }
             };
             let script: HTMLScriptElement = document.createElement('script');
+
+            if (!url) {
+                reject();
+            }
 
             if (url.includes('?')) {
                 url = url + `&jsoncallback=${ funcName }`;
@@ -160,7 +160,7 @@ export class HttpClientService {
                     dataType   : 'jsonp',
                     headers    : '{}',
                 });
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
 
