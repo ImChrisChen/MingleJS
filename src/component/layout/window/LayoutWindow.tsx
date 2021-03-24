@@ -11,6 +11,10 @@ import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
 
+let c = document.createElement('div');
+c.setAttribute('id', 'WIN');
+document.body.append(c);
+
 export default class LayoutWindow {
 
     props: INativeProps;
@@ -21,11 +25,17 @@ export default class LayoutWindow {
     }
 
     render() {
-        let container = document.createElement('div');
-        container.classList.add('layout-window-container');
-        document.body.append(container);
-
-        ReactDOM.render(<PrivateLayoutWindow { ...this.props } />, container);
+        let el = this.props.el;
+        let target = el.getAttribute('target');
+        if (!target) {
+            el.setAttribute('target', 'layout-window-iframe');
+        }
+        if (!document.querySelector('.layout-window-container')) {
+            let container = document.createElement('div');
+            container.classList.add('layout-window-container');
+            document.body.append(container);
+            ReactDOM.render(<PrivateLayoutWindow { ...this.props } />, container);
+        }
     }
 }
 
@@ -46,10 +56,6 @@ class PrivateLayoutWindow extends Component<any, any> {
         super(props);
         let el = this.props.el;
 
-        let target = el.getAttribute('target');
-        if (!target) {
-            el.setAttribute('target', this.target);
-        }
         this.props.el.addEventListener('click', e => this.handleClickBtn(e));
     }
 
@@ -59,6 +65,9 @@ class PrivateLayoutWindow extends Component<any, any> {
     }
 
     handleShowModel() {
+        if (document.querySelector('#WIN')) {
+
+        }
         this.setState({
             iframeUrl: this.props.el.getAttribute('href'),
             visible  : true,
@@ -80,6 +89,7 @@ class PrivateLayoutWindow extends Component<any, any> {
         return <Modal
             visible={ this.state.visible }
             mask={ this.props.dataset.mask ?? false }
+            getContainer={ document.querySelector('#WIN') as HTMLElement }
             title={ <div
                 onMouseOverCapture={ () => {
                     if (this.state.disabled) {

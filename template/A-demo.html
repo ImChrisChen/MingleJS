@@ -1,9 +1,14 @@
 <div id="demo1">
 
-<!--    <layout-list data-cols="1">-->
-        <data-table data-title="table"></data-table>
-<!--    </layout-list>-->
+    <!--    <layout-list data-cols="1">-->
+    <!--    <data-table data-title="table"></data-table>-->
+    <!--    </layout-list>-->
 
+    <ul>
+        <li w-foreach="list as item">
+            <a data-fn="layout-window" href="#">submit</a>
+        </li>
+    </ul>
 
 </div>
 
@@ -16,18 +21,14 @@
             title: 'Hello World ~',
             count: 0,
             visible: true,
-            list: [
-                {name: 'Chris'},
-                {name: 'name1'},
-                {name: 'name2'},
-                {name: 'name3'},
-                {name: 'name4'},
-                {name: 'name5'},
-                {name: 'name6'},
-            ],
-            obj: {},
+            list: new Array(10).fill({ name: Math.random(1000) }),
+            obj: {
+                game_id: '4',
+                pf: '2',
+            },
         },
         created() {
+            // this.list = new Array(10000).fill({ name: Math.random(1000) });
         },
         methods: {
             handleClick(e) {

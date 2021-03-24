@@ -12,7 +12,6 @@ import { HttpClientService } from '@services/HttpClient.service';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
-import { MVVM } from '@src/core/MVVM';
 import { Monitor } from '@services/Monitor';
 import { componentConfig } from '@src/config/component.config';
 import { FormatDataService } from '@services/FormatData.service';
@@ -51,7 +50,6 @@ export class Mingle {
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
-    @Inject private readonly mvvm: MVVM;
 
     // TODO 静态方法不能使用依赖注入
     private oldVnode;
@@ -77,7 +75,7 @@ export class Mingle {
         this.run(Object.assign(defaultOptions, options)).then(() => Mingle.globalEventListener());
     }
 
-    // 是所有组件配置
+    // 获取所有组件配置
     public static async getComponentConfigs() {
         return await formatDataService.components2MenuTree(componentConfig);
     }
@@ -191,38 +189,32 @@ export class Mingle {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        
+        let isVirtual = false;
+
         if (!container) {
             return;
         }
 
-        // 虚拟DOM实现
-        let vnode: IMingleVnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
-        let node = this.virtualDOM.vnodeToHtml(vnode);
-        $(container).html('');
-        for (const child of [ ...node.childNodes ]) {
-            container.append(child);
+        if (isVirtual) {
+            // 虚拟DOM实现;
+            console.time('虚拟DOM首次渲染性能测试');
+            let vnode: IMingleVnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
+            let node = this.virtualDOM.vnodeToHtml(vnode);
+            console.timeEnd('虚拟DOM首次渲染性能测试');
+
+            $(container).html('');
+            for (const child of [ ...node.childNodes ]) {
+                container.append(child);
+            }
+            await Mingle.render(container);
+        } else {
+            // 原始DOM实现
+            console.time('真实DOM首次渲染性能测试');
+            let node = this.parserElementService.parseElement(container, data, funcs);
+            console.timeEnd('真实DOM首次渲染性能测试');
+            await Mingle.render(node);
         }
-        Mingle.render(container);
 
-        // if (this.oldVnode) {
-        //     this.mvvm.patch(this.oldVnode, vnode);
-        // } else {
-        //     let node = this.virtualDOM.vnodeToHtml(vnode);
-        //     $(container).html('');
-        //     for (const child of [...node.childNodes]) {
-        //         container.append(child);
-        //     }
-        //     this.render(container);
-        // }
-
-        // this.oldVnode = vnode;
-        // vnode = this.mvvm.patch2(this.oldVnode, vnode);
-        // let node = this.virtualDOM.vnodeToHtml(vnode);
-
-        // 原始DOM实现
-        // let node = this.parserElementService.parseElement(container, data, funcs);
-        // await Mingle.render(node);
     }
 
     private diffProps(oldVnode: IMingleVnode, vnode: IMingleVnode) {

@@ -187,7 +187,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
     },
     name       : {
         el   : 'input',
-        value: 'form-select',
+        value: '',
         parse: 'string',
         desc : 'input 组件的name值',
     },
@@ -1720,7 +1720,7 @@ export const componentConfig = {
                     },
                     height: {
                         el   : 'number',
-                        value: 800,
+                        value: 600,
                         parse: 'number',
                         desc : '弹窗的高度',
                     },
