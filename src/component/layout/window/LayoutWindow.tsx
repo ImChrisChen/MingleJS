@@ -25,28 +25,18 @@ export default class LayoutWindow {
     constructor(props: INativeProps) {
         this.props = props;
 
-        let el = this.props.el;
-        let target = el.getAttribute('target');
-        if (!target) {
-            el.setAttribute('target', 'layout-window-iframe');
-        }
-
         this.props.el.addEventListener('click', e => this.handleClickBtn(e));
 
         /**
          * --------------------------- Single Model --------------------------------------
          */
-        if (LayoutWindow.instance) {
-            return LayoutWindow.instance;
+        if (!LayoutWindow.instance) {
+            this.render();
         }
-
-        // 只执行一次
-        this.render();
     }
 
     handleClickBtn(e) {
         e.stopPropagation();
-        console.log('点击了按钮： 当前实例', this);
         this.handleShowModel();
     }
 
@@ -90,7 +80,7 @@ class PrivateLayoutWindow extends Component<any, any> {
         iframeUrl   : '',
     };
 
-    private readonly target: string = 'layout-window-iframe';
+    // private readonly target: string = 'layout-window-iframe';
 
     constructor(props) {
         super(props);
@@ -153,7 +143,7 @@ class PrivateLayoutWindow extends Component<any, any> {
                         style={ { minHeight: this.state.height, opacity: this.state.iframeHidden ? 0 : 1 } }
                         onLoad={ () => this.setState({ iframeHidden: false }) }
                         src={ this.state.iframeUrl }
-                        name={ this.target }/>
+                />
                 {/*<div ref={ element => element?.append(...this.props.subelements) }/>*/ }
             </Spin>
         </Modal>;

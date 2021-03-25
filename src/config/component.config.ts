@@ -1774,7 +1774,7 @@ export const componentConfig = {
                         parse  : 'string',
                         desc   : '抽屉弹出的方向',
                     },
-                    length  : {
+                    width: {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
