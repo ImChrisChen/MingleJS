@@ -6,7 +6,8 @@
 
     <ul>
         <li w-foreach="list as item">
-            <button data-fn="layout-window" href="<{item.url}>"><{item.name}></button>
+            <!-- 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 -->
+            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>
         </li>
     </ul>
 

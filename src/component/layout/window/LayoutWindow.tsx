@@ -5,7 +5,7 @@
  * Time: 2:48 下午
  */
 import React, { Component } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Spin } from 'antd';
 import { INativeProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
@@ -33,7 +33,6 @@ export default class LayoutWindow {
 
         this.props.el.addEventListener('click', e => this.handleClickBtn(e));
 
-
         /**
          * --------------------------- Single Model --------------------------------------
          */
@@ -52,17 +51,22 @@ export default class LayoutWindow {
     }
 
     handleShowModel() {
-        // let prevUrl = LayoutWindow.instance.state.iframeUrl;
+
+        let prevUrl = LayoutWindow.instance.state.iframeUrl;
         let currentUrl = this.props.el.getAttribute('href');
+        let iframeHidden = true;
+        if (prevUrl === currentUrl) {
+            iframeHidden = false;
+        }
         LayoutWindow.instance.setState({
             // 在a标签时可以不用设置,设置后其他标签也通用 <button data-fn="layout-window" href='https://baidu.com'>btn</button>
-            iframeUrl: currentUrl,
-            visible  : true,
+            iframeUrl   : currentUrl,
+            visible     : true,     //弹窗显示
+            iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
         });
     };
 
     render() {
-
         if (!document.querySelector('.layout-window-container')) {
             let container = document.createElement('div');
             container.classList.add('layout-window-container');
@@ -77,12 +81,13 @@ export default class LayoutWindow {
 class PrivateLayoutWindow extends Component<any, any> {
 
     state = {
-        loading  : false,
-        visible  : this.props.dataset.open ?? false,
-        width    : this.props.dataset.width ?? 600,
-        height   : this.props.dataset.height ?? 400,
-        disabled : true,
-        iframeUrl: '',
+        loading     : false,
+        visible     : this.props.dataset.open ?? false,
+        width       : this.props.dataset.width ?? 600,
+        height      : this.props.dataset.height ?? 400,
+        iframeHidden: false,
+        disabled    : true,
+        iframeUrl   : '',
     };
 
     private readonly target: string = 'layout-window-iframe';
@@ -143,10 +148,14 @@ class PrivateLayoutWindow extends Component<any, any> {
                 ]
             }
         >
-            <iframe className="layout-window-iframe" style={ { minHeight: this.state.height } }
-                    src={ this.state.iframeUrl }
-                    name={ this.target }/>
-            {/*<div ref={ element => element?.append(...this.props.subelements) }/>*/ }
+            <Spin spinning={ this.state.iframeHidden }>
+                <iframe className="layout-window-iframe"
+                        style={ { minHeight: this.state.height, opacity: this.state.iframeHidden ? 0 : 1 } }
+                        onLoad={ () => this.setState({ iframeHidden: false }) }
+                        src={ this.state.iframeUrl }
+                        name={ this.target }/>
+                {/*<div ref={ element => element?.append(...this.props.subelements) }/>*/ }
+            </Spin>
         </Modal>;
     }
 
