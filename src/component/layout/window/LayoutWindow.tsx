@@ -17,24 +17,59 @@ document.body.append(c);
 
 export default class LayoutWindow {
 
-    props: INativeProps;
+    public static instance;
 
+    private readonly props: INativeProps;
+
+    // TODO 使用单例模式，复用一个弹窗 (减少内存消耗)
     constructor(props: INativeProps) {
         this.props = props;
-        this.render();
-    }
 
-    render() {
         let el = this.props.el;
         let target = el.getAttribute('target');
         if (!target) {
             el.setAttribute('target', 'layout-window-iframe');
         }
+
+        this.props.el.addEventListener('click', e => this.handleClickBtn(e));
+
+
+        /**
+         * --------------------------- Single Model --------------------------------------
+         */
+        if (LayoutWindow.instance) {
+            return LayoutWindow.instance;
+        }
+
+        // 只执行一次
+        this.render();
+    }
+
+    handleClickBtn(e) {
+        e.stopPropagation();
+        console.log('点击了按钮： 当前实例', this);
+        this.handleShowModel();
+    }
+
+    handleShowModel() {
+        // let prevUrl = LayoutWindow.instance.state.iframeUrl;
+        let currentUrl = this.props.el.getAttribute('href');
+        LayoutWindow.instance.setState({
+            // 在a标签时可以不用设置,设置后其他标签也通用 <button data-fn="layout-window" href='https://baidu.com'>btn</button>
+            iframeUrl: currentUrl,
+            visible  : true,
+        });
+    };
+
+    render() {
+
         if (!document.querySelector('.layout-window-container')) {
             let container = document.createElement('div');
             container.classList.add('layout-window-container');
             document.body.append(container);
-            ReactDOM.render(<PrivateLayoutWindow { ...this.props } />, container);
+            ReactDOM.render(<PrivateLayoutWindow ref={ instance => {
+                LayoutWindow.instance = instance;
+            } } { ...this.props } />, container);
         }
     }
 }
@@ -54,25 +89,7 @@ class PrivateLayoutWindow extends Component<any, any> {
 
     constructor(props) {
         super(props);
-        let el = this.props.el;
-
-        this.props.el.addEventListener('click', e => this.handleClickBtn(e));
     }
-
-    handleClickBtn(e) {
-        e.stopPropagation();
-        this.handleShowModel();
-    }
-
-    handleShowModel() {
-        if (document.querySelector('#WIN')) {
-
-        }
-        this.setState({
-            iframeUrl: this.props.el.getAttribute('href'),
-            visible  : true,
-        });
-    };
 
     handleOk() {
         this.setState({ loading: true });
