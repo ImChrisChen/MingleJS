@@ -124,6 +124,7 @@ export class VirtualDOM extends ParserTemplateService {
             }
 
             let { attrs, events } = this.getAttributesByElement(node, model, functions);
+            console.log(attrs);
 
             // 渲染当前节点
             const render = (model, fn?: (...args) => any) => {

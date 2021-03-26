@@ -199,6 +199,7 @@ export class Mingle {
             // 虚拟DOM实现;
             console.time('虚拟DOM首次渲染性能测试');
             let vnode: IMingleVnode = this.virtualDOM.getVnode(this.containerNode as HTMLElement, data, funcs);
+            console.log(vnode);
             let node = this.virtualDOM.vnodeToHtml(vnode);
             console.timeEnd('虚拟DOM首次渲染性能测试');
 

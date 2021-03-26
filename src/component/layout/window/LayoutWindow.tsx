@@ -35,8 +35,8 @@ export default class LayoutWindow {
         }
     }
 
-    handleClickBtn(e) {
-        e.stopPropagation();
+    handleClickBtn(e: MouseEvent) {
+        e.preventDefault();
         this.handleShowModel();
     }
 

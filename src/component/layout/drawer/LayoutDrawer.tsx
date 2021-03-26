@@ -21,14 +21,16 @@ export default class LayoutDrawer {
         this.props = props;
         let el = props.el;
 
-        el.addEventListener('click', () => this.handleClick());
+        el.addEventListener('click', e => this.handleClick(e));
 
         if (!LayoutDrawer.instance) {
             this.renderDrawer();
         }
     }
 
-    handleClick() {
+    handleClick(e: MouseEvent) {
+        e.preventDefault();
+
         let prevUrl = LayoutDrawer.instance.state.iframeUrl;
         let currentUrl = this.props.el.getAttribute('href');
         let iframeHidden = true;
