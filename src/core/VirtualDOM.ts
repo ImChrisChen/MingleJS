@@ -9,6 +9,7 @@ import { arraylastItem, getObjectValue } from '@utils/util';
 import { isArray, isExistAttr, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
 import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { DataComponentUID } from '@src/App';
 
 const events = {
     click: [        // 可以有多个事件
@@ -124,7 +125,6 @@ export class VirtualDOM extends ParserTemplateService {
             }
 
             let { attrs, events } = this.getAttributesByElement(node, model, functions);
-            console.log(attrs);
 
             // 渲染当前节点
             const render = (model, fn?: (...args) => any) => {
@@ -176,7 +176,7 @@ export class VirtualDOM extends ParserTemplateService {
 
                 ifExpress = this.parseExpress(ifExpress, model);
 
-                let { arrayName, itemName, indexName, loopData } = this.getForEachVars(foreachSyntax, model);
+                let { itemName, indexName, loopData } = this.getForEachVars(foreachSyntax, model);
 
                 for (const key in loopData) {
                     let ifResult: boolean;
@@ -229,7 +229,7 @@ export class VirtualDOM extends ParserTemplateService {
         return vnode;
     }
 
-    // vnode上已经没有特殊指令了
+    // vnode上还有特殊指令了，在这里把不需要的属性过滤掉
     public vnodeToHtml(vnode: IMingleVnode) {
         if (!vnode) {
             return '';
@@ -237,11 +237,12 @@ export class VirtualDOM extends ParserTemplateService {
 
         let { type, data, tag, events, children, value, isChanged } = vnode;
         let el;
+        let isRemoveElement = false;
 
-        if (isChanged) {
-            console.log('直接返回真实DOM元素');
-            return vnode.el;
-        }
+        // if (isChanged) {
+        //     console.log('直接返回真实DOM元素');
+        //     return vnode.el;
+        // }
 
         if (type === 1) {
             el = document.createElement(tag);
@@ -268,26 +269,44 @@ export class VirtualDOM extends ParserTemplateService {
             }
 
             // attributes
-            for (const key in data) {
-                if (!data.hasOwnProperty(key)) continue;
+            for (const k in data) {
+                if (!data.hasOwnProperty(k)) continue;
+
+                let v = data[k];
+
+                if (k === 'class' && v === 'component-container') {
+                    isRemoveElement = true;
+                    // break;
+                }
+
 
                 // TODO 把不必要的属性排除掉
-                if (key === directiveForeach
-                    || key === directiveIf
-                    || key === directiveElse
-                    || key === directiveReadonly
+                if (k === directiveForeach
+                    || k === directiveIf
+                    || k === directiveElse
+                    || k === directiveReadonly
                 ) {
                     continue;
                 }
 
-                let value = data[key];
-                el.setAttribute(key, value);
+                // TODO k === DataComponentUID      更新虚拟DOM的时候，避免自定义组件不渲染 
+                if (k === DataComponentUID) {
+                    console.log(v);
+                    continue;
+                }
+
+                el.setAttribute(k, v);
+            }
+
+            if (isRemoveElement) {
+                // console.log(el);        // class='component-container'  容器
+                // return el;
             }
 
             // children
             for (const child of children) {
-                let text = this.vnodeToHtml(child);
-                el.append(text);
+                let elements = this.vnodeToHtml(child);
+                el.append(elements);
             }
 
             //  text
@@ -475,8 +494,7 @@ export class VirtualDOM extends ParserTemplateService {
         }
 
         return {
-            arrayName, itemName, indexName,
-            loopData,
+            itemName, indexName, loopData,
         };
     }
 

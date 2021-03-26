@@ -1,17 +1,45 @@
 <div id="demo1">
 
-    <data-table data-height="400"></data-table>
+    <!-- 1 -->
+    <data-table data-height="400">
+    </data-table>
+
+    <!-- 2 -->
+    <data-table data-height="400">
+        <h1>123131</h1>
+    </data-table>
+
+    <data-table data-height="400">
+        <div data-title>s s s s sadfjasl</div>
+        <div data-footer>sadfjsalfs</div>
+    </data-table>
+
+    <data-table data-height="400">
+        <h1>123127317</h1>
+        <div data-title>s s s s sadfjasl</div>
+        <div data-footer>sadfjsalfs</div>
+        <div data-footer>sadfjsalfs</div>
+    </data-table>
+
+
+    <button @click="add()"></button>
+
+    <!--    <layout-list data-url="https://" data-item="item">-->
+    <!--        <div>-->
+    <!--            <form-select data-label="<{ item.name }>"></form-select>-->
+    <!--        </div>-->
+    <!--    </layout-list>-->
 
     <!--    <layout-list data-cols="1">-->
     <!--    <data-table data-title="table"></data-table>-->
     <!--    </layout-list>-->
 
-    <ul>
-        <li w-foreach="list as item">
-            <!-- 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 -->
-            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>
-        </li>
-    </ul>
+    <!--    <ul>-->
+    <!--        <li w-foreach="list as item">-->
+    <!--            &lt;!&ndash; 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 &ndash;&gt;-->
+    <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
+    <!--        </li>-->
+    <!--    </ul>-->
 
 </div>
 
@@ -19,7 +47,6 @@
     new Mingle({
         el: '#demo1',
         data: {
-            publisher_name: '-----------',
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,
@@ -46,6 +73,7 @@
         },
         created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
+            this.list = this.$jsonp();
         },
         methods: {
             handleClick(e) {

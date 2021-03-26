@@ -119,6 +119,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
     constructor(props: ITableProps) {
         super(props);
 
+        console.log('data-table:', this.props);
+
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
@@ -132,7 +134,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
         });
 
         let { interval } = this.props.dataset;
-        console.log(this.props);
         if (interval) {
             console.log('----------');
             this.timer = setInterval(() => {

@@ -9,15 +9,16 @@ import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import style from './LayoutList.scss';
 import { trigger } from '@utils/trigger';
-import { Input } from 'antd';
 import Search from 'antd/lib/input/Search';
-import { AudioOutlined } from '@ant-design/icons';
+import $ from 'jquery';
+import { directiveForeach } from '@src/config/directive.config';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 
-    private selectable = this.props.dataset.selectablesubelements;
+    private selectable = this.props.dataset.selectable;
     private single = this.props.dataset.single;       //是否单选
     private searchable = this.props.dataset.searchable;
+    private url = this.props.dataset?.url;
 
     state = {
         searchText: '',
@@ -25,33 +26,70 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        let self = this;
-        if (this.selectable) {
-            $(this.props.subelements).on('click', function (e) {
 
-                e.stopPropagation();
-                e.preventDefault();
+        if (this.url) {
 
-                // 单选
-                if (self.single) {
-                    if ($(this).hasClass(style.layoutListSelected)) {
-                        $(this).removeClass(style.layoutListSelected);
-                    } else {
-                        $(this).addClass(style.layoutListSelected).siblings().removeClass(style.layoutListSelected);
-                    }
-                } else {        //多选
-                    if ($(this).hasClass(style.layoutListSelected)) {
-                        $(this).removeClass(style.layoutListSelected);
-                    } else {
-                        $(this).addClass(style.layoutListSelected);
-                    }
-                }
-                let list = $(this).parent().children('.' + style.layoutListSelected);
-                let values = [ ...list ].map(item => $(item).attr('value')).join(',');
-                console.log('layout-list change:', values);
-                trigger(self.props.el, values);
-            });
         }
+
+        if (this.selectable) {
+            this.renderSelect(this.props.subelements);
+        }
+    }
+
+    getLayoutListChildren() {
+        let { cols, space, url, item } = this.props.dataset;
+        let subelements = this.props.subelements;
+        let [ right, bottom ] = space;
+        let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
+        let children: Array<HTMLElement> = [];
+
+        if (url && subelements) {
+            let template = subelements[0];
+            template.setAttribute(directiveForeach, `${ 2 } as ${ item }`);
+
+        } else {
+            let diff = cols - (subelements.length % cols);
+            children = subelements.map((element, index) => {
+                let search = element.innerText.includes(this.state.searchText);
+                if (search) {
+                    element.style.width = width;
+                    element.style.marginBottom = bottom + 'px';
+                    $(element).addClass(style.layoutListChildren);
+                    $(element).append(`<div class="${ style.layoutListSelectedIcon }">✅</div>`);
+                    return element;
+                }
+            }).filter(t => t) as Array<HTMLElement>;
+
+        }
+        return children;
+    }
+
+    renderSelect(subelements: Array<HTMLElement>) {
+        let self = this;
+        $(subelements).on('click', function (e) {
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            // 单选
+            if (self.single) {
+                if ($(this).hasClass(style.layoutListSelected)) {
+                    $(this).removeClass(style.layoutListSelected);
+                } else {
+                    $(this).addClass(style.layoutListSelected).siblings().removeClass(style.layoutListSelected);
+                }
+            } else {        //多选
+                if ($(this).hasClass(style.layoutListSelected)) {
+                    $(this).removeClass(style.layoutListSelected);
+                } else {
+                    $(this).addClass(style.layoutListSelected);
+                }
+            }
+            let list = $(this).parent().children('.' + style.layoutListSelected);
+            let values = [ ...list ].map(item => $(item).attr('value')).join(',');
+            console.log('layout-list change:', values);
+            trigger(self.props.el, values);
+        });
     }
 
     createElements(count, width, bottom): Array<HTMLElement> {
@@ -83,6 +121,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
     render() {
         let { cols, space } = this.props.dataset;
         let [ right, bottom ] = space;
+
         let { subelements } = this.props;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
         let diff = cols - (subelements.length % cols);
@@ -99,7 +138,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
                 if (!node) return;
                 node.innerHTML = '';
 
-                subelements = subelements.map((element, index) => {
+                let children = subelements.map((element, index) => {
                     let search = element.innerText.includes(this.state.searchText);
                     if (search) {
                         element.style.width = width;
@@ -110,8 +149,9 @@ export default class LayoutList extends Component<IComponentProps, any> {
                     }
                 }).filter(t => t) as Array<HTMLElement>;
 
-                let elements = this.createElements(diff, width, bottom);
-                node?.append(...subelements, ...elements);
+                let elements = this.createElements(diff, width, bottom);        // 剩余补位的Elements元素
+
+                node?.append(...children, ...elements);
             } }>
             </div>
         </>;

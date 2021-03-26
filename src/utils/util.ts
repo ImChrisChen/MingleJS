@@ -50,24 +50,25 @@ export function getDepthMax(node: any, children = 'children') {
 export const sleep = (time: number): Promise<void> => new Promise(resolve => setTimeout(resolve, time));
 
 /**
- * DOM 尾递归 - 从根节点到root节点
+ * DOM元素递归(不包含文本节点和其他节点) 从根节点到root节点
  * @param root
  * @param callback
+ * @param parentNode
  */
-export function deepEachElementTail(root, callback?: (el: HTMLElement) => void) {
+export function deepEachElementTail(root, callback?: (el: HTMLElement, parentNode) => void, parentNode?) {
     // 这里输出的是根节点
     if (!root) return;
 
     if (root.children.length > 0) {
         [ ...root.children ].forEach(item => {
-            deepEachElementTail(item, callback);
+            deepEachElementTail(item, callback, root);
         });
     }
-    callback && callback(root);
+    callback && callback(root, parentNode);
 }
 
 /**
- * DOM 前递归 - 深度优先
+ * DOM 递归 深度优先
  * @param root
  * @param callback
  * @param parentNode
@@ -114,7 +115,7 @@ export function getObjectValue(keys: string, model: object = {}): any {
 
 
 /**
- * 前递归 => root => left => right => children
+ * 递归 - 深度优先
  * @param tree
  * @param callback
  * @param parent
@@ -169,7 +170,7 @@ export function debounce(method, delay) {
             method.apply(temp, args);
         }, delay);
     };
-};
+}
 
 interface IBrowserInfo {
     browser: string,

@@ -57,7 +57,7 @@ interface IInstances {
     instance?: ReactInstance
 }
 
-let count = 0;
+export const DataComponentUID = 'data-component-uid';
 
 export default class App {
 
@@ -149,14 +149,14 @@ export default class App {
         let { localName: componentName } = el;
         componentName = componentName.trim();
 
-        if (el.getAttribute('data-component-uid')) {
+        if (el.getAttribute(DataComponentUID)) {
             console.log('渲染过了');
             return;
         }
 
         // TODO 设置组件唯一ID
         let componentUID = App.createUUID();
-        el.setAttribute('data-component-uid', componentUID);
+        el.setAttribute(DataComponentUID, componentUID);
 
         if (componentName === 'define-component' && el.attributes?.['module']?.value) {
             componentName = el.attributes['module'].value;
@@ -171,6 +171,7 @@ export default class App {
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
+        container.classList.add('component-container');
         // let container = el;
         el.append(container);
 
@@ -289,23 +290,21 @@ export default class App {
         // form-group 内的组件，只在组作用域内产生关联关系
         // if ($(element).closest('[data-fn=form-group]').length > 0) {
         if ($(element).closest('form-group').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find('[data-component-uid][name]') ];
+            $formItems = [ ...$(element).closest('.form-group-item').find(`[${ DataComponentUID }][name]`) ];
         } else {
-            $formItems = [ ...$(element).closest('form-action').find('[data-component-uid][name]') ];
+            $formItems = [ ...$(element).closest('form-action').find(`[${ DataComponentUID }][name]`) ];
         }
 
         $formItems.forEach(formItem => {
             let dataset = formItem.dataset;
 
             // TODO parent 换成 closest 可以适用于 div form表单元素
-            let $formItemBox = $(formItem).closest('[data-component-uid]');
-            // console.log($formItemBox);
-            let uid = $formItemBox.attr('data-component-uid') ?? '';
+            let $formItemBox = $(formItem).closest(`[${ DataComponentUID }]`);
+            let uid = $formItemBox.attr(DataComponentUID) ?? '';
             // let selfInputName = element['name'] ?? element.attributes?.['name'].value;
             let selfAttrName = element.getAttribute('name');
-            console.log(selfAttrName);
             let regExp = new RegExp(`<{(.*?)${ selfAttrName }(.*?)}>`);        // 验证是否包含模版变量 <{pf}>
-            let { module } = App.instances?.[uid];
+            let module = App.instances?.[uid]?.module;
 
             if (!module) return;
 
@@ -317,7 +316,6 @@ export default class App {
                 if (regExp.test(value)) {
                     // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
 
-                    console.log(module, uid);
                     ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
                     (module.element as HTMLInputElement).value = '';
                     setTimeout(() => {
@@ -370,7 +368,7 @@ export default class App {
 
                 let groupname = element.getAttribute('data-group');
                 let formElement = $(element).closest('form-action');
-                let groups = [ ...formElement.find(`[data-component-uid][data-group=${ groupname }]`) ];
+                let groups = [ ...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`) ];
                 groups.forEach(el => {
                     if (el !== element) {
                         console.log(el);
@@ -424,7 +422,7 @@ export default class App {
     public static errorVerify() {
         let arr: Array<string> = [];
         let repeatName: Array<string> = [];
-        let elements = document.querySelectorAll('[name][data-component-uid]');
+        let elements = document.querySelectorAll(`[name][${ DataComponentUID }]`);
         for (const element of elements) {
             let name = element.getAttribute('name');
             if (name) {

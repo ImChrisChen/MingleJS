@@ -1814,6 +1814,12 @@ export const componentConfig = {
                         parse: 'number',
                         desc : '每行显示的数量',
                     },
+                    url       : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: domain + '/server/mock/chart/funnel.json',
+                        desc : 'URL',
+                    },
                     space     : {
                         el   : 'input',
                         parse: 'number[]',
