@@ -9,7 +9,6 @@ import { arraylastItem, getObjectValue } from '@utils/util';
 import { isArray, isExistAttr, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
 import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
-import preventExtensions = Reflect.preventExtensions;
 
 const events = {
     click: [        // 可以有多个事件
@@ -120,7 +119,6 @@ export class VirtualDOM extends ParserTemplateService {
             let nodeValue = node.nodeValue;     // 节点的 nodeValue 为null
 
             // w-readonly 只要有些属性就生效
-            // if (!isUndefined(node.attributes['w-readonly'])) {
             if (isExistAttr(directiveReadonly, node)) {
                 readOnly = true;
             }
@@ -404,9 +402,9 @@ export class VirtualDOM extends ParserTemplateService {
 
                 if (isWuiTpl(value)) {
                     attrs[name] = this.parseTpl(value, model, 'tpl');
+                } else {
+                    attrs[name] = value;
                 }
-
-                attrs[name] = value;
             }
         }
         return {

@@ -26,7 +26,6 @@ container && ReactDOM.render(
 // });
 
 Mingle.globalEventListener();
-
 window['$'] = $;
 window['Message'] = message;
 window['Notice'] = notification;
