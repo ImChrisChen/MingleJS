@@ -12,6 +12,10 @@ import { trigger } from '@utils/trigger';
 import Search from 'antd/lib/input/Search';
 import $ from 'jquery';
 import { directiveForeach } from '@src/config/directive.config';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@services/HttpClient.service';
+import { ParserElementService } from '@services/ParserElement.service';
+import { elementWrap } from '@utils/trans-dom';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 
@@ -20,12 +24,17 @@ export default class LayoutList extends Component<IComponentProps, any> {
     private searchable = this.props.dataset.searchable;
     private url = this.props.dataset?.url;
 
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly parserElementService: ParserElementService;
+
     state = {
         searchText: '',
     };
 
     constructor(props) {
         super(props);
+
+        this.getLayoutListChildren();
 
         if (this.url) {
 
@@ -36,8 +45,9 @@ export default class LayoutList extends Component<IComponentProps, any> {
         }
     }
 
-    getLayoutListChildren() {
-        let { cols, space, url, item } = this.props.dataset;
+    async getLayoutListChildren() {
+        let { cols, space, url, item, index } = this.props.dataset;
+        console.log(this.props);
         let subelements = this.props.subelements;
         let [ right, bottom ] = space;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
@@ -45,7 +55,13 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
         if (url && subelements) {
             let template = subelements[0];
-            template.setAttribute(directiveForeach, `${ 2 } as ${ item }`);
+            let res = await this.httpClientService.jsonp(url);
+            let data = res.status ? res.data : [];
+            template.setAttribute(directiveForeach, `data as (${ item },${ index || 'default_index' })`);
+
+            let elements = this.parserElementService.parseElement(elementWrap(template), { data });
+            let ch = elements.children;
+            // children.push(...elements.children());
 
         } else {
             let diff = cols - (subelements.length % cols);
@@ -104,7 +120,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
         return elements;
     }
 
-    handleChange(e) {
+    handleChange = e => {
         let value = e.target.value;
         this.setState({
             searchText: value,

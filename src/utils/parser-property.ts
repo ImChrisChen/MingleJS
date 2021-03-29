@@ -86,9 +86,9 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
         if (key === 'required' && finalAttrs[key] !== false) {
             finalAttrs[key] = true;
         }
-        if (key === 'style' && isString(finalAttrs[key])) {
-            finalAttrs[key] = parseLineStyle(finalAttrs[key]);
-        }
+        // if (key === 'style' && isString(finalAttrs[key])) {
+        //     finalAttrs[key] = parseLineStyle(finalAttrs[key]);
+        // }
     }
 
     return finalAttrs;

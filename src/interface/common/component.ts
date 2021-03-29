@@ -22,7 +22,7 @@ export interface IComponentProps {
 // class 模块
 export interface INativeProps {
     el: HTMLElement
-    style?: IReactStyle
+    style?: IReactStyle | string
     dataset?: any
     value?: any
 

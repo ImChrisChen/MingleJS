@@ -13,6 +13,7 @@ export default class LayoutRow {
         let el = props.el;
         el.style.display = 'flex';
         el.style.minHeight = '90px';
+        el.style.cssText = String(props.style);
     }
 
 }

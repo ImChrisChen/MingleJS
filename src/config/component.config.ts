@@ -59,7 +59,6 @@ export type elType =
  */
 export type ModuleType = 'web-components' | 'functional';
 
-
 export interface IOptions {
     label: string
     value: string | number
@@ -1852,6 +1851,18 @@ export const componentConfig = {
                         value: false,
                         desc : '是否显示搜索框',
                     },
+                    item      : {
+                        el   : 'input',
+                        parse: 'null',
+                        value: 'item',
+                        desc : '循环模版的变量',
+                    },
+                    index     : {
+                        el   : 'input',
+                        parse: 'null',
+                        value: 'index',
+                        desc : '列表的下标',
+                    },
                 },
             },
             type     : 'web-components',
@@ -1870,7 +1881,14 @@ export const componentConfig = {
                     },
 
                 },
-                style  : UniversalProps.style,
+                style  : {
+                    el: 'input',
+                    // render: true,
+                    parse: 'string',
+                    value: '',
+                    desc : '样式',
+                },
+
             },
             type     : 'web-components',
         },
@@ -1886,7 +1904,13 @@ export const componentConfig = {
                         desc : '栅格系统所占的比例,总共24份',
                     },
                 },
-                style  : UniversalProps.style,
+                style  : {
+                    el: 'input',
+                    // render: true,
+                    parse: 'string',
+                    value: '',
+                    desc : '样式',
+                },
             },
             type     : 'web-components',
         },
