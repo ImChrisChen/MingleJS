@@ -7,6 +7,7 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUndefined, isUrl } from '@utils/inspect';
 import moment from 'moment';
+import { HttpClientService } from '@services/HttpClient.service';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -70,7 +71,7 @@ export interface IOptions {
 export interface IPropertyConfig<OptionItem = IOptions> {
     el?: elType             // (组件设计器) 要渲染的组件名称
     value?: ((parsedDataset) => any) | any          // TODO 在组件设计器中是没有这个参数传入的
-    options?: Array<OptionItem> | 'fromUrl'       // 选择列表
+    options?: Array<OptionItem> | 'fromUrl' | Function // 选择列表
     label?: string            // 组件设计器中的label值
     parse?: parseType         // 解析类型
     request?: boolean         //  url 上才有这个属性，request为true时在组件设计器中会立即请求
@@ -124,6 +125,7 @@ interface IUniversalProps<T> {
     [key: string]: T
 }
 
+
 // TODO 提取公共属性(待调整)
 const UniversalProps: IUniversalProps<IPropertyConfig> = {
     label      : {
@@ -152,10 +154,11 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         desc  : '样式',
     },
     url        : {
-        el   : 'input',
-        value: '',
-        desc : '数据源',
-        parse: 'string',
+        el     : 'input',
+        value  : '',
+        options: [],
+        desc   : '数据源',
+        parse  : 'string',
         // verify: value => isUrl(value),
     },
     'enum'     : {
@@ -297,7 +300,7 @@ export const componentConfig = {
                     label     : UniversalProps.label,
                     enum      : UniversalProps.enum,
                     url       : {
-                        el: 'input',
+                        el: 'select',
                         // value  : domain + '/server/mock/select.json',
                         value  : '',
                         desc   : '列表数据的接口地址',
@@ -419,7 +422,7 @@ export const componentConfig = {
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
-                        el   : 'input',
+                        el   : 'select',
                         parse: 'string',
                         // value  : domain + '/server/mock/tree.json',
                         request: true,
@@ -511,7 +514,7 @@ export const componentConfig = {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
-                        el: 'input',
+                        el: 'select',
                         // value  : domain + '/server/mock/select.json',
                         value  : '',
                         request: true,

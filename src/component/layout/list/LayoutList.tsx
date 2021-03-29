@@ -160,8 +160,6 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
                 let elements = this.createElements(diff, width, bottom);        // 剩余补位的Elements元素
 
-                console.log(children);
-
                 node?.append(...children, ...elements);
             } }>
             </div>

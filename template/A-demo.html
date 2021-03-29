@@ -1,5 +1,8 @@
 <div id="demo1">
 
+    <layout-list>
+        <div w-foreach="list as item"><{item}></div>
+    </layout-list>
 
     <form-select style="background-color: #bcffb2"></form-select>
 
@@ -74,7 +77,7 @@
         },
         created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
-            this.list = this.$jsonp();
+            // this.list = this.$jsonp();
         },
         methods: {
             handleClick(e) {

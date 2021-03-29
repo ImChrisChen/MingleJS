@@ -28,9 +28,10 @@ export interface IApiResult {
 export class HttpClientService {
 
     private static instance;
+    @Inject private readonly parserTemplateService: ParserTemplateService;
 
     // 使用单例模式
-    constructor(@Inject private readonly parserTemplateService: ParserTemplateService) {
+    constructor() {
         if (HttpClientService.instance) {
             return HttpClientService.instance;
         } else {

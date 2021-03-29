@@ -48,8 +48,9 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
     }
 
     handleChange(e) {
-        let lastItem: any = arraylastItem(e);
-        trigger(this.props.el, lastItem);
+        console.log(e);
+        // let lastItem: any = arraylastItem(e);
+        // trigger(this.props.el, lastItem);
     }
 
     render() {
@@ -68,7 +69,7 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
                     dropdownRender={ (menus) => {
                         return <> { menus } </>;
                     } }
-                    value={ this.props.value }
+                    // value={ this.props.value }
                 />
             </Form.Item>
         </>;
