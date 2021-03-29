@@ -10,6 +10,7 @@ import { globalComponentConfig, IComponentConfig } from '@src/config/component.c
 import * as antdIcons from '@ant-design/icons';
 import { trigger } from '@utils/trigger';
 import { Hooks } from '@src/config/directive.config';
+import e from 'express';
 // import { INativeProps } from '@interface/common/component';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
@@ -17,12 +18,12 @@ import { Hooks } from '@src/config/directive.config';
 
 interface IModuleProperty {
     dataset: object | any
-    hook: {
-        load?: object
-        beforeLoad?: object
-        update?: object
-        beforeUpdate?: object
-    }
+    // hook: {
+    //     load?: object
+    //     beforeLoad?: object
+    //     update?: object
+    //     beforeUpdate?: object
+    // }
     value: {
         el: string
         options?: Array<{ label: string, value: any }>
@@ -39,10 +40,10 @@ interface IModules {
     container: HTMLElement          //  组件渲染的React容器
     // containerWrap: HTMLElement      //  组件根容器
     templates?: object
-    hooks: object                   //  钩子
-    // componentMethod: string         //  组件方法
+    // hooks: object                   //  钩子
+    // // componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
-    config: IComponentConfig        // 组件配置
+    config?: IComponentConfig        // 组件配置
     componentUID: string            // 组件uid
 }
 
@@ -83,11 +84,7 @@ export default class App {
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element) => {
             let { localName: tagName } = element;
-            tagName = tagName.trim();
 
-            if (!tagName) {
-                return;
-            }
 
             // 如果是自定义组件
             if (isCustomElement(tagName)) {
@@ -95,7 +92,7 @@ export default class App {
                     // console.log('有注册过', App.registerComponents, tagName);
                     return;
                 }
-
+                //
                 window.customElements.define(tagName, class extends HTMLElement {
                     constructor() {
                         super();
@@ -111,7 +108,6 @@ export default class App {
                     connectedCallback() {
                         App.renderCustomElement(this);
                     }
-
                 });
 
                 App.registerComponents.push(tagName);
@@ -123,7 +119,7 @@ export default class App {
                     return;
                 }
 
-                let Module = loadModule(methods.split('-'));
+                let Module = loadModule(methods);
                 const Component = (await Module.component).default;
 
                 // 不是react组件,直接 new Class
@@ -146,8 +142,7 @@ export default class App {
 
     // 渲染组件 <form-select></form-select>
     public static async renderCustomElement(el: HTMLElement) {
-        let { localName: componentName } = el;
-        componentName = componentName.trim();
+        let { tagName } = el;
 
         if (el.getAttribute(DataComponentUID)) {
             console.log('渲染过了');
@@ -158,13 +153,8 @@ export default class App {
         let componentUID = App.createUUID();
         el.setAttribute(DataComponentUID, componentUID);
 
-        if (componentName === 'define-component' && el.attributes?.['module']?.value) {
-            componentName = el.attributes['module'].value;
-        }
-
-        if (!componentName) {
-            console.log(`没有${ componentName }这个组件`);
-            return;
+        if (tagName === 'define-component' && el.attributes?.['module']?.value) {
+            tagName = el.attributes['module'].value;
         }
 
         // 获取到组件的子元素（排除template标签)
@@ -175,10 +165,8 @@ export default class App {
         // let container = el;
         el.append(container);
 
-        let { attributes } = el;
-
         // form-component
-        if (componentName.startsWith('form')) {
+        if (tagName.startsWith('form')) {
             el.setAttribute('form-component', '');
         }
 
@@ -191,48 +179,39 @@ export default class App {
             templates[name] = tpl;
         }
 
-        // 外部模块
-        if (componentName.startsWith('self-')) {
-            console.error(`${ componentName } 模块不属于MingleJS`);
-            return;
-        }
-
-        let keysArr = componentName.trim().split('-');
-        // TODO 例如: `<div data-fn="layout-window-open"></div>` 调用到 LayoutWindow实例的open方法
-
-        const Module = loadModule(keysArr);
+        const Module = loadModule(tagName);
         const Component = (await Module.component).default;            // React组件
 
-        if (!isReactComponent(Component)) {
-            return;
-        }
-
-        const config = Module.config;
         let defaultProperty = Module.property;
-        let hooks = App.formatHooks(attributes);
         let module: IModules = {
             Component,
             element: el,
             templates,
             subelements,
             container,
-            hooks,
+            // hooks,
 
             // @ts-ignore
             defaultProperty,
-            config,
             componentUID,
         };
 
-        App.renderComponent(module, (hooks, instance) => {
-            hooks[Hooks.beforeLoad]?.(instance);
-        }, (hooks, instance) => {
-            hooks[Hooks.load]?.(instance);
-            // el.style.opacity = '1';
-            // el.hidden = false;
-        });
-        App.eventListener(module);
+        if (isReactComponent(Component)) {
+            App.renderComponent(module);
+        } else {
+            let defaultProperty = Module.property;
+            let { dataset, attrs } = App.parseProps(el, defaultProperty);
+            let componentInstance = new Component({
+                el: el,
+                dataset,
+                ...attrs,
+            });
+            App.instances[componentUID] = {
+                instance: componentInstance, module,
+            };
+        }
 
+        App.eventListener(module);
     }
 
     // 生成组件唯一ID
@@ -320,10 +299,10 @@ export default class App {
                     (module.element as HTMLInputElement).value = '';
                     setTimeout(() => {
                         App.renderComponent(module,
-                            (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
-                            (hooks, instance) => {
-                                hooks[Hooks.update]?.(instance);
-                            },
+                            // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
+                            // (hooks, instance) => {
+                            //     hooks[Hooks.update]?.(instance);
+                            // },
                         );
                     });
                     break;
@@ -441,8 +420,7 @@ export default class App {
 
     // 通过 Element 获取到组件解析后的所有属性
     public static async parseElementProperty(el: HTMLElement): Promise<any> {
-        let componentName = el.localName ?? '';
-        let componentModule = loadModule(componentName.split('-'));
+        let componentModule = loadModule(el.localName);
 
         let defaultProperty = componentModule.property;
 
@@ -482,9 +460,9 @@ export default class App {
         };
     }
 
-    public static renderComponent(module: IModules, beforeCallback: (h, instance: ReactInstance) => any, callback: (h, instance: ReactInstance) => any) {
+    public static renderComponent(module: IModules, beforeCallback?: (h, instance: ReactInstance) => any, callback?: (h, instance: ReactInstance) => any) {
         let {
-            element, defaultProperty, Component, hooks, componentUID, subelements, templates, container,
+            element, defaultProperty, Component /*hooks*/, componentUID, subelements, templates, container,
         } = module;
 
         let { dataset: parsedDataset, attrs } = this.parseProps(element, defaultProperty);
@@ -533,7 +511,7 @@ export default class App {
         }
 
         // 触发 beforeLoad 钩子
-        beforeCallback(hooks, instance);
+        // beforeCallback(hooks, instance);
 
         // 组件渲染
         try {
@@ -542,9 +520,9 @@ export default class App {
                 <ConfigProvider { ...globalComponentConfig } >
                     <Component { ...props } value={ value }/>
                 </ConfigProvider>
-                , container, () => {
+                , container /*() => {
                     callback(hooks, instance);
-                },
+                }*/,
             );
         } catch(e) {
             console.error(e);

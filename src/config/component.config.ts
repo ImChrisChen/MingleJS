@@ -52,8 +52,13 @@ export type elType =
     | 'color'
     | 'select-multiple';
 
-// 组件 ｜ 交互
-export type componentType = 'view' | 'interaction';
+/**
+ * 模块类型
+ * web-components 组件调用方式为 - 自定义组件 <form-select></form-select>
+ * functional 交互拓展函数 调用方式为 -  <div data-fn="layout-window"></div>
+ */
+export type ModuleType = 'web-components' | 'functional';
+
 
 export interface IOptions {
     label: string
@@ -100,7 +105,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
         }
     }
     name?: string
-    type?: componentType
+    type?: ModuleType
 }
 
 // 公共配置属性 Interface
@@ -141,7 +146,8 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         },
     })),
     style      : {
-        render: false,
+        el    : 'input',
+        render: true,
         parse : 'style',
         value : '',
         desc  : '样式',
@@ -241,8 +247,8 @@ export const componentConfig = {
                         desc : '菜单URL跳转字段',
                     },
                 },
-
             },
+            type     : 'web-components',
         },
         layout: {
             component: import('@component/app/layout/AppLayout'),
@@ -271,6 +277,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'web-components',
         },
         // feishu: {
         //     component: import('@component/app/feishu/AppFeishu'),
@@ -401,7 +408,7 @@ export const componentConfig = {
                 },
             },
             name     : '下拉框',
-            type     : 'view',
+            type     : 'web-components',
         },
         selecttree: {
             path     : '/form-selecttree',
@@ -460,7 +467,7 @@ export const componentConfig = {
                 hook       : {},
             },
             name     : '树形下拉框',
-            type     : 'view',
+            type     : 'web-components',
         },
         checkbox  : {
             component: import('@component/form/checkbox/FormCheckbox'),
@@ -494,7 +501,7 @@ export const componentConfig = {
                 value  : {},
             },
             name     : '复选框',
-            type     : 'view',
+            type     : 'web-components',
         },
         cascader  : {
             path     : '/form-cascader',
@@ -551,7 +558,7 @@ export const componentConfig = {
                 },
             },
             name     : '级联选择器',
-            type     : 'view',
+            type     : 'web-components',
         },
         datepicker: {
             path     : '/form-datepicker',
@@ -644,7 +651,7 @@ export const componentConfig = {
                 },
             },
             name     : '时间选择器',
-            type     : 'view',
+            type     : 'web-components',
         },
         action    : {
             component: import('@component/form/form-action/FormAction'),
@@ -708,7 +715,7 @@ export const componentConfig = {
             },
             document : import('@component/form/form-action/FormAction.md'),
             name     : 'form表单',
-            type     : 'view',
+            type     : 'web-components',
         },
         radio     : {
             path     : '/form-radio',
@@ -769,7 +776,7 @@ export const componentConfig = {
                 },
             },
             name     : '单选框',
-            type     : 'view',
+            type     : 'web-components',
         },
         slider    : {
             path     : '/form-slider',
@@ -817,7 +824,7 @@ export const componentConfig = {
                 },
             },
             name     : '滑动选择器',
-            type     : 'view',
+            type     : 'web-components',
         },
         switch    : {
             path     : '/form-switch',
@@ -842,7 +849,7 @@ export const componentConfig = {
                 group  : UniversalProps.group,
             },
             name     : '开关选择器',
-            type     : 'view',
+            type     : 'web-components',
         },
         input     : {
             path     : '/form-input',
@@ -886,7 +893,7 @@ export const componentConfig = {
                 },
             },
             name     : '文本框',
-            type     : 'view',
+            type     : 'web-components',
         },
         group     : {
             path     : '/form-group',
@@ -906,7 +913,7 @@ export const componentConfig = {
                 },
             },
             name     : '表单组',
-            type     : 'view',
+            type     : 'web-components',
         },
         upload    : {
             component: import('@component/form/upload/FormUpload'),
@@ -959,7 +966,7 @@ export const componentConfig = {
                 smart  : UniversalProps.smart,
             },
             name     : '文件上传',
-            type     : 'view',
+            type     : 'web-components',
         },
         color     : {
             component: import('@component/form/color/FormColor'),
@@ -981,7 +988,7 @@ export const componentConfig = {
                 style  : UniversalProps.style,
             },
             name     : '颜色选择器',
-            type     : 'view',
+            type     : 'web-components',
         },
         transfer  : {
             component: import('@component/form/transfer/FormTransfer'),
@@ -1045,11 +1052,11 @@ export const componentConfig = {
                 },
             },
             name     : '穿梭框',
-            type     : 'view',
+            type     : 'web-components',
         },
     },
     view  : {
-        steps   : {
+        steps: {
             path     : '/view-steps',
             component: import('@component/view/steps/ViewSteps'),
             document : import('@component/view/steps/ViewSteps.md'),
@@ -1084,8 +1091,10 @@ export const componentConfig = {
                 },
             },
             name     : '步骤',
-            type     : 'view',
+            type     : 'web-components',
         },
+
+        // handle
         dropdown: {
             component: import('@component/view/dropdown/ViewDropdown'),
             property : {
@@ -1114,7 +1123,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
         calendar: {
             path     : 'view-calendar',
@@ -1122,7 +1131,7 @@ export const componentConfig = {
             property : {
                 dataset: {},
             },
-            type     : 'view',
+            type     : 'web-components',
         },
         panel   : {
             path     : '/view-panel',
@@ -1145,7 +1154,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'functional',
         },
         image   : {
             path     : '/view-image',
@@ -1160,7 +1169,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
     },
     data  : {
@@ -1280,7 +1289,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
         chart: {
             component: import('@component/data/chart/DataChart'),
@@ -1462,7 +1471,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
         tree : {
             path     : '/layout-tree',
@@ -1516,7 +1525,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
     },
     tips  : {
@@ -1556,7 +1565,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'interaction',
+            type     : 'functional',
         },
         text: {
             component: import('@component/tips/text/TipsText'),
@@ -1587,9 +1596,8 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'interaction',
+            type     : 'functional',
         },
-        list: {},
     },
     layout: {
         menu    : {
@@ -1671,7 +1679,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
         tab     : {
             component: import('@component/layout/tab/LayoutTab'),
@@ -1698,7 +1706,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
         'window': {
             component: import('@component/layout/window/LayoutWindow'),
@@ -1744,7 +1752,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'interaction',
+            type     : 'functional',
         },
         drawer  : {
             component: import('@component/layout/drawer/LayoutDrawer'),
@@ -1774,7 +1782,7 @@ export const componentConfig = {
                         parse  : 'string',
                         desc   : '抽屉弹出的方向',
                     },
-                    width: {
+                    width   : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
@@ -1800,7 +1808,7 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'interaction',
+            type     : 'functional',
         },
         list    : {
             component: import('@component/layout/list/LayoutList'),
@@ -1846,18 +1854,42 @@ export const componentConfig = {
                     },
                 },
             },
-            type     : 'view',
+            type     : 'web-components',
         },
-        grid    : {
-            component: import('@component/layout/grid/LayoutGrid'),
-            document : import('@component/layout/grid/LayoutGrid.md'),
-            path     : '/layout-grid',
+        row     : {
+            component: import('@component/layout/row/LayoutRow'),
+            document : import('@component/layout/row/LayoutRow.md'),
+            path     : '/layout-row',
             property : {
-                dataset: {},
-            },
-            type     : 'view',
-        },
+                dataset: {
+                    space: {
+                        el   : 'input',
+                        parse: 'number[]',
+                        value: '20,10',
+                        desc : '前面的值(20)代表上下的间距,后面的值(10)代表左右的间距',
+                    },
 
+                },
+                style  : UniversalProps.style,
+            },
+            type     : 'web-components',
+        },
+        col     : {
+            component: import('@component/layout/row/col/LayoutCol'),
+            path     : '/layout-col',
+            property : {
+                dataset: {
+                    col: {
+                        el   : 'number',
+                        parse: 'number',
+                        value: '12',
+                        desc : '栅格系统所占的比例,总共24份',
+                    },
+                },
+                style  : UniversalProps.style,
+            },
+            type     : 'web-components',
+        },
     },
     handle: {
         request: {
@@ -1883,6 +1915,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'functional',
         },
         operate: {
             component: import('@component/handle/operate/HandleOperate'),
@@ -1906,6 +1939,7 @@ export const componentConfig = {
                     },
                 },
             },
+            type     : 'functional',
         },
     },
     editor: {
@@ -1934,6 +1968,7 @@ export const componentConfig = {
                     desc : '内容',
                 },
             },
+            type     : 'web-components',
         },
         // code    : {     // 代码编辑器
         //     component: import('@component/code/editor/CodeEditor'),

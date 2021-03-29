@@ -190,7 +190,7 @@ export class Mingle {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        let isVirtual = true;
+        let isVirtual = false;
 
         if (!container) {
             return;

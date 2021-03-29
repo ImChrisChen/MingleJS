@@ -16,7 +16,8 @@ container && ReactDOM.render(
         <HashRouter>
             <Document/>
         </HashRouter>
-    </ConfigProvider>, container);
+    </ConfigProvider>, 
+    container);
 
 // window.addEventListener('load', async () => {
 //     new App(document.body);
