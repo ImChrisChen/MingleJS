@@ -71,20 +71,11 @@ export class ParserElementService extends ParserTemplateService {
 
     /**
      * 递归解析DOM
-     * @param rootElement          被解析的根元素
+     * @param root
      * @param model { Object }     解析文本用到的数据
      * @param functions { Object } 解析函数用到的数据
      */
-    public parseElement(rootElement: HTMLElement, model: object, functions?: IFunctions) {
-
-        if (!rootElement) return rootElement;
-
-        let root = rootElement;
-
-        // 支持单个element 和 多个 element 处理
-        if (isArray(rootElement)) {
-            root = elementWrap(rootElement);
-        }
+    public parseElement(root: HTMLElement, model: object, functions?: IFunctions) {
 
         // TODO 解析顺序会影响渲染性能
         deepEachElement(root, async (el: HTMLElement) => {

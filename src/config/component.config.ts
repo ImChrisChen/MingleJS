@@ -1824,7 +1824,7 @@ export const componentConfig = {
                     url       : {
                         el   : 'input',
                         parse: 'string',
-                        value: domain + '/server/mock/chart/funnel.json',
+                        value: '',
                         desc : 'URL',
                     },
                     space     : {

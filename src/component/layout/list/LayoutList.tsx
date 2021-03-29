@@ -28,13 +28,12 @@ export default class LayoutList extends Component<IComponentProps, any> {
     @Inject private readonly parserElementService: ParserElementService;
 
     state = {
-        searchText: '',
+        searchText : '',
+        subelements: this.props.subelements as Array<HTMLElement>,
     };
 
     constructor(props) {
         super(props);
-
-        this.getLayoutListChildren();
 
         if (this.url) {
 
@@ -45,10 +44,17 @@ export default class LayoutList extends Component<IComponentProps, any> {
         }
     }
 
+    componentDidMount() {
+        if (this.props.dataset.url && this.state.subelements) {
+            this.getLayoutListChildren().then(subelements => {
+                this.setState({ subelements });
+            });
+        }
+    }
+
     async getLayoutListChildren() {
         let { cols, space, url, item, index } = this.props.dataset;
-        console.log(this.props);
-        let subelements = this.props.subelements;
+        let subelements = this.state.subelements;
         let [ right, bottom ] = space;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
         let children: Array<HTMLElement> = [];
@@ -60,22 +66,8 @@ export default class LayoutList extends Component<IComponentProps, any> {
             template.setAttribute(directiveForeach, `data as (${ item },${ index || 'default_index' })`);
 
             let elements = this.parserElementService.parseElement(elementWrap(template), { data });
-            let ch = elements.children;
-            // children.push(...elements.children());
-
-        } else {
-            let diff = cols - (subelements.length % cols);
-            children = subelements.map((element, index) => {
-                let search = element.innerText.includes(this.state.searchText);
-                if (search) {
-                    element.style.width = width;
-                    element.style.marginBottom = bottom + 'px';
-                    $(element).addClass(style.layoutListChildren);
-                    $(element).append(`<div class="${ style.layoutListSelectedIcon }">✅</div>`);
-                    return element;
-                }
-            }).filter(t => t) as Array<HTMLElement>;
-
+            let ch = [ ...elements.children ] as Array<HTMLElement>;
+            children.push(...ch);
         }
         return children;
     }
@@ -138,7 +130,8 @@ export default class LayoutList extends Component<IComponentProps, any> {
         let { cols, space } = this.props.dataset;
         let [ right, bottom ] = space;
 
-        let { subelements } = this.props;
+        // let { subelements } = this.props;
+        let subelements = this.state.subelements;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
         let diff = cols - (subelements.length % cols);
 
@@ -166,6 +159,8 @@ export default class LayoutList extends Component<IComponentProps, any> {
                 }).filter(t => t) as Array<HTMLElement>;
 
                 let elements = this.createElements(diff, width, bottom);        // 剩余补位的Elements元素
+
+                console.log(children);
 
                 node?.append(...children, ...elements);
             } }>

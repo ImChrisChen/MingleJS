@@ -78,6 +78,9 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     }
     let finalAttrs = Object.assign(defaultAttrs, attrs);
 
+
+    let cssText = '';
+
     // TODO 默认处理属性，不用写/读取配置去解析
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
@@ -86,11 +89,13 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
         if (key === 'required' && finalAttrs[key] !== false) {
             finalAttrs[key] = true;
         }
-        // if (key === 'style' && isString(finalAttrs[key])) {
-        //     finalAttrs[key] = parseLineStyle(finalAttrs[key]);
-        // }
+        if (key === 'style' && isString(finalAttrs[key])) {
+            cssText = finalAttrs[key];
+            finalAttrs[key] = parseLineStyle(finalAttrs[key]);
+        }
     }
 
+    finalAttrs.cssText = cssText;
     return finalAttrs;
 
 }

@@ -16,6 +16,6 @@ export default class LayoutCol {
         el.style.minHeight = '90px';
         el.style.margin = '0 4px';
         el.style.border = '1px solid #f0f';
-        el.style.cssText = String(props.style);
+        el.style.cssText = String(props.cssText);
     }
 }
