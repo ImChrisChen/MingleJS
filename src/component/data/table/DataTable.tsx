@@ -120,7 +120,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
         super(props);
 
         console.log('data-table:', this.props);
+    }
 
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    componentDidMount() {
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
@@ -143,11 +149,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
             }, interval * 60 * 1000);
         }
     }
-
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
 
     handleShowSizeChange(page, pageSize) {    // pageSize 变化的回调
         this.setState({

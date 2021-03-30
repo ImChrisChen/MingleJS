@@ -63,8 +63,12 @@ export default class LayoutList extends Component<IComponentProps, any> {
             let template = subelements[0];
             let res = await this.httpClientService.jsonp(url);
             let data = res.status ? res.data : [];
-            template.setAttribute(directiveForeach, `data as (${ item },${ index || 'default_index' })`);
 
+            if (!template) {
+                return [];
+            }
+
+            template.setAttribute(directiveForeach, `data as (${ item || 'default_item' },${ index || 'default_index' })`);
             let elements = this.parserElementService.parseElement(elementWrap(template), { data });
             let ch = [ ...elements.children ] as Array<HTMLElement>;
             children.push(...ch);
