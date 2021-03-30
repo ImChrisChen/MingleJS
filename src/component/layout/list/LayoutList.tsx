@@ -16,6 +16,7 @@ import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { ParserElementService } from '@services/ParserElement.service';
 import { elementWrap } from '@utils/trans-dom';
+import App from '@src/App';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 

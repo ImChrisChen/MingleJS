@@ -78,71 +78,9 @@ export default class App {
         }
     }
 
-    // web-components
-    async init(rootElement: HTMLElement) {
-
-        App.renderIcons(rootElement);
-        deepEachElement(rootElement, async (element) => {
-            let { localName: tagName } = element;
-
-
-            // 如果是自定义组件
-            if (isCustomElement(tagName)) {
-                if (App.registerComponents.includes(tagName)) {
-                    // console.log('有注册过', App.registerComponents, tagName);
-                    return;
-                }
-                //
-                window.customElements.define(tagName, class extends HTMLElement {
-                    constructor() {
-                        super();
-                        /**
-                         * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
-                         *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
-                         */
-                    }
-
-                    /**
-                     * 元素链接成功后
-                     */
-                    connectedCallback() {
-                        App.renderCustomElement(this);
-                    }
-                });
-
-                App.registerComponents.push(tagName);
-
-            } else {        // data-fn 函数功能
-
-                let methods = element.getAttribute('data-fn');
-                if (!methods) {
-                    return;
-                }
-
-                let Module = loadModule(methods);
-                const Component = (await Module.component).default;
-
-                // 不是react组件,直接 new Class
-                if (!isReactComponent(Component)) {
-                    let defaultProperty = Module.property;
-                    let { dataset, attrs } = App.parseProps(element, defaultProperty);
-                    new Component({
-                        el: element,
-                        dataset,
-                        ...attrs,
-                    });         // 统一使用 class 写法
-                }
-
-            }
-        });
-
-        App.errorVerify();
-
-    }
-
     // 渲染组件 <form-select></form-select>
     public static async renderCustomElement(el: HTMLElement) {
-        let { tagName } = el;
+        let tagName = el.localName;
 
         if (el.getAttribute(DataComponentUID)) {
             console.log('渲染过了');
@@ -153,8 +91,8 @@ export default class App {
         let componentUID = App.createUUID();
         el.setAttribute(DataComponentUID, componentUID);
 
-        if (tagName === 'define-component' && el.attributes?.['module']?.value) {
-            tagName = el.attributes['module'].value;
+        if (tagName === 'define-component' && el.getAttribute('module')) {
+            tagName = el.getAttribute('module') || '';
         }
 
         // 获取到组件的子元素（排除template标签)
@@ -212,6 +150,111 @@ export default class App {
         }
 
         App.eventListener(module);
+    }
+
+    // web-components
+    async init(rootElement: HTMLElement) {
+
+        App.renderIcons(rootElement);
+        deepEachElement(rootElement, async (element) => {
+            let { localName: tagName } = element;
+            let isWebComponents = true;
+
+            // 如果是自定义组件
+            if (isCustomElement(tagName)) {
+
+                if (isWebComponents) {
+                    if (App.registerComponents.includes(tagName)) {
+                        // console.log('有注册过', App.registerComponents, tagName);
+                        return;
+                    }
+                    //
+                    window.customElements.define(tagName, class extends HTMLElement {
+
+                        /**
+                         * TODO 生命周期函数的顺序
+                         * constructor -> attributeChangedCallback -> connectedCallback
+                         */
+
+                        constructor() {
+                            super();
+
+                            // let shadow = this.attachShadow({ mode: 'open' });
+                            // console.log(shadow);
+
+                            /**
+                             * TODO 自定义元素的构造器不应读取或编写其 DOM. 构造函数中不能操作DOM
+                             *  https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+                             */
+                        }
+
+                        // public props = [ 1, 2, 3 ];         // document.querySelector('el').props
+
+                        private static get observedAttributes() {
+                            return [];
+                        }
+
+                        /**
+                         * 元素链接成功后
+                         */
+                        connectedCallback() {
+                            App.renderCustomElement(this);
+                        }
+
+                        /**
+                         * 当元素从DOM中移除的时候将会调用它。但是要记住，在用户关闭浏览器或者浏览器tab的时候
+                         */
+                        disconnectCallback() {
+
+                        }
+
+                        /**
+                         * adoptedCallback，当元素通过调用document.adoptNode(element)被采用到文档时将会被调用
+                         */
+                        adoptedCallback() {
+
+                        }
+
+                        /**
+                         * 每当将属性添加到observedAttributes的数组中时，就会调用这个函数。这个方法调用时两个参数分别为旧值和新值。
+                         */
+                        attributeChangedCallback(attr, oldVal, newVal) {
+                            console.log(attr, oldVal, newVal);
+                        }
+
+
+                    });
+                    App.registerComponents.push(tagName);
+                } else {
+                    await App.renderCustomElement(element);
+                }
+
+            } else {        // data-fn 函数功能
+
+                let methods = element.getAttribute('data-fn');
+                if (!methods) {
+                    return;
+                }
+
+                let Module = loadModule(methods);
+                const Component = (await Module.component).default;
+
+                // 不是react组件,直接 new Class
+                if (!isReactComponent(Component)) {
+                    let defaultProperty = Module.property;
+                    let { dataset, attrs } = App.parseProps(element, defaultProperty);
+                    new Component({
+                        el: element,
+                        dataset,
+                        ...attrs,
+                    });         // 统一使用 class 写法
+                }
+
+            }
+        });
+
+        App.errorVerify();
+
     }
 
     // 生成组件唯一ID

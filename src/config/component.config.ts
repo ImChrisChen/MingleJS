@@ -514,9 +514,9 @@ export const componentConfig = {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
-                        el: 'select',
-                        // value  : domain + '/server/mock/select.json',
-                        value  : '',
+                        el   : 'input',
+                        value: domain + '/server/mock/select.json',
+                        // value  : '',
                         request: true,
                         parse  : 'string',
                     },
