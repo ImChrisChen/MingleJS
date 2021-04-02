@@ -1825,7 +1825,7 @@ export const componentConfig = {
                         desc : '每行显示的数量',
                     },
                     url       : {
-                        el   : 'select',
+                        el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : 'URL',

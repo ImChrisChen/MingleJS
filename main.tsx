@@ -8,6 +8,7 @@ import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/
 import { HashRouter } from 'react-router-dom';
 import { globalComponentConfig } from '@src/config/component.config';
 import { Mingle } from './src/core/Mingle';
+import App from './src/App';
 
 let container = document.querySelector('#__MINGLE_DOCS__');
 
@@ -16,7 +17,7 @@ container && ReactDOM.render(
         <HashRouter>
             <Document/>
         </HashRouter>
-    </ConfigProvider>, 
+    </ConfigProvider>,
     container);
 
 // window.addEventListener('load', async () => {
@@ -28,6 +29,7 @@ container && ReactDOM.render(
 
 Mingle.globalEventListener();
 window['$'] = $;
+window['App'] = App;
 window['Message'] = message;
 window['Notice'] = notification;
 window['Mingle'] = Mingle;

@@ -173,8 +173,15 @@ export function parseEnum(enumStr: string): Array<object> {
 
 // inline-style 解析成 react-style
 export function parseLineStyle(style: string): object {
-    let res = parseCamelCase(style);
-    let stylesJson = parseStr2JSONArray(res, ';', ':');
+    let stylesJson = style.split(';').reduce((arr: Array<object>, group) => {
+        let [ key, val ] = group.split(':');
+        if (!isEmptyStr(key) && !isEmptyStr(val)) {
+            key = parseCamelCase(key.trim());
+            val = val.trim();
+            arr.push({ [key]: val });
+        }
+        return arr;
+    }, []);
     return Object.assign({}, ...stylesJson);
 }
 

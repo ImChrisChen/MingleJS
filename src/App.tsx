@@ -158,7 +158,7 @@ export default class App {
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element) => {
             let { localName: tagName } = element;
-            let isWebComponents = true;
+            let isWebComponents = false;     // TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决
 
             // 如果是自定义组件
             if (isCustomElement(tagName)) {

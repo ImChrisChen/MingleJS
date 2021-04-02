@@ -8,16 +8,17 @@
 
     <!--    </form-select>-->
 
-    <define-component module="form-select">
+    <!--    <define-component module="form-select">-->
 
-    </define-component>
+    <!--    </define-component>-->
 
-    <!--    <layout-list>-->
-    <!--        <div w-foreach="funnel as item">-->
-    <!--            <form-select data-label="<{item.key}>" value="<{item.value}>"></form-select>-->
-    <!--            <view-panel data-model="<{item}>"></view-panel>-->
-    <!--        </div>-->
-    <!--    </layout-list>-->
+    <form-select style="display: flex; justify-content: flex-end">
+
+    </form-select>
+
+    <layout-list>
+        <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>" w-foreach="funnel as item"></form-input>
+    </layout-list>
 
     <!--    <form-select style="background-color: #b2c8ff"></form-select>-->
 
