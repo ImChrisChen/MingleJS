@@ -15,6 +15,7 @@ export interface IComponentProps {
     dataset?: any
     ref?: () => any
     value?: any
+    cssText: string
 
     [key: string]: any
 }
@@ -25,6 +26,7 @@ export interface INativeProps {
     style?: IReactStyle
     dataset?: any
     value?: any
+    cssText: string
 
     [key: string]: any
 }

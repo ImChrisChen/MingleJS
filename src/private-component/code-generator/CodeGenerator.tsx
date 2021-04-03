@@ -36,6 +36,7 @@ import { parseEnum } from '@utils/parser-property';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { FormatDataService } from '@services/FormatData.service';
+import * as url from 'url';
 
 interface IComponentDataset {
     el: string
@@ -160,6 +161,21 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                         fieldOptions.push({ label: itemKey, value: itemKey });
                     }
                 }
+            }
+
+            if (k === 'url' && !val.value) {
+                let res = await this.httpClientService.jsonp('/server/urls');
+                let o = res.status ? res.data : {};
+                let selectOptions: Array<IOptions> = [];
+                for (const k in o) {
+                    if (!o.hasOwnProperty(k)) continue;
+                    let item = o[k];
+                    selectOptions.push({
+                        label: k,
+                        value: item,
+                    });
+                }
+                val.options = selectOptions;
             }
 
             if (k === 'enum') {

@@ -37,7 +37,7 @@ export function strParseVirtualDOM(strHtml: string): any {
 }
 
 // 在element包裹一层元素
-export function elementWrap(elements: Array<HTMLElement>, tagName: string = 'div') {
+export function elementWrap(elements: Array<HTMLElement> | HTMLElement, tagName: string = 'div') {
 
     let newElement = document.createElement(tagName);
 

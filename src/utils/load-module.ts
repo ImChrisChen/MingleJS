@@ -37,12 +37,19 @@ export async function loadModules(keys: Array<string>) {
     return module;
 }
 
-export function loadModule(keys: Array<string>) {
+export function loadModule(key: string) {
+
+    if (!key) {
+        console.warn(`没有${ key }这个组件`);
+        return {};
+    }
+
+    let keys = key.toLowerCase().trim().split('-');
     let mod = componentConfig[keys[0]][keys[1]];
     return {
         component: mod.component,
         property : mod.property,
         path     : mod.path,
-        config   : mod,
+        type     : mod.type,
     };
 }

@@ -71,20 +71,11 @@ export class ParserElementService extends ParserTemplateService {
 
     /**
      * 递归解析DOM
-     * @param rootElement          被解析的根元素
+     * @param root
      * @param model { Object }     解析文本用到的数据
      * @param functions { Object } 解析函数用到的数据
      */
-    public parseElement(rootElement: HTMLElement, model: object, functions: IFunctions) {
-
-        if (!rootElement) return rootElement;
-
-        let root = rootElement;
-
-        // 支持单个element 和 多个 element 处理
-        if (isArray(rootElement)) {
-            root = elementWrap(rootElement);
-        }
+    public parseElement(root: HTMLElement, model: object, functions?: IFunctions) {
 
         // TODO 解析顺序会影响渲染性能
         deepEachElement(root, async (el: HTMLElement) => {
@@ -138,7 +129,7 @@ export class ParserElementService extends ParserTemplateService {
      * @param functions
      * @private
      */
-    private parseTextContent(el: HTMLElement, model: object, functions) {
+    private parseTextContent(el: HTMLElement, model: object, functions?) {
         [ ...el.childNodes ].forEach(node => {
 
             // node 节点
@@ -173,7 +164,7 @@ export class ParserElementService extends ParserTemplateService {
      * @param functions
      * @private
      */
-    private parseForeach(el: HTMLElement, model: object, functions: IFunctions) {
+    private parseForeach(el: HTMLElement, model: object, functions?: IFunctions) {
         let attrs = el.attributes;
         if (!attrs[directiveForeach]) return el;
         let { name, value } = attrs[directiveForeach];
@@ -307,7 +298,7 @@ export class ParserElementService extends ParserTemplateService {
      * @param functions
      * @private
      */
-    private parseEventListen(el: HTMLElement, model: object, functions: IFunctions) {
+    private parseEventListen(el: HTMLElement, model: object, functions?: IFunctions) {
         // 判断事件函数中是否有括号
         const isBracket = (v: string): boolean => {
             return /\((.*?)\)/.test(v);
@@ -369,8 +360,8 @@ export class ParserElementService extends ParserTemplateService {
 
                 // 绑定自定义事件
                 $(el).on(event, (e) => {
+                    // @ts-ignore
                     let { methods, callthis } = functions;
-
                     // 有括号
                     if (isBracket(value)) {
                         if (argument.length > 0) {      // 有参数
@@ -383,7 +374,6 @@ export class ParserElementService extends ParserTemplateService {
                         // 无括号，也无参数
                         methods?.[method]?.call(callthis, e);
                     }
-
                 });
 
                 // TODO 用 el.addEventListener 部分事件监听用jQuery的trigger触发不了

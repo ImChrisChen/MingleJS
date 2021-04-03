@@ -78,6 +78,9 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     }
     let finalAttrs = Object.assign(defaultAttrs, attrs);
 
+
+    let cssText = '';
+
     // TODO 默认处理属性，不用写/读取配置去解析
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
@@ -87,10 +90,12 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
             finalAttrs[key] = true;
         }
         if (key === 'style' && isString(finalAttrs[key])) {
+            cssText = finalAttrs[key];
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
     }
 
+    finalAttrs.cssText = cssText;
     return finalAttrs;
 
 }
@@ -168,8 +173,15 @@ export function parseEnum(enumStr: string): Array<object> {
 
 // inline-style 解析成 react-style
 export function parseLineStyle(style: string): object {
-    let res = parseCamelCase(style);
-    let stylesJson = parseStr2JSONArray(res, ';', ':');
+    let stylesJson = style.split(';').reduce((arr: Array<object>, group) => {
+        let [ key, val ] = group.split(':');
+        if (!isEmptyStr(key) && !isEmptyStr(val)) {
+            key = parseCamelCase(key.trim());
+            val = val.trim();
+            arr.push({ [key]: val });
+        }
+        return arr;
+    }, []);
     return Object.assign({}, ...stylesJson);
 }
 

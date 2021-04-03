@@ -22,9 +22,9 @@ export default class FormSwitch extends React.Component<any, any> {
 
     handleChange(value) {
         console.log(value);
-        this.setState({
-            attr: { checked: value },
-        });
+        // this.setState({
+        // attr: { checked: value },
+        // });
         trigger(this.props.el, value);
     }
 

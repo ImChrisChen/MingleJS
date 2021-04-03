@@ -1,14 +1,60 @@
 <div id="demo1">
 
+    <!--    <layout-list>-->
+    <!--        <div w-foreach="list as item"><{item}></div>-->
+    <!--    </layout-list>-->
+
+    <!--    <form-select>-->
+
+    <!--    </form-select>-->
+
+    <!--    <define-component module="form-select">-->
+
+    <!--    </define-component>-->
+
+    <form-select style="display: flex; justify-content: flex-end">
+
+    </form-select>
+
+    <layout-list>
+        <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>" w-foreach="funnel as item"></form-input>
+    </layout-list>
+
+    <!--    <form-select style="background-color: #b2c8ff"></form-select>-->
+
+    <!--    &lt;!&ndash;    <form-select></form-select>&ndash;&gt;-->
+
+
+    <!--    <layout-row style="border: 1px solid #cccccc;background-color: #1890ff">-->
+    <!--        <layout-col data-col="4">123</layout-col>-->
+    <!--        <layout-col data-col="16">123</layout-col>-->
+    <!--        <layout-col data-col="4">123</layout-col>-->
+    <!--    </layout-row>-->
+
+    <!-- 1 -->
+    <!--    <data-table data-height="400">-->
+    <!--    </data-table>-->
+    <!--    -->
+    <!--    <h1><{count}></h1>-->
+
+    <!--    <button @click="add()"></button>-->
+
+    <!--    <layout-list data-url="https://" data-item="item">-->
+    <!--        <div>-->
+    <!--            <form-select data-label="<{ item.name }>"></form-select>-->
+    <!--        </div>-->
+    <!--    </layout-list>-->
+
     <!--    <layout-list data-cols="1">-->
     <!--    <data-table data-title="table"></data-table>-->
     <!--    </layout-list>-->
 
-    <ul>
-        <li w-foreach="list as item">
-            <a data-fn="layout-window" href="#">submit</a>
-        </li>
-    </ul>
+    <!--    <ul>-->
+    <!--        <li w-foreach="list as item">-->
+    <!--            &lt;!&ndash; 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 &ndash;&gt;-->
+    <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
+    <!--        </li>-->
+    <!--    </ul>-->
 
 </div>
 
@@ -16,19 +62,63 @@
     new Mingle({
         el: '#demo1',
         data: {
-            publisher_name: '-----------',
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,
             visible: true,
-            list: new Array(10).fill({ name: Math.random(1000) }),
+            // list: new Array(10).fill({ name: Math.random(1000) }),
+            list: [
+                {
+                    name: '淘宝',
+                    url: 'https://taobao.com',
+                },
+                {
+                    name: '百度',
+                    url: 'https://baidu.com',
+                },
+                {
+                    name: '京东',
+                    url: 'https://www.jd.com/',
+                },
+            ],
+            funnel: [],
+            // funnel: [
+            //     {
+            //         'key': '渠道1',
+            //         'value': 50000,
+            //         'value1': 500000,
+            //     },
+            //     {
+            //         'key': '渠道2',
+            //         'value': 35000,
+            //         'value1': 350000,
+            //     },
+            //     {
+            //         'key': '渠道3',
+            //         'value': 25000,
+            //         'value1': 250000,
+            //     },
+            //     {
+            //         'key': '渠道4',
+            //         'value': 15000,
+            //         'value1': 150000,
+            //     },
+            //     {
+            //         'key': '渠道5',
+            //         'value': 8000,
+            //         'value1': 80000,
+            //     },
+            // ],
             obj: {
                 game_id: '4',
                 pf: '2',
             },
         },
-        created() {
+        async created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
+            let funnel = await this.$jsonp(`/server/mock/chart/funnel.json`);
+            console.log(funnel);
+            this.funnel = funnel;
         },
         methods: {
             handleClick(e) {

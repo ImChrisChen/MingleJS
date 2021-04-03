@@ -1,25 +1,47 @@
 <div id="demo2">
-    <!--    <layout-list data-cols="1">-->
-    <data-table data-title="table" data-height="400"></data-table>
+    <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>"></form-input>
+    <!--    <p>-->
+    <!--        <data-table data-height="400"></data-table>-->
+    <!--    </p>-->
+    <!--    <layout-list>-->
+    <!--        <div @foreach="list as item"><{item.name}></div>-->
     <!--    </layout-list>-->
-
-    <h1><{count}></h1>
-    <Button @click="add">add</Button>
-    <button @click="reduce">reduce</button>
+    <!--    <ul>-->
+    <!--        <li w-foreach="list as item">-->
+    <!--            &lt;!&ndash; 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 &ndash;&gt;-->
+    <!--            <span data-fn="layout-drawer" data-width="600" href="<{item.url}>"><{item.name}></span>-->
+    <!--        </li>-->
+    <!--    </ul>-->
 </div>
 
 <script>
     new Mingle({
         el: '#demo2',
-        data: {count: 0},
+        data: {
+            count: 0,
+            list: [
+                {
+                    name: '淘宝',
+                    url: 'https://taobao.com',
+                },
+                {
+                    name: '百度',
+                    url: 'https://baidu.com',
+                },
+                {
+                    name: '京东',
+                    url: 'https://www.jd.com/',
+                },
+            ],
+        },
 
         methods: {
             add() {
                 this.count++;
             },
             reduce() {
-                this.count--
-            }
-        }
-    })
+                this.count--;
+            },
+        },
+    });
 </script>

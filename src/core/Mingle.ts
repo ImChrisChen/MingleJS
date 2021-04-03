@@ -15,6 +15,7 @@ import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { Monitor } from '@services/Monitor';
 import { componentConfig } from '@src/config/component.config';
 import { FormatDataService } from '@services/FormatData.service';
+import { deepEachElementTail } from '@utils/util';
 
 interface IMingleOptions {
     el: string
@@ -339,8 +340,12 @@ export class Mingle {
         let { el, data, created, methods, mounted, updated } = options;
 
         let container = document.querySelector(el) as HTMLElement;
-        this.containerNode = container.cloneNode(true);     // 缓存节点模版
 
+        if (!container) {
+            return;
+        }
+
+        this.containerNode = container.cloneNode(true);     // 缓存节点模版
         let o = Object.assign(data, methods, this);
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);
