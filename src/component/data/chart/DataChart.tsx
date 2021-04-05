@@ -35,8 +35,7 @@ import { RedoOutlined } from '@ant-design/icons';
 import DataSet from '@antv/data-set';
 import { ChartTootipCustom } from './component/ChartTootipCustom';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 
 interface IChartConfig {
     key: string | Array<string>

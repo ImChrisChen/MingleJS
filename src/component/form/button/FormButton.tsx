@@ -10,7 +10,7 @@ import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService } from '@src/services';
 
 export default class FormButton extends React.Component<IComponentProps, any> {
 

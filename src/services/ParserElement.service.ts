@@ -5,10 +5,10 @@
  * Time: 3:30 下午
  */
 
-import { directiveElse, directiveForeach, directiveIf } from '@src/config/directive.config';
+import { directiveElse, directiveForeach, directiveIf } from '@src/config';
 import { deepEachElement, getObjectValue, isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@src/utils';
 import $ from 'jquery';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { ParserTemplateService } from '@src/services';
 
 export interface IFunctions {
     methods: {

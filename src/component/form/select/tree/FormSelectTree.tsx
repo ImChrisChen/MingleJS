@@ -11,8 +11,7 @@ import { IComponentProps } from '@interface/common/component';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { isNumber, isString, trigger } from '@src/utils';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@src/services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 
 const { SHOW_PARENT } = TreeSelect;
 

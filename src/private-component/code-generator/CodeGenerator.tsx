@@ -31,8 +31,7 @@ import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 import * as url from 'url';
 
 interface IComponentDataset {

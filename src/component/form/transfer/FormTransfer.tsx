@@ -8,9 +8,8 @@
 import React, { Component, ReactNode } from 'react';
 import { Transfer } from 'antd';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 import { IComponentProps } from '@interface/common/component';
-import { FormatDataService } from '@services/FormatData.service';
 import { trigger } from '@src/utils';
 
 

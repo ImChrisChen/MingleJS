@@ -13,7 +13,7 @@ import { isString } from '@src/utils';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import qs from 'qs';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
+import { HttpClientService } from '@src/services';
 
 function getBase64(file) {
     return new Promise((resolve, reject) => {

@@ -11,7 +11,7 @@ import { Typography } from 'antd';
 import { isHtmlTpl, isObject, isReactNode, isWuiComponent, strParseDOM, strParseVirtualDOM } from '@src/utils';
 import style from './ViewPanel.scss';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
+import { HttpClientService } from '@src/services';
 
 const { Paragraph, Text } = Typography;
 

@@ -6,8 +6,8 @@
  */
 
 import { deepEach, isArray, isDOMString, isWuiTpl, strParseVirtualDOM } from '@src/utils';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { IOptions } from '@src/config/component.config';
+import { ParserTemplateService } from '@src/services';
+import { IOptions } from '@src/config';
 import { Inject } from 'typescript-ioc';
 
 interface IKeyMap {

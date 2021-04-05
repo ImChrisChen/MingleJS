@@ -7,9 +7,8 @@
 
 import { isWuiTpl } from '@src/utils';
 import { message } from 'antd';
-import { LogReportService } from '@services/LogReport.service';
+import { LogReportService, ParserTemplateService } from '@src/services';
 import { Inject } from 'typescript-ioc';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
 import axios from 'axios';
 
 export interface IApiResult {
@@ -161,7 +160,7 @@ export class HttpClientService {
                     dataType   : 'jsonp',
                     headers    : '{}',
                 });
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
 

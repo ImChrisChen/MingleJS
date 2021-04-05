@@ -5,7 +5,7 @@
  * Time: 上午11:53
  */
 import { getObjectValue, isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined } from '@src/utils';
-import { ParserCharService } from '@services/ParserChar.service';
+import { ParserCharService } from '@src/services';
 
 declare type IParseModeData = HTMLElement | object | null;
 declare type tplTyle = 'tpl' | 'field'

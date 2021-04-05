@@ -11,8 +11,7 @@ import { IComponentProps } from '@interface/common/component';
 import React, { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 
 export default class FormSelect extends Component<IComponentProps, any> {
     @Inject private readonly httpClientService: HttpClientService;

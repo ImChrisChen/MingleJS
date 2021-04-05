@@ -10,8 +10,7 @@ import { Checkbox, Form } from 'antd';
 import { trigger } from '@src/utils';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 
 export default class FormCheckbox extends Component<IComponentProps, any> {
 

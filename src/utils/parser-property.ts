@@ -6,7 +6,7 @@
  */
 import { IPropertyConfig, parseType } from '@src/config/component.config';
 import { isEmptyStr, isJSON, isString } from '@src/utils';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { ParserTemplateService } from '@src/services';
 
 // 解析dataset data-*
 export function parserDataset(dataset, defaultDataset): object {

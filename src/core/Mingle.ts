@@ -7,14 +7,11 @@
 
 import App from '@src/App';
 import { Inject } from 'typescript-ioc';
-import { ParserElementService } from '@services/ParserElement.service';
-import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService, HttpClientService, LogReportService, ParserElementService } from '@src/services';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
-import { LogReportService } from '@services/LogReport.service';
 import { componentConfig } from '@src/config/component.config';
-import { FormatDataService } from '@services/FormatData.service';
 
 interface IMingleOptions {
     el: string
@@ -203,7 +200,7 @@ export class Mingle {
             console.timeEnd('虚拟DOM首次渲染性能测试');
 
             $(container).html('');
-            for (const child of [ ...node.childNodes ]) {
+            for (const child of [...node.childNodes]) {
                 container.append(child);
             }
             await Mingle.render(container);

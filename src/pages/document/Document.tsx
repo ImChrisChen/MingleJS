@@ -16,9 +16,8 @@ import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import { HttpClientService } from '@src/services/HttpClient.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
-import { FormatDataService } from '@services/FormatData.service';
 
 const { Header, Content } = Layout;
 
@@ -60,7 +59,7 @@ export default class Document extends React.Component<any, any> {
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;
-            let [ name ] = item.split('.');
+            let [name] = item.split('.');
             pageRoutes.push({
                 name     : name,
                 path     : '/nav-' + item,
@@ -68,11 +67,11 @@ export default class Document extends React.Component<any, any> {
             });
         }
         let navRoutes = this.state.navRoutes;
-        return [ ...navRoutes, ...pageRoutes ];
+        return [...navRoutes, ...pageRoutes];
     }
 
     getCurrentMenu() {
-        let [ , currentRoute ] = window.location.hash.split('#');
+        let [, currentRoute] = window.location.hash.split('#');
         return currentRoute;
     }
 
@@ -99,7 +98,7 @@ export default class Document extends React.Component<any, any> {
                         <div className="logo"/>
 
                         {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
-                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ this.getCurrentMenu() ] }>
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [this.getCurrentMenu()] }>
                             { this.state.navRoutes.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target

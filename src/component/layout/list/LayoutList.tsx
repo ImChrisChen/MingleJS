@@ -13,8 +13,7 @@ import Search from 'antd/lib/input/Search';
 import $ from 'jquery';
 import { directiveForeach } from '@src/config/directive.config';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { ParserElementService } from '@services/ParserElement.service';
+import { HttpClientService, ParserElementService } from '@src/services';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 

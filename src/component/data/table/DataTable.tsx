@@ -28,9 +28,7 @@ import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
 import FormAction from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { HttpClientService, IApiResult } from '@src/services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService, IApiResult, ParserTemplateService } from '@src/services';
 import App from '@src/App';
 
 interface ITableHeaderItem {

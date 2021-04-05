@@ -4,7 +4,7 @@
  * Date: 2021/2/28
  * Time: 6:49 下午
  */
-import { IFunctions } from '@services/ParserElement.service';
+import { IFunctions, ParserTemplateService } from '@src/services';
 import {
     arraylastItem,
     getObjectValue,
@@ -16,21 +16,7 @@ import {
     isWuiTpl,
 } from '@src/utils';
 import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { DataComponentUID } from '@src/App';
-
-const events = {
-    click: [        // 可以有多个事件
-        {
-            once      : false,
-            type      : 'click',
-            useCapture: false,          // 事件捕获
-            listener  : function () {
-
-            },
-        },
-    ],
-};
 
 export interface IMingleVnode {
     tag: string

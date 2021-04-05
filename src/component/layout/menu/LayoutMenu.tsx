@@ -11,8 +11,7 @@ import { IComponentProps } from '@interface/common/component';
 import { getDepthMax } from '@src/utils';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 
 export default class LayoutMenu extends Component<IComponentProps, ReactNode> {
     @Inject private readonly httpClientService: HttpClientService;
