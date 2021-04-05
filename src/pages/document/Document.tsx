@@ -16,7 +16,8 @@ import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import { FormatDataService, HttpClientService } from '@src/services';
+import { FormatDataService } from '@services/FormatData.service';
+import { HttpClientService } from '@services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 
 const { Header, Content } = Layout;
