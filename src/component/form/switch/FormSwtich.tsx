@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { Form, Switch } from 'antd';
-import { trigger } from '@utils/trigger';
+import { trigger } from '@src/utils';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 export default class FormSwitch extends React.Component<any, any> {

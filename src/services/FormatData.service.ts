@@ -5,10 +5,8 @@
  * Time: 3:32 下午
  */
 
-import { deepEach } from '@utils/util';
-import { isArray, isDOMString, isWuiTpl } from '@utils/inspect';
+import { deepEach, isArray, isDOMString, isWuiTpl, strParseVirtualDOM } from '@src/utils';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { strParseVirtualDOM } from '@utils/trans-dom';
 import { IOptions } from '@src/config/component.config';
 import { Inject } from 'typescript-ioc';
 
@@ -181,7 +179,7 @@ export class FormatDataService {
 
     // 树 => 列表
     public tree2List(tree: object) {
-        return deepEach([ { children: tree } ], node => node);
+        return deepEach([{ children: tree }], node => node);
     }
 
     /**
@@ -257,7 +255,7 @@ export class FormatDataService {
      */
     public obj2Url(data: object, url: string = ''): string {
         let params = '';
-        let [ href, search ] = url.split('?');
+        let [href, search] = url.split('?');
 
         //TODO 带参数的url传进来，会把url上的参数和data合并了
         let object = {};
@@ -286,11 +284,11 @@ export class FormatDataService {
     public url2Obj(url: string, o: object = {}): object {
         let search = url;
         if (url.includes('?')) {
-            [ , search ] = url.split('?');
+            [, search] = url.split('?');
         }
         search.split('&').forEach(kv => {
             if (kv) {
-                let [ k, v ] = kv.split('=');
+                let [k, v] = kv.split('=');
                 o[k] = v;
             }
         });

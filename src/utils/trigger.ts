@@ -6,7 +6,7 @@
  */
 
 import $ from 'jquery';
-import { isArray } from '@utils/inspect';
+import { isArray } from '@src/utils';
 
 type el = HTMLElement | HTMLInputElement
 

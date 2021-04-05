@@ -5,9 +5,9 @@
  * Time: 12:08 下午
  */
 
-import { isWuiTpl } from '@utils/inspect';
+import { isWuiTpl } from '@src/utils';
 import { message } from 'antd';
-import { Monitor } from '@services/Monitor';
+import { LogReportService } from '@services/LogReport.service';
 import { Inject } from 'typescript-ioc';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import axios from 'axios';
@@ -153,7 +153,7 @@ export class HttpClientService {
 
             try {
                 body?.appendChild(script);
-                Monitor.requestLogger({
+                LogReportService.requestLogger({
                     request_url: url,
                     page_url   : window.location.href,
                     flag       : 'mingle',

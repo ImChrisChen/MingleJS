@@ -4,9 +4,8 @@
  * Date: 2020/10/16
  * Time: 上午11:53
  */
-import { isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined } from '@utils/inspect';
+import { getObjectValue, isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined } from '@src/utils';
 import { ParserCharService } from '@services/ParserChar.service';
-import { getObjectValue } from '@utils/util';
 
 declare type IParseModeData = HTMLElement | object | null;
 declare type tplTyle = 'tpl' | 'field'
@@ -16,6 +15,61 @@ export class ParserTemplateService extends ParserCharService {
 
     constructor() {
         super();
+    }
+
+    /**
+     * 创建正则  模版替换/属性替换 换两种规则
+     * @param type {tplTyle}
+     * @param field {string}
+     * @return {RegExp}
+     */
+    private static createRegExp(type: tplTyle, field): RegExp {
+        let regExp;
+        if (type === 'tpl') {
+            regExp = new RegExp(`<{${ field }}>`, 'g');
+        } else if (type === 'field') {
+            // TODO 三元运算法加空格在这里会报错，后面有时间再优化这个，/?/
+            // console.log(field);
+            regExp = new RegExp(`${ field }`, 'g');
+        }
+        return regExp as RegExp;
+    }
+
+    /**
+     * 模版替换 统一收拢
+     * @param tpl {string}
+     * @param regExp {RegExp}
+     * @param value {string | object}
+     * @return {string}
+     */
+    private static setTpl(tpl: string, regExp: RegExp, value: string | object): string {
+        if (isObject(value) || isArray(value)) {
+            value = JSON.stringify(value);
+        }
+        return tpl.replace(regExp, value);
+    }
+
+    /**
+     * 提取模版字段 - `<{pf}>xxx<{game_id}>` [ 'pf', 'game_id' ];
+     * @param tpl {string}
+     * @return {Array<string>}
+     */
+    private static getTplFields(tpl: string): Array<string> {
+        let matchArr: Array<string> = tpl.match(/<{(.*?)}>/g) ?? [];
+        return matchArr.map(item => {
+            let [, fieldName] = item.match(/<{(.*?)}>/) ?? [];
+            return fieldName;
+        });
+    }
+
+    /**
+     * 匹配出表达式中模版字段 `pf / 2 + 100` => [pf]
+     * @param {string} tpl
+     * @return {Array<string>}
+     */
+    private static getExpressFields(tpl): Array<string> {
+        let fields = tpl.match(/[^\s\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/g) ?? [];      // 匹配表达式中需要解析字段
+        return fields.filter(item => isNaN(Number(item)));
     }
 
     /**
@@ -43,7 +97,7 @@ export class ParserTemplateService extends ParserCharService {
 
         // 表达式执行 如 "<{ 1 + 1 }>" => "2"
         tpl = tpl.replace(/<{(.*?)}>/g, v => {
-            let [ , express ] = /<{(.*?)}>/.exec(v) ?? [];
+            let [, express] = /<{(.*?)}>/.exec(v) ?? [];
             let exp = isExpress(express.trim());
             if (exp) {
                 try {
@@ -109,61 +163,6 @@ export class ParserTemplateService extends ParserCharService {
             }
         });
         return tpl;
-    }
-
-    /**
-     * 创建正则  模版替换/属性替换 换两种规则
-     * @param type {tplTyle}
-     * @param field {string}
-     * @return {RegExp}
-     */
-    private static createRegExp(type: tplTyle, field): RegExp {
-        let regExp;
-        if (type === 'tpl') {
-            regExp = new RegExp(`<{${ field }}>`, 'g');
-        } else if (type === 'field') {
-            // TODO 三元运算法加空格在这里会报错，后面有时间再优化这个，/?/
-            // console.log(field);
-            regExp = new RegExp(`${ field }`, 'g');
-        }
-        return regExp as RegExp;
-    }
-
-    /**
-     * 模版替换 统一收拢
-     * @param tpl {string}
-     * @param regExp {RegExp}
-     * @param value {string | object}
-     * @return {string}
-     */
-    private static setTpl(tpl: string, regExp: RegExp, value: string | object): string {
-        if (isObject(value) || isArray(value)) {
-            value = JSON.stringify(value);
-        }
-        return tpl.replace(regExp, value);
-    }
-
-    /**
-     * 提取模版字段 - `<{pf}>xxx<{game_id}>` [ 'pf', 'game_id' ];
-     * @param tpl {string}
-     * @return {Array<string>}
-     */
-    private static getTplFields(tpl: string): Array<string> {
-        let matchArr: Array<string> = tpl.match(/<{(.*?)}>/g) ?? [];
-        return matchArr.map(item => {
-            let [ , fieldName ] = item.match(/<{(.*?)}>/) ?? [];
-            return fieldName;
-        });
-    }
-
-    /**
-     * 匹配出表达式中模版字段 `pf / 2 + 100` => [pf]
-     * @param {string} tpl
-     * @return {Array<string>}
-     */
-    private static getExpressFields(tpl): Array<string> {
-        let fields = tpl.match(/[^\s\n\!\|\&\+\-\*\/\=\>\<\(\)\{\}\~\%\'\"]+/g) ?? [];      // 匹配表达式中需要解析字段
-        return fields.filter(item => isNaN(Number(item)));
     }
 
 }

@@ -5,15 +5,13 @@
  * Time: 12:35 上午
  */
 import React, { Component } from 'react';
-import { Button, Form, Input, List, message, Modal, Select, Switch } from 'antd';
+import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { trigger } from '@utils/trigger';
+import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
 import SmartIcon from '@static/icons/form-smart.png';
 import style from './FormAction.scss';
-import { isEmptyObject } from '@utils/inspect';
-import { arrayDeleteItem } from '@utils/util';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@src/App';
 import { Inject } from 'typescript-ioc';
@@ -49,7 +47,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         isModalVisible  : false,
         formSmartVisible: false,
         data            : [] as Array<ISmartItemAPI>,
-        smartElements   : ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
+        smartElements   : ([...this.props.el.querySelectorAll(`[name][data-smart=true]`)] || []) as Array<HTMLInputElement>,
     };
 
     private form: any = React.createRef();
@@ -295,56 +293,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
     }
 
-    // 获取关联的table ，chart， list 的实例
-    async getViewsInstances() {
-        let id = this.props.id;
-        if (!id) {
-            return [];
-        }
-        let App = (await import('@src/App')).default;
-
-        // table chart list
-        let views = [ ...document.querySelectorAll(`[data-from=${ id }]`) ];
-        return views.map(view => {
-            let uid = view.getAttribute('data-component-uid') ?? '';
-            return App.instances[uid]?.instance;
-        }).filter(r => r);      // 没有 data-component-uid 则过滤出去
-    }
-
-    // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
-    async handleReset(form: HTMLElement, e?: any) {
-        // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
-        // let formItems = this.componentSerive.getFormComponents(form);
-        let formItems = [ ...form.querySelectorAll(`[name][data-component-uid][form-component]`) ] as Array<HTMLElement>;
-        for (const formItem of formItems) {
-            let property = await App.parseElementProperty(formItem);        // 默认属性
-            let value = property.value;
-            formItem && trigger(formItem, value);
-        }
-    }
-
-    verifyFormData(formElement, formData): boolean {
-        let unVerifys: Array<string> = [];
-
-        for (const name in formData) {
-            if (!formData.hasOwnProperty(name)) continue;
-            let value = formData[name];
-            // let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
-            // let formItemElem: HTMLElement = this.componentSerive.getFormComponentByName(name);
-            let formItemElem = document.querySelector(`[name=${ name }][data-component-uid][form-component]`) as HTMLElement;
-            let required = eval(formItemElem.dataset.required + '');
-            if (required && !value) {
-                unVerifys.push(name);
-            }
-        }
-
-        if (unVerifys.length > 0) {
-            message.error(`${ unVerifys.join(',') }的值为空`);
-            return false;
-        }
-        return true;
-    }
-
     // 获取处理formGroup数据
     public static async getFormGroupData(form) {
         let formGroup = form.querySelector('form-group');
@@ -354,7 +302,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
 
         let name = formGroup?.getAttribute('name') ?? '';
-        let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
+        let formGroupItems: Array<HTMLElement> = [...formGroup.querySelectorAll(`.form-group .form-group-item`)];
         let formGroupData: Array<object> = [];
         for (const formGroupItem of formGroupItems) {
             let itemData = await this.getDataByElement(formGroupItem, true);
@@ -365,25 +313,13 @@ export default class FormAction extends React.Component<IFormAction, any> {
         };
     }
 
-    // 获取表单数据
-    public static async getFormData(form: HTMLElement): Promise<IFormData> {
-
-        let formData = await this.getDataByElement(form);
-
-        // 处理 form-group 内的组件
-        let formGroupData = await this.getFormGroupData(form);
-        console.log('formGroupData', formGroupData);
-
-        return Object.assign(formData, formGroupData);
-    }
-
     public static async getDataByElement(form: HTMLElement, force = false): Promise<IFormData> {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
         let $hideInput = $(form).find('.form-tabpanel:hidden').find('[data-component-uid][name]');
         let hideInputName = $hideInput.attr('name');
 
-        let formItems = [ ...form.querySelectorAll(`[data-component-uid][name]`) ] as Array<HTMLElement>;
+        let formItems = [...form.querySelectorAll(`[data-component-uid][name]`)] as Array<HTMLElement>;
         for (const formItem of formItems) {
             // let { name, value } = formItem;
             // let { name, value } = formItem;
@@ -409,6 +345,68 @@ export default class FormAction extends React.Component<IFormAction, any> {
             formData[name] = value || (await App.parseElementProperty(formItem)).value;
         }
         return formData;
+    }
+
+    verifyFormData(formElement, formData): boolean {
+        let unVerifys: Array<string> = [];
+
+        for (const name in formData) {
+            if (!formData.hasOwnProperty(name)) continue;
+            let value = formData[name];
+            // let formItemElem: HTMLElement = formElement.querySelector(`[name=${ name }][data-component-uid]`);
+            // let formItemElem: HTMLElement = this.componentSerive.getFormComponentByName(name);
+            let formItemElem = document.querySelector(`[name=${ name }][data-component-uid][form-component]`) as HTMLElement;
+            let required = eval(formItemElem.dataset.required + '');
+            if (required && !value) {
+                unVerifys.push(name);
+            }
+        }
+
+        if (unVerifys.length > 0) {
+            message.error(`${ unVerifys.join(',') }的值为空`);
+            return false;
+        }
+        return true;
+    }
+
+    // 获取关联的table ，chart， list 的实例
+    async getViewsInstances() {
+        let id = this.props.id;
+        if (!id) {
+            return [];
+        }
+        let App = (await import('@src/App')).default;
+
+        // table chart list
+        let views = [...document.querySelectorAll(`[data-from=${ id }]`)];
+        return views.map(view => {
+            let uid = view.getAttribute('data-component-uid') ?? '';
+            return App.instances[uid]?.instance;
+        }).filter(r => r);      // 没有 data-component-uid 则过滤出去
+    }
+
+    // 获取表单数据
+    public static async getFormData(form: HTMLElement): Promise<IFormData> {
+
+        let formData = await this.getDataByElement(form);
+
+        // 处理 form-group 内的组件
+        let formGroupData = await this.getFormGroupData(form);
+        console.log('formGroupData', formGroupData);
+
+        return Object.assign(formData, formGroupData);
+    }
+
+    // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
+    async handleReset(form: HTMLElement, e?: any) {
+        // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
+        // let formItems = this.componentSerive.getFormComponents(form);
+        let formItems = [...form.querySelectorAll(`[name][data-component-uid][form-component]`)] as Array<HTMLElement>;
+        for (const formItem of formItems) {
+            let property = await App.parseElementProperty(formItem);        // 默认属性
+            let value = property.value;
+            formItem && trigger(formItem, value);
+        }
     }
 
     setLayout(formElement: HTMLElement) {

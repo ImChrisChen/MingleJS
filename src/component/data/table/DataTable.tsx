@@ -7,12 +7,20 @@
 
 import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
 import * as React from 'react';
-import { strParseDOM, strParseVirtualDOM } from '@utils/trans-dom';
+import {
+    isDataFn,
+    isHtmlTpl,
+    isNumber,
+    isString,
+    isWuiComponent,
+    isWuiTpl,
+    strParseDOM,
+    strParseVirtualDOM,
+} from '@src/utils';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { isDataFn, isHtmlTpl, isNumber, isString, isWuiComponent, isWuiTpl } from '@utils/inspect';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
@@ -130,7 +138,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
-        ]).then(([ tableHeader, tableContent ]) => {
+        ]).then(([tableHeader, tableContent]) => {
             this.setState({
                 columns   : tableHeader,
                 dataSource: tableContent,
@@ -351,7 +359,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch(item.field) {
+                switch (item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;
@@ -417,7 +425,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     } }
                     placeholder={ `Search ${ dataIndex }` }
                     value={ selectedKeys[0] }
-                    onChange={ e => setSelectedKeys(e.target.value ? [ e.target.value ] : []) }
+                    onChange={ e => setSelectedKeys(e.target.value ? [e.target.value] : []) }
                     onPressEnter={ () => this.handleSearch(selectedKeys, confirm, dataIndex) }
                     style={ { width: 188, marginBottom: 8, display: 'block' } }
                 />
@@ -567,7 +575,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                       className={ `${ style.dropdown } ${ this.state.showDropdownBtn ? style.show : style.hide }` }
                       placement="bottomRight"
                       onVisibleChange={ this.handleDropdownVisibleChange.bind(this) }
-                      visible={ this.state.showDropdown } trigger={ [ 'click' ] } arrow>
+                      visible={ this.state.showDropdown } trigger={ ['click'] } arrow>
                 <Button>
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
@@ -620,11 +628,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // showDropdownBtn={ this.state.showDropdownBtn }       // 是否显示下拉框按钮
                 bordered={ this.props.dataset.bordered }
                 pagination={ this.props.dataset.pagination ? {
-                    pageSizeOptions: this.state.pages || [ '10', '20', '50', '100', '200' ],
+                    pageSizeOptions: this.state.pages || ['10', '20', '50', '100', '200'],
                     pageSize       : this.state.pagesize || 50,
                     onChange       : this.handleChangePagination.bind(this),
                     current        : this.state.currentpage,
-                    position       : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
+                    position       : ['none', this.props.dataset.position /*'bottomLeft'*/],     // 分页器展示的位置
                 } : false }
                 columns={ this.state.columns.filter(item => item['visible'] === true) }
                 scroll={ {        //  表格是否可以滚动

@@ -12,10 +12,9 @@ import { HttpClientService } from '@services/HttpClient.service';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
-import { Monitor } from '@services/Monitor';
+import { LogReportService } from '@services/LogReport.service';
 import { componentConfig } from '@src/config/component.config';
 import { FormatDataService } from '@services/FormatData.service';
-import { deepEachElementTail } from '@utils/util';
 
 interface IMingleOptions {
     el: string
@@ -121,7 +120,7 @@ export class Mingle {
                 error_col,
             };
 
-            await Monitor.errorLogger(log);
+            await LogReportService.errorLogger(log);
             message.error(`error, ${ msg }`);
         });
 

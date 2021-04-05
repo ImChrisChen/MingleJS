@@ -5,13 +5,11 @@
  * Time: 4:07 上午
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Form, TreeSelect } from 'antd';
 import { IComponentProps } from '@interface/common/component';
-import { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
-import { trigger } from '@utils/trigger';
-import { isNumber, isString } from '@utils/inspect';
+import { isNumber, isString, trigger } from '@src/utils';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { FormatDataService } from '@src/services/FormatData.service';

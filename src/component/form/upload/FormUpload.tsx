@@ -9,7 +9,7 @@ import { Form, message, Modal, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { isString } from '@utils/inspect';
+import { isString } from '@src/utils';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import qs from 'qs';
 import { Inject } from 'typescript-ioc';
@@ -64,7 +64,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
             let fileBase64 = '';
             let result = reader.result;
             if (result && isString(result)) {
-                [ , fileBase64 ] = result.split('base64,');
+                [, fileBase64] = result.split('base64,');
             }
             let data = {
                 file: fileBase64,           // base64
@@ -74,7 +74,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
             let res = await this.httpClientService.post(url, qs.stringify(data));
             if (res.status) {
                 let fileurl = res.data;
-                let fileList = [ ...this.state.fileList ];
+                let fileList = [...this.state.fileList];
                 fileList.push({
                     uid   : file.uid,
                     name  : file.name,

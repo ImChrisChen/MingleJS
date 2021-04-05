@@ -8,9 +8,7 @@
 import React from 'react';
 import { Button, DatePicker, Form } from 'antd';
 import moment from 'moment';
-import { trigger } from '@utils/trigger';
 import { IComponentProps } from '@interface/common/component';
-import { isArray, isUndefined } from '@utils/inspect';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 const { RangePicker } = DatePicker;

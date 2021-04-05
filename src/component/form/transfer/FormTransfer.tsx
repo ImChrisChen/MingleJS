@@ -6,12 +6,12 @@
  */
 
 import React, { Component, ReactNode } from 'react';
-import { Transfer, Button } from 'antd';
+import { Transfer } from 'antd';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { IComponentProps } from '@interface/common/component';
 import { FormatDataService } from '@services/FormatData.service';
-import { trigger } from '@utils/trigger';
+import { trigger } from '@src/utils';
 
 
 interface IFormTransferProps extends IComponentProps {

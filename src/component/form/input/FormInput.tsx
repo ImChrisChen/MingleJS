@@ -7,7 +7,7 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 import { InputProps } from 'antd/es/input';
-import { trigger } from '@utils/trigger';
+import { trigger } from '@src/utils';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 interface IComponentProps extends InputProps {

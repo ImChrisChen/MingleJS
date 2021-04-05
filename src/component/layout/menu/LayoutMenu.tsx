@@ -8,7 +8,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { getDepthMax } from '@utils/util';
+import { getDepthMax } from '@src/utils';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';

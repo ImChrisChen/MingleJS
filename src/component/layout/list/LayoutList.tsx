@@ -8,15 +8,13 @@
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import style from './LayoutList.scss';
-import { trigger } from '@utils/trigger';
+import { elementWrap, trigger } from '@src/utils';
 import Search from 'antd/lib/input/Search';
 import $ from 'jquery';
 import { directiveForeach } from '@src/config/directive.config';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';
 import { ParserElementService } from '@services/ParserElement.service';
-import { elementWrap } from '@utils/trans-dom';
-import App from '@src/App';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 
@@ -56,7 +54,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
     async getLayoutListChildren() {
         let { cols, space, url, item, index } = this.props.dataset;
         let subelements = this.state.subelements;
-        let [ right, bottom ] = space;
+        let [right, bottom] = space;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
         let children: Array<HTMLElement> = [];
 
@@ -71,7 +69,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
             template.setAttribute(directiveForeach, `data as (${ item || 'default_item' },${ index || 'default_index' })`);
             let elements = this.parserElementService.parseElement(elementWrap(template), { data });
-            let ch = [ ...elements.children ] as Array<HTMLElement>;
+            let ch = [...elements.children] as Array<HTMLElement>;
             children.push(...ch);
         }
         return children;
@@ -99,7 +97,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
                 }
             }
             let list = $(this).parent().children('.' + style.layoutListSelected);
-            let values = [ ...list ].map(item => $(item).attr('value')).join(',');
+            let values = [...list].map(item => $(item).attr('value')).join(',');
             console.log('layout-list change:', values);
             trigger(self.props.el, values);
         });
@@ -133,7 +131,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
     // (cols - 1) * (right / 2)
     render() {
         let { cols, space } = this.props.dataset;
-        let [ right, bottom ] = space;
+        let [right, bottom] = space;
 
         // let { subelements } = this.props;
         let subelements = this.state.subelements;

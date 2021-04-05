@@ -7,9 +7,7 @@
 import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { Cascader, Form } from 'antd';
-import { arraylastItem } from '@utils/util';
-import { trigger } from '@utils/trigger';
-import { isArray } from '@utils/inspect';
+import { isArray } from '@src/utils';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';

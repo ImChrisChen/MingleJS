@@ -6,7 +6,7 @@
  */
 
 import { INativeProps } from '@interface/common/component';
-import { isObject } from '@utils/inspect';
+import { isObject } from '@src/utils';
 
 export default class LayoutCol {
 

@@ -34,11 +34,3 @@ export interface INativeProps {
 export interface IReactStyle {
     [key: string]: string | number
 }
-
-export interface IRouteItem {
-    path: string
-    component?: any
-    name: string
-    target?: string
-    children: Array<IRouteItem>
-}

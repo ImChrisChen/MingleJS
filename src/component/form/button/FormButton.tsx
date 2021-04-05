@@ -5,7 +5,7 @@
  * Time: 9:36 下午
  */
 import React from 'react';
-import { trigger } from '@utils/trigger';
+import { trigger } from '@src/utils';
 import { Form, Radio } from 'antd';
 import { IComponentProps } from '@interface/common/component';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';

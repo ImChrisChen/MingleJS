@@ -5,11 +5,9 @@
  * Time: 11:56 下午
  */
 
-import { Button, Checkbox, Form, Select } from 'antd';
-import { trigger } from '@utils/trigger';
+import { Button, Checkbox, Divider, Form, Select } from 'antd';
+import { strParseDOM, trigger } from '@src/utils';
 import { IComponentProps } from '@interface/common/component';
-import { Divider } from 'antd/es';
-import { strParseDOM } from '@utils/trans-dom';
 import React, { Component } from 'react';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
@@ -78,7 +76,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
                     { ...dataset }
                     placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
-                    tokenSeparators={ [ ',' ] }     // 自动分词
+                    tokenSeparators={ [','] }     // 自动分词
                     style={ { minWidth: 100 } }
                     value={ value }
                     options={ this.state.options }
@@ -112,7 +110,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
             <Divider/>
             <>
                 { '' &&
-                [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
+                ['枫之战纪', '飞剑四海', '彩虹物语', '版署包'].map((item, index) => {
                     return <Button type="primary" key={ index }>{ item }</Button>;
                 })
                 }

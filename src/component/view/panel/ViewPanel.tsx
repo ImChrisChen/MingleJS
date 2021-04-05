@@ -5,13 +5,10 @@
  * Time: 5:20 下午
  */
 
-import { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import React from 'react';
-import { Card, Typography } from 'antd';
-import { isHtmlTpl, isObject, isReactNode, isWuiComponent, isWuiTpl } from '@utils/inspect';
-import { strParseDOM, strParseVirtualDOM } from '@utils/trans-dom';
-import App from '@src/App';
+import { Typography } from 'antd';
+import { isHtmlTpl, isObject, isReactNode, isWuiComponent, strParseDOM, strParseVirtualDOM } from '@src/utils';
 import style from './ViewPanel.scss';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@services/HttpClient.service';

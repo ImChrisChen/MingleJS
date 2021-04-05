@@ -6,7 +6,7 @@
  */
 
 import axios from 'axios';
-import { getBrowerInfo, getOS } from '@utils/util';
+import { getBrowerInfo, getOS } from '@src/utils';
 import { HttpClientService } from '@services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 
@@ -59,7 +59,8 @@ interface IPerformanceLog<T = IPerformancesItem> extends ILog {
     pageload: T         // 页面完全加载时间
 }
 
-export class Monitor {
+
+export class LogReportService {
 
     constructor(@Inject private readonly httpClientService: HttpClientService) {
 

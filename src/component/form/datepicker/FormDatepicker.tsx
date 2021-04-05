@@ -8,9 +8,8 @@
 import React from 'react';
 import { Button, DatePicker, Form } from 'antd';
 import moment from 'moment';
-import { trigger } from '@utils/trigger';
+import { isArray, trigger } from '@src/utils';
 import { IComponentProps } from '@interface/common/component';
-import { isArray, isUndefined } from '@utils/inspect';
 import { FormSmartIcon } from '@component/form/form-action/FormAction';
 
 const { RangePicker } = DatePicker;
@@ -30,8 +29,8 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         format: this.props.dataset.format || 'YYYY-MM-DD',
         // mode        : 'decade',          // time | date | month | year | decade
         // defaultValue: [ "2020-09-11", "2020-09-17" ],
-        value : [],
-        open  : false,
+        value: [],
+        open : false,
     };
 
     constructor(props) {
@@ -41,9 +40,9 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
     handleChange(_, value) {
         console.log(_, value);
         let format = this.state.format;
-        let [ startValue, endValue ] = value;
+        let [startValue, endValue] = value;
         this.setState({
-            value: [ moment(startValue, format), moment(endValue, format) ],
+            value: [moment(startValue, format), moment(endValue, format)],
             open : false,
         });
 
@@ -112,8 +111,8 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
             dateValue = moment(value, format);
         } else {
             if (value.includes('~')) {
-                let [ begin, end ] = value.split('~');
-                dateValue = [ moment(begin, format), moment(end, format) ];
+                let [begin, end] = value.split('~');
+                dateValue = [moment(begin, format), moment(end, format)];
             } else {
                 console.warn(`${ label }格式不正确`);
             }
@@ -122,7 +121,18 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
     }
 
     render() {
-        let { single, usenow, picker, mode, disabled, format, allowClear, showtime, label, required } = this.props.dataset;
+        let {
+            single,
+            usenow,
+            picker,
+            mode,
+            disabled,
+            format,
+            allowClear,
+            showtime,
+            label,
+            required,
+        } = this.props.dataset;
 
         let value = this.valueFormat(this.props.value);
 

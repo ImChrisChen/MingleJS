@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { deepEach } from '@utils/util';
+import { deepEach } from '@src/utils';
 import { componentConfig } from '@src/config/component.config';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
@@ -20,9 +20,9 @@ import { HttpClientService } from '@src/services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService } from '@services/FormatData.service';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
 
-class Document extends React.Component<any, any> {
+export default class Document extends React.Component<any, any> {
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
 
@@ -31,7 +31,7 @@ class Document extends React.Component<any, any> {
         routes        : [],
         collapsed     : false,
         showCodeDesign: false,          // 是否显示组件设计器
-        navRoutes     : [ ...navRoutes ],
+        navRoutes     : [...navRoutes],
     };
 
     constructor(props) {
@@ -135,5 +135,3 @@ class Document extends React.Component<any, any> {
         );
     }
 }
-
-export default Document;

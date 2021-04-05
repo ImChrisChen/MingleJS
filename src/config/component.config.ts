@@ -5,9 +5,8 @@
  * Time: 11:15 上午
  */
 import zhCN from 'antd/es/locale/zh_CN';
-import { isUndefined, isUrl } from '@utils/inspect';
+import { isUrl } from '@src/utils';
 import moment from 'moment';
-import { HttpClientService } from '@services/HttpClient.service';
 
 let domain = '';
 const isLocation = window.location.href.includes('-test');
@@ -58,7 +57,7 @@ export type elType =
  * web-components 组件调用方式为 - 自定义组件 <form-select></form-select>
  * functional 交互拓展函数 调用方式为 -  <div data-fn="layout-window"></div>
  */
-export type ModuleType = 'web-components' | 'functional';
+type ModuleType = 'web-components' | 'functional';
 
 export interface IOptions {
     label: string
