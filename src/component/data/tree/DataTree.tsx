@@ -9,7 +9,8 @@ import { IComponentProps } from '@interface/common/component';
 import { Tree } from 'antd';
 import { isNumber, isString } from '@src/utils';
 import { Inject } from 'typescript-ioc';
-import { FormatDataService, HttpClientService } from '@src/services';
+import { FormatDataService } from '@services/FormatData.service';
+import { HttpClientService } from '@services/HttpClient.service';
 
 const treeData = [
     {

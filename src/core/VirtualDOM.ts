@@ -4,7 +4,8 @@
  * Date: 2021/2/28
  * Time: 6:49 下午
  */
-import { IFunctions, ParserTemplateService } from '@src/services';
+import { IFunctions } from '@src/services';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 import {
     arraylastItem,
     getObjectValue,
@@ -13,7 +14,7 @@ import {
     isExpandSymbol,
     isObject,
     isUndefined,
-    isWuiTpl,
+    isWuiTpl
 } from '@src/utils';
 import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
 import { DataComponentUID } from '@src/App';

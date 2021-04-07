@@ -18,8 +18,8 @@ export default class LayoutCol {
         let style = {
             width    : (col / 24 * 100) + '%',
             margin   : '0 4px',
-            minHeight: '90px',
-            border   : '1px solid #f0f',
+            minHeight: '90px'
+            // border   : '1px solid #f0f',
         };
 
         el.style.cssText = this.mergeStyle(style, props.cssText);

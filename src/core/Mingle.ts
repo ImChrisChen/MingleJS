@@ -69,7 +69,7 @@ export class Mingle {
             },
             methods: {},
         };
-        this.run(Object.assign(defaultOptions, options)).then(() => Mingle.globalEventListener());
+        this.run(Object.assign(defaultOptions, options));
     }
 
     // 获取所有组件配置
@@ -82,7 +82,7 @@ export class Mingle {
         new App(node);
     }
 
-    public static async globalEventListener() {
+    public static globalEventListener() {
 
         // 判断是否是深色模式
         const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');

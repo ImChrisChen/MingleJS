@@ -124,8 +124,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     constructor(props: ITableProps) {
         super(props);
-
-        console.log('data-table:', this.props);
     }
 
     componentWillUnmount() {
@@ -135,19 +133,18 @@ export default class DataTable extends React.Component<ITableProps, any> {
     componentDidMount() {
         Promise.all([
             this.getTableHeader(),
-            this.getTableContent(),
-        ]).then(([tableHeader, tableContent]) => {
+            this.getTableContent()
+        ]).then(([ tableHeader, tableContent ]) => {
             this.setState({
                 columns   : tableHeader,
                 dataSource: tableContent,
-                loading   : false,
+                loading   : false
             });
             this.handleDragSelect();
         });
 
-        let { interval } = this.props.dataset;
+        let { interval } = this.props.dataset;      // 单位为分钟
         if (interval) {
-            console.log('----------');
             this.timer = setInterval(() => {
                 this.FormSubmit({}).then(r => {
                     // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);

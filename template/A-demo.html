@@ -1,4 +1,4 @@
-<div id="demo1">
+<div id='demo1'>
 
     <!--    <layout-list>-->
     <!--        <div w-foreach="list as item"><{item}></div>-->
@@ -12,18 +12,26 @@
 
     <!--    </define-component>-->
 
-    <form-select style="display: flex; justify-content: flex-end">
+    <!--    <form-action>-->
+    <!--        <form-select name='pf' style="display: flex; justify-content: flex-end">-->
 
-    </form-select>
+    <!--        </form-select>-->
+    <!--    </form-action>-->
 
-    <layout-list>
-        <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>" w-foreach="funnel as item"></form-input>
-    </layout-list>
+
+    <!--    <layout-list>-->
+    <!--        <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>" w-foreach="funnel as item"></form-input>-->
+    <!--    </layout-list>-->
 
     <!--    <form-select style="background-color: #b2c8ff"></form-select>-->
 
     <!--    &lt;!&ndash;    <form-select></form-select>&ndash;&gt;-->
 
+    <layout-list>
+        xxx
+    </layout-list>
+
+    <a data-fn='layout-window' href='https://baidu.com'>百度</a>
 
     <!--    <layout-row style="border: 1px solid #cccccc;background-color: #1890ff">-->
     <!--        <layout-col data-col="4">123</layout-col>-->
@@ -70,16 +78,16 @@
             list: [
                 {
                     name: '淘宝',
-                    url: 'https://taobao.com',
+                    url: 'https://taobao.com'
                 },
                 {
                     name: '百度',
-                    url: 'https://baidu.com',
+                    url: 'https://baidu.com'
                 },
                 {
                     name: '京东',
-                    url: 'https://www.jd.com/',
-                },
+                    url: 'https://www.jd.com/'
+                }
             ],
             funnel: [],
             // funnel: [
@@ -111,8 +119,8 @@
             // ],
             obj: {
                 game_id: '4',
-                pf: '2',
-            },
+                pf: '2'
+            }
         },
         async created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
@@ -136,7 +144,7 @@
             },
             reduce() {
                 this.count--;
-            },
-        },
+            }
+        }
     });
 </script>

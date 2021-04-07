@@ -124,7 +124,6 @@ interface IUniversalProps<T> {
     [key: string]: T
 }
 
-
 // TODO 提取公共属性(待调整)
 const UniversalProps: IUniversalProps<IPropertyConfig> = {
     label      : {
@@ -705,14 +704,26 @@ export const componentConfig = {
                     el   : 'input',
                     parse: 'string',
                     value: '',
-                    desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                    desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性'
                 },
                 action : {
                     el   : 'input',
                     parse: 'string',
                     value: '',
-                    desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效',
+                    desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效'
                 },
+                submit : {
+                    el   : 'switch',
+                    parse: 'boolean',
+                    value: true,
+                    desc : '是否生产submit按钮'
+                },
+                reset  : {
+                    el   : 'switch',
+                    parse: 'boolean',
+                    value: true,
+                    desc : '是否生成reset按钮'
+                }
             },
             document : import('@component/form/form-action/FormAction.md'),
             name     : 'form表单',

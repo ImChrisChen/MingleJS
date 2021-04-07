@@ -8,7 +8,7 @@
 import { directiveElse, directiveForeach, directiveIf } from '@src/config';
 import { deepEachElement, getObjectValue, isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@src/utils';
 import $ from 'jquery';
-import { ParserTemplateService } from '@src/services';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 export interface IFunctions {
     methods: {
