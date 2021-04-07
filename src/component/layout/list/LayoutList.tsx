@@ -108,7 +108,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
             let element = document.createElement('div');
             element.style.width = width;
             element.style.marginBottom = bottom + 'px';
-            // element.style.visibility = 'hidden';
+            element.style.visibility = 'hidden';        // 占位符
             elements.push(element);
         }
         return elements;
