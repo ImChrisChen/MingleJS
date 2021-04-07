@@ -19,6 +19,7 @@ type el = HTMLElement | HTMLInputElement
 
 type IEventType = 'change' | string
 
+// TODO 事件必须全部小写,驼峰命名html 会全部转化为小写
 export function trigger(el: el, value: string | Array<any>, event_type: IEventType = 'change') {
 
     if (!el) {

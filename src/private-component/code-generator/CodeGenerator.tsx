@@ -5,22 +5,7 @@
  * Time: 1:37 下午
  */
 
-import {
-    Button,
-    Card,
-    Cascader,
-    Col,
-    Form,
-    Input,
-    InputNumber,
-    message,
-    Radio,
-    Row,
-    Select,
-    Slider,
-    Space,
-    Switch,
-} from 'antd';
+import { Button, Card, Cascader, Col, Form, Input, InputNumber, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { PureComponent } from 'react';
 import { componentConfig, IOptions, IPropertyConfig } from '@src/config/component.config';
@@ -445,7 +430,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     renderNumberInput(key, item) {
         return <InputNumber
-            min={ 0 } max={ 800 } defaultValue={ 3 }
+            min={ 0 } max={ 800 }
             step={ 1 }
             onChange={ e => {
                 this.setAttributeValue(key, e);
