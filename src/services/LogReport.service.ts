@@ -7,7 +7,7 @@
 
 import axios from 'axios';
 import { getBrowerInfo, getOS } from '@src/utils';
-import { HttpClientService } from '@src/services';
+import { HttpClientService } from '@services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 
 // 通用日志字段

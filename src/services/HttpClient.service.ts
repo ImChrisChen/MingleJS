@@ -7,7 +7,8 @@
 
 import { isWuiTpl } from '@src/utils';
 import { message } from 'antd';
-import { LogReportService, ParserTemplateService } from '@src/services';
+import { LogReportService } from '@services/LogReport.service';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { Inject } from 'typescript-ioc';
 import axios from 'axios';
 
@@ -77,7 +78,7 @@ export class HttpClientService {
             },
             err => {
                 // console.log(err);
-            },
+            }
         );
     }
 
@@ -110,7 +111,7 @@ export class HttpClientService {
                     // 重新发起请求
                     return axios.request(originalRequest);
                 }
-            },
+            }
         );
     }
 
@@ -158,9 +159,9 @@ export class HttpClientService {
                     flag       : 'mingle',
                     method     : 'get',
                     dataType   : 'jsonp',
-                    headers    : '{}',
+                    headers    : '{}'
                 });
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
 

@@ -6,7 +6,7 @@
  */
 
 import { deepEach, isArray, isDOMString, isWuiTpl, strParseVirtualDOM } from '@src/utils';
-import { ParserTemplateService } from '@src/services';
+import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { IOptions } from '@src/config';
 import { Inject } from 'typescript-ioc';
 
@@ -36,7 +36,7 @@ export class FormatDataService {
                 let val = item[key];
                 return {
                     label: val,
-                    value: key,
+                    value: key
                 };
             }
         });
@@ -71,7 +71,7 @@ export class FormatDataService {
                 // https://ant-design.gitee.io/components/select-cn/#Option-props
                 // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
                 value: value,
-                label: label,
+                label: label
                 // title: label,
             };
         });
@@ -100,7 +100,7 @@ export class FormatDataService {
                     document : await document,
                     property,
                     path,
-                    ...args,
+                    ...args
                 };
                 children.push(item);
             }
@@ -108,7 +108,7 @@ export class FormatDataService {
             newArr.push({
                 label   : key,
                 children: children,
-                value   : key,
+                value: key
             });       // select / datepicker
         }
         return newArr;
@@ -129,7 +129,7 @@ export class FormatDataService {
                 id        : pid,              // 父子映射关系
                 [children]: [],
                 label     : pid,
-                value     : pid,
+                value: pid
             };
         });
         list.forEach(item => {
@@ -142,7 +142,7 @@ export class FormatDataService {
                     id   : id,
                     value: item[id],
                     label: label,
-                    pid  : item[pid],       // 父子映射关系
+                    pid  : item[pid]       // 父子映射关系
                 });
             }
         });
@@ -179,7 +179,7 @@ export class FormatDataService {
 
     // 树 => 列表
     public tree2List(tree: object) {
-        return deepEach([{ children: tree }], node => node);
+        return deepEach([ { children: tree } ], node => node);
     }
 
     /**
@@ -200,7 +200,7 @@ export class FormatDataService {
             return node;
         }
 
-        deepEach(root, function (node) {
+        deepEach(root, function(node) {
             replaceKey(before.id, after.id, node);
             replaceKey(before.name, after.name, node);
             replaceKey(before.pid, after.pid, node);
@@ -255,7 +255,7 @@ export class FormatDataService {
      */
     public obj2Url(data: object, url: string = ''): string {
         let params = '';
-        let [href, search] = url.split('?');
+        let [ href, search ] = url.split('?');
 
         //TODO 带参数的url传进来，会把url上的参数和data合并了
         let object = {};
@@ -284,11 +284,11 @@ export class FormatDataService {
     public url2Obj(url: string, o: object = {}): object {
         let search = url;
         if (url.includes('?')) {
-            [, search] = url.split('?');
+            [ , search ] = url.split('?');
         }
         search.split('&').forEach(kv => {
             if (kv) {
-                let [k, v] = kv.split('=');
+                let [ k, v ] = kv.split('=');
                 o[k] = v;
             }
         });
