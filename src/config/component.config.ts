@@ -120,6 +120,7 @@ interface IUniversalProps<T> {
     required: T
     smart: T
     group: T
+    exec: T
 
     [key: string]: T
 }
@@ -364,10 +365,11 @@ export const componentConfig = {
                         parse  : 'string',
                         options: 'fromUrl',
                         value  : '',
-                        desc: '按照groupby的值来进行分组排列'
+                        desc   : '按照groupby的值来进行分组排列'
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    exec      : UniversalProps.exec,
                     group     : UniversalProps.group
                 },
                 value      : {
@@ -442,16 +444,17 @@ export const componentConfig = {
                         el     : 'select',
                         options: 'fromUrl',
                         parse  : 'string',
-                        value: 'children'
+                        value  : 'children'
                     },
                     allowClear: {
                         el    : 'switch',
                         parse : 'boolean',
                         render: false,
-                        value: true
+                        value : true
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    exec      : UniversalProps.exec,
                     group     : UniversalProps.group
 
                 },
@@ -494,6 +497,7 @@ export const componentConfig = {
                         desc   : '数据展示值'
                     },
                     smart   : UniversalProps.smart,
+                    exec    : UniversalProps.exec,
                     group   : UniversalProps.group
                 },
                 style  : UniversalProps.style,
@@ -537,7 +541,7 @@ export const componentConfig = {
                         value  : '',
                         options: 'fromUrl',
                         parse  : 'string',
-                        desc: '与data-key形成关系映射 id/pid'
+                        desc   : '与data-key形成关系映射 id/pid'
                     },
                     showSearch: {
                         value : true,
@@ -546,6 +550,7 @@ export const componentConfig = {
                     },
                     required  : UniversalProps.required,
                     smart     : UniversalProps.smart,
+                    exec      : UniversalProps.exec,
                     group     : UniversalProps.group
                 },
                 placeholder: UniversalProps.placeholder,
@@ -609,21 +614,22 @@ export const componentConfig = {
                         el   : 'switch',
                         parse: 'boolean',
                         value: false,
-                        desc: '是否单选模式，单选 ｜ 多选'
+                        desc : '是否单选模式，单选 ｜ 多选'
                     },
                     allowClear: {
                         el    : 'switch',
                         parse : 'boolean',
                         render: false,
-                        value: false
+                        value : false
                     },
                     required  : UniversalProps.required,
+                    exec      : UniversalProps.exec,
                     smart     : UniversalProps.smart,
                     usenow    : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: true,
-                        desc: '是否使用当前时间, 值为false时，时间则为空'
+                        desc : '是否使用当前时间, 值为false时，时间则为空'
                     },
                     group     : UniversalProps.group
                 },
@@ -770,6 +776,7 @@ export const componentConfig = {
                     },
                     required   : UniversalProps.required,
                     smart      : UniversalProps.smart,
+                    exec       : UniversalProps.exec,
                     group      : UniversalProps.group,
                     tplSelector: {
                         el   : 'input',
@@ -818,9 +825,11 @@ export const componentConfig = {
                         el   : 'number',
                         parse: 'number',
                         value: 1,
-                        desc: '步长，取值必须大于 0，并且可被 (max - min) 整除。当 marks 不为空对象时，可以设置 step 为 null，此时 Slider 的可选值仅有 marks 标出来的部分'
+                        desc : '步长，取值必须大于 0，并且可被 (max - min) 整除。当 marks 不为空对象时，可以设置 step 为 null，此时 Slider 的可选值仅有 marks 标出来的部分'
                     },
-                    disabled: UniversalProps.disabled
+                    disabled: UniversalProps.disabled,
+                    smart   : UniversalProps.smart,
+                    exec    : UniversalProps.exec
                 },
                 value  : {
                     el   : 'input',
@@ -853,7 +862,8 @@ export const componentConfig = {
                         el   : 'input',
                         value: '关闭'
                     },
-                    smart            : UniversalProps.smart
+                    smart            : UniversalProps.smart,
+                    exec             : UniversalProps.exec
                     // required: UniversalProps.required,
                 },
                 name   : UniversalProps.name,
@@ -897,6 +907,8 @@ export const componentConfig = {
                 style      : UniversalProps.style,
                 placeholder: UniversalProps.placeholder,
                 group      : UniversalProps.group,
+                smart      : UniversalProps.smart,
+                exec       : UniversalProps.exec,
                 value      : {
                     el   : 'input',
                     parse: 'string',
@@ -1054,7 +1066,9 @@ export const componentConfig = {
                         desc : '标题',
 
                         value: 'source,target'
-                    }
+                    },
+                    exec    : UniversalProps.exec,
+                    smart   : UniversalProps.smart
                 },
                 value  : {
                     el   : 'input',
