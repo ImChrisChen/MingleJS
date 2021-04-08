@@ -24,7 +24,7 @@ import {
     Point,
     Polygon,
     Tooltip,
-    WordCloudChart,
+    WordCloudChart
 } from 'bizcharts';
 
 import { Spin, Typography } from 'antd';
@@ -60,13 +60,12 @@ export function PanelTitle(props: { title: string, handleReload: () => any }) {
     let style: any = {
         textAlign: 'center',
         // background: '#f0f2f5',
-        fontSize  : '18px',
-        height    : '28px',
-        lineHeight: '28px',
-        color     : '#464c54',
-        marginTop : '0px',
-        cursor    : 'pointer',
-    };
+        fontSize: '18px',
+        color   : '#464c54',
+        margin  : '0px',
+        cursor  : 'pointer',
+        padding : '6px'
+    }
     return props.title ?
         <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }<RedoOutlined
             onClick={ props.handleReload }/></Typography.Title>
