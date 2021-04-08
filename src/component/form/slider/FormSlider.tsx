@@ -6,8 +6,9 @@
  */
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { Slider } from 'antd';
+import { Form, Slider } from 'antd';
 import { trigger } from '@src/utils';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 export default class FormSlider extends Component<IComponentProps, any> {
 
@@ -22,18 +23,25 @@ export default class FormSlider extends Component<IComponentProps, any> {
     }
 
     render() {
-        let { disabled, range, step, max, min } = this.props.dataset;
+        let { disabled, required, label, smart, exec, range, step, max, min } = this.props.dataset;
         let value = this.props.value;
         value = range ? value.split(',').map(item => Number(item)) : value;
-        return <Slider
-            range={ range }
-            step={ step }
-            defaultValue={ 30 }
-            disabled={ disabled }
-            max={ max }
-            min={ min }
-            value={ value }
-            onChange={ e => this.handleChange(e) }
-        />;
+        return <Form.Item label={ label }
+                          style={ this.props.style }
+                          required={ required }>
+            { smart ? <FormSmartIcon /> : '' }
+            { exec ? <FormExecIcon /> : '' }
+            <Slider
+                range={ range }
+                step={ step }
+                defaultValue={ 30 }
+                disabled={ disabled }
+                max={ max }
+                min={ min }
+                value={ value }
+                onChange={ e => this.handleChange(e) }
+            />;
+        </Form.Item>;
+
     }
 }

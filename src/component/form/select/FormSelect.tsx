@@ -9,7 +9,7 @@ import { Button, Checkbox, Divider, Form, Select } from 'antd';
 import { strParseDOM, trigger } from '@src/utils';
 import { IComponentProps } from '@interface/common/component';
 import React, { Component } from 'react';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
 
@@ -18,11 +18,11 @@ export default class FormSelect extends Component<IComponentProps, any> {
     @Inject private readonly formatDataService: FormatDataService;
 
     state = {
-        checkedAll : false,
-        options    : [],
-        value      : '' as any,
+        checkedAll: false,
+        options   : [],
+        value     : '' as any,
         currentItem: {},
-        loading    : true,
+        loading   : true
     };
 
     constructor(props) {
@@ -42,7 +42,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
                 return this.formatDataService.list2Group(data, {
                     id  : key,
                     name: value,
-                    pid : groupby,
+                    pid: groupby
                 });
             } else {
                 return this.formatDataService.list2AntdOptions(data, key, value);
@@ -56,7 +56,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
     }
 
     render() {
-        let { smart, ...dataset } = this.props.dataset;
+        let { smart, required, exec, label, ...dataset } = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
         if (dataset.mode === 'multiple') {
@@ -67,15 +67,17 @@ export default class FormSelect extends Component<IComponentProps, any> {
             }
         }
         return <>
-            <Form.Item label={ dataset.label } style={ { display: 'flex', ...this.props.style } }
-                       required={ this.props.dataset.required }>
-                { smart ? <FormSmartIcon/> : '' }
+            <Form.Item label={ label }
+                       style={ { display: 'flex', ...this.props.style } }
+                       required={ required }>
+                { smart ? <FormSmartIcon /> : '' }
+                { exec ? <FormExecIcon /> : '' }
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
                     { ...dataset }
                     placeholder={ this.props.placeholder }
                     dropdownMatchSelectWidth={ 300 }
-                    tokenSeparators={ [','] }     // 自动分词
+                    tokenSeparators={ [ ',' ] }     // 自动分词
                     style={ { minWidth: 100 } }
                     value={ value }
                     options={ this.state.options }
@@ -92,7 +94,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
                             ? strParseDOM(option.label?.props?.dangerouslySetInnerHTML.__html).innerText
                             : option.label;
                         return String(option.value).includes(input) || String(label).includes(input);
-                    } }/>
+                    } } />
             </Form.Item>
         </>;
     }
@@ -106,11 +108,11 @@ export default class FormSelect extends Component<IComponentProps, any> {
                     ? <Checkbox checked={ this.state.checkedAll }
                                 onChange={ this.handleSelectAll.bind(this) }>全选</Checkbox> : ''
             }
-            <Divider/>
+            <Divider />
             <>
                 { '' &&
-                ['枫之战纪', '飞剑四海', '彩虹物语', '版署包'].map((item, index) => {
-                    return <Button type="primary" key={ index }>{ item }</Button>;
+                [ '枫之战纪', '飞剑四海', '彩虹物语', '版署包' ].map((item, index) => {
+                    return <Button type='primary' key={ index }>{ item }</Button>;
                 })
                 }
             </>
@@ -144,7 +146,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
         }
 
         this.setState({
-            checkedAll: !this.state.checkedAll,
+            checkedAll: !this.state.checkedAll
         });
 
     }

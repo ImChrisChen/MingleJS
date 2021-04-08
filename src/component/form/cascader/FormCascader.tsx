@@ -8,7 +8,7 @@ import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { Cascader, Form } from 'antd';
 import { isArray } from '@src/utils';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
 
@@ -18,7 +18,7 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
     @Inject private readonly formatDataService: FormatDataService;
 
     state = {
-        options: [],
+        options: []
     };
 
     constructor(props) {
@@ -36,7 +36,7 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
             let keyMap = {
                 id  : key,
                 name: value,
-                pid : groupby,
+                pid: groupby
             };
             let list = this.formatDataService.list2Group(/*selectJson*/ data, keyMap);
             return list;
@@ -52,10 +52,15 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
 
     render() {
         // TODO data-value属性和value属性冲突，所以这了将props.dataset.value属性过滤出来
-        let { smart, ...dataset } = this.props.dataset;
+        let { smart, required, exec, label, ...dataset } = this.props.dataset;
         return <>
-            <Form.Item label={ dataset.label } style={ this.props.style }>
-                { smart ? <FormSmartIcon/> : '' }
+            <Form.Item
+                label={ label }
+                style={ this.props.style }
+                required={ required }
+            >
+                { smart ? <FormSmartIcon /> : '' }
+                { exec ? <FormExecIcon /> : '' }
                 <Cascader
                     { ...dataset }
                     options={ this.state.options }
@@ -66,7 +71,7 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
                     dropdownRender={ (menus) => {
                         return <> { menus } </>;
                     } }
-                    // value={ this.props.value }
+                    value={ this.props.value }
                 />
             </Form.Item>
         </>;

@@ -17,6 +17,14 @@ form-action [data-component-uid] {
     transition : all 150ms;
 }
 
+// 重写 form-item样式
+:global {
+    .ant-form-item-control-input-content {
+        display     : flex !important;
+        align-items : center !important;
+    }
+}
+
 .flex-direction-row {
     display        : flex;
     flex-direction : row;

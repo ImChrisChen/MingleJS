@@ -8,9 +8,9 @@ import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { Checkbox, Form } from 'antd';
 import { trigger } from '@src/utils';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 export default class FormCheckbox extends Component<IComponentProps, any> {
 
@@ -19,7 +19,7 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
 
     state = {
         options: [],
-        value  : this.props.value,
+        value  : this.props.value
     };
 
     constructor(props) {
@@ -43,7 +43,7 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
                 return this.formatDataService.list2Group(data, {
                     id  : key,
                     name: value,
-                    pid : groupby,
+                    pid: groupby
                 });
             } else {
                 return this.formatDataService.list2AntdOptions(data, key, value);
@@ -57,9 +57,11 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
     }
 
     render() {
+        let { smart, exec } = this.props.dataset;
         return <>
             <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
-                { this.props.dataset.smart ? <FormSmartIcon/> : '' }
+                { smart ? <FormSmartIcon /> : '' }
+                { exec ? <FormExecIcon /> : '' }
                 <Checkbox.Group
                     disabled={ this.props.dataset.disabled }
                     options={ this.state.options }

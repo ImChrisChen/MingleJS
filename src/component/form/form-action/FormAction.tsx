@@ -10,7 +10,6 @@ import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
 import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
-import SmartIcon from '@static/images/form-smart.png';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App from '@src/App';
@@ -33,11 +32,6 @@ interface ISmartItemAPI {
     publicUser: string      // 创建人名称
     selectTagId: string     // 唯一ID (删除需要)
     select: object       // 表单选择项
-}
-
-// data-smart icon
-export function FormSmartIcon() {
-    return <img className={ style.dataSmartIcons } src={ SmartIcon } alt='data-smart标志' />;
 }
 
 // form-smart

@@ -8,10 +8,10 @@
 import React, { Component } from 'react';
 import { Form, TreeSelect } from 'antd';
 import { IComponentProps } from '@interface/common/component';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
 import { isNumber, isString, trigger } from '@src/utils';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 const { SHOW_PARENT } = TreeSelect;
 
@@ -24,9 +24,9 @@ const treeData = [
             {
                 title: 'Child Node1',
                 value: '0-0-0',
-                key  : '0-0-0',
-            },
-        ],
+                key  : '0-0-0'
+            }
+        ]
     },
     {
         title   : 'Node2',
@@ -36,20 +36,20 @@ const treeData = [
             {
                 title: 'Child Node3',
                 value: '0-1-0',
-                key  : '0-1-0',
+                key  : '0-1-0'
             },
             {
                 title: 'Child Node4',
                 value: '0-1-1',
-                key  : '0-1-1',
+                key  : '0-1-1'
             },
             {
                 title: 'Child Node5',
                 value: '0-1-2',
-                key  : '0-1-2',
-            },
-        ],
-    },
+                key  : '0-1-2'
+            }
+        ]
+    }
 ];
 
 export default class FormSelectTree extends Component<IComponentProps, any> {
@@ -59,7 +59,7 @@ export default class FormSelectTree extends Component<IComponentProps, any> {
 
     state = {
         options: [] as Array<any>,
-        value  : [],
+        value: []
     };
 
     constructor(props) {
@@ -75,7 +75,7 @@ export default class FormSelectTree extends Component<IComponentProps, any> {
                     if (isNumber(key)) {
                         return e && Number(e);
                     }
-                }).filter(t => t),
+                }).filter(t => t)
             });
         });
     }
@@ -96,12 +96,12 @@ export default class FormSelectTree extends Component<IComponentProps, any> {
                 id      : key,
                 name    : value,
                 pid     : '',
-                children: children,
+                children: children
             }, {
                 id      : 'key',
                 pid     : '',
                 name    : 'title',
-                children: 'children',
+                children: 'children'
             });
             return data;
         } else {
@@ -110,10 +110,12 @@ export default class FormSelectTree extends Component<IComponentProps, any> {
     }
 
     render() {
-        let { value, smart, ...dataset } = this.props.dataset;
+        let { value, exec, smart, ...dataset } = this.props.dataset;
         return <>
             <Form.Item label={ this.props.dataset.label }>
-                { smart ? <FormSmartIcon/> : '' }
+                { smart ? <FormSmartIcon /> : '' }
+                { exec ? <FormExecIcon /> : '' }
+
                 <TreeSelect
                     { ...dataset }
                     onChange={ e => this.onChange(e) }

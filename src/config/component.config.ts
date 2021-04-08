@@ -416,15 +416,15 @@ export const componentConfig = {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/FormSelectTree'),
             document : import('@component/form/select/tree/FormSelectTree.md'),
-            property: {
+            property : {
                 dataset: {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
-                        el   : 'select',
-                        parse: 'string',
-                        // value  : domain + '/server/mock/tree.json',
+                        el     : 'select',
+                        parse  : 'string',
+                        value  : domain + '/server/mock/tree.json',
                         request: true,
                         desc   : '数据源'
                     },
@@ -470,7 +470,7 @@ export const componentConfig = {
                 hook   : {}
             },
             name     : '树形下拉框',
-            type    : 'web-components'
+            type     : 'web-components'
         },
         checkbox  : {
             component: import('@component/form/checkbox/FormCheckbox'),
@@ -512,7 +512,7 @@ export const componentConfig = {
             component: import('@component/form/cascader/FormCascader'),
             document : import('@component/form/cascader/FormCascader.md'),
             property: {
-                dataset    : {
+                dataset: {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
@@ -737,14 +737,14 @@ export const componentConfig = {
         },
         radio     : {
             path     : '/form-radio',
-            component: import('@component/form/button/FormButton'),
-            property: {
+            component: import('@component/form/radio/FormRadio'),
+            property : {
                 dataset: {
-                    disabled   : UniversalProps.disabled,
-                    label      : UniversalProps.label,
-                    enum       : UniversalProps.enum,
-                    size       : UniversalProps.size,
-                    type       : {  // optionType
+                    disabled: UniversalProps.disabled,
+                    label   : UniversalProps.label,
+                    enum    : UniversalProps.enum,
+                    size    : UniversalProps.size,
+                    type    : {  // optionType
                         el     : 'radio',
                         options: [
                             {
@@ -795,7 +795,7 @@ export const componentConfig = {
                 }
             },
             name     : '单选框',
-            type    : 'web-components'
+            type     : 'web-components'
         },
         slider    : {
             path     : '/form-slider',
@@ -877,8 +877,8 @@ export const componentConfig = {
             path     : '/form-input',
             component: import('@component/form/input/FormInput'),
             property: {
-                dataset    : {
-                    type    : {
+                dataset: {
+                    type: {
                         el     : 'select',
                         options: [
                             {
@@ -1535,8 +1535,8 @@ export const componentConfig = {
                     children : {
                         el     : 'select',
                         options: 'fromUrl',
-                        parse: 'string',
-                        value: 'children'
+                        parse  : 'string',
+                        value  : 'children'
                     },
                     checkeds : {
                         el   : 'input',

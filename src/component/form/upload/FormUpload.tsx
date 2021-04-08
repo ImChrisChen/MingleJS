@@ -10,7 +10,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { isString } from '@src/utils';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 import qs from 'qs';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services';
@@ -32,7 +32,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
         previewVisible: false,
         previewImage  : '',
         previewTitle  : '',
-        fileList      : [] as Array<any>,
+        fileList: [] as Array<any>
     };
 
     constructor(props) {
@@ -50,7 +50,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
         this.setState({
             previewImage  : file.url || file.preview,
             previewVisible: true,
-            previewTitle  : file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+            previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
         });
     };
 
@@ -64,22 +64,22 @@ export default class FormUpload extends Component<IComponentProps, any> {
             let fileBase64 = '';
             let result = reader.result;
             if (result && isString(result)) {
-                [, fileBase64] = result.split('base64,');
+                [ , fileBase64 ] = result.split('base64,');
             }
             let data = {
                 file: fileBase64,           // base64
                 name: file.name,           // 文件名
-                type: 'm.resume',
+                type: 'm.resume'
             };
             let res = await this.httpClientService.post(url, qs.stringify(data));
             if (res.status) {
                 let fileurl = res.data;
-                let fileList = [...this.state.fileList];
+                let fileList = [ ...this.state.fileList ];
                 fileList.push({
                     uid   : file.uid,
                     name  : file.name,
                     url   : fileurl,
-                    status: 'done',
+                    status: 'done'
                 });
                 message.success('文件上传成功');
                 this.setState({ fileList });
@@ -94,20 +94,22 @@ export default class FormUpload extends Component<IComponentProps, any> {
 
     render() {
         const { previewVisible, previewImage, fileList, previewTitle } = this.state;
+        let { smart, exec, label, disabled } = this.props.dataset;
         const uploadButton = (
             <div>
-                <PlusOutlined/>
+                <PlusOutlined />
                 <div style={ { marginTop: 8 } }>Upload</div>
             </div>
         );
         return (
             <>
-                <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
-                    { this.props.dataset.smart ? <FormSmartIcon/> : '' }
+                <Form.Item label={ label } style={ this.props.style }>
+                    { smart ? <FormSmartIcon /> : '' }
+                    { exec ? <FormExecIcon /> : '' }
                     <Upload
-                        disabled={ this.props.dataset.disabled }
+                        disabled={ disabled }
                         customRequest={ option => this.handleUpload(option) }
-                        accept=".png,.jpg"
+                        accept='.png,.jpg'
                         listType={ this.props.dataset.type }
                         fileList={ fileList }
                         multiple={ this.props.dataset.multiple }
@@ -139,7 +141,7 @@ export default class FormUpload extends Component<IComponentProps, any> {
                         footer={ null }
                         onCancel={ this.handleCancel }
                     >
-                        <img alt="example" style={ { width: '100%' } } src={ previewImage }/>
+                        <img alt='example' style={ { width: '100%' } } src={ previewImage } />
                     </Modal>
                 </Form.Item>
             </>
