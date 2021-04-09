@@ -9,7 +9,7 @@ import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
+import { arrayDeleteItem, isEmptyObject, loadModule, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App, { DataComponentUID } from '@src/App';
@@ -226,6 +226,9 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // @Inject private readonly componentSerive: ComponentService;
 
+    // form表单默认值，重置表单时会用到
+    defaultFormData = {};
+
     constructor(props) {
         super(props);
         this.init();
@@ -233,6 +236,10 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
+
+        // 保存表单默认值
+        this.defaultFormData = FormAction.getFormData(form);
+
         let submitBtn = form.querySelector('[type=submit]') as HTMLElement;
         let resetBtn = form.querySelector('[type=reset]') as HTMLElement;
         if (submitBtn) {
@@ -241,14 +248,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
         if (resetBtn) {
             resetBtn.onclick = e => this.handleReset(form, e);
         }
-
-        // form.onsubmit = (e) => this.handleSubmit(form, e);
-        // form.onreset = (e) => this.handleReset(form, e);
         this.setLayout(form);
     }
 
     // 获取处理formGroup数据
-    public static getFormGroupData(form): IFormData {
+    private static getFormGroupData(form): IFormData {
         let formGroup = form.querySelector('form-group');
 
         if (!formGroup) {
@@ -267,7 +271,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         };
     }
 
-    public static getDataByElement(form: HTMLElement, force = false): IFormData {
+    private static getDataByElement(form: HTMLElement, force = false): IFormData {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
         let $hideInput = $(form).find('.form-tabpanel:hidden').find('[data-component-uid][name]');
@@ -314,7 +318,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let formData = FormAction.getFormData(form);
         console.log('formData:', formData);
 
-        let verify = this.verifyFormData(form, formData);
+        let verify = FormAction.verifyFormData(form, formData);
 
         if (verify) {
 
@@ -346,7 +350,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
     }
 
-    verifyFormData(formElement, formData): boolean {
+    private static verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
 
         for (const name in formData) {
@@ -369,7 +373,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取关联的table ，chart， list 的实例
-    async getViewsInstances() {
+    private async getViewsInstances(): Promise<Array<any>> {
         let id = this.props.id;
         if (!id) {
             return [];
@@ -397,14 +401,23 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
-    async handleReset(form: HTMLElement, e?: any) {
-        // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
-        // let formItems = this.componentSerive.getFormComponents(form);
-        let formItems = [ ...form.querySelectorAll(`[name][data-component-uid][form-component]`) ] as Array<HTMLElement>;
-        for (const formItem of formItems) {
-            let property = App.parseElementProperty(formItem);        // 默认属性
-            let value = property.value;
-            formItem && trigger(formItem, value);
+    public async handleReset(form: HTMLElement, e?: any) {
+        let { defaultFormData } = this;
+        console.log('defaultFormData:', defaultFormData);
+
+        for (let key in defaultFormData) {
+            if (!defaultFormData.hasOwnProperty(key)) continue;
+
+            let defaultValue = defaultFormData[key];
+            let formItem = form.querySelector(`[name=${ key }]`) as HTMLElement;
+            if (!formItem) continue;
+
+            let value = formItem.getAttribute('value') || formItem?.['value'];
+
+            //TODO 如果存在form-group需要额外处理
+            if (value !== defaultValue) {
+                trigger(formItem, defaultValue, 'change');
+            }
         }
     }
 
