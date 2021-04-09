@@ -36,6 +36,7 @@ export type parseType =
     | 'number[]'
     | 'JSON'
     | 'style'
+    | 'class'
     | 'null'
     | Function /* 只能用于做验证的方法 比如 isUndefined, isBoolean */
 
@@ -113,6 +114,7 @@ interface IUniversalProps<T> {
     placeholder: T
     url: T
     style: T
+    class: T
     enum: T
     disabled: T
     size: T
@@ -151,6 +153,13 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         parse : 'style',
         value : '',
         desc: '样式'
+    },
+    class      : {
+        el    : 'input',
+        render: true,
+        parse : 'class',
+        value : '',
+        desc: '样式类名'
     },
     url        : {
         el     : 'input',
@@ -301,7 +310,7 @@ export const componentConfig = {
                     url       : {
                         el: 'select',
                         // value  : domain + '/server/mock/select.json',
-                        value  : '',
+                        value  : 'http://e.aidalan.com/option/pf/list?jsoncallback=callback1617932910291_936',
                         desc   : '列表数据的接口地址',
                         request: true,
                         parse  : 'string',
@@ -1200,7 +1209,9 @@ export const componentConfig = {
                         parse: 'string',
                         value: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
                     }
-                }
+                },
+                style      : UniversalProps.style,
+                class  : UniversalProps.class
             },
             type     : 'web-components'
         }

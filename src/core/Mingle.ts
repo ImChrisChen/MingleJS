@@ -12,6 +12,7 @@ import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { componentConfig } from '@src/config/component.config';
+import { styleConfig } from '@src/config/styleConfig';
 
 interface IMingleOptions {
     el: string
@@ -75,6 +76,11 @@ export class Mingle {
     // 获取所有组件配置
     public static async getComponentConfigs() {
         return await formatDataService.components2MenuTree(componentConfig);
+    }
+
+    // 获取样式配置
+    public static  getStyleConfigs() {
+        return styleConfig;
     }
 
     // 渲染DOM
