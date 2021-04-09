@@ -382,32 +382,32 @@ export const componentConfig = {
                 placeholder: UniversalProps.placeholder,
                 style      : UniversalProps.style,
                 name       : UniversalProps.name,
-                hook       : {
-                    load        : {
-                        el    : 'input',
-                        value : 'componentLoad',
-                        desc  : '组件加载完成的触发的函数',
-                        render: false
-                    },
-                    beforeLoad  : {
-                        el    : 'input',
-                        value : 'componentBeforeLoad',
-                        desc  : '组件加载前触发的函数',
-                        render: false
-                    },
-                    update      : {
-                        el    : 'input',
-                        value : 'componentUpdate',
-                        desc  : '组件更新后触发的函数',
-                        render: false
-                    },
-                    beforeUpdate: {
-                        el    : 'input',
-                        value : 'componentBeforeUpdate',
-                        desc  : '组件更新前触发的函数',
-                        render: false
-                    }
-                }
+                // hook       : {
+                //     load        : {
+                //         el    : 'input',
+                //         value : 'componentLoad',
+                //         desc  : '组件加载完成的触发的函数',
+                //         render: false
+                //     },
+                //     beforeLoad  : {
+                //         el    : 'input',
+                //         value : 'componentBeforeLoad',
+                //         desc  : '组件加载前触发的函数',
+                //         render: false
+                //     },
+                //     update      : {
+                //         el    : 'input',
+                //         value : 'componentUpdate',
+                //         desc  : '组件更新后触发的函数',
+                //         render: false
+                //     },
+                //     beforeUpdate: {
+                //         el    : 'input',
+                //         value : 'componentBeforeUpdate',
+                //         desc  : '组件更新前触发的函数',
+                //         render: false
+                //     }
+                // }
             },
             name     : '下拉框',
             type    : 'web-components'
@@ -503,7 +503,12 @@ export const componentConfig = {
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
-                value  : {}
+                value  : {
+                    el: 'input',
+                    parse: 'string[]',
+                    value: '',
+                    desc: '值',
+                }
             },
             name     : '复选框',
             type    : 'web-components'
@@ -640,7 +645,6 @@ export const componentConfig = {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
-                        console.log(parsedDataset);
                         if (!parsedDataset) {
                             return '';
                         }
@@ -705,6 +709,18 @@ export const componentConfig = {
                         value  : 'message',
                         options: 'fromUrl',
                         desc   : 'URL返回的参数 ，指定提交后的提示字段'
+                    },
+                    submit : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否生产submit按钮'
+                    },
+                    reset  : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否生成reset按钮'
                     }
                 },
                 id     : {
@@ -719,18 +735,6 @@ export const componentConfig = {
                     value: '',
                     desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效'
                 },
-                submit : {
-                    el   : 'switch',
-                    parse: 'boolean',
-                    value: true,
-                    desc : '是否生产submit按钮'
-                },
-                reset  : {
-                    el   : 'switch',
-                    parse: 'boolean',
-                    value: true,
-                    desc : '是否生成reset按钮'
-                }
             },
             document : import('@component/form/form-action/FormAction.md'),
             name     : 'form表单',
