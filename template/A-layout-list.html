@@ -1,8 +1,10 @@
 <div id="app">
-    <layout-list data-cols="2" data-space="20,20" data-single="false" name="server">
-        <div w-foreach="list as (item,i)">
-            <view-image w-if="i % 2 === 0"></view-image>
-        </div>
+    <layout-list , data-cols="2" data-foreach="h" data-selectable="true" data-single="false" data-space="20,20" name="server"
+    "data,1" data-index="i">
+    <h1><{data.title}></h1>
+    <!--        <div w-foreach="list as (item,i)" value="<{item.value}>">-->
+    <!--            <view-image w-if="i % 2 === 0"></view-image>-->
+    <!--        </div>-->
     </layout-list>
     <button type="submit" class="ant-btn ant-btn-primary">submit</button>
 </div>

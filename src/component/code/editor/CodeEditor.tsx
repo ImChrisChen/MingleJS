@@ -49,30 +49,30 @@ export default class CodeEditor extends Component<any, any> {
                 } }
                 options={ {
                     // mode                   : 'htmlmixed',
-                    mode                   : {
+                    mode       : {
                         name: 'text/html',
                     },
-                    theme                  : /*'idea'*/ 'rubyblue',
-                    tabSize                : 2,
-                    lineNumbers            : true,
-                    styleActiveLine        : true,
-                    lineWrapping           : true,
-                    line                   : true,
-                    foldGutter             : true,
-                    extrakeys              : {
-                        Tab: function (cm) {
-                            let spaces = Array(cm.getOption('indentUnit') + 1).join(' ');
-                            cm.replaceSelection(spaces);
-                        },
-                    },
-                    matchBrackets          : true,      //括号匹配
+                    theme      : /*'idea'*/ 'rubyblue',
+                    tabSize    : 2,
+                    lineNumbers: true,
+                    // styleActiveLine        : true,
+                    lineWrapping: true,
+                    // line                   : true,
+                    // foldGutter             : true,
+                    // extrakeys              : {
+                    //     Tab: function (cm) {
+                    //         let spaces = Array(cm.getOption('indentUnit') + 1).join(' ');
+                    //         cm.replaceSelection(spaces);
+                    //     },
+                    // },
+                    // matchBrackets          : true,      //括号匹配
                     autofocus              : true,
                     smartIndent            : true,
                     indentWithTabs         : true,
                     showCursorWhenSelecting: true,
-                    hintOptions            : {
-                        completeSingle: true,
-                    },
+                    // hintOptions            : {
+                    //     completeSingle: true,
+                    // },
                 } }
                 onBeforeChange={ (editor, data, value) => {
                     this.setState({ value });

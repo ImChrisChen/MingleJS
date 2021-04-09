@@ -15,6 +15,7 @@ export interface IComponentProps {
     dataset?: any
     ref?: () => any
     value?: any
+    cssText: string
 
     [key: string]: any
 }
@@ -25,18 +26,11 @@ export interface INativeProps {
     style?: IReactStyle
     dataset?: any
     value?: any
+    cssText: string
 
     [key: string]: any
 }
 
 export interface IReactStyle {
     [key: string]: string | number
-}
-
-export interface IRouteItem {
-    path: string
-    component?: any
-    name: string
-    target?: string
-    children: Array<IRouteItem>
 }

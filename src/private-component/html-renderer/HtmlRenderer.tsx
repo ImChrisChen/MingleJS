@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { strParseDOM } from '@utils/trans-dom';
+import { strParseDOM } from '@src/utils';
 
 interface IHtmlRendererProps {
     html: string

@@ -6,7 +6,7 @@
  */
 import React, { Component } from 'react';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
+import { HttpClientService } from '@src/services';
 
 
 interface IFeishuH5SignAPI {

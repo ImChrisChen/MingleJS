@@ -4,7 +4,7 @@
  * Date: 2021/2/9
  * Time: 10:36 上午
  */
-import { isObject } from '@utils/inspect';
+import { isObject } from '@src/utils';
 
 export class ProxyData {
 

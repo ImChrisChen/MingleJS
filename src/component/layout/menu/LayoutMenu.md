@@ -8,8 +8,6 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import { list2Group, treeKeyReplace } from '@utils/format-data';
-import { getDepthMax } from '@utils/util';
 import LayoutMenuPrivate from '@src/private-component/views/layout-menu/LayoutMenu';
 
 export default class LayoutMenu extends Component<IComponentProps, ReactNode> {

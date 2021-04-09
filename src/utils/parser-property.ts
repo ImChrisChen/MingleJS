@@ -5,8 +5,8 @@
  * Time: 11:23 上午
  */
 import { IPropertyConfig, parseType } from '@src/config/component.config';
-import { isEmptyStr, isJSON, isString } from '@utils/inspect';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { isEmptyStr, isJSON, isString } from '@src/utils';
+import { ParserTemplateService } from '@src/services';
 
 // 解析dataset data-*
 export function parserDataset(dataset, defaultDataset): object {
@@ -78,6 +78,9 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
     }
     let finalAttrs = Object.assign(defaultAttrs, attrs);
 
+
+    let cssText = '';
+
     // TODO 默认处理属性，不用写/读取配置去解析
     for (const key in finalAttrs) {
         if (!finalAttrs.hasOwnProperty(key)) continue;
@@ -87,10 +90,12 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
             finalAttrs[key] = true;
         }
         if (key === 'style' && isString(finalAttrs[key])) {
+            cssText = finalAttrs[key];
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
     }
 
+    finalAttrs.cssText = cssText;
     return finalAttrs;
 
 }
@@ -103,7 +108,7 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
         value = parse(value);
     }
 
-    switch(parse) {
+    switch (parse) {
 
         case 'string':            // 模版解析
             value = new ParserTemplateService().parseTpl(value, document.body, 'tpl');
@@ -168,8 +173,15 @@ export function parseEnum(enumStr: string): Array<object> {
 
 // inline-style 解析成 react-style
 export function parseLineStyle(style: string): object {
-    let res = parseCamelCase(style);
-    let stylesJson = parseStr2JSONArray(res, ';', ':');
+    let stylesJson = style.split(';').reduce((arr: Array<object>, group) => {
+        let [key, val] = group.split(':');
+        if (!isEmptyStr(key) && !isEmptyStr(val)) {
+            key = parseCamelCase(key.trim());
+            val = val.trim();
+            arr.push({ [key]: val });
+        }
+        return arr;
+    }, []);
     return Object.assign({}, ...stylesJson);
 }
 
@@ -179,7 +191,7 @@ export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: st
     // return str.split(';').reduce((arr: Array<object>, group) => {
     return str.split(rowStplit).reduce((arr: Array<object>, group) => {
         // let [ key, val ] = group.split(',');
-        let [ key, val ] = group.split(cellSplit);
+        let [key, val] = group.split(cellSplit);
         if (!isEmptyStr(key) && !isEmptyStr(val)) {
             key = key.trim();
             val = val.trim();

@@ -7,14 +7,11 @@
 
 import App from '@src/App';
 import { Inject } from 'typescript-ioc';
-import { ParserElementService } from '@services/ParserElement.service';
-import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService, HttpClientService, LogReportService, ParserElementService } from '@src/services';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
-import { Monitor } from '@services/Monitor';
 import { componentConfig } from '@src/config/component.config';
-import { FormatDataService } from '@services/FormatData.service';
 
 interface IMingleOptions {
     el: string
@@ -72,7 +69,7 @@ export class Mingle {
             },
             methods: {},
         };
-        this.run(Object.assign(defaultOptions, options)).then(() => Mingle.globalEventListener());
+        this.run(Object.assign(defaultOptions, options));
     }
 
     // 获取所有组件配置
@@ -85,7 +82,7 @@ export class Mingle {
         new App(node);
     }
 
-    public static async globalEventListener() {
+    public static globalEventListener() {
 
         // 判断是否是深色模式
         const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
@@ -120,7 +117,7 @@ export class Mingle {
                 error_col,
             };
 
-            await Monitor.errorLogger(log);
+            await LogReportService.errorLogger(log);
             message.error(`error, ${ msg }`);
         });
 
@@ -203,7 +200,7 @@ export class Mingle {
             console.timeEnd('虚拟DOM首次渲染性能测试');
 
             $(container).html('');
-            for (const child of [ ...node.childNodes ]) {
+            for (const child of [...node.childNodes]) {
                 container.append(child);
             }
             await Mingle.render(container);
@@ -339,8 +336,12 @@ export class Mingle {
         let { el, data, created, methods, mounted, updated } = options;
 
         let container = document.querySelector(el) as HTMLElement;
-        this.containerNode = container.cloneNode(true);     // 缓存节点模版
 
+        if (!container) {
+            return;
+        }
+
+        this.containerNode = container.cloneNode(true);     // 缓存节点模版
         let o = Object.assign(data, methods, this);
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);

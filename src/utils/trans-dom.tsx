@@ -6,7 +6,7 @@
  */
 
 import React, { ReactElement } from 'react';
-import { isArray, isEmptyStr } from '@utils/inspect';
+import { isArray } from '@src/utils';
 
 // 真实DOM => 字符串 (一个)
 export function elementParseStr(el: HTMLElement) {
@@ -37,7 +37,7 @@ export function strParseVirtualDOM(strHtml: string): any {
 }
 
 // 在element包裹一层元素
-export function elementWrap(elements: Array<HTMLElement>, tagName: string = 'div') {
+export function elementWrap(elements: Array<HTMLElement> | HTMLElement, tagName: string = 'div') {
 
     let newElement = document.createElement(tagName);
 

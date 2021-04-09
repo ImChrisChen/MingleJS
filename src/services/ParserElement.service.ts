@@ -5,11 +5,9 @@
  * Time: 3:30 下午
  */
 
-import { directiveElse, directiveForeach, directiveIf } from '@src/config/directive.config';
-import { isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@utils/inspect';
+import { directiveElse, directiveForeach, directiveIf } from '@src/config';
+import { deepEachElement, getObjectValue, isArray, isExpandSymbol, isObject, isUndefined, isWuiTpl } from '@src/utils';
 import $ from 'jquery';
-import { elementWrap } from '@utils/trans-dom';
-import { deepEachElement, getObjectValue } from '@utils/util';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 
 export interface IFunctions {
@@ -35,7 +33,7 @@ export class ParserElementService extends ParserTemplateService {
      * @private
      */
     private static parseExpand(el: HTMLElement, model: object, name: string) {
-        let [ , key ]: Array<string> = name.split('...');
+        let [, key]: Array<string> = name.split('...');
 
         let itemModel = getObjectValue(key, model);
 
@@ -71,20 +69,11 @@ export class ParserElementService extends ParserTemplateService {
 
     /**
      * 递归解析DOM
-     * @param rootElement          被解析的根元素
+     * @param root
      * @param model { Object }     解析文本用到的数据
      * @param functions { Object } 解析函数用到的数据
      */
-    public parseElement(rootElement: HTMLElement, model: object, functions: IFunctions) {
-
-        if (!rootElement) return rootElement;
-
-        let root = rootElement;
-
-        // 支持单个element 和 多个 element 处理
-        if (isArray(rootElement)) {
-            root = elementWrap(rootElement);
-        }
+    public parseElement(root: HTMLElement, model: object, functions?: IFunctions) {
 
         // TODO 解析顺序会影响渲染性能
         deepEachElement(root, async (el: HTMLElement) => {
@@ -138,8 +127,8 @@ export class ParserElementService extends ParserTemplateService {
      * @param functions
      * @private
      */
-    private parseTextContent(el: HTMLElement, model: object, functions) {
-        [ ...el.childNodes ].forEach(node => {
+    private parseTextContent(el: HTMLElement, model: object, functions?) {
+        [...el.childNodes].forEach(node => {
 
             // node 节点
             // @ts-ignore
@@ -173,7 +162,7 @@ export class ParserElementService extends ParserTemplateService {
      * @param functions
      * @private
      */
-    private parseForeach(el: HTMLElement, model: object, functions: IFunctions) {
+    private parseForeach(el: HTMLElement, model: object, functions?: IFunctions) {
         let attrs = el.attributes;
         if (!attrs[directiveForeach]) return el;
         let { name, value } = attrs[directiveForeach];
@@ -202,13 +191,13 @@ export class ParserElementService extends ParserTemplateService {
             express = this.parseTpl(express, model, 'field');        // TODO foreach中的条件判断要进行两个作用域解析，当前是第一层
         }
 
-        let [ arrayName, itemName ]: Array<string> = value.split('as');
+        let [arrayName, itemName]: Array<string> = value.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [ itemName, indexName ] = itemIndex.split(',');
+            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [itemName, indexName] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -250,7 +239,7 @@ export class ParserElementService extends ParserTemplateService {
                 // console.log(parseExpress);
                 try {
                     result = eval(parseExpress);
-                } catch(e) {
+                } catch (e) {
                     console.warn(`${ parseExpress }表达式解析错误`);
                     result = false;
                 }
@@ -294,7 +283,7 @@ export class ParserElementService extends ParserTemplateService {
             } else {
                 $(el).remove();
             }
-        } catch(e) {
+        } catch (e) {
             // TODO 有可能是 ~foreach 中的 if 语句
             // console.error(`if内表达式解析语法错误: ${ express }`);
         }
@@ -307,7 +296,7 @@ export class ParserElementService extends ParserTemplateService {
      * @param functions
      * @private
      */
-    private parseEventListen(el: HTMLElement, model: object, functions: IFunctions) {
+    private parseEventListen(el: HTMLElement, model: object, functions?: IFunctions) {
         // 判断事件函数中是否有括号
         const isBracket = (v: string): boolean => {
             return /\((.*?)\)/.test(v);
@@ -315,8 +304,8 @@ export class ParserElementService extends ParserTemplateService {
 
         for (const { name, value } of el.attributes) {
             if (name.startsWith('@')) {
-                let [ , event ] = name.split('@');
-                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [, event] = name.split('@');
+                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -360,7 +349,7 @@ export class ParserElementService extends ParserTemplateService {
                                 return eval(param);
 
                             }
-                        } catch(e) {
+                        } catch (e) {
                             let pv = getObjectValue(param, model);
                             return pv;
                         }
@@ -369,8 +358,8 @@ export class ParserElementService extends ParserTemplateService {
 
                 // 绑定自定义事件
                 $(el).on(event, (e) => {
+                    // @ts-ignore
                     let { methods, callthis } = functions;
-
                     // 有括号
                     if (isBracket(value)) {
                         if (argument.length > 0) {      // 有参数
@@ -383,7 +372,6 @@ export class ParserElementService extends ParserTemplateService {
                         // 无括号，也无参数
                         methods?.[method]?.call(callthis, e);
                     }
-
                 });
 
                 // TODO 用 el.addEventListener 部分事件监听用jQuery的trigger触发不了

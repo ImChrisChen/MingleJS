@@ -5,11 +5,11 @@
  * Time: 12:08 下午
  */
 
-import { isWuiTpl } from '@utils/inspect';
+import { isWuiTpl } from '@src/utils';
 import { message } from 'antd';
-import { Monitor } from '@services/Monitor';
-import { Inject } from 'typescript-ioc';
+import { LogReportService } from '@services/LogReport.service';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
+import { Inject } from 'typescript-ioc';
 import axios from 'axios';
 
 export interface IApiResult {
@@ -28,9 +28,10 @@ export interface IApiResult {
 export class HttpClientService {
 
     private static instance;
+    @Inject private readonly parserTemplateService: ParserTemplateService;
 
     // 使用单例模式
-    constructor(@Inject private readonly parserTemplateService: ParserTemplateService) {
+    constructor() {
         if (HttpClientService.instance) {
             return HttpClientService.instance;
         } else {
@@ -77,7 +78,7 @@ export class HttpClientService {
             },
             err => {
                 // console.log(err);
-            },
+            }
         );
     }
 
@@ -110,7 +111,7 @@ export class HttpClientService {
                     // 重新发起请求
                     return axios.request(originalRequest);
                 }
-            },
+            }
         );
     }
 
@@ -152,13 +153,13 @@ export class HttpClientService {
 
             try {
                 body?.appendChild(script);
-                Monitor.requestLogger({
+                LogReportService.requestLogger({
                     request_url: url,
                     page_url   : window.location.href,
                     flag       : 'mingle',
                     method     : 'get',
                     dataType   : 'jsonp',
-                    headers    : '{}',
+                    headers    : '{}'
                 });
             } catch(e) {
                 console.error(e);
