@@ -8,6 +8,10 @@
     display  : block;
 }
 
+form-action {
+    padding : 8px 0;
+}
+
 form-action [data-component-uid] {
     margin : 0 10px;
 }
@@ -16,6 +20,7 @@ form-action [data-component-uid] {
     position   : relative;
     transition : all 150ms;
 }
+
 
 // 重写 form-item样式
 :global {
