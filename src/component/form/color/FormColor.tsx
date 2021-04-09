@@ -8,12 +8,12 @@ import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import { SketchPicker } from 'react-color';
 import { Form } from 'antd';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 export default class FormColor extends Component<IComponentProps, any> {
     state = {
         // color: '#f0f00f',
-        color: this.props.value,
+        color: this.props.value
     };
 
     handleChangeComplete(color) {
@@ -21,8 +21,11 @@ export default class FormColor extends Component<IComponentProps, any> {
     }
 
     render() {
+        let { smart, exec } = this.props.dataset;
         return <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
-            { this.props.dataset.smart ? <FormSmartIcon/> : '' }
+            { smart ? <FormSmartIcon /> : '' }
+            { exec ? <FormExecIcon /> : '' }
+
             <SketchPicker
                 color={ this.state.color }
                 onChangeComplete={ this.handleChangeComplete.bind(this) }

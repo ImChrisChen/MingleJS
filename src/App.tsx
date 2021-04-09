@@ -1,21 +1,12 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import {
-    deepEachElement,
-    isCustomElement,
-    isFunc,
-    isReactComponent,
-    isUndefined,
-    loadModule,
-    parserAttrs,
-    parserDataset,
-    trigger,
-} from '@src/utils';
+import { deepEachElement, isCustomElement, isFunc, isReactComponent, isUndefined, loadModule, parserAttrs, parserDataset, trigger } from '@src/utils';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { globalComponentConfig, IComponentConfig } from '@src/config/component.config';
 import * as antdIcons from '@ant-design/icons';
 import { Hooks } from '@src/config/directive.config';
+import { IComponentProps } from '@interface/common/component';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -44,7 +35,7 @@ interface IModules {
     container: HTMLElement          //  组件渲染的React容器
     // containerWrap: HTMLElement      //  组件根容器
     templates?: object
-    // hooks: object                   //  钩子
+    hooks: object                   //  钩子
     // // componentMethod: string         //  组件方法
     defaultProperty: IModuleProperty         //  组件默认值
     config?: IComponentConfig        // 组件配置
@@ -108,7 +99,7 @@ export default class App {
         el.append(container);
 
         // form-component
-        if (tagName.startsWith('form')) {
+        if (tagName.startsWith('form-')) {
             el.setAttribute('form-component', '');
         }
 
@@ -124,6 +115,7 @@ export default class App {
         const Module = loadModule(tagName);
         const Component = (await Module.component).default;            // React组件
 
+        let hooks = App.formatHooks(el.attributes);
         let defaultProperty = Module.property;
         let module: IModules = {
             Component,
@@ -131,29 +123,30 @@ export default class App {
             templates,
             subelements,
             container,
-            // hooks,
-
+            hooks,
             // @ts-ignore
             defaultProperty,
-            componentUID,
+            componentUID
         };
 
+        let props: IComponentProps;
         if (isReactComponent(Component)) {
-            App.renderComponent(module);
+            props = App.renderComponent(module);
         } else {
             let defaultProperty = Module.property;
             let { dataset, attrs } = App.parseProps(el, defaultProperty);
-            let componentInstance = new Component({
+            props = {
                 el: el,
                 dataset,
-                ...attrs,
-            });
+                ...attrs
+            };
+            let componentInstance = new Component(props);
             App.instances[componentUID] = {
-                instance: componentInstance, module,
+                instance: componentInstance, module
             };
         }
 
-        App.eventListener(module);
+        App.eventListener(module, props);
     }
 
     // web-components
@@ -358,7 +351,7 @@ export default class App {
         });
     }
 
-    public static eventListener(module: IModules) {
+    public static eventListener(module: IModules, props: IComponentProps) {
         let { element } = module;
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
@@ -379,27 +372,28 @@ export default class App {
                 hooks[Hooks.update]?.(instance);
                 App.dynamicReloadComponents(element as HTMLInputElement);
 
-                let exec = element.dataset.exec;
-                // if (!isUndefined(exec)) {
-                if (exec === 'true') {
+                let exec = props.dataset.exec;
+                if (exec) {
                     // TODO 简陋的实现，后续待调整
                     let formElement = $(element).closest('form-action');
                     let submitBtn = formElement.find('[type=submit]');
                     if (submitBtn.length > 0) {
                         submitBtn.click();
                     } else {
-                        formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
+                        formElement.append(`<button type='submit' style='display: none;'/>`).find('[type=submit]').click();
                     }
                 }
 
                 let groupname = element.getAttribute('data-group');
-                let formElement = $(element).closest('form-action');
-                let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
-                groups.forEach(el => {
-                    if (el !== element) {
-                        console.log(el);
-                    }
-                });
+                if (groupname) {
+                    let formElement = $(element).closest('form-action');
+                    let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
+                    groups.forEach(el => {
+                        if (el !== element) {
+                            console.log(el);
+                        }
+                    });
+                }
             });
         });
 
@@ -466,14 +460,18 @@ export default class App {
     }
 
     // 通过 Element 获取到组件解析后的所有属性
-    public static async parseElementProperty(el: HTMLElement): Promise<any> {
+    public static parseElementProperty(el: HTMLElement): IComponentProps {
         let componentModule = loadModule(el.localName);
 
         let defaultProperty = componentModule.property;
 
         let { dataset, attrs } = this.parseProps(el, defaultProperty);
 
-        return { dataset, ...attrs };
+        return { 
+            el, 
+            dataset, 
+            ...attrs
+        };
     }
 
     public static parseProps(el: HTMLElement, defaultProperty) {
@@ -507,9 +505,9 @@ export default class App {
         };
     }
 
-    public static renderComponent(module: IModules, beforeCallback?: (h, instance: ReactInstance) => any, callback?: (h, instance: ReactInstance) => any) {
+    public static renderComponent(module: IModules, beforeCallback?: (h, instance: ReactInstance) => any, callback?: (h, instance: ReactInstance) => any): IComponentProps {
         let {
-            element, defaultProperty, Component /*hooks*/, componentUID, subelements, templates, container,
+            element, defaultProperty, Component, hooks, componentUID, subelements, templates, container
         } = module;
 
         let { dataset: parsedDataset, attrs } = this.parseProps(element, defaultProperty);
@@ -558,22 +556,23 @@ export default class App {
         }
 
         // 触发 beforeLoad 钩子
-        // beforeCallback(hooks, instance);
+        beforeCallback?.(hooks, instance);
 
         // 组件渲染
         try {
             // 组件名必须大写
             ReactDOM.render(
                 <ConfigProvider { ...globalComponentConfig } >
-                    <Component { ...props } value={ value }/>
+                    <Component { ...props } value={ value } />
                 </ConfigProvider>
-                , container /*() => {
-                    callback(hooks, instance);
-                }*/,
+                , container, () => {
+                    callback?.(hooks, instance);
+                }
             );
         } catch (e) {
             console.error(e);
         }
+        return props;
     }
 
 }

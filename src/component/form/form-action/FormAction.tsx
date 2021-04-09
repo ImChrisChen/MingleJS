@@ -9,11 +9,10 @@ import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
-import SmartIcon from '@static/images/form-smart.png';
+import { arrayDeleteItem, isEmptyObject, loadModule, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import App from '@src/App';
+import App, { DataComponentUID } from '@src/App';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services';
 
@@ -35,11 +34,6 @@ interface ISmartItemAPI {
     select: object       // 表单选择项
 }
 
-// data-smart icon
-export function FormSmartIcon() {
-    return <img className={ style.dataSmartIcons } src={ SmartIcon } alt='data-smart标志' />;
-}
-
 // form-smart
 class FormSmart extends Component<{ el: HTMLElement }, any> {
     @Inject private readonly httpClientService: HttpClientService;
@@ -47,7 +41,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         isModalVisible  : false,
         formSmartVisible: false,
         data            : [] as Array<ISmartItemAPI>,
-        smartElements: ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>
+        smartElements   : ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
     };
 
     private form: any = React.createRef();
@@ -171,7 +165,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                  style={ { right: this.state.formSmartVisible ? 0 : -200 } }>
                 <div style={ { position: 'relative' } }>
                     <List dataSource={ this.state.data }
-                          size='small'
+                          size="small"
                           bordered
                           renderItem={ (item, index) =>
                               <List.Item onClick={ e => this.handleSelectSmart(index, e) }>
@@ -180,16 +174,16 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                                       title={ <div style={ {
                                           display       : 'flex',
                                           justifyContent: 'space-between',
-                                          alignItems    : 'center'
+                                          alignItems    : 'center',
                                       } }>
                                           <span>{ item.name }</span>
                                           <CloseSquareOutlined
                                               hidden={ !item.isPrivate }
-                                              onClick={ e => this.handleDeleteSmart(item.selectTagId, e) } />
+                                              onClick={ e => this.handleDeleteSmart(item.selectTagId, e) }/>
                                       </div> }
                                       description={ <>
                                           <span>创建人:{ item.publicUser }</span>
-                                          <br />
+                                          <br/>
                                           <span>是否公开:{ !item.isPrivate ? 'true' : 'false' }</span>
                                       </> }
                                   />
@@ -201,23 +195,23 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                 </div>
                 <Button onClick={ this.handleToggle.bind(this) }
                         className={ style.formSmartToggleBtn }> { this.state.formSmartVisible ?
-                    <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
+                    <MenuUnfoldOutlined/> : <MenuFoldOutlined/> }
                 </Button>
             </div>
 
             {/* 弹出区域 */ }
-            <Modal title='提交组合信息' visible={ this.state.isModalVisible }
+            <Modal title="提交组合信息" visible={ this.state.isModalVisible }
                    getContainer={ this.props.el }
                    onOk={ this.handleOk.bind(this) }
                    onCancel={ this.handleCancel.bind(this) }>
                 <Form ref={ this.form }>
 
                     <Form.Item label={ '组合名称' } required name={ 'name' }>
-                        <Input placeholder='请输入组合名称' />
+                        <Input placeholder="请输入组合名称"/>
                     </Form.Item>
 
                     <Form.Item label={ '是否公开' } name={ 'isPublic' }>
-                        <Switch defaultChecked={ false } />
+                        <Switch defaultChecked={ false }/>
                     </Form.Item>
 
                 </Form>
@@ -232,6 +226,9 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     // @Inject private readonly componentSerive: ComponentService;
 
+    // form表单默认值，重置表单时会用到
+    defaultFormData = {};
+
     constructor(props) {
         super(props);
         this.init();
@@ -239,6 +236,10 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
+
+        // 保存表单默认值
+        this.defaultFormData = FormAction.getFormData(form);
+
         let submitBtn = form.querySelector('[type=submit]') as HTMLElement;
         let resetBtn = form.querySelector('[type=reset]') as HTMLElement;
         if (submitBtn) {
@@ -247,14 +248,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
         if (resetBtn) {
             resetBtn.onclick = e => this.handleReset(form, e);
         }
-
-        // form.onsubmit = (e) => this.handleSubmit(form, e);
-        // form.onreset = (e) => this.handleReset(form, e);
         this.setLayout(form);
     }
 
     // 获取处理formGroup数据
-    public static async getFormGroupData(form) {
+    private static getFormGroupData(form): IFormData {
         let formGroup = form.querySelector('form-group');
 
         if (!formGroup) {
@@ -265,15 +263,15 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
         let formGroupData: Array<object> = [];
         for (const formGroupItem of formGroupItems) {
-            let itemData = await this.getDataByElement(formGroupItem, true);
+            let itemData = this.getDataByElement(formGroupItem, true);
             formGroupData.push(itemData);
         }
         return {
-            [name]: formGroupData
+            [name]: formGroupData,
         };
     }
 
-    public static async getDataByElement(form: HTMLElement, force = false): Promise<IFormData> {
+    private static getDataByElement(form: HTMLElement, force = false): IFormData {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
         let $hideInput = $(form).find('.form-tabpanel:hidden').find('[data-component-uid][name]');
@@ -301,8 +299,13 @@ export default class FormAction extends React.Component<IFormAction, any> {
                 continue;
             }
 
+            if (!name) {
+                console.warn('请设置 表单元素的 name值 ', formItem);
+                continue;
+            }
+
             // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
-            formData[name] = value || (await App.parseElementProperty(formItem)).value;
+            formData[name] = value || App.parseElementProperty(formItem).value;
         }
         return formData;
     }
@@ -312,10 +315,10 @@ export default class FormAction extends React.Component<IFormAction, any> {
         e.preventDefault();
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
-        let formData = await FormAction.getFormData(form);
+        let formData = FormAction.getFormData(form);
         console.log('formData:', formData);
 
-        let verify = this.verifyFormData(form, formData);
+        let verify = FormAction.verifyFormData(form, formData);
 
         if (verify) {
 
@@ -331,7 +334,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     url,
                     method,
                     headers: headers || { 'Content-Type': 'application/json' },
-                    data   : formData
+                    data   : formData,
                 });
 
                 if (showmsg) {
@@ -347,7 +350,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         }
     }
 
-    verifyFormData(formElement, formData): boolean {
+    private static verifyFormData(formElement, formData): boolean {
         let unVerifys: Array<string> = [];
 
         for (const name in formData) {
@@ -370,7 +373,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取关联的table ，chart， list 的实例
-    async getViewsInstances() {
+    private async getViewsInstances(): Promise<Array<any>> {
         let id = this.props.id;
         if (!id) {
             return [];
@@ -386,26 +389,35 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取表单数据
-    public static async getFormData(form: HTMLElement): Promise<IFormData> {
+    public static getFormData(form: HTMLElement): IFormData {
 
-        let formData = await this.getDataByElement(form);
+        let formData = this.getDataByElement(form);
 
         // 处理 form-group 内的组件
-        let formGroupData = await this.getFormGroupData(form);
+        let formGroupData = this.getFormGroupData(form);
         console.log('formGroupData', formGroupData);
 
         return Object.assign(formData, formGroupData);
     }
 
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
-    async handleReset(form: HTMLElement, e?: any) {
-        // let formItems = [ ...form.querySelectorAll(`[name][data-component-uid]`) ] as Array<HTMLElement>;
-        // let formItems = this.componentSerive.getFormComponents(form);
-        let formItems = [ ...form.querySelectorAll(`[name][data-component-uid][form-component]`) ] as Array<HTMLElement>;
-        for (const formItem of formItems) {
-            let property = await App.parseElementProperty(formItem);        // 默认属性
-            let value = property.value;
-            formItem && trigger(formItem, value);
+    public async handleReset(form: HTMLElement, e?: any) {
+        let { defaultFormData } = this;
+        console.log('defaultFormData:', defaultFormData);
+
+        for (let key in defaultFormData) {
+            if (!defaultFormData.hasOwnProperty(key)) continue;
+
+            let defaultValue = defaultFormData[key];
+            let formItem = form.querySelector(`[name=${ key }]`) as HTMLElement;
+            if (!formItem) continue;
+
+            let value = formItem.getAttribute('value') || formItem?.['value'];
+
+            //TODO 如果存在form-group需要额外处理
+            if (value !== defaultValue) {
+                trigger(formItem, defaultValue, 'change');
+            }
         }
     }
 
@@ -413,20 +425,30 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let layout = this.props.dataset.layout;
 
         if (layout === 'horizontal') {
-            $(formElement).css({ display: 'flex', flexWrap: 'wrap' });
+            $(formElement).css({
+                display   : 'flex',
+                flexWrap  : 'wrap',
+                alignItems: 'center',
+            });
         }
 
         if (layout === 'vertical') {
-            console.log(formElement);
+            $(formElement).children(`[${ DataComponentUID }]`).css({
+                marginBottom: 12,
+            });
         }
     }
 
     render() {
-        let { submit, reset, el } = this.props;
+        let { el } = this.props;
+        let { reset, submit } = this.props.dataset;
         return <>
-            <FormSmart el={ el } />
-            <Button hidden={ !submit } type='primary' htmlType='submit' onClick={ e => this.handleSubmit(el, e) }>提交</Button>
-            <Button hidden={ !reset } type='default' htmlType='reset' onClick={ e => this.handleReset(el, e) }>重置</Button>
+            <FormSmart el={ el }/>
+            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
+                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
+            <Button hidden={ !reset } type="default" htmlType="reset"
+                    onClick={ e => this.handleReset(el, e) }>重置</Button>
+
         </>;
     }
 }

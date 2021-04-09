@@ -391,32 +391,32 @@ export const componentConfig = {
                 placeholder: UniversalProps.placeholder,
                 style      : UniversalProps.style,
                 name       : UniversalProps.name,
-                hook       : {
-                    load        : {
-                        el    : 'input',
-                        value : 'componentLoad',
-                        desc  : '组件加载完成的触发的函数',
-                        render: false
-                    },
-                    beforeLoad  : {
-                        el    : 'input',
-                        value : 'componentBeforeLoad',
-                        desc  : '组件加载前触发的函数',
-                        render: false
-                    },
-                    update      : {
-                        el    : 'input',
-                        value : 'componentUpdate',
-                        desc  : '组件更新后触发的函数',
-                        render: false
-                    },
-                    beforeUpdate: {
-                        el    : 'input',
-                        value : 'componentBeforeUpdate',
-                        desc  : '组件更新前触发的函数',
-                        render: false
-                    }
-                }
+                // hook       : {
+                //     load        : {
+                //         el    : 'input',
+                //         value : 'componentLoad',
+                //         desc  : '组件加载完成的触发的函数',
+                //         render: false
+                //     },
+                //     beforeLoad  : {
+                //         el    : 'input',
+                //         value : 'componentBeforeLoad',
+                //         desc  : '组件加载前触发的函数',
+                //         render: false
+                //     },
+                //     update      : {
+                //         el    : 'input',
+                //         value : 'componentUpdate',
+                //         desc  : '组件更新后触发的函数',
+                //         render: false
+                //     },
+                //     beforeUpdate: {
+                //         el    : 'input',
+                //         value : 'componentBeforeUpdate',
+                //         desc  : '组件更新前触发的函数',
+                //         render: false
+                //     }
+                // }
             },
             name     : '下拉框',
             type    : 'web-components'
@@ -425,15 +425,15 @@ export const componentConfig = {
             path     : '/form-selecttree',
             component: import('@component/form/select/tree/FormSelectTree'),
             document : import('@component/form/select/tree/FormSelectTree.md'),
-            property: {
+            property : {
                 dataset: {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     size      : UniversalProps.size,
                     url       : {
-                        el   : 'select',
-                        parse: 'string',
-                        // value  : domain + '/server/mock/tree.json',
+                        el     : 'select',
+                        parse  : 'string',
+                        value  : domain + '/server/mock/tree.json',
                         request: true,
                         desc   : '数据源'
                     },
@@ -479,7 +479,7 @@ export const componentConfig = {
                 hook   : {}
             },
             name     : '树形下拉框',
-            type    : 'web-components'
+            type     : 'web-components'
         },
         checkbox  : {
             component: import('@component/form/checkbox/FormCheckbox'),
@@ -507,11 +507,17 @@ export const componentConfig = {
                     },
                     smart   : UniversalProps.smart,
                     exec    : UniversalProps.exec,
-                    group   : UniversalProps.group
+                    group   : UniversalProps.group,
+                    required: UniversalProps.required,
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
-                value  : {}
+                value  : {
+                    el: 'input',
+                    parse: 'string[]',
+                    value: '',
+                    desc: '值',
+                }
             },
             name     : '复选框',
             type    : 'web-components'
@@ -521,7 +527,7 @@ export const componentConfig = {
             component: import('@component/form/cascader/FormCascader'),
             document : import('@component/form/cascader/FormCascader.md'),
             property: {
-                dataset    : {
+                dataset: {
                     disabled  : UniversalProps.disabled,
                     label     : UniversalProps.label,
                     url       : {
@@ -648,7 +654,6 @@ export const componentConfig = {
                     el   : 'input',
                     parse: 'null',
                     value(parsedDataset) {
-                        console.log(parsedDataset);
                         if (!parsedDataset) {
                             return '';
                         }
@@ -713,6 +718,18 @@ export const componentConfig = {
                         value  : 'message',
                         options: 'fromUrl',
                         desc   : 'URL返回的参数 ，指定提交后的提示字段'
+                    },
+                    submit : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否生产submit按钮'
+                    },
+                    reset  : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否生成reset按钮'
                     }
                 },
                 id     : {
@@ -727,18 +744,6 @@ export const componentConfig = {
                     value: '',
                     desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效'
                 },
-                submit : {
-                    el   : 'switch',
-                    parse: 'boolean',
-                    value: true,
-                    desc : '是否生产submit按钮'
-                },
-                reset  : {
-                    el   : 'switch',
-                    parse: 'boolean',
-                    value: true,
-                    desc : '是否生成reset按钮'
-                }
             },
             document : import('@component/form/form-action/FormAction.md'),
             name     : 'form表单',
@@ -746,14 +751,14 @@ export const componentConfig = {
         },
         radio     : {
             path     : '/form-radio',
-            component: import('@component/form/button/FormButton'),
-            property: {
+            component: import('@component/form/radio/FormRadio'),
+            property : {
                 dataset: {
-                    disabled   : UniversalProps.disabled,
-                    label      : UniversalProps.label,
-                    enum       : UniversalProps.enum,
-                    size       : UniversalProps.size,
-                    type       : {  // optionType
+                    disabled: UniversalProps.disabled,
+                    label   : UniversalProps.label,
+                    enum    : UniversalProps.enum,
+                    size    : UniversalProps.size,
+                    type    : {  // optionType
                         el     : 'radio',
                         options: [
                             {
@@ -804,7 +809,7 @@ export const componentConfig = {
                 }
             },
             name     : '单选框',
-            type    : 'web-components'
+            type     : 'web-components'
         },
         slider    : {
             path     : '/form-slider',
@@ -838,7 +843,8 @@ export const componentConfig = {
                     },
                     disabled: UniversalProps.disabled,
                     smart   : UniversalProps.smart,
-                    exec    : UniversalProps.exec
+                    exec    : UniversalProps.exec,
+                    required: UniversalProps.required,
                 },
                 value  : {
                     el   : 'input',
@@ -886,8 +892,8 @@ export const componentConfig = {
             path     : '/form-input',
             component: import('@component/form/input/FormInput'),
             property: {
-                dataset    : {
-                    type    : {
+                dataset: {
+                    type: {
                         el     : 'select',
                         options: [
                             {
@@ -1077,7 +1083,8 @@ export const componentConfig = {
                         value: 'source,target'
                     },
                     exec    : UniversalProps.exec,
-                    smart   : UniversalProps.smart
+                    smart   : UniversalProps.smart,
+                    required: UniversalProps.required
                 },
                 value  : {
                     el   : 'input',
@@ -1546,8 +1553,8 @@ export const componentConfig = {
                     children : {
                         el     : 'select',
                         options: 'fromUrl',
-                        parse: 'string',
-                        value: 'children'
+                        parse  : 'string',
+                        value  : 'children'
                     },
                     checkeds : {
                         el   : 'input',

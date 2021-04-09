@@ -6,12 +6,12 @@
  */
 
 import React, { Component, ReactNode } from 'react';
-import { Transfer } from 'antd';
+import { Form, Transfer } from 'antd';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
 import { IComponentProps } from '@interface/common/component';
 import { trigger } from '@src/utils';
-
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 interface IFormTransferProps extends IComponentProps {
     dataset: {
@@ -22,6 +22,8 @@ interface IFormTransferProps extends IComponentProps {
         key: string
         value: string
         titles: Array<string>
+
+        [key: string]: any
     }
 }
 
@@ -32,7 +34,7 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
 
     state = {
         mockData  : [],
-        targetKeys: [],     // 渲染到右边
+        targetKeys: []     // 渲染到右边
     };
 
     constructor(props) {
@@ -42,7 +44,7 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
     componentDidMount() {
         this.getData().then(data => {
             this.setState({
-                mockData: data,
+                mockData: data
             });
         });
     }
@@ -64,17 +66,19 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
     };
 
     render() {
-        let { pagesize, width, height, titles } = this.props.dataset;
+        let { pagesize, width, height, label, required, titles, exec, smart } = this.props.dataset;
         let value = this.props.value;
         value = value.split(',').filter(t => t);
-        return (
+        return <Form.Item label={ label } required={ required }>
+            { smart ? <FormSmartIcon /> : '' }
+            { exec ? <FormExecIcon /> : '' }
             <Transfer
                 dataSource={ this.state.mockData }
                 showSearch
                 titles={ titles }
                 listStyle={ {
                     width,
-                    height,
+                    height
                 } }
                 rowKey={ record => record.value }
                 // operations={ [ 'to right', 'to left' ] }
@@ -84,6 +88,6 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
                 pagination={ { pageSize: pagesize } }
                 // footer={ this.renderFooter }
             />
-        );
+        </Form.Item>;
     }
 }
