@@ -86,7 +86,7 @@ export function DataUpdateTime({ content, hidden = false }: { content: string, h
     return (!hidden
         ? <Typography.Text style={ {
             position: 'absolute',
-            bottom  : 20,
+            bottom  : 12,
             left    : 10,    // right 会挡住表格的分页器
         } } type="secondary">数据上次更新于: { content }</Typography.Text>
         : <></>);
@@ -849,7 +849,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 colors,
                 genreName,       // `按照${genreName('地区')}统计的维度`
                 title,
-                height,
+                height    : height - 40,        // 减去 title 的高度
                 chartType,
                 pointShape: this.props.dataset.point,           // point的类型 https://bizcharts.net/product/BizCharts4/category/62/page/85
                 pointSize : this.props.dataset.pointsize,
