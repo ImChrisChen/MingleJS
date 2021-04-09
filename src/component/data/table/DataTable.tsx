@@ -575,7 +575,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     render() {
-        console.log(this.props);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -643,7 +642,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 } : false }
                 columns={ this.state.columns.filter(item => item['visible'] === true) }
                 scroll={ {        //  表格是否可以滚动
-                    y: this.props.dataset.height || undefined,
+                    y: this.props.dataset.height - 80 || undefined,     // 减去分页器的高度和title的高度
                 } }
             >
             </Table>

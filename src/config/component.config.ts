@@ -1915,7 +1915,13 @@ export const componentConfig = {
                         parse: 'null',
                         value: 'index',
                         desc : '列表的下标'
-                    }
+                    },
+                    height: {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 0,
+                        desc : '高度',
+                    },
                 }
             },
             type     : 'web-components'
