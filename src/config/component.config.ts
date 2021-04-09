@@ -498,7 +498,8 @@ export const componentConfig = {
                     },
                     smart   : UniversalProps.smart,
                     exec    : UniversalProps.exec,
-                    group   : UniversalProps.group
+                    group   : UniversalProps.group,
+                    required: UniversalProps.required,
                 },
                 style  : UniversalProps.style,
                 name   : UniversalProps.name,
@@ -829,7 +830,8 @@ export const componentConfig = {
                     },
                     disabled: UniversalProps.disabled,
                     smart   : UniversalProps.smart,
-                    exec    : UniversalProps.exec
+                    exec    : UniversalProps.exec,
+                    required: UniversalProps.required,
                 },
                 value  : {
                     el   : 'input',
@@ -1068,7 +1070,8 @@ export const componentConfig = {
                         value: 'source,target'
                     },
                     exec    : UniversalProps.exec,
-                    smart   : UniversalProps.smart
+                    smart   : UniversalProps.smart,
+                    required: UniversalProps.required
                 },
                 value  : {
                     el   : 'input',

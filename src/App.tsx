@@ -385,13 +385,15 @@ export default class App {
                 }
 
                 let groupname = element.getAttribute('data-group');
-                let formElement = $(element).closest('form-action');
-                let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
-                groups.forEach(el => {
-                    if (el !== element) {
-                        console.log(el);
-                    }
-                });
+                if (groupname) {
+                    let formElement = $(element).closest('form-action');
+                    let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
+                    groups.forEach(el => {
+                        if (el !== element) {
+                            console.log(el);
+                        }
+                    });
+                }
             });
         });
 

@@ -12,7 +12,7 @@ import axios from 'axios';
 import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import App from '@src/App';
+import App, { DataComponentUID } from '@src/App';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services';
 
@@ -41,7 +41,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         isModalVisible  : false,
         formSmartVisible: false,
         data            : [] as Array<ISmartItemAPI>,
-        smartElements: ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>
+        smartElements   : ([ ...this.props.el.querySelectorAll(`[name][data-smart=true]`) ] || []) as Array<HTMLInputElement>,
     };
 
     private form: any = React.createRef();
@@ -165,7 +165,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                  style={ { right: this.state.formSmartVisible ? 0 : -200 } }>
                 <div style={ { position: 'relative' } }>
                     <List dataSource={ this.state.data }
-                          size='small'
+                          size="small"
                           bordered
                           renderItem={ (item, index) =>
                               <List.Item onClick={ e => this.handleSelectSmart(index, e) }>
@@ -174,16 +174,16 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                                       title={ <div style={ {
                                           display       : 'flex',
                                           justifyContent: 'space-between',
-                                          alignItems    : 'center'
+                                          alignItems    : 'center',
                                       } }>
                                           <span>{ item.name }</span>
                                           <CloseSquareOutlined
                                               hidden={ !item.isPrivate }
-                                              onClick={ e => this.handleDeleteSmart(item.selectTagId, e) } />
+                                              onClick={ e => this.handleDeleteSmart(item.selectTagId, e) }/>
                                       </div> }
                                       description={ <>
                                           <span>创建人:{ item.publicUser }</span>
-                                          <br />
+                                          <br/>
                                           <span>是否公开:{ !item.isPrivate ? 'true' : 'false' }</span>
                                       </> }
                                   />
@@ -195,23 +195,23 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
                 </div>
                 <Button onClick={ this.handleToggle.bind(this) }
                         className={ style.formSmartToggleBtn }> { this.state.formSmartVisible ?
-                    <MenuUnfoldOutlined /> : <MenuFoldOutlined /> }
+                    <MenuUnfoldOutlined/> : <MenuFoldOutlined/> }
                 </Button>
             </div>
 
             {/* 弹出区域 */ }
-            <Modal title='提交组合信息' visible={ this.state.isModalVisible }
+            <Modal title="提交组合信息" visible={ this.state.isModalVisible }
                    getContainer={ this.props.el }
                    onOk={ this.handleOk.bind(this) }
                    onCancel={ this.handleCancel.bind(this) }>
                 <Form ref={ this.form }>
 
                     <Form.Item label={ '组合名称' } required name={ 'name' }>
-                        <Input placeholder='请输入组合名称' />
+                        <Input placeholder="请输入组合名称"/>
                     </Form.Item>
 
                     <Form.Item label={ '是否公开' } name={ 'isPublic' }>
-                        <Switch defaultChecked={ false } />
+                        <Switch defaultChecked={ false }/>
                     </Form.Item>
 
                 </Form>
@@ -263,7 +263,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
             formGroupData.push(itemData);
         }
         return {
-            [name]: formGroupData
+            [name]: formGroupData,
         };
     }
 
@@ -292,6 +292,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
             // 把 layout-tab 隐藏的内容中的input框不加入form表单的提交
             if (name === hideInputName) {
                 console.log('被隐藏区域的input', hideInputName, formItem);
+                continue;
+            }
+
+            if (!name) {
+                console.warn('请设置 表单元素的 name值 ', formItem);
                 continue;
             }
 
@@ -325,7 +330,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     url,
                     method,
                     headers: headers || { 'Content-Type': 'application/json' },
-                    data   : formData
+                    data   : formData,
                 });
 
                 if (showmsg) {
@@ -407,20 +412,28 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let layout = this.props.dataset.layout;
 
         if (layout === 'horizontal') {
-            $(formElement).css({ display: 'flex', flexWrap: 'wrap' });
+            $(formElement).css({
+                display   : 'flex',
+                flexWrap  : 'wrap',
+                alignItems: 'center',
+            });
         }
 
         if (layout === 'vertical') {
-            console.log(formElement);
+            $(formElement).children(`[${ DataComponentUID }]`).css({
+                marginBottom: 12,
+            });
         }
     }
 
     render() {
         let { submit, reset, el } = this.props;
         return <>
-            <FormSmart el={ el } />
-            <Button hidden={ !submit } type='primary' htmlType='submit' onClick={ e => this.handleSubmit(el, e) }>提交</Button>
-            <Button hidden={ !reset } type='default' htmlType='reset' onClick={ e => this.handleReset(el, e) }>重置</Button>
+            <FormSmart el={ el }/>
+            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
+                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
+            <Button hidden={ !reset } type="default" htmlType="reset"
+                    onClick={ e => this.handleReset(el, e) }>重置</Button>
         </>;
     }
 }
