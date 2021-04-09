@@ -99,7 +99,7 @@ export default class App {
         el.append(container);
 
         // form-component
-        if (tagName.startsWith('form')) {
+        if (tagName.startsWith('form-')) {
             el.setAttribute('form-component', '');
         }
 
@@ -460,14 +460,18 @@ export default class App {
     }
 
     // 通过 Element 获取到组件解析后的所有属性
-    public static async parseElementProperty(el: HTMLElement): Promise<any> {
+    public static parseElementProperty(el: HTMLElement): IComponentProps {
         let componentModule = loadModule(el.localName);
 
         let defaultProperty = componentModule.property;
 
         let { dataset, attrs } = this.parseProps(el, defaultProperty);
 
-        return { dataset, ...attrs };
+        return { 
+            el, 
+            dataset, 
+            ...attrs
+        };
     }
 
     public static parseProps(el: HTMLElement, defaultProperty) {

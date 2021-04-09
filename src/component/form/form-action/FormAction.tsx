@@ -248,7 +248,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取处理formGroup数据
-    public static async getFormGroupData(form) {
+    public static getFormGroupData(form): IFormData {
         let formGroup = form.querySelector('form-group');
 
         if (!formGroup) {
@@ -259,7 +259,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let formGroupItems: Array<HTMLElement> = [ ...formGroup.querySelectorAll(`.form-group .form-group-item`) ];
         let formGroupData: Array<object> = [];
         for (const formGroupItem of formGroupItems) {
-            let itemData = await this.getDataByElement(formGroupItem, true);
+            let itemData = this.getDataByElement(formGroupItem, true);
             formGroupData.push(itemData);
         }
         return {
@@ -267,7 +267,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         };
     }
 
-    public static async getDataByElement(form: HTMLElement, force = false): Promise<IFormData> {
+    public static getDataByElement(form: HTMLElement, force = false): IFormData {
         let formData: IFormData = {};
         // 处理流程控制时 过滤掉被隐藏的DOM(防止数据污染)
         let $hideInput = $(form).find('.form-tabpanel:hidden').find('[data-component-uid][name]');
@@ -301,7 +301,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
             }
 
             // TODO input value值为空的时候，去加载config中的默认值 ,例如时间选择器 , value为空，但是有默认时间
-            formData[name] = value || (await App.parseElementProperty(formItem)).value;
+            formData[name] = value || App.parseElementProperty(formItem).value;
         }
         return formData;
     }
@@ -311,7 +311,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         e.preventDefault();
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
-        let formData = await FormAction.getFormData(form);
+        let formData = FormAction.getFormData(form);
         console.log('formData:', formData);
 
         let verify = this.verifyFormData(form, formData);
@@ -385,12 +385,12 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // 获取表单数据
-    public static async getFormData(form: HTMLElement): Promise<IFormData> {
+    public static getFormData(form: HTMLElement): IFormData {
 
-        let formData = await this.getDataByElement(form);
+        let formData = this.getDataByElement(form);
 
         // 处理 form-group 内的组件
-        let formGroupData = await this.getFormGroupData(form);
+        let formGroupData = this.getFormGroupData(form);
         console.log('formGroupData', formGroupData);
 
         return Object.assign(formData, formGroupData);
@@ -402,7 +402,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         // let formItems = this.componentSerive.getFormComponents(form);
         let formItems = [ ...form.querySelectorAll(`[name][data-component-uid][form-component]`) ] as Array<HTMLElement>;
         for (const formItem of formItems) {
-            let property = await App.parseElementProperty(formItem);        // 默认属性
+            let property = App.parseElementProperty(formItem);        // 默认属性
             let value = property.value;
             formItem && trigger(formItem, value);
         }
