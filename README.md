@@ -8,7 +8,7 @@ React + Typescript + Antd + WUI
 
 ## 开发环境]
 
-1. 需安装 node 环境 👉🏿 [node官网](https://nodejs.org/zh-cn/)
+1. 需安装 node 环境 v12.16.1 👉🏿 [node官网](https://nodejs.org/zh-cn/)
 
 2. 安装 pm2  进程管理工具 
 

@@ -6,7 +6,7 @@
  */
 
 import $ from 'jquery';
-import { isArray } from '@utils/inspect';
+import { isArray } from '@src/utils';
 
 type el = HTMLElement | HTMLInputElement
 
@@ -19,6 +19,7 @@ type el = HTMLElement | HTMLInputElement
 
 type IEventType = 'change' | string
 
+// TODO 事件必须全部小写,驼峰命名html 会全部转化为小写
 export function trigger(el: el, value: string | Array<any>, event_type: IEventType = 'change') {
 
     if (!el) {

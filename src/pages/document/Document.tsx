@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { deepEach } from '@utils/util';
+import { deepEach } from '@src/utils';
 import { componentConfig } from '@src/config/component.config';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
@@ -16,13 +16,13 @@ import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import { HttpClientService } from '@src/services/HttpClient.service';
-import { Inject } from 'typescript-ioc';
 import { FormatDataService } from '@services/FormatData.service';
+import { HttpClientService } from '@services/HttpClient.service';
+import { Inject } from 'typescript-ioc';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
 
-class Document extends React.Component<any, any> {
+export default class Document extends React.Component<any, any> {
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
 
@@ -31,7 +31,7 @@ class Document extends React.Component<any, any> {
         routes        : [],
         collapsed     : false,
         showCodeDesign: false,          // 是否显示组件设计器
-        navRoutes     : [ ...navRoutes ],
+        navRoutes     : [...navRoutes],
     };
 
     constructor(props) {
@@ -60,7 +60,7 @@ class Document extends React.Component<any, any> {
         let pageRoutes: Array<any> = [];
         for (const item of data) {
             let html = (await import(`@root/template/${ item }`)).default;
-            let [ name ] = item.split('.');
+            let [name] = item.split('.');
             pageRoutes.push({
                 name     : name,
                 path     : '/nav-' + item,
@@ -68,11 +68,11 @@ class Document extends React.Component<any, any> {
             });
         }
         let navRoutes = this.state.navRoutes;
-        return [ ...navRoutes, ...pageRoutes ];
+        return [...navRoutes, ...pageRoutes];
     }
 
     getCurrentMenu() {
-        let [ , currentRoute ] = window.location.hash.split('#');
+        let [, currentRoute] = window.location.hash.split('#');
         return currentRoute;
     }
 
@@ -99,7 +99,7 @@ class Document extends React.Component<any, any> {
                         <div className="logo"/>
 
                         {/*TODO defaultSelectedKeys 有二级路由估计GG了 */ }
-                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [ this.getCurrentMenu() ] }>
+                        <Menu theme="light" mode="horizontal" defaultSelectedKeys={ [this.getCurrentMenu()] }>
                             { this.state.navRoutes.map(route => {
                                 return <Menu.Item key={ route.path }>
                                     { route.target
@@ -135,5 +135,3 @@ class Document extends React.Component<any, any> {
         );
     }
 }
-
-export default Document;

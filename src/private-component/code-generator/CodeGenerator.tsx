@@ -5,37 +5,19 @@
  * Time: 1:37 下午
  */
 
-import {
-    Button,
-    Card,
-    Cascader,
-    Col,
-    Form,
-    Input,
-    InputNumber,
-    message,
-    Radio,
-    Row,
-    Select,
-    Slider,
-    Space,
-    Switch,
-} from 'antd';
+import { Button, Card, Cascader, Col, Form, Input, InputNumber, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { PureComponent } from 'react';
-import { IOptions, IPropertyConfig, componentConfig } from '@src/config/component.config';
+import { componentConfig, IOptions, IPropertyConfig } from '@src/config/component.config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { arraylastItem } from '@src/utils/util';
-// import { withRouter } from 'react-router';
-import { isObject, isUndefined, isUrl } from '@utils/inspect';
+import { arraylastItem, isObject, isUndefined, isUrl, parseEnum } from '@src/utils';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
-import { parseEnum } from '@utils/parser-property';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-import { FormatDataService } from '@services/FormatData.service';
+import { FormatDataService, HttpClientService } from '@src/services';
+import * as url from 'url';
 
 interface IComponentDataset {
     el: string
@@ -89,7 +71,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     setAttributeValue(index, value) {
         // TODO React 设置数组中的某一项的值
-        let componentsProperty: Array<IComponentDataset> = [ ...this.state.componentsProperty ];
+        let componentsProperty: Array<IComponentDataset> = [...this.state.componentsProperty];
         componentsProperty[index].value = value;
         this.setState({ componentsProperty });
     }
@@ -160,6 +142,21 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                         fieldOptions.push({ label: itemKey, value: itemKey });
                     }
                 }
+            }
+
+            if (k === 'url' && !val.value) {
+                let res = await this.httpClientService.jsonp('/server/urls');
+                let o = res.status ? res.data : {};
+                let selectOptions: Array<IOptions> = [];
+                for (const k in o) {
+                    if (!o.hasOwnProperty(k)) continue;
+                    let item = o[k];
+                    selectOptions.push({
+                        label: k,
+                        value: item,
+                    });
+                }
+                val.options = selectOptions;
             }
 
             if (k === 'enum') {
@@ -296,7 +293,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             if (item.label.includes('hook:')) {
-                let [ , hookName ] = item.label.split(':');
+                let [, hookName] = item.label.split(':');
                 let funcName = item.value;
                 funcNames.push({ funcName, hookName });
             }
@@ -433,7 +430,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     renderNumberInput(key, item) {
         return <InputNumber
-            min={ 0 } max={ 800 } defaultValue={ 3 }
+            min={ 0 } max={ 800 }
             step={ 1 }
             onChange={ e => {
                 this.setAttributeValue(key, e);
@@ -457,23 +454,23 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                                    align="start">
                                 <Form.Item
                                     { ...field }
-                                    name={ [ field.name, 'value' ] }
-                                    fieldKey={ [ field.fieldKey, 'value' ] }
-                                    rules={ [ {
+                                    name={ [field.name, 'value'] }
+                                    fieldKey={ [field.fieldKey, 'value'] }
+                                    rules={ [{
                                         required: true,
                                         message : 'Missing value',
-                                    } ] }
+                                    }] }
                                 >
                                     <Input placeholder="value"/>
                                 </Form.Item>
                                 <Form.Item
                                     { ...field }
-                                    name={ [ field.name, 'label' ] }
-                                    fieldKey={ [ field.fieldKey, 'label' ] }
-                                    rules={ [ {
+                                    name={ [field.name, 'label'] }
+                                    fieldKey={ [field.fieldKey, 'label'] }
+                                    rules={ [{
                                         required: true,
                                         message : 'Missing label',
-                                    } ] }
+                                    }] }
                                 >
                                     <Input placeholder="label"/>
                                 </Form.Item>
@@ -571,7 +568,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                         <Col span={ 18 }>
                             <Form.Item
                                 label="组件名称"
-                                rules={ [ { required: true, message: '请选择组件' } ] }>
+                                rules={ [{ required: true, message: '请选择组件' }] }>
                                 <Cascader options={ this.state.componentsTree }
                                           onChange={ this.handleChangeComponent.bind(this) }
                                           placeholder="请选择组件"/>
@@ -585,7 +582,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                             let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
                             let formItem;
-                            switch(item.el) {
+                            switch (item.el) {
                                 case 'switch':
                                     formItem = this.renderSwitch(key, item);
                                     break;

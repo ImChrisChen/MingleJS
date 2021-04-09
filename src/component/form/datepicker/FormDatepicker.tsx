@@ -8,10 +8,9 @@
 import React from 'react';
 import { Button, DatePicker, Form } from 'antd';
 import moment from 'moment';
-import { trigger } from '@utils/trigger';
+import { isArray, trigger } from '@src/utils';
 import { IComponentProps } from '@interface/common/component';
-import { isArray, isUndefined } from '@utils/inspect';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 const { RangePicker } = DatePicker;
 
@@ -21,7 +20,7 @@ let res = moment().calendar(null, {
     nextWeek: 'dddd',
     lastDay : '[昨天]',
     lastWeek: '[上个] dddd',
-    sameElse: 'DD/MM/YYYY',
+    sameElse: 'DD/MM/YYYY'
 });
 
 export default class FormDatepicker extends React.Component<IComponentProps, any> {
@@ -30,8 +29,8 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         format: this.props.dataset.format || 'YYYY-MM-DD',
         // mode        : 'decade',          // time | date | month | year | decade
         // defaultValue: [ "2020-09-11", "2020-09-17" ],
-        value : [],
-        open  : false,
+        value: [],
+        open: false
     };
 
     constructor(props) {
@@ -44,7 +43,7 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         let [ startValue, endValue ] = value;
         this.setState({
             value: [ moment(startValue, format), moment(endValue, format) ],
-            open : false,
+            open : false
         });
 
         value = isArray(value) ? value.join('~') : value;
@@ -64,7 +63,7 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         this.setState({
             // value: [ moment(beginTime, this.state.format), moment(endTime, this.state.format) ],
             value: value,
-            open : false,
+            open: false
         }, () => trigger(this.props.el, value));
     }
 
@@ -82,7 +81,7 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
             { label: '前两周', unit: 'weeks', amount: 2 },
             { label: '30天', unit: 'days', amount: 30 },
             { label: '前3个月', unit: 'months', amount: 3 },
-            { label: '前1年', unit: 'years', amount: 1 },
+            { label: '前1年', unit: 'years', amount: 1 }
         ];
         return dayMap.map((item, i) => {
             return <Button key={ i + item.unit }
@@ -103,8 +102,8 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
         let { format, single, label, usenow } = this.props.dataset;
         let dateValue;
 
-        // 不实用当前时间
-        if (!usenow) {
+        // 默认值为空时 并且不使用当前时间
+        if (!usenow && !value) {
             return undefined;
         }
 
@@ -122,12 +121,27 @@ export default class FormDatepicker extends React.Component<IComponentProps, any
     }
 
     render() {
-        let { single, usenow, picker, mode, disabled, format, allowClear, showtime, label, required } = this.props.dataset;
+        let {
+            single,
+            usenow,
+            picker,
+            mode,
+            disabled,
+            format,
+            allowClear,
+            showtime,
+            label,
+            required,
+            exec,
+            smart
+        } = this.props.dataset;
 
         let value = this.valueFormat(this.props.value);
 
         return <Form.Item label={ label } style={ { display: 'flex', ...this.props.style } } required={ required }>
-            { this.props.dataset.smart ? <FormSmartIcon/> : '' }
+            { smart ? <FormSmartIcon /> : '' }
+            { exec ? <FormExecIcon /> : '' }
+
             { single ?
                 // 单选
                 <DatePicker

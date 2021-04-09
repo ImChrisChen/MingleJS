@@ -36,7 +36,7 @@
         const libsMap = {
             charts: `https://g.alicdn.com/code/lib/bizcharts/4.1.9/BizCharts.min.js`,
         };
-        return (libNames.length > 0) ? libNames.map(name => libsMap[name]) : [];
+        return (libNames.length > 0) ? libNames.map(name => libsMap[name]).filter(t => t) : [];
     }
     
     function getUrls() {

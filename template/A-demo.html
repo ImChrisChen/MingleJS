@@ -1,14 +1,116 @@
-<div id="demo1">
+<div id='demo1'>
+
+    <!--    <layout-list>-->
+    <!--        <div w-foreach="list as item"><{item}></div>-->
+    <!--    </layout-list>-->
+
+    <!--    <form-select>-->
+
+    <!--    </form-select>-->
+
+    <!--    <define-component module="form-select">-->
+
+    <!--    </define-component>-->
+
+    <!--    <form-action>-->
+    <!--        <form-select name='pf' style="display: flex; justify-content: flex-end">-->
+
+    <!--        </form-select>-->
+    <!--    </form-action>-->
+
+
+    <!--    <layout-list>-->
+    <!--        <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>" w-foreach="funnel as item"></form-input>-->
+    <!--    </layout-list>-->
+
+    <!--    <form-select style="background-color: #b2c8ff"></form-select>-->
+
+
+    <!--    &lt;!&ndash;    <form-select></form-select>&ndash;&gt;-->
+
+    <form-cascader
+        data-disabled='false'
+        data-exec='true'
+        data-groupby=''
+        data-key=''
+        data-label='label:'
+        data-required='true'
+        data-smart='true'
+        data-url='http://mingle-test.local.aidalan.com/server/mock/select.json'
+        data-value=''
+    ></form-cascader>
+
+    <form-datepicker data-exec='true'
+                     data-fn='form-datepicker'
+                     data-format='YYYY-MM-DD HH:mm:ss'
+                     data-label='起始日期:'
+                     data-maxdate=''
+                     data-mindate=''
+                     data-showtime='true'
+                     data-usenow='false'
+                     name='date_range'
+    />
+    </form-datepicker>
+
+    <data-table
+        @select-change='onSelectChange(this)'
+        data-bordered='true'
+        data-currentpage='1'
+        data-headerurl='http://mingle-test.local.aidalan.com/server/mock/table/tableHeader.json'
+        data-height='300'
+        data-interval='0'
+        data-pages='50,100,200'
+        data-pagesize='500'
+        data-pagination='true'
+        data-position='bottomRight'
+        data-rowkey='location'
+        data-showheader='true'
+        data-showupdate='false'
+        data-size='small'
+        data-title='标题'
+        data-url='http://mingle-test.local.aidalan.com/server/mock/table/tableContent.json'
+    ></data-table>
+    <layout-list data-cols='1' data-url='/server/mock/chart/funnel.json'>
+        <div>
+            <h1>--------------------</h1>
+        </div>
+    </layout-list>
+
+    <a data-fn='layout-window' href='https://baidu.com'>百度</a>
+
+    <!--    <embed title='visualization for graph database' height='100%' width='100%'-->
+    <!--           src='https://gw.alipayobjects.com/os/bmw-prod/660e1732-ff10-4f00-8594-a08d5a2d11d8.pdf' type='application/pdf'>-->
+
+    <!--    <layout-row style="border: 1px solid #cccccc;background-color: #1890ff">-->
+    <!--        <layout-col data-col="4">123</layout-col>-->
+    <!--        <layout-col data-col="16">123</layout-col>-->
+    <!--        <layout-col data-col="4">123</layout-col>-->
+    <!--    </layout-row>-->
+
+    <!-- 1 -->
+    <!--    <data-table data-height="400">-->
+    <!--    </data-table>-->
+    <!--    -->
+    <!--    <h1><{count}></h1>-->
+
+    <!--    <button @click="add()"></button>-->
+
+    <!--    <layout-list data-url="https://" data-item="item">-->
+    <!--        <div>-->
+    <!--            <form-select data-label="<{ item.name }>"></form-select>-->
+    <!--        </div>-->
+    <!--    </layout-list>-->
 
     <!--    <layout-list data-cols="1">-->
     <!--    <data-table data-title="table"></data-table>-->
     <!--    </layout-list>-->
 
-    <ul>
-        <li w-foreach="list as item">
-            <a data-fn="layout-window" href="#">submit</a>
-        </li>
-    </ul>
+    <!--    <ul>-->
+    <!--        <li w-foreach="list as item">-->
+    <!--            &lt;!&ndash; 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 &ndash;&gt;-->
+    <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
+    <!--        </li>-->
+    <!--    </ul>-->
 
 </div>
 
@@ -16,21 +118,70 @@
     new Mingle({
         el: '#demo1',
         data: {
-            publisher_name: '-----------',
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,
             visible: true,
-            list: new Array(10).fill({ name: Math.random(1000) }),
+            // list: new Array(10).fill({ name: Math.random(1000) }),
+            list: [
+                {
+                    name: '淘宝',
+                    url: 'https://taobao.com'
+                },
+                {
+                    name: '百度',
+                    url: 'https://baidu.com'
+                },
+                {
+                    name: '京东',
+                    url: 'https://www.jd.com/'
+                }
+            ],
+            funnel: [],
+            // funnel: [
+            //     {
+            //         'key': '渠道1',
+            //         'value': 50000,
+            //         'value1': 500000,
+            //     },
+            //     {
+            //         'key': '渠道2',
+            //         'value': 35000,
+            //         'value1': 350000,
+            //     },
+            //     {
+            //         'key': '渠道3',
+            //         'value': 25000,
+            //         'value1': 250000,
+            //     },
+            //     {
+            //         'key': '渠道4',
+            //         'value': 15000,
+            //         'value1': 150000,
+            //     },
+            //     {
+            //         'key': '渠道5',
+            //         'value': 8000,
+            //         'value1': 80000,
+            //     },
+            // ],
             obj: {
                 game_id: '4',
-                pf: '2',
-            },
+                pf: '2'
+            }
         },
-        created() {
+        async created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
+            let funnel = await this.$jsonp(`/server/mock/chart/funnel.json`);
+            console.log(funnel);
+            this.funnel = funnel;
         },
         methods: {
+
+            onSelectChange(el) {
+                console.log(el.value);
+            },
+
             handleClick(e) {
                 console.log(e);
             },
@@ -46,7 +197,7 @@
             },
             reduce() {
                 this.count--;
-            },
-        },
+            }
+        }
     });
 </script>

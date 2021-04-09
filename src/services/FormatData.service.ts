@@ -5,11 +5,9 @@
  * Time: 3:32 下午
  */
 
-import { deepEach } from '@utils/util';
-import { isArray, isDOMString, isWuiTpl } from '@utils/inspect';
+import { deepEach, isArray, isDOMString, isWuiTpl, strParseVirtualDOM } from '@src/utils';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { strParseVirtualDOM } from '@utils/trans-dom';
-import { IOptions } from '@src/config/component.config';
+import { IOptions } from '@src/config';
 import { Inject } from 'typescript-ioc';
 
 interface IKeyMap {
@@ -38,7 +36,7 @@ export class FormatDataService {
                 let val = item[key];
                 return {
                     label: val,
-                    value: key,
+                    value: key
                 };
             }
         });
@@ -73,7 +71,7 @@ export class FormatDataService {
                 // https://ant-design.gitee.io/components/select-cn/#Option-props
                 // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
                 value: value,
-                label: label,
+                label: label
                 // title: label,
             };
         });
@@ -102,7 +100,7 @@ export class FormatDataService {
                     document : await document,
                     property,
                     path,
-                    ...args,
+                    ...args
                 };
                 children.push(item);
             }
@@ -110,7 +108,7 @@ export class FormatDataService {
             newArr.push({
                 label   : key,
                 children: children,
-                value   : key,
+                value: key
             });       // select / datepicker
         }
         return newArr;
@@ -131,7 +129,7 @@ export class FormatDataService {
                 id        : pid,              // 父子映射关系
                 [children]: [],
                 label     : pid,
-                value     : pid,
+                value: pid
             };
         });
         list.forEach(item => {
@@ -144,7 +142,7 @@ export class FormatDataService {
                     id   : id,
                     value: item[id],
                     label: label,
-                    pid  : item[pid],       // 父子映射关系
+                    pid  : item[pid]       // 父子映射关系
                 });
             }
         });
@@ -202,7 +200,7 @@ export class FormatDataService {
             return node;
         }
 
-        deepEach(root, function (node) {
+        deepEach(root, function(node) {
             replaceKey(before.id, after.id, node);
             replaceKey(before.name, after.name, node);
             replaceKey(before.pid, after.pid, node);
