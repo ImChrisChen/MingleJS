@@ -94,6 +94,7 @@ export default class App {
         let subelements = [...el.children].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
+        container.style.height = '100%';
         container.classList.add('component-container');
         // let container = el;
         el.append(container);
