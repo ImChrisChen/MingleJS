@@ -564,6 +564,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     }
 
     render() {
+        console.log(this.props);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -581,7 +582,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             <Table
                 indentSize={ this.state.indentSize }
-                style={ this.props.style }
+                // style={ this.props.style }       // TODO 在layout-list 的子元素下，会被影响到
                 className={ style.formTable }
                 components={ {} }
                 onRow={ record => {
