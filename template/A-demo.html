@@ -1,4 +1,4 @@
-<div id='demo1'>
+<div id="demo1">
 
     <!--    <layout-list>-->
     <!--        <div w-foreach="list as item"><{item}></div>-->
@@ -29,54 +29,57 @@
     <!--    &lt;!&ndash;    <form-select></form-select>&ndash;&gt;-->
 
     <form-cascader
-        data-disabled='false'
-        data-exec='true'
-        data-groupby=''
-        data-key=''
-        data-label='label:'
-        data-required='true'
-        data-smart='true'
-        data-url='http://mingle-test.local.aidalan.com/server/mock/select.json'
-        data-value=''
+        data-disabled="false"
+        data-exec="true"
+        data-groupby=""
+        data-key=""
+        data-label="label:"
+        data-required="true"
+        data-smart="true"
+        data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
+        data-value=""
     ></form-cascader>
 
-    <form-datepicker data-exec='true'
-                     data-fn='form-datepicker'
-                     data-format='YYYY-MM-DD HH:mm:ss'
-                     data-label='起始日期:'
-                     data-maxdate=''
-                     data-mindate=''
-                     data-showtime='true'
-                     data-usenow='false'
-                     name='date_range'
+    <form-datepicker data-exec="true"
+                     data-fn="form-datepicker"
+                     data-format="YYYY-MM-DD HH:mm:ss"
+                     data-label="起始日期:"
+                     data-maxdate=""
+                     data-mindate=""
+                     data-showtime="true"
+                     data-usenow="false"
+                     name="date_range"
     />
     </form-datepicker>
 
     <data-table
-        @select-change='onSelectChange(this)'
-        data-bordered='true'
-        data-currentpage='1'
-        data-headerurl='http://mingle-test.local.aidalan.com/server/mock/table/tableHeader.json'
-        data-height='300'
-        data-interval='0'
-        data-pages='50,100,200'
-        data-pagesize='500'
-        data-pagination='true'
-        data-position='bottomRight'
-        data-rowkey='location'
-        data-showheader='true'
-        data-showupdate='false'
-        data-size='small'
-        data-title='标题'
-        data-url='http://mingle-test.local.aidalan.com/server/mock/table/tableContent.json'
+        data-bordered="true"
+        data-currentpage="1"
+        data-headerurl="http://mingle-test.local.aidalan.com/server/mock/table/tableHeader.json"
+        data-height="300"
+        data-interval="0"
+        data-pages="50,100,200"
+        data-pagesize="500"
+        data-pagination="true"
+        data-position="bottomRight"
+        data-rowkey="location"
+        data-showheader="true"
+        data-showupdate="false"
+        data-size="small"
+        data-title="标题"
+        data-url="http://mingle-test.local.aidalan.com/server/mock/table/tableContent.json"
+        ref="table"
+        @click="handleClick"
+        @select-change="onSelectChange(this)"
     ></data-table>
-    <layout-list data-cols='1' data-url='/server/mock/chart/funnel.json'>
+    
+    <layout-list data-cols="1" data-url="/server/mock/chart/funnel.json">
         <div>
             <h1>--------------------</h1>
         </div>
     </layout-list>
 
-    <a data-fn='layout-window' href='https://baidu.com'>百度</a>
+    <a data-fn="layout-window" href="https://baidu.com">百度</a>
 
     <!--    <embed title='visualization for graph database' height='100%' width='100%'-->
     <!--           src='https://gw.alipayobjects.com/os/bmw-prod/660e1732-ff10-4f00-8594-a08d5a2d11d8.pdf' type='application/pdf'>-->
@@ -111,6 +114,16 @@
     <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
     <!--        </li>-->
     <!--    </ul>-->
+    
+    <ul>
+        <li w-foreach="tableObj as item"><{item.key}></li>
+    </ul>
+    
+<!--    <layout-list>-->
+<!--        <data-table data-url="<{tableObj.data}>" data-title="草绿色哦">-->
+<!--            -->
+<!--        </data-table>-->
+<!--    </layout-list>-->
 
 </div>
 
@@ -118,6 +131,8 @@
     new Mingle({
         el: '#demo1',
         data: {
+            tableObj: {},
+            firstTable:{},
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,
@@ -126,16 +141,16 @@
             list: [
                 {
                     name: '淘宝',
-                    url: 'https://taobao.com'
+                    url: 'https://taobao.com',
                 },
                 {
                     name: '百度',
-                    url: 'https://baidu.com'
+                    url: 'https://baidu.com',
                 },
                 {
                     name: '京东',
-                    url: 'https://www.jd.com/'
-                }
+                    url: 'https://www.jd.com/',
+                },
             ],
             funnel: [],
             // funnel: [
@@ -167,14 +182,13 @@
             // ],
             obj: {
                 game_id: '4',
-                pf: '2'
-            }
+                pf: '2',
+            },
         },
         async created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
-            let funnel = await this.$jsonp(`/server/mock/chart/funnel.json`);
-            console.log(funnel);
-            this.funnel = funnel;
+            let tableObj = await this.$jsonp(`/server/mock/chart/funnel.json`);
+            this.tableObj = tableObj;
         },
         methods: {
 
@@ -184,6 +198,9 @@
 
             handleClick(e) {
                 console.log(e);
+                console.log(this);
+                let tableInstance = this.$refs.table;
+                console.log(tableInstance);
             },
 
             show() {
@@ -197,7 +214,7 @@
             },
             reduce() {
                 this.count--;
-            }
-        }
+            },
+        },
     });
 </script>

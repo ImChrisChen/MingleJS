@@ -14,6 +14,7 @@ import $ from 'jquery';
 import { directiveForeach } from '@src/config/directive.config';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService, ParserElementService } from '@src/services';
+import App, { DataComponentUID } from '@src/App';
 
 export default class LayoutList extends Component<IComponentProps, any> {
 
@@ -43,9 +44,12 @@ export default class LayoutList extends Component<IComponentProps, any> {
     }
 
     componentDidMount() {
+        // TODO 处理页面设计器动态渲染列表时出现的BUG, 后续可以再改进交互模式
         if (this.props.dataset.url && this.state.subelements) {
             this.getLayoutListChildren().then(subelements => {
-                this.setState({ subelements });
+                this.setState({ subelements }, () => {
+                    new App(this.props.el);
+                });
             });
         }
     }
@@ -59,6 +63,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
         if (url && subelements) {
             let template = subelements[0];
+            console.log(template);
             if (height) template.style.height = height + 'px';
 
             let res = await this.httpClientService.jsonp(url);
@@ -69,7 +74,11 @@ export default class LayoutList extends Component<IComponentProps, any> {
             }
 
             template.setAttribute(directiveForeach, `data as (${ item || 'default_item' },${ index || 'default_index' })`);
+            // console.log(template.cloneNode(true));
+            // template.removeAttribute(DataComponentUID);
+            // $(template).children().remove();
             let elements = this.parserElementService.parseElement(elementWrap(template), { data });
+
             let ch = [ ...elements.children ] as Array<HTMLElement>;
             children.push(...ch);
         }
@@ -110,7 +119,8 @@ export default class LayoutList extends Component<IComponentProps, any> {
             let element = document.createElement('div');
             element.style.width = width;
             element.style.marginBottom = bottom + 'px';
-            element.style.visibility = 'hidden';        // 占位符
+            // element.style.visibility = 'hidden';        // 占位符
+            element.style.opacity = '0';
             elements.push(element);
         }
         return elements;

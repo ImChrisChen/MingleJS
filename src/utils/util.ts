@@ -73,7 +73,7 @@ export function deepEachElementTail(root, callback?: (el: HTMLElement, parentNod
  * @param callback
  * @param parentNode
  */
-export function deepEachElement(root, callback?: (el: HTMLElement, parentNode: any) => void, parentNode?) {
+export function deepEachElement(root, callback?: (el: HTMLElement, parentNode?: HTMLElement) => void, parentNode?) {
     if (!root) return;
 
     callback && callback(root, parentNode);

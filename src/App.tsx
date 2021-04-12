@@ -60,9 +60,7 @@ export default class App {
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
-    constructor(root: HTMLElement) {
-
-        // console.log(count++);
+    constructor(root: HTMLElement,private readonly forceRender = false) {
 
         if (!root) return;
 
@@ -154,9 +152,23 @@ export default class App {
     async init(rootElement: HTMLElement) {
 
         App.renderIcons(rootElement);
-        deepEachElement(rootElement, async (element) => {
+        deepEachElement(rootElement, async (element,parentNode) => {
             let { localName: tagName } = element;
-            let isWebComponents = false;     // TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决
+            
+            // TODO layout-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从layout-list控制子组件渲染
+            if (parentNode?.localName === 'layout-list' && parentNode.getAttribute('data-url')) {
+                
+                if (!this.forceRender) {
+                    console.log('拦截掉', element);
+                    return;
+                }
+            }
+
+            /**
+             * TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决,
+             * 例如：组件的参数依赖 foreach 上下文的模版的解析，注册过的组件通常导致，首先加载组件，而没有解析模版。
+             */
+            let isWebComponents = false;     
 
             // 如果是自定义组件
             if (isCustomElement(tagName)) {
@@ -224,7 +236,8 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    await App.renderCustomElement(element);
+                    console.log(this.forceRender);
+                    App.renderCustomElement(element);
                 }
 
             } else {        // data-fn 函数功能
