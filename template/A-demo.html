@@ -111,6 +111,16 @@
     <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
     <!--        </li>-->
     <!--    </ul>-->
+    
+    <ul>
+        <li w-foreach="tableObj as item"><{item.key}></li>
+    </ul>
+    
+<!--    <layout-list>-->
+<!--        <data-table data-url="<{tableObj.data}>" data-title="草绿色哦">-->
+<!--            -->
+<!--        </data-table>-->
+<!--    </layout-list>-->
 
 </div>
 
@@ -118,6 +128,8 @@
     new Mingle({
         el: '#demo1',
         data: {
+            tableObj: {},
+            firstTable:{},
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,
@@ -172,9 +184,8 @@
         },
         async created() {
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
-            let funnel = await this.$jsonp(`/server/mock/chart/funnel.json`);
-            console.log(funnel);
-            this.funnel = funnel;
+            let tableObj = await this.$jsonp(`/server/mock/chart/funnel.json`);
+            this.tableObj = tableObj;
         },
         methods: {
 

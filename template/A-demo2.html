@@ -1,17 +1,55 @@
 <div id="demo2">
-    <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>"></form-input>
-    <!--    <p>-->
-    <!--        <data-table data-height="400"></data-table>-->
-    <!--    </p>-->
-    <!--    <layout-list>-->
-    <!--        <div @foreach="list as item"><{item.name}></div>-->
-    <!--    </layout-list>-->
-    <!--    <ul>-->
-    <!--        <li w-foreach="list as item">-->
-    <!--            &lt;!&ndash; 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 &ndash;&gt;-->
-    <!--            <span data-fn="layout-drawer" data-width="600" href="<{item.url}>"><{item.name}></span>-->
-    <!--        </li>-->
-    <!--    </ul>-->
+    <div virtual-key="container" name="主页面">
+        <layout-list virtual-key="40ab-1618199843357-75257" class="children-events-disabled" data-cols="2"
+                     data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json" data-space="20,10"
+                     data-selectable="false" data-single="false" data-searchable="false" data-item="item"
+                     data-index="index" data-height="0">
+            <data-table virtual-key="264f-1618199846123-30364"
+                        class="children-events-disabled"
+                        w-foreach="tables as (item,index)"
+                        data-from=""
+                        data-headerurl="http://mingle.local.aidalan.com/server/mock/table/tableHeader.json"
+                        data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                        data-bordered="true"
+                        data-showheader="true"
+                        data-size="small"
+                        
+                        data-pagesize="500"
+                        data-currentpage="1"
+                        data-pages="50,100,200"
+                        data-pagination="true"
+                        data-position="bottomRight"
+                        data-interval="0"
+                        data-height="400"
+                        data-title="标题"
+                        data-showupdate="false"
+                        data-headfield=""
+                        data-rowkey=""></data-table>
+        </layout-list>
+<!--        <layout-list>-->
+<!--            <data-table virtual-key="264f-1618199846123-30364"-->
+<!--                        class="children-events-disabled"-->
+<!--                        w-foreach="tables as (item,index)"-->
+<!--                        data-from=""-->
+<!--                        data-headerurl="http://mingle.local.aidalan.com/server/mock/table/tableHeader.json"-->
+<!--                        data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"-->
+<!--                        data-bordered="true"-->
+<!--                        data-showheader="true"-->
+<!--                        data-size="small"-->
+<!--                        data-pagesize="500"-->
+<!--                        data-currentpage="1"-->
+<!--                        data-pages="50,100,200"-->
+<!--                        data-pagination="true"-->
+<!--                        data-position="bottomRight"-->
+<!--                        data-interval="0"-->
+<!--                        data-height="400"-->
+<!--                        data-title="标题"-->
+<!--                        data-showupdate="false"-->
+<!--                        data-headfield=""-->
+<!--                        data-rowkey=""></data-table>-->
+<!--        </layout-list>-->
+    </div>
+
 </div>
 
 <script>
@@ -33,6 +71,34 @@
                     url: 'https://www.jd.com/',
                 },
             ],
+            'tables': [
+                {
+                    'key': '渠道1',
+                    'value': 50000,
+                    'value1': 500000,
+                },
+                {
+                    'key': '渠道2',
+                    'value': 35000,
+                    'value1': 350000,
+                },
+                // {
+                //     'key': '渠道3',
+                //     'value': 25000,
+                //     'value1': 250000,
+                // },
+                // {
+                //     'key': '渠道4',
+                //     'value': 15000,
+                //     'value1': 150000,
+                // },
+                // {
+                //     'key': '渠道5',
+                //     'value': 8000,
+                //     'value1': 80000,
+                // },
+            ],
+            'containerNode': {},
         },
 
         methods: {
