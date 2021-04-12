@@ -43,22 +43,25 @@ export default class LayoutList extends Component<IComponentProps, any> {
     }
 
     componentDidMount() {
-        if (this.props.dataset.url && this.state.subelements) {
-            this.getLayoutListChildren().then(subelements => {
-                this.setState({ subelements });
-            });
-        }
+        // TODO 处理页面设计器动态渲染列表时出现的BUG, 后续可以再改进交互模式
+        // if (this.props.dataset.url && this.state.subelements) {
+        //     this.getLayoutListChildren().then(subelements => {
+        //         this.setState({ subelements });
+        //     });
+        // }
     }
 
     async getLayoutListChildren() {
-        let { cols, space, url, item, index } = this.props.dataset;
+        let { cols, space, url, item, index, height } = this.props.dataset;
         let subelements = this.state.subelements;
-        let [right, bottom] = space;
+        let [ right, bottom ] = space;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
         let children: Array<HTMLElement> = [];
 
         if (url && subelements) {
             let template = subelements[0];
+            if (height) template.style.height = height + 'px';
+
             let res = await this.httpClientService.jsonp(url);
             let data = res.status ? res.data : [];
 
@@ -68,7 +71,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
             template.setAttribute(directiveForeach, `data as (${ item || 'default_item' },${ index || 'default_index' })`);
             let elements = this.parserElementService.parseElement(elementWrap(template), { data });
-            let ch = [...elements.children] as Array<HTMLElement>;
+            let ch = [ ...elements.children ] as Array<HTMLElement>;
             children.push(...ch);
         }
         return children;
@@ -96,7 +99,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
                 }
             }
             let list = $(this).parent().children('.' + style.layoutListSelected);
-            let values = [...list].map(item => $(item).attr('value')).join(',');
+            let values = [ ...list ].map(item => $(item).attr('value')).join(',');
             console.log('layout-list change:', values);
             trigger(self.props.el, values);
         });
@@ -108,7 +111,8 @@ export default class LayoutList extends Component<IComponentProps, any> {
             let element = document.createElement('div');
             element.style.width = width;
             element.style.marginBottom = bottom + 'px';
-            element.style.visibility = 'hidden';        // 占位符
+            // element.style.visibility = 'hidden';        // 占位符
+            element.style.opacity = '0';
             elements.push(element);
         }
         return elements;
@@ -129,8 +133,9 @@ export default class LayoutList extends Component<IComponentProps, any> {
 
     // (cols - 1) * (right / 2)
     render() {
-        let { cols, space } = this.props.dataset;
-        let [right, bottom] = space;
+        console.log(this.props);
+        let { cols, space, height } = this.props.dataset;
+        let [ right, bottom ] = space;
 
         // let { subelements } = this.props;
         let subelements = this.state.subelements;
@@ -150,6 +155,8 @@ export default class LayoutList extends Component<IComponentProps, any> {
                 node.innerHTML = '';
 
                 let children = subelements.map((element, index) => {
+                    if (height) element.style.height = height + 'px';
+
                     let search = element.innerText.includes(this.state.searchText);
                     if (search) {
                         element.style.width = width;

@@ -156,7 +156,13 @@ export default class App {
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element) => {
             let { localName: tagName } = element;
-            let isWebComponents = false;     // TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决
+            
+            
+            /**
+             * TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决,
+             * 例如：组件的参数依赖 foreach 上下文的模版的解析，注册过的组件通常导致，首先加载组件，而没有解析模版。
+             */
+            let isWebComponents = false;     
 
             // 如果是自定义组件
             if (isCustomElement(tagName)) {

@@ -308,11 +308,12 @@ export const componentConfig = {
                     label     : UniversalProps.label,
                     enum      : UniversalProps.enum,
                     url       : {
-                        el: 'select',
+                        el: 'input',
                         // value  : domain + '/server/mock/select.json',
-                        value  : 'http://e.aidalan.com/option/pf/list?jsoncallback=callback1617932910291_936',
+                        // value  : 'http://e.aidalan.com/option/pf/list?jsoncallback=callback1617932910291_936',
+                        value: '',
                         desc   : '列表数据的接口地址',
-                        request: true,
+                        // request: true,
                         parse  : 'string',
                         verify : value => isUrl(value)
                     },
@@ -1915,7 +1916,13 @@ export const componentConfig = {
                         parse: 'null',
                         value: 'index',
                         desc : '列表的下标'
-                    }
+                    },
+                    height: {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 0,
+                        desc : '高度',
+                    },
                 }
             },
             type     : 'web-components'
