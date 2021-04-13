@@ -17,6 +17,89 @@ interface IKeyMap {
     children?: string
 }
 
+const  componentsName = {
+    app:'子应用',
+    menu:'菜单',
+    layout:"布局",
+    form:'表单',
+    select:'选择框',
+    selecttree:'树形选择框',
+    checkbox:'单选框',
+    cascader:'级联选择框',
+    datepicker:'日期选择框',
+    action:'表单容器',
+    radio:'多选框',
+    slider:'滑动输入条',
+    switch:'开关',
+    input:'输入框',
+    group:'表单列表',
+    upload:'上传控件',
+    color:'颜色选择器',
+    transfer:'穿梭框',
+    view:'视图',
+    steps:'步骤条',
+    dropdown:'提示内容',
+    calendar:'日历',
+    panel:'面板',
+    image:'图片',
+    data:'数据',
+    table:'表格',
+    chart:'图表',
+    tree:'数据树',
+    tips:'提示',
+    card:'内容提示组件',
+    text:'文字提示',
+    tab:'标签页',
+    window:'弹窗',
+    drawer:'抽屉栏',
+    list:'循环列表',
+    row:'行',
+    col:'列',
+    handle:'处理',
+    request:'请求',
+    operate:'操作',
+    editor:'编辑',
+    markdown:'文本编辑器'
+}
+
+const  componentsIfont  = {
+    menu:'icon-layoutmenuv',
+    layout:"icon-layout",
+    select:'icon-xuanzekuang',
+    selecttree:'icon-select-tree',
+    checkbox:'icon-check-box',
+    cascader:'icon-cascader',
+    datepicker:'icon-icon-el-date-picker',
+    action:'icon-form1',
+    radio:'icon-Ioniconsmdradiobuttonon',
+    slider:'icon-slider',
+    switch:'icon-youxiao',
+    input:'icon-input',
+    group:'icon-lie1',
+    upload:'icon-shangchuan5',
+    color:'icon-color',
+    transfer:'icon-transfer',
+    steps:'icon-steps',
+    dropdown:'icon-drop-down',
+    calendar:'icon-canlender',
+    panel:'icon-panel',
+    image:'icon-imageloading',
+    table:'icon-table',
+    chart:'icon-chartpartten',
+    tree:'icon-tree',
+    card:'icon-liaotianneirongtishi',
+    text:'icon-ziyuan1',
+    tab:'icon-tab',
+    window:'icon-iFrame',
+    drawer:'icon-drawer',
+    list:'icon-tubiao04',
+    row:'icon-hang',
+    col:'icon-lie',
+    request:'icon-qingqiu',
+    operate:'icon-caozuo',
+    markdown:'icon-mark_down'
+}
+
 export class FormatDataService {
 
     @Inject private readonly parserTemplateService: ParserTemplateService;
@@ -94,10 +177,11 @@ export class FormatDataService {
                 let v = val[k];
                 let { component, document, path, property, ...args } = v;
                 let item = {
-                    label    : k,
+                    label    : componentsName[k],
                     value    : k,
                     component: await component,
                     document : await document,
+                    iconfont : componentsIfont[k],
                     property,
                     path,
                     ...args
@@ -106,7 +190,7 @@ export class FormatDataService {
             }
 
             newArr.push({
-                label   : key,
+                label   : componentsName[key],
                 children: children,
                 value: key
             });       // select / datepicker
