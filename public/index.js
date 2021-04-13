@@ -35,6 +35,7 @@
         
         const libsMap = {
             charts: `https://g.alicdn.com/code/lib/bizcharts/4.1.9/BizCharts.min.js`,
+            icfonts: `https://at.alicdn.com/t/font_2482718_ukx88b6qide.css`
         };
         return (libNames.length > 0) ? libNames.map(name => libsMap[name]).filter(t => t) : [];
     }
