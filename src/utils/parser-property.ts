@@ -93,6 +93,10 @@ export function parserAttrs(attrs, defaultAttrsConfig, parsedDataset) {
             cssText = finalAttrs[key];
             finalAttrs[key] = parseLineStyle(finalAttrs[key]);
         }
+        if (key === 'class' && isString(finalAttrs[key])) {
+            cssText = finalAttrs[key];
+            finalAttrs[key] = parseClass(finalAttrs[key]);
+        }
     }
 
     finalAttrs.cssText = cssText;
@@ -148,7 +152,9 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
         case 'style':       // 行内样式解析成 JSX Style
             value = parseLineStyle(value);
             break;
-
+        case 'class':       // 样式名解析成JSX ClassName
+            value = parseClass(value);
+            break;
         case 'null':
             break;
 
@@ -183,6 +189,10 @@ export function parseLineStyle(style: string): object {
         return arr;
     }, []);
     return Object.assign({}, ...stylesJson);
+}
+
+export function parseClass(className: string): string {
+    return className;
 }
 
 export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: string): Array<object> {

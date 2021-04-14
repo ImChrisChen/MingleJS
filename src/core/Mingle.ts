@@ -5,16 +5,18 @@
  * Time: 10:59 上午
  */
 
-import App from '@src/App';
+import App, { DataComponentUID } from '@src/App';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService, LogReportService, ParserElementService } from '@src/services';
 import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { componentConfig } from '@src/config/component.config';
+import { styleConfig } from '@src/config/styleConfig';
+import { isString } from '@src/utils';
 
 interface IMingleOptions {
-    el: string
+    el: string | HTMLElement
     data?: object
     created?: (...args) => any
     methods?: {
@@ -44,10 +46,10 @@ const formatDataService = new FormatDataService;
 
 export class Mingle {
 
+    public $refs = {};
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
-
     // TODO 静态方法不能使用依赖注入
     private oldVnode;
 
@@ -69,12 +71,17 @@ export class Mingle {
             },
             methods: {},
         };
-        this.run(Object.assign(defaultOptions, options));
+        this.run({ ...defaultOptions, ...options });
     }
 
     // 获取所有组件配置
     public static async getComponentConfigs() {
         return await formatDataService.components2MenuTree(componentConfig);
+    }
+
+    // 获取样式配置
+    public static getStyleConfigs() {
+        return styleConfig;
     }
 
     // 渲染DOM
@@ -148,6 +155,20 @@ export class Mingle {
         }
     }
 
+    private static getRefs() {
+        let refs = document.querySelectorAll('[ref]');
+        let $refs = {};
+        for (let ref of refs) {
+            let value = ref.getAttribute('ref') ?? '';
+            let uid = ref.getAttribute(DataComponentUID) ?? '';
+            if (!value || !uid) continue;
+
+            let { instance } = App.getInstance(uid);
+            $refs[value] = instance ?? {};
+        }
+        return $refs;
+    }
+
     // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到
     public $get = async (url, ...args) => {
         return Mingle.httpResponseInterceptor(await this.httpClientService.get(url, ...args));
@@ -187,6 +208,7 @@ export class Mingle {
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
         let isVirtual = false;
+        this.$refs = Mingle.getRefs();
 
         if (!container) {
             return;
@@ -200,7 +222,7 @@ export class Mingle {
             console.timeEnd('虚拟DOM首次渲染性能测试');
 
             $(container).html('');
-            for (const child of [...node.childNodes]) {
+            for (const child of [ ...node.childNodes ]) {
                 container.append(child);
             }
             await Mingle.render(container);
@@ -335,14 +357,15 @@ export class Mingle {
     private async run(options) {
         let { el, data, created, methods, mounted, updated } = options;
 
-        let container = document.querySelector(el) as HTMLElement;
+        let container: HTMLElement = isString(el) ? document.querySelector(el) : el;
 
         if (!container) {
             return;
         }
 
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
-        let o = Object.assign(data, methods, this);
+        // let o = Object.assign(data, methods, this);     // this 上访问到的数据
+        let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);
             updated?.();

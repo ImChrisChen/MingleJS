@@ -32,6 +32,7 @@ export default class FormSlider extends Component<IComponentProps, any> {
             { smart ? <FormSmartIcon /> : '' }
             { exec ? <FormExecIcon /> : '' }
             <Slider
+                style={ { flex:1 } }
                 range={ range }
                 step={ step }
                 defaultValue={ 30 }
@@ -40,7 +41,7 @@ export default class FormSlider extends Component<IComponentProps, any> {
                 min={ min }
                 value={ value }
                 onChange={ e => this.handleChange(e) }
-            />;
+            />
         </Form.Item>;
 
     }

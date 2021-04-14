@@ -60,9 +60,7 @@ export default class App {
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
-    constructor(root: HTMLElement) {
-
-        // console.log(count++);
+    constructor(root: HTMLElement,private readonly forceRender = false) {
 
         if (!root) return;
 
@@ -94,12 +92,13 @@ export default class App {
         let subelements = [...el.children].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
+        container.style.height = '100%';
         container.classList.add('component-container');
         // let container = el;
         el.append(container);
 
         // form-component
-        if (tagName.startsWith('form')) {
+        if (tagName.startsWith('form-')) {
             el.setAttribute('form-component', '');
         }
 
@@ -130,9 +129,11 @@ export default class App {
         };
 
         let props: IComponentProps;
+        // React 写法的组件
         if (isReactComponent(Component)) {
             props = App.renderComponent(module);
         } else {
+            // 原生js组件
             let defaultProperty = Module.property;
             let { dataset, attrs } = App.parseProps(el, defaultProperty);
             props = {
@@ -153,9 +154,23 @@ export default class App {
     async init(rootElement: HTMLElement) {
 
         App.renderIcons(rootElement);
-        deepEachElement(rootElement, async (element) => {
+        deepEachElement(rootElement, async (element,parentNode) => {
             let { localName: tagName } = element;
-            let isWebComponents = false;     // TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决
+            
+            // TODO layout-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从layout-list控制子组件渲染
+            if (parentNode?.localName === 'layout-list' && parentNode.getAttribute('data-url')) {
+                
+                if (!this.forceRender) {
+                    console.log('拦截掉', element);
+                    return;
+                }
+            }
+
+            /**
+             * TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决,
+             * 例如：组件的参数依赖 foreach 上下文的模版的解析，注册过的组件通常导致，首先加载组件，而没有解析模版。
+             */
+            let isWebComponents = false;     
 
             // 如果是自定义组件
             if (isCustomElement(tagName)) {
@@ -223,7 +238,7 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    await App.renderCustomElement(element);
+                    App.renderCustomElement(element);
                 }
 
             } else {        // data-fn 函数功能
@@ -385,13 +400,15 @@ export default class App {
                 }
 
                 let groupname = element.getAttribute('data-group');
-                let formElement = $(element).closest('form-action');
-                let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
-                groups.forEach(el => {
-                    if (el !== element) {
-                        console.log(el);
-                    }
-                });
+                if (groupname) {
+                    let formElement = $(element).closest('form-action');
+                    let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
+                    groups.forEach(el => {
+                        if (el !== element) {
+                            console.log(el);
+                        }
+                    });
+                }
             });
         });
 
@@ -458,14 +475,18 @@ export default class App {
     }
 
     // 通过 Element 获取到组件解析后的所有属性
-    public static async parseElementProperty(el: HTMLElement): Promise<any> {
+    public static parseElementProperty(el: HTMLElement): IComponentProps {
         let componentModule = loadModule(el.localName);
 
         let defaultProperty = componentModule.property;
 
         let { dataset, attrs } = this.parseProps(el, defaultProperty);
 
-        return { dataset, ...attrs };
+        return { 
+            el, 
+            dataset, 
+            ...attrs
+        };
     }
 
     public static parseProps(el: HTMLElement, defaultProperty) {

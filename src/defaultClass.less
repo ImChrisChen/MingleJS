@@ -1,0 +1,477 @@
+@primaryColor:#7266ba; // 主色
+@infoColor:#23b7e5; // 信息
+@warningColor:#fad733; // 警告
+@dangerColor:#f05050; // 危险
+@successColor:#27c24c; // 成功
+@whiteColor:#fff; // 白色
+@darkColor:#3a3f51; // 暗色
+@lightColor:#edf1f2; // 浅色
+@mutedColor:#99a6ad; // 淡色
+
+@xs:5px;
+@sm:10px;
+@m:15px;
+@md:20px;
+@lg:30px;
+
+@borderWidth: 1px;
+
+@borderRadiusXs: 2px;
+@borderRadiusSm: 4px;
+@borderRadius: 6px;
+@borderRadiusMd: 8px;
+@borderRadiusLg: 10px;
+
+@textXs: 12px;
+@textSm: 14px;
+@textBs: 16px;
+@textMd: 18px;
+@textLg: 20px;
+
+@w-xxs:60px;
+@w-xs:90px;
+@w-sm:150px;
+@w:200px;
+@w-md:240px;
+@w-lg:280px;
+@w-xl:320px;
+@w-xxl:360px;
+@w-full:100%;
+
+//外边距
+
+// 整体
+// 极小
+.m-xs{
+    margin: @xs;
+}
+// 小
+.m-sm{
+    margin:  @sm;
+}
+// 正常
+.m{
+    margin:  @m;
+}
+// 中
+.m-md{
+    margin:  @md;
+}
+// 大
+.m-lg{
+    margin:  @lg;
+}
+// 上边距
+.m-t-xs{
+    margin: @xs;
+}
+// 小
+.m-t-sm{
+    margin:  @sm;
+}
+// 正常
+.m-t{
+    margin:  @m;
+}
+// 中
+.m-t-md{
+    margin:  @md;
+}
+// 大
+.m-t-lg{
+    margin:  @lg;
+}
+
+// 右边距
+.m-r-xs{
+    margin: @xs;
+}
+// 小
+.m-r-sm{
+    margin:  @sm;
+}
+// 正常
+.m-r{
+    margin:  @m;
+}
+// 中
+.m-r-md{
+    margin:  @md;
+}
+// 大
+.m-r-lg{
+    margin:  @lg;
+}
+
+// 下边距
+.m-b-xs{
+    margin: @xs;
+}
+// 小
+.m-b-sm{
+    margin:  @sm;
+}
+// 正常
+.m-b{
+    margin:  @m;
+}
+// 中
+.m-b-md{
+    margin:  @md;
+}
+// 大
+.m-b-lg{
+    margin:  @lg;
+}
+
+// 左边距
+.m-l-xs{
+    margin: @xs;
+}
+// 小
+.m-l-sm{
+    margin:  @sm;
+}
+// 正常
+.m-l{
+    margin:  @m;
+}
+// 中
+.m-l-md{
+    margin:  @md;
+}
+// 大
+.m-l-lg{
+    margin:  @lg;
+}
+
+// 外边距置无
+.m-none{
+    margin: 0px !important;
+}
+.m-t-none{
+    margin: 0px !important;
+}
+.m-r-none{
+    margin: 0px !important;
+}
+.m-b-none{
+    margin: 0px !important;
+}
+.m-l-none{
+    margin: 0px !important;
+}
+
+//内边距
+
+// 整体
+// 极小
+.p-xs{
+    padding: @xs;
+}
+// 小
+.p-sm{
+    padding:  @sm;
+}
+// 正常
+.p{
+    padding:  @m;
+}
+// 中
+.p-md{
+    padding:  @md;
+}
+// 大
+.p-lg{
+    padding:  @lg;
+}
+// 上边距
+.p-t-xs{
+    padding: @xs;
+}
+// 小
+.p-t-sm{
+    padding:  @sm;
+}
+// 正常
+.p-t{
+    padding:  @m;
+}
+// 中
+.p-t-md{
+    padding:  @md;
+}
+// 大
+.p-t-lg{
+    padding:  @lg;
+}
+
+// 右边距
+.p-r-xs{
+    padding: @xs;
+}
+// 小
+.p-r-sm{
+    padding:  @sm;
+}
+// 正常
+.p-r{
+    padding:  @m;
+}
+// 中
+.p-r-md{
+    padding:  @md;
+}
+// 大
+.p-r-lg{
+    padding:  @lg;
+}
+
+// 下边距
+.p-b-xs{
+    padding: @xs;
+}
+// 小
+.p-b-sm{
+    padding:  @sm;
+}
+// 正常
+.p-b{
+    padding:  @m;
+}
+// 中
+.p-b-md{
+    padding:  @md;
+}
+// 大
+.p-b-lg{
+    padding:  @lg;
+}
+
+// 左边距
+.p-l-xs{
+    padding: @xs;
+}
+// 小
+.p-l-sm{
+    padding:  @sm;
+}
+// 正常
+.p-l{
+    padding:  @m;
+}
+// 中
+.p-l-md{
+    padding:  @md;
+}
+// 大
+.p-l-lg{
+    padding:  @lg;
+}
+
+// 外边距置无
+.p-none{
+    padding: 0px !important;
+}
+.p-t-none{
+    padding: 0px !important;
+}
+.p-r-none{
+    padding: 0px !important;
+}
+.p-b-none{
+    padding: 0px !important;
+}
+.p-l-none{
+    padding: 0px !important;
+}
+
+// 边框
+.b-a{
+    border: @borderWidth solid #d1d5db;
+}
+.b-t{
+    border-top: @borderWidth solid #d1d5db;
+}
+.b-r{
+    border-right: @borderWidth solid #d1d5db;
+}
+.b-b{
+    border-bottom: @borderWidth solid #d1d5db;
+}
+.b-l{
+    border-left: @borderWidth solid #d1d5db;
+}
+.no-border{
+    border-width: 0;
+    border-color: transparent;
+}
+.b-2x{
+    border-width: 2*@borderWidth;
+}
+.b-3x{
+    border-width: 3*@borderWidth;
+}
+.b-4x{
+    border-width: 4*@borderWidth;
+}
+.b-5x{
+    border-width: 5*@borderWidth;
+}
+// 边框颜色
+.b-primary{
+    border-color: @primaryColor;
+}
+.b-info{
+    border-color: @infoColor;
+}
+.b-warning{
+    background-color: @warningColor;
+}
+.b-danger{
+    background-color: @dangerColor;
+}
+.b-success{
+    background-color: @successColor;
+}
+.b-white{
+    background-color: @whiteColor;
+}
+.b-dark{
+    background-color: @darkColor;
+}
+.b-light{
+    background-color: @lightColor;
+}
+
+// 其他
+// 圆角
+.r-xs{
+    border-radius: @borderRadiusXs;
+}
+.r-sm{
+    border-radius: @borderRadiusSm;
+}
+.r {
+    border-radius: @borderRadius;
+}
+.r-md{
+    border-radius: @borderRadiusMd;
+}
+.r-lg{
+    border-radius: @borderRadiusLg;
+}
+// 字体
+.font-normal{
+    font-weight:400
+}
+.font-thin{
+    font-weight:300
+}
+.font-bold{
+    font-weight:700
+}
+.text-xs{
+    font-size: @textXs;
+}
+.text-sm{
+    font-size: @textSm;
+}
+.text-base{
+    font-size: @textBs;
+}
+.text-md{
+    font-size: @textMd;
+}
+.text-lg{
+    font-size: @textLg;
+}
+.text-primary{
+    color: @primaryColor;
+}
+.text-info{
+    color: @infoColor;
+}
+.text-warning{
+    color: @warningColor;
+}
+.text-danger{
+    color: @dangerColor;
+}
+.text-success{
+    color: @successColor;
+}
+.text-white{
+    color: @whiteColor;
+}
+.text-dark{
+    color: @darkColor;
+}
+.text-muted{
+    color: @mutedColor;
+}
+.bg-primary{
+    background-color: @primaryColor;
+    color: @whiteColor;
+}
+.bg-info{
+    background-color: @infoColor;
+    color: @whiteColor;
+}
+.bg-warning{
+    background-color: @warningColor;
+    color: @whiteColor;
+}
+.bg-danger{
+    background-color: @dangerColor;
+    color: @whiteColor;
+}
+.bg-success{
+    background-color: @successColor;
+    color: @whiteColor;
+}
+.bg-white{
+    background-color: @whiteColor;
+    color: @darkColor;
+}
+.bg-dark{
+    background-color: @darkColor;
+    color: @whiteColor;
+}
+.bg-light{
+    background-color: @lightColor;
+    color: @darkColor;
+}
+.no-bg{
+    background-color: transparent;
+    color:inherit;
+}
+
+// 宽度
+.w-xxs{
+    width: @w-xxs;
+}
+.w-xs{
+    width: @w-xs;
+}
+.w-sm{
+    width: @w-sm;
+}
+.w{
+    width: @w;
+}
+.w-md{
+    width: @w-md;
+}
+.w-lg{
+    width: @w-lg
+}
+.w-xl{
+    width: @w-xl;
+}
+.w-xxl{
+    width: @w-xxl;
+}
+.w-full{
+    width: @w-full;
+}

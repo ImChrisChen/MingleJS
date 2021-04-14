@@ -1,1 +1,32 @@
-{	"status": true,	"message": "ok",	"data": [		{			"key": "渠道1",			"value": 50000,			"value1": 500000		},		{			"key": "渠道2",			"value": 35000,			"value1": 350000		},		{			"key": "渠道3",			"value": 25000,			"value1": 250000		},		{			"key": "渠道4",			"value": 15000,			"value1": 150000		},		{			"key": "渠道5",			"value": 8000,			"value1": 80000		}	]}
+{
+	"status": true,
+	"message": "ok",
+	"data": [
+		{
+			"key": "渠道1",
+			"value": 50000,
+			"value1": 500000
+		},
+		{
+			"key": "渠道2",
+			"value": 35000,
+			"value1": 350000
+		},
+		{
+			"key": "渠道3",
+			"value": 25000,
+			"value1": 250000
+		},
+		{
+			"key": "渠道4",
+			"value": 15000,
+			"value1": 150000
+		},
+		{
+			"key": "渠道5",
+			"value": 8000,
+			"value1": 80000
+		}
+	]
+}
+

@@ -36,7 +36,7 @@ export class FormatDataService {
                 let val = item[key];
                 return {
                     label: val,
-                    value: key
+                    value: key,
                 };
             }
         });
@@ -71,7 +71,7 @@ export class FormatDataService {
                 // https://ant-design.gitee.io/components/select-cn/#Option-props
                 // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
                 value: value,
-                label: label
+                label: label,
                 // title: label,
             };
         });
@@ -86,29 +86,32 @@ export class FormatDataService {
         for (const key in componentConfig) {
             if (!componentConfig.hasOwnProperty(key)) continue;
             let val = componentConfig[key];
+            let { name, children: child } = val;
+
             let children: Array<object> = [];
 
-            for (const k in val) {
-                if (!val.hasOwnProperty(k)) continue;
+            for (const k in child) {
+                if (!child.hasOwnProperty(k)) continue;
 
-                let v = val[k];
-                let { component, document, path, property, ...args } = v;
+                let v = child[k];
+                let { component, document, path, property, icon, name, ...args } = v;
                 let item = {
-                    label    : k,
+                    label    : name,
                     value    : k,
                     component: await component,
                     document : await document,
+                    iconfont : icon,
                     property,
                     path,
-                    ...args
+                    ...args,
                 };
                 children.push(item);
             }
 
             newArr.push({
-                label   : key,
+                label   : name,
                 children: children,
-                value: key
+                value   : key,
             });       // select / datepicker
         }
         return newArr;
@@ -129,7 +132,7 @@ export class FormatDataService {
                 id        : pid,              // 父子映射关系
                 [children]: [],
                 label     : pid,
-                value: pid
+                value     : pid,
             };
         });
         list.forEach(item => {
@@ -142,7 +145,7 @@ export class FormatDataService {
                     id   : id,
                     value: item[id],
                     label: label,
-                    pid  : item[pid]       // 父子映射关系
+                    pid  : item[pid],       // 父子映射关系
                 });
             }
         });
@@ -200,7 +203,7 @@ export class FormatDataService {
             return node;
         }
 
-        deepEach(root, function(node) {
+        deepEach(root, function (node) {
             replaceKey(before.id, after.id, node);
             replaceKey(before.name, after.name, node);
             replaceKey(before.pid, after.pid, node);
