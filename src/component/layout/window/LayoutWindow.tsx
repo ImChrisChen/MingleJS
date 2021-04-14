@@ -10,6 +10,8 @@ import { INativeProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
+import { FormatDataService } from '@src/services';
+import { Inject } from 'typescript-ioc';
 
 let c = document.createElement('div');
 c.setAttribute('id', 'WIN');
@@ -20,6 +22,7 @@ export default class LayoutWindow {
     public static instance;
 
     private readonly props: INativeProps;
+    @Inject private readonly formatDataService: FormatDataService;
 
     // TODO 使用单例模式，复用一个弹窗 (减少内存消耗)
     constructor(props: INativeProps) {
@@ -43,11 +46,14 @@ export default class LayoutWindow {
     handleShowModel() {
 
         let prevUrl = LayoutWindow.instance.state.iframeUrl;
-        let currentUrl = this.props.el.getAttribute('href');
+        let currentUrl = this.props.el.getAttribute('href') ?? window.location.href;
+        let { entityid } = this.props.dataset;
         let iframeHidden = true;
         if (prevUrl === currentUrl) {
             iframeHidden = false;
         }
+        currentUrl = this.formatDataService.obj2Url({ entityid }, currentUrl);
+        console.log(currentUrl);
         LayoutWindow.instance.setState({
             // 在a标签时可以不用设置,设置后其他标签也通用 <button data-fn="layout-window" href='https://baidu.com'>btn</button>
             iframeUrl   : currentUrl,

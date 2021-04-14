@@ -7,3 +7,4 @@
 
 export * from './component.config';
 export * from './directive.config';
+export * from './hostname.config';

@@ -1920,7 +1920,10 @@ export const componentConfig: IConfig = {
                             desc : '是否默认打开弹出窗',
                         },
                         entityid: {
-                            el: 'input',
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : '实体ID, 如果不是加载实体，则无须传入',
                         },
                     },
                 },

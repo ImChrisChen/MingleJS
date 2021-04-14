@@ -34,3 +34,13 @@ export interface INativeProps {
 export interface IReactStyle {
     [key: string]: string | number
 }
+
+export interface IVnode {
+    key: string | number;
+    tag: string;
+    pid: string | number;
+    children: Array<IVnode>;
+    props: object;
+    events: any;
+    configs?: Array<any>;
+}

@@ -78,7 +78,7 @@ export class HttpClientService {
             },
             err => {
                 // console.log(err);
-            }
+            },
         );
     }
 
@@ -111,7 +111,7 @@ export class HttpClientService {
                     // 重新发起请求
                     return axios.request(originalRequest);
                 }
-            }
+            },
         );
     }
 
@@ -159,7 +159,7 @@ export class HttpClientService {
                     flag       : 'mingle',
                     method     : 'get',
                     dataType   : 'jsonp',
-                    headers    : '{}'
+                    headers    : '{}',
                 });
             } catch(e) {
                 console.error(e);
