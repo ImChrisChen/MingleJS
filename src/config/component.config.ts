@@ -173,7 +173,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         parse  : 'string',
         // verify: value => isUrl(value),
     },
-    'enum'     : {
+    enum       : {
         el   : 'list',
         value: '1,Android;2,iOS;3,MacOS;4,Windows',
         // value: '',
@@ -246,7 +246,6 @@ interface IConfig {
 
 // TODO 注意属性不能使用驼峰例如: data-headerUrl, attribute不区分大小写，但是这里是用的dataset会全部转成小写来获取;
 export const componentConfig: IConfig = {
-    // 子应用
     app   : {
         name    : '子应用',
         children: {
@@ -925,7 +924,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-youxiao',
             },
-            input   : {
+            input     : {
                 path     : '/form-input',
                 component: import('@component/form/input/FormInput'),
                 property : {
@@ -972,7 +971,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-input',
             },
-            group   : {
+            group     : {
                 path     : '/form-group',
                 component: import('@component/form/group/FormGroup'),
                 document : import('@component/form/group/FormGroup.md'),
@@ -993,7 +992,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-lie1',
             },
-            upload  : {
+            upload    : {
                 component: import('@component/form/upload/FormUpload'),
                 path     : '/form-upload',
                 property : {
@@ -1047,7 +1046,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-shangchuan5',
             },
-            color   : {
+            color     : {
                 component: import('@component/form/color/FormColor'),
                 path     : '/form-color',
                 property : {
@@ -1070,7 +1069,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-color',
             },
-            transfer: {
+            transfer  : {
                 component: import('@component/form/transfer/FormTransfer'),
                 path     : '/form-transfer',
                 property : {
@@ -1138,7 +1137,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-transfer',
             },
-            button  : {
+            button    : {
                 component: import('@component/form/button/FormButton'),
                 path     : '/form-button',
                 property : {
@@ -1766,7 +1765,7 @@ export const componentConfig: IConfig = {
     layout: {
         name    : '布局设计',
         children: {
-            menu    : {
+            menu  : {
                 component: import('@component/layout/menu/LayoutMenu'),
                 path     : '/layout-menu',
                 property : {
@@ -1849,7 +1848,7 @@ export const componentConfig: IConfig = {
                 name     : '菜单',
                 icon     : 'icon-layoutmenuv',
             },
-            tab     : {
+            tab   : {
                 component: import('@component/layout/tab/LayoutTab'),
                 document : import('@component/layout/tab/LayoutTab.md'),
                 path     : '/layout-tab',
@@ -1878,47 +1877,50 @@ export const componentConfig: IConfig = {
                 name     : '选项卡',
                 icon     : 'icon-tab',
             },
-            'window': {
+            window: {
                 component: import('@component/layout/window/LayoutWindow'),
                 document : import('@component/layout/window/LayoutWindow.md'),
                 path     : '/layout-window',
                 property : {
                     dataset: {
-                        title : {
+                        title   : {
                             el   : 'input',
                             parse: 'string',
                             value: '标题',
                             desc : '弹窗的标题',
                         },
-                        label : {
+                        label   : {
                             el   : 'input',
                             parse: 'string',
                             value: 'submit',
                             desc : '按钮的内容',
                         },
-                        height: {
+                        height  : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的高度',
                         },
-                        width : {
+                        width   : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的宽度',
                         },
-                        mask  : {
+                        mask    : {
                             el   : 'switch',
                             value: false,
                             parse: 'boolean',
                             desc : '是否显示遮罩层',
                         },
-                        open  : {
+                        open    : {
                             el   : 'switch',
                             parse: 'boolean',
                             value: false,
                             desc : '是否默认打开弹出窗',
+                        },
+                        entityid: {
+                            el: 'input',
                         },
                     },
                 },
@@ -1926,7 +1928,7 @@ export const componentConfig: IConfig = {
                 name     : '弹窗',
                 icon     : 'icon-iFrame',
             },
-            drawer  : {
+            drawer: {
                 component: import('@component/layout/drawer/LayoutDrawer'),
                 property : {
                     dataset: {
@@ -1984,7 +1986,7 @@ export const componentConfig: IConfig = {
                 name     : '抽屉',
                 icon     : 'icon-drawer',
             },
-            list    : {
+            list  : {
                 component: import('@component/layout/list/LayoutList'),
                 document : import('@component/layout/list/LayoutList.md'),
                 path     : '/layout-list',
@@ -2050,7 +2052,7 @@ export const componentConfig: IConfig = {
                 name     : '循环列表',
                 icon     : 'icon-tubiao04',
             },
-            row     : {
+            row   : {
                 component: import('@component/layout/row/LayoutRow'),
                 document : import('@component/layout/row/LayoutRow.md'),
                 path     : '/layout-row',
@@ -2077,7 +2079,7 @@ export const componentConfig: IConfig = {
                 name     : '栅格布局(行)',
                 icon     : 'icon-hang',
             },
-            col     : {
+            col   : {
                 component: import('@component/layout/row/col/LayoutCol'),
                 path     : '/layout-col',
                 property : {
