@@ -33,7 +33,6 @@ export default class AppRender {
         el.append(node);
         new Mingle({ el: node });
         el.style.opacity = '1';
-        el.style.visibility = 'visible';
     }
 
     getData(el: HTMLElement): IVnode {
@@ -44,7 +43,9 @@ export default class AppRender {
         let json;
 
         try {
+            console.time('JSON.parse');
             json = JSON.parse(content);
+            console.timeEnd('JSON.parse'); // 0.33203125ms
         } catch(e) {
             console.warn(e);
         }
@@ -53,16 +54,8 @@ export default class AppRender {
     }
 
     vnodeToElement(node: IVnode): HTMLElement {
-        let { key, tag, pid, configs, props, children, events } = node;
+        let { tag, props, children, events } = node;
         let el = document.createElement(tag);
-        // key && el.setAttribute('virtual-key', String(key));
-
-        // 组件的属性key value 都是通过configs去保存的
-        for (const name in configs) {
-            if (!configs.hasOwnProperty(name)) continue;
-            let { value, label } = configs[name];
-            el[label] = value;
-        }
 
         // 属性
         for (const name in props) {

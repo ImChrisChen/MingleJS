@@ -5,7 +5,8 @@
 
 app-render {
     opacity    : 0;
-    visibility : hidden;
+    //visibility : hidden;
+    transition: all 400ms linear;
 }
 
 [data-component-uid] {
