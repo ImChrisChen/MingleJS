@@ -94,7 +94,8 @@ export class FormatDataService {
                 if (!child.hasOwnProperty(k)) continue;
 
                 let v = child[k];
-                let { component, document, path, property, icon, name, ...args } = v;
+                // TODO children 要移除否则和antd options 的数据结构冲突
+                let { component, document, path, property, icon, name, children: c, ...args } = v;
                 let item = {
                     label    : name,
                     value    : k,

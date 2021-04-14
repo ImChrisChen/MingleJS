@@ -5,7 +5,7 @@
  * Time: 10:22 上午
  */
 
-import { componentConfig } from '@src/config/component.config';
+import { componentConfig, IComponentConfig, IPropertyConfig } from '@src/config/component.config';
 
 // 递归加载模块
 async function getModules(keys, object) {
@@ -45,7 +45,11 @@ export function loadModule(key: string) {
     }
 
     let keys = key.toLowerCase().trim().split('-');
-    let mod = componentConfig[keys[0]][keys[1]];
+    // let mod = componentConfig[keys[0]][keys[1]];
+    let mod = componentConfig?.[keys[0]]?.children?.[keys[1]] as IComponentConfig<IPropertyConfig>;
+    if (!mod) {
+        console.warn(`没有${ key }这个模块`);
+    }
     return {
         component: mod.component,
         property : mod.property,
