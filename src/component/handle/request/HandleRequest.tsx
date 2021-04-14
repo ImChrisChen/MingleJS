@@ -6,16 +6,16 @@
  */
 
 import React from 'react';
-import { IComponentProps } from '@interface/common/component';
+import { INativeProps } from '@interface/common/component';
 import { message } from 'antd';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services/HttpClient.service';
 
-export default class HandleRequest extends React.Component<IComponentProps, any> {
+export default class HandleRequest {
+
     @Inject private readonly httpClientService: HttpClientService;
 
-    constructor(props) {
-        super(props);
+    constructor(private readonly props: INativeProps) {
         this.props.el.onclick = e => this.handleRequest(e);
     }
 
@@ -25,13 +25,9 @@ export default class HandleRequest extends React.Component<IComponentProps, any>
                 let { status, msg } = await this.httpClientService.jsonp(this.props.dataset.url);
                 message.success(status ? '操作成功' : '操作失败');
             }
-        } catch (error) {
+        } catch(error) {
             message.success(error.message);
         }
-    }
-
-    render() {
-        return <></>;
     }
 }
 

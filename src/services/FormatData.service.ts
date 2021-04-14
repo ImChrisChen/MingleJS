@@ -17,89 +17,6 @@ interface IKeyMap {
     children?: string
 }
 
-const  componentsName = {
-    app:'子应用',
-    menu:'菜单',
-    layout:"布局",
-    form:'表单',
-    select:'选择框',
-    selecttree:'树形选择框',
-    checkbox:'单选框',
-    cascader:'级联选择框',
-    datepicker:'日期选择框',
-    action:'表单容器',
-    radio:'多选框',
-    slider:'滑动输入条',
-    switch:'开关',
-    input:'输入框',
-    group:'表单列表',
-    upload:'上传控件',
-    color:'颜色选择器',
-    transfer:'穿梭框',
-    view:'视图',
-    steps:'步骤条',
-    dropdown:'提示内容',
-    calendar:'日历',
-    panel:'面板',
-    image:'图片',
-    data:'数据',
-    table:'表格',
-    chart:'图表',
-    tree:'数据树',
-    tips:'提示',
-    card:'内容提示组件',
-    text:'文字提示',
-    tab:'标签页',
-    window:'弹窗',
-    drawer:'抽屉栏',
-    list:'循环列表',
-    row:'行',
-    col:'列',
-    handle:'处理',
-    request:'请求',
-    operate:'操作',
-    editor:'编辑',
-    markdown:'文本编辑器'
-}
-
-const  componentsIfont  = {
-    menu:'icon-layoutmenuv',
-    layout:"icon-layout",
-    select:'icon-xuanzekuang',
-    selecttree:'icon-select-tree',
-    checkbox:'icon-check-box',
-    cascader:'icon-cascader',
-    datepicker:'icon-icon-el-date-picker',
-    action:'icon-form1',
-    radio:'icon-Ioniconsmdradiobuttonon',
-    slider:'icon-slider',
-    switch:'icon-youxiao',
-    input:'icon-input',
-    group:'icon-lie1',
-    upload:'icon-shangchuan5',
-    color:'icon-color',
-    transfer:'icon-transfer',
-    steps:'icon-steps',
-    dropdown:'icon-drop-down',
-    calendar:'icon-canlender',
-    panel:'icon-panel',
-    image:'icon-imageloading',
-    table:'icon-table',
-    chart:'icon-chartpartten',
-    tree:'icon-tree',
-    card:'icon-liaotianneirongtishi',
-    text:'icon-ziyuan1',
-    tab:'icon-tab',
-    window:'icon-iFrame',
-    drawer:'icon-drawer',
-    list:'icon-tubiao04',
-    row:'icon-hang',
-    col:'icon-lie',
-    request:'icon-qingqiu',
-    operate:'icon-caozuo',
-    markdown:'icon-mark_down'
-}
-
 export class FormatDataService {
 
     @Inject private readonly parserTemplateService: ParserTemplateService;
@@ -119,7 +36,7 @@ export class FormatDataService {
                 let val = item[key];
                 return {
                     label: val,
-                    value: key
+                    value: key,
                 };
             }
         });
@@ -154,7 +71,7 @@ export class FormatDataService {
                 // https://ant-design.gitee.io/components/select-cn/#Option-props
                 // TODO 这里有点坑，非要转换成string类型才可以正常使用(不然有很多问题), 官网都说可以用 string 或者 number,有空提个issues 🥲
                 value: value,
-                label: label
+                label: label,
                 // title: label,
             };
         });
@@ -169,30 +86,32 @@ export class FormatDataService {
         for (const key in componentConfig) {
             if (!componentConfig.hasOwnProperty(key)) continue;
             let val = componentConfig[key];
+            let { name, children: child } = val;
+
             let children: Array<object> = [];
 
-            for (const k in val) {
-                if (!val.hasOwnProperty(k)) continue;
+            for (const k in child) {
+                if (!child.hasOwnProperty(k)) continue;
 
-                let v = val[k];
-                let { component, document, path, property, ...args } = v;
+                let v = child[k];
+                let { component, document, path, property, icon, name, ...args } = v;
                 let item = {
-                    label    : componentsName[k],
+                    label    : name,
                     value    : k,
                     component: await component,
                     document : await document,
-                    iconfont : componentsIfont[k],
+                    iconfont : icon,
                     property,
                     path,
-                    ...args
+                    ...args,
                 };
                 children.push(item);
             }
 
             newArr.push({
-                label   : componentsName[key],
+                label   : name,
                 children: children,
-                value: key
+                value   : key,
             });       // select / datepicker
         }
         return newArr;
@@ -213,7 +132,7 @@ export class FormatDataService {
                 id        : pid,              // 父子映射关系
                 [children]: [],
                 label     : pid,
-                value: pid
+                value     : pid,
             };
         });
         list.forEach(item => {
@@ -226,7 +145,7 @@ export class FormatDataService {
                     id   : id,
                     value: item[id],
                     label: label,
-                    pid  : item[pid]       // 父子映射关系
+                    pid  : item[pid],       // 父子映射关系
                 });
             }
         });
@@ -284,7 +203,7 @@ export class FormatDataService {
             return node;
         }
 
-        deepEach(root, function(node) {
+        deepEach(root, function (node) {
             replaceKey(before.id, after.id, node);
             replaceKey(before.name, after.name, node);
             replaceKey(before.pid, after.pid, node);

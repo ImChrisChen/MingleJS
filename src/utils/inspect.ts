@@ -246,6 +246,7 @@ export function isPromise(o): boolean {
     return o instanceof Promise;
 }
 
+// 判断是否是React组件
 export function isReactComponent(o) {
     return !!o.prototype.isReactComponent;
 }
