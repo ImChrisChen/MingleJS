@@ -13,9 +13,10 @@ import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { componentConfig } from '@src/config/component.config';
 import { styleConfig } from '@src/config/styleConfig';
+import { isString } from '@src/utils';
 
 interface IMingleOptions {
-    el: string
+    el: string | HTMLElement
     data?: object
     created?: (...args) => any
     methods?: {
@@ -356,7 +357,7 @@ export class Mingle {
     private async run(options) {
         let { el, data, created, methods, mounted, updated } = options;
 
-        let container = document.querySelector(el) as HTMLElement;
+        let container: HTMLElement = isString(el) ? document.querySelector(el) : el;
 
         if (!container) {
             return;

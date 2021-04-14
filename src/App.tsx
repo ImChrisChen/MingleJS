@@ -129,9 +129,11 @@ export default class App {
         };
 
         let props: IComponentProps;
+        // React 写法的组件
         if (isReactComponent(Component)) {
             props = App.renderComponent(module);
         } else {
+            // 原生js组件
             let defaultProperty = Module.property;
             let { dataset, attrs } = App.parseProps(el, defaultProperty);
             props = {
@@ -236,7 +238,6 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    console.log(this.forceRender);
                     App.renderCustomElement(element);
                 }
 

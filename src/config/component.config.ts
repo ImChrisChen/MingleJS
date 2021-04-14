@@ -288,6 +288,16 @@ export const componentConfig = {
                 }
             },
             type     : 'web-components'
+        },
+        render: {
+            component: import('@component/app/render/AppRender'),
+            property: {
+                dataset: {
+                    
+                }
+            },
+            path: '/app-render',
+            type: 'web-components',
         }
         // feishu: {
         //     component: import('@component/app/feishu/AppFeishu'),
@@ -383,9 +393,9 @@ export const componentConfig = {
                     group     : UniversalProps.group
                 },
                 value      : {
-                    el     : 'select',
+                    el     : 'input',
                     parse  : 'string',
-                    options: [],            // 通过解析enum来得到
+                    // options: [],            // 通过解析enum来得到
                     value  : '',
                     desc: '默认值'
                 },

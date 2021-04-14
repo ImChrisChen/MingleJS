@@ -3,6 +3,11 @@
 //    min-width    : 120px;
 //}
 
+app-render {
+    opacity    : 0;
+    visibility : hidden;
+}
+
 [data-component-uid] {
     position : relative;
     display  : block;
