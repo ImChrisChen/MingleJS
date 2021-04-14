@@ -113,7 +113,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
 }
 
 // 公共配置属性 Interface
-interface IUniversalProps<T = any> {
+interface IUniversalProps<T> {
     label: T
     placeholder: T
     url: T
@@ -127,6 +127,8 @@ interface IUniversalProps<T = any> {
     smart: T
     group: T
     exec: T
+
+    [key: string]: T
 }
 
 // TODO 提取公共属性(待调整)
@@ -923,7 +925,6 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 icon     : 'icon-youxiao',
             },
-
             input   : {
                 path     : '/form-input',
                 component: import('@component/form/input/FormInput'),
@@ -1136,6 +1137,48 @@ export const componentConfig: IConfig = {
                 name     : '穿梭框',
                 type     : 'web-components',
                 icon     : 'icon-transfer',
+            },
+            button  : {
+                component: import('@component/form/button/FormButton'),
+                path     : '/form-button',
+                property : {
+                    dataset: {
+                        size    : {
+                            el     : 'radio',
+                            options: [
+                                { label: 'large', value: 'large' },
+                                { label: 'middle', value: 'middle' },
+                                { label: 'small', value: 'small' },
+                            ],
+                            value  : 'small',
+                            parse  : 'string',
+                            desc   : '按钮尺寸，不填则默认small',
+                        },
+                        type    : {
+                            el     : 'radio',
+                            options: [
+                                { label: 'primary ', value: 'primary ' },
+                                { label: 'dashed', value: 'dashed' },
+                                { label: 'link', value: 'link' },
+                                { label: 'text', value: 'text' },
+                                { label: 'default', value: 'default' },
+                            ],
+                            value  : 'default',
+                            parse  : 'string',
+                            desc   : '按钮样式',
+                        },
+                        title   : {
+                            el   : 'input',
+                            desc : '按钮显示文本',
+                            value: '按钮',
+                            parse: 'string',
+                        },
+                        disabled: UniversalProps.disabled,
+                    },
+                    style  : UniversalProps.style,
+                },
+                name     : '按钮',
+                type     : 'web-components',
             },
         },
     },
