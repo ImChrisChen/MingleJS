@@ -1096,6 +1096,48 @@ export const componentConfig = {
             },
             name     : '穿梭框',
             type     : 'web-components'
+        },
+        button    : {
+            component: import('@component/form/button/FormButton'),
+            path     : '/form-button',
+            property : {
+                dataset: {
+                    size       : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'large', value: 'large' },
+                            { label: 'middle', value: 'middle' },
+                            { label: 'small', value: 'small' }
+                        ],
+                        value  : 'small',
+                        parse  : 'string',
+                        desc   : '按钮尺寸，不填则默认small'
+                    },
+                    type    : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'primary ', value: 'primary ' },
+                            { label: 'dashed', value: 'dashed' },
+                            { label: 'link', value: 'link' },
+                            { label: 'text', value: 'text' },
+                            { label: 'default', value: 'default' },
+                        ],
+                        value  : 'default',
+                        parse  : 'string',
+                        desc   : '按钮样式'
+                    },
+                    title    : {
+                        el     : 'input',
+                        desc   : '按钮显示文本',
+                        value  : '按钮',
+                        parse  : 'string'
+                    },
+                    disabled : UniversalProps.disabled
+                },
+                style      : UniversalProps.style
+            },
+            name     : '按钮',
+            type     : 'web-components'
         }
     },
     view  : {
@@ -1579,7 +1621,8 @@ export const componentConfig = {
                 }
             },
             type     : 'web-components'
-        }
+        },
+        
     },
     tips  : {
         card: {

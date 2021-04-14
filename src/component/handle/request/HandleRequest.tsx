@@ -11,11 +11,10 @@ import { message } from 'antd';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services/HttpClient.service';
 
-export default class HandleRequest extends React.Component<IComponentProps, any> {
+export default class HandleRequest  {
     @Inject private readonly httpClientService: HttpClientService;
 
-    constructor(props) {
-        super(props);
+    constructor(private readonly props) {
         this.props.el.onclick = e => this.handleRequest(e);
     }
 
