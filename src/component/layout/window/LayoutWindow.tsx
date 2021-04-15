@@ -6,14 +6,14 @@
  */
 import React, { Component } from 'react';
 import { Button, Modal, Spin } from 'antd';
-import { INativeProps } from '@interface/common/component';
+import { INativeProps, IVnode } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
-import { FormatDataService, HttpClientService, ViewRenderService } from '@src/services';
+import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
 import { BaseUrl, IEntityOperationMode } from '@src/config';
-import { isString } from '@src/utils';
+import { isEmptyObject, isString, vnodeToElement } from '@src/utils';
 import { Mingle } from '@src/core/Mingle';
 
 interface IPrivateLayoutWindow extends INativeProps {
@@ -24,7 +24,6 @@ export default class LayoutWindow {
 
     @Inject private readonly formatDataService: FormatDataService;
     @Inject private readonly httpClientService: HttpClientService;
-    @Inject private readonly viewRenderService: ViewRenderService;
 
     public static instance;
     public entityid: string;
@@ -116,7 +115,7 @@ export default class LayoutWindow {
             let el = document.querySelector('.layout-window-content-entity');
             if (el) {
                 el.innerHTML = '';
-                let node = this.viewRenderService.vnodeToElement(data.contents, this.mode === 'create'); // isInit = true 如果是实体创建，则初始化表单中的value值为空
+                let node = vnodeToElement(data.contents, this.mode === 'create'); // isInit = true 如果是实体创建，则初始化表单中的value值为空
                 el.append(node);
                 new Mingle({ el: node });
             }

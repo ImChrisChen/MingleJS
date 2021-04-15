@@ -5,7 +5,8 @@
  * Time: 2:36 上午
  */
 
-import { isUndefined } from './inspect';
+import { isEmptyObject, isUndefined } from './inspect';
+import { IVnode } from '@interface/common/component';
 
 /**
  * 获取数组最后一项
@@ -218,3 +219,55 @@ export function getOS(): string {
     }
     return 'other';
 }
+
+/**
+ *
+ * @param node
+ * @param isInit  是否初始化value
+ */
+export function vnodeToElement(node: IVnode, isInit = false): HTMLElement {
+
+    if (isEmptyObject(node)) {
+        return document.createElement('div');
+    }
+
+    let { tag, props, children, events } = node;
+    let el = document.createElement(tag);
+
+    // 属性
+    for (const name in props) {
+        if (!props.hasOwnProperty(name)) continue;
+        let value = props[name];
+
+        // 设置表单元素的value
+        if (isInit && name === 'value') {
+            el.setAttribute(name, '');
+            continue;
+        }
+
+        el.setAttribute(name, value);
+    }
+
+    // 事件
+    for (const name in events) {
+        if (!events.hasOwnProperty(name)) continue;
+        let listeners = events[name];
+        for (const eventItem of listeners) {
+            let { func, type } = eventItem;
+            el.addEventListener(type, (e) => {
+                func?.call(el, e);
+            });
+        }
+    }
+
+    // 子元素
+    if (children) {
+        for (const child of children) {
+            let childElm = vnodeToElement(child, isInit);
+            el.append(childElm);
+        }
+    }
+
+    return el;
+}
+
