@@ -1,4 +1,8 @@
 <div id="demo1">
+   
+    <form-action data-submit="false" data-reset="false">
+        
+    </form-action>
 
     <!--    <layout-list>-->
     <!--        <div w-foreach="list as item"><{item}></div>-->
@@ -72,7 +76,7 @@
         @click="handleClick"
         @select-change="onSelectChange(this)"
     ></data-table>
-    
+
     <layout-list data-cols="1" data-url="/server/mock/chart/funnel.json">
         <div>
             <h1>--------------------</h1>
@@ -114,16 +118,16 @@
     <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
     <!--        </li>-->
     <!--    </ul>-->
-    
+
     <ul>
         <li w-foreach="tableObj as item"><{item.key}></li>
     </ul>
-    
-<!--    <layout-list>-->
-<!--        <data-table data-url="<{tableObj.data}>" data-title="草绿色哦">-->
-<!--            -->
-<!--        </data-table>-->
-<!--    </layout-list>-->
+
+    <!--    <layout-list>-->
+    <!--        <data-table data-url="<{tableObj.data}>" data-title="草绿色哦">-->
+    <!--            -->
+    <!--        </data-table>-->
+    <!--    </layout-list>-->
 
 </div>
 
@@ -132,7 +136,7 @@
         el: '#demo1',
         data: {
             tableObj: {},
-            firstTable:{},
+            firstTable: {},
             inputValue: '100',
             title: 'Hello World ~',
             count: 0,

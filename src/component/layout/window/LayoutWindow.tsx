@@ -99,8 +99,8 @@ export default class LayoutWindow {
                 visible     : true,
                 iframeHidden: true,
                 isEntity    : true,
-                entity_id    : this.entity_id,
-                entity_mode  : this.entity_mode,
+                entity_id   : this.entity_id,
+                entity_mode : this.entity_mode,
             });
 
             // 2. 请求接口获取数据
@@ -130,8 +130,8 @@ export default class LayoutWindow {
                 iframeUrl   : currentUrl,
                 visible     : true,     //弹窗显示
                 isEntity    : false,
-                entity_id    : '',
-                entity_mode  : 'update',
+                entity_id   : '',
+                entity_mode : 'update',
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
                 title       : this.props.dataset.title,
             });
@@ -139,14 +139,11 @@ export default class LayoutWindow {
     };
 
     renderLayoutWindow() {
-        if (!document.querySelector('.layout-window-container')) {
-            let container = document.createElement('div');
-            container.classList.add('layout-window-container');
-            document.body.append(container);
-            ReactDOM.render(<PrivateLayoutWindow ref={ instance => {
-                LayoutWindow.instance = instance;
-            } } { ...this.props } />, container);
-        }
+        let container = document.createElement('div');
+        ReactDOM.render(<PrivateLayoutWindow ref={ instance => {
+            LayoutWindow.instance = instance;
+        } } { ...this.props } />, container);
+        document.body.append(container);
     }
 }
 
@@ -162,21 +159,26 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         iframeUrl   : '',
         title       : this.props.dataset.title,
         isEntity    : true,     // 是否是实体
-        entity_mode  : 'update' as IEntityOperationMode,       // 实体的操作模式
+        entity_mode : 'update' as IEntityOperationMode,       // 实体的操作模式
     };
 
     constructor(props) {
         super(props);
     }
 
-    handleOk() {
+    handleOk = () => {
         this.setState({ loading: true });
+
+        if (this.state.isEntity) {
+            console.log(this.props.el);
+        }
+
         setTimeout(() => {
             this.setState({ loading: false, visible: false });
         }, 3000);
     };
 
-    handleCancel() {
+    handleCancel = () => {
         this.setState({ visible: false });
     };
 
@@ -217,19 +219,15 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
                     this.setState({ disabled: true });
                 } }
             >{ this.state.title }</div> }
-
             width={ 1000 }
-            onOk={ this.handleOk.bind(this) }
+            onOk={ this.handleOk }
             onCancel={ this.handleCancel.bind(this) }
             modalRender={ modal => <Draggable disabled={ this.state.disabled }>{ modal }</Draggable> }
             footer={
                 [
-                    <Button key="back" onClick={ this.handleCancel.bind(this) }>
-                        Return
-                    </Button>,
-                    <Button key="submit" type="primary" loading={ this.state.loading }
-                            onClick={ this.handleOk.bind(this) }>
-                        Submit
+                    <Button key="back" onClick={ this.handleCancel }>取消</Button>,
+                    <Button key="submit" type="primary" loading={ this.state.loading } onClick={ this.handleOk }>
+                        提交
                     </Button>,
                 ]
             }
