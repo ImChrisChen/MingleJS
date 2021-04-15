@@ -26,7 +26,12 @@ export class ViewRenderService {
         return element;
     }
 
-    vnodeToElement(node: IVnode): HTMLElement {
+    /**
+     *
+     * @param node
+     * @param isInit  是否初始化value
+     */
+    vnodeToElement(node: IVnode, isInit = false): HTMLElement {
 
         if (isEmptyObject(node)) {
             return document.createElement('div');
@@ -39,6 +44,12 @@ export class ViewRenderService {
         for (const name in props) {
             if (!props.hasOwnProperty(name)) continue;
             let value = props[name];
+
+            // 设置表单元素的value
+            if (isInit && name === 'value') {
+                el.setAttribute(name, '');
+                continue;
+            }
 
             el.setAttribute(name, value);
         }
@@ -58,7 +69,7 @@ export class ViewRenderService {
         // 子元素
         if (children) {
             for (const child of children) {
-                let childElm = this.vnodeToElement(child);
+                let childElm = this.vnodeToElement(child, isInit);
                 el.append(childElm);
             }
         }
