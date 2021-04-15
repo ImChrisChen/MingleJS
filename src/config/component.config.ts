@@ -1922,13 +1922,13 @@ export const componentConfig: IConfig = {
                             value: false,
                             desc : '是否默认打开弹出窗',
                         },
-                        entityID  : {
+                        entity_id  : {
                             el   : 'input',
                             parse: 'string',
                             value: '',
                             desc : '实体ID, 如果不是加载实体，则无须传入',
                         },
-                        entityMode: {
+                        entity_mode: {
                             el     : 'radio',
                             parse  : 'string',
                             options: [
