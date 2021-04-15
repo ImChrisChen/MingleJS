@@ -10,23 +10,30 @@ import { INativeProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
-import { FormatDataService } from '@src/services';
+import { FormatDataService, HttpClientService, ViewRenderService } from '@src/services';
 import { Inject } from 'typescript-ioc';
+import { BaseUrl } from '@src/config';
+import { isString } from '@src/utils';
+import { Mingle } from '@src/core/Mingle';
 
-let c = document.createElement('div');
-c.setAttribute('id', 'WIN');
-document.body.append(c);
+interface IPrivateLayoutWindow extends INativeProps {
+
+}
 
 export default class LayoutWindow {
 
-    public static instance;
-
-    private readonly props: INativeProps;
     @Inject private readonly formatDataService: FormatDataService;
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly viewRenderService: ViewRenderService;
 
-    // TODO 使用单例模式，复用一个弹窗 (减少内存消耗)
-    constructor(props: INativeProps) {
+    public static instance;
+    public entityid: string;
+    public prevEntityid: string;
+
+    // TODO 使用单例模式，复用一个弹窗(但是Layoutwindow还是实例化多个) (减少内存消耗)
+    constructor(private readonly props: INativeProps) {
         this.props = props;
+        this.entityid = this.props.dataset.entityid;
 
         this.props.el.addEventListener('click', e => this.handleClickBtn(e));
 
@@ -34,35 +41,79 @@ export default class LayoutWindow {
          * --------------------------- Single Model --------------------------------------
          */
         if (!LayoutWindow.instance) {
-            this.render();
+            this.renderLayoutWindow();
         }
+    }
+
+    public async getEntityConfig(id: string): Promise<any> {
+        let res = await this.httpClientService.get(`${ BaseUrl }/api/page/${ id }`);
+        if (res.status) {
+            let contents = res.data.contents;
+            if (isString(contents)) {
+                try {
+                    res.data.contents = JSON.parse(res.data.contents);
+                } catch(e) {
+                    console.warn(e);
+                }
+            }
+        }
+        return res.status ? res.data : {};
     }
 
     handleClickBtn(e: MouseEvent) {
         e.preventDefault();
+        console.log(this.entityid);
         this.handleShowModel();
     }
 
-    handleShowModel() {
+    async handleShowModel() {
 
+        /**
+         * --------------------------- iframe 弹窗形式 --------------------------------------
+         */
         let prevUrl = LayoutWindow.instance.state.iframeUrl;
+
         let currentUrl = this.props.el.getAttribute('href') ?? window.location.href;
-        let { entityid } = this.props.dataset;
         let iframeHidden = true;
+
         if (prevUrl === currentUrl) {
             iframeHidden = false;
         }
-        currentUrl = this.formatDataService.obj2Url({ entityid }, currentUrl);
-        console.log(currentUrl);
-        LayoutWindow.instance.setState({
-            // 在a标签时可以不用设置,设置后其他标签也通用 <button data-fn="layout-window" href='https://baidu.com'>btn</button>
-            iframeUrl   : currentUrl,
-            visible     : true,     //弹窗显示
-            iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
-        });
+
+        // TODO 如果 layout-window上使用了 entityid，那么这个页面会被判定为实体去打开，触发Mingle的逻辑
+        if (this.entityid) {
+
+            await LayoutWindow.instance.setState({ visible: true, iframeHidden: true, isEntity: true });
+
+            let data = await this.getEntityConfig(this.entityid);
+
+            // 实体
+            await LayoutWindow.instance.setState({ iframeHidden: false });
+
+            // TODO 性能优化: 不用 ref={} 获取DOM 实例 而在这里去操作DOM是因为，避免每次setState都会去执行渲染，避免造成大量计算
+            let el = document.querySelector('.layout-window-content-entity');
+            if (el) {
+                el.innerHTML = '';
+                let node = this.viewRenderService.vnodeToElement(data.contents);
+                el.append(node);
+                new Mingle({ el: node });
+            }
+
+            this.prevEntityid = this.entityid;
+
+        } else {
+            // iframe
+            LayoutWindow.instance.setState({
+                // 在a标签时可以不用设置,设置后其他标签也通用 <button data-fn="layout-window" href='https://baidu.com'>btn</button>
+                iframeUrl   : currentUrl,
+                visible     : true,     //弹窗显示
+                isEntity    : false,
+                iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
+            });
+        }
     };
 
-    render() {
+    renderLayoutWindow() {
         if (!document.querySelector('.layout-window-container')) {
             let container = document.createElement('div');
             container.classList.add('layout-window-container');
@@ -74,7 +125,7 @@ export default class LayoutWindow {
     }
 }
 
-class PrivateLayoutWindow extends Component<any, any> {
+class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
 
     state = {
         loading     : false,
@@ -84,9 +135,9 @@ class PrivateLayoutWindow extends Component<any, any> {
         iframeHidden: false,
         disabled    : true,
         iframeUrl   : '',
+        title       : this.props.dataset.title,
+        isEntity    : true,     // 是否是实体
     };
-
-    // private readonly target: string = 'layout-window-iframe';
 
     constructor(props) {
         super(props);
@@ -102,6 +153,19 @@ class PrivateLayoutWindow extends Component<any, any> {
     handleCancel() {
         this.setState({ visible: false });
     };
+
+    renderIframeContent() {
+        return <iframe
+            className="layout-window-iframe"
+            style={ { minHeight: this.state.height, opacity: this.state.iframeHidden ? 0 : 1 } }
+            onLoad={ () => this.setState({ iframeHidden: false }) }
+            src={ this.state.iframeUrl }
+        />;
+    }
+
+    renderElementContent() {
+        return <div className="layout-window-content-entity"/>;
+    }
 
     render() {
         return <Modal
@@ -126,7 +190,7 @@ class PrivateLayoutWindow extends Component<any, any> {
                 onMouseOut={ () => {
                     this.setState({ disabled: true });
                 } }
-            >{ this.props.dataset.title }</div> }
+            >{ this.state.title }</div> }
 
             width={ 1000 }
             onOk={ this.handleOk.bind(this) }
@@ -145,11 +209,7 @@ class PrivateLayoutWindow extends Component<any, any> {
             }
         >
             <Spin spinning={ this.state.iframeHidden }>
-                <iframe className="layout-window-iframe"
-                        style={ { minHeight: this.state.height, opacity: this.state.iframeHidden ? 0 : 1 } }
-                        onLoad={ () => this.setState({ iframeHidden: false }) }
-                        src={ this.state.iframeUrl }
-                />
+                { this.state.isEntity ? this.renderElementContent() : this.renderIframeContent() }
                 {/*<div ref={ element => element?.append(...this.props.subelements) }/>*/ }
             </Spin>
         </Modal>;

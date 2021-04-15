@@ -5,4 +5,4 @@
  * Time: 5:54 下午
  */
 
-export const BaseUrl: string = '';
+export const BaseUrl: string = '//amis.local.superdalan.com';

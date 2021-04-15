@@ -6,6 +6,7 @@
  */
 
 import { IVnode } from '@interface/common/component';
+import { isArray, isEmptyObject } from '@src/utils';
 
 export class ViewRenderService {
 
@@ -26,6 +27,11 @@ export class ViewRenderService {
     }
 
     vnodeToElement(node: IVnode): HTMLElement {
+
+        if (isEmptyObject(node)) {
+            return document.createElement('div');
+        }
+
         let { tag, props, children, events } = node;
         let el = document.createElement(tag);
 
@@ -50,9 +56,11 @@ export class ViewRenderService {
         }
 
         // 子元素
-        for (const child of children) {
-            let childElm = this.vnodeToElement(child);
-            el.append(childElm);
+        if (children) {
+            for (const child of children) {
+                let childElm = this.vnodeToElement(child);
+                el.append(childElm);
+            }
         }
 
         return el;
