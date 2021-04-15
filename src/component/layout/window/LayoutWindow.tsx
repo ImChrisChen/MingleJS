@@ -104,10 +104,12 @@ export default class LayoutWindow {
 
             // 2. 请求接口获取数据
             let data = await this.getEntityConfig(this.entityid);
+            console.log(data);
 
             // 3. 关闭loading
             await LayoutWindow.instance.setState({
                 iframeHidden: false,
+                title       : `${ data.name } - ${ this.mode === 'create' ? '创建' : '编辑' }`, // 实体名称
             });
 
             // 4. 解析json渲染页面
@@ -130,6 +132,7 @@ export default class LayoutWindow {
                 entityid    : '',
                 mode        : 'update',
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
+                title       : this.props.dataset.title,
             });
         }
     };
