@@ -337,6 +337,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     data   : formData,
                 });
 
+                console.log('form表单提交:', res);
+
                 if (showmsg) {
                     if (res?.status) {
                         message.success(res?.[msgfield] ?? '操作成功');

@@ -1886,49 +1886,49 @@ export const componentConfig: IConfig = {
                 path     : '/layout-window',
                 property : {
                     dataset: {
-                        title   : {
+                        title     : {
                             el   : 'input',
                             parse: 'string',
                             value: '标题',
                             desc : '弹窗的标题',
                         },
-                        label   : {
+                        label     : {
                             el   : 'input',
                             parse: 'string',
                             value: 'submit',
                             desc : '按钮的内容',
                         },
-                        height  : {
+                        height    : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的高度',
                         },
-                        width   : {
+                        width     : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的宽度',
                         },
-                        mask    : {
+                        mask      : {
                             el   : 'switch',
                             value: false,
                             parse: 'boolean',
                             desc : '是否显示遮罩层',
                         },
-                        open    : {
+                        open      : {
                             el   : 'switch',
                             parse: 'boolean',
                             value: false,
                             desc : '是否默认打开弹出窗',
                         },
-                        entityid: {
+                        entityID  : {
                             el   : 'input',
                             parse: 'string',
                             value: '',
                             desc : '实体ID, 如果不是加载实体，则无须传入',
                         },
-                        mode    : {
+                        entityMode: {
                             el     : 'radio',
                             parse  : 'string',
                             options: [
@@ -1938,6 +1938,12 @@ export const componentConfig: IConfig = {
                             value  : 'update' as IEntityOperationMode,
                             desc   : '实体操作模式， 新增或者删除',
                         },
+                        // entityUrl : {
+                        //     el   : 'input',
+                        //     parse: 'string',
+                        //     value: '',
+                        //     desc : '实体提交的URL',
+                        // },
                     },
                 },
                 type     : 'functional',

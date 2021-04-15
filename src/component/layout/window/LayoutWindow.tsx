@@ -26,14 +26,14 @@ export default class LayoutWindow {
     @Inject private readonly httpClientService: HttpClientService;
 
     public static instance;
-    public entityid: string;
-    public mode: IEntityOperationMode;         // 实体模式 'create' | 'update'
+    public entityID: string;
+    public entityMode: IEntityOperationMode;         // 实体模式 'create' | 'update'
 
     // TODO 使用单例模式，复用一个弹窗(但是Layoutwindow还是实例化多个) (减少内存消耗)
     constructor(private readonly props: INativeProps) {
         this.props = props;
-        this.entityid = this.props.dataset.entityid;
-        this.mode = this.props.dataset.mode;
+        this.entityID = this.props.dataset.entityID;
+        this.entityMode = this.props.dataset.entityMode;
 
         this.props.el.addEventListener('click', e => this.handleClickBtn(e));
 
@@ -81,10 +81,10 @@ export default class LayoutWindow {
         }
 
         // TODO 如果 layout-window上使用了 entityid，那么这个页面会被判定为实体去打开，触发Mingle的逻辑
-        if (this.entityid) {
+        if (this.entityID) {
 
             // 优化: 如果当前弹窗的实体id和现在的实体id一致说明无变化
-            if (this.entityid === LayoutWindow.instance.state.entityid && this.mode === LayoutWindow.instance.state.mode) {
+            if (this.entityID === LayoutWindow.instance.state.entityID && this.entityMode === LayoutWindow.instance.state.entityMode) {
                 await LayoutWindow.instance.setState({
                     visible     : true,
                     iframeHidden: false,
@@ -98,18 +98,18 @@ export default class LayoutWindow {
                 visible     : true,
                 iframeHidden: true,
                 isEntity    : true,
-                entityid    : this.entityid,
-                mode        : this.mode,
+                entityID    : this.entityID,
+                entityMode  : this.entityMode,
             });
 
             // 2. 请求接口获取数据
-            let data = await this.getEntityConfig(this.entityid);
+            let data = await this.getEntityConfig(this.entityID);
             console.log(data);
 
             // 3. 关闭loading
             await LayoutWindow.instance.setState({
                 iframeHidden: false,
-                title       : `${ data.name } - ${ this.mode === 'create' ? '创建' : '编辑' }`, // 实体名称
+                title       : `${ data.name } - ${ this.entityMode === 'create' ? '创建' : '编辑' }`, // 实体名称
             });
 
             // 4. 解析json渲染页面
@@ -117,7 +117,7 @@ export default class LayoutWindow {
             let el = document.querySelector('.layout-window-content-entity');
             if (el) {
                 el.innerHTML = '';
-                let node = vnodeToElement(data.contents, this.mode === 'create'); // isInit = true 如果是实体创建，则初始化表单中的value值为空
+                let node = vnodeToElement(data.contents, this.entityMode === 'create'); // isInit = true 如果是实体创建，则初始化表单中的value值为空
                 el.append(node);
                 new Mingle({ el: node });
             }
@@ -129,8 +129,8 @@ export default class LayoutWindow {
                 iframeUrl   : currentUrl,
                 visible     : true,     //弹窗显示
                 isEntity    : false,
-                entityid    : '',
-                mode        : 'update',
+                entityID    : '',
+                entityMode  : 'update',
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
                 title       : this.props.dataset.title,
             });
@@ -161,7 +161,7 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         iframeUrl   : '',
         title       : this.props.dataset.title,
         isEntity    : true,     // 是否是实体
-        mode        : 'update' as IEntityOperationMode,       // 实体的操作模式
+        entityMode  : 'update' as IEntityOperationMode,       // 实体的操作模式
     };
 
     constructor(props) {
