@@ -45,6 +45,7 @@ export default class LayoutWindow {
         }
     }
 
+    // 获取实体配置
     public async getEntityConfig(id: string): Promise<any> {
         let res = await this.httpClientService.get(`${ BaseUrl }/api/page/${ id }`);
         if (res.status) {
@@ -62,7 +63,6 @@ export default class LayoutWindow {
 
     handleClickBtn(e: MouseEvent) {
         e.preventDefault();
-        console.log(this.entityid);
         this.handleShowModel();
     }
 
@@ -83,13 +83,33 @@ export default class LayoutWindow {
         // TODO 如果 layout-window上使用了 entityid，那么这个页面会被判定为实体去打开，触发Mingle的逻辑
         if (this.entityid) {
 
-            await LayoutWindow.instance.setState({ visible: true, iframeHidden: true, isEntity: true });
+            // 优化: 如果当前弹窗的实体id和现在的实体id一致说明无变化
+            if (this.entityid === LayoutWindow.instance.state.entityid) {
+                await LayoutWindow.instance.setState({
+                    visible     : true,
+                    iframeHidden: false,
+                    isEntity    : true,
+                });
+                return;
+            }
 
+            // 1. 先弹窗，显示loading 等
+            await LayoutWindow.instance.setState({
+                visible     : true,
+                iframeHidden: true,
+                isEntity    : true,
+                entityid    : this.entityid,
+            });
+
+            // 2. 请求接口获取数据
             let data = await this.getEntityConfig(this.entityid);
 
-            // 实体
-            await LayoutWindow.instance.setState({ iframeHidden: false });
+            // 3. 关闭loading
+            await LayoutWindow.instance.setState({
+                iframeHidden: false,
+            });
 
+            // 4. 解析json渲染页面
             // TODO 性能优化: 不用 ref={} 获取DOM 实例 而在这里去操作DOM是因为，避免每次setState都会去执行渲染，避免造成大量计算
             let el = document.querySelector('.layout-window-content-entity');
             if (el) {
@@ -99,8 +119,6 @@ export default class LayoutWindow {
                 new Mingle({ el: node });
             }
 
-            this.prevEntityid = this.entityid;
-
         } else {
             // iframe
             LayoutWindow.instance.setState({
@@ -108,6 +126,7 @@ export default class LayoutWindow {
                 iframeUrl   : currentUrl,
                 visible     : true,     //弹窗显示
                 isEntity    : false,
+                entityid    : '',
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
             });
         }
