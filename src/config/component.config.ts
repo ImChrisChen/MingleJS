@@ -2112,7 +2112,9 @@ export const componentConfig: IConfig = {
         name    : '处理',
         children: {
             request: {
-                property: {
+                component: import('@component/handle/request/HandleRequest'),
+                document : import('@component/handle/request/HandleRequest.md'),
+                property : {
                     dataset: {
                         trigger: {
                             el     : 'switch',
@@ -2131,9 +2133,9 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type    : 'functional',
-                name    : '请求',
-                icon    : 'icon-qingqiu',
+                type     : 'functional',
+                name     : '请求',
+                icon     : 'icon-qingqiu',
             },
             // operate: {
             //     component: import('@component/handle/operate/HandleOperate'),

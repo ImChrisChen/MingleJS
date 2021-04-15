@@ -1,6 +1,16 @@
 import React, { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
-import { deepEachElement, isCustomElement, isFunc, isReactComponent, isUndefined, loadModule, parserAttrs, parserDataset, trigger } from '@src/utils';
+import {
+    deepEachElement,
+    isCustomElement,
+    isFunc,
+    isReactComponent,
+    isUndefined,
+    loadModule,
+    parserAttrs,
+    parserDataset,
+    trigger,
+} from '@src/utils';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
 import { globalComponentConfig, IComponentConfig } from '@src/config/component.config';
@@ -60,13 +70,13 @@ export default class App {
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
 
-    constructor(root: HTMLElement,private readonly forceRender = false) {
+    constructor(root: HTMLElement, private readonly forceRender = false) {
 
         if (!root) return;
 
         try {
             this.init(root).then(r => r);
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
     }
@@ -80,16 +90,12 @@ export default class App {
             return;
         }
 
-        // TODO 设置组件唯一ID
-        let componentUID = App.createUUID();
-        el.setAttribute(DataComponentUID, componentUID);
-
         if (tagName === 'define-component' && el.getAttribute('module')) {
             tagName = el.getAttribute('module') || '';
         }
 
         // 获取到组件的子元素（排除template标签)
-        let subelements = [...el.children].filter(child => child.localName !== 'template') as Array<HTMLElement>;
+        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
         container.style.height = '100%';
@@ -102,7 +108,7 @@ export default class App {
             el.setAttribute('form-component', '');
         }
 
-        let tpls = [...el.querySelectorAll('template')];
+        let tpls = [ ...el.querySelectorAll('template') ];
         let templates = {};
 
         for (const tpl of tpls) {
@@ -112,10 +118,24 @@ export default class App {
         }
 
         const Module = loadModule(tagName);
-        const Component = (await Module.component).default;            // React组件
+        const Component = (await Module.component)?.default;            // React组件
+        if (!Component) {
+            // 一般出现在 component.configs.ts中没有写 component import 导入组件的情况
+            console.error(`${ tagName }没有这个组件`, Module);
+            return;
+        }
 
         let hooks = App.formatHooks(el.attributes);
         let defaultProperty = Module.property;
+
+        /**
+         * --------------------------- 开始实例化组件 --------------------------------------
+         */
+
+            // TODO 设置组件唯一ID
+        let componentUID = App.createUUID();
+        el.setAttribute(DataComponentUID, componentUID);
+
         let module: IModules = {
             Component,
             element: el,
@@ -125,7 +145,7 @@ export default class App {
             hooks,
             // @ts-ignore
             defaultProperty,
-            componentUID
+            componentUID,
         };
 
         let props: IComponentProps;
@@ -139,11 +159,11 @@ export default class App {
             props = {
                 el: el,
                 dataset,
-                ...attrs
+                ...attrs,
             };
             let componentInstance = new Component(props);
             App.instances[componentUID] = {
-                instance: componentInstance, module
+                instance: componentInstance, module,
             };
         }
 
@@ -154,12 +174,12 @@ export default class App {
     async init(rootElement: HTMLElement) {
 
         App.renderIcons(rootElement);
-        deepEachElement(rootElement, async (element,parentNode) => {
+        deepEachElement(rootElement, async (element, parentNode) => {
             let { localName: tagName } = element;
-            
+
             // TODO layout-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从layout-list控制子组件渲染
             if (parentNode?.localName === 'layout-list' && parentNode.getAttribute('data-url')) {
-                
+
                 if (!this.forceRender) {
                     console.log('拦截掉', element);
                     return;
@@ -170,7 +190,7 @@ export default class App {
              * TODO 注册过后的组件会改变加载顺序，web-components的问题暂未解决,
              * 例如：组件的参数依赖 foreach 上下文的模版的解析，注册过的组件通常导致，首先加载组件，而没有解析模版。
              */
-            let isWebComponents = false;     
+            let isWebComponents = false;
 
             // 如果是自定义组件
             if (isCustomElement(tagName)) {
@@ -288,7 +308,7 @@ export default class App {
     }
 
     public static renderIcons(rootElement: HTMLElement) {
-        let elements = [...rootElement.querySelectorAll('icon')] as Array<any>;
+        let elements = [ ...rootElement.querySelectorAll('icon') ] as Array<any>;
         for (const icon of elements) {
             let { type, color, size } = icon.attributes;
             let Icon = antdIcons[type.value];
@@ -324,9 +344,9 @@ export default class App {
         // form-group 内的组件，只在组作用域内产生关联关系
         // if ($(element).closest('[data-fn=form-group]').length > 0) {
         if ($(element).closest('form-group').length > 0) {
-            $formItems = [...$(element).closest('.form-group-item').find(`[${ DataComponentUID }][name]`)];
+            $formItems = [ ...$(element).closest('.form-group-item').find(`[${ DataComponentUID }][name]`) ];
         } else {
-            $formItems = [...$(element).closest('form-action').find(`[${ DataComponentUID }][name]`)];
+            $formItems = [ ...$(element).closest('form-action').find(`[${ DataComponentUID }][name]`) ];
         }
 
         $formItems.forEach(formItem => {
@@ -395,14 +415,14 @@ export default class App {
                     if (submitBtn.length > 0) {
                         submitBtn.click();
                     } else {
-                        formElement.append(`<button type='submit' style='display: none;'/>`).find('[type=submit]').click();
+                        formElement.append(`<button type="submit" style="display: none;"/>`).find('[type=submit]').click();
                     }
                 }
 
                 let groupname = element.getAttribute('data-group');
                 if (groupname) {
                     let formElement = $(element).closest('form-action');
-                    let groups = [...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`)];
+                    let groups = [ ...formElement.find(`[${ DataComponentUID }][data-group=${ groupname }]`) ];
                     groups.forEach(el => {
                         if (el !== element) {
                             console.log(el);
@@ -482,10 +502,10 @@ export default class App {
 
         let { dataset, attrs } = this.parseProps(el, defaultProperty);
 
-        return { 
-            el, 
-            dataset, 
-            ...attrs
+        return {
+            el,
+            dataset,
+            ...attrs,
         };
     }
 
@@ -499,7 +519,7 @@ export default class App {
 
         // 普通属性
         let elAttrs = {};     // key value
-        [...el.attributes].forEach(item => {
+        [ ...el.attributes ].forEach(item => {
             if (!item.name.includes('data-')) {
                 elAttrs[item.name] = item.value;
             }
@@ -522,7 +542,7 @@ export default class App {
 
     public static renderComponent(module: IModules, beforeCallback?: (h, instance: ReactInstance) => any, callback?: (h, instance: ReactInstance) => any): IComponentProps {
         let {
-            element, defaultProperty, Component, hooks, componentUID, subelements, templates, container
+            element, defaultProperty, Component, hooks, componentUID, subelements, templates, container,
         } = module;
 
         let { dataset: parsedDataset, attrs } = this.parseProps(element, defaultProperty);
@@ -578,13 +598,13 @@ export default class App {
             // 组件名必须大写
             ReactDOM.render(
                 <ConfigProvider { ...globalComponentConfig } >
-                    <Component { ...props } value={ value } />
+                    <Component { ...props } value={ value }/>
                 </ConfigProvider>
                 , container, () => {
                     callback?.(hooks, instance);
-                }
+                },
             );
-        } catch (e) {
+        } catch(e) {
             console.error(e);
         }
         return props;
