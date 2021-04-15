@@ -6,14 +6,14 @@
  */
 import React, { Component } from 'react';
 import { Button, Modal, Spin } from 'antd';
-import { INativeProps, IVnode } from '@interface/common/component';
+import { INativeProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
 import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
 import { BaseUrl, IEntityOperationMode } from '@src/config';
-import { isEmptyObject, isString, vnodeToElement } from '@src/utils';
+import { isString, vnodeToElement } from '@src/utils';
 import { Mingle } from '@src/core/Mingle';
 
 interface IPrivateLayoutWindow extends INativeProps {
@@ -169,8 +169,10 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
     handleOk = () => {
         this.setState({ loading: true });
 
+        // 实体点击OK触发操作
         if (this.state.isEntity) {
-            console.log(this.props.el);
+            let submitBtn = document.querySelector('.layout-modal-window form-action [type=submit]') as HTMLElement;
+            submitBtn?.click();
         }
 
         setTimeout(() => {
@@ -197,6 +199,7 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
 
     render() {
         return <Modal
+            className="layout-modal-window"
             visible={ this.state.visible }
             mask={ this.props.dataset.mask ?? false }
             getContainer={ document.querySelector('#WIN') as HTMLElement }
