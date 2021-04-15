@@ -6,7 +6,7 @@ import { ConfigProvider, message, notification } from 'antd';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { globalComponentConfig } from '@src/config/component.config';
 import { Mingle } from './src/core/Mingle';
 import App from './src/App';
@@ -18,9 +18,9 @@ import { ViewRenderService } from './src/services/ViewRender.service';
 let container = document.querySelector('#__MINGLE_DOCS__');
 container && ReactDOM.render(
     <ConfigProvider { ...globalComponentConfig }>
-        <HashRouter>
+        <BrowserRouter>
             <Document/>
-        </HashRouter>
+        </BrowserRouter>
     </ConfigProvider>,
     container);
 
@@ -58,7 +58,7 @@ class EntityView {
         // console.log(url);
         // let res = await this.httpClientService.get(`${ BaseUrl }`);
         // return res.status ? res.data : [];
-        return {}
+        return {};
     }
 }
 
