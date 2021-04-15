@@ -190,20 +190,6 @@ export class Mingle {
         return Mingle.httpResponseInterceptor(await this.httpClientService.jsonp(url));
     };
 
-    public createComponent = (name: string, property: object) => {
-        let element = document.createElement(name);
-        for (const key in property) {
-            if (!property.hasOwnProperty(key)) continue;
-            let value = property[key];
-            if (key === 'name' || key === 'value') {
-                element['name'] = key;
-                element['value'] = value;
-            }
-            element.setAttribute(key, value);
-        }
-        return element;
-    };
-
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };

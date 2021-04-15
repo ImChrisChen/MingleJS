@@ -5,30 +5,24 @@
  * Time: 10:42 上午
  */
 
-import { INativeProps } from '@interface/common/component';
+import { INativeProps, IVnode } from '@interface/common/component';
 import { Mingle } from '@src/core/Mingle';
-
-interface IVnode {
-    key: string | number;
-    tag: string;
-    pid: string | number;
-    children: Array<IVnode>;
-    props: object;
-    events: any;
-    configs?: Array<any>;
-}
+import { Inject } from 'typescript-ioc';
+import { ViewRenderService } from '@src/services';
 
 export default class AppRender {
 
+    @Inject private readonly viewRenderService: ViewRenderService;
+
     constructor(private readonly props: INativeProps) {
         let el = this.props.el;
-
         if (el.children.length > 0) {
             [ ...el.children ].forEach(child => child.remove());        // 如果有子节点删除子节点
         }
 
         let json = this.getData(el);
-        let node = this.vnodeToElement(json);
+        let node = this.viewRenderService.vnodeToElement(json);
+
         el.innerHTML = '';
         el.append(node);
         new Mingle({ el: node });
@@ -51,39 +45,6 @@ export default class AppRender {
         }
 
         return json;
-    }
-
-    vnodeToElement(node: IVnode): HTMLElement {
-        let { tag, props, children, events } = node;
-        let el = document.createElement(tag);
-
-        // 属性
-        for (const name in props) {
-            if (!props.hasOwnProperty(name)) continue;
-            let value = props[name];
-
-            el.setAttribute(name, value);
-        }
-
-        // 事件
-        for (const name in events) {
-            if (!events.hasOwnProperty(name)) continue;
-            let listeners = events[name];
-            for (const eventItem of listeners) {
-                let { func, type } = eventItem;
-                el.addEventListener(type, (e) => {
-                    func?.call(el, e);
-                });
-            }
-        }
-
-        // 子元素
-        for (const child of children) {
-            let childElm = this.vnodeToElement(child);
-            el.append(childElm);
-        }
-
-        return el;
     }
 
 }

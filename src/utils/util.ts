@@ -127,7 +127,7 @@ export function deepEach(
     callback: (node: any, i: number, parent: any, arr: Array<any>) => any,
     children: string = 'children',
     parent?: object,
-    resultArr: Array<any> = []
+    resultArr: Array<any> = [],
 ): void | Array<any> {
 
     for (let i = 0; i < tree.length; i++) {
@@ -165,7 +165,7 @@ export function debounce(method, delay) {
     return function temp() {
         let args = arguments;
         timer && clearTimeout(timer);
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             method.apply(temp, args);
         }, delay);
     };

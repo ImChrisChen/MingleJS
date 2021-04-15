@@ -20,6 +20,9 @@ process.env.file = '//file.superdalan.com';
 process.env.mobile = '//m.aidalan.com';
 process.env.bbs = '//bbs.aidalan.com';
 
+// 实体的操作模式
+export type IEntityOperationMode = 'create' | 'update';
+
 const file = '//file.superdalan.com';
 
 // 钩子类型
@@ -1920,7 +1923,20 @@ export const componentConfig: IConfig = {
                             desc : '是否默认打开弹出窗',
                         },
                         entityid: {
-                            el: 'input',
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : '实体ID, 如果不是加载实体，则无须传入',
+                        },
+                        mode    : {
+                            el     : 'radio',
+                            parse  : 'string',
+                            options: [
+                                { label: '新增', value: 'create' },
+                                { label: '编辑', value: 'update' },
+                            ],
+                            value  : 'update' as IEntityOperationMode,
+                            desc   : '实体操作模式， 新增或者删除',
                         },
                     },
                 },
@@ -2109,7 +2125,9 @@ export const componentConfig: IConfig = {
         name    : '处理',
         children: {
             request: {
-                property: {
+                component: import('@component/handle/request/HandleRequest'),
+                document : import('@component/handle/request/HandleRequest.md'),
+                property : {
                     dataset: {
                         trigger: {
                             el     : 'switch',
@@ -2128,9 +2146,9 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type    : 'functional',
-                name    : '请求',
-                icon    : 'icon-qingqiu',
+                type     : 'functional',
+                name     : '请求',
+                icon     : 'icon-qingqiu',
             },
             // operate: {
             //     component: import('@component/handle/operate/HandleOperate'),
