@@ -106,7 +106,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
         selectedRowKeys: [],
-        rowkey         : this.props.dataset.rowkey,
+        rowkey         : this.props.dataset.rowkey,     // id
         loading        : true,
 
         currentpage: this.props.dataset.currentpage || 1,
@@ -205,10 +205,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 }
             });
         });
-    }
-
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        // this.handleDragSelect();
     }
 
     // 提交表单
@@ -650,11 +646,3 @@ export default class DataTable extends React.Component<ITableProps, any> {
         </div>;
     }
 }
-
-// pagination       : this.props.dataset.pagination ? {      // 分页
-//     pageSizeOptions: [ '10', '20', '50', '100', '200' ],
-//     pageSize       : this.props.dataset.pagesize ?? 50,
-//     position       : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
-//     onChange       : this.handleChangePagination,    // 页码改变的回调，参数是改变后的页码及每页条数
-//     current        : 1,
-// } : false,

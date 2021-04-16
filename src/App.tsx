@@ -178,10 +178,16 @@ export default class App {
             let { localName: tagName } = element;
 
             // TODO data-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从data-list控制子组件渲染
-            if (parentNode?.localName === 'data-list' && parentNode.getAttribute('data-url')) {
+            if (parentNode?.localName === 'data-list') {
 
                 if (!this.forceRender) {
                     console.log('拦截掉', element);
+                    return;
+                }
+            }
+
+            if (parentNode?.localName === 'data-table') {
+                if (!this.forceRender) {
                     return;
                 }
             }

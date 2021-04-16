@@ -113,6 +113,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     }
     type?: ModuleType           // 组件类型
     icon?: string,              // 组件展示的图标
+    visible?: boolean
 }
 
 // 公共配置属性 Interface
@@ -315,6 +316,14 @@ export const componentConfig: IConfig = {
                 path     : '/app-render',
                 type     : 'web-components',
                 name     : '组件渲染器',
+                visible  : false,
+            },
+            entity: {
+                name     : '实体模块',
+                component: import('@component/app/entity/AppEntity'),
+                property : {
+                    dataset: {},
+                },
             },
             // feishu: {
             //     component: import('@component/app/feishu/AppFeishu'),
@@ -1322,7 +1331,7 @@ export const componentConfig: IConfig = {
                 path     : '/data-table',
                 property : {
                     dataset: {
-                        'from'     : {
+                        from       : {
                             el   : 'input',
                             value: '',
                             parse: 'string',
@@ -1423,10 +1432,10 @@ export const componentConfig: IConfig = {
                         showupdate : {
                             el   : 'switch',
                             parse: 'boolean',
-                            value: false,
+                            value: true,
                             desc : '是否显示数据更新时间',
                         },
-                        headfield  : {
+                        headkey    : {
                             el   : 'input',
                             parse: 'string',
                             value: '',
@@ -1438,6 +1447,12 @@ export const componentConfig: IConfig = {
                             parse  : 'string',
                             value  : '',
                             desc   : '指定 表格每一行的key值,多选表格的ID 就是 这里指定的key,有这个值则开启表格的多选操作',
+                        },
+                        entity_id  : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : '表格对应的实体ID(表格内无实体逻辑，主要用于layout-window内dom元素获取)',
                         },
                     },
                 },
@@ -1603,7 +1618,7 @@ export const componentConfig: IConfig = {
                         showupdate    : {
                             el   : 'switch',
                             parse: 'boolean',
-                            value: false,
+                            value: true,
                             desc : '是否显示数据更新时间',
                         },
                         tooltip_suffix: {
@@ -2002,6 +2017,12 @@ export const componentConfig: IConfig = {
                             ],
                             value  : 'update' as IEntityOperationMode,
                             desc   : '实体操作模式， 新增或者删除',
+                        },
+                        uid        : {
+                            el   : 'input',
+                            parse: 'string',
+                            desc : '表格 / 列表的唯一ID',
+                            value: '',
                         },
                         // entityUrl : {
                         //     el   : 'input',

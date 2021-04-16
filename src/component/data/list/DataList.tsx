@@ -48,7 +48,7 @@ export default class DataList extends Component<IComponentProps, any> {
         if (this.props.dataset.url && this.state.subelements) {
             this.getLayoutListChildren().then(subelements => {
                 this.setState({ subelements }, () => {
-                    new App(this.props.el);
+                    new App(this.props.el, true);
                 });
             });
         }
