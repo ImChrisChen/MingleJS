@@ -726,10 +726,17 @@ export const componentConfig: IConfig = {
                             desc : 'form表单提交的url',
                         },
                         method  : {
-                            el   : 'radio',
-                            parse: 'string',
-                            value: 'post',
-                            desc : '指定请求类型,提供, get | post | delete | put | options (默认post)',
+                            el     : 'radio',
+                            parse  : 'string',
+                            options: [
+                                { label: 'GET', value: 'GET' },
+                                { label: 'POST', value: 'POST' },
+                                { label: 'PUT', value: 'PUT' },
+                                { label: 'DELETE', value: 'DELETE' },
+                                { label: 'OPTIONS', value: 'OPTIONS' },
+                            ],
+                            value  : 'POST',
+                            desc   : '指定请求类型,提供, get | post | delete | put | options (默认post)',
                         },
                         layout  : {
                             el     : 'radio',
@@ -1886,37 +1893,37 @@ export const componentConfig: IConfig = {
                 path     : '/layout-window',
                 property : {
                     dataset: {
-                        title     : {
+                        title      : {
                             el   : 'input',
                             parse: 'string',
                             value: '标题',
                             desc : '弹窗的标题',
                         },
-                        label     : {
+                        label      : {
                             el   : 'input',
                             parse: 'string',
                             value: 'submit',
                             desc : '按钮的内容',
                         },
-                        height    : {
+                        height     : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的高度',
                         },
-                        width     : {
+                        width      : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的宽度',
                         },
-                        mask      : {
+                        mask       : {
                             el   : 'switch',
                             value: false,
                             parse: 'boolean',
                             desc : '是否显示遮罩层',
                         },
-                        open      : {
+                        open       : {
                             el   : 'switch',
                             parse: 'boolean',
                             value: false,

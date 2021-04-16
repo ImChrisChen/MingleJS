@@ -172,6 +172,7 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         // 实体点击OK触发操作
         if (this.state.isEntity) {
             let submitBtn = document.querySelector('.layout-modal-window form-action [type=submit]') as HTMLElement;
+            console.log('触发表单提交', submitBtn);
             submitBtn?.click();
         }
 
