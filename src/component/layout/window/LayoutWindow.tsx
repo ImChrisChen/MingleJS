@@ -97,14 +97,14 @@ export default class LayoutWindow {
         if (this.entityID) {
 
             // 优化: 如果当前弹窗的实体id和现在的实体id一致说明无变化
-            if (this.entityID === LayoutWindow.instance.state.entity_id && this.entityMode === LayoutWindow.instance.state.entity_mode) {
-                await LayoutWindow.instance.setState({
-                    visible     : true,
-                    iframeHidden: false,
-                    isEntity    : true,
-                });
-                return;
-            }
+            // if (this.entityID === LayoutWindow.instance.state.entity_id && this.entityMode === LayoutWindow.instance.state.entity_mode) {
+            //     await LayoutWindow.instance.setState({
+            //         visible     : true,
+            //         iframeHidden: false,
+            //         isEntity    : true,
+            //     });
+            //     return;
+            // }
 
             // 1. 先弹窗，显示loading 等
             await LayoutWindow.instance.setState({
@@ -118,8 +118,6 @@ export default class LayoutWindow {
             // 2. 请求接口获取数据
             let data = await this.getEntityConfig(this.entityID);
             let formData = await this.getRowDetail(this.uid); // {}
-            console.log(data.contents);
-            console.log(formData);
 
             // 3. 关闭loading
             await LayoutWindow.instance.setState({
@@ -133,6 +131,17 @@ export default class LayoutWindow {
             if (el) {
                 el.innerHTML = '';
                 let node = vnodeToElement(data.contents, this.entityMode === 'create'); // isInit = true
+                for (let key in formData) {
+                    if (!formData.hasOwnProperty(key)) continue;
+                    let value = formData[key];
+
+                    let formItem = node.querySelector(`[name=${ key }]`) as HTMLElement;
+
+                    if (!formItem) continue;
+                    formItem?.setAttribute('value', value);
+                    formItem['value'] = value;
+                }
+
                 // 如果是实体创建，则初始化表单中的value值为空
                 el.append(node);
                 new Mingle({ el: node });
