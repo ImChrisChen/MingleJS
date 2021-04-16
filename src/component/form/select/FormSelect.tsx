@@ -18,11 +18,11 @@ export default class FormSelect extends Component<IComponentProps, any> {
     @Inject private readonly formatDataService: FormatDataService;
 
     state = {
-        checkedAll: false,
-        options   : [],
-        value     : '' as any,
+        checkedAll : false,
+        options    : [],
+        value      : '' as any,
         currentItem: {},
-        loading   : true
+        loading    : true,
     };
 
     constructor(props) {
@@ -42,7 +42,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
                 return this.formatDataService.list2Group(data, {
                     id  : key,
                     name: value,
-                    pid: groupby
+                    pid : groupby,
                 });
             } else {
                 return this.formatDataService.list2AntdOptions(data, key, value);
@@ -56,7 +56,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
     }
 
     render() {
-        let { smart, required, exec, label, ...dataset } = this.props.dataset;
+        let { smart, required, exec, label, value: _, ...dataset } = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
         if (dataset.mode === 'multiple') {
@@ -70,8 +70,8 @@ export default class FormSelect extends Component<IComponentProps, any> {
             <Form.Item label={ label }
                        style={ { display: 'flex', ...this.props.style } }
                        required={ required }>
-                { smart ? <FormSmartIcon /> : '' }
-                { exec ? <FormExecIcon /> : '' }
+                { smart ? <FormSmartIcon/> : '' }
+                { exec ? <FormExecIcon/> : '' }
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
                     { ...dataset }
@@ -146,7 +146,7 @@ export default class FormSelect extends Component<IComponentProps, any> {
         }
 
         this.setState({
-            checkedAll: !this.state.checkedAll
+            checkedAll: !this.state.checkedAll,
         });
 
     }

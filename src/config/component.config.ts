@@ -2071,7 +2071,7 @@ export const componentConfig: IConfig = {
                     },
                 },
                 type     : 'web-components',
-                name     : '循环列表',
+                name     : '列表',
                 icon     : 'icon-tubiao04',
             },
             row   : {
