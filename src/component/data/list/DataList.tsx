@@ -7,14 +7,16 @@
 
 import React, { Component } from 'react';
 import { IComponentProps } from '@interface/common/component';
-import style from './LayoutList.scss';
+import style from './DataList.scss';
 import { elementWrap, trigger } from '@src/utils';
 import Search from 'antd/lib/input/Search';
 import $ from 'jquery';
+import { directiveForeach } from '@src/config/directive.config';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService, ParserElementService } from '@src/services';
+import App from '@src/App';
 
-export default class LayoutList extends Component<IComponentProps, any> {
+export default class DataList extends Component<IComponentProps, any> {
 
     private selectable = this.props.dataset.selectable;
     private single = this.props.dataset.single;       //是否单选
@@ -32,11 +34,57 @@ export default class LayoutList extends Component<IComponentProps, any> {
     constructor(props) {
         super(props);
 
+        if (this.url) {
+
+        }
+
         if (this.selectable) {
             this.renderSelect(this.props.subelements);
         }
     }
-    
+
+    componentDidMount() {
+        // TODO 处理页面设计器动态渲染列表时出现的BUG, 后续可以再改进交互模式
+        if (this.props.dataset.url && this.state.subelements) {
+            this.getLayoutListChildren().then(subelements => {
+                this.setState({ subelements }, () => {
+                    new App(this.props.el);
+                });
+            });
+        }
+    }
+
+    async getLayoutListChildren() {
+        let { cols, space, url, item, index, height } = this.props.dataset;
+        let subelements = this.state.subelements;
+        let [ right, bottom ] = space;
+        let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
+        let children: Array<HTMLElement> = [];
+
+        if (url && subelements) {
+            let template = subelements[0];
+            console.log(template);
+            if (height) template.style.height = height + 'px';
+
+            let res = await this.httpClientService.jsonp(url);
+            let data = res.status ? res.data : [];
+
+            if (!template) {
+                return [];
+            }
+
+            template.setAttribute(directiveForeach, `data as (${ item || 'default_item' },${ index || 'default_index' })`);
+            // console.log(template.cloneNode(true));
+            // template.removeAttribute(DataComponentUID);
+            // $(template).children().remove();
+            let elements = this.parserElementService.parseElement(elementWrap(template), { data });
+
+            let ch = [ ...elements.children ] as Array<HTMLElement>;
+            children.push(...ch);
+        }
+        return children;
+    }
+
     renderSelect(subelements: Array<HTMLElement>) {
         let self = this;
         $(subelements).on('click', function (e) {
@@ -71,6 +119,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
             let element = document.createElement('div');
             element.style.width = width;
             element.style.marginBottom = bottom + 'px';
+            // element.style.visibility = 'hidden';        // 占位符
             element.style.opacity = '0';
             elements.push(element);
         }
@@ -95,6 +144,7 @@ export default class LayoutList extends Component<IComponentProps, any> {
         let { cols, space, height } = this.props.dataset;
         let [ right, bottom ] = space;
 
+        // let { subelements } = this.props;
         let subelements = this.state.subelements;
         let width = cols === 1 ? '100%' : `calc(${ 100 / cols }% - ${ (right / 2) }px)`;
         let diff = cols - (subelements.length % cols);

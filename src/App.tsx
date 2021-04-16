@@ -177,8 +177,8 @@ export default class App {
         deepEachElement(rootElement, async (element, parentNode) => {
             let { localName: tagName } = element;
 
-            // TODO layout-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从layout-list控制子组件渲染
-            if (parentNode?.localName === 'layout-list' && parentNode.getAttribute('data-url')) {
+            // TODO data-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从data-list控制子组件渲染
+            if (parentNode?.localName === 'data-list' && parentNode.getAttribute('data-url')) {
 
                 if (!this.forceRender) {
                     console.log('拦截掉', element);
