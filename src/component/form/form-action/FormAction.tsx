@@ -446,10 +446,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let { reset, submit } = this.props.dataset;
         return <>
             <FormSmart el={ el }/>
-            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
-                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
+            
             <Button hidden={ !reset } type="default" htmlType="reset"
                     onClick={ e => this.handleReset(el, e) }>重置</Button>
+            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
+                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
 
         </>;
     }
