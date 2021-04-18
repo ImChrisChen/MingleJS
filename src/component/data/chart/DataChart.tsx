@@ -105,7 +105,7 @@ export default class DataChart extends Component<IComponentProps, any> {
 
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
-    private timer;
+    private readonly timer;
 
     state = {
         loading   : true,

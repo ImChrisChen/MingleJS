@@ -5,7 +5,7 @@
  * Time: 2:48 下午
  */
 import React, { Component } from 'react';
-import { Button, Modal, Spin } from 'antd';
+import { Button, message, Modal, Spin } from 'antd';
 import { INativeProps } from '@interface/common/component';
 import Draggable from 'react-draggable';
 import './LayoutWindow.css';
@@ -15,9 +15,11 @@ import { Inject } from 'typescript-ioc';
 import { BaseUrl, IEntityOperationMode } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
 import { Mingle } from '@src/core/Mingle';
+import FormAction from '@component/form/form-action/FormAction';
+import App, { DataComponentUID } from '@src/App';
 
 interface IPrivateLayoutWindow extends INativeProps {
-
+    onOk?: (...args) => any
 }
 
 export default class LayoutWindow {
@@ -26,6 +28,7 @@ export default class LayoutWindow {
     @Inject private readonly httpClientService: HttpClientService;
 
     public static instance;
+    public tableUID: string;            // 表格 data-component-uid
     public entityID: string;
     public entityMode: IEntityOperationMode;         // 实体模式 'create' | 'update'
     public uid: string;                              // 表格中row的id
@@ -34,8 +37,11 @@ export default class LayoutWindow {
     constructor(private readonly props: INativeProps) {
         this.props = props;
 
+        let tableEl = $(this.props.el).closest('data-table');
+        this.tableUID = tableEl.attr(DataComponentUID) ?? '';
+
         // 若实体是在表格中的，那就直接获取表格上的实体ID
-        let tableEntityID = $(this.props.el).closest('data-table').attr('data-entity_id');
+        let tableEntityID = tableEl.attr('data-entity_id');
         // console.log('data-table对应的实体ID', tableEntityID);
 
         this.entityID = this.props.dataset.entity_id || tableEntityID;
@@ -73,6 +79,33 @@ export default class LayoutWindow {
         let res = await this.httpClientService.get(`//amis.local.superdalan.com/api/random/${ uid }`);
         return res.status ? res.data : {};
     }
+
+    // 编辑表格行
+    async editRowDetail(uid: string, data: object): Promise<any> {
+        let res = await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
+        return res.status ? res.data : {};
+    }
+
+    handleClickOk = async e => {
+        // 实体点击OK触发操作
+        if (this.entityID) {
+            let form = document.querySelector('.layout-modal-window form-action') as HTMLElement;
+            if (form) {
+                let formData = FormAction.getFormData(form);
+                let tableInstance = App.getInstance(this.tableUID ?? '').instance;
+                let res = await this.editRowDetail(this.uid, formData);
+                if (res.id) {
+                    message.success('修改成功');
+                    tableInstance?.FormSubmit(formData);
+                    return true;
+                } else {
+                    message.error('修改失败');
+                    return false;
+                }
+
+            }
+        }
+    };
 
     handleClickBtn(e: MouseEvent) {
         e.preventDefault();
@@ -164,7 +197,7 @@ export default class LayoutWindow {
 
     renderLayoutWindow() {
         let container = document.createElement('div');
-        ReactDOM.render(<PrivateLayoutWindow ref={ instance => {
+        ReactDOM.render(<PrivateLayoutWindow onOk={ this.handleClickOk } ref={ instance => {
             LayoutWindow.instance = instance;
         } } { ...this.props } />, container);
         document.body.append(container);
@@ -190,19 +223,12 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         super(props);
     }
 
-    handleOk = () => {
+    handleOk = async () => {
         this.setState({ loading: true });
-
-        // 实体点击OK触发操作
-        if (this.state.isEntity) {
-            let submitBtn = document.querySelector('.layout-modal-window form-action [type=submit]') as HTMLElement;
-            console.log('触发表单提交', submitBtn);
-            submitBtn?.click();
-        }
-
-        setTimeout(() => {
+        let res = await this.props.onOk?.();
+        if (res) {
             this.setState({ loading: false, visible: false });
-        }, 3000);
+        }
     };
 
     handleCancel = () => {

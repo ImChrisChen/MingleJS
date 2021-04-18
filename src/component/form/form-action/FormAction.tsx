@@ -9,7 +9,7 @@ import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { arrayDeleteItem, isEmptyObject, loadModule, trigger } from '@src/utils';
+import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App, { DataComponentUID } from '@src/App';
@@ -311,8 +311,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // type=submit
-    public async handleSubmit(form, e) {
-        e.preventDefault();
+    public async handleSubmit(form, e?) {
+        e?.preventDefault();
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
         let formData = FormAction.getFormData(form);
@@ -325,7 +325,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
             // 加载 table,chart,list 数据
             this.getViewsInstances().then(async instances => {
                 for (const instance of instances) {
-                    await instance?.FormSubmit?.(formData);
+                    instance?.FormSubmit?.(formData);
                 }
             });
 
@@ -446,7 +446,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let { reset, submit } = this.props.dataset;
         return <>
             <FormSmart el={ el }/>
-            
+
             <Button hidden={ !reset } type="default" htmlType="reset"
                     onClick={ e => this.handleReset(el, e) }>重置</Button>
             <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"

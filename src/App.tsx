@@ -60,7 +60,9 @@ interface IAttributes extends NamedNodeMap {
 
 interface IInstances {
     module?: IModules
-    instance?: ReactInstance
+    instance?: {
+        [key: string]: any
+    }
 }
 
 export const DataComponentUID = 'data-component-uid';
