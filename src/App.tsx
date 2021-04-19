@@ -60,7 +60,9 @@ interface IAttributes extends NamedNodeMap {
 
 interface IInstances {
     module?: IModules
-    instance?: ReactInstance
+    instance?: {
+        [key: string]: any
+    }
 }
 
 export const DataComponentUID = 'data-component-uid';
@@ -177,11 +179,17 @@ export default class App {
         deepEachElement(rootElement, async (element, parentNode) => {
             let { localName: tagName } = element;
 
-            // TODO layout-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从layout-list控制子组件渲染
-            if (parentNode?.localName === 'layout-list' && parentNode.getAttribute('data-url')) {
+            // TODO data-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从data-list控制子组件渲染
+            if (parentNode?.localName === 'data-list') {
 
                 if (!this.forceRender) {
                     console.log('拦截掉', element);
+                    return;
+                }
+            }
+
+            if (parentNode?.localName === 'data-table') {
+                if (!this.forceRender) {
                     return;
                 }
             }
@@ -490,7 +498,7 @@ export default class App {
         }
         let names = repeatName.filter(t => t).join(',');
         if (names) {
-            message.error(`${ names } 的name属性值重复`);
+            console.warn(`${ names } 的name属性值重复`);
         }
     }
 

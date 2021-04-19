@@ -9,6 +9,7 @@ import { INativeProps, IVnode } from '@interface/common/component';
 import { Mingle } from '@src/core/Mingle';
 import { Inject } from 'typescript-ioc';
 import { ViewRenderService } from '@src/services';
+import { vnodeToElement } from '@src/utils';
 
 export default class AppRender {
 
@@ -21,7 +22,7 @@ export default class AppRender {
         }
 
         let json = this.getData(el);
-        let node = this.viewRenderService.vnodeToElement(json);
+        let node = vnodeToElement(json);
 
         el.innerHTML = '';
         el.append(node);

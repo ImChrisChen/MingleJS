@@ -113,6 +113,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     }
     type?: ModuleType           // 组件类型
     icon?: string,              // 组件展示的图标
+    visible?: boolean
 }
 
 // 公共配置属性 Interface
@@ -143,6 +144,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         parse: 'string',
     },
     placeholder: JSON.parse(JSON.stringify({
+        el    : 'input',
         render: false,
         desc  : 'placeholder 属性提供可描述输入字段预期值的提示信息（hint)。',
         parse : 'string',
@@ -243,6 +245,14 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
     },
 };
 
+const APIMethodOptions = [
+    { label: 'GET', value: 'GET' },
+    { label: 'POST', value: 'POST' },
+    { label: 'PUT', value: 'PUT' },
+    { label: 'DELETE', value: 'DELETE' },
+    { label: 'OPTIONS', value: 'OPTIONS' },
+];
+
 interface IConfig {
     [key: string]: IComponentConfig
 }
@@ -314,6 +324,14 @@ export const componentConfig: IConfig = {
                 path     : '/app-render',
                 type     : 'web-components',
                 name     : '组件渲染器',
+                visible  : false,
+            },
+            entity: {
+                name     : '实体模块',
+                component: import('@component/app/entity/AppEntity'),
+                property : {
+                    dataset: {},
+                },
             },
             // feishu: {
             //     component: import('@component/app/feishu/AppFeishu'),
@@ -726,10 +744,11 @@ export const componentConfig: IConfig = {
                             desc : 'form表单提交的url',
                         },
                         method  : {
-                            el   : 'radio',
-                            parse: 'string',
-                            value: 'post',
-                            desc : '指定请求类型,提供, get | post | delete | put | options (默认post)',
+                            el     : 'radio',
+                            parse  : 'string',
+                            options: APIMethodOptions,
+                            value  : 'POST',
+                            desc   : '指定请求类型,提供, get | post | delete | put | options (默认post)',
                         },
                         layout  : {
                             el     : 'radio',
@@ -772,12 +791,6 @@ export const componentConfig: IConfig = {
                         parse: 'string',
                         value: '',
                         desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
-                    },
-                    action : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '',
-                        desc : 'form表单要请求跳转的地址(会跳转到这个页面),只在data-async为false的情况下生效',
                     },
                 },
                 document : import('@component/form/form-action/FormAction.md'),
@@ -838,10 +851,10 @@ export const componentConfig: IConfig = {
                     style  : UniversalProps.style,
                     name   : UniversalProps.name,
                     value  : {
-                        el     : 'select',
-                        options: [],
-                        value  : '',
-                        parse  : 'string',
+                        el: 'input',
+                        // options: [],
+                        value: '',
+                        parse: 'string',
                     },
                 },
                 name     : '单选框',
@@ -956,13 +969,11 @@ export const componentConfig: IConfig = {
                         smart   : UniversalProps.smart,
                         group   : UniversalProps.group,
                         disabled: UniversalProps.disabled,
+                        exec    : UniversalProps.exec,
                     },
                     name       : UniversalProps.name,
                     style      : UniversalProps.style,
                     placeholder: UniversalProps.placeholder,
-                    group      : UniversalProps.group,
-                    smart      : UniversalProps.smart,
-                    exec       : UniversalProps.exec,
                     value      : {
                         el   : 'input',
                         parse: 'string',
@@ -1322,7 +1333,7 @@ export const componentConfig: IConfig = {
                 path     : '/data-table',
                 property : {
                     dataset: {
-                        'from'     : {
+                        from       : {
                             el   : 'input',
                             value: '',
                             parse: 'string',
@@ -1423,10 +1434,10 @@ export const componentConfig: IConfig = {
                         showupdate : {
                             el   : 'switch',
                             parse: 'boolean',
-                            value: false,
+                            value: true,
                             desc : '是否显示数据更新时间',
                         },
-                        headfield  : {
+                        headkey    : {
                             el   : 'input',
                             parse: 'string',
                             value: '',
@@ -1438,6 +1449,18 @@ export const componentConfig: IConfig = {
                             parse  : 'string',
                             value  : '',
                             desc   : '指定 表格每一行的key值,多选表格的ID 就是 这里指定的key,有这个值则开启表格的多选操作',
+                        },
+                        entity_id  : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : '表格对应的实体ID(表格内无实体逻辑，主要用于layout-window内dom元素获取)',
+                        },
+                        entity_url : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : '实体操作的URL(CURD),请支持RESTFul API规范',
                         },
                     },
                 },
@@ -1603,7 +1626,7 @@ export const componentConfig: IConfig = {
                         showupdate    : {
                             el   : 'switch',
                             parse: 'boolean',
-                            value: false,
+                            value: true,
                             desc : '是否显示数据更新时间',
                         },
                         tooltip_suffix: {
@@ -1684,6 +1707,71 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 name     : '树状结构选择器',
                 icon     : 'icon-tree',
+            },
+            list : {
+                name     : '循环列表',
+                component: import('@component/data/list/DataList'),
+                path     : '/data-list',
+                property : {
+                    dataset: {
+                        cols      : {
+                            el   : 'number',
+                            value: 2,
+                            parse: 'number',
+                            desc : '每行显示的数量',
+                        },
+                        url       : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : 'URL',
+                        },
+                        space     : {
+                            el   : 'input',
+                            parse: 'number[]',
+                            value: '20,10',
+                            desc : '前面的值(20)代表上下的间距,后面的值(10)代表左右的间距',
+                        },
+                        selectable: {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: false,
+                            desc : '是否可以选中列表中的某一项',
+                        },
+                        single    : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: false,
+                            desc : '是否单选,开启选择模式后生效(data-selectable="true"时)',
+                        },
+                        searchable: {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: false,
+                            desc : '是否显示搜索框',
+                        },
+                        item      : {
+                            el   : 'input',
+                            parse: 'null',
+                            value: 'item',
+                            desc : '循环模版的变量',
+                        },
+                        index     : {
+                            el   : 'input',
+                            parse: 'null',
+                            value: 'index',
+                            desc : '列表的下标',
+                        },
+                        height    : {
+                            el   : 'number',
+                            parse: 'number',
+                            value: 0,
+                            desc : '高度',
+                        },
+                    },
+                },
+                type     : 'web-components',
+                icon     : 'icon-tubiao04',
             },
         },
     },
@@ -1886,49 +1974,49 @@ export const componentConfig: IConfig = {
                 path     : '/layout-window',
                 property : {
                     dataset: {
-                        title   : {
+                        title      : {
                             el   : 'input',
                             parse: 'string',
                             value: '标题',
                             desc : '弹窗的标题',
                         },
-                        label   : {
+                        label      : {
                             el   : 'input',
                             parse: 'string',
                             value: 'submit',
                             desc : '按钮的内容',
                         },
-                        height  : {
+                        height     : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的高度',
                         },
-                        width   : {
+                        width      : {
                             el   : 'number',
                             value: 600,
                             parse: 'number',
                             desc : '弹窗的宽度',
                         },
-                        mask    : {
+                        mask       : {
                             el   : 'switch',
                             value: false,
                             parse: 'boolean',
                             desc : '是否显示遮罩层',
                         },
-                        open    : {
+                        open       : {
                             el   : 'switch',
                             parse: 'boolean',
                             value: false,
                             desc : '是否默认打开弹出窗',
                         },
-                        entityid: {
+                        entity_id  : {
                             el   : 'input',
                             parse: 'string',
                             value: '',
                             desc : '实体ID, 如果不是加载实体，则无须传入',
                         },
-                        mode    : {
+                        entity_mode: {
                             el     : 'radio',
                             parse  : 'string',
                             options: [
@@ -1938,6 +2026,18 @@ export const componentConfig: IConfig = {
                             value  : 'update' as IEntityOperationMode,
                             desc   : '实体操作模式， 新增或者删除',
                         },
+                        uid        : {
+                            el   : 'input',
+                            parse: 'string',
+                            desc : '表格 / 列表的唯一ID',
+                            value: '',
+                        },
+                        // entityUrl : {
+                        //     el   : 'input',
+                        //     parse: 'string',
+                        //     value: '',
+                        //     desc : '实体提交的URL',
+                        // },
                     },
                 },
                 type     : 'functional',
@@ -2014,12 +2114,6 @@ export const componentConfig: IConfig = {
                             parse: 'number',
                             desc : '每行显示的数量',
                         },
-                        url       : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '',
-                            desc : 'URL',
-                        },
                         space     : {
                             el   : 'input',
                             parse: 'number[]',
@@ -2044,28 +2138,16 @@ export const componentConfig: IConfig = {
                             value: false,
                             desc : '是否显示搜索框',
                         },
-                        item      : {
-                            el   : 'input',
-                            parse: 'null',
-                            value: 'item',
-                            desc : '循环模版的变量',
-                        },
-                        index     : {
-                            el   : 'input',
-                            parse: 'null',
-                            value: 'index',
-                            desc : '列表的下标',
-                        },
                         height    : {
                             el   : 'number',
                             parse: 'number',
-                            value: 0,
+                            value: 'auto',
                             desc : '高度',
                         },
                     },
                 },
                 type     : 'web-components',
-                name     : '循环列表',
+                name     : '列表',
                 icon     : 'icon-tubiao04',
             },
             row   : {
@@ -2143,6 +2225,13 @@ export const componentConfig: IConfig = {
                             value : domain + '/server/mock/menulist/uesr-menu.json',
                             parse : 'string',
                             verify: v => isUrl(v),
+                        },
+                        method : {
+                            el     : 'radio',
+                            parse  : 'string',
+                            options: APIMethodOptions,
+                            value  : 'GET',
+                            desc   : '请求类型',
                         },
                     },
                 },
