@@ -397,7 +397,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         // 处理 form-group 内的组件
         let formGroupData = this.getFormGroupData(form);
-        console.log('formGroupData', formGroupData);
+        // console.log('formGroupData', formGroupData);
 
         return Object.assign(formData, formGroupData);
     }

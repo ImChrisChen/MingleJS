@@ -31,7 +31,7 @@ export default class LayoutWindow {
     public tableUID: string;            // 表格 data-component-uid
     public entityID: string;
     public entityMode: IEntityOperationMode;         // 实体模式 'create' | 'update'
-    public uid: string;                              // 表格中row的id
+    public uid: string;                              // 表格中row的id, 只有编辑的时候才有UID
 
     // TODO 使用单例模式，复用一个弹窗(但是Layoutwindow还是实例化多个) (减少内存消耗)
     constructor(private readonly props: INativeProps) {
@@ -42,13 +42,12 @@ export default class LayoutWindow {
 
         // 若实体是在表格中的，那就直接获取表格上的实体ID
         let tableEntityID = tableEl.attr('data-entity_id');
-        // console.log('data-table对应的实体ID', tableEntityID);
 
         this.entityID = this.props.dataset.entity_id || tableEntityID;
         this.entityMode = this.props.dataset.entity_mode;
         this.uid = this.props.dataset.uid;
 
-        this.props.el.addEventListener('click', e => this.handleClickBtn(e));
+        this.props.el.addEventListener('click', e => this.handleClickBtn(e, this.tableUID));
 
         /**
          * --------------------------- Single Model --------------------------------------
@@ -86,31 +85,54 @@ export default class LayoutWindow {
         return res.status ? res.data : {};
     }
 
+    // 新增表格行
+    async createRowDetail(data: object): Promise<any> {
+        let res = await this.httpClientService.post('//amis.local.superdalan.com/api/random', data);
+        return res.status ? res.data : {};
+    }
+
     handleClickOk = async e => {
         // 实体点击OK触发操作
-        if (this.entityID) {
+        let entityID = LayoutWindow.instance.state.entityID;
+        let entityMode = LayoutWindow.instance.state.entityMode;
+        if (entityID) {
+            // 弹窗的Form
             let form = document.querySelector('.layout-modal-window form-action') as HTMLElement;
             if (form) {
                 let formData = FormAction.getFormData(form);
-                let tableInstance = App.getInstance(this.tableUID ?? '').instance;
-                let res = await this.editRowDetail(this.uid, formData);
-                if (res.id) {
-                    message.success('修改成功');
-                    tableInstance?.FormSubmit(formData);
-                } else {
-                    message.error('修改失败');
+                let tableUID = document.querySelector('data-table')?.getAttribute(DataComponentUID) ?? '';
+                let tableInstance = App.getInstance(tableUID ?? '').instance;
+                console.log(tableInstance);
+                if (entityMode === 'create') {
+                    let res = await this.createRowDetail(formData);
+                    if (res.id) {
+                        message.success('添加成功');
+                        console.log(tableInstance, formData);
+                        tableInstance?.handleReload();
+                    } else {
+                        message.error('添加失败');
+                    }
                 }
-
+                if (entityMode === 'update') {
+                    let res = await this.editRowDetail(this.uid, formData);
+                    if (res.id) {
+                        message.success('修改成功');
+                        tableInstance?.handleReload();
+                    } else {
+                        message.error('修改失败');
+                    }
+                }
             }
         }
     };
 
-    handleClickBtn(e: MouseEvent) {
+    handleClickBtn(e: MouseEvent, tableUID: string) {
         e.preventDefault();
-        this.handleShowModel();
+        this.handleShowModel(tableUID);
     }
 
-    async handleShowModel() {
+    // 点击弹窗
+    async handleShowModel(tableUID) {
 
         /**
          * --------------------------- iframe 弹窗形式 --------------------------------------
@@ -142,13 +164,13 @@ export default class LayoutWindow {
                 visible     : true,
                 iframeHidden: true,
                 isEntity    : true,
-                entity_id   : this.entityID,
-                entity_mode : this.entityMode,
+                entityID    : this.entityID,
+                entityMode  : this.entityMode,
+                dataUID     : tableUID,
             });
 
-            // 2. 请求接口获取数据
+            // 2. 请求接口获取数据(生成实体页面元素)
             let data = await this.getEntityConfig(this.entityID);
-            let formData = await this.getRowDetail(this.uid); // {}
 
             // 3. 关闭loading
             await LayoutWindow.instance.setState({
@@ -161,16 +183,20 @@ export default class LayoutWindow {
             let el = document.querySelector('.layout-window-content-entity');
             if (el) {
                 el.innerHTML = '';
-                let node = vnodeToElement(data.contents, this.entityMode === 'create'); // isInit = true
-                for (let key in formData) {
-                    if (!formData.hasOwnProperty(key)) continue;
-                    let value = formData[key];
+                let node = vnodeToElement(data.contents, true); // isInit = true,清空默认值
 
-                    let formItem = node.querySelector(`[name=${ key }]`) as HTMLElement;
+                // 实体如果是编辑模式，则需要查询到默认值进行回显操作
+                if (this.entityMode === 'update') {
+                    let formData = await this.getRowDetail(this.uid); // {}
+                    for (let key in formData) {
+                        if (!formData.hasOwnProperty(key)) continue;
+                        let value = formData[key];
 
-                    if (!formItem) continue;
-                    formItem?.setAttribute('value', value);
-                    formItem['value'] = value;
+                        let formItem = node.querySelector(`[name=${ key }]`) as HTMLElement;
+                        if (!formItem) continue;
+                        formItem?.setAttribute('value', value);
+                        formItem['value'] = value;
+                    }
                 }
 
                 // 如果是实体创建，则初始化表单中的value值为空
@@ -189,6 +215,7 @@ export default class LayoutWindow {
                 entity_mode : 'update',
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
                 title       : this.props.dataset.title,
+                dataUID     : '',
             });
         }
     };
@@ -214,7 +241,9 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         iframeUrl   : '',
         title       : this.props.dataset.title,
         isEntity    : true,     // 是否是实体
-        entity_mode : 'update' as IEntityOperationMode,       // 实体的操作模式
+        entityMode  : 'update' as IEntityOperationMode,       // 实体的操作模式
+        entityID    : '',
+        dataUID     : '',
     };
 
     constructor(props) {
@@ -223,9 +252,11 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
 
     handleOk = async () => {
         this.setState({ loading: true });
-        let res = await this.props.onOk?.();
-        if (res) {
+        try {
+            await this.props.onOk?.();
             this.setState({ loading: false, visible: false });
+        } catch(e) {
+            this.setState({ loading: false });
         }
     };
 

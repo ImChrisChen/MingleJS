@@ -1456,6 +1456,12 @@ export const componentConfig: IConfig = {
                             value: '',
                             desc : '表格对应的实体ID(表格内无实体逻辑，主要用于layout-window内dom元素获取)',
                         },
+                        entity_url : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '',
+                            desc : '实体操作的URL(CURD),请支持RESTFul API规范',
+                        },
                     },
                 },
                 type     : 'web-components',
