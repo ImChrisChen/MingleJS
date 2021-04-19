@@ -193,7 +193,7 @@ export class Mingle {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        let isVirtual = false;
+        let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
         this.$refs = Mingle.getRefs();
 
         if (!container) {

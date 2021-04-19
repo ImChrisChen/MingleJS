@@ -27,15 +27,17 @@ import {
     WordCloudChart,
 } from 'bizcharts';
 
-import { Spin, Typography } from 'antd';
+import { Button, Spin, Typography } from 'antd';
 import FormAction from '@component/form/form-action/FormAction';
 import { isArray, isEmptyArray, isEmptyStr } from '@src/utils';
 import moment from 'moment';
-import { SyncOutlined } from '@ant-design/icons';
+import { ColumnHeightOutlined, DownloadOutlined, PlusOutlined, SyncOutlined } from '@ant-design/icons';
 import DataSet from '@antv/data-set';
 import { ChartTootipCustom } from './component/ChartTootipCustom';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
+import style from './DataChart.scss';
+import App from '@src/App';
 
 interface IChartConfig {
     key: string | Array<string>
@@ -56,28 +58,46 @@ interface IChartConfig {
 
 const { DataView } = DataSet;
 
-export function PanelTitle(props: { title: string, handleReload: () => any }) {
-    let style: any = {
-        textAlign: 'center',
-        // background: '#f0f2f5',
-        fontSize: '18px',
-        color   : '#464c54',
-        margin  : '0px',
-        cursor  : 'pointer',
-        padding : '6px',
-        position: 'relative',
+type IPanleTitleType = 'chart' | 'table'
+
+interface IpanelTitleProps {
+    title: string,
+    handleReload: () => any
+    handleTableResizeColumnHeight?: () => any
+    handleTableAddColumn?: () => any
+    type?: IPanleTitleType,
+}
+
+export function PanelTitle(props: IpanelTitleProps) {
+    let sty: any = {
+        textAlign : 'center',
+        fontSize  : '18px',
+        color     : '#464c54',
+        margin    : '0px',
+        cursor    : 'pointer',
+        padding   : '6px',
+        position  : 'relative',
+        background: '#fff',
     };
     return props.title ?
-        <Typography.Title style={ { ...style } } level={ 5 }>{ props.title }
-            <SyncOutlined
-                style={ {
-                    marginLeft: 6,
-                    color     : '#1890ff',
-                    position  : 'absolute',
-                    right     : 10,
-                } }
-                onClick={ props.handleReload }
-            />
+        <Typography.Title style={ { ...sty } } level={ 5 }>{ props.title }
+            <div className={ style.tips } style={ {} }>
+                { props.type === 'table' ? <>
+                    <Button data-fn="layout-window"
+                            data-entity_mode="create"
+                            data-entity_id={ '22' }
+                            type="primary" icon={ <PlusOutlined/> }
+                            onClick={ props.handleTableAddColumn }
+                            ref={ node => {
+                                node && new App(node);
+                            } }>
+                        添加
+                    </Button>
+                    <ColumnHeightOutlined style={ { color: '#1890ff' } }
+                                          onClick={ props.handleTableResizeColumnHeight }/>
+                </> : '' }
+                <SyncOutlined style={ { color: '#1890ff' } } onClick={ props.handleReload }/>
+            </div>
         </Typography.Title>
         : <></>;
 }
@@ -105,7 +125,7 @@ export default class DataChart extends Component<IComponentProps, any> {
 
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
-    private timer;
+    private readonly timer;
 
     state = {
         loading   : true,
@@ -866,12 +886,13 @@ export default class DataChart extends Component<IComponentProps, any> {
 
     render() {
         let config = this.formatConfig();
+        let { title, showupdate } = this.props.dataset;
         return <div style={ { height: '100%', position: 'relative' } }>
-            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
+            <PanelTitle title={ title } type="chart" handleReload={ this.handleReload.bind(this) }/>
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
             </Spin>
-            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
+            <DataUpdateTime hidden={ !showupdate } content={ this.state.updateDate }/>
         </div>;
     }
 }

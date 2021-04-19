@@ -9,7 +9,7 @@ import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { arrayDeleteItem, isEmptyObject, loadModule, trigger } from '@src/utils';
+import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App, { DataComponentUID } from '@src/App';
@@ -311,8 +311,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // type=submit
-    public async handleSubmit(form, e) {
-        e.preventDefault();
+    public async handleSubmit(form = this.props.el, e?) {
+        e?.preventDefault();
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;
         let formData = FormAction.getFormData(form);
@@ -325,7 +325,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
             // 加载 table,chart,list 数据
             this.getViewsInstances().then(async instances => {
                 for (const instance of instances) {
-                    await instance?.FormSubmit?.(formData);
+                    instance?.FormSubmit?.(formData);
                 }
             });
 
@@ -336,6 +336,8 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     headers: headers || { 'Content-Type': 'application/json' },
                     data   : formData,
                 });
+
+                console.log('form表单提交:', res);
 
                 if (showmsg) {
                     if (res?.status) {
@@ -395,7 +397,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
         // 处理 form-group 内的组件
         let formGroupData = this.getFormGroupData(form);
-        console.log('formGroupData', formGroupData);
+        // console.log('formGroupData', formGroupData);
 
         return Object.assign(formData, formGroupData);
     }
@@ -444,10 +446,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
         let { reset, submit } = this.props.dataset;
         return <>
             <FormSmart el={ el }/>
-            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
-                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
+
             <Button hidden={ !reset } type="default" htmlType="reset"
                     onClick={ e => this.handleReset(el, e) }>重置</Button>
+            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
+                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
 
         </>;
     }

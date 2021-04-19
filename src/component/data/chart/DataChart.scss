@@ -1,1 +1,23 @@
-.line {    position : relative;    padding  : 6px 0;}.icon {    position  : absolute;    left      : -20px;    top       : 50%;    transform : translateY(-50%);}
+.line {
+    position : relative;
+    padding  : 6px 0;
+}
+
+.icon {
+    position  : absolute;
+    left      : -20px;
+    top       : 50%;
+    transform : translateY(-50%);
+}
+
+.tips {
+    position    : absolute;
+    right       : 10px;
+    top         : 10px;
+    display     : flex;
+    align-items : center;
+
+    & > * {
+        margin-left : 6px;
+    }
+}
