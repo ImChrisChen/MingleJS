@@ -83,14 +83,11 @@ export function PanelTitle(props: IpanelTitleProps) {
         <Typography.Title style={ { ...sty } } level={ 5 }>{ props.title }
             <div className={ style.tips } style={ {} }>
                 { props.type === 'table' ? <>
-                    <Button data-fn="layout-window"
+                    <Button className="entity-add-btn" data-fn="layout-window"
                             data-entity_mode="create"
                             data-entity_id={ '22' }
                             type="primary" icon={ <PlusOutlined/> }
-                            onClick={ props.handleTableAddColumn }
-                            ref={ node => {
-                                node && new App(node);
-                            } }>
+                            onClick={ props.handleTableAddColumn }>
                         添加
                     </Button>
                     <ColumnHeightOutlined style={ { color: '#1890ff' } }

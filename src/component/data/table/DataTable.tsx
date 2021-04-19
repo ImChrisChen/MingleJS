@@ -152,6 +152,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 columns   : tableHeader,
                 dataSource: tableContent,
                 loading   : false,
+            }, () => {
+                let addEntityBtn = this.props.el.querySelector('.entity-add-btn') as HTMLElement;
+                addEntityBtn && new App(addEntityBtn);
             });
             this.handleDragSelect();
         });

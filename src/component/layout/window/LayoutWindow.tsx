@@ -95,6 +95,7 @@ export default class LayoutWindow {
         // 实体点击OK触发操作
         let entityID = LayoutWindow.instance.state.entityID;
         let entityMode = LayoutWindow.instance.state.entityMode;
+        console.log(this);
         if (entityID) {
             // 弹窗的Form
             let form = document.querySelector('.layout-modal-window form-action') as HTMLElement;
