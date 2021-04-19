@@ -65,6 +65,7 @@ interface IpanelTitleProps {
     handleReload: () => any
     handleTableResizeColumnHeight?: () => any
     handleTableAddColumn?: () => any
+    handleTableDeleteRows?: () => any
     type?: IPanleTitleType,
 }
 
@@ -89,6 +90,9 @@ export function PanelTitle(props: IpanelTitleProps) {
                             type="primary" icon={ <PlusOutlined/> }
                             onClick={ props.handleTableAddColumn }>
                         添加
+                    </Button>
+                    <Button danger onClick={ props.handleTableDeleteRows }>
+                        删除
                     </Button>
                     <ColumnHeightOutlined style={ { color: '#1890ff' } }
                                           onClick={ props.handleTableResizeColumnHeight }/>
