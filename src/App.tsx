@@ -498,7 +498,7 @@ export default class App {
         }
         let names = repeatName.filter(t => t).join(',');
         if (names) {
-            message.error(`${ names } 的name属性值重复`);
+            console.warn(`${ names } 的name属性值重复`);
         }
     }
 

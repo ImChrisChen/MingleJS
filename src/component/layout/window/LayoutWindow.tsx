@@ -97,10 +97,8 @@ export default class LayoutWindow {
                 if (res.id) {
                     message.success('修改成功');
                     tableInstance?.FormSubmit(formData);
-                    return true;
                 } else {
                     message.error('修改失败');
-                    return false;
                 }
 
             }

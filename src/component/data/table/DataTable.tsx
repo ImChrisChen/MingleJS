@@ -100,6 +100,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     private searchInput;
     private tableHeaderNode = this.props.templates['table-header'];
     private tableBodyNode = this.props.templates['table-body'];
+    private entityID = this.props.dataset.entity_id ?? '';      // 实体ID
     private timer;
 
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
@@ -570,7 +571,14 @@ export default class DataTable extends React.Component<ITableProps, any> {
         }
     }
 
+    // entity 新增表格的列
+    async handleAddColumn() {
+        console.log(this);
+        this.httpClientService.post(``);
+    };
+
     render() {
+        console.log(this.props);
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
             <Dropdown overlay={ this.renderTableHeaderConfig(this.state.columns) }
@@ -583,7 +591,10 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 </Button>
             </Dropdown>
 
-            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
+            <PanelTitle type="table" title={ this.props.dataset.title }
+                        handleReload={ this.handleReload.bind(this) }
+                        handleTableAddColumn={ this.handleAddColumn.bind(this) }
+            />
 
             <Table
                 indentSize={ this.state.indentSize }

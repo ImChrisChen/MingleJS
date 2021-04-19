@@ -10,9 +10,6 @@ import { INativeProps } from '@interface/common/component';
 import { message } from 'antd';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services/HttpClient.service';
-import { Simulate } from 'react-dom/test-utils';
-import keyDown = Simulate.keyDown;
-import FormAction from '@component/form/form-action/FormAction';
 import App, { DataComponentUID } from '@src/App';
 
 interface IHandleRequestProps extends INativeProps {
