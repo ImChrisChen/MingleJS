@@ -9,6 +9,8 @@ import { deepEach, isArray, isDOMString, isWuiTpl, strParseVirtualDOM } from '@s
 import { ParserTemplateService } from '@services/ParserTemplate.service';
 import { IOptions } from '@src/config';
 import { Inject } from 'typescript-ioc';
+import { Simulate } from 'react-dom/test-utils';
+import keyDown = Simulate.keyDown;
 
 interface IKeyMap {
     id: string
@@ -94,7 +96,8 @@ export class FormatDataService {
                 if (!child.hasOwnProperty(k)) continue;
 
                 let v = child[k];
-                let { component, document, path, property, icon, name, ...args } = v;
+                // TODO children 要移除否则和antd options 的数据结构冲突
+                let { component, document, path, property, icon, name, children: c, ...args } = v;
                 let item = {
                     label    : name,
                     value    : k,
@@ -264,7 +267,8 @@ export class FormatDataService {
         let object = {};
         if (search) {
             let o = this.url2Obj(search);
-            object = Object.assign(o, data);
+            // object = Object.assign(o, data);
+            object = { ...o, ...data };     // 如果参数相同，data上的参数则会覆盖 url上的参数
         } else {
             object = data;
         }
@@ -284,7 +288,7 @@ export class FormatDataService {
      * @param url
      * @param o
      */
-    public url2Obj(url: string, o: object = {}): object {
+    public url2Obj(url: string, o: object = {}): { [key: string]: any } {
         let search = url;
         if (url.includes('?')) {
             [ , search ] = url.split('?');

@@ -12,7 +12,6 @@ import { Mingle } from './src/core/Mingle';
 import App from './src/App';
 
 let container = document.querySelector('#__MINGLE_DOCS__');
-
 container && ReactDOM.render(
     <ConfigProvider { ...globalComponentConfig }>
         <HashRouter>

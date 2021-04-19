@@ -11,3 +11,4 @@ export * from './HttpClient.service';
 export * from './ParserChar.service';
 export * from './ParserElement.service';
 export * from './ParserTemplate.service';
+export * from './ViewRender.service';

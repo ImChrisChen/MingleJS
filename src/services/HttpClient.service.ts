@@ -45,7 +45,10 @@ export class HttpClientService {
     private static setConfig() {
         // 允许携带cookie;
         axios.defaults.timeout = 6000;
-        axios.defaults.withCredentials = true;
+
+        // 跨域设置为 * 的时候 Access-Control-Allow-Origin '*' ， 需要设置 // wichCredentials=false
+        axios.defaults.withCredentials = false;
+
         // axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
         this.httpRequestInterceptors();
         this.httpResponseInterceptors();
@@ -78,7 +81,7 @@ export class HttpClientService {
             },
             err => {
                 // console.log(err);
-            }
+            },
         );
     }
 
@@ -111,7 +114,7 @@ export class HttpClientService {
                     // 重新发起请求
                     return axios.request(originalRequest);
                 }
-            }
+            },
         );
     }
 
@@ -159,7 +162,7 @@ export class HttpClientService {
                     flag       : 'mingle',
                     method     : 'get',
                     dataType   : 'jsonp',
-                    headers    : '{}'
+                    headers    : '{}',
                 });
             } catch(e) {
                 console.error(e);
@@ -170,7 +173,12 @@ export class HttpClientService {
                 reject({ error: '', msg: '接口请求超时' });
                 window[funcName] = undefined;
             }, timeout);
-            setTimeout(() => body?.removeChild(script), 500);
+
+            // 判断是否已经被移除掉，如果有父级说明没有被移除掉
+            if (script.parentNode) {
+                // body?.removeChild(script);
+                // setTimeout(() => body?.removeChild(script), 500);
+            }
         });
     };
 

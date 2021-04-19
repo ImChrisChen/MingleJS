@@ -6,9 +6,9 @@ const ImageWebpackPlugin = require('imagemin-webpack-plugin').default;
 const FileManagerPlugin = require('filemanager-webpack-plugin');        // 文件处理 
 const glob = require('glob');
 const clc = require('cli-color');
-const webpack = require("webpack");
+const webpack = require('webpack');
 
-const {entries} = require('./script/read-all');
+const { entries } = require('./script/read-all');
 
 let env = process.env.NODE_ENV;
 let isProduction = env !== 'development';
@@ -16,7 +16,7 @@ let isDoc = env === 'production-doc';
 let isLib = env === 'production-lib';
 
 console.log('当前环境:', env);
-console.log(clc.blue(`-------------是否生产环境: ${isProduction}-------------`));
+console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
 
 module.exports = {
     watchOptions: {
@@ -35,7 +35,7 @@ module.exports = {
         path: path.resolve(__dirname, isDoc ? 'dist' : 'lib'),
         filename: '[name].min.js',
         library: {
-            type: "umd"
+            type: 'umd',
         },
         chunkFilename: '[name].min.js',//非入口(non-entry) chunk 文件(关联文件)的名称
     },
@@ -79,25 +79,25 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
             '@root': path.resolve(__dirname, './'),
-
+            
             '@src': path.resolve(__dirname, 'src'),
             '@component': path.resolve(__dirname, 'src/component'),
             '@interface': path.resolve(__dirname, 'src/interface'),
             '@services': path.resolve(__dirname, 'src/services'),
             '@mock': path.resolve(__dirname, 'server/mock'),
-
+            
             '@public': path.resolve(__dirname, 'public'),
-
+            
             '@static': path.resolve(__dirname, 'static'),
-
+            
             '@images': path.resolve(__dirname, 'static/images'),
             '@utils': path.resolve(__dirname, 'src/utils'),
-
+            
         },
         modules: [path.resolve(__dirname, 'node_modules')],
         fallback: {
-            path: require.resolve("path-browserify"),
-        }
+            path: require.resolve('path-browserify'),
+        },
     },
     module: {
         rules: [
@@ -105,14 +105,14 @@ module.exports = {
                 test: /\.css$/i,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    {loader: 'css-loader'},
+                    { loader: 'css-loader' },
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-                    {loader: 'css-loader'},
+                    { loader: 'css-loader' },
                     {
                         loader: 'less-loader',
                         options: {
@@ -155,7 +155,7 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: [
-                    {loader: 'ts-loader'},
+                    { loader: 'ts-loader' },
                 ],
                 include: path.resolve(__dirname, '/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
@@ -174,10 +174,10 @@ module.exports = {
                     },
                 },
             },
-            {enforce: 'pre', test: /\.js$/, loader: 'source-map-loader'},
+            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
         ],
     },
-
+    
     // TODO 格式 { 'package包名称' : 'script标签引入全局变量名称' },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
         // 'antd': 'antd',      // TODO 目前分离无效
@@ -191,27 +191,27 @@ module.exports = {
         'gg-editor': 'gg-editor',
     },
     plugins: [
-
+        
         new webpack.ProvidePlugin({
             process: 'process/browser',
         }),
-
+        
         new webpack.HotModuleReplacementPlugin(),
-
+        
         // 处理html
         new HtmlWebpackPlugin({
             title: isProduction ? 'MingleJS Production' : 'MingleJS Development',            // html title
             // filename: path.resolve(__dirname, 'dist/index.html'),
             template: './public/index.html',
         }),
-
+        
         new MiniCssExtractPlugin({
             filename: '[name].css',     // main.css
             // minimize: true,
             // disable: isProduction,
             chunkFilename: '[name].css', // manifest.css
         }),
-
+        
         // Images 压缩
         new ImageWebpackPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
@@ -231,7 +231,7 @@ module.exports = {
                 fileName: '[path].[name].[ext]',
             },
         }),
-
+        
         // webpack 打包性能可视化分析
         new BundleAnalyzerPlugin({
             analyzerMode: isProduction ? 'static' : false,  // 生成html文件
@@ -240,14 +240,14 @@ module.exports = {
                 source: false,
             },
         }),
-
+        
         new FileManagerPlugin({
             events: {
                 onEnd: {
                     copy: [
                         {
                             source: './public/index.js',
-                            destination: `./${isDoc ? 'dist' : 'lib'}/index.js`,
+                            destination: `./${ isDoc ? 'dist' : 'lib' }/index.js`,
                         },
                         // {
                         //     source: './public/data-set.js',
@@ -267,30 +267,36 @@ module.exports = {
                 target: 'http://127.0.0.1:9001',
                 source: true,
                 changeOrigin: true,
-                pathRewrite: {'^/api': '/'},
+                pathRewrite: { '^/api': '/' },
             },
             contentBase: path.resolve(__dirname, '/'),   //静态服务器根目录
             // compress: true,             // 是否压缩
             headers: {
                 'X-Content-Type-Options': 'nosniff',
-                'Access-Control-Allow-Origin': '*'
+                'Access-Control-Allow-Origin': '*',
             },
         },
+        // historyApiFallback: {
+        //     rewrites: [
+        //         { from: /.*/, to: path.posix.join('public', 'index.html') },
+        //     ],
+        // },
+        
         // https: true,
         firewall: false,        // 已解决 [webpack-dev-server] Invalid Host/Origin header
         // allowedHosts: ['mingle-test.local.aidalan.com'],
         // disableHostCheck: true,
     },
     cache: {
-        type: "filesystem",
+        type: 'filesystem',
         buildDependencies: {
-            config: []
+            config: [],
         },
-        version: "1.0"
+        version: '1.0',
     },
     stats: {
-        errorDetails: true
+        errorDetails: true,
     },
-    target: 'web'
+    target: 'web',
 };
 

@@ -30,7 +30,13 @@ import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
 import FormAction from '@component/form/form-action/FormAction';
 import { Inject } from 'typescript-ioc';
-import { FormatDataService, HttpClientService, IApiResult, ParserTemplateService } from '@src/services';
+import {
+    FormatDataService,
+    HttpClientService,
+    IApiResult,
+    ParserTemplateService,
+    ViewRenderService,
+} from '@src/services';
 import App from '@src/App';
 
 interface ITableHeaderItem {
@@ -96,17 +102,20 @@ export default class DataTable extends React.Component<ITableProps, any> {
     @Inject private readonly parserTemplateService: ParserTemplateService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
+    @Inject private readonly viewRenderService: ViewRenderService;
 
     private searchInput;
     private tableHeaderNode = this.props.templates['table-header'];
     private tableBodyNode = this.props.templates['table-body'];
+    private entityID = this.props.dataset.entity_id ?? '';      // 实体ID
+    private entityUrl = this.props.dataset.entity_url ?? '';    // 实体编辑的URL
     private timer;
 
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
         selectedRowKeys: [],
-        rowkey         : this.props.dataset.rowkey,
+        rowkey         : this.props.dataset.rowkey,     // id
         loading        : true,
 
         currentpage: this.props.dataset.currentpage || 1,
@@ -143,6 +152,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 columns   : tableHeader,
                 dataSource: tableContent,
                 loading   : false,
+            }, () => {
+                let addEntityBtn = this.props.el.querySelector('.entity-add-btn') as HTMLElement;
+                addEntityBtn && new App(addEntityBtn);
             });
             this.handleDragSelect();
         });
@@ -207,10 +219,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
         });
     }
 
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        // this.handleDragSelect();
-    }
-
     // 提交表单
     public async FormSubmit(formData = {}) {
         console.log('DataTable:', formData);
@@ -222,8 +230,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
         this.setState({
             dataSource: tableContent,
-            loading   : false,
             updateDate: updateDate,
+            loading   : false,
         });
     }
 
@@ -559,6 +567,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
+    // 重新加载表格数据
     async handleReload() {
         let id = this.props.dataset.from;
         if (id) {
@@ -587,7 +596,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 </Button>
             </Dropdown>
 
-            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
+            <PanelTitle type="table" title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
 
             <Table
                 indentSize={ this.state.indentSize }
@@ -650,11 +659,3 @@ export default class DataTable extends React.Component<ITableProps, any> {
         </div>;
     }
 }
-
-// pagination       : this.props.dataset.pagination ? {      // 分页
-//     pageSizeOptions: [ '10', '20', '50', '100', '200' ],
-//     pageSize       : this.props.dataset.pagesize ?? 50,
-//     position       : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
-//     onChange       : this.handleChangePagination,    // 页码改变的回调，参数是改变后的页码及每页条数
-//     current        : 1,
-// } : false,
