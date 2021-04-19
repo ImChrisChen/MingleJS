@@ -270,4 +270,3 @@ export function vnodeToElement(node: IVnode, isInit = false): HTMLElement {
 
     return el;
 }
-

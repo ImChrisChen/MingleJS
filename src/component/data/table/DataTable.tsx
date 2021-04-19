@@ -218,8 +218,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
         this.setState({
             dataSource: tableContent,
-            loading   : false,
             updateDate: updateDate,
+            loading   : false,
         });
     }
 

@@ -311,7 +311,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
     }
 
     // type=submit
-    public async handleSubmit(form, e?) {
+    public async handleSubmit(form = this.props.el, e?) {
         e?.preventDefault();
 
         let { url, method, headers, msgfield, showmsg } = this.props.dataset;

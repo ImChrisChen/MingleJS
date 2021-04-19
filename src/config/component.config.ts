@@ -245,6 +245,14 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
     },
 };
 
+const APIMethodOptions = [
+    { label: 'GET', value: 'GET' },
+    { label: 'POST', value: 'POST' },
+    { label: 'PUT', value: 'PUT' },
+    { label: 'DELETE', value: 'DELETE' },
+    { label: 'OPTIONS', value: 'OPTIONS' },
+];
+
 interface IConfig {
     [key: string]: IComponentConfig
 }
@@ -738,13 +746,7 @@ export const componentConfig: IConfig = {
                         method  : {
                             el     : 'radio',
                             parse  : 'string',
-                            options: [
-                                { label: 'GET', value: 'GET' },
-                                { label: 'POST', value: 'POST' },
-                                { label: 'PUT', value: 'PUT' },
-                                { label: 'DELETE', value: 'DELETE' },
-                                { label: 'OPTIONS', value: 'OPTIONS' },
-                            ],
+                            options: APIMethodOptions,
                             value  : 'POST',
                             desc   : '指定请求类型,提供, get | post | delete | put | options (默认post)',
                         },
@@ -2217,6 +2219,13 @@ export const componentConfig: IConfig = {
                             value : domain + '/server/mock/menulist/uesr-menu.json',
                             parse : 'string',
                             verify: v => isUrl(v),
+                        },
+                        method : {
+                            el     : 'radio',
+                            parse  : 'string',
+                            options: APIMethodOptions,
+                            value  : 'GET',
+                            desc   : '请求类型',
                         },
                     },
                 },
