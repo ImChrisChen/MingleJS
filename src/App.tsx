@@ -13,7 +13,7 @@ import {
 } from '@src/utils';
 import $ from 'jquery';
 import { ConfigProvider, message } from 'antd';
-import { globalComponentConfig, IComponentConfig } from '@src/config/component.config';
+import { globalComponentConfig, IComponentConfig } from '@src/config/interface';
 import * as antdIcons from '@ant-design/icons';
 import { Hooks } from '@src/config/directive.config';
 import { IComponentProps } from '@interface/common/component';
@@ -119,16 +119,17 @@ export default class App {
             templates[name] = tpl;
         }
 
-        const Module = loadModule(tagName);
-        const Component = (await Module.component)?.default;            // React组件
+        const $module = loadModule(tagName);
+        console.log($module);
+        const Component = (await $module.component)?.default;            // React组件
         if (!Component) {
             // 一般出现在 component.configs.ts中没有写 component import 导入组件的情况
-            console.error(`${ tagName }没有这个组件`, Module);
+            console.error(`${ tagName }没有这个组件`, $module);
             return;
         }
 
         let hooks = App.formatHooks(el.attributes);
-        let defaultProperty = Module.property;
+        let defaultProperty = $module.property;
 
         /**
          * --------------------------- 开始实例化组件 --------------------------------------
@@ -156,7 +157,7 @@ export default class App {
             props = App.renderComponent(module);
         } else {
             // 原生js组件
-            let defaultProperty = Module.property;
+            let defaultProperty = $module.property;
             let { dataset, attrs } = App.parseProps(el, defaultProperty);
             props = {
                 el: el,
@@ -266,7 +267,7 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    App.renderCustomElement(element);
+                    await App.renderCustomElement(element);
                 }
 
             } else {        // data-fn 函数功能
@@ -276,12 +277,12 @@ export default class App {
                     return;
                 }
 
-                let Module = loadModule(methods);
-                const Component = (await Module.component).default;
+                let $module = loadModule(methods);
+                const Component = (await $module.component).default;
 
                 // 不是react组件,直接 new Class
                 if (!isReactComponent(Component)) {
-                    let defaultProperty = Module.property;
+                    let defaultProperty = $module.property;
                     let { dataset, attrs } = App.parseProps(element, defaultProperty);
                     new Component({
                         el: element,

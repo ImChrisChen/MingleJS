@@ -4,9 +4,9 @@
  * Date: 2020/9/19
  * Time: 11:23 上午
  */
-import { IPropertyConfig, parseType } from '@src/config/component.config';
 import { isEmptyStr, isJSON, isString } from '@src/utils';
 import { ParserTemplateService } from '@src/services';
+import { IPropertyConfig, parseType } from '@src/config/interface';
 
 // 解析dataset data-*
 export function parserDataset(dataset, defaultDataset): object {
@@ -21,7 +21,7 @@ export function parserDataset(dataset, defaultDataset): object {
 
         if (datasetKey === 'fn') continue;
 
-        let currentProperty: IPropertyConfig<any> = defaultDataset[datasetKey];
+        let currentProperty: IPropertyConfig = defaultDataset[datasetKey];
 
         // 如何该属性有映射, 数据处理和key值转换
         if (!currentProperty /*!currentProperty.parse*/) continue;
@@ -112,7 +112,7 @@ function parserProgram(key, value, parse?: parseType): { k: string, v: any } {
         value = parse(value);
     }
 
-    switch (parse) {
+    switch(parse) {
 
         case 'string':            // 模版解析
             value = new ParserTemplateService().parseTpl(value, document.body, 'tpl');
@@ -180,7 +180,7 @@ export function parseEnum(enumStr: string): Array<object> {
 // inline-style 解析成 react-style
 export function parseLineStyle(style: string): object {
     let stylesJson = style.split(';').reduce((arr: Array<object>, group) => {
-        let [key, val] = group.split(':');
+        let [ key, val ] = group.split(':');
         if (!isEmptyStr(key) && !isEmptyStr(val)) {
             key = parseCamelCase(key.trim());
             val = val.trim();
@@ -201,7 +201,7 @@ export function parseStr2JSONArray(str: string, rowStplit: string, cellSplit: st
     // return str.split(';').reduce((arr: Array<object>, group) => {
     return str.split(rowStplit).reduce((arr: Array<object>, group) => {
         // let [ key, val ] = group.split(',');
-        let [key, val] = group.split(cellSplit);
+        let [ key, val ] = group.split(cellSplit);
         if (!isEmptyStr(key) && !isEmptyStr(val)) {
             key = key.trim();
             val = val.trim();

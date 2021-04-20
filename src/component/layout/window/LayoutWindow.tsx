@@ -12,11 +12,12 @@ import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
 import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
-import { BaseUrl, IEntityOperationMode } from '@src/config';
+import { BaseUrl } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
 import { Mingle } from '@src/core/Mingle';
 import FormAction from '@component/form/form-action/FormAction';
 import App, { DataComponentUID } from '@src/App';
+import { IEntityOperationMode } from '@src/config/interface';
 
 interface IPrivateLayoutWindow extends INativeProps {
     onOk?: (...args) => any
@@ -41,9 +42,8 @@ export default class LayoutWindow {
         this.tableUID = tableEl.attr(DataComponentUID) ?? '';
 
         // 若实体是在表格中的，那就直接获取表格上的实体ID
-        let tableEntityID = tableEl.attr('data-entity_id') ?? '';
-        this.entityID = tableEntityID;  // this.entityID = this.props.dataset.entity_id || tableEntityID;
-        
+        this.entityID = tableEl.attr('data-entity_id') ?? '';  // this.entityID = this.props.dataset.entity_id || tableEntityID;
+
         this.entityMode = this.props.dataset.entity_mode;
         this.uid = this.props.dataset.uid;
 

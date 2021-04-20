@@ -12,7 +12,7 @@ import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { componentConfig } from '@src/config/component.config';
-import { styleConfig } from '@src/config/styleConfig';
+import { styleConfig } from '@src/config/style.config';
 import { isString } from '@src/utils';
 
 interface IMingleOptions {

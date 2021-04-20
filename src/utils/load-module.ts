@@ -5,7 +5,8 @@
  * Time: 10:22 上午
  */
 
-import { componentConfig, IComponentConfig, IPropertyConfig } from '@src/config/component.config';
+import { componentConfig } from '@src/config';
+import { IComponentConfig, IPropertyConfig } from '@src/config/interface';
 
 // 递归加载模块
 async function getModules(keys, object) {

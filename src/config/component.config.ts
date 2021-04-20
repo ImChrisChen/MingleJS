@@ -7,132 +7,11 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@src/utils';
 import moment from 'moment';
+import { IComponentConfig, IEntityOperationMode, IPropertyConfig, IUniversalProps } from '@src/config/interface';
 
-let domain = '';
 const isLocation = window.location.href.includes('-test');
-if (isLocation) {
-    domain = 'http://mingle-test.local.aidalan.com';
-} else {
-    domain = 'http://mingle.local.aidalan.com';
-}
-process.env.file = '//file.superdalan.com';
-process.env.mobile = '//m.aidalan.com';
-process.env.bbs = '//bbs.aidalan.com';
-
-// 实体的操作模式
-export type IEntityOperationMode = 'create' | 'update';
-
+const domain = isLocation ? 'http://mingle-test.local.aidalan.com' : 'http://mingle.local.aidalan.com';
 const file = '//file.superdalan.com';
-
-// 钩子类型
-export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
-
-// 解析类型
-export type parseType =
-    'string'
-    | 'boolean'
-    | 'number'
-    | 'object[]'
-    | 'string[]'
-    | 'number[]'
-    | 'JSON'
-    | 'style'
-    | 'class'
-    | 'null'
-    | Function /* 只能用于做验证的方法 比如 isUndefined, isBoolean */
-
-// 组件设计器，属性值渲染类型
-export type elType =
-    'switch'
-    | 'list'
-    | 'radio'
-    | 'input'
-    | 'select'
-    | 'datepicker'
-    | 'slider'
-    | 'number'
-    | 'color'
-    | 'select-multiple';
-
-/**
- * 模块类型
- * web-components 组件调用方式为 - 自定义组件 <form-select></form-select>
- * functional 交互拓展函数 调用方式为 -  <div data-fn="layout-window"></div>
- */
-type ModuleType = 'web-components' | 'functional';
-
-export interface IOptions {
-    label: string
-    value: string | number
-    title?: string
-
-    [key: string]: any
-}
-
-export interface IPropertyConfig<OptionItem = IOptions> {
-    el?: elType             // (组件设计器) 要渲染的组件名称
-    value?: ((parsedDataset) => any) | any          // TODO 在组件设计器中是没有这个参数传入的
-    options?: Array<OptionItem> | Function // 选择列表
-    options_from?: string,      // 寻找当前的属性
-    label?: string            // 组件设计器中的label值
-    parse?: parseType         // 解析类型
-    request?: boolean         //  url 上才有这个属性，request为true时在组件设计器中会立即请求
-    render?: boolean         // 是否可在组件设计器中配置
-    desc?: string           // 字段描述
-    verify?: (v) => boolean     // 验证属性值是否合法
-}
-
-export interface IComponentConfig<Property = IPropertyConfig> {
-    name?: string               // 组件 | 组 名称
-    children?: {                // 组下的组件
-        [key: string]: IComponentConfig
-    },
-    component?: Promise<any>    // 组件类
-    path?: string               // 组件文档路径
-    document?: Promise<any>     // 组件Markdown文档
-    property?: {                // 组件属性配置
-        dataset: {
-            [key: string]: Property | (() => any)
-        }
-        name?: Property
-        value?: Property
-        style?: Property
-        class?: Property
-        id?: Property
-        group?: Property
-        placeholder?: Property
-        hook?: {
-            [key in hookType]?: {
-                el?: string
-                value?: string
-                render?: boolean
-            }
-        }
-        [key: string]: any
-    }
-    type?: ModuleType           // 组件类型
-    icon?: string,              // 组件展示的图标
-    visible?: boolean
-}
-
-// 公共配置属性 Interface
-interface IUniversalProps<T> {
-    label: T
-    placeholder: T
-    url: T
-    style: T
-    class: T
-    enum: T
-    disabled: T
-    size: T
-    name: T
-    required: T
-    smart: T
-    group: T
-    exec: T
-
-    [key: string]: T
-}
 
 // TODO 提取公共属性(待调整)
 const UniversalProps: IUniversalProps<IPropertyConfig> = {
@@ -266,11 +145,6 @@ export const componentConfig: IConfig = {
                 component: import('@component/app/menu/AppMenu'),
                 property : {
                     dataset: {
-                        // url      : {
-                        //     el   : 'input',
-                        //     parse: 'string',
-                        //     value: domain + '/server/mock/menulist/uesr-menu.json',
-                        // },
                         pathfield: {
                             el   : 'input',
                             parse: 'string',
@@ -478,8 +352,8 @@ export const componentConfig: IConfig = {
                 document : import('@component/form/select/tree/FormSelectTree.md'),
                 property : {
                     dataset    : {
-                        disabled: UniversalProps.disabled,
-                        label   : UniversalProps.label,
+                        disabled  : UniversalProps.disabled,
+                        label     : UniversalProps.label,
                         url       : {
                             el     : 'select',
                             parse  : 'string',
@@ -813,9 +687,9 @@ export const componentConfig: IConfig = {
                 component: import('@component/form/radio/FormRadio'),
                 property : {
                     dataset: {
-                        disabled: UniversalProps.disabled,
-                        label   : UniversalProps.label,
-                        enum    : UniversalProps.enum,
+                        disabled   : UniversalProps.disabled,
+                        label      : UniversalProps.label,
+                        enum       : UniversalProps.enum,
                         type       : {  // optionType
                             el     : 'radio',
                             options: [
@@ -1311,7 +1185,7 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'functional',
+                type     : 'web-components',
                 name     : '面板',
                 icon     : 'icon-panel',
             },
@@ -2208,8 +2082,7 @@ export const componentConfig: IConfig = {
                         },
                     },
                     style  : {
-                        el: 'input',
-                        // render: true,
+                        el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : '样式',
@@ -2257,42 +2130,11 @@ export const componentConfig: IConfig = {
                 name     : '请求',
                 icon     : 'icon-qingqiu',
             },
-            // operate: {
-            //     component: import('@component/handle/operate/HandleOperate'),
-            //     property : {
-            //         dataset: {
-            //             // trigger: {
-            //             //     el     : 'radio',
-            //             //     options: [
-            //             //         { label: 'click', value: 'click' },
-            //             //         { label: 'hover', value: 'hover' },
-            //             //     ],
-            //             // },
-            //             operate: {
-            //                 el     : 'select',
-            //                 options: [
-            //                     { label: '弹窗', value: 'layout-window' },
-            //                     { label: 'form提交', value: 'form-submit' },
-            //                 ],
-            //                 value  : '',
-            //                 parse  : 'string',
-            //             },
-            //         },
-            //     },
-            //     type     : 'functional',
-            //     name     : 'icon-caozuo',
-            // },
         },
     },
     editor: {
         name    : '编辑',
         children: {
-            // flow    : {     // 流程图
-            //     component: import('@component/editor/flow/EditorFlow'),
-            //     property : {
-            //         dataset: {},
-            //     },
-            // },
             markdown: {     // markdown 编辑器
                 component: import('@component/editor/markdown-editor/MarkdownEditor'),
                 path     : '/editor-markdown',
@@ -2316,23 +2158,7 @@ export const componentConfig: IConfig = {
                 name     : 'Markdown编辑器',
                 icon     : 'icon-mark_down',
             },
-            // code    : {     // 代码编辑器
-            //     component: import('@component/code/editor/CodeEditor'),
-            //     path     : '/editor-code',
-            //     property : {
-            //         dataset: {},
-            //     },
-            // },
         },
     },
 };
 
-// 组件全局配置
-export const globalComponentConfig: any = {
-    locale       : zhCN,
-    componentSize: 'small',
-    direction    : 'ltr',        // ltr | rtl
-    space        : { size: 'small' },
-    // virtual                 : true,
-    dropdownMatchSelectWidth: true,
-};

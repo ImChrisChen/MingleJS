@@ -5,10 +5,26 @@
  * Time: 1:37 下午
  */
 
-import { Button, Card, Cascader, Col, Form, Input, InputNumber, message, Radio, Row, Select, Slider, Space, Switch } from 'antd';
+import {
+    Button,
+    Card,
+    Cascader,
+    Col,
+    Form,
+    Input,
+    InputNumber,
+    message,
+    Radio,
+    Row,
+    Select,
+    Slider,
+    Space,
+    Switch,
+} from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { PureComponent } from 'react';
-import { componentConfig, IOptions, IPropertyConfig } from '@src/config/component.config';
+import { IOptions, IPropertyConfig } from '@src/config/interface';
+import { componentConfig } from '@src/config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
 import { arraylastItem, isObject, isUndefined, isUrl, parseEnum } from '@src/utils';
@@ -17,7 +33,6 @@ import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
-import * as url from 'url';
 
 interface IComponentDataset {
     el: string
@@ -103,7 +118,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
         // } else {
         //     return '<div data-fn="form-button" ></div>';
         // }
-        return '<:CustomElementDefault: ></:CustomElementDefault:>'
+        return '<:CustomElementDefault: ></:CustomElementDefault:>';
     }
 
     async reloadChangeComponent(componentName: string, currentComponent) {
