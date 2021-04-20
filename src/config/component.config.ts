@@ -491,18 +491,21 @@ export const componentConfig: IConfig = {
                             options: 'fromUrl',
                             parse  : 'string',
                             value  : 'id',
+                            desc   : '数据源唯一id',
                         },
                         value     : {
                             el     : 'select',
                             options: 'fromUrl',
                             parse  : 'string',
                             value  : 'name',
+                            desc   : '要展示的内容模版/字段',
                         },
                         children  : {
                             el     : 'select',
                             options: 'fromUrl',
                             parse  : 'string',
                             value  : 'children',
+                            desc   : '子节点关联key值',
                         },
                         allowClear: {
                             el    : 'switch',
@@ -587,6 +590,7 @@ export const componentConfig: IConfig = {
                             // value  : '',
                             request: true,
                             parse  : 'string',
+                            desc   : '数据源',
                         },
                         key       : {
                             el     : 'input',
@@ -626,6 +630,7 @@ export const componentConfig: IConfig = {
                         el   : 'input',
                         value: '',
                         parse: 'string',
+                        desc : '默认值',
                     },
                 },
                 name     : '级联选择器',
@@ -705,6 +710,7 @@ export const componentConfig: IConfig = {
                     value  : {
                         el   : 'input',
                         parse: 'null',
+                        desc : '默认值',
                         value(parsedDataset) {
                             if (!parsedDataset) {
                                 return '';
@@ -821,6 +827,7 @@ export const componentConfig: IConfig = {
                             ],
                             value  : 'button',
                             parse  : 'string',
+                            desc   : 'Radio类型'
                         },
                         buttonStyle: {
                             el     : 'radio',
@@ -836,6 +843,7 @@ export const componentConfig: IConfig = {
                             value  : 'solid',
                             parse  : 'string',
                             render : true,
+                            desc   : 'Radio样式类型'
                         },
                         required   : UniversalProps.required,
                         smart      : UniversalProps.smart,
@@ -855,6 +863,7 @@ export const componentConfig: IConfig = {
                         // options: [],
                         value: '',
                         parse: 'string',
+                        desc : '默认值'
                     },
                 },
                 name     : '单选框',
@@ -923,10 +932,12 @@ export const componentConfig: IConfig = {
                         checkedChildren  : {
                             el   : 'input',
                             value: '开启',
+                            desc : '选中显示内容'
                         },
                         unCheckedChildren: {
                             el   : 'input',
                             value: '关闭',
+                            desc : '非选中是内容'
                         },
                         smart            : UniversalProps.smart,
                         exec             : UniversalProps.exec,
@@ -963,6 +974,7 @@ export const componentConfig: IConfig = {
                                 //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
                             ],
                             value  : 'text',
+                            desc   : 'input类型'
                         },
                         label   : UniversalProps.label,
                         required: UniversalProps.required,
@@ -1314,6 +1326,7 @@ export const componentConfig: IConfig = {
                             el   : 'input',
                             parse: 'string',
                             value: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                            desc : '图片地址'
                         },
                     },
                     style  : UniversalProps.style,
@@ -1670,18 +1683,21 @@ export const componentConfig: IConfig = {
                             options: 'fromUrl',
                             parse  : 'string',
                             value  : 'id',
+                            desc   : '数据源唯一id',
                         },
                         value    : {
                             el     : 'select',
                             options: 'fromUrl',
                             parse  : 'string',
                             value  : 'name',
+                            desc   : '要展示的内容模版/字段',
                         },
                         children : {
                             el     : 'select',
                             options: 'fromUrl',
                             parse  : 'string',
                             value  : 'children',
+                            desc   : '关联children键值',
                         },
                         checkeds : {
                             el   : 'input',
