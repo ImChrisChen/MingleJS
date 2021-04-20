@@ -5,58 +5,6 @@
 
     </form-action>
 
-    <!--    <layout-list>-->
-    <!--        <div w-foreach="list as item"><{item}></div>-->
-    <!--    </layout-list>-->
-
-    <!--    <form-select>-->
-
-    <!--    </form-select>-->
-
-    <!--    <define-component module="form-select">-->
-
-    <!--    </define-component>-->
-
-    <!--    <form-action>-->
-    <!--        <form-select name='pf' style="display: flex; justify-content: flex-end">-->
-
-    <!--        </form-select>-->
-    <!--    </form-action>-->
-
-
-    <!--    <layout-list>-->
-    <!--        <form-input data-label="<{item.key}>" name="<{item.key}>" value="<{item.value}>" w-foreach="funnel as item"></form-input>-->
-    <!--    </layout-list>-->
-
-    <!--    <form-select style="background-color: #b2c8ff"></form-select>-->
-
-
-    <!--    &lt;!&ndash;    <form-select></form-select>&ndash;&gt;-->
-
-    <form-cascader
-        data-disabled="false"
-        data-exec="true"
-        data-groupby=""
-        data-key=""
-        data-label="label:"
-        data-required="true"
-        data-smart="true"
-        data-url="http://mingle-test.local.aidalan.com/server/mock/select.json"
-        data-value=""
-    ></form-cascader>
-
-    <form-datepicker data-exec="true"
-                     data-fn="form-datepicker"
-                     data-format="YYYY-MM-DD HH:mm:ss"
-                     data-label="起始日期:"
-                     data-maxdate=""
-                     data-mindate=""
-                     data-showtime="true"
-                     data-usenow="false"
-                     name="date_range"
-    />
-    </form-datepicker>
-
     <data-table
         data-bordered="true"
         data-currentpage="1"
@@ -78,57 +26,14 @@
         @select-change="onSelectChange(this)"
     ></data-table>
 
-    <layout-list data-cols="1" data-url="/server/mock/chart/funnel.json">
-        <div>
-            <h1>--------------------</h1>
-        </div>
-    </layout-list>
-
     <a data-fn="layout-window" href="https://baidu.com">百度</a>
 
     <!--    <embed title='visualization for graph database' height='100%' width='100%'-->
     <!--           src='https://gw.alipayobjects.com/os/bmw-prod/660e1732-ff10-4f00-8594-a08d5a2d11d8.pdf' type='application/pdf'>-->
 
-    <!--    <layout-row style="border: 1px solid #cccccc;background-color: #1890ff">-->
-    <!--        <layout-col data-col="4">123</layout-col>-->
-    <!--        <layout-col data-col="16">123</layout-col>-->
-    <!--        <layout-col data-col="4">123</layout-col>-->
-    <!--    </layout-row>-->
-
-    <!-- 1 -->
-    <!--    <data-table data-height="400">-->
-    <!--    </data-table>-->
-    <!--    -->
-    <!--    <h1><{count}></h1>-->
-
-    <!--    <button @click="add()"></button>-->
-
-    <!--    <layout-list data-url="https://" data-item="item">-->
-    <!--        <div>-->
-    <!--            <form-select data-label="<{ item.name }>"></form-select>-->
-    <!--        </div>-->
-    <!--    </layout-list>-->
-
-    <!--    <layout-list data-cols="1">-->
-    <!--    <data-table data-title="table"></data-table>-->
-    <!--    </layout-list>-->
-
-    <!--    <ul>-->
-    <!--        <li w-foreach="list as item">-->
-    <!--            &lt;!&ndash; 尽量不要使用 a 标签 , 打开一样的窗口也会重新加载整个iframe(资源浪费)，导致不会记录上一次的位置 &ndash;&gt;-->
-    <!--            <span data-fn="layout-window" href="<{item.url}>"><{item.name}></span>-->
-    <!--        </li>-->
-    <!--    </ul>-->
-
     <ul>
         <li w-foreach="tableObj as item"><{item.key}></li>
     </ul>
-
-    <!--    <layout-list>-->
-    <!--        <data-table data-url="<{tableObj.data}>" data-title="草绿色哦">-->
-    <!--            -->
-    <!--        </data-table>-->
-    <!--    </layout-list>-->
 
 </div>
 

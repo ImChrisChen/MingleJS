@@ -11,7 +11,7 @@ export default class AppEntity {
 
     constructor(private readonly props: INativeProps) {
 
-
+       
     }
 
 

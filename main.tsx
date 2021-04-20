@@ -7,7 +7,7 @@ import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
-import { globalComponentConfig } from '@src/config/component.config';
+import { globalComponentConfig } from './src/config/interface';
 import { Mingle } from './src/core/Mingle';
 import App from './src/App';
 
