@@ -152,6 +152,9 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 columns   : tableHeader,
                 dataSource: tableContent,
                 loading   : false,
+            }, () => {
+                let addEntityBtn = this.props.el.querySelector('.entity-add-btn') as HTMLElement;
+                addEntityBtn && new App(addEntityBtn);
             });
             this.handleDragSelect();
         });
@@ -580,6 +583,22 @@ export default class DataTable extends React.Component<ITableProps, any> {
         }
     }
 
+    // 删除多条
+    async handleTableDeleteRows() {
+        let ids = this.state.selectedRowKeys;
+        let tasks: Array<Promise<any>> = ids.map(id => {
+            let url = `//amis.local.superdalan.com/api/random/${ id }`;
+            return this.httpClientService.delete(url);
+        });
+        Promise.all(tasks).then(res => {
+            message.success('删除成功');
+            this.handleReload();
+        }, e => {
+            console.log(e);
+            message.error('删除失败');
+        });
+    }
+
     render() {
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
@@ -593,7 +612,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 </Button>
             </Dropdown>
 
-            <PanelTitle type="table" title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
+            <PanelTitle type="table"
+                        title={ this.props.dataset.title }
+                        handleReload={ this.handleReload.bind(this) }
+                        handleTableDeleteRows={ this.handleTableDeleteRows.bind(this) }
+            />
 
             <Table
                 indentSize={ this.state.indentSize }

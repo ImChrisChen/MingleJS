@@ -41,9 +41,9 @@ export default class LayoutWindow {
         this.tableUID = tableEl.attr(DataComponentUID) ?? '';
 
         // 若实体是在表格中的，那就直接获取表格上的实体ID
-        let tableEntityID = tableEl.attr('data-entity_id');
-
-        this.entityID = this.props.dataset.entity_id || tableEntityID;
+        let tableEntityID = tableEl.attr('data-entity_id') ?? '';
+        this.entityID = tableEntityID;  // this.entityID = this.props.dataset.entity_id || tableEntityID;
+        
         this.entityMode = this.props.dataset.entity_mode;
         this.uid = this.props.dataset.uid;
 
@@ -95,6 +95,7 @@ export default class LayoutWindow {
         // 实体点击OK触发操作
         let entityID = LayoutWindow.instance.state.entityID;
         let entityMode = LayoutWindow.instance.state.entityMode;
+        console.log(this);
         if (entityID) {
             // 弹窗的Form
             let form = document.querySelector('.layout-modal-window form-action') as HTMLElement;
