@@ -145,13 +145,32 @@ export const componentConfig: IConfig = {
                 component: import('@component/app/menu/AppMenu'),
                 property : {
                     dataset: {
-                        pathfield: {
+                        pathfield  : {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
                             value: 'url',
                             desc : '菜单URL跳转字段',
                         },
+                        bgcolor    : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: 'FFF',
+                            desc : '菜单的背景颜色',
+                        },
+                        bordercolor: {
+                            el   : 'color',
+                            parse: 'string',
+                            value: 'CCC',
+                            desc : '菜单的边框颜色',
+                        },
+                        textcolor  : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '999',
+                            desc : '菜单的文本颜色',
+                        },
+
                     },
                 },
                 type     : 'web-components',
