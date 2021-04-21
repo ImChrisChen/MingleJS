@@ -155,19 +155,25 @@ export const componentConfig: IConfig = {
                         bgcolor    : {
                             el   : 'color',
                             parse: 'string',
-                            value: 'FFF',
+                            value: '#FFF',
                             desc : '菜单的背景颜色',
                         },
-                        bordercolor: {
+                        activecolor: {
                             el   : 'color',
                             parse: 'string',
-                            value: 'CCC',
+                            value: '#0382f2',
                             desc : '菜单的边框颜色',
                         },
                         textcolor  : {
                             el   : 'color',
                             parse: 'string',
-                            value: '999',
+                            value: '#0678fd',
+                            desc : '菜单的文本颜色',
+                        },
+                        bordercolor  : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0678fd',
                             desc : '菜单的文本颜色',
                         },
 
