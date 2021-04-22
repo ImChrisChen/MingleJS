@@ -11,22 +11,8 @@ const moment = require('moment');
 const clc = require('cli-color');
 const { templateCompile } = require('./template-generate');
 const command = require('commander');
-const { isDir } = require('./read-all');
+const { getBuildDirName, isDir } = require('./utils');
 
-
-// /dist/build 的build目录名称
-function getBuildDirName() {
-    let basePath = resolve(__dirname, '../dist/');      // 要读取的目录
-    let files = fs.readdirSync(basePath);
-    let dirs = [];
-    for (let stuff of files) {
-        let pathname = resolve(basePath, stuff);
-        if (isDir(pathname)) {
-            dirs.push(stuff);
-        }
-    }
-    return dirs[0] ? (dirs[0] + '/') : '';
-}
 
 let args = format(command.parse(process.argv).args);
 
@@ -56,9 +42,9 @@ function run() {
         try {
             fs.writeFileSync(pathname, file);
             console.log(clc.blue(`
-                 版本更新成功😄
+                  更新成功😄
                  
-        当前版本号: ${ time }
+      最后一次修改时间为: ${ time }
     `));
         } catch (e) {
             console.error(e);
@@ -68,3 +54,4 @@ function run() {
 }
 
 run();
+
