@@ -18,6 +18,8 @@ let isLib = env === 'production-lib';
 console.log('当前环境:', env);
 console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
 
+let outputPath = isDoc ? 'dist/build' : 'lib/build';
+
 module.exports = {
     watchOptions: {
         ignored: /node_modules/,
@@ -32,7 +34,7 @@ module.exports = {
     },
     // entry: entries(),
     output: {
-        path: path.resolve(__dirname, isDoc ? 'dist' : 'lib'),
+        path: path.resolve(__dirname, outputPath),
         filename: '[name].min.js',
         library: {
             type: 'umd',
@@ -247,12 +249,8 @@ module.exports = {
                     copy: [
                         {
                             source: './public/index.js',
-                            destination: `./${ isDoc ? 'dist' : 'lib' }/index.js`,
+                            destination: `./${ outputPath }/index.js`,
                         },
-                        // {
-                        //     source: './public/data-set.js',
-                        //     destination: `./${isDoc ? 'dist' : 'lib'}/data-set.js`
-                        // }
                     ],
                 },
             },
