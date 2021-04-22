@@ -10,17 +10,33 @@ const { resolve } = require('path');
 const moment = require('moment');
 const clc = require('cli-color');
 const { templateCompile } = require('./template-generate');
-const command = require('commander')
+const command = require('commander');
+const { isDir } = require('./read-all');
+
+
+// /dist/build 的build目录名称
+function getBuildDirName() {
+    let basePath = resolve(__dirname, '../dist/');      // 要读取的目录
+    let files = fs.readdirSync(basePath);
+    let dirs = [];
+    for (let stuff of files) {
+        let pathname = resolve(basePath, stuff);
+        if (isDir(pathname)) {
+            dirs.push(stuff);
+        }
+    }
+    return dirs[0] ? (dirs[0] + '/') : '';
+}
 
 let args = format(command.parse(process.argv).args);
 
 function format(args) {
-    let o = {}
+    let o = {};
     for (const arg of args) {
-        let [name,value] = arg.split('=')
+        let [name, value] = arg.split('=');
         o[name] = value;
     }
-    return o
+    return o;
 }
 
 function run() {
@@ -33,18 +49,21 @@ function run() {
         
         // TODO 需要根据不同打包区分 dist目录和lib目录
         
-        let pathname = args['type'] === 'doc' 
-            ? resolve(__dirname, '../dist/index.js') 
-            : resolve(__dirname, '../lib/index.js');
-
-        let saved = fs.writeFileSync(pathname, file);
+        let pathname = args['type'] === 'doc'
+            ? resolve(__dirname, `../dist/${ getBuildDirName() }index.js`)
+            : resolve(__dirname, `../lib/${ getBuildDirName() }index.js`);
         
-        if (typeof saved === 'undefined') {
+        try {
+            fs.writeFileSync(pathname, file);
             console.log(clc.blue(`
-                      版本更新成功😄
-            当前版本号: ${ time }
-        `));
+                 版本更新成功😄
+                 
+        当前版本号: ${ time }
+    `));
+        } catch (e) {
+            console.error(e);
         }
+        
     }
 }
 

@@ -10,15 +10,17 @@
 (function (document) {
     let development = Number.parseInt(url2Obj(window.location.href).development) === 1;
     let currentScript = document.currentScript;
-    let version = new Date().getTime();
+    let date = new Date().getTime();            // 使依赖js自动更新
     let files = getUrls();
+    let [version] = currentScript.src.match(/(\d+)\.(\d+)\.(\d+)(-\w+)?/);     // 获取当前版本号  1.15.1  1.15.1-beat
+    version = version ? ('/' + version) : '';
     
     console.log(files);
     // console.log(`是否开发环境:`, development);
     
     //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
-        let url = `${ file }?date=${ version }`;
+        let url = `${ file }?date=${ date }`;
         
         if (isJavascript(file)) {
             return createScript(file, url);
@@ -35,7 +37,7 @@
         
         const libsMap = {
             charts: `https://g.alicdn.com/code/lib/bizcharts/4.1.9/BizCharts.min.js`,
-            icfonts: `https://at.alicdn.com/t/font_2482718_zdd9kkd89lm.css`
+            icfonts: `https://at.alicdn.com/t/font_2482718_zdd9kkd89lm.css`,
         };
         return (libNames.length > 0) ? libNames.map(name => libsMap[name]).filter(t => t) : [];
     }
@@ -44,22 +46,20 @@
         const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
         const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
         const JQuery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
-    
+        
         // const AntdJS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.js`;
         // const AntdCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.css`;
         // let AntdCompactCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.compact.min.css`;
-    
+        
+        const hostname = development ? 'http://mingle-test.local.aidalan.com/' : `http://mingle.local.aidalan.com${ version }/`;
         const AntdIcons = `https://cdn.bootcdn.net/ajax/libs/ant-design-icons/4.5.0/index.umd.min.js`;
-    
-        let hostname = development ? 'http://mingle-test.local.aidalan.com/' : 'http://mingle.local.aidalan.com/';
-    
         const hljs = `https://cdn.bootcdn.net/ajax/libs/highlight.js/10.6.0/highlight.min.js`;
         const DataSet = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;
-    
+        
         return [
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
-    
+            
             React,
             ReactDOM,
             JQuery,
@@ -71,7 +71,7 @@
             `${ hostname }main.min.js`,
             `${ hostname }manifest.min.js`,
             // `${ hostname }data-set.js`
-
+        
         ];
     }
     

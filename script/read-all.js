@@ -41,4 +41,5 @@ function entries() {
 
 module.exports = {
     entries,
+    isDir,
 }
