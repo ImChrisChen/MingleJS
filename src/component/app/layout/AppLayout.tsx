@@ -70,6 +70,15 @@ export default class AppLayout extends Component<IComponentProps, any> {
             <h1 style={ { padding: 0, margin: 0 } }>{ this.props.dataset.title }</h1>
         </div>;
 
+        const nav = <nav>
+            <Dropdown overlay={ menu } placement="bottomCenter" arrow>
+                <span style={ { cursor: 'pointer' } }>
+                    <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
+                </span>
+            </Dropdown>
+        </nav>;
+
+
         return this.props.dataset.layout === 'horizontal' ?
             <div id="app-layout"
                  style={ { display: 'flex', flexDirection: 'row' } }>
@@ -82,13 +91,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
 
                         { logo }
 
-                        <nav>
-                            <Dropdown overlay={ menu } placement="bottomCenter" arrow>
-                            <span style={ { cursor: 'pointer' } }>
-                                <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
-                            </span>
-                            </Dropdown>
-                        </nav>
+                        { nav }
 
                     </header>
 
@@ -122,13 +125,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
 
                     </div>
 
-                    <nav>
-                        <Dropdown overlay={ menu } placement="bottomCenter" arrow>
-                            <span style={ { cursor: 'pointer' } }>
-                                <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
-                            </span>
-                        </Dropdown>
-                    </nav>
+                    { nav }
 
                 </header>
 

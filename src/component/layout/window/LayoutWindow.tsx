@@ -12,7 +12,7 @@ import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
 import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
-import { BaseUrl } from '@src/config';
+import { AMIS_DOMAIN } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
 import { Mingle } from '@src/core/Mingle';
 import FormAction from '@component/form/form-action/FormAction';
@@ -59,7 +59,7 @@ export default class LayoutWindow {
 
     // 获取实体配置
     async getEntityConfig(id: string): Promise<any> {
-        let res = await this.httpClientService.get(`${ BaseUrl }/api/page/${ id }`);
+        let res = await this.httpClientService.get(`${ AMIS_DOMAIN }/api/page/${ id }`);
         if (res.status) {
             let contents = res.data.contents;
             if (isString(contents)) {
