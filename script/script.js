@@ -43,9 +43,9 @@ function run() {
     templateCompile();
     
     let file = fs.readFileSync(resolve(__dirname, '../public/index.js')).toString();
-    if (/version = (.*?);/.test(file)) {
+    if (/date = (.*?);/.test(file)) {
         let time = moment().format('YYYY-MM-DD/h:mm:ss/a');
-        file = file.replace(/version = (.*?);/, `version = "${ time }";`);
+        file = file.replace(/date = (.*?);/, `date = "${ time }";`);
         
         // TODO 需要根据不同打包区分 dist目录和lib目录
         
