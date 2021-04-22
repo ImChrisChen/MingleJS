@@ -8,7 +8,7 @@ const glob = require('glob');
 const clc = require('cli-color');
 const webpack = require('webpack');
 
-const { entries } = require('./script/read-all');
+// const { entries } = require('./script/read-all');
 
 let env = process.env.NODE_ENV;
 let isProduction = env !== 'development';
