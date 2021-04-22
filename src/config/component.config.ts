@@ -170,7 +170,7 @@ export const componentConfig: IConfig = {
                             value: '#0678fd',
                             desc : '菜单的文本颜色',
                         },
-                        bordercolor  : {
+                        bordercolor: {
                             el   : 'color',
                             parse: 'string',
                             value: '#0678fd',
@@ -207,6 +207,12 @@ export const componentConfig: IConfig = {
                             ],
                             parse  : 'string',
                             value  : 'vertical',
+                        },
+                        title : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '大蓝后台',
+                            desc : 'logo位置, 系统名称',
                         },
                     },
                 },
