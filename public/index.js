@@ -9,15 +9,15 @@
 // 每次打包后版本号会通过 script.js 进行 io 修改;
 (function (document) {
     let development = Number.parseInt(url2Obj(window.location.href).development) === 1;
-    let currentScript = document.currentScript;
     let date = new Date().getTime();            // 使依赖js自动更新
-    let [version] = currentScript.src.match(/(\d+)\.(\d+)\.(\d+)(-\w+)?/);     // 获取当前版本号  1.15.1  1.15.1-beat
-    let files = getUrls(version);
+    let currentScript = document.currentScript;
+    // let [version] = currentScript.src.match(/(\d+)\.(\d+)\.(\d+)(-\w+)?/);     // 获取当前版本号  1.15.1  1.15.1-beat
+    
+    let files = getUrls();
     
     console.table(files);
-    console.log(`%c MingleJS 当前版本: ${ version }`, 'color:red');
+    // console.log(`%c MingleJS 当前版本: ${ version }`, 'color:red');
     console.log(`%c 最后一次更新的时间: ${ date }`, 'color:orange');
-    // console.log(`是否开发环境:`, development);
     
     //TODO 如果是开发环境则不用生成css
     const scripts = files.map(file => {
@@ -43,19 +43,22 @@
         return (libNames.length > 0) ? libNames.map(name => libsMap[name]).filter(t => t) : [];
     }
     
-    function getUrls(version) {
+    function getUrls() {
         const react = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
         const reactdom = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
         const jquery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
         
-        // const AntdJS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.js`;
-        // const AntdCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.css`;
-        // let AntdCompactCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.compact.min.css`;
-        
         const antdcss = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.1/antd.compact.min.css`;
         const antdjs = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.1/antd.min.js`;
         
-        const hostname = development ? 'http://mingle-test.local.aidalan.com/' : `http://mingle.local.aidalan.com${ version ? ('/' + version) : '' }/`;
+        // http://mingle-test.local.aidalan.com/latest 
+        // http://mingle-test.local.aidalan.com/0.10.14
+        let url = currentScript.src;
+        url = url.split('/');
+        url.pop();
+        url = url.join('/');
+        
+        const hostname = development ? 'http://mingle-test.local.aidalan.com/' : `${ url }/`;
         const antdIcons = `https://cdn.bootcdn.net/ajax/libs/ant-design-icons/4.5.0/index.umd.min.js`;
         const hljs = `https://cdn.bootcdn.net/ajax/libs/highlight.js/10.6.0/highlight.min.js`;
         const dataset = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;

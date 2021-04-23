@@ -18,7 +18,7 @@ let isLib = env === 'production-lib';
 console.log('当前环境:', env);
 console.log(clc.blue(`-------------是否生产环境: ${ isProduction }-------------`));
 
-let outputPath = isDoc ? 'dist/build' : 'lib/build';
+let outputPath = isDoc ? 'dist/latest' : 'lib/latest';
 
 module.exports = {
     watchOptions: {

@@ -22,7 +22,7 @@ let instance = readline.createInterface({
 
 instance.question('请输入要更新的版本: ', v => {
     console.log(/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v));
-    if (/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v)) {
+    if (/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v) || v === 'latest') {
         instance.close();
         try {
             let oldPath = path.resolve(__dirname, `../dist/${ getBuildDirName() }`);
