@@ -44,29 +44,33 @@
     }
     
     function getUrls(version) {
-        const React = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
-        const ReactDOM = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
-        const JQuery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
+        const react = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
+        const reactdom = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
+        const jquery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
         
         // const AntdJS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.js`;
         // const AntdCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.min.css`;
         // let AntdCompactCSS = `https://cdn.bootcdn.net/ajax/libs/antd/4.14.0/antd.compact.min.css`;
         
+        const antdcss = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.1/antd.compact.min.css`;
+        const antdjs = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.1/antd.min.js`;
+        
         const hostname = development ? 'http://mingle-test.local.aidalan.com/' : `http://mingle.local.aidalan.com${ version ? ('/' + version) : '' }/`;
-        const AntdIcons = `https://cdn.bootcdn.net/ajax/libs/ant-design-icons/4.5.0/index.umd.min.js`;
+        const antdIcons = `https://cdn.bootcdn.net/ajax/libs/ant-design-icons/4.5.0/index.umd.min.js`;
         const hljs = `https://cdn.bootcdn.net/ajax/libs/highlight.js/10.6.0/highlight.min.js`;
-        const DataSet = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;
+        const dataset = `https://unpkg.com/@antv/data-set@0.11.8/build/data-set.js`;
         
         return [
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
-            
-            React,
-            ReactDOM,
-            JQuery,
+            antdcss,
+            react,
+            reactdom,
+            antdjs,
+            jquery,
             // AntdCompactCSS,
-            AntdIcons,
-            DataSet,
+            antdIcons,
+            dataset,
             hljs,
             ...getLibs(),
             `${ hostname }main.min.js`,

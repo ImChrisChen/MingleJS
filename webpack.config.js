@@ -27,7 +27,7 @@ module.exports = {
         poll: 1000,  //每秒询问次数，越小越好
     },
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? false : 'cheap-module-source-map',     // 只在开发环境下有效
+    devtool: isProduction ? false : 'eval-cheap-module-source-map',     // 只在开发环境下有效
     // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
         // [name]是对应的入口文件的key, [name].js 就是main.js
@@ -183,7 +183,7 @@ module.exports = {
     
     // TODO 格式 { 'package包名称' : 'script标签引入全局变量名称' },
     externals: {        // 忽略打包('直接在Html中引入了，减少打包速度')
-        // 'antd': 'antd',      // TODO 目前分离无效
+        'antd': 'antd',      // TODO 目前分离无效
         'highlight.js': 'hljs',
         '@antv/data-set': 'DataSet',
         '@ant-design/icons': 'icons',
