@@ -27,7 +27,8 @@ module.exports = {
         poll: 1000,  //每秒询问次数，越小越好
     },
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? 'cheap-module-source-map' : 'cheap-module-source-map',     // https://www.cnblogs.com/cl1998/p/13210389.html
+    devtool: isProduction ? false : 'cheap-module-source-map',     // 只在开发环境下有效
+    // https://www.cnblogs.com/cl1998/p/13210389.html
     entry: {            // 分文件打包
         // [name]是对应的入口文件的key, [name].js 就是main.js
         main: isLib ? './main.prod.ts' : './main.tsx',    // https://webpack.js.org/guides/code-splitting/ // vendoer: [
