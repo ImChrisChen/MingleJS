@@ -38,6 +38,7 @@ import {
     ViewRenderService,
 } from '@src/services';
 import App from '@src/App';
+import { TableEntity } from '@component/data/table/module/TableEntity';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -104,6 +105,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     @Inject private readonly formatDataService: FormatDataService;
     @Inject private readonly viewRenderService: ViewRenderService;
 
+    private readonly appEntity;
     private searchInput;
     private tableHeaderNode = this.props.templates['table-header'];
     private tableBodyNode = this.props.templates['table-body'];
@@ -137,6 +139,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     constructor(props: ITableProps) {
         super(props);
+        this.appEntity = new TableEntity(this.props.el);
+
     }
 
     componentWillUnmount() {

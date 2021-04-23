@@ -110,6 +110,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     type?: ModuleType           // 组件类型
     icon?: string,              // 组件展示的图标
     visible?: boolean
+    support?: Array<string>      // 改组件上支持拓展的模块
 }
 
 // 公共配置属性 Interface

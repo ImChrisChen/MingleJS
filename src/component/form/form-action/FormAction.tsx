@@ -237,6 +237,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
+        // 没有ID则随机生成ID，不需要用户手动配置ID
+        if (!form.id) {
+            let id = form.getAttribute(DataComponentUID)?.substr(0, 10) ?? Math.random() * 1000;
+            form.id = 'form_' + id;
+        }
 
         // 保存表单默认值
         this.defaultFormData = FormAction.getFormData(form);

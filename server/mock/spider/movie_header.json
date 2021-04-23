@@ -106,6 +106,21 @@
             "if": "",
             "else": "",
             "round": ""
+        },
+        {
+            "text": "操作",
+            "field": "desc",
+            "visible": true,
+            "filter": true,
+            "highlight": true,
+            "frozen": false,
+            "class": "",
+            "sum": false,
+            "replace": "",
+            "thColor": "#3389d4",
+            "if": "",
+            "else": "",
+            "round": ""
         }
     ]
 }

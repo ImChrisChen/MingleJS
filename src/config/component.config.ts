@@ -230,13 +230,14 @@ export const componentConfig: IConfig = {
                 name     : '组件渲染器',
                 visible  : false,
             },
-            entity: {
-                name     : '实体模块',
-                component: import('@component/app/entity/AppEntity'),
-                property : {
-                    dataset: {},
-                },
-            },
+            // entity: {
+            //     name     : '实体模块',
+            //     component: import('@component/app/entity/AppEntity'),
+            //     property : {
+            //         dataset: {},
+            //     },
+            //     type     : 'functional',
+            // },
             // feishu: {
             //     component: import('@component/app/feishu/AppFeishu'),
             //     document : import('@component/app/feishu/AppFeishu.md'),
@@ -702,10 +703,11 @@ export const componentConfig: IConfig = {
                         },
                     },
                     id     : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '',
-                        desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                        el    : 'input',
+                        parse : 'string',
+                        value : '',
+                        desc  : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                        render: false,
                     },
                 },
                 document : import('@component/form/form-action/FormAction.md'),
@@ -1384,6 +1386,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 name     : '表格',
                 icon     : 'icon-table',
+                support  : [ 'app-entity' ],
             },
             chart: {
                 component: import('@component/data/chart/DataChart'),

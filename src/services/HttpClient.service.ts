@@ -177,7 +177,7 @@ export class HttpClientService {
             // 判断是否已经被移除掉，如果有父级说明没有被移除掉
             if (script.parentNode) {
                 // body?.removeChild(script);
-                // setTimeout(() => body?.removeChild(script), 500);
+                setTimeout(() => body?.removeChild?.(script), 3000);
             }
         });
     };
