@@ -16,7 +16,7 @@ import { CaretDownOutlined, UserOutlined } from '@ant-design/icons';
 export default class AppLayout extends Component<IComponentProps, any> {
 
     state = {
-        containers: ['aside', 'header', 'main' /*'footer'*/],
+        containers: [ 'aside', 'header', 'main' /*'footer'*/ ],
     };
 
     constructor(props) {
@@ -65,6 +65,19 @@ export default class AppLayout extends Component<IComponentProps, any> {
             </Menu>
         );
 
+        const logo = <div className={ style.logo }>
+            <img src="https://wui.superdalan.com/images/dalan64.png" style={ { width: 30, marginLeft: 8 } } alt=""/>
+            <h1 style={ { padding: 0, margin: 0 } }>{ this.props.dataset.title }</h1>
+        </div>;
+
+        const nav = <nav>
+            <Dropdown overlay={ menu } placement="bottomCenter" arrow>
+                <span style={ { cursor: 'pointer' } }>
+                    <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
+                </span>
+            </Dropdown>
+        </nav>;
+
 
         return this.props.dataset.layout === 'horizontal' ?
             <div id="app-layout"
@@ -76,15 +89,9 @@ export default class AppLayout extends Component<IComponentProps, any> {
 
                     <header className={ `${ style.appLayoutHeaderV }` }>
 
-                        <div className={ style.logo }>Logo</div>
+                        { logo }
 
-                        <nav>
-                            <Dropdown overlay={ menu } placement="bottomCenter" arrow>
-                            <span style={ { cursor: 'pointer' } }>
-                                <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
-                            </span>
-                            </Dropdown>
-                        </nav>
+                        { nav }
 
                     </header>
 
@@ -112,19 +119,13 @@ export default class AppLayout extends Component<IComponentProps, any> {
 
                 <header className={ `${ style.appLayoutHeaderV }` }>
 
-                    <div className={ style.logo }>Logo</div>
+                    { logo }
 
                     <div role="header">
 
                     </div>
 
-                    <nav>
-                        <Dropdown overlay={ menu } placement="bottomCenter" arrow>
-                            <span style={ { cursor: 'pointer' } }>
-                                <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
-                            </span>
-                        </Dropdown>
-                    </nav>
+                    { nav }
 
                 </header>
 

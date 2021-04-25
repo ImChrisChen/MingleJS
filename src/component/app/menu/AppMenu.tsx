@@ -20,9 +20,10 @@ export default class AppMenu extends Component<IComponentProps, any> {
     private menuUrl = `https://auc.aidalan.com/user.menu/apps`;
 
     state = {
-        systems : [],
-        current : 3,
-        menulist: [],
+        systems   : [],
+        current   : 3,
+        menulist  : [],
+        hoverColor: '',
     };
 
     constructor(props) {
@@ -48,17 +49,21 @@ export default class AppMenu extends Component<IComponentProps, any> {
     }
 
     renderSystems() {
-        let bgColor = 'FFF';
-        let borderColor = 'CCC';
-        let textColor = '999';
+        let { bgcolor, bordercolor, activecolor, textcolor } = this.props.dataset;
+        [ , bgcolor ] = bgcolor.split('#');
+        [ , textcolor ] = textcolor.split('#');
+        [ , bordercolor ] = bordercolor.split('#');
 
+        let url = `${ this.colorUrl }?color=${ bgcolor },${ bordercolor },${ textcolor }&str=2&appId=`;
         return this.state.systems.map((system: any, i) => {
             return <li key={ system.appId }
-                       className={ style.system + ' ' + (i === this.state.current ? style.systemAction : '') }
-                       onClick={ e => this.handleClickSystem(i, system) }>
-                <img src={
-                    `${ this.colorUrl }?color=${ bgColor },${ borderColor },${ textColor }&str=2&appId=${ system.appId }`
-                } alt=""/>
+                       className={ style.system }
+                       style={ {
+                           background: i === this.state.current ? activecolor : '#' + bgcolor,
+                       } }
+                       onClick={ e => this.handleClickSystem(i, system) }
+            >
+                <img src={ url + system.appId } alt=""/>
             </li>;
         });
     }
@@ -127,9 +132,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
         return <>
             <div style={ { display: 'flex' } }>
 
-                <ul style={ { width: 40 } }>
-                    { this.renderSystems() }
-                </ul>
+                <ul style={ { width: 40 } }> { this.renderSystems() } </ul>
 
                 <LayoutMenu
                     key={ this.state.current }

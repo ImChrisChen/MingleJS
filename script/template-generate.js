@@ -31,6 +31,7 @@ function replaceHtml(rootpath) {
     
     console.log(
         clc.blue(`                 模版替换成功🤡
+        
                  共更新了${ count }个文件`));
 }
 
