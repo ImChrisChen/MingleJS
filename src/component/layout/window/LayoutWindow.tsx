@@ -81,8 +81,7 @@ export default class LayoutWindow {
 
     // 编辑表格行
     async editRowDetail(uid: string, data: object): Promise<any> {
-        let res = await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
-        return res.status ? res.data : {};
+        return await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
     }
 
     // 新增表格行
@@ -116,7 +115,7 @@ export default class LayoutWindow {
                 }
                 if (entityMode === 'update') {
                     let res = await this.editRowDetail(this.uid, formData);
-                    if (res.id) {
+                    if (res.status) {
                         message.success('修改成功');
                         tableInstance?.handleReload();
                     } else {
