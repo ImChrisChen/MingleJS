@@ -12,16 +12,32 @@ import { Content, Footer } from 'antd/lib/layout/layout';
 import style from './AppLayout.scss';
 import { Avatar, Dropdown, Menu } from 'antd';
 import { CaretDownOutlined, UserOutlined } from '@ant-design/icons';
+import { Inject } from 'typescript-ioc';
+import { HttpClientService } from '@src/services';
 
 export default class AppLayout extends Component<IComponentProps, any> {
 
+    @Inject httpClientService: HttpClientService;
+
     state = {
-        containers: [ 'aside', 'header', 'main' /*'footer'*/ ],
+        containers: [ 'aside', /*'header'*/ 'main' /*'footer'*/ ],
+        userInfo  : {} as any,
     };
 
     constructor(props) {
         super(props);
         this.renderSlot();
+    }
+
+    async componentDidMount() {
+        let userInfo = await this.getUserInfo();
+        this.setState({ userInfo });
+    }
+
+    async getUserInfo() {
+        let url = `http://sim.local.superdalan.com/cmdb/profile`;
+        let res = await this.httpClientService.jsonp(url);
+        return res.status ? res.data : {};
     }
 
     renderSlot() {
@@ -52,28 +68,28 @@ export default class AppLayout extends Component<IComponentProps, any> {
         });
     }
 
+    formatPullDownMenuItems(o: object) {
+        let options: Array<any> = [];
+        for (const k in o) {
+            if (!o.hasOwnProperty(k)) continue;
+            options.push({ label: k, url: o[k] });
+        }
+        return options;
+    }
+
     render() {
-
-        const menu = (
-            <Menu>
-                <Menu.Item>
-                    个人信息
-                </Menu.Item>
-                <Menu.Item>
-                    退出
-                </Menu.Item>
-            </Menu>
-        );
-
+        let menuItems = this.formatPullDownMenuItems(this.state.userInfo.url);
+        const menu = menuItems.map(item => <Menu.Item> <a href={ item.url }> { item.label } </a> </Menu.Item>);
         const logo = <div className={ style.logo }>
             <img src="https://wui.superdalan.com/images/dalan64.png" style={ { width: 30, marginLeft: 8 } } alt=""/>
             <h1 style={ { padding: 0, margin: 0 } }>{ this.props.dataset.title }</h1>
         </div>;
 
         const nav = <nav>
-            <Dropdown overlay={ menu } placement="bottomCenter" arrow>
+            <Dropdown overlay={ <Menu>{ menu }</Menu> } placement="bottomCenter" arrow>
                 <span style={ { cursor: 'pointer' } }>
-                    <Avatar size="small" icon={ <UserOutlined/> }/> bottomCenter <CaretDownOutlined/>
+                    <Avatar size="small" icon={ <UserOutlined/> }/> { this.state.userInfo?.user?.name }
+                    <CaretDownOutlined/>
                 </span>
             </Dropdown>
         </nav>;
