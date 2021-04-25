@@ -16,8 +16,8 @@ export default class AppMenu extends Component<IComponentProps, any> {
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
 
-    private colorUrl = `https://auc.local.aidalan.com/app/icon`;
-    private menuUrl = `https://auc.local.aidalan.com/user.menu/apps`;
+    private colorUrl = `https://auc.aidalan.com/app/icon`;
+    private menuUrl = `https://auc.aidalan.com/user.menu/apps`;
 
     state = {
         systems : [],
@@ -43,7 +43,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
 
     async getSystems() {
         // let { url } = this.props.dataset;
-        let res = await this.httpClientService.jsonp(this.menuUrl);
+        let res = await this.httpClientService.jsonp(this.props.dataset.menuUrl||this.menuUrl);
         return res.status ? res.data : [];
     }
 
@@ -94,8 +94,8 @@ export default class AppMenu extends Component<IComponentProps, any> {
     }
 
     async handleClickSystem(i, system) {
-        let url = `https://auc.local.aidalan.com/user.menu/lists`;
-        let res = await this.httpClientService.jsonp(`${ url }?appId=${ system.appId }`);
+        let url = `https://auc.aidalan.com/user.menu/lists`;
+        let res = await this.httpClientService.jsonp(`${ this.props.dataset.menuUrl|| url }?appId=${ system.appId }`);
         let data = res.status ? res.data : [];
 
         // list 转为 tree
