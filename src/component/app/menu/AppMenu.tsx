@@ -44,7 +44,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
 
     async getSystems() {
         // let { url } = this.props.dataset;
-        let res = await this.httpClientService.jsonp(this.props.dataset.menuUrl||this.menuUrl);
+        let res = await this.httpClientService.jsonp(this.props.dataset.menu_url||this.menuUrl);
         return res.status ? res.data : [];
     }
 
@@ -100,7 +100,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
 
     async handleClickSystem(i, system) {
         let url = `https://auc.aidalan.com/user.menu/lists`;
-        let res = await this.httpClientService.jsonp(`${ this.props.dataset.menuListUrl|| url }?appId=${ system.appId }`);
+        let res = await this.httpClientService.jsonp(`${ this.props.dataset.menu_list_url|| url }?appId=${ system.appId }`);
         let data = res.status ? res.data : [];
 
         // list 转为 tree

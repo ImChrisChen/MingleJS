@@ -16,7 +16,7 @@ import { CaretDownOutlined, UserOutlined } from '@ant-design/icons';
 export default class AppLayout extends Component<IComponentProps, any> {
 
     state = {
-        containers: [ 'aside', 'header', 'main' /*'footer'*/ ],
+        containers: [ 'aside', 'header', 'main' , 'footer' ],
     };
 
     constructor(props) {
@@ -28,6 +28,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
         setTimeout(() => {
             let rootElement = elementWrap(this.props.subelements);
             this.state.containers.forEach(slot => {
+                debugger
                 let container = rootElement.querySelector(`[data-slot=${ slot }]`) as HTMLElement;
                 if (container) {
                     $(`#app-layout [role=${ slot }]`).append(container);
@@ -137,7 +138,6 @@ export default class AppLayout extends Component<IComponentProps, any> {
                     <div className={ `app-layout-content ${ style.appLayoutContentV }` }>
                         <Content role="main" style={ { padding: 10 } }> </Content>
                         <Footer className={ style.appLayoutFooterV } role="footer">
-                            footer
                         </Footer>
                     </div>
 

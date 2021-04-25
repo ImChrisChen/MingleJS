@@ -152,14 +152,14 @@ export const componentConfig: IConfig = {
                             value: 'url',
                             desc : '菜单URL跳转字段',
                         },
-                        menuUrl: {
+                        menu_url: {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
                             value: 'https://auc.aidalan.com/user.menu/apps',
                             desc : '一级菜单URL',
                         },
-                        menuListUrl: {
+                        menu_list_url: {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
