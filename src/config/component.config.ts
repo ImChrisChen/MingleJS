@@ -145,13 +145,52 @@ export const componentConfig: IConfig = {
                 component: import('@component/app/menu/AppMenu'),
                 property : {
                     dataset: {
-                        pathfield: {
+                        pathfield  : {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
                             value: 'url',
                             desc : '菜单URL跳转字段',
                         },
+                        menu_url: {
+                            el   : 'input',
+                            parse: 'string',
+                            // options: 'fromUrl',
+                            value: 'https://auc.aidalan.com/user.menu/apps',
+                            desc : '一级菜单URL',
+                        },
+                        menu_list_url: {
+                            el   : 'input',
+                            parse: 'string',
+                            // options: 'fromUrl',
+                            value: 'https://auc.aidalan.com/user.menu/lists',
+                            desc : '二级菜单URL',
+                        },
+                        bgcolor    : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#FFF',
+                            desc : '菜单的背景颜色',
+                        },
+                        activecolor: {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0382f2',
+                            desc : '菜单的边框颜色',
+                        },
+                        textcolor  : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0678fd',
+                            desc : '菜单的文本颜色',
+                        },
+                        bordercolor: {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0678fd',
+                            desc : '菜单的文本颜色',
+                        },
+
                     },
                 },
                 type     : 'web-components',
@@ -183,6 +222,12 @@ export const componentConfig: IConfig = {
                             parse  : 'string',
                             value  : 'vertical',
                         },
+                        title : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '大蓝后台',
+                            desc : 'logo位置, 系统名称',
+                        },
                     },
                 },
                 type     : 'web-components',
@@ -199,13 +244,14 @@ export const componentConfig: IConfig = {
                 name     : '组件渲染器',
                 visible  : false,
             },
-            entity: {
-                name     : '实体模块',
-                component: import('@component/app/entity/AppEntity'),
-                property : {
-                    dataset: {},
-                },
-            },
+            // entity: {
+            //     name     : '实体模块',
+            //     component: import('@component/app/entity/AppEntity'),
+            //     property : {
+            //         dataset: {},
+            //     },
+            //     type     : 'functional',
+            // },
             // feishu: {
             //     component: import('@component/app/feishu/AppFeishu'),
             //     document : import('@component/app/feishu/AppFeishu.md'),
@@ -677,10 +723,11 @@ export const componentConfig: IConfig = {
                         },
                     },
                     id     : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '',
-                        desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                        el    : 'input',
+                        parse : 'string',
+                        value : '',
+                        desc  : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                        render: false,
                     },
                 },
                 document : import('@component/form/form-action/FormAction.md'),
@@ -1366,6 +1413,7 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 name     : '表格',
                 icon     : 'icon-table',
+                support  : [ 'app-entity' ],
             },
             chart: {
                 component: import('@component/data/chart/DataChart'),

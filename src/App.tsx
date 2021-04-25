@@ -83,96 +83,6 @@ export default class App {
         }
     }
 
-    // 渲染组件 <form-select></form-select>
-    public static async renderCustomElement(el: HTMLElement) {
-        let tagName = el.localName;
-
-        if (el.getAttribute(DataComponentUID)) {
-            console.log('渲染过了');
-            return;
-        }
-
-        if (tagName === 'define-component' && el.getAttribute('module')) {
-            tagName = el.getAttribute('module') || '';
-        }
-
-        // 获取到组件的子元素（排除template标签)
-        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
-
-        let container = document.createElement('div');
-        container.style.height = '100%';
-        container.classList.add('component-container');
-        // let container = el;
-        el.append(container);
-
-        // form-component
-        if (tagName.startsWith('form-')) {
-            el.setAttribute('form-component', '');
-        }
-
-        let tpls = [ ...el.querySelectorAll('template') ];
-        let templates = {};
-
-        for (const tpl of tpls) {
-            let name = tpl.attributes['name']?.value;
-            if (!name) continue;
-            templates[name] = tpl;
-        }
-
-        const $module = loadModule(tagName);
-        console.log($module);
-        const Component = (await $module.component)?.default;            // React组件
-        if (!Component) {
-            // 一般出现在 component.configs.ts中没有写 component import 导入组件的情况
-            console.error(`${ tagName }没有这个组件`, $module);
-            return;
-        }
-
-        let hooks = App.formatHooks(el.attributes);
-        let defaultProperty = $module.property;
-
-        /**
-         * --------------------------- 开始实例化组件 --------------------------------------
-         */
-
-            // TODO 设置组件唯一ID
-        let componentUID = App.createUUID();
-        el.setAttribute(DataComponentUID, componentUID);
-
-        let module: IModules = {
-            Component,
-            element: el,
-            templates,
-            subelements,
-            container,
-            hooks,
-            // @ts-ignore
-            defaultProperty,
-            componentUID,
-        };
-
-        let props: IComponentProps;
-        // React 写法的组件
-        if (isReactComponent(Component)) {
-            props = App.renderComponent(module);
-        } else {
-            // 原生js组件
-            let defaultProperty = $module.property;
-            let { dataset, attrs } = App.parseProps(el, defaultProperty);
-            props = {
-                el: el,
-                dataset,
-                ...attrs,
-            };
-            let componentInstance = new Component(props);
-            App.instances[componentUID] = {
-                instance: componentInstance, module,
-            };
-        }
-
-        App.eventListener(module, props);
-    }
-
     // web-components
     async init(rootElement: HTMLElement) {
 
@@ -201,9 +111,8 @@ export default class App {
              */
             let isWebComponents = false;
 
-            // 如果是自定义组件
+            // 如果是自定义组件 <form-select></form-select>
             if (isCustomElement(tagName)) {
-
                 if (isWebComponents) {
                     if (App.registerComponents.includes(tagName)) {
                         // console.log('有注册过', App.registerComponents, tagName);
@@ -267,35 +176,121 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    await App.renderCustomElement(element);
+                    await App.renderCustomElement(element, false);
                 }
+            }
 
-            } else {        // data-fn 函数功能
-
-                let methods = element.getAttribute('data-fn');
-                if (!methods) {
-                    return;
-                }
-
+            // $modulejs
+            let methods = element.getAttribute('data-fn') ?? '';
+            if (methods) {        // data-fn 函数功能
                 let $module = loadModule(methods);
-                const Component = (await $module.component).default;
-
-                // 不是react组件,直接 new Class
-                if (!isReactComponent(Component)) {
-                    let defaultProperty = $module.property;
-                    let { dataset, attrs } = App.parseProps(element, defaultProperty);
-                    new Component({
-                        el: element,
-                        dataset,
-                        ...attrs,
-                    });         // 统一使用 class 写法
+                if ($module.type === 'functional') {
+                    const Component = (await $module.component).default;
+                    // 不是react组件,直接 new Class
+                    if (!isReactComponent(Component)) {
+                        let defaultProperty = $module.property;
+                        let { dataset, attrs } = App.parseProps(element, defaultProperty);
+                        new Component({
+                            el: element,
+                            dataset,
+                            ...attrs,
+                        });         // 统一使用 class 写法
+                    }
                 }
-
             }
         });
 
         App.errorVerify();
 
+    }
+
+    // 渲染组件 <form-select></form-select>
+    public static async renderCustomElement(el: HTMLElement, isDataFn: boolean = false) {
+        let tagName = el.localName;
+
+        if (el.getAttribute(DataComponentUID)) {
+            console.log('渲染过了');
+            return;
+        }
+
+        if (tagName === 'define-component' && el.getAttribute('module')) {
+            tagName = el.getAttribute('module') || '';
+        }
+
+        // 获取到组件的子元素（排除template标签)
+        let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
+
+        let container = document.createElement('div');
+        container.style.height = '100%';
+        container.classList.add('component-container');
+        // let container = el;
+        el.append(container);
+
+        // form-component
+        if (tagName.startsWith('form-')) {
+            el.setAttribute('form-component', '');
+        }
+
+        let tpls = [ ...el.querySelectorAll('template') ];
+        let templates = {};
+
+        for (const tpl of tpls) {
+            let name = tpl.attributes['name']?.value;
+            if (!name) continue;
+            templates[name] = tpl;
+        }
+
+        const $module = loadModule(tagName);
+        const Component = (await $module.component)?.default;            // React组件
+        if (!Component) {
+            // 一般出现在 component.configs.ts中没有写 component import 导入组件的情况
+            console.error(`${ tagName }没有这个组件`, $module);
+            return;
+        }
+
+        let hooks = App.formatHooks(el.attributes);
+        let defaultProperty = $module.property;
+
+        /**
+         * --------------------------- 开始实例化组件 --------------------------------------
+         */
+
+            // TODO 设置组件唯一ID
+        let componentUID = App.createUUID();
+        el.setAttribute(DataComponentUID, componentUID);
+
+        let module: IModules = {
+            Component,
+            element: el,
+            templates,
+            subelements,
+            container,
+            hooks,
+            // @ts-ignore
+            defaultProperty,
+            componentUID,
+        };
+
+        let props: IComponentProps;
+        // React 写法的组件
+        if (isReactComponent(Component)) {
+            props = App.renderComponent(module);
+        } else {
+            // 原生js组件
+            let defaultProperty = $module.property;
+            let { dataset, attrs } = App.parseProps(el, defaultProperty);
+            props = {
+                el: el,
+                dataset,
+                ...attrs,
+            };
+            let componentInstance = new Component(props);
+            App.instances[componentUID] = {
+                instance: componentInstance, module,
+            };
+        }
+
+        App.eventListener(module, props);
     }
 
     // 生成组件唯一ID

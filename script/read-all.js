@@ -5,13 +5,10 @@
  * Time: 2:12 下午
  */
 
-const {resolve, extname} = require('path');
+const { resolve, extname } = require('path');
 const fs = require('fs');
-let src = resolve(__dirname, '../src/component')
-
-function isDir(pathname) {
-    return fs.statSync(pathname).isDirectory();
-}
+const { isDir } = require('./utils');
+let src = resolve(__dirname, '../src/component');
 
 function readDir(src) {
     let files = fs.readdirSync(src);
@@ -36,9 +33,9 @@ function readDir(src) {
 }
 
 function entries() {
-    return readDir(src)
+    return readDir(src);
 }
 
 module.exports = {
     entries,
-}
+};

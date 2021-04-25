@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Web site created using create-snowpack-app"
+        />
+        <title>Snowpack App</title>
+    </head>
+    <body>
+        <div id="root">
+            <app-layout>
+                <app-menu 
+                    data-slot="aside"
+                    data-menu_url='1'
+                    data-menu_list_url='https://auc.aidalan.com/user.menu/lists'>
+                </app-menu>
+                <div data-slot='main'>666</div>
+                <div data-slot='footer'>666</div>
+            </app-layout>
+        </div>
+        <script
+            src="http://mingle.local.aidalan.com/latest/index.js"
+            import="charts,icfonts"
+        ></script>
+    </body>
+</html>
+<script>
+    window.onload = function(){
+        new Mingle({
+            el: '#root',
+        });
+    }
+    
+</script>
