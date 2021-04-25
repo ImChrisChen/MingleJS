@@ -8,6 +8,7 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@src/utils';
 import moment from 'moment';
 import { IComponentConfig, IEntityOperationMode, IPropertyConfig, IUniversalProps } from '@src/config/interface';
+import bodyParser from 'body-parser';
 
 const isLocation = window.location.href.includes('-test');
 const domain = isLocation ? 'http://mingle-test.local.aidalan.com' : 'http://mingle.local.aidalan.com';
@@ -145,6 +146,24 @@ export const componentConfig: IConfig = {
                 component: import('@component/app/menu/AppMenu'),
                 property : {
                     dataset: {
+                        system_url : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: 'https://auc.local.aidalan.com/user.menu/apps',
+                            desc : '系统列表接口',
+                        },
+                        url        : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: 'https://auc.local.aidalan.com/user.menu/lists',
+                            desc : '菜单接口',
+                        },
+                        simple     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: false,
+                            desc : 'true 则只显示菜单,false则渲染 系统>菜单',
+                        },
                         pathfield  : {
                             el   : 'input',
                             parse: 'string',

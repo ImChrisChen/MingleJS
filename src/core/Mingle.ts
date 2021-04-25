@@ -155,14 +155,17 @@ export class Mingle {
         }
     }
 
-    private static getRefs() {
-        let refs = document.querySelectorAll('[ref]');
+    private static getRefs(el: HTMLElement) {
+        let refs = el.querySelectorAll('[ref]');
+        console.log(refs);
         let $refs = {};
         for (let ref of refs) {
             let value = ref.getAttribute('ref') ?? '';
             let uid = ref.getAttribute(DataComponentUID) ?? '';
             if (!value || !uid) continue;
 
+            console.log(uid);
+            console.log(App.instances);
             let { instance } = App.getInstance(uid);
             $refs[value] = instance ?? {};
         }
@@ -194,7 +197,6 @@ export class Mingle {
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
         let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
-        this.$refs = Mingle.getRefs();
 
         if (!container) {
             return;
@@ -217,7 +219,12 @@ export class Mingle {
             console.time('真实DOM首次渲染性能测试');
             let node = this.parserElementService.parseElement(container, data, funcs);
             console.timeEnd('真实DOM首次渲染性能测试');
+            
             await Mingle.render(node);
+            
+            this.$refs = Mingle.getRefs(document.body);
+            
+            console.log(this.$refs);
         }
 
     }

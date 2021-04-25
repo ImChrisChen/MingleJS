@@ -16,8 +16,10 @@ export default class AppMenu extends Component<IComponentProps, any> {
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
 
+    private systemUrl = this.props.dataset.system_url;
     private colorUrl = `https://auc.local.aidalan.com/app/icon`;
-    private menuUrl = `https://auc.local.aidalan.com/user.menu/apps`;
+    private simple = this.props.dataset.simple;
+    private menuUrl = this.props.dataset.url;
 
     state = {
         systems   : [],
@@ -28,23 +30,46 @@ export default class AppMenu extends Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        this.getSystems().then(data => {
-            let findIndex = data.findIndex(item => item.host === location.host);
-            let current = this.state.current;
-            if (findIndex !== -1) {
-                current = findIndex;
-            }
 
-            this.setState({
-                systems: data,
+        // 复杂模式，则渲染 系统和菜单
+        if (this.simple) {
+            this.getMenuList().then(data => {
+                let menulist = this.listToTreeList(data, { id: 'appMenuId', pid: 'r_father' });
+                // 数据key值转化
+                menulist = this.formatDataService.treeKeyReplace(menulist, {
+                    id  : 'appMenuId',
+                    pid : 'r_father',
+                    name: 'name',
+                }, {
+                    id  : 'value',
+                    name: 'label',
+                    pid : 'pid',
+                });
+
+                this.setState({ menulist });
             });
-            this.handleClickSystem(current, data[current]);
-        });
+        } else {
+            this.getSystems().then(data => {
+                let findIndex = data.findIndex(item => item.host === location.host);
+                let current = this.state.current;
+                if (findIndex !== -1) {
+                    current = findIndex;
+                }
+                this.setState({ systems: data }, async () => {
+                    await this.handleClickSystem(current, data[current]);
+                });
+            });
+        }
+    }
+
+    async getMenuList() {
+        let res = await this.httpClientService.jsonp(this.menuUrl);
+        return res.status ? res.data : [];
     }
 
     async getSystems() {
         // let { url } = this.props.dataset;
-        let res = await this.httpClientService.jsonp(this.menuUrl);
+        let res = await this.httpClientService.jsonp(this.systemUrl);
         return res.status ? res.data : [];
     }
 
@@ -66,15 +91,6 @@ export default class AppMenu extends Component<IComponentProps, any> {
                 <img src={ url + system.appId } alt=""/>
             </li>;
         });
-    }
-
-    format(list) {
-        for (const item of list) {
-            let isroot = (item) => Number(item.r_father) === 0;
-            if (isroot(item)) {
-                item.children = [];
-            }
-        }
     }
 
     listToTreeList(list, { id, pid }) { // 将普通列表转换为树结构的列表
@@ -99,8 +115,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
     }
 
     async handleClickSystem(i, system) {
-        let url = `https://auc.local.aidalan.com/user.menu/lists`;
-        let res = await this.httpClientService.jsonp(`${ url }?appId=${ system.appId }`);
+        let res = await this.httpClientService.jsonp(`${ this.menuUrl }?appId=${ system.appId }`);
         let data = res.status ? res.data : [];
 
         // list 转为 tree
@@ -132,7 +147,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
         return <>
             <div style={ { display: 'flex' } }>
 
-                <ul style={ { width: 40 } }> { this.renderSystems() } </ul>
+                { !this.simple ? <ul style={ { width: 40 } }> { this.renderSystems() } </ul> : '' }
 
                 <LayoutMenu
                     key={ this.state.current }
