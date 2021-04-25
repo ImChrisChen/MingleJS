@@ -12,7 +12,7 @@ import {
     trigger,
 } from '@src/utils';
 import $ from 'jquery';
-import { ConfigProvider, message } from 'antd';
+import { ConfigProvider } from 'antd';
 import { globalComponentConfig, IComponentConfig } from '@src/config/interface';
 import * as antdIcons from '@ant-design/icons';
 import { Hooks } from '@src/config/directive.config';

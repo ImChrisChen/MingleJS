@@ -14,7 +14,7 @@ import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
 import { AMIS_DOMAIN } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
-import { Mingle } from '@src/core/Mingle';
+import { MingleJS } from '@src/core/MingleJS';
 import FormAction from '@component/form/form-action/FormAction';
 import App, { DataComponentUID } from '@src/App';
 import { IEntityOperationMode } from '@src/config/interface';
@@ -201,7 +201,7 @@ export default class LayoutWindow {
 
                 // 如果是实体创建，则初始化表单中的value值为空
                 el.append(node);
-                new Mingle({ el: node });
+                new MingleJS({ el: node });
             }
 
         } else {
