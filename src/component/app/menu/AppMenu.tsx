@@ -100,7 +100,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
 
     async handleClickSystem(i, system) {
         let url = `https://auc.aidalan.com/user.menu/lists`;
-        let res = await this.httpClientService.jsonp(`${ this.props.dataset.menuUrl|| url }?appId=${ system.appId }`);
+        let res = await this.httpClientService.jsonp(`${ this.props.dataset.menuListUrl|| url }?appId=${ system.appId }`);
         let data = res.status ? res.data : [];
 
         // list 转为 tree
