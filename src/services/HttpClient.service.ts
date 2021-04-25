@@ -37,16 +37,14 @@ export class HttpClientService {
         } else {
             // 这个区域只会执行一次
             HttpClientService.setConfig();
-            HttpClientService.instance = this;
-            return this;
+            return HttpClientService.instance = this;
         }
     }
 
     private static setConfig() {
-        // 允许携带cookie;
         axios.defaults.timeout = 6000;
 
-        // 跨域设置为 * 的时候 Access-Control-Allow-Origin '*' ， 需要设置 // wichCredentials=false
+        // 允许携带cookie , 服务端设置 Access-Control-Allow-Origin '*'  时, 客户端需要设置 // wichCredentials=false
         axios.defaults.withCredentials = false;
 
         // axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
@@ -137,6 +135,11 @@ export class HttpClientService {
                     window[funcName] = undefined;
                 }
             };
+            /**
+             * img 的 src 属性 发起了请求，但是被请求的url返回接口被当成图片去解析了，所有没有办法跨域
+             * link 的 href 属性 根本就没有发起请求
+             * So, 只能使用script标签进行跨域
+             */
             let script: HTMLScriptElement = document.createElement('script');
 
             if (!url) {
