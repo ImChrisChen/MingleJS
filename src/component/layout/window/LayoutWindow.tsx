@@ -14,7 +14,7 @@ import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
 import { AMIS_DOMAIN } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
-import { Mingle } from '@src/core/Mingle';
+import { MingleJS } from '@src/core/MingleJS';
 import FormAction from '@component/form/form-action/FormAction';
 import App, { DataComponentUID } from '@src/App';
 import { IEntityOperationMode } from '@src/config/interface';
@@ -81,8 +81,7 @@ export default class LayoutWindow {
 
     // 编辑表格行
     async editRowDetail(uid: string, data: object): Promise<any> {
-        let res = await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
-        return res.status ? res.data : {};
+        return await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
     }
 
     // 新增表格行
@@ -116,7 +115,7 @@ export default class LayoutWindow {
                 }
                 if (entityMode === 'update') {
                     let res = await this.editRowDetail(this.uid, formData);
-                    if (res.id) {
+                    if (res.status) {
                         message.success('修改成功');
                         tableInstance?.handleReload();
                     } else {
@@ -202,7 +201,7 @@ export default class LayoutWindow {
 
                 // 如果是实体创建，则初始化表单中的value值为空
                 el.append(node);
-                new Mingle({ el: node });
+                new MingleJS({ el: node });
             }
 
         } else {
