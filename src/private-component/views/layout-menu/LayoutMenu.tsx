@@ -57,7 +57,9 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         collapsed: !(this.props.open ?? true),
     };
     pathfield = this.props.pathfield ?? '';
-
+    isEnd = false;
+    defaultOpenKeys:any = [];
+    defaultSelectedKeys:any = []
     constructor(props) {
         super(props);
     }
@@ -125,9 +127,36 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         });
     }
 
+    /**
+     * 根据url选中menu（适用性？) // 还是保存在locastorage
+     * @param data 
+     * @returns 
+     */
+    getDefaultOpen = (data = this.props.data) =>{
+        let url = window.location.pathname
+        for(let i=0,l=data.length;i<l;i++){
+            let {children,path} = data[i]
+            let key =  data[i].id ||  data[i].path ||  data[i].value || i;
+            if (children && children.length > 0) {
+                if(this.isEnd)  return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
+                this.defaultOpenKeys.push(key)
+                this.getDefaultOpen(children)
+            }else{
+                if(path === url){
+                    this.isEnd = true
+                    this.defaultSelectedKeys.push(key)
+                    return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
+                }
+            }
+        }
+        this.defaultOpenKeys = []
+        return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
+    }
+
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '160px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
+        let {defaultOpenKeys,defaultSelectedKeys} = this.getDefaultOpen();
         return (
             <div style={ {
                 width             : (this.state.collapsed ? 60 : width),
@@ -138,6 +167,8 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
                 {/*{ this.collapsedButton() }*/ }
                 <Menu
+                    openKeys={defaultOpenKeys}
+                    selectedKeys={defaultSelectedKeys}
                     style={ { position: 'relative' } }
                     mode={ this.props.layout || 'inline' }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
