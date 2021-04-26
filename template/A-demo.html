@@ -1,7 +1,6 @@
 <div id="demo1">
 
-    <form-action data-submit="false" data-reset="false">
-
+    <form-action data-submit="false" data-reset="false" ref="form">
 
     </form-action>
 
@@ -102,6 +101,7 @@
             // this.list = new Array(10000).fill({ name: Math.random(1000) });
             let tableObj = await this.$jsonp(`/server/mock/chart/funnel.json`);
             this.tableObj = tableObj;
+            console.log(this.$refs);
         },
         methods: {
 
