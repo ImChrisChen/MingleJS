@@ -21,7 +21,9 @@ export default class AppLayout extends Component<IComponentProps, any> {
 
     state = {
         containers: [ 'aside', /*'header'*/ 'main' /*'footer'*/ ],
-        userInfo  : {} as any,
+        page      : {},
+        list      : [] as Array<{ name: string, url: string }>,
+        info      : {} as { username: string },
     };
 
     constructor(props) {
@@ -30,14 +32,18 @@ export default class AppLayout extends Component<IComponentProps, any> {
     }
 
     async componentDidMount() {
-        let userInfo = await this.getUserInfo();
-        this.setState({ userInfo });
+        let [ data, page ] = await this.getUserInfo();
+        this.setState({
+            list: data.urls,
+            info: data.info,
+            page,
+        });
     }
 
     async getUserInfo() {
         let url = `http://sim.local.superdalan.com/cmdb/profile`;
         let res = await this.httpClientService.jsonp(url);
-        return res.status ? res.data : {};
+        return res.status ? [ res.data, res.page ] : [];
     }
 
     renderSlot() {
@@ -68,18 +74,9 @@ export default class AppLayout extends Component<IComponentProps, any> {
         });
     }
 
-    formatPullDownMenuItems(o: object) {
-        let options: Array<any> = [];
-        for (const k in o) {
-            if (!o.hasOwnProperty(k)) continue;
-            options.push({ label: k, url: o[k] });
-        }
-        return options;
-    }
-
     render() {
-        let menuItems = this.formatPullDownMenuItems(this.state.userInfo.url);
-        const menu = menuItems.map(item => <Menu.Item> <a href={ item.url }> { item.label } </a> </Menu.Item>);
+        const menu = this.state.list.map(item => <Menu.Item> <a href={ item.url }> { item.name } </a>
+        </Menu.Item>);
         const logo = <div className={ style.logo }>
             <img src="https://wui.superdalan.com/images/dalan64.png" style={ { width: 30, marginLeft: 8 } } alt=""/>
             <h1 style={ { padding: 0, margin: 0 } }>{ this.props.dataset.title }</h1>
@@ -88,7 +85,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
         const nav = <nav>
             <Dropdown overlay={ <Menu>{ menu }</Menu> } placement="bottomCenter" arrow>
                 <span style={ { cursor: 'pointer' } }>
-                    <Avatar size="small" icon={ <UserOutlined/> }/> { this.state.userInfo?.user?.name }
+                    <Avatar size="small" icon={ <UserOutlined/> }/> { this.state.info.username }
                     <CaretDownOutlined/>
                 </span>
             </Dropdown>
