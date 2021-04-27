@@ -1955,6 +1955,18 @@ export const componentConfig: IConfig = {
                             value: false,
                             desc : '是否默认打开弹出窗',
                         },
+                        cancel     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: true,
+                            desc : '是否显示取消按钮',
+                        },
+                        submit     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: true,
+                            desc : '是否显示提交按钮',
+                        },
                         entity_id  : {
                             el   : 'input',
                             parse: 'string',

@@ -167,6 +167,8 @@ export default class LayoutWindow {
                 entityID    : this.entityID,
                 entityMode  : this.entityMode,
                 dataUID     : tableUID,
+                submit      : this.props.dataset.submit,
+                cancel      : this.props.dataset.cancel,
             });
 
             // 2. 请求接口获取数据(生成实体页面元素)
@@ -216,6 +218,8 @@ export default class LayoutWindow {
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
                 title       : this.props.dataset.title,
                 dataUID     : '',
+                submit      : this.props.dataset.submit,
+                cancel      : this.props.dataset.cancel,
             });
         }
     };
@@ -244,6 +248,8 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         entityMode  : 'update' as IEntityOperationMode,       // 实体的操作模式
         entityID    : '',
         dataUID     : '',
+        submit      : false,
+        cancel      : false,
     };
 
     constructor(props) {
@@ -278,11 +284,15 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
     }
 
     render() {
+        let { submit, cancel } = this.state;
+        console.log(this.props);
         return <Modal
             className="layout-modal-window"
             visible={ this.state.visible }
             mask={ this.props.dataset.mask ?? false }
             getContainer={ document.querySelector('#WIN') as HTMLElement }
+            // transitionName=""
+            // maskTransitionName=""
             title={ <div
                 onMouseOverCapture={ () => {
                     if (this.state.disabled) {
@@ -307,12 +317,15 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
             onCancel={ this.handleCancel.bind(this) }
             modalRender={ modal => <Draggable disabled={ this.state.disabled }>{ modal }</Draggable> }
             footer={
-                [
-                    <Button key="back" onClick={ this.handleCancel }>取消</Button>,
-                    <Button key="submit" type="primary" loading={ this.state.loading } onClick={ this.handleOk }>
-                        提交
-                    </Button>,
-                ]
+                (!submit && !cancel)
+                    ? null
+                    : [
+                        <Button hidden={ !cancel } key="back" onClick={ this.handleCancel }>取消</Button>,
+                        <Button hidden={ !submit } key="submit" type="primary" loading={ this.state.loading }
+                                onClick={ this.handleOk }>
+                            提交
+                        </Button>,
+                    ]
             }
         >
             <Spin spinning={ this.state.iframeHidden }>
