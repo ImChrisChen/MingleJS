@@ -57,6 +57,7 @@ export default class LayoutWindow {
             window.addEventListener('message', e => {
                 let { type } = e.data;
                 if (type === 'CloseWindow') {
+                    console.log(LayoutWindow.instance);
                     LayoutWindow.instance.setState({ visible: false });     //关闭弹窗
                 }
             });

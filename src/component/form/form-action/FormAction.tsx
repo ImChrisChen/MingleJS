@@ -348,11 +348,14 @@ export default class FormAction extends React.Component<IFormAction, any> {
                         message.success(res?.[msgfield] ?? '操作成功');
                         await this.handleReset(form);
                         // 是否是iframe页面
-                        if (isInIframe()) {
-                            window.parent.postMessage({
-                                type: 'CloseWindow',            // LayoutWindow里会监听这个操作，然后关闭弹窗
-                            }, '*');
-                        }
+                        console.log(isInIframe());
+                        setTimeout(() => {
+                            if (isInIframe()) {
+                                window.parent.postMessage({
+                                    type: 'CloseWindow',            // LayoutWindow里会监听这个操作，然后关闭弹窗
+                                }, '*');
+                            }
+                        }, 400);
                     } else {
                         message.error(res?.[msgfield] ?? '操作失败');
                     }
@@ -417,7 +420,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     public async handleReset(form: HTMLElement, e?: any) {
         let { defaultFormData } = this;
-        console.log('defaultFormData:', defaultFormData);
 
         for (let key in defaultFormData) {
             if (!defaultFormData.hasOwnProperty(key)) continue;
