@@ -54,6 +54,13 @@ export default class LayoutWindow {
          */
         if (!LayoutWindow.instance) {
             this.renderLayoutWindow();
+            window.addEventListener('message', e => {
+                let { type } = e.data;
+                if (type === 'CloseWindow') {
+                    LayoutWindow.instance.setState({ visible: false });     //关闭弹窗
+                }
+            });
+
         }
     }
 
@@ -94,7 +101,6 @@ export default class LayoutWindow {
         // 实体点击OK触发操作
         let entityID = LayoutWindow.instance.state.entityID;
         let entityMode = LayoutWindow.instance.state.entityMode;
-        console.log(this);
         if (entityID) {
             // 弹窗的Form
             let form = document.querySelector('.layout-modal-window form-action') as HTMLElement;
@@ -285,7 +291,6 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
 
     render() {
         let { submit, cancel } = this.state;
-        console.log(this.props);
         return <Modal
             className="layout-modal-window"
             visible={ this.state.visible }
