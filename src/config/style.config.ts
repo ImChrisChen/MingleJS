@@ -556,7 +556,7 @@ export const styleConfig = [
                         },
                         {
                             label: '浅色',
-                            value: 'text-light'
+                            value: 'text-muted'
                         }    
                     ]
                 ]

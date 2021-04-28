@@ -7,10 +7,8 @@
 
 import { deepEach, isArray, isDOMString, isWuiTpl, strParseVirtualDOM } from '@src/utils';
 import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { IOptions } from '@src/config';
 import { Inject } from 'typescript-ioc';
-import { Simulate } from 'react-dom/test-utils';
-import keyDown = Simulate.keyDown;
+import { IOptions } from '@src/config/interface';
 
 interface IKeyMap {
     id: string

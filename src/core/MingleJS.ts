@@ -12,7 +12,7 @@ import { message } from 'antd';
 import { ProxyData } from '@src/core/ProxyData';
 import { IMingleVnode, VirtualDOM } from '@src/core/VirtualDOM';
 import { componentConfig } from '@src/config/component.config';
-import { styleConfig } from '@src/config/styleConfig';
+import { styleConfig } from '@src/config/style.config';
 import { isString } from '@src/utils';
 
 interface IMingleOptions {
@@ -44,15 +44,13 @@ function isText(vnode: IMingleVnode): boolean {
 
 const formatDataService = new FormatDataService;
 
-export class Mingle {
+export class MingleJS {
 
-    public $refs = {};
     @Inject private readonly parserElementService: ParserElementService;
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly virtualDOM: VirtualDOM;
-    // TODO 静态方法不能使用依赖注入
+    public $refs = {};
     private oldVnode;
-
     private containerNode;
 
     constructor(options: IMingleOptions) {
@@ -155,14 +153,14 @@ export class Mingle {
         }
     }
 
-    private static getRefs() {
-        let refs = document.querySelectorAll('[ref]');
+    private static getRefs(el: HTMLElement) {
+        let refs = el.querySelectorAll('[ref]');
+        console.log(refs);
         let $refs = {};
         for (let ref of refs) {
             let value = ref.getAttribute('ref') ?? '';
             let uid = ref.getAttribute(DataComponentUID) ?? '';
             if (!value || !uid) continue;
-
             let { instance } = App.getInstance(uid);
             $refs[value] = instance ?? {};
         }
@@ -171,30 +169,29 @@ export class Mingle {
 
     // TODO 变量式声明函数才可以被代理 ，否则会被解析到prototype属性上无法被Proxy代理到
     public $get = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await this.httpClientService.get(url, ...args));
+        return MingleJS.httpResponseInterceptor(await this.httpClientService.get(url, ...args));
     };
 
     public $post = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await this.httpClientService.post(url, ...args));
+        return MingleJS.httpResponseInterceptor(await this.httpClientService.post(url, ...args));
     };
 
     public $delete = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await this.httpClientService.delete(url, ...args));
+        return MingleJS.httpResponseInterceptor(await this.httpClientService.delete(url, ...args));
     };
 
     public $put = async (url, ...args) => {
-        return Mingle.httpResponseInterceptor(await this.httpClientService.put(url, ...args));
+        return MingleJS.httpResponseInterceptor(await this.httpClientService.put(url, ...args));
     };
 
     public $jsonp = async (url) => {
-        return Mingle.httpResponseInterceptor(await this.httpClientService.jsonp(url));
+        return MingleJS.httpResponseInterceptor(await this.httpClientService.jsonp(url));
     };
 
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
         let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
-        this.$refs = Mingle.getRefs();
 
         if (!container) {
             return;
@@ -211,13 +208,18 @@ export class Mingle {
             for (const child of [ ...node.childNodes ]) {
                 container.append(child);
             }
-            await Mingle.render(container);
+            await MingleJS.render(container);
         } else {
             // 原始DOM实现
             console.time('真实DOM首次渲染性能测试');
             let node = this.parserElementService.parseElement(container, data, funcs);
             console.timeEnd('真实DOM首次渲染性能测试');
-            await Mingle.render(node);
+
+            await MingleJS.render(node);
+
+            this.$refs = MingleJS.getRefs(document.body);
+
+            console.log('refs:',this.$refs);
         }
 
     }

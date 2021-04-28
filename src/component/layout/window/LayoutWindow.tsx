@@ -12,11 +12,12 @@ import './LayoutWindow.css';
 import ReactDOM from 'react-dom';
 import { FormatDataService, HttpClientService } from '@src/services';
 import { Inject } from 'typescript-ioc';
-import { BaseUrl, IEntityOperationMode } from '@src/config';
+import { AMIS_DOMAIN } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
-import { Mingle } from '@src/core/Mingle';
-import FormAction from '@component/form/form-action/FormAction';
+import { MingleJS } from '@src/core/MingleJS';
+import FormAction from '@component/form/action/FormAction';
 import App, { DataComponentUID } from '@src/App';
+import { IEntityOperationMode } from '@src/config/interface';
 
 interface IPrivateLayoutWindow extends INativeProps {
     onOk?: (...args) => any
@@ -41,9 +42,8 @@ export default class LayoutWindow {
         this.tableUID = tableEl.attr(DataComponentUID) ?? '';
 
         // 若实体是在表格中的，那就直接获取表格上的实体ID
-        let tableEntityID = tableEl.attr('data-entity_id');
+        this.entityID = tableEl.attr('data-entity_id') ?? '';  // this.entityID = this.props.dataset.entity_id || tableEntityID;
 
-        this.entityID = this.props.dataset.entity_id || tableEntityID;
         this.entityMode = this.props.dataset.entity_mode;
         this.uid = this.props.dataset.uid;
 
@@ -54,12 +54,20 @@ export default class LayoutWindow {
          */
         if (!LayoutWindow.instance) {
             this.renderLayoutWindow();
+            window.addEventListener('message', e => {
+                let { type } = e.data;
+                if (type === 'CloseWindow') {
+                    console.log(LayoutWindow.instance);
+                    LayoutWindow.instance.setState({ visible: false });     //关闭弹窗
+                }
+            });
+
         }
     }
 
     // 获取实体配置
     async getEntityConfig(id: string): Promise<any> {
-        let res = await this.httpClientService.get(`${ BaseUrl }/api/page/${ id }`);
+        let res = await this.httpClientService.get(`${ AMIS_DOMAIN }/api/page/${ id }`);
         if (res.status) {
             let contents = res.data.contents;
             if (isString(contents)) {
@@ -81,8 +89,7 @@ export default class LayoutWindow {
 
     // 编辑表格行
     async editRowDetail(uid: string, data: object): Promise<any> {
-        let res = await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
-        return res.status ? res.data : {};
+        return await this.httpClientService.put(`//amis.local.superdalan.com/api/random/${ uid }`, data);
     }
 
     // 新增表格行
@@ -95,7 +102,6 @@ export default class LayoutWindow {
         // 实体点击OK触发操作
         let entityID = LayoutWindow.instance.state.entityID;
         let entityMode = LayoutWindow.instance.state.entityMode;
-        console.log(this);
         if (entityID) {
             // 弹窗的Form
             let form = document.querySelector('.layout-modal-window form-action') as HTMLElement;
@@ -116,7 +122,7 @@ export default class LayoutWindow {
                 }
                 if (entityMode === 'update') {
                     let res = await this.editRowDetail(this.uid, formData);
-                    if (res.id) {
+                    if (res.status) {
                         message.success('修改成功');
                         tableInstance?.handleReload();
                     } else {
@@ -168,6 +174,8 @@ export default class LayoutWindow {
                 entityID    : this.entityID,
                 entityMode  : this.entityMode,
                 dataUID     : tableUID,
+                submit      : this.props.dataset.submit,
+                cancel      : this.props.dataset.cancel,
             });
 
             // 2. 请求接口获取数据(生成实体页面元素)
@@ -202,7 +210,7 @@ export default class LayoutWindow {
 
                 // 如果是实体创建，则初始化表单中的value值为空
                 el.append(node);
-                new Mingle({ el: node });
+                new MingleJS({ el: node });
             }
 
         } else {
@@ -217,6 +225,8 @@ export default class LayoutWindow {
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
                 title       : this.props.dataset.title,
                 dataUID     : '',
+                submit      : this.props.dataset.submit,
+                cancel      : this.props.dataset.cancel,
             });
         }
     };
@@ -245,6 +255,8 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         entityMode  : 'update' as IEntityOperationMode,       // 实体的操作模式
         entityID    : '',
         dataUID     : '',
+        submit      : false,
+        cancel      : false,
     };
 
     constructor(props) {
@@ -279,11 +291,14 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
     }
 
     render() {
+        let { submit, cancel } = this.state;
         return <Modal
             className="layout-modal-window"
             visible={ this.state.visible }
             mask={ this.props.dataset.mask ?? false }
             getContainer={ document.querySelector('#WIN') as HTMLElement }
+            // transitionName=""
+            // maskTransitionName=""
             title={ <div
                 onMouseOverCapture={ () => {
                     if (this.state.disabled) {
@@ -308,12 +323,15 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
             onCancel={ this.handleCancel.bind(this) }
             modalRender={ modal => <Draggable disabled={ this.state.disabled }>{ modal }</Draggable> }
             footer={
-                [
-                    <Button key="back" onClick={ this.handleCancel }>取消</Button>,
-                    <Button key="submit" type="primary" loading={ this.state.loading } onClick={ this.handleOk }>
-                        提交
-                    </Button>,
-                ]
+                (!submit && !cancel)
+                    ? null
+                    : [
+                        <Button hidden={ !cancel } key="back" onClick={ this.handleCancel }>取消</Button>,
+                        <Button hidden={ !submit } key="submit" type="primary" loading={ this.state.loading }
+                                onClick={ this.handleOk }>
+                            提交
+                        </Button>,
+                    ]
             }
         >
             <Spin spinning={ this.state.iframeHidden }>

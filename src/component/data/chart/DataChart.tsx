@@ -28,7 +28,7 @@ import {
 } from 'bizcharts';
 
 import { Button, Spin, Typography } from 'antd';
-import FormAction from '@component/form/form-action/FormAction';
+import FormAction from '@component/form/action/FormAction';
 import { isArray, isEmptyArray, isEmptyStr } from '@src/utils';
 import moment from 'moment';
 import { ColumnHeightOutlined, DownloadOutlined, PlusOutlined, SyncOutlined } from '@ant-design/icons';
@@ -65,6 +65,7 @@ interface IpanelTitleProps {
     handleReload: () => any
     handleTableResizeColumnHeight?: () => any
     handleTableAddColumn?: () => any
+    handleTableDeleteRows?: () => any
     type?: IPanleTitleType,
 }
 
@@ -89,6 +90,9 @@ export function PanelTitle(props: IpanelTitleProps) {
                             type="primary" icon={ <PlusOutlined/> }
                             onClick={ props.handleTableAddColumn }>
                         添加
+                    </Button>
+                    <Button danger onClick={ props.handleTableDeleteRows }>
+                        删除
                     </Button>
                     <ColumnHeightOutlined style={ { color: '#1890ff' } }
                                           onClick={ props.handleTableResizeColumnHeight }/>
@@ -288,7 +292,7 @@ export default class DataChart extends Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ [ 'active-region','brush-x' ] }>
 
                 <Interval position={ position } color={ colors }
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
@@ -324,7 +328,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         let { position, dataSource, colors } = this.formatGroupsData(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ [ 'active-region','brush-x' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
@@ -366,7 +370,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 height={ config.height }
                 data={ config.dataSource }
                 autoFit
-
+                interactions={ [ 'brush-y' ] }
                 scale={ {
                     [config.value]: {
                         formatter: (v) => v /*Math.round(v / 10000) + '万'*/,

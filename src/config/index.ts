@@ -7,4 +7,6 @@
 
 export * from './component.config';
 export * from './directive.config';
-export * from './hostname.config';
+export * from './domain.config';
+export * from './style.config';
+export * from './module.config';

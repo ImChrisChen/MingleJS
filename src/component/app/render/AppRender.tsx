@@ -6,7 +6,7 @@
  */
 
 import { INativeProps, IVnode } from '@interface/common/component';
-import { Mingle } from '@src/core/Mingle';
+import { MingleJS } from '@src/core/MingleJS';
 import { Inject } from 'typescript-ioc';
 import { ViewRenderService } from '@src/services';
 import { vnodeToElement } from '@src/utils';
@@ -26,7 +26,7 @@ export default class AppRender {
 
         el.innerHTML = '';
         el.append(node);
-        new Mingle({ el: node });
+        new MingleJS({ el: node });
         el.style.opacity = '1';
     }
 

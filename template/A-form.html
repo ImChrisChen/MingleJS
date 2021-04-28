@@ -1,0 +1,18 @@
+
+<div id="root">
+    <app-layout>
+        <app-menu 
+            data-slot="aside"
+            data-menu_url='1'
+            data-menu_list_url='https://auc.aidalan.com/user.menu/lists'>
+        </app-menu>
+        <div data-slot='main'>666</div>
+        <div data-slot='footer'>666</div>
+    </app-layout>
+</div>
+<script>
+        new Mingle({
+            el: '#root',
+        });
+    
+</script>

@@ -13,7 +13,7 @@
 <h1> <{message}> <{person.name}> </h1>  		// Hello Chris
 
 <script>
-    new Mingle({
+    new MingleJS({
 		data: {
             message: "Hello",
             title: '我是一个H1元素',
@@ -60,7 +60,7 @@
 ~~~
 
 ~~~js
-new Mingle({
+new MingleJS({
 	data: {
         value: "Hello World ~ "
     }
@@ -79,9 +79,9 @@ new Mingle({
 ~~~
 
 ~~~javascript
-new Mingle({
+new MingleJS({
     data: {
-        title: "Hello Mingle ~ "
+        title: "Hello MingleJS ~ "
     }
 })
 ~~~
@@ -98,7 +98,7 @@ new Mingle({
 ~~~
 
 ~~~javascript
-new Mingle({
+new MingleJS({
     methods: {
         handleClick(e){   
             // 原生事件
@@ -134,7 +134,7 @@ new Mingle({
 ~~~
 
 ~~~javascript
-new Mingle({
+new MingleJS({
     data:{
       	props:{
             'data-label'   : 'label',
@@ -162,9 +162,9 @@ new Mingle({
 
 ```html
 <h1 w-if="visible"> Hi~ MingleJS</h1>
-<h2 w-else>Bey Mingle JS</h2>
+<h2 w-else>Bey MingleJS JS</h2>
 <script>
-	new Mingle({
+	new MingleJS({
         data: {
             visible: true
         }
@@ -193,7 +193,7 @@ w-foreach 支持数组和对象两种遍历形式
     <li w-foreach="options as (option,index)" w-if="index % 2 === 0"><{ option.name }></li>
 </ul>
 <script>
-	new Mingle({
+	new MingleJS({
         data: {
             options: [
                 { name:"Chris" },
@@ -209,7 +209,7 @@ w-foreach 支持数组和对象两种遍历形式
 
 ## API
 
-#### Mingle
+#### MingleJS
 
 ##### options 类型如下：
 
@@ -239,7 +239,7 @@ interface IMingleOptions {
 
 
 
-> 钩子函数 和 methods 的函数中可以 通过this 获取到 new Mingle() 的实例
+> 钩子函数 和 methods 的函数中可以 通过this 获取到 new MingleJS() 的实例
 
 ##### Mingle类实例方法
 
@@ -260,7 +260,7 @@ ajax请求 （使用的是axios库，具体使用方式可查阅 👉🏿 [axios
 
 ~~~html
 <script>
-    new Mingle({
+    new MingleJS({
         el: '#App',				
         data: {
             persons: [
@@ -344,7 +344,7 @@ MingleJS 提供了几个全局方法以便于后端开发者，在不得已的�
     </define-component>
 </div>
 <script>
-    new Mingle({
+    new MingleJS({
         el: '#App',
         data: {
             components: [

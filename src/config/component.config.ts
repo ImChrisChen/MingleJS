@@ -7,133 +7,12 @@
 import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@src/utils';
 import moment from 'moment';
-import { INativeProps } from '@interface/common/component';
+import { IComponentConfig, IEntityOperationMode, IPropertyConfig, IUniversalProps } from '@src/config/interface';
+import bodyParser from 'body-parser';
 
-let domain = '';
 const isLocation = window.location.href.includes('-test');
-if (isLocation) {
-    domain = 'http://mingle-test.local.aidalan.com';
-} else {
-    domain = 'http://mingle.local.aidalan.com';
-}
-process.env.file = '//file.superdalan.com';
-process.env.mobile = '//m.aidalan.com';
-process.env.bbs = '//bbs.aidalan.com';
-
-// 实体的操作模式
-export type IEntityOperationMode = 'create' | 'update';
-
+const domain = isLocation ? 'http://mingle-test.local.aidalan.com' : 'http://mingle.local.aidalan.com';
 const file = '//file.superdalan.com';
-
-// 钩子类型
-export type hookType = 'load' | 'beforeLoad' | 'update' | 'beforeUpdate';
-
-// 解析类型
-export type parseType =
-    'string'
-    | 'boolean'
-    | 'number'
-    | 'object[]'
-    | 'string[]'
-    | 'number[]'
-    | 'JSON'
-    | 'style'
-    | 'class'
-    | 'null'
-    | Function /* 只能用于做验证的方法 比如 isUndefined, isBoolean */
-
-// 组件设计器，属性值渲染类型
-export type elType =
-    'switch'
-    | 'list'
-    | 'radio'
-    | 'input'
-    | 'select'
-    | 'datepicker'
-    | 'slider'
-    | 'number'
-    | 'color'
-    | 'select-multiple';
-
-/**
- * 模块类型
- * web-components 组件调用方式为 - 自定义组件 <form-select></form-select>
- * functional 交互拓展函数 调用方式为 -  <div data-fn="layout-window"></div>
- */
-type ModuleType = 'web-components' | 'functional';
-
-export interface IOptions {
-    label: string
-    value: string | number
-    title?: string
-
-    [key: string]: any
-}
-
-export interface IPropertyConfig<OptionItem = IOptions> {
-    el?: elType             // (组件设计器) 要渲染的组件名称
-    value?: ((parsedDataset) => any) | any          // TODO 在组件设计器中是没有这个参数传入的
-    options?: Array<OptionItem> | 'fromUrl' | Function // 选择列表
-    label?: string            // 组件设计器中的label值
-    parse?: parseType         // 解析类型
-    request?: boolean         //  url 上才有这个属性，request为true时在组件设计器中会立即请求
-    render?: boolean         // 是否可在组件设计器中配置
-    desc?: string           // 字段描述
-    verify?: (v) => boolean     // 验证属性值是否合法
-    // template?: string,          // 生成代码用的基本模版
-}
-
-export interface IComponentConfig<Property = IPropertyConfig> {
-    name?: string               // 组件 | 组 名称
-    children?: {                // 组下的组件
-        [key: string]: IComponentConfig
-    },
-    component?: Promise<any>    // 组件类
-    path?: string               // 组件文档路径
-    document?: Promise<any>     // 组件Markdown文档
-    property?: {                // 组件属性配置
-        dataset: {
-            [key: string]: Property | (() => any)
-        }
-        name?: Property
-        value?: Property
-        style?: Property
-        class?: Property
-        id?: Property
-        group?: Property
-        placeholder?: Property
-        hook?: {
-            [key in hookType]?: {
-                el?: string
-                value?: string
-                render?: boolean
-            }
-        }
-        [key: string]: any
-    }
-    type?: ModuleType           // 组件类型
-    icon?: string,              // 组件展示的图标
-    visible?: boolean
-}
-
-// 公共配置属性 Interface
-interface IUniversalProps<T> {
-    label: T
-    placeholder: T
-    url: T
-    style: T
-    class: T
-    enum: T
-    disabled: T
-    size: T
-    name: T
-    required: T
-    smart: T
-    group: T
-    exec: T
-
-    [key: string]: T
-}
 
 // TODO 提取公共属性(待调整)
 const UniversalProps: IUniversalProps<IPropertyConfig> = {
@@ -264,21 +143,73 @@ export const componentConfig: IConfig = {
         children: {
             menu  : {
                 children : {},
-                component: import('@component/app/menu/AppMenu'),
+                //component: import('@component/app/menu/AppMenu'),
                 property : {
                     dataset: {
-                        // url      : {
-                        //     el   : 'input',
-                        //     parse: 'string',
-                        //     value: domain + '/server/mock/menulist/uesr-menu.json',
-                        // },
-                        pathfield: {
+                        system_url : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: 'https://auc.local.aidalan.com/user.menu/apps',
+                            desc : '系统列表接口',
+                        },
+                        url        : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: 'https://auc.local.aidalan.com/user.menu/lists',
+                            desc : '菜单接口',
+                        },
+                        simple     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: false,
+                            desc : 'true 则只显示菜单,false则渲染 系统>菜单',
+                        },
+                        pathfield  : {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
                             value: 'url',
                             desc : '菜单URL跳转字段',
                         },
+                        menu_url: {
+                            el   : 'input',
+                            parse: 'string',
+                            // options: 'fromUrl',
+                            value: 'https://auc.aidalan.com/user.menu/apps',
+                            desc : '一级菜单URL',
+                        },
+                        menu_list_url: {
+                            el   : 'input',
+                            parse: 'string',
+                            // options: 'fromUrl',
+                            value: 'https://auc.aidalan.com/user.menu/lists',
+                            desc : '二级菜单URL',
+                        },
+                        bgcolor    : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#FFF',
+                            desc : '菜单的背景颜色',
+                        },
+                        activecolor: {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0382f2',
+                            desc : '菜单的边框颜色',
+                        },
+                        textcolor  : {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0678fd',
+                            desc : '菜单的文本颜色',
+                        },
+                        bordercolor: {
+                            el   : 'color',
+                            parse: 'string',
+                            value: '#0678fd',
+                            desc : '菜单的文本颜色',
+                        },
+
                     },
                 },
                 type     : 'web-components',
@@ -286,8 +217,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-layoutmenuv',
             },
             layout: {
-                component: import('@component/app/layout/AppLayout'),
-                document : import('@component/app/layout/AppLayout.md'),
+                //component: import('@component/app/layout/AppLayout'),
+                //document : import('@component/app/layout/AppLayout.md'),
                 path     : '/app-layout',
                 property : {
                     dataset: {
@@ -310,6 +241,12 @@ export const componentConfig: IConfig = {
                             parse  : 'string',
                             value  : 'vertical',
                         },
+                        title : {
+                            el   : 'input',
+                            parse: 'string',
+                            value: '大蓝后台',
+                            desc : 'logo位置, 系统名称',
+                        },
                     },
                 },
                 type     : 'web-components',
@@ -317,7 +254,7 @@ export const componentConfig: IConfig = {
                 name     : '布局',
             },
             render: {
-                component: import('@component/app/render/AppRender'),
+                //component: import('@component/app/render/AppRender'),
                 property : {
                     dataset: {},
                 },
@@ -326,16 +263,17 @@ export const componentConfig: IConfig = {
                 name     : '组件渲染器',
                 visible  : false,
             },
-            entity: {
-                name     : '实体模块',
-                component: import('@component/app/entity/AppEntity'),
-                property : {
-                    dataset: {},
-                },
-            },
+            // entity: {
+            //     name     : '实体模块',
+            //     //component: import('@component/app/entity/AppEntity'),
+            //     property : {
+            //         dataset: {},
+            //     },
+            //     type     : 'functional',
+            // },
             // feishu: {
-            //     component: import('@component/app/feishu/AppFeishu'),
-            //     document : import('@component/app/feishu/AppFeishu.md'),
+            //     //component: import('@component/app/feishu/AppFeishu'),
+            //     //document : import('@component/app/feishu/AppFeishu.md'),
             //     path     : '/app-lark',
             //     property : {
             //         dataset: {},
@@ -348,8 +286,8 @@ export const componentConfig: IConfig = {
         children: {
             select    : {
                 path     : '/form-select',
-                component: import('@component/form/select/FormSelect'),
-                document : import('@component/form/select/FormSelect.md'),
+                //component: import('@component/form/select/FormSelect'),
+                //document : import('@component/form/select/FormSelect.md'),
                 property : {
                     dataset    : {
                         label     : UniversalProps.label,
@@ -404,25 +342,28 @@ export const componentConfig: IConfig = {
                             render: false,
                         },
                         key       : {
-                            el     : 'select',
-                            parse  : 'string',
-                            options: 'fromUrl',
-                            value  : 'id',
-                            desc   : '数据源唯一id',
+                            el          : 'select',
+                            parse       : 'string',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : 'id',
+                            desc        : '数据源唯一id',
                         },
                         value     : {
-                            el     : 'input',
-                            parse  : 'null',
-                            options: 'fromUrl',
-                            value  : '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
-                            desc   : '要展示的内容模版/字段',
+                            el          : 'select',
+                            parse       : 'null',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : '<{publisher_name}>',    // TODO 主要要传模版的时候，不能去用 string 解析
+                            desc        : '要展示的内容模版/字段',
                         },
                         groupby   : {
-                            el     : 'input',
-                            parse  : 'string',
-                            options: 'fromUrl',
-                            value  : '',
-                            desc   : '按照groupby的值来进行分组排列',
+                            el          : 'select',
+                            parse       : 'string',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : '',
+                            desc        : '按照groupby的值来进行分组排列',
                         },
                         required  : UniversalProps.required,
                         smart     : UniversalProps.smart,
@@ -472,13 +413,12 @@ export const componentConfig: IConfig = {
             },
             selecttree: {
                 path     : '/form-selecttree',
-                component: import('@component/form/select/tree/FormSelectTree'),
-                document : import('@component/form/select/tree/FormSelectTree.md'),
+                //component: import('@component/form/select/tree/FormSelectTree'),
+                //document : import('@component/form/select/tree/FormSelectTree.md'),
                 property : {
                     dataset    : {
-                        disabled: UniversalProps.disabled,
-                        label   : UniversalProps.label,
-                        // size      : UniversalProps.size,
+                        disabled  : UniversalProps.disabled,
+                        label     : UniversalProps.label,
                         url       : {
                             el     : 'select',
                             parse  : 'string',
@@ -487,22 +427,28 @@ export const componentConfig: IConfig = {
                             desc   : '数据源',
                         },
                         key       : {
-                            el     : 'select',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : 'id',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '数据源唯一id',
+                            value       : 'id',
                         },
                         value     : {
-                            el     : 'select',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : 'name',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '要展示的内容模版/字段',
+                            value       : 'name',
                         },
                         children  : {
-                            el     : 'select',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : 'children',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '子节点关联key值',
+                            value       : 'children',
                         },
                         allowClear: {
                             el    : 'switch',
@@ -532,8 +478,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-select-tree',
             },
             checkbox  : {
-                component: import('@component/form/checkbox/FormCheckbox'),
-                document : import('@component/form/checkbox/FormCheckbox.md'),
+                //component: import('@component/form/checkbox/FormCheckbox'),
+                //document : import('@component/form/checkbox/FormCheckbox.md'),
                 path     : '/form-checkbox',
                 property : {
                     dataset: {
@@ -542,18 +488,20 @@ export const componentConfig: IConfig = {
                         enum    : UniversalProps.enum,
                         label   : UniversalProps.label,
                         key     : {
-                            el     : 'input',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            desc   : '数据转化的ID唯一值',
+                            el          : 'select',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '数据转化的ID唯一值',
                         },
                         value   : {
-                            el     : 'input',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'null',
-                            desc   : '数据展示值',
+                            el          : 'select',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'null',
+                            desc        : '数据展示值',
                         },
                         smart   : UniversalProps.smart,
                         exec    : UniversalProps.exec,
@@ -575,8 +523,8 @@ export const componentConfig: IConfig = {
             },
             cascader  : {
                 path     : '/form-cascader',
-                component: import('@component/form/cascader/FormCascader'),
-                document : import('@component/form/cascader/FormCascader.md'),
+                //component: import('@component/form/cascader/FormCascader'),
+                //document : import('@component/form/cascader/FormCascader.md'),
                 property : {
                     dataset    : {
                         disabled  : UniversalProps.disabled,
@@ -587,27 +535,31 @@ export const componentConfig: IConfig = {
                             // value  : '',
                             request: true,
                             parse  : 'string',
+                            desc   : '数据源',
                         },
                         key       : {
-                            el     : 'input',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            desc   : '数据转化的ID唯一值',
+                            el          : 'select',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '数据转化的ID唯一值',
                         },
                         value     : {
-                            el     : 'input',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'null',
-                            desc   : '数据展示值',
+                            el          : 'select',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'null',
+                            desc        : '数据展示值',
                         },
                         groupby   : {
-                            el     : 'input',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            desc   : '与data-key形成关系映射 id/pid',
+                            el          : 'select',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '与data-key形成关系映射 id/pid',
                         },
                         showSearch: {
                             value : true,
@@ -626,6 +578,7 @@ export const componentConfig: IConfig = {
                         el   : 'input',
                         value: '',
                         parse: 'string',
+                        desc : '默认值',
                     },
                 },
                 name     : '级联选择器',
@@ -634,8 +587,8 @@ export const componentConfig: IConfig = {
             },
             datepicker: {
                 path     : '/form-datepicker',
-                component: import('@component/form/datepicker/FormDatepicker'),
-                document : import('@component/form/datepicker/FormDatepicker.md'),
+                //component: import('@component/form/datepicker/FormDatepicker'),
+                //document : import('@component/form/datepicker/FormDatepicker.md'),
                 property : {
                     dataset: {
                         label     : UniversalProps.label,
@@ -705,6 +658,7 @@ export const componentConfig: IConfig = {
                     value  : {
                         el   : 'input',
                         parse: 'null',
+                        desc : '默认值',
                         value(parsedDataset) {
                             if (!parsedDataset) {
                                 return '';
@@ -727,7 +681,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-icon-el-date-picker',
             },
             action    : {
-                component: import('@component/form/form-action/FormAction'),
+                //component: import('@component/form/form-action/FormAction'),
                 path     : '/form-action',
                 property : {
                     dataset: {
@@ -767,11 +721,12 @@ export const componentConfig: IConfig = {
                             desc : '表单提交后，是否显示URL提示信息',
                         },
                         msgfield: {
-                            el     : 'select',
-                            parse  : 'string',
-                            value  : 'message',
-                            options: 'fromUrl',
-                            desc   : 'URL返回的参数 ，指定提交后的提示字段',
+                            el          : 'select',
+                            parse       : 'string',
+                            value       : 'message',
+                            options     : [],
+                            options_from: 'data-url',
+                            desc        : 'URL返回的参数 ，指定提交后的提示字段',
                         },
                         submit  : {
                             el   : 'switch',
@@ -787,26 +742,26 @@ export const componentConfig: IConfig = {
                         },
                     },
                     id     : {
-                        el   : 'input',
-                        parse: 'string',
-                        value: '',
-                        desc : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                        el    : 'input',
+                        parse : 'string',
+                        value : '',
+                        desc  : 'Form表单唯一ID,用户关联表格，图表，列表的data-from属性',
+                        render: false,
                     },
                 },
-                document : import('@component/form/form-action/FormAction.md'),
+                //document : import('@component/form/form-action/FormAction.md'),
                 name     : 'form表单',
                 type     : 'web-components',
                 icon     : 'icon-form1',
             },
             radio     : {
                 path     : '/form-radio',
-                component: import('@component/form/radio/FormRadio'),
+                //component: import('@component/form/radio/FormRadio'),
                 property : {
                     dataset: {
-                        disabled: UniversalProps.disabled,
-                        label   : UniversalProps.label,
-                        enum    : UniversalProps.enum,
-                        // size    : UniversalProps.size,
+                        disabled   : UniversalProps.disabled,
+                        label      : UniversalProps.label,
+                        enum       : UniversalProps.enum,
                         type       : {  // optionType
                             el     : 'radio',
                             options: [
@@ -821,6 +776,7 @@ export const componentConfig: IConfig = {
                             ],
                             value  : 'button',
                             parse  : 'string',
+                            desc   : 'Radio类型'
                         },
                         buttonStyle: {
                             el     : 'radio',
@@ -836,6 +792,7 @@ export const componentConfig: IConfig = {
                             value  : 'solid',
                             parse  : 'string',
                             render : true,
+                            desc   : 'Radio样式类型'
                         },
                         required   : UniversalProps.required,
                         smart      : UniversalProps.smart,
@@ -855,6 +812,7 @@ export const componentConfig: IConfig = {
                         // options: [],
                         value: '',
                         parse: 'string',
+                        desc : '默认值'
                     },
                 },
                 name     : '单选框',
@@ -863,8 +821,8 @@ export const componentConfig: IConfig = {
             },
             slider    : {
                 path     : '/form-slider',
-                component: import('@component/form/slider/FormSlider'),
-                document : import('@component/form/slider/FormSlider.md'),
+                //component: import('@component/form/slider/FormSlider'),
+                //document : import('@component/form/slider/FormSlider.md'),
                 property : {
                     dataset: {
                         max     : {
@@ -915,7 +873,7 @@ export const componentConfig: IConfig = {
             },
             switch    : {
                 path     : '/form-switch',
-                component: import('@component/form/switch/FormSwtich'),
+                //component: import('@component/form/switch/FormSwtich'),
                 property : {
                     dataset: {
                         disabled         : UniversalProps.disabled,
@@ -923,10 +881,12 @@ export const componentConfig: IConfig = {
                         checkedChildren  : {
                             el   : 'input',
                             value: '开启',
+                            desc : '选中显示内容'
                         },
                         unCheckedChildren: {
                             el   : 'input',
                             value: '关闭',
+                            desc : '非选中是内容'
                         },
                         smart            : UniversalProps.smart,
                         exec             : UniversalProps.exec,
@@ -942,7 +902,7 @@ export const componentConfig: IConfig = {
             },
             input     : {
                 path     : '/form-input',
-                component: import('@component/form/input/FormInput'),
+                //component: import('@component/form/input/FormInput'),
                 property : {
                     dataset    : {
                         type    : {
@@ -963,6 +923,7 @@ export const componentConfig: IConfig = {
                                 //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
                             ],
                             value  : 'text',
+                            desc   : 'input类型'
                         },
                         label   : UniversalProps.label,
                         required: UniversalProps.required,
@@ -987,8 +948,8 @@ export const componentConfig: IConfig = {
             },
             group     : {
                 path     : '/form-group',
-                component: import('@component/form/group/FormGroup'),
-                document : import('@component/form/group/FormGroup.md'),
+                //component: import('@component/form/group/FormGroup'),
+                //document : import('@component/form/group/FormGroup.md'),
                 property : {
                     dataset: {
                         layout: {
@@ -1007,7 +968,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-lie1',
             },
             upload    : {
-                component: import('@component/form/upload/FormUpload'),
+                //component: import('@component/form/upload/FormUpload'),
                 path     : '/form-upload',
                 property : {
                     dataset: {
@@ -1061,7 +1022,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-shangchuan5',
             },
             color     : {
-                component: import('@component/form/color/FormColor'),
+                //component: import('@component/form/color/FormColor'),
                 path     : '/form-color',
                 property : {
                     dataset: {
@@ -1084,7 +1045,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-color',
             },
             transfer  : {
-                component: import('@component/form/transfer/FormTransfer'),
+                //component: import('@component/form/transfer/FormTransfer'),
                 path     : '/form-transfer',
                 property : {
                     dataset: {
@@ -1098,18 +1059,20 @@ export const componentConfig: IConfig = {
                             verify : value => isUrl(value),
                         },
                         key     : {
-                            el     : 'select',
-                            parse  : 'string',
-                            options: 'fromUrl',
-                            value  : 'id',
-                            desc   : '数据源唯一id',
+                            el          : 'select',
+                            parse       : 'string',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : 'id',
+                            desc        : '数据源唯一id',
                         },
                         value   : {
-                            el     : 'input',
-                            parse  : 'null',
-                            options: 'fromUrl',
-                            value  : 'publisher_name',    // TODO 主要要传模版的时候，不能去用 string 解析
-                            desc   : '要展示的内容模版/字段',
+                            el          : 'select',
+                            parse       : 'null',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : 'publisher_name',    // TODO 主要要传模版的时候，不能去用 string 解析
+                            desc        : '要展示的内容模版/字段',
                         },
                         pagesize: {
                             el   : 'input',
@@ -1143,7 +1106,7 @@ export const componentConfig: IConfig = {
                     value  : {
                         el   : 'input',
                         parse: 'string[]',
-                        value: '1,2',
+                        value: '',
                         desc : '默认值',
                     },
                 },
@@ -1152,7 +1115,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-transfer',
             },
             button    : {
-                component: import('@component/form/button/FormButton'),
+                //component: import('@component/form/button/FormButton'),
                 path     : '/form-button',
                 property : {
                     dataset: {
@@ -1200,8 +1163,8 @@ export const componentConfig: IConfig = {
         children: {
             steps: {
                 path     : '/view-steps',
-                component: import('@component/view/steps/ViewSteps'),
-                document : import('@component/view/steps/ViewSteps.md'),
+                //component: import('@component/view/steps/ViewSteps'),
+                //document : import('@component/view/steps/ViewSteps.md'),
                 property : {
                     dataset: {
                         current: {
@@ -1238,7 +1201,7 @@ export const componentConfig: IConfig = {
             },
             // handle
             dropdown: {
-                component: import('@component/view/dropdown/ViewDropdown'),
+                //component: import('@component/view/dropdown/ViewDropdown'),
                 property : {
                     dataset: {
                         trigger: {
@@ -1271,7 +1234,7 @@ export const componentConfig: IConfig = {
             },
             calendar: {
                 path     : 'view-calendar',
-                component: import('@component/view/calendar/ViewCalendar'),
+                //component: import('@component/view/calendar/ViewCalendar'),
                 property : {
                     dataset: {},
                 },
@@ -1281,8 +1244,8 @@ export const componentConfig: IConfig = {
             },
             panel   : {
                 path     : '/view-panel',
-                document : import('@component/view/panel/ViewPanel.md'),
-                component: import('@component/view/panel/ViewPanel'),
+                //document : import('@component/view/panel/ViewPanel.md'),
+                //component: import('@component/view/panel/ViewPanel'),
                 property : {
                     dataset: {
                         // url  : UniversalProps.url,
@@ -1300,20 +1263,21 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'functional',
+                type     : 'web-components',
                 name     : '面板',
                 icon     : 'icon-panel',
             },
             image   : {
                 path     : '/view-image',
-                component: import('@component/view/image/ViewImage'),
-                document : import('@component/view/image/ViewImage.md'),
+                //component: import('@component/view/image/ViewImage'),
+                //document : import('@component/view/image/ViewImage.md'),
                 property : {
                     dataset: {
                         src: {
                             el   : 'input',
                             parse: 'string',
                             value: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                            desc : '图片地址'
                         },
                     },
                     style  : UniversalProps.style,
@@ -1329,7 +1293,7 @@ export const componentConfig: IConfig = {
         name    : '数据',
         children: {
             table: {
-                component: import('@component/data/table/DataTable'),
+                //component: import('@component/data/table/DataTable'),
                 path     : '/data-table',
                 property : {
                     dataset: {
@@ -1444,11 +1408,12 @@ export const componentConfig: IConfig = {
                             desc : '表头遍历字段',
                         },
                         rowkey     : {
-                            el     : 'input',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : '',
-                            desc   : '指定 表格每一行的key值,多选表格的ID 就是 这里指定的key,有这个值则开启表格的多选操作',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            value       : '',
+                            desc        : '指定 表格每一行的key值,多选表格的ID 就是 这里指定的key,有这个值则开启表格的多选操作',
                         },
                         entity_id  : {
                             el   : 'input',
@@ -1467,9 +1432,10 @@ export const componentConfig: IConfig = {
                 type     : 'web-components',
                 name     : '表格',
                 icon     : 'icon-table',
+                support  : [ 'app-entity' ],
             },
             chart: {
-                component: import('@component/data/chart/DataChart'),
+                //component: import('@component/data/chart/DataChart'),
                 path     : '/data-chart',
                 property : {
                     dataset: {
@@ -1517,22 +1483,23 @@ export const componentConfig: IConfig = {
                             desc   : '图表类型,默认柱状图',
                         },
                         key   : {
-                            el     : 'select-multiple',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            desc   : '图表统计维度的字段名',
+                            el          : 'select-multiple',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '图表统计维度的字段名',
                         },
                         value : {
-                            el     : 'select-multiple',
-                            parse  : 'string[]',
-                            options: 'fromUrl',
-                            value  : '',
-                            desc   : '图表统计的value值字段名',
+                            el          : 'select-multiple',
+                            parse       : 'string[]',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : '',
+                            desc        : '图表统计的value值字段名',
                         },
                         colors: {
-                            el: 'input',
-                            // options: 'fromUrl',
+                            el   : 'input',
                             value: '#37c9e3',
                             parse: 'string[]',
                             desc : '图表颜色(多个颜色用逗号隔开，例如："#f00,#fff,#f00")',
@@ -1560,11 +1527,12 @@ export const componentConfig: IConfig = {
                         //     desc   : '图例的布局方式',
                         // },
                         groupby  : {
-                            el     : 'input',
-                            value  : '',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            desc   : '分组统计,不填写默认不分组(需要数据格式支持), 注意: data-value为多个值时，该选项无效',
+                            el          : 'select',
+                            value       : '',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '分组统计,不填写默认不分组(需要数据格式支持), 注意: data-value为多个值时，该选项无效',
                         },
                         interval : {
                             el   : 'number',
@@ -1654,8 +1622,8 @@ export const componentConfig: IConfig = {
             },
             tree : {
                 path     : '/layout-tree',
-                component: import('@component/data/tree/DataTree'),
-                document : import('@component/data/tree/DataTree.md'),
+                //component: import('@component/data/tree/DataTree'),
+                //document : import('@component/data/tree/DataTree.md'),
                 property : {
                     dataset: {
                         url      : {
@@ -1666,22 +1634,28 @@ export const componentConfig: IConfig = {
                             desc   : '数据源',
                         },
                         key      : {
-                            el     : 'select',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : 'id',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '数据源唯一id',
+                            value       : 'id',
                         },
                         value    : {
-                            el     : 'select',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : 'name',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '要展示的内容模版/字段',
+                            value       : 'name',
                         },
                         children : {
-                            el     : 'select',
-                            options: 'fromUrl',
-                            parse  : 'string',
-                            value  : 'children',
+                            el          : 'select',
+                            options     : [],
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            desc        : '关联children键值',
+                            value       : 'children',
                         },
                         checkeds : {
                             el   : 'input',
@@ -1710,7 +1684,7 @@ export const componentConfig: IConfig = {
             },
             list : {
                 name     : '循环列表',
-                component: import('@component/data/list/DataList'),
+                //component: import('@component/data/list/DataList'),
                 path     : '/data-list',
                 property : {
                     dataset: {
@@ -1779,8 +1753,8 @@ export const componentConfig: IConfig = {
         name    : '提示信息',
         children: {
             card: {
-                component: import('@component/tips/card/TipsCard'),
-                document : import('@component/tips/card/TipsCard.md'),
+                //component: import('@component/tips/card/TipsCard'),
+                //document : import('@component/tips/card/TipsCard.md'),
                 path     : '/tips-card',
                 property : {
                     dataset: {
@@ -1819,7 +1793,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-liaotianneirongtishi',
             },
             text: {
-                component: import('@component/tips/text/TipsText'),
+                //component: import('@component/tips/text/TipsText'),
                 path     : '/tips-text',
                 property : {
                     dataset: {
@@ -1857,7 +1831,7 @@ export const componentConfig: IConfig = {
         name    : '布局设计',
         children: {
             menu  : {
-                component: import('@component/layout/menu/LayoutMenu'),
+                //component: import('@component/layout/menu/LayoutMenu'),
                 path     : '/layout-menu',
                 property : {
                     dataset: {
@@ -1927,11 +1901,12 @@ export const componentConfig: IConfig = {
                             render: false,
                         },
                         pathfield: {
-                            el   : 'input',
-                            parse: 'string',
-                            // options: 'fromUrl',
-                            value: 'url',
-                            desc : '菜单URL跳转字段',
+                            el          : 'input',
+                            parse       : 'string',
+                            options     : [],
+                            options_from: 'data-url',
+                            value       : 'url',
+                            desc        : '菜单URL跳转字段',
                         },
                     },
                 },
@@ -1940,8 +1915,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-layoutmenuv',
             },
             tab   : {
-                component: import('@component/layout/tab/LayoutTab'),
-                document : import('@component/layout/tab/LayoutTab.md'),
+                //component: import('@component/layout/tab/LayoutTab'),
+                //document : import('@component/layout/tab/LayoutTab.md'),
                 path     : '/layout-tab',
                 property : {
                     dataset: {
@@ -1969,8 +1944,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-tab',
             },
             window: {
-                component: import('@component/layout/window/LayoutWindow'),
-                document : import('@component/layout/window/LayoutWindow.md'),
+                //component: import('@component/layout/window/LayoutWindow'),
+                //document : import('@component/layout/window/LayoutWindow.md'),
                 path     : '/layout-window',
                 property : {
                     dataset: {
@@ -2010,6 +1985,18 @@ export const componentConfig: IConfig = {
                             value: false,
                             desc : '是否默认打开弹出窗',
                         },
+                        cancel     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: true,
+                            desc : '是否显示取消按钮',
+                        },
+                        submit     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: true,
+                            desc : '是否显示提交按钮',
+                        },
                         entity_id  : {
                             el   : 'input',
                             parse: 'string',
@@ -2045,7 +2032,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-iFrame',
             },
             drawer: {
-                component: import('@component/layout/drawer/LayoutDrawer'),
+                //component: import('@component/layout/drawer/LayoutDrawer'),
                 property : {
                     dataset: {
                         title   : {
@@ -2103,8 +2090,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-drawer',
             },
             list  : {
-                component: import('@component/layout/list/LayoutList'),
-                document : import('@component/layout/list/LayoutList.md'),
+                //component: import('@component/layout/list/LayoutList'),
+                //document : import('@component/layout/list/LayoutList.md'),
                 path     : '/layout-list',
                 property : {
                     dataset: {
@@ -2151,8 +2138,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-tubiao04',
             },
             row   : {
-                component: import('@component/layout/row/LayoutRow'),
-                document : import('@component/layout/row/LayoutRow.md'),
+                //component: import('@component/layout/row/LayoutRow'),
+                //document : import('@component/layout/row/LayoutRow.md'),
                 path     : '/layout-row',
                 property : {
                     dataset: {
@@ -2178,7 +2165,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-hang',
             },
             col   : {
-                component: import('@component/layout/row/col/LayoutCol'),
+                //component: import('@component/layout/row/col/LayoutCol'),
                 path     : '/layout-col',
                 property : {
                     dataset: {
@@ -2190,8 +2177,7 @@ export const componentConfig: IConfig = {
                         },
                     },
                     style  : {
-                        el: 'input',
-                        // render: true,
+                        el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : '样式',
@@ -2207,8 +2193,8 @@ export const componentConfig: IConfig = {
         name    : '处理',
         children: {
             request: {
-                component: import('@component/handle/request/HandleRequest'),
-                document : import('@component/handle/request/HandleRequest.md'),
+                //component: import('@component/handle/request/HandleRequest'),
+                //document : import('@component/handle/request/HandleRequest.md'),
                 property : {
                     dataset: {
                         trigger: {
@@ -2239,44 +2225,13 @@ export const componentConfig: IConfig = {
                 name     : '请求',
                 icon     : 'icon-qingqiu',
             },
-            // operate: {
-            //     component: import('@component/handle/operate/HandleOperate'),
-            //     property : {
-            //         dataset: {
-            //             // trigger: {
-            //             //     el     : 'radio',
-            //             //     options: [
-            //             //         { label: 'click', value: 'click' },
-            //             //         { label: 'hover', value: 'hover' },
-            //             //     ],
-            //             // },
-            //             operate: {
-            //                 el     : 'select',
-            //                 options: [
-            //                     { label: '弹窗', value: 'layout-window' },
-            //                     { label: 'form提交', value: 'form-submit' },
-            //                 ],
-            //                 value  : '',
-            //                 parse  : 'string',
-            //             },
-            //         },
-            //     },
-            //     type     : 'functional',
-            //     name     : 'icon-caozuo',
-            // },
         },
     },
     editor: {
         name    : '编辑',
         children: {
-            // flow    : {     // 流程图
-            //     component: import('@component/editor/flow/EditorFlow'),
-            //     property : {
-            //         dataset: {},
-            //     },
-            // },
             markdown: {     // markdown 编辑器
-                component: import('@component/editor/markdown-editor/MarkdownEditor'),
+                //component: import('@component/editor/markdown-editor/MarkdownEditor'),
                 path     : '/editor-markdown',
                 property : {
                     dataset: {
@@ -2298,23 +2253,7 @@ export const componentConfig: IConfig = {
                 name     : 'Markdown编辑器',
                 icon     : 'icon-mark_down',
             },
-            // code    : {     // 代码编辑器
-            //     component: import('@component/code/editor/CodeEditor'),
-            //     path     : '/editor-code',
-            //     property : {
-            //         dataset: {},
-            //     },
-            // },
         },
     },
 };
 
-// 组件全局配置
-export const globalComponentConfig: any = {
-    locale       : zhCN,
-    componentSize: 'small',
-    direction    : 'ltr',        // ltr | rtl
-    space        : { size: 'small' },
-    // virtual                 : true,
-    dropdownMatchSelectWidth: true,
-};

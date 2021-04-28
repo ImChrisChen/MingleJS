@@ -9,12 +9,13 @@ import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { arrayDeleteItem, isEmptyObject, trigger } from '@src/utils';
+import { arrayDeleteItem, isEmptyObject, isInIframe, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App, { DataComponentUID } from '@src/App';
 import { Inject } from 'typescript-ioc';
 import { HttpClientService } from '@src/services';
+import { AUC_DOMAIN } from '@src/config';
 
 // 表格提交的数据
 interface IFormData {
@@ -87,7 +88,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
         let { name, isPublic } = this.form.current.getFieldsValue();        // 获取表单字段
         let dataStr = this.formatDataString(formDataSmart);
 
-        let url = `https://auc.local.aidalan.com/user.selectTag/save?public=${ Number(isPublic) }&name=${ name }${ dataStr }`;
+        let url = `${ AUC_DOMAIN }/user.selectTag/save?public=${ Number(isPublic) }&name=${ name }${ dataStr }`;
         let res = await this.httpClientService.jsonp(url);
         if (res.status) {
             message.success('创建成功');
@@ -100,7 +101,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
 
     // 删除标签
     async handleDeleteSmart(id, e) {
-        let url = `https://auc.local.aidalan.com/user.selectTag/delete?selectTagId=${ id }`;
+        let url = `${ AUC_DOMAIN }/user.selectTag/delete?selectTagId=${ id }`;
         let res = await this.httpClientService.jsonp(url);
 
         if (res.status) {
@@ -116,7 +117,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
     async getFormSmartList() {
         let formDataSmart = this.getFormDataSmart(this.state.smartElements);
         let names = this.formatDataString(formDataSmart);
-        let url = `https://auc.local.aidalan.com/user.selectTag/lists?keys=${ names }`;
+        let url = `${ AUC_DOMAIN }/user.selectTag/lists?keys=${ names }`;
         let res = await this.httpClientService.jsonp(url);
         return res.status ? res.data : [];
     }
@@ -224,8 +225,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {};
 
-    // @Inject private readonly componentSerive: ComponentService;
-
     // form表单默认值，重置表单时会用到
     defaultFormData = {};
 
@@ -236,6 +235,11 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     init() {
         let form: HTMLElement = this.props.el;
+        // 没有ID则随机生成ID，不需要用户手动配置ID
+        if (!form.id) {
+            let id = form.getAttribute(DataComponentUID)?.substr(0, 10) ?? Math.random() * 1000;
+            form.id = 'form_' + id;
+        }
 
         // 保存表单默认值
         this.defaultFormData = FormAction.getFormData(form);
@@ -343,12 +347,23 @@ export default class FormAction extends React.Component<IFormAction, any> {
                     if (res?.status) {
                         message.success(res?.[msgfield] ?? '操作成功');
                         await this.handleReset(form);
+                        // 是否是iframe页面
+                        console.log(isInIframe());
+                        setTimeout(() => {
+                            if (isInIframe()) {
+                                window.parent.postMessage({
+                                    type: 'CloseWindow',            // LayoutWindow里会监听这个操作，然后关闭弹窗
+                                }, '*');
+                            }
+                        }, 400);
                     } else {
                         message.error(res?.[msgfield] ?? '操作失败');
                     }
                 }
-
             }
+
+        } else {
+            // message.error('表单验证不通过');
         }
     }
 
@@ -405,7 +420,6 @@ export default class FormAction extends React.Component<IFormAction, any> {
     // 表单重置 type=reset , 获取DOM默认值 和 config默认值 生成默认值进行填充表单
     public async handleReset(form: HTMLElement, e?: any) {
         let { defaultFormData } = this;
-        console.log('defaultFormData:', defaultFormData);
 
         for (let key in defaultFormData) {
             if (!defaultFormData.hasOwnProperty(key)) continue;
