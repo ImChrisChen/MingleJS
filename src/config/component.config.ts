@@ -1106,7 +1106,7 @@ export const componentConfig: IConfig = {
                     value  : {
                         el   : 'input',
                         parse: 'string[]',
-                        value: '1,2',
+                        value: '',
                         desc : '默认值',
                     },
                 },
@@ -1984,6 +1984,18 @@ export const componentConfig: IConfig = {
                             parse: 'boolean',
                             value: false,
                             desc : '是否默认打开弹出窗',
+                        },
+                        cancel     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: true,
+                            desc : '是否显示取消按钮',
+                        },
+                        submit     : {
+                            el   : 'switch',
+                            parse: 'boolean',
+                            value: true,
+                            desc : '是否显示提交按钮',
                         },
                         entity_id  : {
                             el   : 'input',

@@ -255,3 +255,10 @@ export function isReactComponent(o) {
 export function isExistAttr(attrName: string, el: HTMLElement) {
     return el.getAttribute(attrName) !== null;
 }
+
+/**
+ * 判断当前运行时,当前是否在iframe中
+ */
+export function isInIframe() {
+    return window.parent !== window;
+}
