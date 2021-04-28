@@ -292,7 +292,7 @@ export default class DataChart extends Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ [ 'active-region','brush-x' ] }>
 
                 <Interval position={ position } color={ colors }
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
@@ -328,7 +328,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         let { position, dataSource, colors } = this.formatGroupsData(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region' ] }>
+                   interactions={ [ 'active-region','brush-x' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
@@ -370,7 +370,7 @@ export default class DataChart extends Component<IComponentProps, any> {
                 height={ config.height }
                 data={ config.dataSource }
                 autoFit
-
+                interactions={ [ 'brush-y' ] }
                 scale={ {
                     [config.value]: {
                         formatter: (v) => v /*Math.round(v / 10000) + '万'*/,
