@@ -143,7 +143,7 @@ export const componentConfig: IConfig = {
         children: {
             menu  : {
                 children : {},
-                component: import('@component/app/menu/AppMenu'),
+                //component: import('@component/app/menu/AppMenu'),
                 property : {
                     dataset: {
                         system_url : {
@@ -203,8 +203,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-layoutmenuv',
             },
             layout: {
-                component: import('@component/app/layout/AppLayout'),
-                document : import('@component/app/layout/AppLayout.md'),
+                //component: import('@component/app/layout/AppLayout'),
+                //document : import('@component/app/layout/AppLayout.md'),
                 path     : '/app-layout',
                 property : {
                     dataset: {
@@ -240,7 +240,7 @@ export const componentConfig: IConfig = {
                 name     : '布局',
             },
             render: {
-                component: import('@component/app/render/AppRender'),
+                //component: import('@component/app/render/AppRender'),
                 property : {
                     dataset: {},
                 },
@@ -251,15 +251,15 @@ export const componentConfig: IConfig = {
             },
             // entity: {
             //     name     : '实体模块',
-            //     component: import('@component/app/entity/AppEntity'),
+            //     //component: import('@component/app/entity/AppEntity'),
             //     property : {
             //         dataset: {},
             //     },
             //     type     : 'functional',
             // },
             // feishu: {
-            //     component: import('@component/app/feishu/AppFeishu'),
-            //     document : import('@component/app/feishu/AppFeishu.md'),
+            //     //component: import('@component/app/feishu/AppFeishu'),
+            //     //document : import('@component/app/feishu/AppFeishu.md'),
             //     path     : '/app-lark',
             //     property : {
             //         dataset: {},
@@ -272,8 +272,8 @@ export const componentConfig: IConfig = {
         children: {
             select    : {
                 path     : '/form-select',
-                component: import('@component/form/select/FormSelect'),
-                document : import('@component/form/select/FormSelect.md'),
+                //component: import('@component/form/select/FormSelect'),
+                //document : import('@component/form/select/FormSelect.md'),
                 property : {
                     dataset    : {
                         label     : UniversalProps.label,
@@ -399,8 +399,8 @@ export const componentConfig: IConfig = {
             },
             selecttree: {
                 path     : '/form-selecttree',
-                component: import('@component/form/select/tree/FormSelectTree'),
-                document : import('@component/form/select/tree/FormSelectTree.md'),
+                //component: import('@component/form/select/tree/FormSelectTree'),
+                //document : import('@component/form/select/tree/FormSelectTree.md'),
                 property : {
                     dataset    : {
                         disabled  : UniversalProps.disabled,
@@ -461,8 +461,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-select-tree',
             },
             checkbox  : {
-                component: import('@component/form/checkbox/FormCheckbox'),
-                document : import('@component/form/checkbox/FormCheckbox.md'),
+                //component: import('@component/form/checkbox/FormCheckbox'),
+                //document : import('@component/form/checkbox/FormCheckbox.md'),
                 path     : '/form-checkbox',
                 property : {
                     dataset: {
@@ -506,8 +506,8 @@ export const componentConfig: IConfig = {
             },
             cascader  : {
                 path     : '/form-cascader',
-                component: import('@component/form/cascader/FormCascader'),
-                document : import('@component/form/cascader/FormCascader.md'),
+                //component: import('@component/form/cascader/FormCascader'),
+                //document : import('@component/form/cascader/FormCascader.md'),
                 property : {
                     dataset    : {
                         disabled  : UniversalProps.disabled,
@@ -568,8 +568,8 @@ export const componentConfig: IConfig = {
             },
             datepicker: {
                 path     : '/form-datepicker',
-                component: import('@component/form/datepicker/FormDatepicker'),
-                document : import('@component/form/datepicker/FormDatepicker.md'),
+                //component: import('@component/form/datepicker/FormDatepicker'),
+                //document : import('@component/form/datepicker/FormDatepicker.md'),
                 property : {
                     dataset: {
                         label     : UniversalProps.label,
@@ -661,7 +661,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-icon-el-date-picker',
             },
             action    : {
-                component: import('@component/form/form-action/FormAction'),
+                //component: import('@component/form/form-action/FormAction'),
                 path     : '/form-action',
                 property : {
                     dataset: {
@@ -729,14 +729,14 @@ export const componentConfig: IConfig = {
                         render: false,
                     },
                 },
-                document : import('@component/form/form-action/FormAction.md'),
+                //document : import('@component/form/form-action/FormAction.md'),
                 name     : 'form表单',
                 type     : 'web-components',
                 icon     : 'icon-form1',
             },
             radio     : {
                 path     : '/form-radio',
-                component: import('@component/form/radio/FormRadio'),
+                //component: import('@component/form/radio/FormRadio'),
                 property : {
                     dataset: {
                         disabled   : UniversalProps.disabled,
@@ -798,8 +798,8 @@ export const componentConfig: IConfig = {
             },
             slider    : {
                 path     : '/form-slider',
-                component: import('@component/form/slider/FormSlider'),
-                document : import('@component/form/slider/FormSlider.md'),
+                //component: import('@component/form/slider/FormSlider'),
+                //document : import('@component/form/slider/FormSlider.md'),
                 property : {
                     dataset: {
                         max     : {
@@ -850,7 +850,7 @@ export const componentConfig: IConfig = {
             },
             switch    : {
                 path     : '/form-switch',
-                component: import('@component/form/switch/FormSwtich'),
+                //component: import('@component/form/switch/FormSwtich'),
                 property : {
                     dataset: {
                         disabled         : UniversalProps.disabled,
@@ -877,7 +877,7 @@ export const componentConfig: IConfig = {
             },
             input     : {
                 path     : '/form-input',
-                component: import('@component/form/input/FormInput'),
+                //component: import('@component/form/input/FormInput'),
                 property : {
                     dataset    : {
                         type    : {
@@ -922,8 +922,8 @@ export const componentConfig: IConfig = {
             },
             group     : {
                 path     : '/form-group',
-                component: import('@component/form/group/FormGroup'),
-                document : import('@component/form/group/FormGroup.md'),
+                //component: import('@component/form/group/FormGroup'),
+                //document : import('@component/form/group/FormGroup.md'),
                 property : {
                     dataset: {
                         layout: {
@@ -942,7 +942,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-lie1',
             },
             upload    : {
-                component: import('@component/form/upload/FormUpload'),
+                //component: import('@component/form/upload/FormUpload'),
                 path     : '/form-upload',
                 property : {
                     dataset: {
@@ -996,7 +996,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-shangchuan5',
             },
             color     : {
-                component: import('@component/form/color/FormColor'),
+                //component: import('@component/form/color/FormColor'),
                 path     : '/form-color',
                 property : {
                     dataset: {
@@ -1019,7 +1019,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-color',
             },
             transfer  : {
-                component: import('@component/form/transfer/FormTransfer'),
+                //component: import('@component/form/transfer/FormTransfer'),
                 path     : '/form-transfer',
                 property : {
                     dataset: {
@@ -1089,7 +1089,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-transfer',
             },
             button    : {
-                component: import('@component/form/button/FormButton'),
+                //component: import('@component/form/button/FormButton'),
                 path     : '/form-button',
                 property : {
                     dataset: {
@@ -1137,8 +1137,8 @@ export const componentConfig: IConfig = {
         children: {
             steps: {
                 path     : '/view-steps',
-                component: import('@component/view/steps/ViewSteps'),
-                document : import('@component/view/steps/ViewSteps.md'),
+                //component: import('@component/view/steps/ViewSteps'),
+                //document : import('@component/view/steps/ViewSteps.md'),
                 property : {
                     dataset: {
                         current: {
@@ -1175,7 +1175,7 @@ export const componentConfig: IConfig = {
             },
             // handle
             dropdown: {
-                component: import('@component/view/dropdown/ViewDropdown'),
+                //component: import('@component/view/dropdown/ViewDropdown'),
                 property : {
                     dataset: {
                         trigger: {
@@ -1208,7 +1208,7 @@ export const componentConfig: IConfig = {
             },
             calendar: {
                 path     : 'view-calendar',
-                component: import('@component/view/calendar/ViewCalendar'),
+                //component: import('@component/view/calendar/ViewCalendar'),
                 property : {
                     dataset: {},
                 },
@@ -1218,8 +1218,8 @@ export const componentConfig: IConfig = {
             },
             panel   : {
                 path     : '/view-panel',
-                document : import('@component/view/panel/ViewPanel.md'),
-                component: import('@component/view/panel/ViewPanel'),
+                //document : import('@component/view/panel/ViewPanel.md'),
+                //component: import('@component/view/panel/ViewPanel'),
                 property : {
                     dataset: {
                         // url  : UniversalProps.url,
@@ -1243,8 +1243,8 @@ export const componentConfig: IConfig = {
             },
             image   : {
                 path     : '/view-image',
-                component: import('@component/view/image/ViewImage'),
-                document : import('@component/view/image/ViewImage.md'),
+                //component: import('@component/view/image/ViewImage'),
+                //document : import('@component/view/image/ViewImage.md'),
                 property : {
                     dataset: {
                         src: {
@@ -1266,7 +1266,7 @@ export const componentConfig: IConfig = {
         name    : '数据',
         children: {
             table: {
-                component: import('@component/data/table/DataTable'),
+                //component: import('@component/data/table/DataTable'),
                 path     : '/data-table',
                 property : {
                     dataset: {
@@ -1408,7 +1408,7 @@ export const componentConfig: IConfig = {
                 support  : [ 'app-entity' ],
             },
             chart: {
-                component: import('@component/data/chart/DataChart'),
+                //component: import('@component/data/chart/DataChart'),
                 path     : '/data-chart',
                 property : {
                     dataset: {
@@ -1595,8 +1595,8 @@ export const componentConfig: IConfig = {
             },
             tree : {
                 path     : '/layout-tree',
-                component: import('@component/data/tree/DataTree'),
-                document : import('@component/data/tree/DataTree.md'),
+                //component: import('@component/data/tree/DataTree'),
+                //document : import('@component/data/tree/DataTree.md'),
                 property : {
                     dataset: {
                         url      : {
@@ -1654,7 +1654,7 @@ export const componentConfig: IConfig = {
             },
             list : {
                 name     : '循环列表',
-                component: import('@component/data/list/DataList'),
+                //component: import('@component/data/list/DataList'),
                 path     : '/data-list',
                 property : {
                     dataset: {
@@ -1723,8 +1723,8 @@ export const componentConfig: IConfig = {
         name    : '提示信息',
         children: {
             card: {
-                component: import('@component/tips/card/TipsCard'),
-                document : import('@component/tips/card/TipsCard.md'),
+                //component: import('@component/tips/card/TipsCard'),
+                //document : import('@component/tips/card/TipsCard.md'),
                 path     : '/tips-card',
                 property : {
                     dataset: {
@@ -1763,7 +1763,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-liaotianneirongtishi',
             },
             text: {
-                component: import('@component/tips/text/TipsText'),
+                //component: import('@component/tips/text/TipsText'),
                 path     : '/tips-text',
                 property : {
                     dataset: {
@@ -1801,7 +1801,7 @@ export const componentConfig: IConfig = {
         name    : '布局设计',
         children: {
             menu  : {
-                component: import('@component/layout/menu/LayoutMenu'),
+                //component: import('@component/layout/menu/LayoutMenu'),
                 path     : '/layout-menu',
                 property : {
                     dataset: {
@@ -1885,8 +1885,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-layoutmenuv',
             },
             tab   : {
-                component: import('@component/layout/tab/LayoutTab'),
-                document : import('@component/layout/tab/LayoutTab.md'),
+                //component: import('@component/layout/tab/LayoutTab'),
+                //document : import('@component/layout/tab/LayoutTab.md'),
                 path     : '/layout-tab',
                 property : {
                     dataset: {
@@ -1914,8 +1914,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-tab',
             },
             window: {
-                component: import('@component/layout/window/LayoutWindow'),
-                document : import('@component/layout/window/LayoutWindow.md'),
+                //component: import('@component/layout/window/LayoutWindow'),
+                //document : import('@component/layout/window/LayoutWindow.md'),
                 path     : '/layout-window',
                 property : {
                     dataset: {
@@ -2002,7 +2002,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-iFrame',
             },
             drawer: {
-                component: import('@component/layout/drawer/LayoutDrawer'),
+                //component: import('@component/layout/drawer/LayoutDrawer'),
                 property : {
                     dataset: {
                         title   : {
@@ -2060,8 +2060,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-drawer',
             },
             list  : {
-                component: import('@component/layout/list/LayoutList'),
-                document : import('@component/layout/list/LayoutList.md'),
+                //component: import('@component/layout/list/LayoutList'),
+                //document : import('@component/layout/list/LayoutList.md'),
                 path     : '/layout-list',
                 property : {
                     dataset: {
@@ -2108,8 +2108,8 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-tubiao04',
             },
             row   : {
-                component: import('@component/layout/row/LayoutRow'),
-                document : import('@component/layout/row/LayoutRow.md'),
+                //component: import('@component/layout/row/LayoutRow'),
+                //document : import('@component/layout/row/LayoutRow.md'),
                 path     : '/layout-row',
                 property : {
                     dataset: {
@@ -2135,7 +2135,7 @@ export const componentConfig: IConfig = {
                 icon     : 'icon-hang',
             },
             col   : {
-                component: import('@component/layout/row/col/LayoutCol'),
+                //component: import('@component/layout/row/col/LayoutCol'),
                 path     : '/layout-col',
                 property : {
                     dataset: {
@@ -2163,8 +2163,8 @@ export const componentConfig: IConfig = {
         name    : '处理',
         children: {
             request: {
-                component: import('@component/handle/request/HandleRequest'),
-                document : import('@component/handle/request/HandleRequest.md'),
+                //component: import('@component/handle/request/HandleRequest'),
+                //document : import('@component/handle/request/HandleRequest.md'),
                 property : {
                     dataset: {
                         trigger: {
@@ -2201,7 +2201,7 @@ export const componentConfig: IConfig = {
         name    : '编辑',
         children: {
             markdown: {     // markdown 编辑器
-                component: import('@component/editor/markdown-editor/MarkdownEditor'),
+                //component: import('@component/editor/markdown-editor/MarkdownEditor'),
                 path     : '/editor-markdown',
                 property : {
                     dataset: {

@@ -8,25 +8,27 @@ const readline = require('readline');
 const path = require('path');
 const clc = require('cli-color');
 const fs = require('fs');
-const { getBuildDirName } = require('./utils');
-// const getBuild
-// const exec = require('child_process').exec;
-// let currentScript = path.resolve(__dirname, __filename);
-// let command = ['node', currentScript].join(' ');
+const { getBuildDirName, getArgs } = require('./utils');
+
+let args = getArgs();
 
 let instance = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
 
-
 instance.question('请输入要更新的版本: ', v => {
     console.log(/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v));
     if (/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v) || v === 'latest') {
         instance.close();
+        
+        let isDoc = args['type'] === 'doc';
+        
+        let filepath = isDoc ? `../dist/${ getBuildDirName('doc') }` : `../lib/${ getBuildDirName('lib') }`;
+        
         try {
-            let oldPath = path.resolve(__dirname, `../dist/${ getBuildDirName() }`);
-            fs.renameSync(oldPath, path.resolve(__dirname, `../dist/${ v }`));
+            let oldPath = path.resolve(__dirname, filepath);
+            fs.renameSync(oldPath, path.resolve(__dirname, isDoc ? `../dist/${ v }` : `../lib/${ v }`));
             // console.log('%修改成功，当前版本号: ', 'color: red');
             console.log(clc.blue(`
                  版本更新成功😄
