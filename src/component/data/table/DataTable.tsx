@@ -28,7 +28,7 @@ import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
-import FormAction from '@component/form/form-action/FormAction';
+import FormAction from '@component/form/action/FormAction';
 import { Inject } from 'typescript-ioc';
 import {
     FormatDataService,

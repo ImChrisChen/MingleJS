@@ -28,7 +28,7 @@ import {
 } from 'bizcharts';
 
 import { Button, Spin, Typography } from 'antd';
-import FormAction from '@component/form/form-action/FormAction';
+import FormAction from '@component/form/action/FormAction';
 import { isArray, isEmptyArray, isEmptyStr } from '@src/utils';
 import moment from 'moment';
 import { ColumnHeightOutlined, DownloadOutlined, PlusOutlined, SyncOutlined } from '@ant-design/icons';

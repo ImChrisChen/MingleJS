@@ -15,7 +15,7 @@ import { Inject } from 'typescript-ioc';
 import { AMIS_DOMAIN } from '@src/config';
 import { isString, vnodeToElement } from '@src/utils';
 import { MingleJS } from '@src/core/MingleJS';
-import FormAction from '@component/form/form-action/FormAction';
+import FormAction from '@component/form/action/FormAction';
 import App, { DataComponentUID } from '@src/App';
 import { IEntityOperationMode } from '@src/config/interface';
 

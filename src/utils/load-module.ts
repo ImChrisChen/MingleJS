@@ -31,11 +31,17 @@ async function getModules(keys, object) {
 // TODO 后续可优化成读取目录的形式，不过感觉要配合 命令行生成目录会比较好
 export async function loadModules(keys: Array<string>) {
     let module = await getModules(keys, componentConfig);
-    if (!module.component) {
+    if (!module.property) {
         console.error(`没有${ keys }这个组件`);
         return false;
     }
     return module;
+}
+
+function getUrl(tagName: string) {
+    let [ k1, k2 ] = tagName.split('-');
+    let cname = k1[0].toUpperCase() + k1.slice(1) + k2[0].toUpperCase() + k2.slice(1);
+    return [ k1, k2, cname ];
 }
 
 export function loadModule(key: string) {
@@ -45,14 +51,16 @@ export function loadModule(key: string) {
         return {};
     }
 
+    let [ k1, k2, cname ] = getUrl(key);
+    const component = import(`@src/component/${ k1 }/${ k2 }/${ cname }.tsx`);
+    
     let keys = key.toLowerCase().trim().split('-');
-    // let mod = componentConfig[keys[0]][keys[1]];
     let mod = componentConfig?.[keys[0]]?.children?.[keys[1]] as IComponentConfig<IPropertyConfig>;
     if (!mod) {
         console.warn(`没有${ key }这个模块`);
     }
     return {
-        component: mod.component,
+        component: component,
         property : mod.property,
         path     : mod.path,
         type     : mod.type,
