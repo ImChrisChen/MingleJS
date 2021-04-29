@@ -8,7 +8,6 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@src/utils';
 import moment from 'moment';
 import { IComponentConfig, IEntityOperationMode, IPropertyConfig, IUniversalProps } from '@src/config/interface';
-import bodyParser from 'body-parser';
 
 const isLocation = window.location.href.includes('-test');
 const domain = isLocation ? 'http://mingle-test.local.aidalan.com' : 'http://mingle.local.aidalan.com';
