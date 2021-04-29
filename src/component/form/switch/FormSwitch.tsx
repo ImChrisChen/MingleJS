@@ -15,31 +15,38 @@ export default class FormSwitch extends React.Component<any, any> {
         attr: {
             checkedChildren  : '开启',
             unCheckedChildren: '关闭',
-            checked          : this.props.dataset.value ?? false
+            checked          : this.props.dataset.value ?? false,
             // size             : this.props.state,
-        }
+        },
     };
 
+    constructor(props) {
+        super(props);
+        // this.props.el.setAttribute();
+    }
+
     handleChange(value) {
-        console.log(value);
         // this.setState({
         // attr: { checked: value },
         // });
-        trigger(this.props.el, value);
+        console.log(value);
+        trigger(this.props.el, value ? '1' : '0');
     }
 
     render() {
         let { smart, exec, label, ...dataset } = this.props.dataset;
-        dataset.checked = dataset.value;        // switch 的value值是checked
+        let value = this.props.value;
+        console.log(value);
         // TODO switch 不需要设置required
         return <>
             <Form.Item label={ label } style={ this.props.style }>
-                { smart ? <FormSmartIcon /> : '' }
-                { exec ? <FormExecIcon /> : '' }
+                { smart ? <FormSmartIcon/> : '' }
+                { exec ? <FormExecIcon/> : '' }
 
                 <Switch
                     onChange={ this.handleChange.bind(this) }
                     { ...dataset }
+                    defaultChecked={ value === '1' }
                 />
             </Form.Item>
         </>;

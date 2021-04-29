@@ -869,6 +869,12 @@ export const componentConfig: IConfig = {
                     name   : UniversalProps.name,
                     style  : UniversalProps.style,
                     group  : UniversalProps.group,
+                    value  : {
+                        el   : 'input',
+                        parse: 'number',
+                        value: 0,
+                        desc : '0,1',
+                    },
                 },
                 name    : '开关选择器',
                 type    : 'web-components',
@@ -949,7 +955,7 @@ export const componentConfig: IConfig = {
                         url     : {
                             el   : 'input',
                             parse: 'string',
-                            value: `${ file }/upload/byCode`,
+                            value: `_{ file }/upload/byCode`,
                             desc : '上传的地址',
                         },
                         type    : {
@@ -1727,7 +1733,7 @@ export const componentConfig: IConfig = {
                 path    : '/tips-card',
                 property: {
                     dataset : {},
-                    $trigger: {
+                    _trigger: {
                         el     : 'radio',
                         parse  : 'string',
                         options: [
@@ -1737,19 +1743,19 @@ export const componentConfig: IConfig = {
                         value  : 'hover',
                         desc   : '触发方式',
                     },
-                    $title  : {
+                    _title  : {
                         el   : 'input',
                         parse: 'string',
                         value: '标题',
                         desc : '提示窗标题',
                     },
-                    $label  : {
+                    _label  : {
                         el   : 'input',
                         parse: 'string',
                         value: '文本',
                         desc : '文本内容',
                     },
-                    $width  : {
+                    _width  : {
                         el   : 'number',
                         parse: 'number',
                         value: 300,
@@ -1765,19 +1771,19 @@ export const componentConfig: IConfig = {
                 path    : '/tips-text',
                 property: {
                     dataset : {},
-                    $label  : {
+                    _label  : {
                         el   : 'input',
                         parse: 'string',
                         value: '文本',
                         desc : '文本内容',
                     },
-                    $color  : {
+                    _color  : {
                         el   : 'color',
                         parse: 'string',
                         value: '#fff',
                         desc : '颜色',
                     },
-                    $trigger: {
+                    _trigger: {
                         el     : 'radio',
                         parse  : 'string',
                         options: [
@@ -1916,61 +1922,61 @@ export const componentConfig: IConfig = {
                 path    : '/layout-window',
                 property: {
                     dataset     : {},
-                    $title      : {
+                    _title      : {
                         el   : 'input',
                         parse: 'string',
                         value: '标题',
                         desc : '弹窗的标题',
                     },
-                    $label      : {
+                    _label      : {
                         el   : 'input',
                         parse: 'string',
                         value: 'submit',
                         desc : '按钮的内容',
                     },
-                    $height     : {
+                    _height     : {
                         el   : 'number',
                         value: 600,
                         parse: 'number',
                         desc : '弹窗的高度',
                     },
-                    $width      : {
+                    _width      : {
                         el   : 'number',
                         value: 600,
                         parse: 'number',
                         desc : '弹窗的宽度',
                     },
-                    $mask       : {
+                    _mask       : {
                         el   : 'switch',
                         value: false,
                         parse: 'boolean',
                         desc : '是否显示遮罩层',
                     },
-                    $open       : {
+                    _open       : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: false,
                         desc : '是否默认打开弹出窗',
                     },
-                    $cancel     : {
+                    _cancel     : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: true,
                         desc : '是否显示取消按钮',
                     },
-                    $submit     : {
+                    _submit     : {
                         el   : 'switch',
                         parse: 'boolean',
                         value: true,
                         desc : '是否显示提交按钮',
                     },
-                    $entity_id  : {
+                    _entity_id  : {
                         el   : 'input',
                         parse: 'string',
                         value: '',
                         desc : '实体ID, 如果不是加载实体，则无须传入',
                     },
-                    $entity_mode: {
+                    _entity_mode: {
                         el     : 'radio',
                         parse  : 'string',
                         options: [
@@ -1980,7 +1986,7 @@ export const componentConfig: IConfig = {
                         value  : 'update' as IEntityOperationMode,
                         desc   : '实体操作模式， 新增或者删除',
                     },
-                    $uid        : {
+                    _uid        : {
                         el   : 'input',
                         parse: 'string',
                         desc : '表格 / 列表的唯一ID',
@@ -1995,19 +2001,19 @@ export const componentConfig: IConfig = {
                 //component: import('@component/layout/drawer/LayoutDrawer'),
                 property: {
                     dataset  : {},
-                    $title   : {
+                    _title   : {
                         el   : 'input',
                         parse: 'string',
                         value: '标题',
                         desc : '弹窗的标题',
                     },
-                    $label   : {
+                    _label   : {
                         el   : 'input',
                         parse: 'string',
                         value: '点击弹窗',
                         desc : '按钮的内容',
                     },
-                    $layout  : {
+                    _layout  : {
                         el     : 'radio',
                         options: [
                             { label: 'top', value: 'top' },
@@ -2019,25 +2025,25 @@ export const componentConfig: IConfig = {
                         parse  : 'string',
                         desc   : '抽屉弹出的方向',
                     },
-                    $width   : {
+                    _width   : {
                         el   : 'number',
                         value: 400,
                         parse: 'number',
                         desc : '抽屉的宽度(在layout为top，bottom时，则为高度),默认为400',
                     },
-                    $mask    : {
+                    _mask    : {
                         el   : 'switch',
                         value: false,
                         parse: 'boolean',
                         desc : '是否显示遮罩层',
                     },
-                    $closable: {
+                    _closable: {
                         el   : 'switch',
                         value: true,
                         parse: 'boolean',
                         desc : '是否显示右上角关闭按钮',
                     },
-                    $open    : {
+                    _open    : {
                         el   : 'switch',
                         value: false,
                         parse: 'boolean',
@@ -2157,7 +2163,7 @@ export const componentConfig: IConfig = {
                 //document : import('@component/handle/request/HandleRequest.md'),
                 property: {
                     dataset : {},
-                    $trigger: {
+                    _trigger: {
                         el     : 'switch',
                         parse  : 'string',
                         value  : 'click',     // 'click' | 'hover'
@@ -2166,13 +2172,13 @@ export const componentConfig: IConfig = {
                             { label: 'hover', value: 'hover' },
                         ],
                     },
-                    $url    : {
+                    _url    : {
                         el    : 'input',
                         value : domain + '/server/mock/menulist/uesr-menu.json',
                         parse : 'string',
                         verify: v => isUrl(v),
                     },
-                    $method : {
+                    _method : {
                         el     : 'radio',
                         parse  : 'string',
                         options: APIMethodOptions,

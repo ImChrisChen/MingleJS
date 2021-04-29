@@ -119,7 +119,7 @@ export default class App {
                         return;
                     }
                     //
-                    window.customElements.define(tagName, class extends HTMLElement {
+                    window.customElements.define(tagName, class extends HTMLParagraphElement {
 
                         /**
                          * TODO 生命周期函数的顺序
@@ -182,7 +182,7 @@ export default class App {
 
             // $modulejs
             // let methods = element.getAttribute('data-fn') ?? '';
-            let methods = element.getAttribute('$module') ?? '';
+            let methods = element.getAttribute('_module') ?? '';
             if (methods) {        // data-fn 函数功能
                 let $module = loadModule(methods);
                 if ($module.type === 'functional') {

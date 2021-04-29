@@ -15,7 +15,7 @@ export default class TipsCard extends Component<IComponentProps, any> {
             $(this.props.subelements).remove();
             this.props.el.childNodes[0].textContent = '';
         });
-        let { $title, $label, $width, $trigger } = this.props;
+        let { _title, _label, _width, _trigger } = this.props;
         return <Popover
             content={ () => {
                 return <div ref={ element => {
@@ -26,9 +26,9 @@ export default class TipsCard extends Component<IComponentProps, any> {
                 } }>
                 </div>;
             } }
-            title={ $title }
-            style={ { width: $width ?? 300 } }
-            trigger={ $trigger ?? 'hover' }
-        > { $label } </Popover>;
+            title={ _title }
+            style={ { width: _width ?? 300 } }
+            trigger={ _trigger ?? 'hover' }
+        > { _label } </Popover>;
     }
 }
