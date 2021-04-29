@@ -1726,35 +1726,34 @@ export const componentConfig: IConfig = {
                 //document : import('@component/tips/card/TipsCard.md'),
                 path    : '/tips-card',
                 property: {
-                    dataset: {
-                        trigger: {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: [
-                                { label: '鼠标点击触发', value: 'click' },
-                                { label: '鼠标移入触发', value: 'hover' },
-                            ],
-                            value  : 'hover',
-                            desc   : '触发方式',
-                        },
-                        title  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '标题',
-                            desc : '提示窗标题',
-                        },
-                        label  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '文本',
-                            desc : '文本内容',
-                        },
-                        width  : {
-                            el   : 'number',
-                            parse: 'number',
-                            value: 300,
-                            desc : '宽度',
-                        },
+                    dataset : {},
+                    $trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
+                    },
+                    $title  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '提示窗标题',
+                    },
+                    $label  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '文本',
+                        desc : '文本内容',
+                    },
+                    $width  : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 300,
+                        desc : '宽度',
                     },
                 },
                 type    : 'functional',
@@ -1765,29 +1764,28 @@ export const componentConfig: IConfig = {
                 //component: import('@component/tips/text/TipsText'),
                 path    : '/tips-text',
                 property: {
-                    dataset: {
-                        label  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '文本',
-                            desc : '文本内容',
-                        },
-                        color  : {
-                            el   : 'color',
-                            parse: 'string',
-                            value: '#fff',
-                            desc : '颜色',
-                        },
-                        trigger: {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: [
-                                { label: '鼠标点击触发', value: 'click' },
-                                { label: '鼠标移入触发', value: 'hover' },
-                            ],
-                            value  : 'hover',
-                            desc   : '触发方式',
-                        },
+                    dataset : {},
+                    $label  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '文本',
+                        desc : '文本内容',
+                    },
+                    $color  : {
+                        el   : 'color',
+                        parse: 'string',
+                        value: '#fff',
+                        desc : '颜色',
+                    },
+                    $trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
                     },
                 },
                 type    : 'functional',
@@ -1996,56 +1994,56 @@ export const componentConfig: IConfig = {
             drawer: {
                 //component: import('@component/layout/drawer/LayoutDrawer'),
                 property: {
-                    dataset: {
-                        title   : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '标题',
-                            desc : '弹窗的标题',
-                        },
-                        label   : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '点击弹窗',
-                            desc : '按钮的内容',
-                        },
-                        layout  : {
-                            el     : 'radio',
-                            options: [
-                                { label: 'top', value: 'top' },
-                                { label: 'bottom', value: 'right' },
-                                { label: 'left', value: 'left' },
-                                { label: 'right', value: 'right' },
-                            ],
-                            value  : 'right',
-                            parse  : 'string',
-                            desc   : '抽屉弹出的方向',
-                        },
-                        width   : {
-                            el   : 'number',
-                            value: 400,
-                            parse: 'number',
-                            desc : '抽屉的宽度(在layout为top，bottom时，则为高度),默认为400',
-                        },
-                        mask    : {
-                            el   : 'switch',
-                            value: false,
-                            parse: 'boolean',
-                            desc : '是否显示遮罩层',
-                        },
-                        closable: {
-                            el   : 'switch',
-                            value: true,
-                            parse: 'boolean',
-                            desc : '是否显示右上角关闭按钮',
-                        },
-                        open    : {
-                            el   : 'switch',
-                            value: false,
-                            parse: 'boolean',
-                            desc : '是否默认展开抽屉',
-                        },
+                    dataset  : {},
+                    $title   : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '弹窗的标题',
                     },
+                    $label   : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '点击弹窗',
+                        desc : '按钮的内容',
+                    },
+                    $layout  : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'top', value: 'top' },
+                            { label: 'bottom', value: 'right' },
+                            { label: 'left', value: 'left' },
+                            { label: 'right', value: 'right' },
+                        ],
+                        value  : 'right',
+                        parse  : 'string',
+                        desc   : '抽屉弹出的方向',
+                    },
+                    $width   : {
+                        el   : 'number',
+                        value: 400,
+                        parse: 'number',
+                        desc : '抽屉的宽度(在layout为top，bottom时，则为高度),默认为400',
+                    },
+                    $mask    : {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否显示遮罩层',
+                    },
+                    $closable: {
+                        el   : 'switch',
+                        value: true,
+                        parse: 'boolean',
+                        desc : '是否显示右上角关闭按钮',
+                    },
+                    $open    : {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否默认展开抽屉',
+                    },
+
                 },
                 type    : 'functional',
                 name    : '抽屉',

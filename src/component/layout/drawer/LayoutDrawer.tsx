@@ -71,14 +71,14 @@ export class PrivateDrawer extends Component<any, any> {
     }
 
     render() {
-        let { dataset } = this.props;
+        let { $title, $width, $height, $layout, $closable, $mask } = this.props;
         return <Drawer
-            title={ dataset.title }
-            width={ dataset.width ?? 400 }
-            height={ dataset.height ?? 400 }
-            placement={ dataset.layout ?? 'right' }
-            closable={ dataset.closable ?? true }
-            mask={ dataset.mask ?? false }
+            title={ $title }
+            width={ $width ?? 400 }
+            height={ $height ?? 400 }
+            placement={ $layout ?? 'right' }
+            closable={ $closable ?? true }
+            mask={ $mask ?? false }
             onClose={ () => this.setState({ visible: false }) }
             visible={ this.state.visible }>
             <Spin spinning={ this.state.iframeHidden }>
