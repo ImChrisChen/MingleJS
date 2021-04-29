@@ -1917,83 +1917,76 @@ export const componentConfig: IConfig = {
                 //document : import('@component/layout/window/LayoutWindow.md'),
                 path    : '/layout-window',
                 property: {
-                    dataset: {
-                        title      : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '标题',
-                            desc : '弹窗的标题',
-                        },
-                        label      : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: 'submit',
-                            desc : '按钮的内容',
-                        },
-                        height     : {
-                            el   : 'number',
-                            value: 600,
-                            parse: 'number',
-                            desc : '弹窗的高度',
-                        },
-                        width      : {
-                            el   : 'number',
-                            value: 600,
-                            parse: 'number',
-                            desc : '弹窗的宽度',
-                        },
-                        mask       : {
-                            el   : 'switch',
-                            value: false,
-                            parse: 'boolean',
-                            desc : '是否显示遮罩层',
-                        },
-                        open       : {
-                            el   : 'switch',
-                            parse: 'boolean',
-                            value: false,
-                            desc : '是否默认打开弹出窗',
-                        },
-                        cancel     : {
-                            el   : 'switch',
-                            parse: 'boolean',
-                            value: true,
-                            desc : '是否显示取消按钮',
-                        },
-                        submit     : {
-                            el   : 'switch',
-                            parse: 'boolean',
-                            value: true,
-                            desc : '是否显示提交按钮',
-                        },
-                        entity_id  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '',
-                            desc : '实体ID, 如果不是加载实体，则无须传入',
-                        },
-                        entity_mode: {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: [
-                                { label: '新增', value: 'create' },
-                                { label: '编辑', value: 'update' },
-                            ],
-                            value  : 'update' as IEntityOperationMode,
-                            desc   : '实体操作模式， 新增或者删除',
-                        },
-                        uid        : {
-                            el   : 'input',
-                            parse: 'string',
-                            desc : '表格 / 列表的唯一ID',
-                            value: '',
-                        },
-                        // entityUrl : {
-                        //     el   : 'input',
-                        //     parse: 'string',
-                        //     value: '',
-                        //     desc : '实体提交的URL',
-                        // },
+                    dataset     : {},
+                    $title      : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '弹窗的标题',
+                    },
+                    $label      : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'submit',
+                        desc : '按钮的内容',
+                    },
+                    $height     : {
+                        el   : 'number',
+                        value: 600,
+                        parse: 'number',
+                        desc : '弹窗的高度',
+                    },
+                    $width      : {
+                        el   : 'number',
+                        value: 600,
+                        parse: 'number',
+                        desc : '弹窗的宽度',
+                    },
+                    $mask       : {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否显示遮罩层',
+                    },
+                    $open       : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否默认打开弹出窗',
+                    },
+                    $cancel     : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否显示取消按钮',
+                    },
+                    $submit     : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否显示提交按钮',
+                    },
+                    $entity_id  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '实体ID, 如果不是加载实体，则无须传入',
+                    },
+                    $entity_mode: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '新增', value: 'create' },
+                            { label: '编辑', value: 'update' },
+                        ],
+                        value  : 'update' as IEntityOperationMode,
+                        desc   : '实体操作模式， 新增或者删除',
+                    },
+                    $uid        : {
+                        el   : 'input',
+                        parse: 'string',
+                        desc : '表格 / 列表的唯一ID',
+                        value: '',
                     },
                 },
                 type    : 'functional',
@@ -2165,29 +2158,28 @@ export const componentConfig: IConfig = {
                 //component: import('@component/handle/request/HandleRequest'),
                 //document : import('@component/handle/request/HandleRequest.md'),
                 property: {
-                    dataset: {
-                        trigger: {
-                            el     : 'switch',
-                            parse  : 'string',
-                            value  : 'click',     // 'click' | 'hover'
-                            options: [
-                                { label: 'click', value: 'click' },
-                                { label: 'hover', value: 'hover' },
-                            ],
-                        },
-                        url    : {
-                            el    : 'input',
-                            value : domain + '/server/mock/menulist/uesr-menu.json',
-                            parse : 'string',
-                            verify: v => isUrl(v),
-                        },
-                        method : {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: APIMethodOptions,
-                            value  : 'GET',
-                            desc   : '请求类型',
-                        },
+                    dataset : {},
+                    $trigger: {
+                        el     : 'switch',
+                        parse  : 'string',
+                        value  : 'click',     // 'click' | 'hover'
+                        options: [
+                            { label: 'click', value: 'click' },
+                            { label: 'hover', value: 'hover' },
+                        ],
+                    },
+                    $url    : {
+                        el    : 'input',
+                        value : domain + '/server/mock/menulist/uesr-menu.json',
+                        parse : 'string',
+                        verify: v => isUrl(v),
+                    },
+                    $method : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: APIMethodOptions,
+                        value  : 'GET',
+                        desc   : '请求类型',
                     },
                 },
                 type    : 'functional',

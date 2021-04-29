@@ -181,7 +181,8 @@ export default class App {
             }
 
             // $modulejs
-            let methods = element.getAttribute('data-fn') ?? '';
+            // let methods = element.getAttribute('data-fn') ?? '';
+            let methods = element.getAttribute('$module') ?? '';
             if (methods) {        // data-fn 函数功能
                 let $module = loadModule(methods);
                 if ($module.type === 'functional') {
@@ -213,8 +214,8 @@ export default class App {
             return;
         }
 
-        if (tagName === 'define-component' && el.getAttribute('module')) {
-            tagName = el.getAttribute('module') || '';
+        if (tagName === 'define' && el.getAttribute('tag')) {
+            tagName = el.getAttribute('tag') || '';
         }
 
         // 获取到组件的子元素（排除template标签)

@@ -28,11 +28,11 @@ export default class HandleRequest {
     }
 
     async handleRequest(e) {
-        let { method, url } = this.props.dataset;
+        let { $method, $url } = this.props;
         try {
-            if (url) {
-                method = method.toLowerCase();
-                let { status, msg } = await this.httpClientService?.[method](url);
+            if ($url) {
+                $method = $method.toLowerCase();
+                let { status, msg } = await this.httpClientService?.[$method]($url);
                 if (status) {
                     message.success('操作成功');
                     this.reloadEntity();

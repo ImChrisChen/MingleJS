@@ -78,7 +78,7 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
                 showSearch
                 titles={ titles }
                 style={ {
-                    width: '100%',
+                    width,
                 } }
                 listStyle={ {
                     width,
