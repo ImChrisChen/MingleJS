@@ -148,6 +148,9 @@ export function isWuiTpl(v: string): boolean {
 
 // 判断字符串是否是wui组件
 export function isWuiComponent(v: string) {
+    if (v.includes('data-fn=')) {
+        return true;
+    }
     return /(.*?)(<[a-zA-Z]+)(.*?)/.test(v);
 }
 
