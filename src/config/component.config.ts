@@ -849,7 +849,7 @@ export const componentConfig: IConfig = {
             },
             switch    : {
                 path     : '/form-switch',
-                //component: import('@component/form/switch/FormSwtich'),
+                //component: import('@component/form/switch/FormSwitch'),
                 property : {
                     dataset: {
                         disabled         : UniversalProps.disabled,
