@@ -34,7 +34,7 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
 
     state = {
         mockData  : [],
-        targetKeys: []     // 渲染到右边
+        targetKeys: [],     // 渲染到右边
     };
 
     constructor(props) {
@@ -44,7 +44,7 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
     componentDidMount() {
         this.getData().then(data => {
             this.setState({
-                mockData: data
+                mockData: data,
             });
         });
     }
@@ -67,18 +67,22 @@ export default class FormTransfer extends Component<IFormTransferProps, ReactNod
 
     render() {
         let { pagesize, width, height, label, required, titles, exec, smart } = this.props.dataset;
+        console.log(width);
         let value = this.props.value;
         value = value.split(',').filter(t => t);
         return <Form.Item label={ label } required={ required }>
-            { smart ? <FormSmartIcon /> : '' }
-            { exec ? <FormExecIcon /> : '' }
+            { smart ? <FormSmartIcon/> : '' }
+            { exec ? <FormExecIcon/> : '' }
             <Transfer
                 dataSource={ this.state.mockData }
                 showSearch
                 titles={ titles }
+                style={ {
+                    width: '100%',
+                } }
                 listStyle={ {
                     width,
-                    height
+                    height,
                 } }
                 rowKey={ record => record.value }
                 // operations={ [ 'to right', 'to left' ] }
