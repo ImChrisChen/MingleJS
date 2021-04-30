@@ -37,7 +37,9 @@ interface ISmartItemAPI {
 
 // form-smart
 class FormSmart extends Component<{ el: HTMLElement }, any> {
+    
     @Inject private readonly httpClientService: HttpClientService;
+    
     state = {
         isModalVisible  : false,
         formSmartVisible: false,
@@ -224,6 +226,7 @@ class FormSmart extends Component<{ el: HTMLElement }, any> {
 export default class FormAction extends React.Component<IFormAction, any> {
 
     state = {};
+    private isInIframe = isInIframe();
 
     // form表单默认值，重置表单时会用到
     defaultFormData = {};
@@ -457,15 +460,27 @@ export default class FormAction extends React.Component<IFormAction, any> {
 
     render() {
         let { el } = this.props;
-        let { reset, submit } = this.props.dataset;
+        let { reset, submit, layout } = this.props.dataset;
         return <>
             <FormSmart el={ el }/>
 
-            <Button hidden={ !reset } type="default" htmlType="reset"
-                    onClick={ e => this.handleReset(el, e) }>重置</Button>
-            <Button style={ { marginRight: 4 } } hidden={ !submit } type="primary" htmlType="submit"
-                    onClick={ e => this.handleSubmit(el, e) }>提交</Button>
-
+            <div style={ {
+                margin        : layout === 'vertical' ? '0 10px' : '',
+                display       : 'flex',
+                justifyContent: layout === 'vertical' ? 'flex-end' : 'flex-start',
+            } }>
+                <Button hidden={ !reset } type="default" htmlType="reset"
+                        style={ {
+                            marginTop: layout === 'vertical' ? '10px' : '',
+                        } }
+                        onClick={ e => this.handleReset(el, e) }>重置</Button>
+                <Button hidden={ !submit } type="primary" htmlType="submit"
+                        style={ {
+                            marginLeft: 4,
+                            marginTop : layout === 'vertical' ? '10px' : '',
+                        } }
+                        onClick={ e => this.handleSubmit(el, e) }>提交</Button>
+            </div>
         </>;
     }
 }

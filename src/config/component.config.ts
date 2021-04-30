@@ -8,7 +8,6 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { isUrl } from '@src/utils';
 import moment from 'moment';
 import { IComponentConfig, IEntityOperationMode, IPropertyConfig, IUniversalProps } from '@src/config/interface';
-import bodyParser from 'body-parser';
 
 const isLocation = window.location.href.includes('-test');
 const domain = isLocation ? 'http://mingle-test.local.aidalan.com' : 'http://mingle.local.aidalan.com';
@@ -142,9 +141,9 @@ export const componentConfig: IConfig = {
         name    : '子应用',
         children: {
             menu  : {
-                children : {},
+                children: {},
                 //component: import('@component/app/menu/AppMenu'),
-                property : {
+                property: {
                     dataset: {
                         system_url : {
                             el   : 'input',
@@ -198,15 +197,15 @@ export const componentConfig: IConfig = {
 
                     },
                 },
-                type     : 'web-components',
-                name     : '菜单',
-                icon     : 'icon-layoutmenuv',
+                type    : 'web-components',
+                name    : '菜单',
+                icon    : 'icon-layoutmenuv',
             },
             layout: {
                 //component: import('@component/app/layout/AppLayout'),
                 //document : import('@component/app/layout/AppLayout.md'),
-                path     : '/app-layout',
-                property : {
+                path    : '/app-layout',
+                property: {
                     dataset: {
                         theme : {
                             el     : 'radio',
@@ -235,19 +234,19 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                icon     : 'icon-layout',
-                name     : '布局',
+                type    : 'web-components',
+                icon    : 'icon-layout',
+                name    : '布局',
             },
             render: {
                 //component: import('@component/app/render/AppRender'),
-                property : {
+                property: {
                     dataset: {},
                 },
-                path     : '/app-render',
-                type     : 'web-components',
-                name     : '组件渲染器',
-                visible  : false,
+                path    : '/app-render',
+                type    : 'web-components',
+                name    : '组件渲染器',
+                visible : false,
             },
             // entity: {
             //     name     : '实体模块',
@@ -271,10 +270,10 @@ export const componentConfig: IConfig = {
         name    : '表单',
         children: {
             select    : {
-                path     : '/form-select',
+                path: '/form-select',
                 //component: import('@component/form/select/FormSelect'),
                 //document : import('@component/form/select/FormSelect.md'),
-                property : {
+                property: {
                     dataset    : {
                         label     : UniversalProps.label,
                         enum      : UniversalProps.enum,
@@ -393,15 +392,15 @@ export const componentConfig: IConfig = {
                     //     }
                     // }
                 },
-                name     : '下拉框',
-                type     : 'web-components',
-                icon     : 'icon-xuanzekuang',
+                name    : '下拉框',
+                type    : 'web-components',
+                icon    : 'icon-xuanzekuang',
             },
             selecttree: {
-                path     : '/form-selecttree',
+                path: '/form-selecttree',
                 //component: import('@component/form/select/tree/FormSelectTree'),
                 //document : import('@component/form/select/tree/FormSelectTree.md'),
-                property : {
+                property: {
                     dataset    : {
                         disabled  : UniversalProps.disabled,
                         label     : UniversalProps.label,
@@ -456,15 +455,15 @@ export const componentConfig: IConfig = {
                     },
                     hook       : {},
                 },
-                name     : '树形下拉框',
-                type     : 'web-components',
-                icon     : 'icon-select-tree',
+                name    : '树形下拉框',
+                type    : 'web-components',
+                icon    : 'icon-select-tree',
             },
             checkbox  : {
                 //component: import('@component/form/checkbox/FormCheckbox'),
                 //document : import('@component/form/checkbox/FormCheckbox.md'),
-                path     : '/form-checkbox',
-                property : {
+                path    : '/form-checkbox',
+                property: {
                     dataset: {
                         disabled: UniversalProps.disabled,
                         url     : UniversalProps.url,
@@ -500,15 +499,15 @@ export const componentConfig: IConfig = {
                         desc : '值',
                     },
                 },
-                name     : '复选框',
-                type     : 'web-components',
-                icon     : 'icon-check-box',
+                name    : '复选框',
+                type    : 'web-components',
+                icon    : 'icon-check-box',
             },
             cascader  : {
-                path     : '/form-cascader',
+                path: '/form-cascader',
                 //component: import('@component/form/cascader/FormCascader'),
                 //document : import('@component/form/cascader/FormCascader.md'),
-                property : {
+                property: {
                     dataset    : {
                         disabled  : UniversalProps.disabled,
                         label     : UniversalProps.label,
@@ -562,15 +561,15 @@ export const componentConfig: IConfig = {
                         parse: 'string',
                     },
                 },
-                name     : '级联选择器',
-                type     : 'web-components',
-                icon     : 'icon-cascader',
+                name    : '级联选择器',
+                type    : 'web-components',
+                icon    : 'icon-cascader',
             },
             datepicker: {
-                path     : '/form-datepicker',
+                path: '/form-datepicker',
                 //component: import('@component/form/datepicker/FormDatepicker'),
                 //document : import('@component/form/datepicker/FormDatepicker.md'),
-                property : {
+                property: {
                     dataset: {
                         label     : UniversalProps.label,
                         disabled  : UniversalProps.disabled,
@@ -656,14 +655,14 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                name     : '时间选择器',
-                type     : 'web-components',
-                icon     : 'icon-icon-el-date-picker',
+                name    : '时间选择器',
+                type    : 'web-components',
+                icon    : 'icon-icon-el-date-picker',
             },
             action    : {
                 //component: import('@component/form/form-action/FormAction'),
-                path     : '/form-action',
-                property : {
+                path    : '/form-action',
+                property: {
                     dataset: {
                         async   : {
                             el   : 'switch',
@@ -730,14 +729,14 @@ export const componentConfig: IConfig = {
                     },
                 },
                 //document : import('@component/form/form-action/FormAction.md'),
-                name     : 'form表单',
-                type     : 'web-components',
-                icon     : 'icon-form1',
+                name: 'form表单',
+                type: 'web-components',
+                icon: 'icon-form1',
             },
             radio     : {
-                path     : '/form-radio',
+                path: '/form-radio',
                 //component: import('@component/form/radio/FormRadio'),
-                property : {
+                property: {
                     dataset: {
                         disabled   : UniversalProps.disabled,
                         label      : UniversalProps.label,
@@ -792,15 +791,15 @@ export const componentConfig: IConfig = {
                         parse: 'string',
                     },
                 },
-                name     : '单选框',
-                type     : 'web-components',
-                icon     : 'icon-Ioniconsmdradiobuttonon',
+                name    : '单选框',
+                type    : 'web-components',
+                icon    : 'icon-Ioniconsmdradiobuttonon',
             },
             slider    : {
-                path     : '/form-slider',
+                path: '/form-slider',
                 //component: import('@component/form/slider/FormSlider'),
                 //document : import('@component/form/slider/FormSlider.md'),
-                property : {
+                property: {
                     dataset: {
                         max     : {
                             el   : 'number',
@@ -844,14 +843,14 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                name     : '滑动选择器',
-                type     : 'web-components',
-                icon     : 'icon-slider',
+                name    : '滑动选择器',
+                type    : 'web-components',
+                icon    : 'icon-slider',
             },
             switch    : {
-                path     : '/form-switch',
-                //component: import('@component/form/switch/FormSwtich'),
-                property : {
+                path: '/form-switch',
+                //component: import('@component/form/switch/FormSwitch'),
+                property: {
                     dataset: {
                         disabled         : UniversalProps.disabled,
                         label            : UniversalProps.label,
@@ -870,15 +869,21 @@ export const componentConfig: IConfig = {
                     name   : UniversalProps.name,
                     style  : UniversalProps.style,
                     group  : UniversalProps.group,
+                    value  : {
+                        el   : 'input',
+                        parse: 'number',
+                        value: 0,
+                        desc : '0,1',
+                    },
                 },
-                name     : '开关选择器',
-                type     : 'web-components',
-                icon     : 'icon-youxiao',
+                name    : '开关选择器',
+                type    : 'web-components',
+                icon    : 'icon-youxiao',
             },
             input     : {
-                path     : '/form-input',
+                path: '/form-input',
                 //component: import('@component/form/input/FormInput'),
-                property : {
+                property: {
                     dataset    : {
                         type    : {
                             el     : 'select',
@@ -916,15 +921,15 @@ export const componentConfig: IConfig = {
                         value: '',
                     },
                 },
-                name     : '文本框',
-                type     : 'web-components',
-                icon     : 'icon-input',
+                name    : '文本框',
+                type    : 'web-components',
+                icon    : 'icon-input',
             },
             group     : {
-                path     : '/form-group',
+                path: '/form-group',
                 //component: import('@component/form/group/FormGroup'),
                 //document : import('@component/form/group/FormGroup.md'),
-                property : {
+                property: {
                     dataset: {
                         layout: {
                             el     : 'radio',
@@ -937,20 +942,20 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                name     : '表单组',
-                type     : 'web-components',
-                icon     : 'icon-lie1',
+                name    : '表单组',
+                type    : 'web-components',
+                icon    : 'icon-lie1',
             },
             upload    : {
                 //component: import('@component/form/upload/FormUpload'),
-                path     : '/form-upload',
-                property : {
+                path    : '/form-upload',
+                property: {
                     dataset: {
                         label   : UniversalProps.label,
                         url     : {
                             el   : 'input',
                             parse: 'string',
-                            value: `${ file }/upload/byCode`,
+                            value: `_{ file }/upload/byCode`,
                             desc : '上传的地址',
                         },
                         type    : {
@@ -991,14 +996,14 @@ export const componentConfig: IConfig = {
                     style  : UniversalProps.style,
                     smart  : UniversalProps.smart,
                 },
-                name     : '文件上传',
-                type     : 'web-components',
-                icon     : 'icon-shangchuan5',
+                name    : '文件上传',
+                type    : 'web-components',
+                icon    : 'icon-shangchuan5',
             },
             color     : {
                 //component: import('@component/form/color/FormColor'),
-                path     : '/form-color',
-                property : {
+                path    : '/form-color',
+                property: {
                     dataset: {
                         label   : UniversalProps.label,
                         required: UniversalProps.required,
@@ -1014,14 +1019,14 @@ export const componentConfig: IConfig = {
                     smart  : UniversalProps.smart,
                     style  : UniversalProps.style,
                 },
-                name     : '颜色选择器',
-                type     : 'web-components',
-                icon     : 'icon-color',
+                name    : '颜色选择器',
+                type    : 'web-components',
+                icon    : 'icon-color',
             },
             transfer  : {
                 //component: import('@component/form/transfer/FormTransfer'),
-                path     : '/form-transfer',
-                property : {
+                path    : '/form-transfer',
+                property: {
                     dataset: {
                         url     : {
                             el: 'input',
@@ -1055,16 +1060,16 @@ export const componentConfig: IConfig = {
                             value: 100,
                         },
                         height  : {
-                            el   : 'number',
-                            parse: 'number',
+                            el   : 'input',
+                            parse: 'string',
                             desc : '高度',
-                            value: 300,
+                            value: '300px',
                         },
                         width   : {
-                            el   : 'number',
-                            parse: 'number',
+                            el   : 'input',
+                            parse: 'string',
                             desc : '宽度',
-                            value: 240,
+                            value: '100%',
                         },
                         titles  : {
                             el   : 'input',
@@ -1084,14 +1089,14 @@ export const componentConfig: IConfig = {
                         desc : '默认值',
                     },
                 },
-                name     : '穿梭框',
-                type     : 'web-components',
-                icon     : 'icon-transfer',
+                name    : '穿梭框',
+                type    : 'web-components',
+                icon    : 'icon-transfer',
             },
             button    : {
                 //component: import('@component/form/button/FormButton'),
-                path     : '/form-button',
-                property : {
+                path    : '/form-button',
+                property: {
                     dataset: {
                         size    : {
                             el     : 'radio',
@@ -1127,8 +1132,8 @@ export const componentConfig: IConfig = {
                     },
                     style  : UniversalProps.style,
                 },
-                name     : '按钮',
-                type     : 'web-components',
+                name    : '按钮',
+                type    : 'web-components',
             },
         },
     },
@@ -1136,10 +1141,10 @@ export const componentConfig: IConfig = {
         name    : '视图',
         children: {
             steps: {
-                path     : '/view-steps',
+                path: '/view-steps',
                 //component: import('@component/view/steps/ViewSteps'),
                 //document : import('@component/view/steps/ViewSteps.md'),
-                property : {
+                property: {
                     dataset: {
                         current: {
                             el   : 'number',
@@ -1169,14 +1174,14 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                name     : '步骤',
-                type     : 'web-components',
-                icon     : 'icon-steps',
+                name    : '步骤',
+                type    : 'web-components',
+                icon    : 'icon-steps',
             },
             // handle
             dropdown: {
                 //component: import('@component/view/dropdown/ViewDropdown'),
-                property : {
+                property: {
                     dataset: {
                         trigger: {
                             el     : 'radio',
@@ -1202,25 +1207,25 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '下拉菜单',
-                icon     : 'icon-drop-down',
+                type    : 'web-components',
+                name    : '下拉菜单',
+                icon    : 'icon-drop-down',
             },
             calendar: {
-                path     : 'view-calendar',
+                path: 'view-calendar',
                 //component: import('@component/view/calendar/ViewCalendar'),
-                property : {
+                property: {
                     dataset: {},
                 },
-                type     : 'web-components',
-                name     : '日历',
-                icon     : 'icon-canlender',
+                type    : 'web-components',
+                name    : '日历',
+                icon    : 'icon-canlender',
             },
             panel   : {
-                path     : '/view-panel',
+                path: '/view-panel',
                 //document : import('@component/view/panel/ViewPanel.md'),
                 //component: import('@component/view/panel/ViewPanel'),
-                property : {
+                property: {
                     dataset: {
                         // url  : UniversalProps.url,
                         url  : {
@@ -1237,15 +1242,15 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '面板',
-                icon     : 'icon-panel',
+                type    : 'web-components',
+                name    : '面板',
+                icon    : 'icon-panel',
             },
             image   : {
-                path     : '/view-image',
+                path: '/view-image',
                 //component: import('@component/view/image/ViewImage'),
                 //document : import('@component/view/image/ViewImage.md'),
-                property : {
+                property: {
                     dataset: {
                         src: {
                             el   : 'input',
@@ -1256,9 +1261,9 @@ export const componentConfig: IConfig = {
                     style  : UniversalProps.style,
                     class  : UniversalProps.class,
                 },
-                type     : 'web-components',
-                name     : '图片',
-                icon     : 'icon-imageloading',
+                type    : 'web-components',
+                name    : '图片',
+                icon    : 'icon-imageloading',
             },
         },
     },
@@ -1267,8 +1272,8 @@ export const componentConfig: IConfig = {
         children: {
             table: {
                 //component: import('@component/data/table/DataTable'),
-                path     : '/data-table',
-                property : {
+                path    : '/data-table',
+                property: {
                     dataset: {
                         from       : {
                             el   : 'input',
@@ -1402,15 +1407,15 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '表格',
-                icon     : 'icon-table',
-                support  : [ 'app-entity' ],
+                type    : 'web-components',
+                name    : '表格',
+                icon    : 'icon-table',
+                support : [ 'app-entity' ],
             },
             chart: {
                 //component: import('@component/data/chart/DataChart'),
-                path     : '/data-chart',
-                property : {
+                path    : '/data-chart',
+                property: {
                     dataset: {
                         'from': {
                             el    : 'input',
@@ -1589,15 +1594,15 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '图表',
-                icon     : 'icon-chartpartten',
+                type    : 'web-components',
+                name    : '图表',
+                icon    : 'icon-chartpartten',
             },
             tree : {
-                path     : '/layout-tree',
+                path: '/layout-tree',
                 //component: import('@component/data/tree/DataTree'),
                 //document : import('@component/data/tree/DataTree.md'),
-                property : {
+                property: {
                     dataset: {
                         url      : {
                             el     : 'input',
@@ -1648,15 +1653,15 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '树状结构选择器',
-                icon     : 'icon-tree',
+                type    : 'web-components',
+                name    : '树状结构选择器',
+                icon    : 'icon-tree',
             },
             list : {
-                name     : '循环列表',
+                name: '循环列表',
                 //component: import('@component/data/list/DataList'),
-                path     : '/data-list',
-                property : {
+                path    : '/data-list',
+                property: {
                     dataset: {
                         cols      : {
                             el   : 'number',
@@ -1714,8 +1719,8 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                icon     : 'icon-tubiao04',
+                type    : 'web-components',
+                icon    : 'icon-tubiao04',
             },
         },
     },
@@ -1725,75 +1730,73 @@ export const componentConfig: IConfig = {
             card: {
                 //component: import('@component/tips/card/TipsCard'),
                 //document : import('@component/tips/card/TipsCard.md'),
-                path     : '/tips-card',
-                property : {
-                    dataset: {
-                        trigger: {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: [
-                                { label: '鼠标点击触发', value: 'click' },
-                                { label: '鼠标移入触发', value: 'hover' },
-                            ],
-                            value  : 'hover',
-                            desc   : '触发方式',
-                        },
-                        title  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '标题',
-                            desc : '提示窗标题',
-                        },
-                        label  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '文本',
-                            desc : '文本内容',
-                        },
-                        width  : {
-                            el   : 'number',
-                            parse: 'number',
-                            value: 300,
-                            desc : '宽度',
-                        },
+                path    : '/tips-card',
+                property: {
+                    dataset : {},
+                    _trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
+                    },
+                    _title  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '提示窗标题',
+                    },
+                    _label  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '文本',
+                        desc : '文本内容',
+                    },
+                    _width  : {
+                        el   : 'number',
+                        parse: 'number',
+                        value: 300,
+                        desc : '宽度',
                     },
                 },
-                type     : 'functional',
-                name     : '内容提示',
-                icon     : 'icon-liaotianneirongtishi',
+                type    : 'functional',
+                name    : '内容提示',
+                icon    : 'icon-liaotianneirongtishi',
             },
             text: {
                 //component: import('@component/tips/text/TipsText'),
-                path     : '/tips-text',
-                property : {
-                    dataset: {
-                        label  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '文本',
-                            desc : '文本内容',
-                        },
-                        color  : {
-                            el   : 'color',
-                            parse: 'string',
-                            value: '#fff',
-                            desc : '颜色',
-                        },
-                        trigger: {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: [
-                                { label: '鼠标点击触发', value: 'click' },
-                                { label: '鼠标移入触发', value: 'hover' },
-                            ],
-                            value  : 'hover',
-                            desc   : '触发方式',
-                        },
+                path    : '/tips-text',
+                property: {
+                    dataset : {},
+                    _label  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '文本',
+                        desc : '文本内容',
+                    },
+                    _color  : {
+                        el   : 'color',
+                        parse: 'string',
+                        value: '#fff',
+                        desc : '颜色',
+                    },
+                    _trigger: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '鼠标点击触发', value: 'click' },
+                            { label: '鼠标移入触发', value: 'hover' },
+                        ],
+                        value  : 'hover',
+                        desc   : '触发方式',
                     },
                 },
-                type     : 'functional',
-                name     : '文本提示',
-                icon     : 'icon-ziyuan1',
+                type    : 'functional',
+                name    : '文本提示',
+                icon    : 'icon-ziyuan1',
             },
         },
     },
@@ -1802,8 +1805,8 @@ export const componentConfig: IConfig = {
         children: {
             menu  : {
                 //component: import('@component/layout/menu/LayoutMenu'),
-                path     : '/layout-menu',
-                property : {
+                path    : '/layout-menu',
+                property: {
                     dataset: {
                         // url     : UniversalProps.url,
                         url      : {
@@ -1880,15 +1883,15 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '菜单',
-                icon     : 'icon-layoutmenuv',
+                type    : 'web-components',
+                name    : '菜单',
+                icon    : 'icon-layoutmenuv',
             },
             tab   : {
                 //component: import('@component/layout/tab/LayoutTab'),
                 //document : import('@component/layout/tab/LayoutTab.md'),
-                path     : '/layout-tab',
-                property : {
+                path    : '/layout-tab',
+                property: {
                     dataset: {
                         position: {
                             el     : 'radio',
@@ -1909,161 +1912,154 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '选项卡',
-                icon     : 'icon-tab',
+                type    : 'web-components',
+                name    : '选项卡',
+                icon    : 'icon-tab',
             },
             window: {
                 //component: import('@component/layout/window/LayoutWindow'),
                 //document : import('@component/layout/window/LayoutWindow.md'),
-                path     : '/layout-window',
-                property : {
-                    dataset: {
-                        title      : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '标题',
-                            desc : '弹窗的标题',
-                        },
-                        label      : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: 'submit',
-                            desc : '按钮的内容',
-                        },
-                        height     : {
-                            el   : 'number',
-                            value: 600,
-                            parse: 'number',
-                            desc : '弹窗的高度',
-                        },
-                        width      : {
-                            el   : 'number',
-                            value: 600,
-                            parse: 'number',
-                            desc : '弹窗的宽度',
-                        },
-                        mask       : {
-                            el   : 'switch',
-                            value: false,
-                            parse: 'boolean',
-                            desc : '是否显示遮罩层',
-                        },
-                        open       : {
-                            el   : 'switch',
-                            parse: 'boolean',
-                            value: false,
-                            desc : '是否默认打开弹出窗',
-                        },
-                        cancel     : {
-                            el   : 'switch',
-                            parse: 'boolean',
-                            value: true,
-                            desc : '是否显示取消按钮',
-                        },
-                        submit     : {
-                            el   : 'switch',
-                            parse: 'boolean',
-                            value: true,
-                            desc : '是否显示提交按钮',
-                        },
-                        entity_id  : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '',
-                            desc : '实体ID, 如果不是加载实体，则无须传入',
-                        },
-                        entity_mode: {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: [
-                                { label: '新增', value: 'create' },
-                                { label: '编辑', value: 'update' },
-                            ],
-                            value  : 'update' as IEntityOperationMode,
-                            desc   : '实体操作模式， 新增或者删除',
-                        },
-                        uid        : {
-                            el   : 'input',
-                            parse: 'string',
-                            desc : '表格 / 列表的唯一ID',
-                            value: '',
-                        },
-                        // entityUrl : {
-                        //     el   : 'input',
-                        //     parse: 'string',
-                        //     value: '',
-                        //     desc : '实体提交的URL',
-                        // },
+                path    : '/layout-window',
+                property: {
+                    dataset     : {},
+                    _title      : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '弹窗的标题',
+                    },
+                    _label      : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: 'submit',
+                        desc : '按钮的内容',
+                    },
+                    _height     : {
+                        el   : 'number',
+                        value: 600,
+                        parse: 'number',
+                        desc : '弹窗的高度',
+                    },
+                    _width      : {
+                        el   : 'number',
+                        value: 600,
+                        parse: 'number',
+                        desc : '弹窗的宽度',
+                    },
+                    _mask       : {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否显示遮罩层',
+                    },
+                    _open       : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: false,
+                        desc : '是否默认打开弹出窗',
+                    },
+                    _cancel     : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否显示取消按钮',
+                    },
+                    _submit     : {
+                        el   : 'switch',
+                        parse: 'boolean',
+                        value: true,
+                        desc : '是否显示提交按钮',
+                    },
+                    _entity_id  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '',
+                        desc : '实体ID, 如果不是加载实体，则无须传入',
+                    },
+                    _entity_mode: {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: [
+                            { label: '新增', value: 'create' },
+                            { label: '编辑', value: 'update' },
+                        ],
+                        value  : 'update' as IEntityOperationMode,
+                        desc   : '实体操作模式， 新增或者删除',
+                    },
+                    _uid        : {
+                        el   : 'input',
+                        parse: 'string',
+                        desc : '表格 / 列表的唯一ID',
+                        value: '',
                     },
                 },
-                type     : 'functional',
-                name     : '弹窗',
-                icon     : 'icon-iFrame',
+                type    : 'functional',
+                name    : '弹窗',
+                icon    : 'icon-iFrame',
             },
             drawer: {
                 //component: import('@component/layout/drawer/LayoutDrawer'),
-                property : {
-                    dataset: {
-                        title   : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '标题',
-                            desc : '弹窗的标题',
-                        },
-                        label   : {
-                            el   : 'input',
-                            parse: 'string',
-                            value: '点击弹窗',
-                            desc : '按钮的内容',
-                        },
-                        layout  : {
-                            el     : 'radio',
-                            options: [
-                                { label: 'top', value: 'top' },
-                                { label: 'bottom', value: 'right' },
-                                { label: 'left', value: 'left' },
-                                { label: 'right', value: 'right' },
-                            ],
-                            value  : 'right',
-                            parse  : 'string',
-                            desc   : '抽屉弹出的方向',
-                        },
-                        width   : {
-                            el   : 'number',
-                            value: 400,
-                            parse: 'number',
-                            desc : '抽屉的宽度(在layout为top，bottom时，则为高度),默认为400',
-                        },
-                        mask    : {
-                            el   : 'switch',
-                            value: false,
-                            parse: 'boolean',
-                            desc : '是否显示遮罩层',
-                        },
-                        closable: {
-                            el   : 'switch',
-                            value: true,
-                            parse: 'boolean',
-                            desc : '是否显示右上角关闭按钮',
-                        },
-                        open    : {
-                            el   : 'switch',
-                            value: false,
-                            parse: 'boolean',
-                            desc : '是否默认展开抽屉',
-                        },
+                property: {
+                    dataset  : {},
+                    _title   : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '标题',
+                        desc : '弹窗的标题',
                     },
+                    _label   : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '点击弹窗',
+                        desc : '按钮的内容',
+                    },
+                    _layout  : {
+                        el     : 'radio',
+                        options: [
+                            { label: 'top', value: 'top' },
+                            { label: 'bottom', value: 'right' },
+                            { label: 'left', value: 'left' },
+                            { label: 'right', value: 'right' },
+                        ],
+                        value  : 'right',
+                        parse  : 'string',
+                        desc   : '抽屉弹出的方向',
+                    },
+                    _width   : {
+                        el   : 'number',
+                        value: 400,
+                        parse: 'number',
+                        desc : '抽屉的宽度(在layout为top，bottom时，则为高度),默认为400',
+                    },
+                    _mask    : {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否显示遮罩层',
+                    },
+                    _closable: {
+                        el   : 'switch',
+                        value: true,
+                        parse: 'boolean',
+                        desc : '是否显示右上角关闭按钮',
+                    },
+                    _open    : {
+                        el   : 'switch',
+                        value: false,
+                        parse: 'boolean',
+                        desc : '是否默认展开抽屉',
+                    },
+
                 },
-                type     : 'functional',
-                name     : '抽屉',
-                icon     : 'icon-drawer',
+                type    : 'functional',
+                name    : '抽屉',
+                icon    : 'icon-drawer',
             },
             list  : {
                 //component: import('@component/layout/list/LayoutList'),
                 //document : import('@component/layout/list/LayoutList.md'),
-                path     : '/layout-list',
-                property : {
+                path    : '/layout-list',
+                property: {
                     dataset: {
                         cols      : {
                             el   : 'number',
@@ -2103,15 +2099,15 @@ export const componentConfig: IConfig = {
                         },
                     },
                 },
-                type     : 'web-components',
-                name     : '列表',
-                icon     : 'icon-tubiao04',
+                type    : 'web-components',
+                name    : '列表',
+                icon    : 'icon-tubiao04',
             },
             row   : {
                 //component: import('@component/layout/row/LayoutRow'),
                 //document : import('@component/layout/row/LayoutRow.md'),
-                path     : '/layout-row',
-                property : {
+                path    : '/layout-row',
+                property: {
                     dataset: {
                         space: {
                             el   : 'input',
@@ -2130,14 +2126,14 @@ export const componentConfig: IConfig = {
                     },
 
                 },
-                type     : 'web-components',
-                name     : '栅格布局(行)',
-                icon     : 'icon-hang',
+                type    : 'web-components',
+                name    : '栅格布局(行)',
+                icon    : 'icon-hang',
             },
             col   : {
                 //component: import('@component/layout/row/col/LayoutCol'),
-                path     : '/layout-col',
-                property : {
+                path    : '/layout-col',
+                property: {
                     dataset: {
                         col: {
                             el   : 'number',
@@ -2153,9 +2149,9 @@ export const componentConfig: IConfig = {
                         desc : '样式',
                     },
                 },
-                type     : 'web-components',
-                name     : '栅格布局(列)',
-                icon     : 'icon-lie',
+                type    : 'web-components',
+                name    : '栅格布局(列)',
+                icon    : 'icon-lie',
             },
         },
     },
@@ -2165,35 +2161,34 @@ export const componentConfig: IConfig = {
             request: {
                 //component: import('@component/handle/request/HandleRequest'),
                 //document : import('@component/handle/request/HandleRequest.md'),
-                property : {
-                    dataset: {
-                        trigger: {
-                            el     : 'switch',
-                            parse  : 'string',
-                            value  : 'click',     // 'click' | 'hover'
-                            options: [
-                                { label: 'click', value: 'click' },
-                                { label: 'hover', value: 'hover' },
-                            ],
-                        },
-                        url    : {
-                            el    : 'input',
-                            value : domain + '/server/mock/menulist/uesr-menu.json',
-                            parse : 'string',
-                            verify: v => isUrl(v),
-                        },
-                        method : {
-                            el     : 'radio',
-                            parse  : 'string',
-                            options: APIMethodOptions,
-                            value  : 'GET',
-                            desc   : '请求类型',
-                        },
+                property: {
+                    dataset : {},
+                    _trigger: {
+                        el     : 'switch',
+                        parse  : 'string',
+                        value  : 'click',     // 'click' | 'hover'
+                        options: [
+                            { label: 'click', value: 'click' },
+                            { label: 'hover', value: 'hover' },
+                        ],
+                    },
+                    _url    : {
+                        el    : 'input',
+                        value : domain + '/server/mock/menulist/uesr-menu.json',
+                        parse : 'string',
+                        verify: v => isUrl(v),
+                    },
+                    _method : {
+                        el     : 'radio',
+                        parse  : 'string',
+                        options: APIMethodOptions,
+                        value  : 'GET',
+                        desc   : '请求类型',
                     },
                 },
-                type     : 'functional',
-                name     : '请求',
-                icon     : 'icon-qingqiu',
+                type    : 'functional',
+                name    : '请求',
+                icon    : 'icon-qingqiu',
             },
         },
     },
@@ -2202,8 +2197,8 @@ export const componentConfig: IConfig = {
         children: {
             markdown: {     // markdown 编辑器
                 //component: import('@component/editor/markdown-editor/MarkdownEditor'),
-                path     : '/editor-markdown',
-                property : {
+                path    : '/editor-markdown',
+                property: {
                     dataset: {
                         visibleEditor: {
                             el   : 'switch',
@@ -2219,9 +2214,9 @@ export const componentConfig: IConfig = {
                         desc : '内容',
                     },
                 },
-                type     : 'web-components',
-                name     : 'Markdown编辑器',
-                icon     : 'icon-mark_down',
+                type    : 'web-components',
+                name    : 'Markdown编辑器',
+                icon    : 'icon-mark_down',
             },
         },
     },

@@ -297,14 +297,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析html模版
                 if (isHtmlTpl(value)) {
-                    if (isWuiComponent(value)) {
-                        let dataFn = isDataFn(value);
+                    if (isWuiComponent(value)) {        // 自定义组件和 data-fn模块都可以识别
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {
                                 node.innerHTML = '';
-                                node.append(element);
-                                dataFn && new App(element);
+                                node.append(...element.children);       // 减少一层DOM包裹
+                                new App(node);
                             }
                         } }/>;
 

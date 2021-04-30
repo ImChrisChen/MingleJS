@@ -119,7 +119,7 @@ export default class App {
                         return;
                     }
                     //
-                    window.customElements.define(tagName, class extends HTMLElement {
+                    window.customElements.define(tagName, class extends HTMLParagraphElement {
 
                         /**
                          * TODO 生命周期函数的顺序
@@ -181,7 +181,8 @@ export default class App {
             }
 
             // $modulejs
-            let methods = element.getAttribute('data-fn') ?? '';
+            // let methods = element.getAttribute('data-fn') ?? '';
+            let methods = element.getAttribute('_module') ?? '';
             if (methods) {        // data-fn 函数功能
                 let $module = loadModule(methods);
                 if ($module.type === 'functional') {
@@ -213,15 +214,15 @@ export default class App {
             return;
         }
 
-        if (tagName === 'define-component' && el.getAttribute('module')) {
-            tagName = el.getAttribute('module') || '';
+        if (tagName === 'define' && el.getAttribute('tag')) {
+            tagName = el.getAttribute('tag') || '';
         }
 
         // 获取到组件的子元素（排除template标签)
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
-        container.style.height = '100%';
+        container.style.maxHeight = '100%';     // TODO iframe弹窗中和外部展示效果不一样，故用maxHeight处理
         container.classList.add('component-container');
         // let container = el;
         el.append(container);
