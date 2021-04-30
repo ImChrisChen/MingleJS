@@ -42,10 +42,10 @@ export default class LayoutWindow {
         this.tableUID = tableEl.attr(DataComponentUID) ?? '';
 
         // 若实体是在表格中的，那就直接获取表格上的实体ID
-        this.entityID = tableEl.attr('data-entity_id') ?? '';  // this.entityID = this.props.dataset.entity_id || tableEntityID;
+        this.entityID = tableEl.attr('data-entity_id') ?? '';
 
-        this.entityMode = this.props.dataset.entity_mode;
-        this.uid = this.props.dataset.uid;
+        this.entityMode = this.props._entity_mode;
+        this.uid = this.props._uid;
 
         this.props.el.addEventListener('click', e => this.handleClickBtn(e, this.tableUID));
 
@@ -174,8 +174,8 @@ export default class LayoutWindow {
                 entityID    : this.entityID,
                 entityMode  : this.entityMode,
                 dataUID     : tableUID,
-                submit      : this.props.dataset.submit,
-                cancel      : this.props.dataset.cancel,
+                submit      : this.props._submit,
+                cancel      : this.props._cancel,
             });
 
             // 2. 请求接口获取数据(生成实体页面元素)
@@ -223,10 +223,10 @@ export default class LayoutWindow {
                 entity_id   : '',
                 entity_mode : 'update',
                 iframeHidden: iframeHidden,     //弹窗内容iframe隐藏,等iframe 加载完成后再显示
-                title       : this.props.dataset.title,
+                title       : this.props._title,
                 dataUID     : '',
-                submit      : this.props.dataset.submit,
-                cancel      : this.props.dataset.cancel,
+                submit      : this.props._submit,
+                cancel      : this.props._cancel,
             });
         }
     };
@@ -244,13 +244,13 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
 
     state = {
         loading     : false,
-        visible     : this.props.dataset.open ?? false,
-        width       : this.props.dataset.width ?? 600,
-        height      : this.props.dataset.height ?? 400,
+        visible     : this.props._open ?? false,
+        width       : this.props._width ?? 600,
+        height      : this.props._height ?? 400,
         iframeHidden: false,
         disabled    : true,
         iframeUrl   : '',
-        title       : this.props.dataset.title,
+        title       : this.props._title,
         isEntity    : true,     // 是否是实体
         entityMode  : 'update' as IEntityOperationMode,       // 实体的操作模式
         entityID    : '',
@@ -295,7 +295,7 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
         return <Modal
             className="layout-modal-window"
             visible={ this.state.visible }
-            mask={ this.props.dataset.mask ?? false }
+            mask={ this.props._mask ?? false }
             getContainer={ document.querySelector('#WIN') as HTMLElement }
             // transitionName=""
             // maskTransitionName=""
