@@ -93,6 +93,15 @@ export default class AppMenu extends Component<IComponentProps, any> {
         });
     }
 
+    format(list) {
+        for (const item of list) {
+            let isroot = (item) => Number(item.r_father) === 0;
+            if (isroot(item)) {
+                item.children = [];
+            }
+        }
+    }
+
     listToTreeList(list, { id, pid }) { // 将普通列表转换为树结构的列表
         if (!list || !list.length) {
             return [];
