@@ -148,6 +148,9 @@ export function isWuiTpl(v: string): boolean {
 
 // 判断字符串是否是wui组件
 export function isWuiComponent(v: string) {
+    if (v.includes('data-fn=')) {
+        return true;
+    }
     return /(.*?)(<[a-zA-Z]+)(.*?)/.test(v);
 }
 
@@ -171,6 +174,9 @@ export function isDataFn(v: string): boolean {
 // 判断是否是自定义元素
 export function isCustomElement(tagName: string): boolean {
     // tagName = tagName.toLowerCase();
+    if (tagName === 'define') {     // 调用自定义标签的另一种形式
+        return true;
+    }
     return /[a-z]-[a-z]/.test(tagName);
 }
 

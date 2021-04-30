@@ -15,7 +15,7 @@ export default class TipsText extends Component<IComponentProps, any> {
             $(this.props.subelements).remove();
             this.props.el.childNodes[0].textContent = '';
         });
-        let { label, color } = this.props.dataset;
+        let { _label, _color } = this.props.dataset;
         return <Tooltip
             title={ () => {
                 return <div ref={ element => {
@@ -26,7 +26,7 @@ export default class TipsText extends Component<IComponentProps, any> {
                 } }>
                 </div>;
             } }
-            color={ color }
-        >{ label }</Tooltip>;
+            color={ _color }
+        >{ _label }</Tooltip>;
     }
 }
