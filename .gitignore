@@ -3,3 +3,4 @@
 /dist/*
 /lib/*
 ./.idea/workspace.xml
+.DS_Store
