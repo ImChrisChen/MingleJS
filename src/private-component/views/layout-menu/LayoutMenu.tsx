@@ -58,8 +58,9 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     };
     pathfield = this.props.pathfield ?? '';
     isEnd = false;
-    defaultOpenKeys:any = [];
-    defaultSelectedKeys:any = []
+    defaultOpenKeys: any = [];
+    defaultSelectedKeys: any = [];
+
     constructor(props) {
         super(props);
     }
@@ -70,9 +71,9 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         });
     };
 
-    handleSelectMenu(e) {
-
-    }
+    handleSelectMenu = (e) => {
+        console.log(e, this.props.data);
+    };
 
     getCurrentMenu() {
         let [ , currentRoute ] = window.location.hash.split('#');
@@ -92,71 +93,77 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
             : '';
     }
 
-    renderMenuItem(item, index) {
+    renderMenuItem(item, id, parentIndex, index) {
+        console.log(parentIndex, index, item.label);
         const renderMenuChild = item => {
             if (item?.[this.pathfield]) {
-                return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
+                return <p>{ item.label }</p>;
+                // return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
             } else if (item?.path) {
-                return <Link to={ item.path ?? '/' }> { item.label } </Link>;
+                return <p> { item.label } </p>;
+                // return <Link to={ item.path ?? '/' }> { item.label } </Link>;
             } else {
                 return item.label;
             }
         };
         return <Menu.Item mode={ 'horizontal' }
-                          key={ index }
+                          key={ id }
                           data-path={ item.path }
         >
             { renderMenuChild(item) }
         </Menu.Item>;
     }
 
-    renderMenuChildren(data) {
+    renderMenuChildren(data, parentIndex = 0) {
         return data.map((item, index) => {
             let children = item.children;
-            let key = item.id || item.path || item.value || index;
+            let id = item.id || item.path || item.value || index;
             if (children && children.length > 0) {
                 return <SubMenu className={ style.layoutSubmenu }
                                 data-path={ item.path }
-                                key={ key }
+                                key={ parentIndex }
                                 title={ item.label }>
-                    { this.renderMenuChildren(children) }
+                    { this.renderMenuChildren(children, ++parentIndex) }
                 </SubMenu>;
             } else {
-                return this.renderMenuItem(item, key);
+                return this.renderMenuItem(item, id, parentIndex, index);
             }
         });
     }
 
     /**
      * 根据url选中menu（适用性？) // 还是保存在locastorage
-     * @param data 
-     * @returns 
+     * @param data
+     * @returns
      */
-    getDefaultOpen = (data = this.props.data) =>{
-        let url = window.location.pathname
-        for(let i=0,l=data.length;i<l;i++){
-            let {children,path} = data[i]
-            let key =  data[i].id ||  data[i].path ||  data[i].value || i;
+    getDefaultOpen = (data = this.props.data) => {
+        let url = window.location.pathname;
+        for (let i = 0, l = data.length; i < l; i++) {
+            let { children, path } = data[i];
+            let key = data[i].id || data[i].path || data[i].value || i;
             if (children && children.length > 0) {
-                if(this.isEnd)  return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
-                this.defaultOpenKeys.push(key)
-                this.getDefaultOpen(children)
-            }else{
-                if(path === url){
-                    this.isEnd = true
-                    this.defaultSelectedKeys.push(key)
-                    return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
+                if (this.isEnd) return {
+                    defaultOpenKeys    : this.defaultOpenKeys,
+                    defaultSelectedKeys: this.defaultSelectedKeys,
+                };
+                this.defaultOpenKeys.push(key);
+                this.getDefaultOpen(children);
+            } else {
+                if (path === url) {
+                    this.isEnd = true;
+                    this.defaultSelectedKeys.push(key);
+                    return { defaultOpenKeys: this.defaultOpenKeys, defaultSelectedKeys: this.defaultSelectedKeys };
                 }
             }
         }
-        this.defaultOpenKeys = []
-        return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
-    }
+        this.defaultOpenKeys = [];
+        return { defaultOpenKeys: this.defaultOpenKeys, defaultSelectedKeys: this.defaultSelectedKeys };
+    };
 
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '160px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
-        let {defaultOpenKeys,defaultSelectedKeys} = this.getDefaultOpen();
+        // let {defaultOpenKeys,defaultSelectedKeys} = this.getDefaultOpen();
         return (
             <div style={ {
                 width             : (this.state.collapsed ? 60 : width),
@@ -167,12 +174,13 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
                 {/*{ this.collapsedButton() }*/ }
                 <Menu
-                    openKeys={defaultOpenKeys}
-                    selectedKeys={defaultSelectedKeys}
+                    // openKeys={defaultOpenKeys}
+                    // selectedKeys={defaultSelectedKeys}
                     style={ { position: 'relative' } }
                     mode={ this.props.layout || 'inline' }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
                     inlineCollapsed={ this.state.collapsed }
+                    onSelect={ this.handleSelectMenu }
                 >
                     { this.renderMenuChildren(this.props.data) }
                 </Menu>

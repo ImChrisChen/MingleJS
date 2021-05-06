@@ -6,7 +6,7 @@
 app-render {
     opacity    : 0;
     //visibility : hidden;
-    transition: all 400ms linear;
+    transition : all 400ms linear;
 }
 
 [data-component-uid] {
@@ -38,6 +38,12 @@ form-action [data-component-uid] {
     .ant-form-item {
         margin-bottom : 0 !important;
     }
+
+    .ant-layout-footer {
+        background : #ffffff !important;
+        padding : 0 !important;
+    }
+
 }
 
 .flex-direction-row {

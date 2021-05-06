@@ -20,7 +20,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
     @Inject httpClientService: HttpClientService;
 
     state = {
-        containers: [ 'aside', /*'header'*/ 'main' /*'footer'*/ ],
+        containers: [ 'aside', 'header', 'main', 'footer' ],
         page      : {},
         list      : [] as Array<{ name: string, url: string }>,
         info      : {} as { username: string },
@@ -50,7 +50,6 @@ export default class AppLayout extends Component<IComponentProps, any> {
         setTimeout(() => {
             let rootElement = elementWrap(this.props.subelements);
             this.state.containers.forEach(slot => {
-                debugger
                 let container = rootElement.querySelector(`[data-slot=${ slot }]`) as HTMLElement;
                 if (container) {
                     $(`#app-layout [role=${ slot }]`).append(container);
