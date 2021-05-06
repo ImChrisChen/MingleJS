@@ -292,6 +292,8 @@ class PrivateLayoutWindow extends Component<IPrivateLayoutWindow, any> {
 
     render() {
         let { submit, cancel } = this.state;
+        submit = eval(String(submit));
+        cancel = eval(String(cancel));
         return <Modal
             className="layout-modal-window"
             visible={ this.state.visible }
