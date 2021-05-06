@@ -182,7 +182,7 @@ export class FormatDataService {
     }
 
     // 树 => 列表
-    public tree2List(tree: object) {
+    public tree2List(tree: Array<any>) {
         return deepEach([ { children: tree } ], node => node);
     }
 
