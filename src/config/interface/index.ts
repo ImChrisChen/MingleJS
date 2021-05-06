@@ -88,7 +88,7 @@ export interface IComponentConfig<Property = IPropertyConfig> {
     path?: string               // 组件文档路径
     document?: Promise<any>     // 组件Markdown文档
     property?: {                // 组件属性配置
-        dataset: {
+        dataset?: {
             [key: string]: Property | (() => any)
         }
         name?: Property

@@ -145,32 +145,32 @@ export const componentConfig: IConfig = {
                 //component: import('@component/app/menu/AppMenu'),
                 property: {
                     dataset: {
-                        system_url : {
+                        system_url   : {
                             el   : 'input',
                             parse: 'string',
                             value: 'https://auc.local.aidalan.com/user.menu/apps',
                             desc : '系统列表接口',
                         },
-                        url        : {
+                        url          : {
                             el   : 'input',
                             parse: 'string',
                             value: 'https://auc.local.aidalan.com/user.menu/lists',
                             desc : '菜单接口',
                         },
-                        simple     : {
+                        simple       : {
                             el   : 'switch',
                             parse: 'boolean',
                             value: false,
                             desc : 'true 则只显示菜单,false则渲染 系统>菜单',
                         },
-                        pathfield  : {
+                        pathfield    : {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
                             value: 'url',
                             desc : '菜单URL跳转字段',
                         },
-                        menu_url: {
+                        menu_url     : {
                             el   : 'input',
                             parse: 'string',
                             // options: 'fromUrl',
@@ -184,25 +184,25 @@ export const componentConfig: IConfig = {
                             value: 'https://auc.aidalan.com/user.menu/lists',
                             desc : '二级菜单URL',
                         },
-                        bgcolor    : {
+                        bgcolor      : {
                             el   : 'color',
                             parse: 'string',
                             value: '#FFF',
                             desc : '菜单的背景颜色',
                         },
-                        activecolor: {
+                        activecolor  : {
                             el   : 'color',
                             parse: 'string',
                             value: '#0382f2',
                             desc : '菜单的边框颜色',
                         },
-                        textcolor  : {
+                        textcolor    : {
                             el   : 'color',
                             parse: 'string',
                             value: '#0678fd',
                             desc : '菜单的文本颜色',
                         },
-                        bordercolor: {
+                        bordercolor  : {
                             el   : 'color',
                             parse: 'string',
                             value: '#0678fd',
@@ -775,7 +775,7 @@ export const componentConfig: IConfig = {
                             ],
                             value  : 'button',
                             parse  : 'string',
-                            desc   : 'Radio类型'
+                            desc   : 'Radio类型',
                         },
                         buttonStyle: {
                             el     : 'radio',
@@ -791,7 +791,7 @@ export const componentConfig: IConfig = {
                             value  : 'solid',
                             parse  : 'string',
                             render : true,
-                            desc   : 'Radio样式类型'
+                            desc   : 'Radio样式类型',
                         },
                         required   : UniversalProps.required,
                         smart      : UniversalProps.smart,
@@ -811,7 +811,7 @@ export const componentConfig: IConfig = {
                         // options: [],
                         value: '',
                         parse: 'string',
-                        desc : '默认值'
+                        desc : '默认值',
                     },
                 },
                 name    : '单选框',
@@ -880,12 +880,12 @@ export const componentConfig: IConfig = {
                         checkedChildren  : {
                             el   : 'input',
                             value: '开启',
-                            desc : '选中显示内容'
+                            desc : '选中显示内容',
                         },
                         unCheckedChildren: {
                             el   : 'input',
                             value: '关闭',
-                            desc : '非选中是内容'
+                            desc : '非选中是内容',
                         },
                         smart            : UniversalProps.smart,
                         exec             : UniversalProps.exec,
@@ -928,7 +928,7 @@ export const componentConfig: IConfig = {
                                 //'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week'
                             ],
                             value  : 'text',
-                            desc   : 'input类型'
+                            desc   : 'input类型',
                         },
                         label   : UniversalProps.label,
                         required: UniversalProps.required,
@@ -1282,7 +1282,7 @@ export const componentConfig: IConfig = {
                             el   : 'input',
                             parse: 'string',
                             value: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-                            desc : '图片地址'
+                            desc : '图片地址',
                         },
                     },
                     style  : UniversalProps.style,
@@ -1757,7 +1757,7 @@ export const componentConfig: IConfig = {
     tips  : {
         name    : '提示信息',
         children: {
-            card: {
+            card   : {
                 //component: import('@component/tips/card/TipsCard'),
                 //document : import('@component/tips/card/TipsCard.md'),
                 path    : '/tips-card',
@@ -1796,11 +1796,10 @@ export const componentConfig: IConfig = {
                 name    : '内容提示',
                 icon    : 'icon-liaotianneirongtishi',
             },
-            text: {
+            text   : {
                 //component: import('@component/tips/text/TipsText'),
                 path    : '/tips-text',
                 property: {
-                    dataset : {},
                     _label  : {
                         el   : 'input',
                         parse: 'string',
@@ -1827,6 +1826,15 @@ export const componentConfig: IConfig = {
                 type    : 'functional',
                 name    : '文本提示',
                 icon    : 'icon-ziyuan1',
+            },
+            confirm: {
+                path    : '/tips-confirm',
+                property: {
+                    dataset: {},
+                },
+                type    : 'functional',
+                name    : '确认提示框',
+                icon    : '',
             },
         },
     },
