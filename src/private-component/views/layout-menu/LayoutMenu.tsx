@@ -102,11 +102,11 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     renderMenuItem(item, id, parentIndex, index) {
         const renderMenuChild = item => {
             if (item?.[this.pathfield]) {
-                return <p>{ item.label }</p>;
-                // return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
+                // return <p>{ item.label }</p>;
+                return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
             } else if (item?.path) {
-                return <p> { item.label } </p>;
-                // return <Link to={ item.path ?? '/' }> { item.label } </Link>;
+                // return <p> { item.label } </p>;
+                return <Link to={ item.path ?? '/' }> { item.label } </Link>;
             } else {
                 return item.label;
             }
