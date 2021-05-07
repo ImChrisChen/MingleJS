@@ -41,8 +41,14 @@ form-action [data-component-uid] {
 
     .ant-layout-footer {
         background : #ffffff !important;
-        padding : 0 !important;
+        padding    : 0 !important;
     }
+
+    // TODO 表格行的的移入样式
+    //.ant-table-row:hover {
+    //    //background : none;
+    //    opacity    : 0.8;
+    //}
 
 }
 

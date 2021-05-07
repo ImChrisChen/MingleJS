@@ -1420,6 +1420,13 @@ export const componentConfig: IConfig = {
                             value       : '',
                             desc        : '指定 表格每一行的key值,多选表格的ID 就是 这里指定的key,有这个值则开启表格的多选操作',
                         },
+                        rowstylekey: {
+                            el          : 'input',
+                            options_from: 'data-url',
+                            parse       : 'string',
+                            value       : 'rowstylekey',
+                            desc        : '指定字段名为设置表格每一行的样式',
+                        },
                         entity_id  : {
                             el   : 'input',
                             parse: 'string',
