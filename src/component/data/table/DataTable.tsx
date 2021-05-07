@@ -107,8 +107,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     private readonly appEntity;
     private searchInput;
-    private tableHeaderNode = this.props.templates['table-header'];
-    private tableBodyNode = this.props.templates['table-body'];
     private entityID = this.props.dataset.entity_id ?? '';      // 实体ID
     private entityUrl = this.props.dataset.entity_url ?? '';    // 实体编辑的URL
     private timer;
@@ -625,7 +623,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 indentSize={ this.state.indentSize }
                 // style={ this.props.style }       // TODO 在layout-list 的子元素下，会被影响到
                 className={ style.formTable }
-                components={ {} }
                 onRow={ record => {
                     return {
                         onClick      : event => {

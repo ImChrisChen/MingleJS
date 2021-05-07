@@ -8,6 +8,7 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import React, { Component, ReactNode } from 'react';
 import { IComponentProps } from '@interface/common/component';
 import style from './FormGroup.scss';
+import App from '@src/App';
 
 export default class FormGroup extends Component<IComponentProps, any> {
 
@@ -66,7 +67,12 @@ export default class FormGroup extends Component<IComponentProps, any> {
     renderFormItem(elements): ReactNode {
         let elms = elements.map(el => el.cloneNode(true));      // cloneNode
         return <li key={ this.count++ } className={ `form-group-item ${ style.formItem }` }
-                   ref={ el => el && el.append(...elms) }>
+                   ref={ el => {
+                       if (el) {
+                           el.append(...elms);
+                           new App(el);
+                       }
+                   } }>
             <PlusCircleOutlined className={ style.addIcon } onClick={ e => this.handleAddGroup(e) }/>
         </li>;
     }

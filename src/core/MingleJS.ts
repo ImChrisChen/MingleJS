@@ -155,7 +155,6 @@ export class MingleJS {
 
     private static getRefs(el: HTMLElement) {
         let refs = el.querySelectorAll('[ref]');
-        console.log(refs);
         let $refs = {};
         for (let ref of refs) {
             let value = ref.getAttribute('ref') ?? '';
@@ -219,7 +218,7 @@ export class MingleJS {
 
             this.$refs = MingleJS.getRefs(document.body);
 
-            console.log('refs:',this.$refs);
+            // console.log('refs:',this.$refs);
         }
 
     }

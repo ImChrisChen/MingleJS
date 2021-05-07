@@ -1,1 +1,14 @@
-.formItem {    display  : flex;    position : relative;}.addIcon {    position : absolute;    right    : 0;    top      : 10px;}
+.formItem {
+    display  : flex;
+    position : relative;
+
+    [form-component] {
+        margin-right : 12px;
+    }
+}
+
+.addIcon {
+    position : absolute;
+    right    : 20px;
+    top      : 10px;
+}

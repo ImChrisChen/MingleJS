@@ -6,31 +6,31 @@
             "location": "广东",
             "reg_count": 3796,
             "number": 1,
-            "reg_rate": "<a data-fn=\"layout-window\" href=\"#\">编辑 layout-window <{location}> </a>",
+            "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window <{location}> </a>",
             "children": [
                 {
                     "location": "广东1",
                     "reg_count": 37960,
                     "number": 1,
-                    "reg_rate": "<a data-fn=\"layout-window\" href=\"#\">编辑 layout-window<{location}> </a>"
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window<{location}> </a>"
                 },
                 {
                     "location": "广东1",
                     "reg_count": 37960,
                     "number": 1,
-                    "reg_rate": "<a data-fn=\"layout-window\" href=\"#\">编辑 layout-window </a>"
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window </a>"
                 },
                 {
                     "location": "广东1",
                     "reg_count": 37960,
                     "number": 1,
-                    "reg_rate": "<a data-fn=\"layout-window\" href=\"#\">编辑 layout-window </a>"
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window </a>"
                 },
                 {
                     "location": "广东1",
                     "reg_count": 37960,
                     "number": 1,
-                    "reg_rate": "<a data-fn=\"layout-window\" href=\"#\">编辑 layout-window </a>"
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window </a>"
                 }
             ]
         },
@@ -38,7 +38,7 @@
             "location": "江苏",
             "reg_count": 3666,
             "number": 2,
-            "reg_rate": "<a data-fn=\"layout-window\" href=\"#\">编辑 layout-window</a>"
+            "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window</a>"
         },
         {
             "location": "山东",
@@ -50,7 +50,7 @@
             "location": "河南",
             "reg_count": 3404,
             "number": 4,
-            "reg_rate": "<a data-fn=\"layout-drawer\" href=\"#\">编辑 layout-drawer</a>"
+            "reg_rate": "<a _module=\"layout-drawer\" href=\"#\">编辑 layout-drawer</a>"
         },
         {
             "location": "浙江",

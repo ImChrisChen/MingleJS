@@ -176,7 +176,7 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    await App.renderCustomElement(element, false);
+                    await App.renderCustomElement(element);
                 }
             }
 
@@ -206,7 +206,7 @@ export default class App {
     }
 
     // 渲染组件 <form-select></form-select>
-    public static async renderCustomElement(el: HTMLElement, isDataFn: boolean = false) {
+    public static async renderCustomElement(el: HTMLElement) {
         let tagName = el.localName;
 
         if (el.getAttribute(DataComponentUID)) {

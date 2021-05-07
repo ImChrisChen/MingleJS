@@ -1832,7 +1832,7 @@ export const componentConfig: IConfig = {
                 property: {
                     dataset: {},
                 },
-                type    : 'functional',
+                type    : 'web-components',
                 name    : '确认提示框',
                 icon    : '',
             },
