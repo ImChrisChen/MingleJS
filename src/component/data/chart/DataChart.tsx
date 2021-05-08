@@ -888,7 +888,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     render() {
         let config = this.formatConfig();
         let { title, showupdate } = this.props.dataset;
-        return <div style={ { height: '100%', position: 'relative' } }>
+        return <div style={ { height: '100%', position: 'relative', padding: '0px 10px 10px' } }>
             <PanelTitle title={ title } type="chart" handleReload={ this.handleReload.bind(this) }/>
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }

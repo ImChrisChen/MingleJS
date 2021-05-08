@@ -222,6 +222,7 @@ export default class App {
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
+        container.style.height = '100%';
         container.style.maxHeight = '100%';     // TODO iframe弹窗中和外部展示效果不一样，故用maxHeight处理
         container.classList.add('component-container');
         // let container = el;

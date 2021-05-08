@@ -468,6 +468,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
                 margin        : layout === 'vertical' ? '0 10px' : '',
                 display       : 'flex',
                 justifyContent: layout === 'vertical' ? 'flex-end' : 'flex-start',
+                padding       : '0 10px',
             } }>
                 <Button hidden={ !reset } type="default" htmlType="reset"
                         style={ {
