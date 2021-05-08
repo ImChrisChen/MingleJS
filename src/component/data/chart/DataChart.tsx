@@ -84,7 +84,8 @@ export function PanelTitle(props: IpanelTitleProps) {
         <Typography.Title style={ { ...sty } } level={ 5 }>{ props.title }
             <div className={ style.tips } style={ {} }>
                 { props.type === 'table' ? <>
-                    <Button className="entity-add-btn" data-fn="layout-window"
+                    {/*@ts-ignore*/}
+                    <Button className="entity-add-btn" _module="layout-window"
                             data-entity_mode="create"
                             data-entity_id={ '22' }
                             type="primary" icon={ <PlusOutlined/> }

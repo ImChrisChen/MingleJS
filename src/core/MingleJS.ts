@@ -104,28 +104,28 @@ export class MingleJS {
             message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
         });
 
-        window.addEventListener('error', async function (e) {
-            console.log(e);
-            let msg = e?.message ?? '';        // 错误
-            let stack = e?.error?.stack ?? '';
-            let filename = e.filename;          // 报错文件名
-            let error_col = e.colno;            // 报错行
-            let error_line = e.lineno;          // 报错列
-            let url = window.location.href;
-            let log = {
-                message : msg,
-                stack,
-                page_url: url,
-                flag    : 'mingle',
-                filename,
-                error_line,
-                error_col,
-            };
-
-            await LogReportService.errorLogger(log);
-            message.error(`error, ${ msg }`);
-        });
-
+        // window.addEventListener('error', async function (e) {
+        //     console.log(e);
+        //     let msg = e?.message ?? '';        // 错误
+        //     let stack = e?.error?.stack ?? '';
+        //     let filename = e.filename;          // 报错文件名
+        //     let error_col = e.colno;            // 报错行
+        //     let error_line = e.lineno;          // 报错列
+        //     let url = window.location.href;
+        //     let log = {
+        //         message : msg,
+        //         stack,
+        //         page_url: url,
+        //         flag    : 'mingle',
+        //         filename,
+        //         error_line,
+        //         error_col,
+        //     };
+        //
+        //     await LogReportService.errorLogger(log);
+        //     message.error(`error, ${ msg }`);
+        // });
+        
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });

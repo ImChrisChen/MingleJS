@@ -1,8 +1,8 @@
 <div class="a-data-table">
-    
+
     <data-table data-height="400"></data-table>
 
-    <handle-request data-url="https://baidu.com">请求</handle-request>
+    <!--    <handle-request data-url="https://baidu.com">请求</handle-request>-->
 
 </div>
 <script>
@@ -13,9 +13,9 @@
             headerData: [],
         },
         async created() {
-            let data = await this.$jsonp(`/server/mock/table/tableHeader.json`);
-            console.log(data);
-            this.headerData = data;
+            // let data = await this.$jsonp(`/server/mock/table/tableHeader.json`);
+            // console.log(data);
+            // this.headerData = data;
         },
 
         methods: {
@@ -25,12 +25,4 @@
             },
         },
     });
-</script>
-
-<script>
-    window.onload = function () {
-        new Mingle({
-            el: '.a-data-table'
-        });
-    };
 </script>

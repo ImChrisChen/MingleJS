@@ -52,7 +52,7 @@ const treeData = [
     }
 ];
 
-export default class FormSelectTree extends Component<IComponentProps, any> {
+export default class FormSelecttree extends Component<IComponentProps, any> {
 
     @Inject private readonly httpClientService: HttpClientService;
     @Inject private readonly formatDataService: FormatDataService;
