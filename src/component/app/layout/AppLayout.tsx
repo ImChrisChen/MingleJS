@@ -110,7 +110,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
 
                     <Content role="main"
                              style={ {
-                                 minHeight : 280,
+                                 minHeight : '100vh',
                                  padding   : 10,
                                  boxSizing : 'border-box',
                                  background: '#f0f2f5',
@@ -148,7 +148,7 @@ export default class AppLayout extends Component<IComponentProps, any> {
                     </aside>
 
                     <div className={ `app-layout-content ${ style.appLayoutContentV }` }>
-                        <Content role="main" style={ { padding: 10 } }> </Content>
+                        <Content role="main" style={ { padding: 10, minHeight: '100vh' } }> </Content>
                         <Footer className={ style.appLayoutFooterV } role="footer">
                         </Footer>
                     </div>
