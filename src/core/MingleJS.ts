@@ -125,7 +125,7 @@ export class MingleJS {
         //     await LogReportService.errorLogger(log);
         //     message.error(`error, ${ msg }`);
         // });
-        
+
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
         });
@@ -190,7 +190,7 @@ export class MingleJS {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
+        let isVirtual = true;          // TODO 虚拟DOM会出现子元素多次渲染的问题
 
         if (!container) {
             return;
@@ -207,7 +207,9 @@ export class MingleJS {
             for (const child of [ ...node.childNodes ]) {
                 container.append(child);
             }
-            await MingleJS.render(container);
+            console.log(container);
+            console.log(data);
+            // await MingleJS.render(container);
         } else {
             // 原始DOM实现
             console.time('真实DOM首次渲染性能测试');
@@ -351,8 +353,8 @@ export class MingleJS {
         }
 
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
-        // let o = Object.assign(data, methods, this);     // this 上访问到的数据
-        let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
+        let o = Object.assign(data, methods, this);     // this 上访问到的数据
+        // let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);
             updated?.();

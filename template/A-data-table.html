@@ -2,6 +2,10 @@
 
     <data-table data-height="400"></data-table>
 
+    <ul>
+        <li w-foreach="headerData as item"><{item}></li>
+    </ul>
+
     <!--    <handle-request data-url="https://baidu.com">请求</handle-request>-->
 
 </div>
@@ -13,9 +17,9 @@
             headerData: [],
         },
         async created() {
-            // let data = await this.$jsonp(`/server/mock/table/tableHeader.json`);
-            // console.log(data);
-            // this.headerData = data;
+            let data = await this.$jsonp(`/server/mock/table/tableHeader.json`);
+            console.log(data);
+            this.headerData = data;
         },
 
         methods: {
