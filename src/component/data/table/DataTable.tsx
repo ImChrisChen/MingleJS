@@ -157,7 +157,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 loading   : false,
             }, () => {
                 let addEntityBtn = this.props.el.querySelector('.entity-add-btn') as HTMLElement;
-                addEntityBtn && new App(addEntityBtn);
+                addEntityBtn && new App(addEntityBtn,true);
 
                 /**
                  * --------------------------- rowStyle --------------------------------------
@@ -318,7 +318,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                             if (node) {
                                 node.innerHTML = '';
                                 node.append(...element.children);       // 减少一层DOM包裹
-                                new App(node);
+                                new App(node,true);
                             }
                         } }/>;
 
