@@ -5,10 +5,13 @@
 import ReactDOM from 'react-dom';
  
  export default class TipsPopconfirm{
+    position: HTMLDivElement;
 
     constructor(private readonly props: INativeProps){
         this.props = props;
         this.props.el.addEventListener('click', e => this.handleClickBtn(e),true);
+        this.position = document.createElement('div')
+        document.body.append(this.position)
     }
 
     handleClickBtn(e: MouseEvent) {
@@ -40,17 +43,19 @@ import ReactDOM from 'react-dom';
                 okText={this.props._okText}
                 cancelText={this.props._cancelText}
             >
+                <span></span>
             </Popconfirm>
         </>
         
-        let position = document.createElement('div')
-        let { x , y,width:targetWidth,height:targetHeight } = this.props.el.getBoundingClientRect()
-        ReactDOM.render(dom,position)
-        document.body.append(position)
-        let {width,height} = position.children[0].getBoundingClientRect()
-        $(position).css('position','absolute')
-        $(position).css('width','100%')
-        $(position).offset({top: y+targetHeight/2-height,left: x+targetWidth/2-width/2})
+        let {width:targetWidth,height:targetHeight } = this.props.el.getBoundingClientRect()
+        let y = this.props.el.offsetTop
+        let x = this.props.el.offsetLeft
+        ReactDOM.render(<></>,this.position) // react 对比没变化就不加载了
+        ReactDOM.render(dom,this.position)
+        let {width,height} = this.position.children[0].getBoundingClientRect()
+        $(this.position).css('position','absolute')
+        $(this.position).css('width','100%')
+        $(this.position).offset({top: y+targetHeight/2-height,left: x+targetWidth/2-width/2})
     }
  }
  
