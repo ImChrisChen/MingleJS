@@ -104,27 +104,27 @@ export class MingleJS {
             message.success(`系统颜色发生了变化，当前系统色为 ${ darkMode ? '深色🌙' : '浅色☀️' }`);
         });
 
-        window.addEventListener('error', async function (e) {
-            console.log(e);
-            let msg = e?.message ?? '';        // 错误
-            let stack = e?.error?.stack ?? '';
-            let filename = e.filename;          // 报错文件名
-            let error_col = e.colno;            // 报错行
-            let error_line = e.lineno;          // 报错列
-            let url = window.location.href;
-            let log = {
-                message : msg,
-                stack,
-                page_url: url,
-                flag    : 'mingle',
-                filename,
-                error_line,
-                error_col,
-            };
-
-            await LogReportService.errorLogger(log);
-            message.error(`error, ${ msg }`);
-        });
+        // window.addEventListener('error', async function (e) {
+        //     console.log(e);
+        //     let msg = e?.message ?? '';        // 错误
+        //     let stack = e?.error?.stack ?? '';
+        //     let filename = e.filename;          // 报错文件名
+        //     let error_col = e.colno;            // 报错行
+        //     let error_line = e.lineno;          // 报错列
+        //     let url = window.location.href;
+        //     let log = {
+        //         message : msg,
+        //         stack,
+        //         page_url: url,
+        //         flag    : 'mingle',
+        //         filename,
+        //         error_line,
+        //         error_col,
+        //     };
+        //
+        //     await LogReportService.errorLogger(log);
+        //     message.error(`error, ${ msg }`);
+        // });
 
         window.addEventListener('online', function () {
             message.success('浏览器已获得网络链接');
@@ -155,7 +155,6 @@ export class MingleJS {
 
     private static getRefs(el: HTMLElement) {
         let refs = el.querySelectorAll('[ref]');
-        console.log(refs);
         let $refs = {};
         for (let ref of refs) {
             let value = ref.getAttribute('ref') ?? '';
@@ -191,7 +190,7 @@ export class MingleJS {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
+        let isVirtual = true;          // TODO 虚拟DOM会出现子元素多次渲染的问题
 
         if (!container) {
             return;
@@ -208,7 +207,9 @@ export class MingleJS {
             for (const child of [ ...node.childNodes ]) {
                 container.append(child);
             }
-            await MingleJS.render(container);
+            console.log(container);
+            console.log(data);
+            // await MingleJS.render(container);
         } else {
             // 原始DOM实现
             console.time('真实DOM首次渲染性能测试');
@@ -219,7 +220,7 @@ export class MingleJS {
 
             this.$refs = MingleJS.getRefs(document.body);
 
-            console.log('refs:',this.$refs);
+            // console.log('refs:',this.$refs);
         }
 
     }
@@ -352,8 +353,8 @@ export class MingleJS {
         }
 
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
-        // let o = Object.assign(data, methods, this);     // this 上访问到的数据
-        let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
+        let o = Object.assign(data, methods, this);     // this 上访问到的数据
+        // let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);
             updated?.();

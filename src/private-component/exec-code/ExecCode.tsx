@@ -6,9 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import App from '@src/App';
 import $ from 'jquery';
-import Title from 'antd/lib/typography/Title';
 import { MingleJS } from '@src/core/MingleJS';
 
 interface IExecCodeProps {

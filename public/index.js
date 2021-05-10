@@ -44,12 +44,12 @@
     }
     
     function getUrls() {
-        const react = `https://g.alicdn.com/code/lib/react/16.13.1/umd/react.production.min.js`;
-        const reactdom = `https://g.alicdn.com/code/lib/react-dom/16.13.1/umd/react-dom.production.min.js`;
+        const react = `https://g.alicdn.com/code/lib/react/17.0.2/umd/react.production.min.js`;
+        const reactdom = `https://g.alicdn.com/code/lib/react-dom/17.0.2/umd/react-dom.production.min.js`;
         const jquery = `https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js`;
         
-        const antdcss = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.1/antd.compact.min.css`;
-        const antdjs = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.1/antd.min.js`;
+        // const antdcss = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.3/antd.compact.min.css`;
+        // const antdjs = `https://cdn.bootcdn.net/ajax/libs/antd/4.15.3/antd.min.js`;
         
         // http://mingle-test.local.aidalan.com/latest 
         // http://mingle-test.local.aidalan.com/0.10.14
@@ -66,12 +66,11 @@
         return [
             `${ hostname }main.css`,
             `${ hostname }manifest.css`,
-            antdcss,
             react,
             reactdom,
-            antdjs,
+            // antdcss,
+            // antdjs,
             jquery,
-            // AntdCompactCSS,
             antdIcons,
             dataset,
             hljs,

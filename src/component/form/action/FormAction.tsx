@@ -9,7 +9,7 @@ import { Button, Form, Input, List, message, Modal, Switch } from 'antd';
 import $ from 'jquery';
 import { IComponentProps } from '@interface/common/component';
 import axios from 'axios';
-import { arrayDeleteItem, isEmptyObject, isInIframe, trigger } from '@src/utils';
+import { arrayDeleteItem, isEmptyObject, isInIframe, isObject, trigger } from '@src/utils';
 import style from './FormAction.scss';
 import { CloseSquareOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import App, { DataComponentUID } from '@src/App';
@@ -37,9 +37,9 @@ interface ISmartItemAPI {
 
 // form-smart
 class FormSmart extends Component<{ el: HTMLElement }, any> {
-    
+
     @Inject private readonly httpClientService: HttpClientService;
-    
+
     state = {
         isModalVisible  : false,
         formSmartVisible: false,
@@ -247,14 +247,14 @@ export default class FormAction extends React.Component<IFormAction, any> {
         // 保存表单默认值
         this.defaultFormData = FormAction.getFormData(form);
 
-        let submitBtn = form.querySelector('[type=submit]') as HTMLElement;
-        let resetBtn = form.querySelector('[type=reset]') as HTMLElement;
-        if (submitBtn) {
-            submitBtn.onclick = e => this.handleSubmit(form, e);
-        }
-        if (resetBtn) {
-            resetBtn.onclick = e => this.handleReset(form, e);
-        }
+        // let submitBtn = form.querySelector('[type=submit]') as HTMLElement;
+        // let resetBtn = form.querySelector('[type=reset]') as HTMLElement;
+        // if (submitBtn) {
+        //     submitBtn.onclick = e => this.handleSubmit(form, e);
+        // }
+        // if (resetBtn) {
+        //     resetBtn.onclick = e => this.handleReset(form, e);
+        // }
         this.setLayout(form);
     }
 
@@ -468,6 +468,7 @@ export default class FormAction extends React.Component<IFormAction, any> {
                 margin        : layout === 'vertical' ? '0 10px' : '',
                 display       : 'flex',
                 justifyContent: layout === 'vertical' ? 'flex-end' : 'flex-start',
+                padding       : '0 10px',
             } }>
                 <Button hidden={ !reset } type="default" htmlType="reset"
                         style={ {

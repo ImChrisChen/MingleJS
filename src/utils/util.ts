@@ -270,3 +270,20 @@ export function vnodeToElement(node: IVnode, isInit = false): HTMLElement {
 
     return el;
 }
+
+export function hashCode(v: string): string {
+    if (!v) {
+        return '';
+    }
+    let nums: any = 0;
+    for (let i = 0; i < v.length; i++) {
+        let item = v[i];
+        let number = item.charCodeAt(0);
+        if (i % 5 === 0) {
+            nums *= Math.floor(number / 3);
+        } else {
+            nums += number;
+        }
+    }
+    return nums;
+}

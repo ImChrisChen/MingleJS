@@ -1,0 +1,195 @@
+<div id="App">
+
+    <form-action id="form-alarm" data-async="true" data-url="/monitor/alarm-add/" data-method="post" 
+                 data-submit="false" data-reset="false">
+        <view-steps>
+            <div data-title="基本信息">
+                <form-select
+                    data-from="form-alarm"
+                    data-label="产品:"
+                    data-url="http://ops.local.superdalan.com/monitor/alarm-produce/"
+                    data-disabled="false"
+                    data-mode="single"
+                    data-key="id"
+                    data-value="produce"
+                    data-required="true"
+                    data-smart="false"
+                    name="produce"
+                    data-exec="false"
+                    value="1"
+                ></form-select>
+                <form-select
+                    data-label="告警对象:"
+                    data-url="http://ops.local.superdalan.com/monitor/host-data/"
+                    data-disabled="false"
+                    data-mode="multiple"
+                    data-key="id"
+                    data-value="host_name"
+                    data-required="true"
+                    data-smart="false"
+                    name="alarm_object"
+                    data-exec="false"></form-select>
+            </div>
+            <div data-title="配置告警规则">
+                <form-group name="alarm_rule" style="margin-right: 0;"
+                            data-layout="h">
+                    <form-input
+                        data-type="text"
+                        data-label="规则名称:"
+                        data-required="false"
+                        data-smart="false"
+                        name="rule_name"
+                        data-exec="false"
+                    ></form-input>
+
+                    <form-select
+                        data-from="form-alarm"
+                        data-label="规则描述"
+                        data-url="http://ops.local.superdalan.com/monitor/alarm-target/<{produce}>/"
+                        data-disabled="false"
+                        data-mode="single"
+                        data-key="target"
+                        data-value="target"
+                        data-groupby=""
+                        data-required="true"
+                        data-smart="false"
+                        name="rule_type"
+                        data-exec="false"
+                        value="host.diskio.util"
+                    >
+                    </form-select>
+
+                    <form-select
+                        data-label=""
+                        data-enum="2,1分钟周期;3,3分钟周期;5,5分钟周期;15,15分钟周期;30,30分钟周期,60,60分钟周期"
+                        data-disabled="false"
+                        data-mode="single"
+                        data-required="true"
+                        data-smart="false"
+                        name="statistics_cycle"
+                        value="2"
+                        data-exec="false"
+                    >
+                    </form-select>
+
+                    <form-select
+                        data-label=""
+                        data-enum="max,最大值;min,最小值;avg,平均值"
+                        data-disabled="false"
+                        data-mode="single"
+                        data-required="true"
+                        data-smart="false"
+                        name="rule_value"
+                        value="max"
+                        data-exec="false"
+                    >
+                    </form-select>
+
+                    <form-select
+                        data-label=""
+                        data-enum=">=,>=;>,>;<=,<=;<,<;!=,!="
+                        data-disabled="false"
+                        data-mode="single"
+                        data-required="true"
+                        data-smart="false"
+                        name="compare_symbol"
+                        value=">" s
+                        data-exec="false"
+                    >
+                    </form-select>
+
+                    <form-input
+                        data-type="number"
+                        data-label=""
+                        data-required="true"
+                        data-smart="false"
+                        name="threshold"
+                        value="90"
+                    >
+                    </form-input>
+
+                    <form-select
+                        data-label=""
+                        data-url="http://ops.local.superdalan.com/monitor/alarm-target-unit/?target_unit=<{rule_type}>"
+                        data-disabled="false"
+                        data-mode="single"
+                        data-key="target_unit"
+                        data-value="target_unit"
+                        data-groupby=""
+                        data-required="true"
+                        data-smart="false"
+                        name="target_unit"
+                        value="%"
+                    >
+                    </form-select>
+
+                    <form-select
+                        data-label=""
+                        data-enum="1,连续1次告警;3,连续3次告警;5,连续5次告警"
+                        data-disabled="false"
+                        data-mode="single"
+                        data-required="true"
+                        data-smart="false"
+                        name="alarm_count"
+                        value="1"
+                        data-exec="false"
+                    >
+                    </form-select>
+                    <form-select
+                        data-label=""
+                        data-enum="1,连续通知1次;3,连续通知3次;5,连续通知5次"
+                        data-disabled="false"
+                        data-mode="single"
+                        data-required="true"
+                        data-smart="false"
+                        name="notice_count"
+                        value="1"
+                        data-exec="false"
+                    >
+                    </form-select>
+                </form-group>
+            </div>
+            <div data-title="配置告警通知">
+                <form-select
+                    data-label="通知对象:"
+                    data-url="http://ops.local.superdalan.com/monitor/alarm-person/"
+                    data-disabled="false"
+                    data-mode="multiple"
+                    data-key="id"
+                    data-value="user_name"
+                    data-required="true"
+                    data-smart="false"
+                    name="notice_object"
+                    data-exec="false"
+                ></form-select>
+                <form-radio
+                    data-label="报警级别:"
+                    data-enum="email+feishu,邮件+飞书;email+feishu+sms,邮件+飞书+短信"
+                    data-disabled="false"
+                    data-size="middle"
+                    data-type="default"
+                    data-buttonStyle="solid"
+                    data-required="true"
+                    data-smart="false"
+                    name="alarm_level"
+                    value="email+feishu"
+                ></form-radio>
+                <form-switch
+                    data-disabled="false"
+                    data-label="状态:"
+                    data-checkedChildren="开启"
+                    data-unCheckedChildren="关闭"
+                    data-smart="false"
+                    name="status"
+                ></form-switch>
+            </div>
+        </view-steps>
+    </form-action>
+    
+</div>
+
+<script>
+    new Mingle({
+        el: '#App',
+    });
+</script>

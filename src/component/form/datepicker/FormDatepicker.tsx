@@ -14,15 +14,6 @@ import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-compone
 
 const { RangePicker } = DatePicker;
 
-let res = moment().calendar(null, {
-    sameDay : '[今天]',
-    nextDay : '[明天]',
-    nextWeek: 'dddd',
-    lastDay : '[昨天]',
-    lastWeek: '[上个] dddd',
-    sameElse: 'DD/MM/YYYY'
-});
-
 export default class FormDatepicker extends React.Component<IComponentProps, any> {
 
     state: any = {

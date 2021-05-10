@@ -23,7 +23,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
 
     state = {
         systems   : [],
-        current   : 3,
+        current   : 0,
         menulist  : [],
         hoverColor: '',
     };
@@ -50,11 +50,19 @@ export default class AppMenu extends Component<IComponentProps, any> {
             });
         } else {
             this.getSystems().then(data => {
-                let findIndex = data.findIndex(item => item.host === location.host);
+
+                // 优先级 缓存 => domain => 默认值
+                let systemActive = localStorage.getItem('system_active');
+
                 let current = this.state.current;
-                if (findIndex !== -1) {
-                    current = findIndex;
+                if (systemActive) {
+                    let i = data.findIndex(item => item.host === systemActive);
+                    if (i !== -1) current = i;
+                } else {
+                    let i = data.findIndex(item => item.host === location.host);
+                    if (i !== -1) current = i;
                 }
+
                 this.setState({ systems: data }, async () => {
                     await this.handleClickSystem(current, data[current]);
                 });
@@ -150,6 +158,7 @@ export default class AppMenu extends Component<IComponentProps, any> {
             current: i,
             menulist,
         });
+        localStorage.setItem('system_active', system.host);
     }
 
     render() {

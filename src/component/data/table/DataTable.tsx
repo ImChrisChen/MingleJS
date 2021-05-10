@@ -8,7 +8,7 @@
 import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
 import * as React from 'react';
 import {
-    deepEach,
+    deepEach, hashCode,
     isDataFn,
     isHtmlTpl,
     isNumber,
@@ -107,8 +107,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     private readonly appEntity;
     private searchInput;
-    private tableHeaderNode = this.props.templates['table-header'];
-    private tableBodyNode = this.props.templates['table-body'];
     private entityID = this.props.dataset.entity_id ?? '';      // 实体ID
     private entityUrl = this.props.dataset.entity_url ?? '';    // 实体编辑的URL
     private timer;
@@ -135,6 +133,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         indentSize: 30,     //  
 
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        rowstyles : {},
     };
 
     constructor(props: ITableProps) {
@@ -158,7 +157,22 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 loading   : false,
             }, () => {
                 let addEntityBtn = this.props.el.querySelector('.entity-add-btn') as HTMLElement;
-                addEntityBtn && new App(addEntityBtn);
+                addEntityBtn && new App(addEntityBtn,true);
+
+                /**
+                 * --------------------------- rowStyle --------------------------------------
+                 */
+                let content = '';
+                for (let key in this.state.rowstyles) {
+                    let value = this.state.rowstyles[key];
+                    content += ` .${ key } { ${ value } } \n`;
+                }
+                let id = `#mingle-row-style`;
+                $(id).remove();
+                let s = `<style id="mingle-row-style">
+                    ${ content }
+                </style>`;
+                $('head').append(s);
             });
             this.handleDragSelect();
         });
@@ -171,6 +185,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 });
             }, interval * 60 * 1000);
         }
+
     }
 
     handleShowSizeChange(page, pageSize) {    // pageSize 变化的回调
@@ -303,7 +318,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
                             if (node) {
                                 node.innerHTML = '';
                                 node.append(...element.children);       // 减少一层DOM包裹
-                                new App(node);
+                                new App(node,true);
                             }
                         } }/>;
 
@@ -625,7 +640,6 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 indentSize={ this.state.indentSize }
                 // style={ this.props.style }       // TODO 在layout-list 的子元素下，会被影响到
                 className={ style.formTable }
-                components={ {} }
                 onRow={ record => {
                     return {
                         onClick      : event => {
@@ -676,9 +690,26 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 scroll={ {        //  表格是否可以滚动
                     y: this.props.dataset.height - 80 || undefined,     // 减去分页器的高度和title的高度
                 } }
+                // 表格行背景颜色 返回数据要有固定属性 antd 只能读样式名 不方便
+                rowClassName={ (value: any, index) => {
+                    let { rowstylekey } = this.props.dataset;
+                    let className = 'class-name-' + hashCode(value[rowstylekey]);
+                    if (value[rowstylekey]) {
+
+                        let rowstyles = this.state.rowstyles;
+                        if (!rowstyles[className]) {
+                            rowstyles[className] = value[rowstylekey];
+                            this.setState({ rowstyles });
+                        }
+                        return className;
+                    }
+                    return '';
+                } }
             >
             </Table>
             <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
+
         </div>;
     }
 }
+

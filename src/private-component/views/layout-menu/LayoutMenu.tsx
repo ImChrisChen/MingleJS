@@ -5,19 +5,15 @@
  * Time: 11:38 上午
  */
 import * as React from 'react';
-// import axios from 'axios';
 import { Button, Menu } from 'antd';
 import {
-    IdcardOutlined,
-    MailOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
     LeftOutlined,
     RightOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import style from './LayoutMenu.scss';
+import { Inject } from 'typescript-ioc';
+import { FormatDataService } from '@src/services';
 
 const { SubMenu } = Menu;
 
@@ -29,12 +25,6 @@ interface IMenuItem {
     children?: Array<IMenuItem>
 
     [key: string]: any
-}
-
-interface IMenuState<T> {
-    theme?: string,
-    // data?: Array<T>
-    collapsed: boolean,
 }
 
 interface ILayoutMenu {
@@ -52,16 +42,28 @@ interface ILayoutMenu {
 
 export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
 
-    state: IMenuState<IMenuItem> = {
-        theme    : 'light',
-        collapsed: !(this.props.open ?? true),
+    @Inject public readonly formatDataService: FormatDataService;
+
+    state = {
+        theme      : 'light',
+        collapsed  : !(this.props.open ?? true),
+        defaultKeys: this.getDefaultKeys(),
     };
     pathfield = this.props.pathfield ?? '';
     isEnd = false;
-    defaultOpenKeys:any = [];
-    defaultSelectedKeys:any = []
+
     constructor(props) {
         super(props);
+    }
+
+    getDefaultKeys() {
+        let menuStr = localStorage.getItem('menu_active') || '{}';
+        let menuActive = JSON.parse(menuStr);
+        let { selectedKeys, openKeys } = menuActive;
+        return {
+            defaultOpenKeys    : openKeys,
+            defaultSelectedKeys: selectedKeys,
+        };
     }
 
     toggleCollapsed = (e) => {
@@ -70,9 +72,14 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         });
     };
 
-    handleSelectMenu(e) {
-
-    }
+    handleSelectMenu = (e) => {
+        let openKeys = e.item.props.openKeys;
+        let selectedKeys = e.selectedKeys;
+        localStorage.setItem('menu_active', JSON.stringify({
+            openKeys,
+            selectedKeys,
+        }));
+    };
 
     getCurrentMenu() {
         let [ , currentRoute ] = window.location.hash.split('#');
@@ -92,87 +99,65 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
             : '';
     }
 
-    renderMenuItem(item, index) {
+    renderMenuItem(item, id, parentIndex, index) {
         const renderMenuChild = item => {
             if (item?.[this.pathfield]) {
+                // return <p>{ item.label }</p>;
                 return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
             } else if (item?.path) {
+                // return <p> { item.label } </p>;
                 return <Link to={ item.path ?? '/' }> { item.label } </Link>;
             } else {
                 return item.label;
             }
         };
         return <Menu.Item mode={ 'horizontal' }
-                          key={ index }
+                          key={ id }
                           data-path={ item.path }
         >
             { renderMenuChild(item) }
         </Menu.Item>;
     }
 
-    renderMenuChildren(data) {
+    renderMenuChildren(data, parentIndex = 0) {
         return data.map((item, index) => {
             let children = item.children;
-            let key = item.id || item.path || item.value || index;
+            let id = item.id || item.path || item.value || index;
             if (children && children.length > 0) {
                 return <SubMenu className={ style.layoutSubmenu }
                                 data-path={ item.path }
-                                key={ key }
+                                key={ id }
                                 title={ item.label }>
-                    { this.renderMenuChildren(children) }
+                    { this.renderMenuChildren(children, ++parentIndex) }
                 </SubMenu>;
             } else {
-                return this.renderMenuItem(item, key);
+                return this.renderMenuItem(item, id, parentIndex, index);
             }
         });
-    }
-
-    /**
-     * 根据url选中menu（适用性？) // 还是保存在locastorage
-     * @param data 
-     * @returns 
-     */
-    getDefaultOpen = (data = this.props.data) =>{
-        let url = window.location.pathname
-        for(let i=0,l=data.length;i<l;i++){
-            let {children,path} = data[i]
-            let key =  data[i].id ||  data[i].path ||  data[i].value || i;
-            if (children && children.length > 0) {
-                if(this.isEnd)  return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
-                this.defaultOpenKeys.push(key)
-                this.getDefaultOpen(children)
-            }else{
-                if(path === url){
-                    this.isEnd = true
-                    this.defaultSelectedKeys.push(key)
-                    return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
-                }
-            }
-        }
-        this.defaultOpenKeys = []
-        return {defaultOpenKeys:this.defaultOpenKeys, defaultSelectedKeys:this.defaultSelectedKeys}
     }
 
     render() {
         let width = this.props.layout === 'horizontal' ? '100%' : '160px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
-        let {defaultOpenKeys,defaultSelectedKeys} = this.getDefaultOpen();
+        let { defaultKeys } = this.state;
         return (
             <div style={ {
-                width             : (this.state.collapsed ? 60 : width),
-                height, background: '#fff',
-                position          : 'relative',
+                width     : (this.state.collapsed ? 60 : width),
+                height,
+                background: '#fff',
+                position  : 'relative',
             } }>
 
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
                 {/*{ this.collapsedButton() }*/ }
                 <Menu
-                    openKeys={defaultOpenKeys}
-                    selectedKeys={defaultSelectedKeys}
+                    defaultOpenKeys={ defaultKeys.defaultOpenKeys }
+                    defaultSelectedKeys={ defaultKeys.defaultSelectedKeys }
                     style={ { position: 'relative' } }
                     mode={ this.props.layout || 'inline' }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
                     inlineCollapsed={ this.state.collapsed }
+                    onSelect={ this.handleSelectMenu }
                 >
                     { this.renderMenuChildren(this.props.data) }
                 </Menu>

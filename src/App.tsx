@@ -91,15 +91,19 @@ export default class App {
             let { localName: tagName } = element;
 
             // TODO data-list使用动态渲染子元素的时候，需要过滤掉初始化渲染，直接从data-list控制子组件渲染
-            if (parentNode?.localName === 'data-list') {
+            let isParentDataList = $(element).parents('data-list').length !== 0;
+            let isParentDataTable = $(element).parents('data-table').length !== 0;
 
+            // if (parentNode?.localName === 'data-list') {
+            if (isParentDataList) {
                 if (!this.forceRender) {
                     console.log('拦截掉', element);
                     return;
                 }
             }
 
-            if (parentNode?.localName === 'data-table') {
+            // if (parentNode?.localName === 'data-table') {
+            if (isParentDataTable) {
                 if (!this.forceRender) {
                     return;
                 }
@@ -176,7 +180,7 @@ export default class App {
                     });
                     App.registerComponents.push(tagName);
                 } else {
-                    await App.renderCustomElement(element, false);
+                    await App.renderCustomElement(element);
                 }
             }
 
@@ -206,7 +210,7 @@ export default class App {
     }
 
     // 渲染组件 <form-select></form-select>
-    public static async renderCustomElement(el: HTMLElement, isDataFn: boolean = false) {
+    public static async renderCustomElement(el: HTMLElement) {
         let tagName = el.localName;
 
         if (el.getAttribute(DataComponentUID)) {
@@ -222,6 +226,7 @@ export default class App {
         let subelements = [ ...el.children ].filter(child => child.localName !== 'template') as Array<HTMLElement>;
 
         let container = document.createElement('div');
+        container.style.height = '100%';
         container.style.maxHeight = '100%';     // TODO iframe弹窗中和外部展示效果不一样，故用maxHeight处理
         container.classList.add('component-container');
         // let container = el;

@@ -1,9 +1,12 @@
 <div class="a-data-table">
-    <layout-list data-cols="2" data-space="10,10">
-        <data-table data-headitemfield="headeritem" data-height="400"></data-table>
-    </layout-list>
 
-    <handle-request data-url="https://baidu.com">请求</handle-request>
+    <data-table data-height="400"></data-table>
+
+    <ul>
+        <li w-foreach="headerData as item"><{item}></li>
+    </ul>
+
+    <!--    <handle-request data-url="https://baidu.com">请求</handle-request>-->
 
 </div>
 <script>
@@ -26,12 +29,4 @@
             },
         },
     });
-</script>
-
-<script>
-    window.onload = function () {
-        new Mingle({
-            el: '.a-data-table'
-        });
-    };
 </script>

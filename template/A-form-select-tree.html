@@ -1,8 +1,8 @@
 <div id="select-box">
-    <h1 @click="onClick()"><{title}></h1>
+    <h1 @click="onClick(this,$event)"><{title}></h1>
 
-    <define-component
-        module="form-selecttree"
+    <define
+        tag="form-selecttree"
         data-label="label:"
         data-size="middle"
         data-url="/server/mock/tree.json"
@@ -14,7 +14,7 @@
         name="form-select"
         value="197,124,157,301,228"
         @change="onchange(this,$event,location.href)"
-    ></define-component>
+    ></define>
 </div>
 <script>
     new Mingle({
@@ -23,7 +23,7 @@
             title: 'Hello World !',
         },
         created() {
-            this.logs = this.$get('');
+            // this.logs = this.$get('');
         },
         methods: {
             onchange(self, e, href) {

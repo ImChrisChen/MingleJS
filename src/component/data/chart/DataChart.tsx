@@ -84,7 +84,8 @@ export function PanelTitle(props: IpanelTitleProps) {
         <Typography.Title style={ { ...sty } } level={ 5 }>{ props.title }
             <div className={ style.tips } style={ {} }>
                 { props.type === 'table' ? <>
-                    <Button className="entity-add-btn" data-fn="layout-window"
+                    {/*@ts-ignore*/}
+                    <Button className="entity-add-btn" _module="layout-window"
                             data-entity_mode="create"
                             data-entity_id={ '22' }
                             type="primary" icon={ <PlusOutlined/> }
@@ -292,7 +293,7 @@ export default class DataChart extends Component<IComponentProps, any> {
 
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region','brush-x' ] }>
+                   interactions={ [ 'active-region', 'brush-x' ] }>
 
                 <Interval position={ position } color={ colors }
                           adjust={ [ { type: 'dodge', marginRatio: 0 } ] }/>
@@ -328,7 +329,7 @@ export default class DataChart extends Component<IComponentProps, any> {
         let { position, dataSource, colors } = this.formatGroupsData(config);
         return <>
             <Chart height={ config.height } padding="auto" data={ dataSource } autoFit
-                   interactions={ [ 'active-region','brush-x' ] }>
+                   interactions={ [ 'active-region', 'brush-x' ] }>
 
                 {/*<Line position={ position } color={ groupby || colors }/>*/ }
                 {/*<Point position={ position } color={ groupby || colors }/>*/ }
@@ -888,7 +889,7 @@ export default class DataChart extends Component<IComponentProps, any> {
     render() {
         let config = this.formatConfig();
         let { title, showupdate } = this.props.dataset;
-        return <div style={ { height: '100%', position: 'relative' } }>
+        return <div style={ { height: '100%', position: 'relative', padding: '0px 10px 10px' } }>
             <PanelTitle title={ title } type="chart" handleReload={ this.handleReload.bind(this) }/>
             <Spin spinning={ this.state.loading } tip="loading...">
                 { DataChart.renderChart(config) }
