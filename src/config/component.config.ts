@@ -1828,6 +1828,34 @@ export const componentConfig: IConfig = {
                 name    : '文本提示',
                 icon    : 'icon-ziyuan1',
             },
+            popconfirm:{
+                path    : '/tips-popconfirm',
+                property:{
+                    dataset:{
+                    },
+                    _label  : {
+                        el   : 'input',
+                        parse: 'string',
+                        value: '文本',
+                        desc : '文本内容',
+                    },
+                    _okText : {
+                        el  : 'input',
+                        parse: 'string',
+                        value: 'Ok',
+                        desc : '确认按钮文本'
+                    },
+                    _cancelText: {
+                        el : 'input',
+                        parse: 'string',
+                        value: 'Cancel',
+                        desc : '取消按钮文本'
+                    }
+                },
+                type    : 'functional',
+                name    : '确定气泡框',
+                icon    : 'icon-ziyuan1',
+            }
         },
     },
     layout: {
