@@ -207,9 +207,9 @@ export class MingleJS {
             for (const child of [ ...node.childNodes ]) {
                 container.append(child);
             }
-            console.log(container);
-            console.log(data);
-            // await MingleJS.render(container);
+            await MingleJS.render(container);
+            
+            this.$refs = MingleJS.getRefs(document.body);
         } else {
             // 原始DOM实现
             console.time('真实DOM首次渲染性能测试');
@@ -353,7 +353,7 @@ export class MingleJS {
         }
 
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
-        let o = Object.assign(data, methods, this);     // this 上访问到的数据
+        let o = Object.assign(data, methods, this);     // 使用浅拷贝，引用关系 this 上访问到的数据
         // let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);
