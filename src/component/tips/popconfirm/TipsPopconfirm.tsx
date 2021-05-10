@@ -8,18 +8,22 @@ import ReactDOM from 'react-dom';
 
     constructor(private readonly props: INativeProps){
         this.props = props;
-        this.props.el.addEventListener('click', e => this.handleClickBtn(e));
+        this.props.el.addEventListener('click', e => this.handleClickBtn(e),true);
     }
 
     handleClickBtn(e: MouseEvent) {
         if(e.isTrusted){
             this.renderPopconfirm()
             e.preventDefault();
+            e.stopPropagation();
         }
     }
 
     confirm = ()=>{
         this.props.el.click()
+        $(this.props.el).children().toArray().map(v=>{
+            v.click()
+        })
     }
     
     cancel = ()=>{
