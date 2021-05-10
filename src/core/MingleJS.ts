@@ -190,7 +190,7 @@ export class MingleJS {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        let isVirtual = true;          // TODO 虚拟DOM会出现子元素多次渲染的问题
+        let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
 
         if (!container) {
             return;
