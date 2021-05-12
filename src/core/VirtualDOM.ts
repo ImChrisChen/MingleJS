@@ -14,7 +14,7 @@ import {
     isExpandSymbol,
     isObject,
     isUndefined,
-    isWuiTpl
+    isWuiTpl,
 } from '@src/utils';
 import { directiveElse, directiveForeach, directiveIf, directiveReadonly } from '@src/config/directive.config';
 import { DataComponentUID } from '@src/App';
@@ -108,14 +108,14 @@ export class VirtualDOM extends ParserTemplateService {
     /**
      * 真实DOM 转化为虚拟DOM
      * @param node {HTMLElement}  DOM元素
-     * @param model {}            模版数据                        
-     * @param functions           
+     * @param model {}            模版数据
+     * @param functions
      * @param parent
      * @param readOnly            不解析当前元素
      */
     public getVnode(
         node: HTMLElement,
-        model: any, 
+        model: any,
         functions: IFunctions,
         parent?: IMingleVnode,
         readOnly = false,
@@ -134,13 +134,19 @@ export class VirtualDOM extends ParserTemplateService {
 
             let { attrs, events } = this.getAttributesByElement(node, model, functions);
 
+            // 如果value的初始值 是模版
+            let freshValue: string = node.getAttribute('value') ?? node['value'];
+            if (isWuiTpl(freshValue)) {
+                attrs['fresh_value'] = freshValue;
+            }
+
             // 渲染当前节点
             const render = (model, fn?: (...args) => any) => {
 
                 vnode = new VNode(nodeName, attrs, nodeValue, nodeType, events, node);
 
                 let childNodes: any = node.childNodes;
-                for (const childNode of [...childNodes]) {
+                for (const childNode of [ ...childNodes ]) {
                     vnode.append(this.getVnode(childNode, model, functions, vnode, readOnly));
                 }
 
@@ -202,7 +208,7 @@ export class VirtualDOM extends ParserTemplateService {
                     if (isExistAttr(directiveIf, node)) {
                         try {
                             ifResult = Boolean(eval(newifExpress));
-                        } catch (e) {
+                        } catch(e) {
                             console.warn(`${ newifExpress }表达式格式错误`);
                             ifResult = false;
                         }
@@ -362,7 +368,7 @@ export class VirtualDOM extends ParserTemplateService {
                     return eval(param);
 
                 }
-            } catch (e) {
+            } catch(e) {
                 let pv = getObjectValue(param, model);
                 return pv;
             }
@@ -383,7 +389,7 @@ export class VirtualDOM extends ParserTemplateService {
     private getAttributesByElement(el: HTMLElement, model: object, functions: IFunctions): { attrs: object, events: object } {
         let attrs = {};
         let events: IMingleEvents = {};
-        for (const { name, value } of [...el.attributes]) {
+        for (const { name, value } of [ ...el.attributes ]) {
 
             // // 把不必要的属性排除掉
             // if (name === directiveForeach
@@ -396,8 +402,8 @@ export class VirtualDOM extends ParserTemplateService {
 
             // 事件
             if (name.startsWith('@')) {
-                let [, event] = name.split('@');      // 事件名称 'click'
-                let [method, arg] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
+                let [ , event ] = name.split('@');      // 事件名称 'click'
+                let [ method, arg ] = value.split(/\((.*?)\)/);  // 把 handleClick($2) 分成两部分 [handleClick,undefined]
                 event = event?.trim();
                 method = method?.trim();
                 arg = arg?.trim();
@@ -423,14 +429,14 @@ export class VirtualDOM extends ParserTemplateService {
                 };
 
                 if (isUndefined(events[event])) {
-                    events[event] = [e];
+                    events[event] = [ e ];
                 } else {
                     events[event].push(e);
                 }
 
             } else if (name.startsWith('^')) {      // 不解析该属性
 
-                let [, nativeName] = name.split('^');     // "^href" => "href"
+                let [ , nativeName ] = name.split('^');     // "^href" => "href"
                 attrs[nativeName] = value;
 
             } else if (isExpandSymbol(name)) {
@@ -471,14 +477,14 @@ export class VirtualDOM extends ParserTemplateService {
     }
 
     /**
-     * 解析 if 表达式 
+     * 解析 if 表达式
      * @param express {string}
      * @return boolean
      */
     private parseIF(express: string): boolean {
         try {
             return Boolean(eval(express));
-        } catch (e) {
+        } catch(e) {
             // TODO 有可能是 ~foreach 中的 if 语句
             console.error(`if内表达式解析语法错误: ${ express }`);
             return false;
@@ -508,13 +514,13 @@ export class VirtualDOM extends ParserTemplateService {
      * @private
      */
     private getForEachVars(express: string, model: object) {
-        let [arrayName, itemName]: Array<string> = express.split('as');
+        let [ arrayName, itemName ]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
 
         // data as (item,index)
         if (/\(.+?\)/.test(itemName)) {
-            let [, itemIndex] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
-            [itemName, indexName] = itemIndex.split(',');
+            let [ , itemIndex ] = /\((.+?)\)/.exec(itemName) ?? [];       // "item,index"
+            [ itemName, indexName ] = itemIndex.split(',');
         }
 
         arrayName = arrayName.trim();       // 数组名称
@@ -544,10 +550,10 @@ export class VirtualDOM extends ParserTemplateService {
      * 解析拓展运算符 ...<{var}>
      * @param name
      * @param model
-     * @private 
+     * @private
      */
     private parseExpand(name, model): object {
-        let [, key]: Array<string> = name.split('...');
+        let [ , key ]: Array<string> = name.split('...');
         let itemModel = getObjectValue(key, model);
         let props = {};
 

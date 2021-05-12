@@ -360,41 +360,45 @@ export default class App {
         }
 
         $formItems.forEach(formItem => {
-            let dataset = formItem.dataset;
+            let attributes = formItem.attributes;
 
             // TODO parent 换成 closest 可以适用于 div form表单元素
             let $formItemBox = $(formItem).closest(`[${ DataComponentUID }]`);
             let uid = $formItemBox.attr(DataComponentUID) ?? '';
-            // let selfInputName = element['name'] ?? element.attributes?.['name'].value;
             let selfAttrName = element.getAttribute('name');
             let regExp = new RegExp(`<{(.*?)${ selfAttrName }(.*?)}>`);        // 验证是否包含模版变量 <{pf}>
-            let module = App.instances?.[uid]?.module;
+            let module: IModules = App.instances?.[uid]?.module;
 
             if (!module) return;
 
-            for (const key in dataset) {
-                if (!dataset.hasOwnProperty(key)) continue;
-                let value = dataset[key] ?? '';
-
-                // 只有和模版关联的input框组件才会重载
+            // TODO 还有加载顺序的问题
+            for (let attribute of attributes) {
+                let { value } = attribute;
                 if (regExp.test(value)) {
-                    // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
-
-                    ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
-                    (module.element as HTMLInputElement).value = '';
-                    setTimeout(() => {
-                        App.renderComponent(module,
-                            // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
-                            // (hooks, instance) => {
-                            //     hooks[Hooks.update]?.(instance);
-                            // },
-                        );
-                    });
+                    console.log(value);
+                    App.reloadComponent(module);
                     break;
                 }
             }
         });
     }
+
+    // 重载组件
+    private static reloadComponent(module) {
+        // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
+        ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
+        (module.element as HTMLInputElement).value = '';
+        module.element.setAttribute('value', '');
+        setTimeout(() => {
+            App.renderComponent(module,
+                // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
+                // (hooks, instance) => {
+                //     hooks[Hooks.update]?.(instance);
+                // },
+            );
+        });
+    };
+
 
     public static eventListener(module: IModules, props: IComponentProps) {
         let { element } = module;
@@ -584,7 +588,7 @@ export default class App {
          * TODO 自定义元素没有 element没有value属性，和html中写入value默认值只能通过 attributes获取到，
          * 但是值出发改变后只能通过 element.value 来获取新的值，两者存在冲突,已经在trigger方法中处理好
          */
-        let elementValue = element.attributes?.['value']?.value ?? element['value'];
+        let elementValue = element.getAttribute('value') ?? element['value'];
 
         let value = elementValue || defaultValue;
 

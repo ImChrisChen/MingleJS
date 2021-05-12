@@ -6,6 +6,7 @@
  */
 import { getObjectValue, isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined } from '@src/utils';
 import { ParserCharService } from '@services/ParserChar.service';
+import { DataComponentUID } from '@src/App';
 
 declare type IParseModeData = HTMLElement | object | null;
 
@@ -14,7 +15,7 @@ declare type IParseModeData = HTMLElement | object | null;
  * field `var`
  */
 
-declare type tplTyle = 'tpl' | 'field'     
+declare type tplTyle = 'tpl' | 'field'
 
 // 模版匹配解析
 export class ParserTemplateService extends ParserCharService {
@@ -63,7 +64,7 @@ export class ParserTemplateService extends ParserCharService {
     private static getTplFields(tpl: string): Array<string> {
         let matchArr: Array<string> = tpl.match(/<{(.*?)}>/g) ?? [];
         return matchArr.map(item => {
-            let [, fieldName] = item.match(/<{(.*?)}>/) ?? [];
+            let [ , fieldName ] = item.match(/<{(.*?)}>/) ?? [];
             return fieldName;
         });
     }
@@ -103,12 +104,12 @@ export class ParserTemplateService extends ParserCharService {
 
         // 表达式执行 如 "<{ 1 + 1 }>" => "2"
         tpl = tpl.replace(/<{(.*?)}>/g, v => {
-            let [, express] = /<{(.*?)}>/.exec(v) ?? [];
+            let [ , express ] = /<{(.*?)}>/.exec(v) ?? [];
             let exp = isExpress(express.trim());
             if (exp) {
                 try {
                     return eval(express);
-                } catch (e) {
+                } catch(e) {
                     // console.warn(`${ express } 表达式格式不正确,运算错误,以替换成空字符串`);
                     return '';
                 }
