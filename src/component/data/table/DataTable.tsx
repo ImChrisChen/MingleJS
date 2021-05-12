@@ -513,7 +513,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
     // 选择表格中的每一项
     onSelectChange = (selectedRowKeys) => {
         this.setState({ selectedRowKeys });
-        trigger(this.props.el, selectedRowKeys, 'select-change');
+        trigger(this.props.el, selectedRowKeys, 'selectchange');
     };
 
     renderTableHeaderConfig(data) {

@@ -22,7 +22,7 @@
         data-url="http://mingle-test.local.aidalan.com/server/mock/table/tableContent.json"
         ref="table"
         @click="handleClick"
-        @select-change="onSelectChange(this)"
+        @selectchange="onSelectChange(this)"
       
         data-fn="layout-window"
 
@@ -106,7 +106,7 @@
         methods: {
 
             onSelectChange(el) {
-                console.log(el.value);
+                console.log(el.value,'----------');
             },
 
             handleClick(e) {

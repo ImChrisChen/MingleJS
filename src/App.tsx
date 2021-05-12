@@ -354,9 +354,9 @@ export default class App {
         // form-group 内的组件，只在组作用域内产生关联关系
         // if ($(element).closest('[data-fn=form-group]').length > 0) {
         if ($(element).closest('form-group').length > 0) {
-            $formItems = [ ...$(element).closest('.form-group-item').find(`[${ DataComponentUID }][name]`) ];
+            $formItems = [ ...$(element).closest('.form-group-item').find(`[${ DataComponentUID }]`) ];
         } else {
-            $formItems = [ ...$(element).closest('form-action').find(`[${ DataComponentUID }][name]`) ];
+            $formItems = [ ...$(element).closest('form-action').find(`[${ DataComponentUID }]`) ];
         }
 
         $formItems.forEach(formItem => {
