@@ -23,7 +23,6 @@ function getBuildDirName(type) {
     return dirs[0] ? (dirs[0] + '/') : '';
 }
 
-
 function isDir(pathname) {
     return fs.statSync(pathname).isDirectory();
 }
@@ -38,14 +37,42 @@ function format(args) {
 }
 
 function getArgs() {
-    return format(command.parse(process.argv).args)
+    return format(command.parse(process.argv).args);
 }
 
+function rmdir() {
+    let args = getArgs();
+    let isDoc = args['type'] === 'doc';
+    let filepath = isDoc ? `../dist` : `../lib`;
+    let abspath = resolve(__dirname, filepath);
+    try {
+        _delDir(abspath)
+        console.log(`${ abspath } 删除成功`);
+    } catch (e) {
+        if (e) throw e;
+    }
+}
 
+function _delDir(path) {
+    let files = [];
+    if (fs.existsSync(path)) {
+        files = fs.readdirSync(path);
+        files.forEach((file, index) => {
+            let curPath = path + '/' + file;
+            if (fs.statSync(curPath).isDirectory()) {
+                _delDir(curPath); //递归删除文件夹
+            } else {
+                fs.unlinkSync(curPath); //删除文件
+            }
+        });
+        fs.rmdirSync(path);  // 删除文件夹自身
+    }
+}
 
 module.exports = {
     getBuildDirName,
     isDir,
     format,
     getArgs,
+    rmdir,
 };
