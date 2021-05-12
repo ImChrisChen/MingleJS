@@ -96,14 +96,27 @@ export class VirtualDOM extends ParserTemplateService {
         super();
     }
 
-    // 获取事件监听
+    /**
+     * 获取事件监听
+     * @param el
+     * @private
+     */
     private static getEventsByElement(el) {
 
     }
 
+    /**
+     * 真实DOM 转化为虚拟DOM
+     * @param node {HTMLElement}  DOM元素
+     * @param model {}            模版数据                        
+     * @param functions           
+     * @param parent
+     * @param readOnly            不解析当前元素
+     */
     public getVnode(
         node: HTMLElement,
-        model: any, functions: IFunctions,
+        model: any, 
+        functions: IFunctions,
         parent?: IMingleVnode,
         readOnly = false,
     ): IMingleVnode {
@@ -311,7 +324,12 @@ export class VirtualDOM extends ParserTemplateService {
         return el;
     }
 
-    // 形参解析成实参
+    /**
+     * 形参解析成实参
+     * @param args
+     * @param model
+     * @private
+     */
     private parseArguments(args: Array<string>, model: object): Array<any> {
         return args.map(param => {
             param = param.trim();
@@ -355,6 +373,13 @@ export class VirtualDOM extends ParserTemplateService {
 
     }
 
+    /**
+     * 解析DOM元素上的属性
+     * @param el
+     * @param model
+     * @param functions
+     * @private
+     */
     private getAttributesByElement(el: HTMLElement, model: object, functions: IFunctions): { attrs: object, events: object } {
         let attrs = {};
         let events: IMingleEvents = {};
@@ -432,6 +457,12 @@ export class VirtualDOM extends ParserTemplateService {
 
     }
 
+    /**
+     * 解析表达式
+     * @param express
+     * @param model
+     * @private
+     */
     private parseExpress(express: string, model: object): string {
         if (isUndefined(express)) {
             return express;
@@ -439,6 +470,11 @@ export class VirtualDOM extends ParserTemplateService {
         return this.parseTpl(express, model, 'field');
     }
 
+    /**
+     * 解析 if 表达式 
+     * @param express {string}
+     * @return boolean
+     */
     private parseIF(express: string): boolean {
         try {
             return Boolean(eval(express));
@@ -449,7 +485,11 @@ export class VirtualDOM extends ParserTemplateService {
         }
     }
 
-    // 触发自定义事件
+    /**
+     * 触发自定义事件
+     * @param eventName
+     * @private
+     */
     private trigger(eventName: string) {
         // 创建自定义事件
         let event = document.createEvent('HTMLEvents');
@@ -460,6 +500,13 @@ export class VirtualDOM extends ParserTemplateService {
         window.dispatchEvent(event);
     }
 
+
+    /**
+     * 解析 foreach
+     * @param express
+     * @param model
+     * @private
+     */
     private getForEachVars(express: string, model: object) {
         let [arrayName, itemName]: Array<string> = express.split('as');
         let indexName = 'foreach_default_index';
@@ -493,6 +540,12 @@ export class VirtualDOM extends ParserTemplateService {
         };
     }
 
+    /**
+     * 解析拓展运算符 ...<{var}>
+     * @param name
+     * @param model
+     * @private 
+     */
     private parseExpand(name, model): object {
         let [, key]: Array<string> = name.split('...');
         let itemModel = getObjectValue(key, model);

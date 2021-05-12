@@ -72,12 +72,16 @@ export class MingleJS {
         this.run({ ...defaultOptions, ...options });
     }
 
-    // 获取所有组件配置
+    /**
+     * 获取所有组件配置
+     */
     public static async getComponentConfigs() {
         return await formatDataService.components2MenuTree(componentConfig);
     }
 
-    // 获取样式配置
+    /**
+     * 获取样式配置
+     */
     public static getStyleConfigs() {
         return styleConfig;
     }
@@ -190,7 +194,7 @@ export class MingleJS {
     // 每次数据更新都会触发
     async renderView(container, data, methods, proxyData) {
         let funcs = { methods: methods, callthis: proxyData };
-        let isVirtual = false;          // TODO 虚拟DOM会出现子元素多次渲染的问题
+        let isVirtual = true;          // TODO 虚拟DOM会出现子元素多次渲染的问题
 
         if (!container) {
             return;
