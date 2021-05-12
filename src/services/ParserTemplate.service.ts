@@ -8,7 +8,13 @@ import { getObjectValue, isArray, isDOM, isExpress, isObject, isObjectKeys, isUn
 import { ParserCharService } from '@services/ParserChar.service';
 
 declare type IParseModeData = HTMLElement | object | null;
-declare type tplTyle = 'tpl' | 'field'
+
+/**
+ * tpl `<{var}>`
+ * field `var`
+ */
+
+declare type tplTyle = 'tpl' | 'field'     
 
 // 模版匹配解析
 export class ParserTemplateService extends ParserCharService {

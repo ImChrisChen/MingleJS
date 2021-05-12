@@ -18,7 +18,7 @@ let instance = readline.createInterface({
 });
 
 instance.question('请输入要更新的版本: ', v => {
-    console.log(/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v));
+    console.log(/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v));      // 0.0.1-beat  0.0.1
     if (/(\d+)\.(\d+)\.(\d+)(-\w+)?/.test(v) || v === 'latest') {
         instance.close();
         
@@ -29,7 +29,7 @@ instance.question('请输入要更新的版本: ', v => {
         try {
             let oldPath = path.resolve(__dirname, filepath);
             fs.renameSync(oldPath, path.resolve(__dirname, isDoc ? `../dist/${ v }` : `../lib/${ v }`));
-            // console.log('%修改成功，当前版本号: ', 'color: red');
+            // consol.log('%修改成功，当前版本号: ', 'color: red');
             console.log(clc.blue(`
                  版本更新成功😄
                  

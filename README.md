@@ -1,12 +1,22 @@
 # MingleJS 开发文档
 
-React + Typescript + Antd + WUI
 
-在融汇WUI的思想，实现的一套提供给后端开发者使用的前端组件库
+
+技术栈：React + Typescript + Antd
+
+描述：融汇WUI的思想，实现的一套开箱即用的前端组件库
+
+面向用户群体：后端开发者，全栈开发
+
+应用的业务场景：中后台系统
 
 组件调用方式基于自定义元素 [Web Components](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components) 的规范实现
 
+
+
 ## 开发环境]
+
+
 
 1. 需安装 node 环境 v12.16.1 👉🏿 [node官网](https://nodejs.org/zh-cn/)
 
@@ -21,48 +31,48 @@ React + Typescript + Antd + WUI
 	Nginx 配置
 
 	~~~nginx
-	server {
-		listen       		80;
-		server_name  		"mingle-test.local.aidalan.com";
-		root "/Users/ChrisChen/Desktop/dalan/mingle.aidalan.com/dist/";
-	
-		set $ACAO '*';
-	
-		# mingle.js 项目
-		location / {
-			proxy_pass http://127.0.0.1:9000;
-			add_header Access-Control-Allow-Origin '$ACAO';
-		}
-	
-		# 框架入口文件不设置缓存，更新版本号后,保证每次都能加载到最新
-		location = /index.js {
-			add_header Cache-Control no-cache;
-			add_header Pragma no-cache;
-			add_header Expires 0;
-		}
-	
-		# nodejs 服务器mock数据,对应目录项目根目录 /mock/*
-		location /server {
-			proxy_pass http://127.0.0.1:9001;
-			add_header Access-Control-Allow-Origin '$ACAO';
-		}
-	
-		access_log on;
-	
-		default_type 'text/html';
-		charset utf-8;
-	}
-	~~~
+    server {
+        listen       		80;
+        server_name  		"mingle-test.local.aidalan.com";
+   
+        set $ACAO '*';
+   
+        # mingle.js 项目
+        location / {
+            proxy_pass http://127.0.0.1:9000;
+            add_header Access-Control-Allow-Origin '$ACAO';
+        }
+   
+        # 框架入口文件不设置缓存，更新版本号后,保证每次都能加载到最新
+        location = /index.js {
+            add_header Cache-Control no-cache;
+            add_header Pragma no-cache;
+            add_header Expires 0;
+        }
+   
+        # nodejs 服务器mock数据,对应目录项目根目录 /mock/*
+        location /server {
+            proxy_pass http://127.0.0.1:9001;
+            add_header Access-Control-Allow-Origin '$ACAO';
+        }
+   
+        access_log on;
+   
+        default_type 'text/html';
+        charset utf-8;
+    }	
 
-	
+
 
 ## 项目启动
 
+
+
 拉去项目进入根目录，执行以下命令
 
-~~~shell
+```shell
 npm run start-all
-~~~
+```
 
 npm run start-all  这条命令会通过pm2 执行两个任务，具体可查看 package.json命令配置
 
@@ -83,32 +93,29 @@ pm2 log [对于的进程name 或者 id]
 
 ## 打包部署
 
+
+
 项目根目录运行
 
 ~~~shell
 npm run build
 ~~~
 
-会生成dist目录， 结构如下
+会在项目跟目录生成dist目录， 结构如下
 
 ~~~javascript
-./dist
-├── assets						// 静态资源
-│   ├── antv.png
-│   └── form-smart.png
-├── chart.min.js				
-├── chart.min.js.map
-├── index.html
-├── index.js					// 框架入口文件（外部使用，只需要引入index.js就可以了）
-├── main.css
-├── main.css.map
-├── main.min.js
-├── main.min.js.map
-├── manifest.css
-├── manifest.css.map
-├── manifest.min.js
-├── manifest.min.js.map
-└── report.html					// 打包分析文件
+dist
+└── latest
+		├── assets						// 静态资源文件
+    ├── index.html
+    ├── index.js				// 框架入口文件（外部使用，只需要引入index.js就可以了）
+    ├── main.css
+    ├── main.min.js
+    ├── main.min.js.LICENSE.txt
+    ├── manifest.css
+    ├── manifest.min.js
+    ├── manifest.min.js.LICENSE.txt
+    └── report.html			// 打包性能分析文件
 ~~~
 
 把dist目录部署到服务器后，只需要用scrip标签引入 index.js 即可使用
