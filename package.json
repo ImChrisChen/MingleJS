@@ -14,7 +14,7 @@
     "update-date-doc": "node ./script/script.js type=doc",
     "update-date-lib": "node ./script/script.js type=lib",
     "update-version-doc": "node ./script/update-version.js type=doc",
-    "update-version-lib": "node ./script/update-version.js type=lib",
+    "update-version-lib": "node ./script/update-version.js type=lib"
   },
   "author": "chrischen",
   "license": "ISC",
