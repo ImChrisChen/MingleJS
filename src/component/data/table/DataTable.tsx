@@ -316,15 +316,15 @@ export default class DataTable extends React.Component<ITableProps, any> {
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {
-                                node.innerHTML = '';
-                                node.append(...element.children);       // 减少一层DOM包裹
-                                new App(node,true);
+                                if (!node.innerHTML) {
+                                    node.append(...element.children);       // 减少一层DOM包裹
+                                    new App(node,true);
+                                }
                             }
                         } }/>;
 
                     } else {
                         value = strParseVirtualDOM(value);          // 字符串dom转化
-                        console.log(value);
                     }
                 }
 

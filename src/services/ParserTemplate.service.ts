@@ -156,7 +156,7 @@ export class ParserTemplateService extends ParserCharService {
                 } else {
                     let key = field.trim();
                     let val = isDOM(itemData)
-                        ? encodeURIComponent((itemData.querySelector(`[data-component-uid][name=${ key }]`) as HTMLElement)?.attributes?.['value']?.value ?? '')
+                        ? encodeURIComponent((itemData.querySelector(`[${ DataComponentUID }][name=${ key }]`) as HTMLElement)?.attributes?.['value']?.value ?? '')
                         : (itemData[key]);
 
                     // 只有对象中有这个属性才会被替换
