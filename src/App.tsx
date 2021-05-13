@@ -375,29 +375,32 @@ export default class App {
         }
 
         $formItems.forEach(formItem => {
-            let attributes = formItem.attributes;
+                let attributes = formItem.attributes;
 
-            // TODO parent 换成 closest 可以适用于 div form表单元素
-            let $formItemBox = $(formItem).closest(`[${ DataComponentUID }]`);
-            let uid = $formItemBox.attr(DataComponentUID) ?? '';
-            let selfAttrName = element.getAttribute('name');
-            let regExp = new RegExp(`<{(.*?)${ selfAttrName }(.*?)}>`);        // 验证是否包含模版变量 <{pf}>
-            let module: IModules = App.instances?.[uid]?.module;
+                // TODO parent 换成 closest 可以适用于 div form表单元素
+                let $formItemBox = $(formItem).closest(`[${ DataComponentUID }]`);
+                let uid = $formItemBox.attr(DataComponentUID) ?? '';
+                let selfAttrName = element.getAttribute('name');
+                let regExp = new RegExp(`<{(.*?)${ selfAttrName }(.*?)}>`);        // 验证是否包含模版变量 <{pf}>
+                let module: IModules = App.instances?.[uid]?.module;
 
-            if (!module) return;
+                if (!module) return;
+                let isOnlyValueChange = false;
 
-            // TODO 还有加载顺序的问题
-            for (let attribute of attributes) {
-                let { name, value } = attribute;
-                if (regExp.test(value)) {
+                // TODO 还有加载顺序的问题
+                for (let attribute of attributes) {
+                    let { name, value } = attribute;
 
                     if (name === 'fresh_value') {
-
-                        value = (document.querySelector(`[name=${ selfAttrName }]`) as HTMLElement).getAttribute('value') ?? '';
-                        (module.element as HTMLInputElement).value = value;
-                        module.element.setAttribute('value', value);
-                        App.renderComponent(module);
-                    } else {
+                        if (regExp.test(value)) {
+                            value = (document.querySelector(`[name=${ selfAttrName }]`) as HTMLElement).getAttribute('value') ?? '';
+                            (module.element as HTMLInputElement).value = value;
+                            module.element.setAttribute('value', value);
+                            App.renderComponent(module);
+                            break;
+                        }
+                    }
+                    if (regExp.test(value)) {
                         // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
                         ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
                         (module.element as HTMLInputElement).value = '';
@@ -405,11 +408,11 @@ export default class App {
                         setTimeout(() => {
                             App.renderComponent(module);
                         });
+                        break;
                     }
-                    break;
                 }
-            }
-        });
+            },
+        );
     }
 
     public static eventListener(module: IModules, props: IComponentProps) {
@@ -602,6 +605,9 @@ export default class App {
         let elementValue = element.getAttribute('value') ?? element['value'];
 
         let value = elementValue || defaultValue;
+        if (isWuiTpl(value)) {
+            value = App.parserTemplateService.parseTpl(value);
+        }
 
         // 如果没有设置默认值(没有设置为undefined)，则给element 元素添加默认组件配置的默认值
         if (isUndefined(elementValue)) {
@@ -615,9 +621,6 @@ export default class App {
             trigger(element, value);
         }
 
-        if (isWuiTpl(value)) {
-            value = App.parserTemplateService.parseTpl(value);
-        }
 
         // 触发 beforeLoad 钩子
         beforeCallback?.(hooks, instance);
