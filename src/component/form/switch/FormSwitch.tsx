@@ -26,17 +26,12 @@ export default class FormSwitch extends React.Component<any, any> {
     }
 
     handleChange(value) {
-        // this.setState({
-        // attr: { checked: value },
-        // });
-        console.log(value);
         trigger(this.props.el, value ? '1' : '0');
     }
 
     render() {
         let { smart, exec, label, ...dataset } = this.props.dataset;
         let value = this.props.value;
-        console.log(value);
         // TODO switch 不需要设置required
         return <>
             <Form.Item label={ label } style={ this.props.style }>

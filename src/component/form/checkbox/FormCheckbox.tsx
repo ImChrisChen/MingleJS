@@ -19,7 +19,6 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
 
     state = {
         options: [],
-        value  : this.props.value
     };
 
     constructor(props) {
@@ -31,7 +30,7 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
 
     handleChange(e: Array<any>) {
         let value = e.join(',');
-        this.setState({ value }, () => trigger(this.props.el, value));
+        trigger(this.props.el, value);
     }
 
     async getData(url) {
@@ -43,7 +42,7 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
                 return this.formatDataService.list2Group(data, {
                     id  : key,
                     name: value,
-                    pid: groupby
+                    pid : groupby,
                 });
             } else {
                 return this.formatDataService.list2AntdOptions(data, key, value);
@@ -60,12 +59,12 @@ export default class FormCheckbox extends Component<IComponentProps, any> {
         let { smart, exec } = this.props.dataset;
         return <>
             <Form.Item label={ this.props.dataset.label } style={ this.props.style }>
-                { smart ? <FormSmartIcon /> : '' }
-                { exec ? <FormExecIcon /> : '' }
+                { smart ? <FormSmartIcon/> : '' }
+                { exec ? <FormExecIcon/> : '' }
                 <Checkbox.Group
                     disabled={ this.props.dataset.disabled }
                     options={ this.state.options }
-                    value={ this.state.value }
+                    value={ this.props.value }
                     onChange={ this.handleChange.bind(this) }
                 />
             </Form.Item>

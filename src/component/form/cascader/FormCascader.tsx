@@ -7,7 +7,7 @@
 import { IComponentProps } from '@interface/common/component';
 import React from 'react';
 import { Cascader, Form } from 'antd';
-import { isArray } from '@src/utils';
+import { arraylastItem, isArray, trigger } from '@src/utils';
 import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 import { Inject } from 'typescript-ioc';
 import { FormatDataService, HttpClientService } from '@src/services';
@@ -18,7 +18,7 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
     @Inject private readonly formatDataService: FormatDataService;
 
     state = {
-        options: []
+        options: [],
     };
 
     constructor(props) {
@@ -36,7 +36,7 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
             let keyMap = {
                 id  : key,
                 name: value,
-                pid: groupby
+                pid : groupby,
             };
             let list = this.formatDataService.list2Group(/*selectJson*/ data, keyMap);
             return list;
@@ -45,9 +45,8 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
     }
 
     handleChange(e) {
-        console.log(e);
-        // let lastItem: any = arraylastItem(e);
-        // trigger(this.props.el, lastItem);
+        let lastItem: any = arraylastItem(e);
+        trigger(this.props.el, lastItem);
     }
 
     render() {
@@ -59,8 +58,8 @@ export default class FormCascader extends React.Component<IComponentProps, any> 
                 style={ this.props.style }
                 required={ required }
             >
-                { smart ? <FormSmartIcon /> : '' }
-                { exec ? <FormExecIcon /> : '' }
+                { smart ? <FormSmartIcon/> : '' }
+                { exec ? <FormExecIcon/> : '' }
                 <Cascader
                     { ...dataset }
                     options={ this.state.options }

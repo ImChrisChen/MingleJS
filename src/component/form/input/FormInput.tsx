@@ -27,7 +27,6 @@ export default class FormInput extends React.Component<IComponentProps, any> {
     };
 
     handleChange(e) {
-        // this.setState({ //     value: e.target.value, // });
         trigger(this.props.el, e.target.value);
     }
 

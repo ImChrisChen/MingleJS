@@ -37,7 +37,6 @@ export default class FormUpload extends Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
 
     handleCancel = () => this.setState({ previewVisible: false });

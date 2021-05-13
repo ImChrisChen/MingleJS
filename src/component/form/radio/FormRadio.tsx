@@ -15,7 +15,6 @@ import { FormatDataService } from '@src/services';
 export default class FormRadio extends React.Component<IComponentProps, any> {
 
     state: any = {
-        value  : this.props.value,
         options: [],
     };
     tplSelector = this.props.dataset.tplSelector ?? null;        // 模版选择器
@@ -38,7 +37,7 @@ export default class FormRadio extends React.Component<IComponentProps, any> {
 
     handleChange(e: any) {
         let value = e.target.value;
-        this.setState({ value }, () => trigger(this.props.el, value));
+        trigger(this.props.el, value);
     }
 
     render() {
@@ -53,7 +52,7 @@ export default class FormRadio extends React.Component<IComponentProps, any> {
                 { exec ? <FormExecIcon/> : '' }
                 <Radio.Group
                     onChange={ this.handleChange.bind(this) }
-                    value={ this.state.value }
+                    value={ this.props.value }
                     options={ this.state.options }
                     optionType={ type }
                     buttonStyle={ buttonStyle }
