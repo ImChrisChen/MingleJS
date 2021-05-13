@@ -16,7 +16,7 @@ export default class FormRadio extends React.Component<IComponentProps, any> {
 
     state: any = {
         value  : this.props.value,
-        options: []
+        options: [],
     };
     tplSelector = this.props.dataset.tplSelector ?? null;        // 模版选择器
     @Inject private readonly formatDataService: FormatDataService;
@@ -47,10 +47,10 @@ export default class FormRadio extends React.Component<IComponentProps, any> {
             <Form.Item label={ label }
                        style={ this.props.style }
                        required={ required }
-                       className='form-action-item'
+                       className="form-action-item"
             >
-                { smart ? <FormSmartIcon /> : '' }
-                { exec ? <FormExecIcon /> : '' }
+                { smart ? <FormSmartIcon/> : '' }
+                { exec ? <FormExecIcon/> : '' }
                 <Radio.Group
                     onChange={ this.handleChange.bind(this) }
                     value={ this.state.value }

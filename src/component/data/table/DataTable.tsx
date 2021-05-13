@@ -318,7 +318,8 @@ export default class DataTable extends React.Component<ITableProps, any> {
                         value = <div ref={ node => {
                             if (node) {
                                 if (!node.innerHTML) {
-                                    node.append(element);       // 减少一层DOM包裹
+                                    // node.append(...element.children);       // TODO 减少一层DOM包裹,分页时切换会有BUG，暂时没有深究原因
+                                    node.append(element);    
                                     new App(node,true);
                                 }
                             }

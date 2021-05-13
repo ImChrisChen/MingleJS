@@ -94,7 +94,6 @@ export default class App {
             let isParentDataList = $(element).parents('data-list').length !== 0;
             let isParentDataTable = $(element).parents('data-table').length !== 0;
 
-            // if (parentNode?.localName === 'data-list') {
             if (isParentDataList) {
                 if (!this.forceRender) {
                     console.log('拦截掉', element);
@@ -102,7 +101,6 @@ export default class App {
                 }
             }
 
-            // if (parentNode?.localName === 'data-table') {
             if (isParentDataTable) {
                 if (!this.forceRender) {
                     return;
@@ -373,32 +371,40 @@ export default class App {
 
             // TODO 还有加载顺序的问题
             for (let attribute of attributes) {
-                let { value } = attribute;
+                let { name, value } = attribute;
                 if (regExp.test(value)) {
                     console.log(value);
-                    App.reloadComponent(module);
-                    break;
+
+                    if (name === 'fresh_value') {
+                        value = (document.querySelector(`[name=${ selfAttrName }]`) as HTMLElement).getAttribute('value') ?? '';
+                        (module.element as HTMLInputElement).value = value;
+                        module.element.setAttribute('value', value);
+                        // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
+                        App.renderComponent(module,
+                            // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
+                            // (hooks, instance) => {
+                            //     hooks[Hooks.update]?.(instance);
+                            // },
+                        );
+                        break;
+                    } else {
+                        ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
+                        (module.element as HTMLInputElement).value = '';
+                        module.element.setAttribute('value', '');
+                        setTimeout(() => {
+                            App.renderComponent(module,
+                                // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
+                                // (hooks, instance) => {
+                                //     hooks[Hooks.update]?.(instance);
+                                // },
+                            );
+                        });
+                        break;
+                    }
                 }
             }
         });
     }
-
-    // 重载组件
-    private static reloadComponent(module) {
-        // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
-        ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
-        (module.element as HTMLInputElement).value = '';
-        module.element.setAttribute('value', '');
-        setTimeout(() => {
-            App.renderComponent(module,
-                // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
-                // (hooks, instance) => {
-                //     hooks[Hooks.update]?.(instance);
-                // },
-            );
-        });
-    };
-
 
     public static eventListener(module: IModules, props: IComponentProps) {
         let { element } = module;

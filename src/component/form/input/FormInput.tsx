@@ -37,7 +37,6 @@ export default class FormInput extends React.Component<IComponentProps, any> {
             <Form.Item
                 required={ required }
                 label={ label }
-                name={ label }
                 style={ this.props.style }
             >
                 { smart ? <FormSmartIcon /> : '' }
