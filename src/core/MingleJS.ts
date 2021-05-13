@@ -349,25 +349,13 @@ export class MingleJS {
 
     private async run(options) {
         let { el, data, created, methods, mounted, updated } = options;
-
         let container: HTMLElement = isString(el) ? document.querySelector(el) : el;
-        let inputs = [ ...container.querySelectorAll('[name]') ] as Array<HTMLElement>;
-
-        // TODO dom中的input元素，也需要进行模版解析，所以input的name值不能和data中的属性名称一样，不要值会被覆盖
-        let domData = {};
-        for (const input of inputs) {
-            let name = input.getAttribute('name');
-            let value = input.getAttribute('value') ?? input['value'];
-            if (!name) continue;
-            domData[name] = value;
-        }
-
         if (!container) {
             return;
         }
 
         this.containerNode = container.cloneNode(true);     // 缓存节点模版
-        let o = Object.assign(data, methods, domData, this);     // 使用浅拷贝，引用关系 this 上访问到的数据
+        let o = Object.assign(data, methods, /*domData*/ this);     // 使用浅拷贝，引用关系 this 上访问到的数据
         // let o = Object.assign({}, data, methods, this);     // this 上访问到的数据
         let proxyData = new ProxyData(o, () => {
             this.renderView(container, data, methods, proxyData);

@@ -5,7 +5,7 @@ import {
     isCustomElement,
     isFunc,
     isReactComponent,
-    isUndefined,
+    isUndefined, isWuiTpl,
     loadModule,
     parserAttrs,
     parserDataset,
@@ -17,6 +17,7 @@ import { globalComponentConfig, IComponentConfig } from '@src/config/interface';
 import * as antdIcons from '@ant-design/icons';
 import { Hooks } from '@src/config/directive.config';
 import { IComponentProps } from '@interface/common/component';
+import { ParserElementService, ParserTemplateService } from '@src/services';
 
 // typescript 感叹号(!) 如果为空，会丢出断言失败。
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#strict-class-initialization
@@ -71,6 +72,7 @@ export default class App {
 
     public static instances: IInstances = {};      // 组件实例
     public static registerComponents: Array<string> = [];         // 注册过的自定义组件
+    public static parserTemplateService;
 
     constructor(root: HTMLElement, private readonly forceRender = false) {
 
@@ -83,8 +85,10 @@ export default class App {
         }
     }
 
+
     // web-components
     async init(rootElement: HTMLElement) {
+        App.parserTemplateService = new ParserTemplateService();
 
         App.renderIcons(rootElement);
         deepEachElement(rootElement, async (element, parentNode) => {
@@ -343,6 +347,19 @@ export default class App {
         return hooks;
     }
 
+    public static getFormElementsData(el: HTMLElement = document.body) {
+        // TODO dom中的input元素，也需要进行模版解析，所以input的name值不能和data中的属性名称一样，不要值会被覆盖
+        let inputs = [ ...el.querySelectorAll('[name]') ] as Array<HTMLElement>;
+        let forElementsData = {};
+        for (const input of inputs) {
+            let name = input.getAttribute('name');
+            let value = input.getAttribute('value') ?? input['value'];
+            if (!name) continue;
+            forElementsData[name] = value;
+        }
+        return forElementsData;
+    }
+
     // 重载组件(模版联动选择)
     public static dynamicReloadComponents(element: HTMLElement) {
 
@@ -373,34 +390,23 @@ export default class App {
             for (let attribute of attributes) {
                 let { name, value } = attribute;
                 if (regExp.test(value)) {
-                    console.log(value);
 
                     if (name === 'fresh_value') {
+
                         value = (document.querySelector(`[name=${ selfAttrName }]`) as HTMLElement).getAttribute('value') ?? '';
                         (module.element as HTMLInputElement).value = value;
                         module.element.setAttribute('value', value);
-                        // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
-                        App.renderComponent(module,
-                            // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
-                            // (hooks, instance) => {
-                            //     hooks[Hooks.update]?.(instance);
-                            // },
-                        );
-                        break;
+                        App.renderComponent(module);
                     } else {
+                        // https://zh-hans.reactjs.org/docs/react-dom.html#unmountcomponentatnode
                         ReactDOM.unmountComponentAtNode(module.container);  // waring 错误不必理会
                         (module.element as HTMLInputElement).value = '';
                         module.element.setAttribute('value', '');
                         setTimeout(() => {
-                            App.renderComponent(module,
-                                // (hooks, instance) => hooks[Hooks.beforeUpdate]?.(instance),
-                                // (hooks, instance) => {
-                                //     hooks[Hooks.update]?.(instance);
-                                // },
-                            );
+                            App.renderComponent(module);
                         });
-                        break;
                     }
+                    break;
                 }
             }
         });
@@ -410,7 +416,6 @@ export default class App {
         let { element } = module;
 
         // https://developer.mozilla.org/zh-CN/docs/Web/Events#%E5%8F%82%E8%A7%81
-
         // TODO onchange用于 ( 统一处理 ) 监听到自身值修改后,重新去渲染模版 <{}> 确保组件中每次都拿到的是最新的解析过的模版
         $(element).on('change', (e) => {
             e.preventDefault();
@@ -608,6 +613,10 @@ export default class App {
         // TODO 值不相等时，才触发trigger ，重新渲染
         if (!isUndefined(elementValue) && value !== elementValue) {
             trigger(element, value);
+        }
+
+        if (isWuiTpl(value)) {
+            value = App.parserTemplateService.parseTpl(value);
         }
 
         // 触发 beforeLoad 钩子

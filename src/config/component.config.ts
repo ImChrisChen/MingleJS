@@ -53,7 +53,7 @@ const UniversalProps: IUniversalProps<IPropertyConfig> = {
         value  : '',
         options: [],
         desc   : '数据源',
-        parse  : 'string',
+        parse  : 'null',
         // verify: value => isUrl(value),
     },
     enum       : {
@@ -298,7 +298,7 @@ export const componentConfig: IConfig = {
                             value: '',
                             desc : '列表数据的接口地址',
                             // request: true,
-                            parse : 'string',
+                            parse : 'null',
                             verify: value => isUrl(value),
                         },
                         disabled  : UniversalProps.disabled,
@@ -420,7 +420,7 @@ export const componentConfig: IConfig = {
                         label     : UniversalProps.label,
                         url       : {
                             el     : 'select',
-                            parse  : 'string',
+                            parse  : 'null',
                             value  : domain + '/server/mock/tree.json',
                             request: true,
                             desc   : '数据源',
@@ -533,7 +533,7 @@ export const componentConfig: IConfig = {
                             value: domain + '/server/mock/select.json',
                             // value  : '',
                             request: true,
-                            parse  : 'string',
+                            parse  : 'null',
                             desc   : '数据源',
                         },
                         key       : {
@@ -980,7 +980,7 @@ export const componentConfig: IConfig = {
                         label   : UniversalProps.label,
                         url     : {
                             el   : 'input',
-                            parse: 'string',
+                            parse: 'null',
                             value: `_{ file }/upload/byCode`,
                             desc : '上传的地址',
                         },
@@ -1060,7 +1060,7 @@ export const componentConfig: IConfig = {
                             value  : '',
                             desc   : '列表数据的接口地址',
                             request: true,
-                            parse  : 'string',
+                            parse  : 'null',
                             verify : value => isUrl(value),
                         },
                         key     : {
@@ -1256,7 +1256,7 @@ export const componentConfig: IConfig = {
                         // url  : UniversalProps.url,
                         url  : {
                             el   : 'input',
-                            parse: 'string',
+                            parse: 'null',
                             desc : '',
                             value: '',
                         },
@@ -1312,7 +1312,7 @@ export const componentConfig: IConfig = {
                             el   : 'input',
                             value: domain + '/server/mock/table/tableHeader.json',
                             // value: 'http://192.168.20.121:8080/mgm/header',
-                            parse: 'string',
+                            parse: 'null',
                             desc : '表头url',
                         },
                         url        : {
@@ -1320,7 +1320,7 @@ export const componentConfig: IConfig = {
                             value: domain + '/server/mock/table/tableContent.json',
                             // value: 'http://192.168.20.121:8080/mgm/data',
                             request: true,
-                            parse  : 'string',
+                            parse  : 'null',
                             desc   : '表数据url',
                         },
                         bordered   : {
@@ -1459,7 +1459,7 @@ export const componentConfig: IConfig = {
                         },
                         url   : {
                             el     : 'input',
-                            parse  : 'string',
+                            parse  : 'null',
                             request: true,
                             value  : domain + '/server/mock/chart/areauser.json',
                             // value  : domain + '/server/mock/chart/radar.json',
@@ -1640,7 +1640,7 @@ export const componentConfig: IConfig = {
                     dataset: {
                         url      : {
                             el     : 'input',
-                            parse  : 'string',
+                            parse  : 'null',
                             value  : domain + '/server/mock/tree.json',
                             request: true,
                             desc   : '数据源',
@@ -1708,7 +1708,7 @@ export const componentConfig: IConfig = {
                         },
                         url       : {
                             el   : 'input',
-                            parse: 'string',
+                            parse: 'null',
                             value: '',
                             desc : 'URL',
                         },
@@ -1887,7 +1887,7 @@ export const componentConfig: IConfig = {
                             // value: 'http://192.168.20.121:9001/mgm/menlist/',
                             // value: 'http://mingle-test.local.aidalan.com/server/mock/menulist/menu.json',
                             value: domain + '/server/mock/tree.json',
-                            parse: 'string',
+                            parse: 'null',
                             desc : '数据源',
                         },
                         open     : {

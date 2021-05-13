@@ -4,7 +4,7 @@
  * Date: 2020/10/16
  * Time: 上午11:53
  */
-import { getObjectValue, isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined } from '@src/utils';
+import { getObjectValue, isArray, isDOM, isExpress, isObject, isObjectKeys, isUndefined, isWuiTpl } from '@src/utils';
 import { ParserCharService } from '@services/ParserChar.service';
 import { DataComponentUID } from '@src/App';
 

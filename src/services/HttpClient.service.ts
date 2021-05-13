@@ -36,12 +36,12 @@ export class HttpClientService {
             return HttpClientService.instance;
         } else {
             // 这个区域只会执行一次
-            HttpClientService.setConfig();
+            this.setConfig();
             return HttpClientService.instance = this;
         }
     }
 
-    private static setConfig() {
+    private setConfig() {
         axios.defaults.timeout = 6000;
 
         // 允许携带cookie , 服务端设置 Access-Control-Allow-Origin '*'  时, 客户端需要设置 // wichCredentials=false
@@ -52,12 +52,16 @@ export class HttpClientService {
         this.httpResponseInterceptors();
     }
 
-    private static httpRequestInterceptors() {
+    private httpRequestInterceptors() {
         axios.interceptors.request.use(
             config => {
                 let { url, baseURL, method, headers } = config;
+                url ??= '';
+                if (isWuiTpl(url)) {
+                    url = this.parserTemplateService.parseTpl(url);
+                }
                 if (baseURL) {
-                    url = baseURL + url;
+                    config.url = baseURL + url;
                 }
                 // Monitor.requestLogger({
                 //     request_url: url,
@@ -83,7 +87,7 @@ export class HttpClientService {
         );
     }
 
-    private static httpResponseInterceptors() {
+    private httpResponseInterceptors() {
         // response 响应拦截器
         axios.interceptors.response.use(
             res => {
