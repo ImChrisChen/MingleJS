@@ -312,12 +312,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析html模版
                 if (isHtmlTpl(value)) {
+                    
                     if (isWuiComponent(value)) {        // 自定义组件和 data-fn模块都可以识别
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {
                                 if (!node.innerHTML) {
-                                    node.append(...element.children);       // 减少一层DOM包裹
+                                    node.append(element);       // 减少一层DOM包裹
                                     new App(node,true);
                                 }
                             }
