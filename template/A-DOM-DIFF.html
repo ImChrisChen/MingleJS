@@ -1,0 +1,24 @@
+<div id="diff">
+    <p><{count}></p>
+    <button @click="add($event,this)">add</button>
+    <button @click="reduce()">reduce</button>
+    <data-table data-title="<{count}>"></data-table>
+</div>
+<script>
+    new Mingle({
+        el: '#diff',
+        data: {
+            count: 100,
+        },
+        methods: {
+            add(e, el) {
+                console.log(this.count);
+                this.count = this.count + 1;
+                console.log(e,el);
+            },
+            reduce() {
+                this.count--;
+            },
+        },
+    });
+</script>

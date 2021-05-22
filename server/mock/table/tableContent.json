@@ -6,25 +6,56 @@
             "location": "广东",
             "reg_count": 3796,
             "number": 1,
-            "reg_rate": "<a href='http://baidu.com?id=<{number}>&location=<{location}>'>百度</a>"
+            "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window <{location}> </a>",
+            "children": [
+                {
+                    "location": "广东1",
+                    "reg_count": 37960,
+                    "number": 1,
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window<{location}> </a>",
+                    "rowstylekey": "background-color: red"
+                },
+                {
+                    "location": "广东1",
+                    "reg_count": 37960,
+                    "number": 1,
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window </a>"
+                },
+                {
+                    "location": "广东1",
+                    "reg_count": 37960,
+                    "number": 1,
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window </a>"
+                },
+                {
+                    "location": "广东1",
+                    "reg_count": 37960,
+                    "number": 1,
+                    "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window </a>"
+                }
+            ],
+            "rowstylekey": "background-color: red"
         },
         {
             "location": "江苏",
             "reg_count": 3666,
             "number": 2,
-            "reg_rate": "7.45%"
+            "reg_rate": "<a _module=\"layout-window\" href=\"#\">编辑 layout-window</a>",
+            "rowstylekey": "color: red"
         },
         {
             "location": "山东",
             "reg_count": 3494,
             "number": 3,
-            "reg_rate": "7.10%"
+            "reg_rate": "7.10%",
+            "rowstylekey": "color: red"
         },
         {
             "location": "河南",
             "reg_count": 3404,
             "number": 4,
-            "reg_rate": "6.91%"
+            "reg_rate": "<a _module=\"layout-drawer\" href=\"#\">编辑 layout-drawer</a>",
+            "rowstylekey": "color: red"
         },
         {
             "location": "浙江",

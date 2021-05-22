@@ -5,26 +5,40 @@
  * Time: 7:35 下午
  */
 
-import { Button, Dropdown, Input, Menu, message, Space, Table, Typography } from 'antd';
+import { Button, Dropdown, Input, Menu, message, Space, Table } from 'antd';
 import * as React from 'react';
-import { strParseDOM, strParseVirtualDOM } from '@utils/parser-dom';
+import {
+    deepEach, hashCode,
+    isDataFn,
+    isHtmlTpl,
+    isNumber,
+    isString,
+    isWuiComponent,
+    isWuiTpl,
+    strParseDOM,
+    strParseVirtualDOM,
+    trigger,
+} from '@src/utils';
 import style from './DataTable.scss';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
-import { isHtmlTpl, isNumber, isString, isWuiByString, isWuiTpl } from '@utils/inspect';
-import { formatObject2Url } from '@utils/format-data';
 import Checkbox from 'antd/lib/checkbox';
 import { ColumnsType } from 'antd/es/table';
 import { IComponentProps } from '@interface/common/component';
-import App from '@src/App';
 import { DataUpdateTime, PanelTitle } from '@component/data/chart/DataChart';
 import moment from 'moment';
-import FormAction from '@component/form/form-action/FormAction';
+import FormAction from '@component/form/action/FormAction';
 import { Inject } from 'typescript-ioc';
-import { ParserTemplateService } from '@services/ParserTemplate.service';
-import { HttpClientService, IApiResult } from '@root/src/services/HttpClient.service';
+import {
+    FormatDataService,
+    HttpClientService,
+    IApiResult,
+    ParserTemplateService,
+    ViewRenderService,
+} from '@src/services';
+import App from '@src/App';
+import { TableEntity } from '@component/data/table/module/TableEntity';
 
 interface ITableHeaderItem {
     field: string         //  字段名
@@ -86,10 +100,22 @@ interface ITableState {
 
 export default class DataTable extends React.Component<ITableProps, any> {
 
+    @Inject private readonly parserTemplateService: ParserTemplateService;
+    @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
+    @Inject private readonly viewRenderService: ViewRenderService;
+
+    private readonly appEntity;
+    private searchInput;
+    private entityID = this.props.dataset.entity_id ?? '';      // 实体ID
+    private entityUrl = this.props.dataset.entity_url ?? '';    // 实体编辑的URL
+    private timer;
+
     state = {                  // Table https://ant-design.gitee.io/components/table-cn/#Table
         columns        : [],        // Table Column https://ant-design.gitee.io/components/table-cn/#Column
         dataSource     : [],
         selectedRowKeys: [],
+        rowkey         : this.props.dataset.rowkey,     // id
         loading        : true,
 
         currentpage: this.props.dataset.currentpage || 1,
@@ -104,19 +130,23 @@ export default class DataTable extends React.Component<ITableProps, any> {
         // scroll           : {        //  表格是否可以滚动
         //     y: this.props.dataset.height || undefined,
         // },
+        indentSize: 30,     //  
 
         updateDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+        rowstyles : {},
     };
-
-    @Inject parserTemplateService: ParserTemplateService;
-
-    private url: string = this.props.url;
-    private searchInput;
-    @Inject private readonly httpClientService: HttpClientService;
 
     constructor(props: ITableProps) {
         super(props);
+        this.appEntity = new TableEntity(this.props.el);
 
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+    componentDidMount() {
         Promise.all([
             this.getTableHeader(),
             this.getTableContent(),
@@ -125,20 +155,37 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 columns   : tableHeader,
                 dataSource: tableContent,
                 loading   : false,
+            }, () => {
+                let addEntityBtn = this.props.el.querySelector('.entity-add-btn') as HTMLElement;
+                addEntityBtn && new App(addEntityBtn,true);
+
+                /**
+                 * --------------------------- rowStyle --------------------------------------
+                 */
+                let content = '';
+                for (let key in this.state.rowstyles) {
+                    let value = this.state.rowstyles[key];
+                    content += ` .${ key } { ${ value } } \n`;
+                }
+                let id = `#mingle-row-style`;
+                $(id).remove();
+                let s = `<style id="mingle-row-style">
+                    ${ content }
+                </style>`;
+                $('head').append(s);
             });
             this.handleDragSelect();
         });
 
-        let { interval } = this.props.dataset;
-        console.log(this.props);
+        let { interval } = this.props.dataset;      // 单位为分钟
         if (interval) {
-            console.log('----------');
-            setInterval(() => {
+            this.timer = setInterval(() => {
                 this.FormSubmit({}).then(r => {
                     // message.success(`表格数据自动更新了,每次更新间隔为${ interval }分钟`);
                 });
             }, interval * 60 * 1000);
         }
+
     }
 
     handleShowSizeChange(page, pageSize) {    // pageSize 变化的回调
@@ -191,23 +238,19 @@ export default class DataTable extends React.Component<ITableProps, any> {
         });
     }
 
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
-        // this.handleDragSelect();
-    }
-
     // 提交表单
     public async FormSubmit(formData = {}) {
         console.log('DataTable:', formData);
         this.setState({ loading: true });
 
-        let url = formatObject2Url(formData, this.props.dataset.url);
+        let url = this.formatDataService.obj2Url(formData, this.props.dataset.url);
         let tableContent = await this.getTableContent(url);
         let updateDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
         this.setState({
             dataSource: tableContent,
-            loading   : false,
             updateDate: updateDate,
+            loading   : false,
         });
     }
 
@@ -222,16 +265,16 @@ export default class DataTable extends React.Component<ITableProps, any> {
             obj.money_cost += item.money_cost;
         });
         return {
-            cost                : obj.cost.toFixed(2),
-            money_cost          : obj.money_cost.toFixed(2),
-            key                 : 0,
-            'id'                : '合计',
-            'adv_position_id'   : undefined,
-            'pf'                : undefined,
-            'date'              : '', // '2020-09-23'
-            'game_name'         : '',
-            'position_name'     : '',
-            'channel_name'      : '',
+            cost             : obj.cost.toFixed(2),
+            money_cost       : obj.money_cost.toFixed(2),
+            key              : 0,
+            'id'             : '合计',
+            'adv_position_id': undefined,
+            'pf'             : undefined,
+            'date'           : '', // '2020-09-23'
+            'game_name'      : '',
+            'position_name'  : '',
+            'channel_name'   : '',
             // 'cost':'',
             // 'money_cost'?: number,
             'principal_name'    : '',
@@ -246,10 +289,18 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
     async getTableContent(tableUrl: string = this.props.dataset.url): Promise<Array<ITableContentItem>> {
         let res = await this.httpClientService.jsonp(tableUrl);
-        // let { data }: ITableApiRes<ITableContentItem> = tableContent;
-        let { data }: any = res;
-        let tableContent: Array<ITableContentItem> = data.map((item, index) => {
+        if (!res.status) {
+            return [];
+        }
 
+        let { data }: ITableApiRes<ITableContentItem> = res;
+
+        return this.formatTableContent(data);
+    }
+
+    //  处理 table 的数据格式
+    formatTableContent(data: Array<ITableContentItem>) {
+        deepEach(data, (item, index) => {
             for (const key in item) {
                 if (!item.hasOwnProperty(key)) continue;
                 let value = item[key];
@@ -261,37 +312,33 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
                 // 解析html模版
                 if (isHtmlTpl(value)) {
-
-                    if (isWuiByString(value)) {
+                    
+                    if (isWuiComponent(value)) {        // 自定义组件和 data-fn模块都可以识别
                         let element = strParseDOM(value);
                         value = <div ref={ node => {
                             if (node) {
-                                node.innerHTML = '';
-                                node.append(element);
-                                new App(element);
+                                if (!node.innerHTML) {
+                                    // node.append(...element.children);       // TODO 减少一层DOM包裹,分页时切换会有BUG，暂时没有深究原因
+                                    node.append(element);    
+                                    new App(node,true);
+                                }
                             }
                         } }/>;
 
                     } else {
                         value = strParseVirtualDOM(value);          // 字符串dom转化
-                        console.log(value);
                     }
-
                 }
 
                 item[key] = value;
-            }
 
-            let result = {
-                ...item,
-                key         : index/*item.id*/,
-                dataIndex   : index,
-                name        : '',
-                introduction: <h1>1111</h1>,
-            };
-            return result;
-        });
-        return tableContent;
+                item.key = index;
+                item.dataIndex = index;
+                item.name = '';
+            }
+        }, 'children');
+        return data;
+
     }
 
     async getTableHeader(headerUrl: string = this.props.dataset.headerurl): Promise<Array<ITableHeaderItem>> {
@@ -301,11 +348,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
         let tableHeader: Array<ITableHeaderItem> = [];
         for (const item of data) {
 
-            let fn: any = null;
+            let sortCallback: any = null;
 
             if (item.sortable) {
                 let field = item.field;
-                fn = (a, b): number => {
+                sortCallback = (a, b): number => {
                     let aVal = a[field];
                     let bVal = b[field];
 
@@ -341,7 +388,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
 
             let compare = function (a, b): number {
                 let result;
-                switch (item.field) {
+                switch(item.field) {
                     case 'id':
                         result = a.id - b.id;
                         break;
@@ -374,13 +421,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 // antd
                 ...filters,       // 搜索
 
-                title       : <div className={ style.tableHeaderCell }
-                                   style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
+                title: <div className={ style.tableHeaderCell }
+                            style={ { color: item.thColor } }>{ item.text }</div>,       // 表头的每一列
                 // title    : item.text,
-                dataIndex   : item.field,
-                id          : item.field,
-                align       : 'center',
-                render      : function (text, item, i) {
+                dataIndex: item.field,
+                id       : item.field,
+                align    : 'center',
+                render   : function (text, item, i) {
                     return text;
                 },     // 自定义渲染表格中的每一项
                 // className: style.tableHeaderCell,
@@ -389,15 +436,16 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     // console.log(column);
                 },
                 // ellipsis    : true,      // 自动省略
-                Breakpoint  : 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+                Breakpoint: 'sm',     // 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
                 // fixed       : false,
-                sorter      : fn,
+                sorter: sortCallback,
             });
         }
 
         return tableHeader;
     }
 
+    // 表头搜索
     getColumnSearchProps = dataIndex => ({
         filterDropdown               : ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
             <div style={ { padding: 8 } }>
@@ -438,24 +486,24 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 setTimeout(() => this.searchInput.select(), 100);
             }
         },
-        render                       : text =>
-            this.state.searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
-                    searchWords={ [ this.state.searchText ] }
-                    autoEscape
-                    textToHighlight={ text ? text.toString() : '' }
-                />
-            ) : (
-                text
-            ),
+        // render                       : text =>
+        //     this.state.searchedColumn === dataIndex ? (
+        //         <Highlighter
+        //             highlightStyle={ { backgroundColor: '#ffc069', padding: 0 } }
+        //             searchWords={ [ this.state.searchText ] }
+        //             autoEscape
+        //             textToHighlight={ text ? text.toString() : '' }
+        //         />
+        //     ) : (text),
     });
 
+    // 点击表头搜索重置按钮
     handleReset = clearFilters => {
         clearFilters();
         this.setState({ searchText: '' });
     };
 
+    // 点击表头搜索按钮
     handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
         this.setState({
@@ -464,9 +512,11 @@ export default class DataTable extends React.Component<ITableProps, any> {
         });
     };
 
-    onSelectChange(selectedRowKeys) {
+    // 选择表格中的每一项
+    onSelectChange = (selectedRowKeys) => {
         this.setState({ selectedRowKeys });
-    }
+        trigger(this.props.el, selectedRowKeys, 'selectchange');
+    };
 
     renderTableHeaderConfig(data) {
         const handleClickMenu = e => {
@@ -496,11 +546,12 @@ export default class DataTable extends React.Component<ITableProps, any> {
         this.setState({ showDropdownBtn: false });
     }
 
+    // 表格row 选择功能
     renderRowSelection() {
         const { selectedRowKeys } = this.state;
         return {
             selectedRowKeys,
-            onChange  : this.onSelectChange.bind(this),
+            onChange  : this.onSelectChange,
             selections: [
                 Table['SELECTION_ALL'],
                 Table['SELECTION_INVERT'],
@@ -536,6 +587,7 @@ export default class DataTable extends React.Component<ITableProps, any> {
         };
     }
 
+    // 重新加载表格数据
     async handleReload() {
         let id = this.props.dataset.from;
         if (id) {
@@ -551,7 +603,22 @@ export default class DataTable extends React.Component<ITableProps, any> {
         }
     }
 
-    // TODO 待解决问题 貌似webpacktable.scss不起作用
+    // 删除多条
+    async handleTableDeleteRows() {
+        let ids = this.state.selectedRowKeys;
+        let tasks: Array<Promise<any>> = ids.map(id => {
+            let url = `//amis.local.superdalan.com/api/random/${ id }`;
+            return this.httpClientService.delete(url);
+        });
+        Promise.all(tasks).then(res => {
+            message.success('删除成功');
+            this.handleReload();
+        }, e => {
+            console.log(e);
+            message.error('删除失败');
+        });
+    }
+
     render() {
         return <div onMouseEnter={ this.handleTableWrapMouseEnter.bind(this) }
                     onMouseLeave={ this.handleTableWrapMouseLeave.bind(this) }>
@@ -564,14 +631,17 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     <a className="ant-dropdown-link" onClick={ e => e.preventDefault() }><UnorderedListOutlined/> </a>
                 </Button>
             </Dropdown>
-            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
 
-            <PanelTitle title={ this.props.dataset.title } handleReload={ this.handleReload.bind(this) }/>
+            <PanelTitle type="table"
+                        title={ this.props.dataset.title }
+                        handleReload={ this.handleReload.bind(this) }
+                        handleTableDeleteRows={ this.handleTableDeleteRows.bind(this) }
+            />
 
             <Table
-                style={ this.props.style }
+                indentSize={ this.state.indentSize }
+                // style={ this.props.style }       // TODO 在layout-list 的子元素下，会被影响到
                 className={ style.formTable }
-                components={ {} }
                 onRow={ record => {
                     return {
                         onClick      : event => {
@@ -586,6 +656,12 @@ export default class DataTable extends React.Component<ITableProps, any> {
                         },
                     };
                 } }
+                // 指定 表格每一行的key值,多选表格的ID 就是 这里指定的key
+                rowKey={ row => {
+                    let keyField = this.state.rowkey;
+                    return keyField ? row[keyField] : row;
+                } }
+                // 点击表头
                 onHeaderRow={ (column, index) => {
                     return {
                         onClick: e => {
@@ -597,19 +673,13 @@ export default class DataTable extends React.Component<ITableProps, any> {
                     };
                 } }
                 sticky={ true }
-                // rowSelection={ this.renderRowSelection() }
-                // columns: this.state.co
-                // size={ this.state.size }
+                // 表格行选择操作 (有 data-rowkey 属性才显示表格行多选操作 )
+                rowSelection={ this.state.rowkey ? this.renderRowSelection() : undefined }
                 loading={ this.state.loading }
-                // selectedRowKeys={ this.state.selectedRowKeys }
                 dataSource={ this.state.dataSource }
                 showHeader={ this.props.dataset.showheader }
                 size={ this.props.dataset.size }
-                // searchText       = {this.state.searchText}
-                // searchedColumn={ this.state.searchedColumn }
                 showSorterTooltip={ this.state.showSorterTooltip }        // 是否显示下一次排序的tip
-                // showDropdown={ this.state.showDropdown }       // 是否显示下拉菜单
-                // showDropdownBtn={ this.state.showDropdownBtn }       // 是否显示下拉框按钮
                 bordered={ this.props.dataset.bordered }
                 pagination={ this.props.dataset.pagination ? {
                     pageSizeOptions: this.state.pages || [ '10', '20', '50', '100', '200' ],
@@ -620,18 +690,28 @@ export default class DataTable extends React.Component<ITableProps, any> {
                 } : false }
                 columns={ this.state.columns.filter(item => item['visible'] === true) }
                 scroll={ {        //  表格是否可以滚动
-                    y: this.props.dataset.height || undefined,
+                    y: this.props.dataset.height - 80 || undefined,     // 减去分页器的高度和title的高度
+                } }
+                // 表格行背景颜色 返回数据要有固定属性 antd 只能读样式名 不方便
+                rowClassName={ (value: any, index) => {
+                    let { rowstylekey } = this.props.dataset;
+                    let className = 'class-name-' + hashCode(value[rowstylekey]);
+                    if (value[rowstylekey]) {
+
+                        let rowstyles = this.state.rowstyles;
+                        if (!rowstyles[className]) {
+                            rowstyles[className] = value[rowstylekey];
+                            this.setState({ rowstyles });
+                        }
+                        return className;
+                    }
+                    return '';
                 } }
             >
             </Table>
+            <DataUpdateTime hidden={ !this.props.dataset.showupdate } content={ this.state.updateDate }/>
+
         </div>;
     }
 }
 
-// pagination       : this.props.dataset.pagination ? {      // 分页
-//     pageSizeOptions: [ '10', '20', '50', '100', '200' ],
-//     pageSize       : this.props.dataset.pagesize ?? 50,
-//     position       : [ 'none', this.props.dataset.position /*'bottomLeft'*/ ],     // 分页器展示的位置
-//     onChange       : this.handleChangePagination,    // 页码改变的回调，参数是改变后的页码及每页条数
-//     current        : 1,
-// } : false,

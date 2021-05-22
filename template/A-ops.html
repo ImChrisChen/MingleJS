@@ -1,0 +1,203 @@
+<div id="App">
+
+    <form-action data-async="true" data-method="post" data-url="/monitor-api/alarm-add/"
+                 id="form-alarm">
+
+        <layout-list data-cols="1" data-space="" style="width: 100%" w-if="false">
+            <div class="ant-steps-title">
+                <div class="ant-steps-item-icon"><span class="ant-steps-icon">1</span></div>
+                <span class="ant-span">基本信息</span>
+                <hr/>
+            </div>
+            <form-select
+                data-disabled="false"
+                data-exec="false"
+                data-from="form-alarm"
+                data-key="id"
+                data-label="产品:"
+                data-mode="single"
+                data-required="true"
+                data-smart="false"
+                data-url="http://ops.local.superdalan.com/monitor-api/alarm-produce/"
+                data-value="produce"
+                name="produce"
+                value="1"
+            >
+            </form-select>
+            <form-select
+                data-disabled="false"
+                data-exec="false"
+                data-key="id"
+                data-label="告警对象:"
+                data-mode="multiple"
+                data-required="true"
+                data-smart="false"
+                data-url="http://ops.local.superdalan.com/monitor-api/host-data/"
+                data-value="host_name"
+                name="alarm_object"
+            >
+            </form-select>
+        </layout-list>
+
+        <layout-list data-cols="1" data-space="" style="width: 100%" w-if="status">
+            <div class="ant-steps-title">
+                <div class="ant-steps-item-icon"><span class="ant-steps-icon">1</span></div>
+                <span class="ant-span">基本信息</span>
+                <hr/>
+            </div>
+            <form-select
+                data-disabled="false"
+                data-exec="false"
+                data-from="form-alarm"
+                data-key="id"
+                data-label="产品:"
+                data-mode="single"
+                data-required="true"
+                data-smart="false"
+                data-url="http://ops.local.superdalan.com/monitor-api/alarm-produce/"
+                data-value="produce"
+                name="produce"
+                value="1"
+            >
+            </form-select>
+            <form-select
+                data-disabled="false"
+                data-exec="false"
+                data-key="id"
+                data-label="告警对象:"
+                data-mode="multiple"
+                data-required="true"
+                data-smart="false"
+                data-url="http://ops.local.superdalan.com/monitor-api/host-data/"
+                data-value="host_name"
+                name="alarm_object"
+            >
+            </form-select>
+        </layout-list>
+
+        <layout-list data-cols="1" data-space="" style="width: 100%">
+            <div class="ant-steps-title">
+                <div class="ant-steps-item-icon"><span class="ant-steps-icon">2</span></div>
+                <span class="ant-span">配置告警规则</span>
+            </div>
+
+            <form-group name="alarm_rule" style="margin-right: 0;">
+                <form-input
+                    data-exec="false"
+                    data-label="规则名称:"
+                    data-required="false"
+                    data-smart="false"
+                    data-type="text"
+                    name="rule_name">
+                </form-input>
+
+                <form-select
+                    data-disabled="false"
+                    data-exec="false"
+                    data-from="form-alarm"
+                    data-groupby=""
+                    data-key="target"
+                    data-label="规则描述"
+                    data-mode="single"
+                    data-required="true"
+                    data-smart="false"
+                    data-url="http://ops.local.superdalan.com/monitor-api/alarm-target/<{produce}>/"
+                    data-value="target"
+                    name="rule_type">
+                </form-select>
+
+                <form-select
+                    data-disabled="false"
+                    data-enum="2,1分钟周期;3,3分钟周期;5,5分钟周期;15,15分钟周期;30,30分钟周期,60,60分钟周期"
+                    data-exec="false"
+                    data-label=""
+                    data-mode="single"
+                    data-required="true"
+                    data-smart="false"
+                    name="statistics_cycle"
+                    value="2"
+                >
+                </form-select>
+
+                <form-select
+                    data-disabled="false"
+                    data-enum="max,最大值;min,最小值;avg,平均值"
+                    data-exec="false"
+                    data-label=""
+                    data-mode="single"
+                    data-required="true"
+                    data-smart="false"
+                    name="rule_value"
+                    value="max"
+                >
+                </form-select>
+
+                <form-select
+                    data-disabled="false"
+                    data-enum=">=,>=;>,>;<=,<=;<,<;!=,!="
+                    data-exec="false"
+                    data-label=""
+                    data-mode="single"
+                    data-required="true"
+                    data-smart="false"
+                    name="compare_symbol" s
+                    value=">"
+                >
+                </form-select>
+
+                <form-input
+                    data-label=""
+                    data-required="true"
+                    data-smart="false"
+                    data-type="number"
+                    name="threshold"
+                >
+                </form-input>
+
+                <form-select
+                    data-disabled="false"
+                    data-groupby=""
+                    data-key="target_unit"
+                    data-label=""
+                    data-mode="single"
+                    data-required="true"
+                    data-smart="false"
+                    data-url="http://ops.local.superdalan.com/monitor-api/alarm-target-unit/?target_unit=<{rule_type}>"
+                    data-value="target_unit"
+                    name="target_unit"
+                    value="%"
+                >
+                </form-select>
+
+                <form-select
+                    data-disabled="false"
+                    data-enum="1,连续1次告警;3,连续3次告警;5,连续5次告警"
+                    data-exec="false"
+                    data-label=""
+                    data-mode="single"
+                    data-required="true"
+                    data-smart="false"
+                    name="alarm_count"
+                    value="1"
+                >
+                </form-select>
+
+            </form-group>
+
+        </layout-list>
+
+        <button class="ant-btn ant-btn-primary">完成</button>
+
+    </form-action>
+
+</div>
+<script>
+    window.onload = function () {
+        new Mingle({
+            el: '#App',
+            data: {
+                status: false,
+            },
+        });
+    };
+</script>

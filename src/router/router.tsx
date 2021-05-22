@@ -8,10 +8,15 @@ import React from 'react';
 import CodeGenerator from '@src/private-component/code-generator/CodeGenerator';
 import usageMarkdown from '@root/README-USAGE.md';
 import developMarkdown from '@root/README.md';
-import { IRouteItem } from '@interface/common/component';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
-import { LayoutGenerator } from '@src/private-component/layout-generator/LayoutGenerator';
-import Logs from '@src/pages/logs/logs';
+
+export interface IRouteItem {
+    path: string
+    component?: any
+    name: string
+    target?: string
+    children: Array<IRouteItem>
+}
 
 // nav
 export default [
@@ -26,19 +31,9 @@ export default [
         component: <MarkdownEditor value={ developMarkdown } visibleEditor={ false }/>,
     },
     {
-        name     : '日志统计',
-        path     : '/logs',
-        component: <Logs/>,
-    },
-    {
         name     : '组件设计器',
         path     : '/code-generate',
         component: <CodeGenerator/>,
-    },
-    {
-        name     : '可视化布局',
-        path     : '/layout-generate',
-        component: <LayoutGenerator/>,
     },
     {
         name  : 'ant.design',
@@ -46,4 +41,5 @@ export default [
         target: '_blank',
     },
 ] as Array<IRouteItem>;
+
 

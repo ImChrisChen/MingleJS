@@ -6,9 +6,8 @@
  */
 
 import React from 'react';
-import { deepEach } from '@utils/util';
-import componentConfig from '@root/config/component.config';
-import { formatComponents2Tree } from '@utils/format-data';
+import { deepEach } from '@src/utils';
+import { componentConfig } from '@src/config/component.config';
 import MarkdownEditor from '@src/private-component/markdown-editor/MarkdownEditor';
 import { Layout, Menu } from 'antd';
 import './Document.scss';
@@ -16,16 +15,16 @@ import LayoutMenu from '@src/private-component/views/layout-menu/LayoutMenu';
 import { Redirect, Route, Switch } from 'react-router';
 import navRoutes from '@src/router/router';
 import { Link } from 'react-router-dom';
-import md5 from 'md5';
 import { HtmlRenderer } from '@src/private-component/html-renderer/HtmlRenderer';
-import { HttpClientService } from '@root/src/services/HttpClient.service';
+import { FormatDataService } from '@services/FormatData.service';
+import { HttpClientService } from '@services/HttpClient.service';
 import { Inject } from 'typescript-ioc';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
 
-class Document extends React.Component<any, any> {
+export default class Document extends React.Component<any, any> {
     @Inject private readonly httpClientService: HttpClientService;
-    @Inject private static readonly http: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state: any = {
         menulist      : [],
@@ -42,7 +41,7 @@ class Document extends React.Component<any, any> {
 
     async init() {
         let navRoutes = await this.getRouter();
-        let list = await formatComponents2Tree(componentConfig);
+        let list = await this.formatDataService.components2MenuTree(componentConfig);
         let routes = deepEach(list, item => {
             if (item.component && item.document) return item;
         });
@@ -57,7 +56,6 @@ class Document extends React.Component<any, any> {
     // 获取导航栏路由
     async getRouter() {
         let res = await this.httpClientService.get('/server/files/template');
-        console.log(res);
         let data = res.status ? res.data : [];
         let pageRoutes: Array<any> = [];
         for (const item of data) {
@@ -95,7 +93,7 @@ class Document extends React.Component<any, any> {
 
         return (
             <Layout style={ { display: 'flex', flexDirection: 'row' } }>
-                <LayoutMenu key={ md5(this.state.menulist) } data={ this.state.menulist } pathfield=""/>
+                <LayoutMenu data={ this.state.menulist } pathfield=""/>
                 <Layout className="site-layout" style={ { width: '100%' } }>
                     <Header className="site-layout-background" style={ { padding: 0, background: '#fff' } }>
                         <div className="logo"/>
@@ -118,18 +116,17 @@ class Document extends React.Component<any, any> {
                         style={ {
                             minHeight : 280,
                             background: '#f0f2f5',
-                        } }
-                    >
+                        } }>
                         <Switch>
                             { ...routes }
-                            { this.state.navRoutes.map(route => <Route
+                            { this.state.navRoutes.map(route => {
+                                return <Route
                                     exact
                                     path={ route.path }
                                     key={ route.path }
-                                    render={ () => route.component }
-                                />,
-                            ) }
-                            <Redirect from="*" to="/" exact/>
+                                    render={ () => route.component }/>;
+                            }) }
+                            <Redirect from="*" to="/"/>
                         </Switch>
                     </Content>
                 </Layout>
@@ -137,5 +134,3 @@ class Document extends React.Component<any, any> {
         );
     }
 }
-
-export default Document;

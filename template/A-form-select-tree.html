@@ -1,1 +1,37 @@
-<div id="select-box">    <h1 @click="onClick()"><{title}></h1>    <define-component            data-fn="form-selecttree"            data-label="label:"            data-size="middle"            data-url="http://mingle.local.aidalan.com/server/mock/tree.json"            data-key="id"            data-value="name"            data-children="children"            data-required="false"            data-smart="false"            name="form-select"            value="197,124,157,301,228"            @change="onchange(this,$event,location.href)"    ></define-component></div><script>    new Mingle({        el: '#select-box',        data: {            title: 'Hello World !',        },        created() {            this.logs = this.$get('');        },        methods: {            onchange(self, e, href) {                console.log(self, e, href);            },            onClick(title, self, e) {                console.log(title, self, e);            },        },    });</script>
+<div id="select-box">
+    <h1 @click="onClick(this,$event)"><{title}></h1>
+
+    <define
+        tag="form-selecttree"
+        data-label="label:"
+        data-size="middle"
+        data-url="/server/mock/tree.json"
+        data-key="id"
+        data-value="name"
+        data-children="children"
+        data-required="false"
+        data-smart="false"
+        name="form-select"
+        value="197,124,157,301,228"
+        @change="onchange(this,$event,location.href)"
+    ></define>
+</div>
+<script>
+    new Mingle({
+        el: '#select-box',
+        data: {
+            title: 'Hello World !',
+        },
+        created() {
+            // this.logs = this.$get('');
+        },
+        methods: {
+            onchange(self, e, href) {
+                console.log(self, e, href);
+            },
+            onClick(title, self, e) {
+                console.log(title, self, e);
+            },
+        },
+    });
+</script>

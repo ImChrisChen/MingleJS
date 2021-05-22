@@ -1,0 +1,38 @@
+<div id="entity-edit">
+
+    <!--    <div>-->
+    <!--        <a data-fn="layout-window" data-entity_id="22" data-entity_mode="update" data-uid="<{id}>">编辑</a>-->
+    <!--        <a data-fn="handle-request" data-url="删除接口?id=<{id}>" href="javascript:void(0)">删除</a>-->
+    <!--    </div>-->
+
+    <!--    <a data-fn="layout-window" data-entity_id="22" data-entity_mode="create">实体创建</a>-->
+
+    <!--    <br>-->
+
+    <a _module="layout-window" _href="/" _submit="false" _cancel="false">实体编辑</a>
+
+    <br>
+
+        
+    <span _module="tips-popconfirm" _label="是否删除" >
+        <a _module="handle-request" _url='http://amis.local.superdalan.com/api/menu'>删除</a>
+    </span>
+
+    <br>
+
+    <form-select virtual-key="2fa3-1618553908610-94192" class="children-events-disabled" data-label="媒体"
+                 data-enum="1,Android;2,iOS;3,MacOS;4,Windows" data-url="http://e.aidalan.com/option/media/list"
+                 data-disabled="false" data-mode="multiple" data-autofocus="false" data-allowclear="true"
+                 data-showsearch="true" data-key="id" data-value="<{publisher_name}>" data-groupby=""
+                 data-required="false" data-smart="false" data-exec="false" data-group="" value="" style=""
+                 name="media_id">
+
+    </form-select>
+</div>
+
+<script>
+    new Mingle({
+        el: '#entity-edit',
+    });
+
+</script>

@@ -6,9 +6,7 @@
  */
 
 import React from 'react';
-import App from '@root/src/App';
-import { strParseDOM } from '@utils/parser-dom';
-import { isEmptyArray } from '@utils/inspect';
+import { strParseDOM } from '@src/utils';
 
 interface IHtmlRendererProps {
     html: string
@@ -34,13 +32,15 @@ export class HtmlRenderer extends React.Component<IHtmlRendererProps, any> {
             });
 
             try {
-                // TODO 先把DOM 添加进去再执行代码,有些data数据需要dom做依赖,如 input的value值
-                container?.append(...element.children);
-                codes.map(code => eval(code));
-                if (isEmptyArray(scripts)) {
-                    new App(container as HTMLElement);
+                // TODO 先把DOM 添加进去再执行代码,有些data数据需要dom做依赖,如input的value值
+                if (container) {
+                    container.innerHTML = '';
+                    container?.append(...element.children);
+                    setTimeout(() => {
+                        codes.map(code => eval(code));
+                    }, 500);
                 }
-            } catch (e) {
+            } catch(e) {
                 console.error(e);
             }
 

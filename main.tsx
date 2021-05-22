@@ -1,46 +1,35 @@
-// import './src/App.less';
+import './src/defaultClass.less';
 import './src/App.scss';
 import 'antd/dist/antd.compact.less'; // 紧凑模de式
-// import 'antd/dist/antd.dark.less'
 import React from 'react';
 import { ConfigProvider, message, notification } from 'antd';
-import App from './src/App';
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import Document from '@src/pages/document/Document'; // https://www.cnblogs.com/cckui/p/11490372.html
 import { HashRouter } from 'react-router-dom';
-import { globalComponentConfig } from './config/component.config';
-import { Monitor } from '@services/Monitor';
-import { Mingle } from './src/core/Mingle';
+import { globalComponentConfig } from './src/config/interface';
+import { MingleJS } from './src/core/MingleJS';
+import App from './src/App';
 
-let docs = document.querySelector('#__MINGLE_DOCS__');
+let container = document.querySelector('#__MINGLE_DOCS__');
+container && ReactDOM.render(
+    <ConfigProvider { ...globalComponentConfig }>
+        <HashRouter>
+            <Document/>
+        </HashRouter>
+    </ConfigProvider>,
+    container);
 
-if (docs) {
-    // docs;
-    ReactDOM.render(
-        <ConfigProvider { ...globalComponentConfig }>
-            <HashRouter>
-                <Document/>
-            </HashRouter>
-        </ConfigProvider>,
-        docs);
-} else {
-    // public/index.html
-    window.addEventListener('load', () => {
-        new App(document.body);
-    });
-}
+// window.addEventListener('load', async () => {
+//     new App(document.body);
+//     Monitor.getPerformanceTimes(times => {
+//         Monitor.performanceLogger(times);
+//     });
+// });
 
-window.addEventListener('load', async () => {
-    Monitor.getPerformanceTimes(times => {
-        Monitor.performanceLogger(times);
-    });
-});
-
-App.globalEventListener();
-
+MingleJS.globalEventListener();
 window['$'] = $;
+window['App'] = App;
 window['Message'] = message;
 window['Notice'] = notification;
-window['Mingle'] = Mingle;
-window['App'] = App;
+window['Mingle'] = MingleJS;

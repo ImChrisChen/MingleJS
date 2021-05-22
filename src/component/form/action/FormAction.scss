@@ -1,0 +1,16 @@
+.form-smart {
+    width      : 200px;
+    min-height : 200px;
+    position   : fixed;
+    background : #ffffff;
+    right      : -200;
+    top        : 0;
+    z-index    : 99;
+    transition : all 300ms ease-in-out;
+}
+
+.form-smart-toggle-btn {
+    position : absolute;
+    top      : 0;
+    left     : -44px;
+}

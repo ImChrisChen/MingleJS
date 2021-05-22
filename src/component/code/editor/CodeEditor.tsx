@@ -7,7 +7,6 @@
 
 import { Controlled as CodeMirror } from 'react-codemirror2'; // https://codemirror.net/doc/manual.html#config
 import React, { Component } from 'react';
-import App from '@root/src/App';
 import './CodeEditor.css';
 import $ from 'jquery';
 
@@ -33,7 +32,6 @@ export default class CodeEditor extends Component<any, any> {
         let el = $(this.props.dataset.value);
         let elementContainer = document.querySelector('.show-code') as HTMLElement;
         $('.show-code').html('').append(el);
-        // new App(elementContainer);
     }
 
     componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
@@ -51,30 +49,30 @@ export default class CodeEditor extends Component<any, any> {
                 } }
                 options={ {
                     // mode                   : 'htmlmixed',
-                    mode                   : {
+                    mode       : {
                         name: 'text/html',
                     },
-                    theme                  : /*'idea'*/ 'rubyblue',
-                    tabSize                : 2,
-                    lineNumbers            : true,
-                    styleActiveLine        : true,
-                    lineWrapping           : true,
-                    line                   : true,
-                    foldGutter             : true,
-                    extrakeys              : {
-                        Tab: function (cm) {
-                            let spaces = Array(cm.getOption('indentUnit') + 1).join(' ');
-                            cm.replaceSelection(spaces);
-                        },
-                    },
-                    matchBrackets          : true,      //括号匹配
+                    theme      : /*'idea'*/ 'rubyblue',
+                    tabSize    : 2,
+                    lineNumbers: true,
+                    // styleActiveLine        : true,
+                    lineWrapping: true,
+                    // line                   : true,
+                    // foldGutter             : true,
+                    // extrakeys              : {
+                    //     Tab: function (cm) {
+                    //         let spaces = Array(cm.getOption('indentUnit') + 1).join(' ');
+                    //         cm.replaceSelection(spaces);
+                    //     },
+                    // },
+                    // matchBrackets          : true,      //括号匹配
                     autofocus              : true,
                     smartIndent            : true,
                     indentWithTabs         : true,
                     showCursorWhenSelecting: true,
-                    hintOptions            : {
-                        completeSingle: true,
-                    },
+                    // hintOptions            : {
+                    //     completeSingle: true,
+                    // },
                 } }
                 onBeforeChange={ (editor, data, value) => {
                     this.setState({ value });

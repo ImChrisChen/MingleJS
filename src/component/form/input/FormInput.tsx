@@ -7,9 +7,8 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 import { InputProps } from 'antd/es/input';
-import { trigger } from '@utils/trigger';
-import { isUndefined } from '@root/utils/inspect';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { trigger } from '@src/utils';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 
 interface IComponentProps extends InputProps {
     el: HTMLInputElement
@@ -24,24 +23,24 @@ export default class FormInput extends React.Component<IComponentProps, any> {
     }
 
     state = {
-        value: '',
+        value: ''
     };
 
     handleChange(e) {
-        // this.setState({ //     value: e.target.value, // });
         trigger(this.props.el, e.target.value);
     }
 
     render() {
-        let { smart, ...dataset } = this.props.dataset;
+        let { smart, exec, required, label, ...dataset } = this.props.dataset;
         return <>
             <Form.Item
-                required={ this.props.dataset.required }
-                label={ this.props.dataset.label }
-                name={ this.props.dataset.label }
+                required={ required }
+                label={ label }
                 style={ this.props.style }
             >
-                { smart ? <FormSmartIcon/> : '' }
+                { smart ? <FormSmartIcon /> : '' }
+                { exec ? <FormExecIcon /> : '' }
+
                 <Input
                     value={ this.props.value }
                     { ...dataset }

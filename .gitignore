@@ -1,4 +1,6 @@
 /node_modules/
 .idea/*
 /dist/*
+/lib/*
 ./.idea/workspace.xml
+.DS_Store

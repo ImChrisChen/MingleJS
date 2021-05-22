@@ -18,7 +18,7 @@
 		/* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
 		// "declaration": true,                   /* Generates corresponding '.d.ts' file. */
 		"declarationMap": false,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
-		"sourceMap": false,
+		"sourceMap": true,
 		/* Generates corresponding '.map' file. */
 		// "outFile": "./",                       /* Concatenate and emit output to single file. */
 		"outDir": "./dist/",
@@ -60,15 +60,9 @@
 		"baseUrl": "./",
 		/* Base directory to resolve non-absolute module names. */
 		"paths": {
-			"@root/*": [
-				"./*"
-			],
-			"@conf": [
-				"config/*"
-			],
-			"@core": [
-				"src/core/*"
-			],
+            "@root/*": [
+                "/*"
+            ],
 			"@mock/*": [
 				"/server/mock/*"
 			],
@@ -94,7 +88,7 @@
 				"static/images/*"
 			],
 			"@utils/*": [
-				"utils/*"
+				"src/utils/*"
 			]
 		},
 		/* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */

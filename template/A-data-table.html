@@ -1,0 +1,34 @@
+<div class="a-data-table">
+
+    <data-table data-height="400"></data-table>
+
+    <ul>
+        <li w-foreach="headerData as item"><{item}></li>
+    </ul>
+
+    <!--    <handle-request data-url="https://baidu.com">请求</handle-request>-->
+    <span _module="tips-popconfirm" _label="是否删除" >
+        <a _module="handle-request" _url='http://amis.local.superdalan.com/api/menu'>删除</a>
+    </span>
+</div>
+<script>
+    new Mingle({
+        el: '.a-data-table',
+        data: {
+            title: 'Hello World',
+            headerData: [],
+        },
+        async created() {
+            let data = await this.$jsonp(`/server/mock/table/tableHeader.json`);
+            console.log(data);
+            this.headerData = data;
+        },
+
+        methods: {
+            handleClick(item) {
+                console.log(item);
+                $('.pwd').get(0).hidden = false;
+            },
+        },
+    });
+</script>

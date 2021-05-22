@@ -22,20 +22,17 @@ import {
     Switch,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import React, { Component, PureComponent } from 'react';
-import componentConfig, { IOptions, IPropertyConfig } from '@root/config/component.config';
+import React, { PureComponent } from 'react';
+import { IOptions, IPropertyConfig } from '@src/config/interface';
+import { componentConfig } from '@src/config';
 import CodeEditor from '@component/code/editor/CodeEditor';
 import { FormInstance } from 'antd/lib/form';
-import { formatComponents2Tree, formatEnumOptions } from '@utils/format-data';
-import { arraylastItem } from '@root/utils/util';
-import { withRouter } from 'react-router';
-import { isObject, isString, isUndefined, isUrl } from '@utils/inspect';
+import { arraylastItem, isObject, isUndefined, isUrl, parseEnum } from '@src/utils';
 import { SketchPicker } from 'react-color';
 import style from './CodeGenerator.scss';
 import { ExecCode } from '@src/private-component/exec-code/ExecCode';
-import { parseEnum } from '@utils/parser-property';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
+import { FormatDataService, HttpClientService } from '@src/services';
 
 interface IComponentDataset {
     el: string
@@ -60,6 +57,7 @@ interface ICodeGenerateProps {
 class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
     private form: any = React.createRef<FormInstance>();
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state = {
         components        : this.getComponents(),
@@ -79,7 +77,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     constructor(props) {
         super(props);
-        formatComponents2Tree(componentConfig).then(tree => {
+        this.formatDataService.components2MenuTree(componentConfig).then(tree => {
             this.setState({
                 componentsTree: tree,
             });
@@ -150,7 +148,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                 val.value = val.value();
             }
 
-            if (k === 'url' && val.request) {
+            if (k === 'url' && val.request && val.value) {
                 let res = await this.httpClientService.jsonp(val.value);
                 let dataItem = res.status ? res?.data[0] : undefined;
                 if (dataItem && isObject(dataItem)) {
@@ -161,8 +159,24 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                 }
             }
 
+            if (k === 'url' && !val.value) {
+                let res = await this.httpClientService.jsonp('/server/urls');
+                let o = res.status ? res.data : {};
+                let selectOptions: Array<IOptions> = [];
+                for (const k in o) {
+                    if (!o.hasOwnProperty(k)) continue;
+                    let item = o[k];
+                    selectOptions.push({
+                        label: k,
+                        value: item,
+                    });
+                }
+                val.options = selectOptions;
+            }
+
             if (k === 'enum') {
-                dataEnum = formatEnumOptions(parseEnum(val.value));           // 1,Android;2,iOS => // [{label:'',value:''}]
+                dataEnum = this.formatDataService.enum2AntdOptions(parseEnum(val.value));           // 1,Android;2,iOS => //
+                // [{label:'',value:''}]
             }
 
             // value验证不通过
@@ -171,14 +185,17 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
             }
 
             let options = val.options;
+            let options_from = val.options_from;
             let el = val.el;
-
-            if (options === 'fromUrl') {
-                if (fieldOptions.length > 0) {
-                    options = fieldOptions;
-                    el = 'select-multiple';
-                }
-            }
+            //
+            // if (options_from === 'fromUrl') {
+            //     if (fieldOptions.length > 0) {
+            //         options = fieldOptions;
+            //         el = 'select-multiple';
+            //     } else {
+            //         options = fieldOptions;
+            //     }
+            // }
 
             arr.push({
                 label       : `data-${ k }`,       //
@@ -270,6 +287,10 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     handleSubmit() {
         this.generateCode();
+    }
+
+    static GenerateCode() {
+
     }
 
     // 生成代码
@@ -425,7 +446,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
 
     renderNumberInput(key, item) {
         return <InputNumber
-            min={ 0 } max={ 800 } defaultValue={ 3 }
+            min={ 0 } max={ 800 }
             step={ 1 }
             onChange={ e => {
                 this.setAttributeValue(key, e);
@@ -577,7 +598,7 @@ class CodeGenerator extends PureComponent<ICodeGenerateProps, any> {
                             let label = item.label + '   ' + (item.desc ? `「${ item.desc }」` : '');
 
                             let formItem;
-                            switch (item.el) {
+                            switch(item.el) {
                                 case 'switch':
                                     formItem = this.renderSwitch(key, item);
                                     break;

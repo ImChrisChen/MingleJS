@@ -1,0 +1,21 @@
+<div id="root">
+    <form-radio name="pf" data-enum="1,Android;2,iOS" value="1"></form-radio>
+    <form-select data-url="https://baidu.com?pf=<{pf}>">
+
+    </form-select>
+
+    <ul>
+        <li w-foreach="options as x">
+            <{x}>
+        </li>
+    </ul>
+</div>
+<script>
+    new Mingle({
+        el: '#root',
+        data: {
+            options: [1, 2, 3],
+        },
+    });
+
+</script>

@@ -1,22 +1,88 @@
+//form-action[data-component-uid] {
+//    margin-right : 20px;
+//    min-width    : 120px;
+//}
 
-form-action[data-component-uid] {
-    margin-right : 20px;
-    min-width    : 120px;
-}
-
-[data-component-uid] {
-    position : relative;
-    display: block;
-}
-
-input[data-fn] {
-    display : none;
+app-render {
+    opacity    : 0;
+    //visibility : hidden;
+    transition : all 400ms linear;
 }
 
 [data-component-uid] {
     position   : relative;
+    display    : block;
+    //background : #ffffff;
     transition : all 150ms;
-    opacity    : 0;
+}
+
+layout-row layout-col {
+    margin : 0 4px;
+}
+
+layout-row layout-col:first-child {
+    margin-left : 0;
+}
+
+layout-row layout-col:last-child {
+    margin-right : 0;
+}
+
+layout-list,
+data-list,
+layout-row {
+    margin : 10px;
+}
+
+data-table,
+data-chart {
+    margin     : 10px;
+    background : #ffffff;
+}
+
+layout-list data-table,
+layout-row data-table,
+data-list data-table,
+
+layout-list data-chart,
+layout-row data-chart,
+data-list data-chart {
+    margin : 0;
+}
+
+form-action {
+    padding    : 10px 0;
+    margin     : 10px;
+    background : #ffffff;
+}
+
+form-action [data-component-uid] {
+    margin : 10px;
+}
+
+
+// 重写 form-item样式
+:global {
+    .ant-form-item-control-input-content {
+        display     : flex !important;
+        align-items : center !important;
+    }
+
+    .ant-form-item {
+        margin-bottom : 0 !important;
+    }
+
+    .ant-layout-footer {
+        background : #ffffff !important;
+        padding    : 0 !important;
+    }
+
+    // TODO 表格行的的移入样式
+    //.ant-table-row:hover {
+    //    //background : none;
+    //    opacity    : 0.8;
+    //}
+
 }
 
 .flex-direction-row {
@@ -37,12 +103,6 @@ input[data-fn] {
 .flex-direction-recolumn {
     display        : flex;
     flex-direction : column-reverse;
-}
-
-data-panel {
-    transition : all 0.3s;
-    visibility : hidden;
-    opacity    : 0;
 }
 
 ::-webkit-scrollbar { /*滚动条整体样式*/

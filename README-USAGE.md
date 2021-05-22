@@ -1,36 +1,289 @@
 # MingleJS 使用文档
 
-`组件调用方式和组件传参，还是和WUI保持一致`
 
-## 组件生命周期
 
->  MingleJS组件提供了4个组件生命周期，如果有需要，可以根据业务逻辑在不同组件生命周期中去处理一下特定的逻辑。
+## 模版语法
 
-| 组件生命周期  | 使用方式                                         | 触发时机   |
-| ------------- | ------------------------------------------------ | ---------- |
-| before-load   | `<input data-fn="xx" @before-load="funcName">`   | 组件渲染前 |
-| load          | `<input data-fn="xx" @load="funcName">`          | 组件渲染后 |
-| before-update | `<input data-fn="xx" @before-update="funcName">` | 组件更新前 |
-| update        | `<input data-fn="xx" @update="funcName">`        | 组件更新后 |
+##### 文本渲染  &  属性渲染
 
-`load 和 update 钩子函数都将会接受一个参数, 该参数是组件的实例`
+数据绑定的形式就是使用“<{}>”语法的文本插值：
 
+~~~html
+<h1 title="<{title}>"> <{message}> World ~ </h1> // Hello World ~
+<h1> <{message}> <{person.name}> </h1>  		// Hello Chris
+
+<script>
+    new MingleJS({
+		data: {
+            message: "Hello",
+            title: '我是一个H1元素',
+            person: {
+                name: "Chris"
+            }
+        }
+	})
+</script>
+~~~
+
+
+
+#### 模版语法里使用 javascript 表达式
+
+~~~text
+<{ (count + 1 }>
+<{ (count + 100) / 2 }>
+<{ true ? 'success' : 'fail' }>
+<h1><{ title.length }></h1>
+~~~
+
+
+
+`模版内只允许包含表达式，以下例子都不会生效`
+
+```Html
+<!-- 这是语句，不是表达式 -->
+<{ var a = 1 }>
+
+<!-- 流控制也不会生效，请使用三元表达式 -->
+<{ if (ok) { return message } }>
+```
+
+
+
+#### 不使用模版解析 属性
+
+语法：  在属性名前面添加 `^` 符号  `^href=""`
+
+~~~html
+<input type="text" ^value="<{value}>" />		// input.value => "<{value}>"
+<input type="text" value="<{value}>" />		// input.value => "Hello World ~ "
+~~~
+
+~~~js
+new MingleJS({
+	data: {
+        value: "Hello World ~ "
+    }
+})
+~~~
+
+#### 不解析当前元素下的 文本元素
+
+语法：在元素上 添加 w-readonly 指令
+
+~~~html
+<div w-readonly>
+    <{title}>					// <{title}>
+    <h1> <{title}> </h1>		// <h1> <{title}> </h1>
+</div>
+~~~
+
+~~~javascript
+new MingleJS({
+    data: {
+        title: "Hello MingleJS ~ "
+    }
+})
+~~~
+
+#### 事件解析
+
+事件解析用的 @操作符号 例如： @[事件名称]=“[函数名称]”
+
+@click=“handleClick” 不写括号调用的情况下直接返回事件对象
+
+~~~html
+<button @click="handleClick"> Submit </button> 			// "@click" 原生事件
+<form-datapicker @onClear="handleClearDate"></form-datapicker>		// "@onClear" 元素自定义事件
+~~~
+
+~~~javascript
+new MingleJS({
+    methods: {
+        handleClick(e){   
+            // 原生事件
+        },
+        handleClearDate () {
+            // 自定义事件触发
+        }
+    }
+})
+~~~
+
+
+
+#### 拓展运算符 （html版）
+
+~~~html
+<!-- 解析前 -->
+<form-datepicker ...props></form-datepicker>
+
+<!-- 解析后 -->
+<form-datepicker 
+	 data-label='label:'
+	 data-disabled='false'
+	 data-format='YYYY-MM-DD'
+	 data-showtime='false'
+	 data-picker='date'
+	 data-single='false'
+	 data-required='false'
+	 data-smart='false'
+	 data-usenow='true'
+	 name='form-select'
+></form-datepicker>
+~~~
+
+~~~javascript
+new MingleJS({
+    data:{
+      	props:{
+            'data-label'   : 'label',
+            'data-disabled': false,
+            'data-format'  : 'YYYY-MM-DD',
+            'data-showtime': false,
+            'data-picker'  : 'date',
+            'data-single'  : false,
+            'data-required': false,
+            'data-smart'   : false,
+            'data-usenow'  : true,
+            'name'         : 'form-select',
+        }
+    }
+})
+~~~
+
+
+
+
+
+#### 指令
+
+##### 条件渲染 w-if w-else
 
 ```html
+<h1 w-if="visible"> Hi~ MingleJS</h1>
+<h2 w-else>Bey MingleJS JS</h2>
 <script>
-function funcName (instance) {
-  	// Coding 触发组件钩子
-}   
-</script>
-
-// or 
-
-<script>
-window.funcName = function (instance) {
-  	// Coding 触发组件钩子
-}   
+	new MingleJS({
+        data: {
+            visible: true
+        }
+    })
 </script>
 ```
+
+
+
+##### 列表渲染	w-foreach
+
+w-foreach 支持数组和对象两种遍历形式
+
+数组：w-foreach="[数组] as ([数组的每一项], [数组下标])"
+
+对象：w-foreach="[对象] as ([对象的key对应的value], [对象的key])"
+
+
+
+只需要value时，可以省略掉 圆括号 `<span w-foreach="options as option"></span>`
+
+
+
+~~~html
+<ul>
+    <li w-foreach="options as (option,index)" w-if="index % 2 === 0"><{ option.name }></li>
+</ul>
+<script>
+	new MingleJS({
+        data: {
+            options: [
+                { name:"Chris" },
+                { name:"Bob" },
+                { name:"Alex" },
+            ]
+        }
+    })
+</script>
+~~~
+
+
+
+## API
+
+#### MingleJS
+
+##### options 类型如下：
+
+~~~typescript
+interface IMingleOptions {
+    el: string
+    data?: object
+    created?: (...args) => any
+    methods?: {
+        [key: string]: (...args: any) => any
+    }
+    updated?: (...args) => any
+    mounted?: (...args) => any
+}
+~~~
+
+
+
+| 属性    | 默认值        | 类型     | 描述                       | 用途                           |
+| ------- | ------------- | -------- | -------------------------- | ------------------------------ |
+| el      | "body"        | string   | 要解析的容器的dom选择器    | document.querySelector(el)     |
+| data    | {}            | object   | 模版数据                   | 渲染模版变量                   |
+| created | function (){} | Function | 数据已经收集，页面还未生成 | 在组件不同阶段做一些自定义操作 |
+| mounted | function (){} | Function | 组件挂载完毕               | 在组件不同阶段做一些自定义操作 |
+| updated | function (){} | Function | 组件更新                   | 在组件不同阶段做一些自定义操作 |
+| methods | {}            | object   | 方法                       | 具体函数                       |
+
+
+
+> 钩子函数 和 methods 的函数中可以 通过this 获取到 new MingleJS() 的实例
+
+##### Mingle类实例方法
+
+jsonp请求
+
+- `this.$jsonp`
+
+
+
+ajax请求 （使用的是axios库，具体使用方式可查阅 👉🏿 [axios官方文档](http://www.axios-js.com/zh-cn/docs/)）
+
+- `this.$get`
+- `this.$post`
+- `this.$put`
+- `this.$delete`
+
+
+
+~~~html
+<script>
+    new MingleJS({
+        el: '#App',				
+        data: {
+            persons: [
+                {name: 'Chris'},
+                {name: 'Box'},
+                {name: 'Alex'},
+            ]
+        },
+        created() {
+            // console.log('数据已经收集，页面还未生成');
+        },
+        mounted() {
+            // console.log('组件挂载完毕');
+        },
+        updated() {
+            // console.log('组件更新');
+        },
+        methods: {},
+    })
+</script>
+~~~
+
+
 
 
 
@@ -42,21 +295,18 @@ MingleJS 提供了几个全局方法以便于后端开发者，在不得已的�
 
 可以直接使用 $
 
-
-
 #### Message 全局提示
 
 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
 
 可以把代码复制到控制台中感受下效果
 
-
-
 使用示例：
 
 ```html
+
 <script>
-	Message.success('success');
+    Message.success('success');
     Message.error('fail');
     Message.info('info');
     Message.loading('loading')
@@ -65,19 +315,17 @@ MingleJS 提供了几个全局方法以便于后端开发者，在不得已的�
 
 **更多操作可参考👉🏿 [ant.design](https://ant-design.gitee.io/components/message-cn/)**
 
-
-
 ## Notice
 
 使用示例：
 
 ```html
 <script>
-Notice.open({
-    message: 'Notification Title',
-    description:
-      'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-  });
+    Notice.open({
+        message: 'Notification Title',
+        description:
+            'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    });
 </script>
 ```
 
@@ -85,96 +333,80 @@ Notice.open({
 
 
 
+## 根据数据动态渲染组件
 
+```html
 
-## 模版解析
-
-> data-panel组件支持 if foreach 模版渲染等语法
-
-#### 使用例子
-
-~~~html
-<div data-fn="data-panel" data-url="http://sim.local.superdalan.com/e.data/account-total">
-    
-    <div>接口状态status: <{status}> </div>
-    <div>昨天: <{data.today_cost}> </div>
-        
-    <div w-if="status">接口状态正确时显示的内容</div>
-	<div w-else>接口状态异常时显示的内容</div>
-        
-	<div w-if="data.order_list.length > 0" 
-         w-foreach="data.order_list as item">
-		订单名称：<{item.order_name}>
-		订单ID：<{item.order_id}>
-	</div>
-    <div w-else>暂无数据</div>
-        
+<div id="App">
+    <!-- define 组件可以进行自定义组件 -->
+    <define w-foreach="components as component" 
+                      module="<{component.tag}>" ...component >
+    </define>
 </div>
-~~~
+<script>
+    new MingleJS({
+        el: '#App',
+        data: {
+            components: [
+                {
+                    tag: 'form-button',
+                    props: {
+                        'name': 'pf',
+                        'data-label': '平台',
+                        'data-enum': '1,Android; 2,iOS; 3,MacOS; 4,Windows'
+                    },
+                },
+                {
+                    tag: 'form-radio',
+                    props: {
+                        'name': 'pf',
+                        'data-label': '平台',
+                        'data-enum': '1,Android; 2,iOS; 3,MacOS; 4,Windows'
+                    },
+                }
+            ]
+        }
+    })
+</script>
 
-#### data-url数据格式
 
-```json
-{
-    "data": {
-        "today_cost": "512046",
-        "ad_status": {
-            "running_unit": "423",
-            "not_running_unit": "2",
-            "pause_unit": "135",
-            "out_of_budget_unit": "195"
-        },
-        "order_list": [
-            {order_name:'xxxx', order_id: 1},
-            {order_name:'xxxx', order_id: 2},
-            {order_name:'xxxx', order_id: 3},
-            {order_name:'xxxx', order_id: 4},
-        ],
-        "coverage": {
-            "media": "2",
-            "dl_game_id": "5",
-            "original_id": "1"
-        },
-        "yesterday_cost": "575441"
-    },
-    "status": true
-}
 ```
+
+
 
 ## Form 表单和表格/图表/ 列表 之间的关联
 
 ~~~html
 // 表单组件 // 表单ID，用于关联需要控制的数据。
-<form id="game-list" data-fn="form-action" data-async="true">				
-    <input data-fn="form-button" 
-           data-label="平台:"
-           data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows" 
-           name="platform"
-           />
+<form id="game-list" data-fn="form-action" data-async="true">
+    <form-button
+        data-label="平台:"
+        data-enum="1,Andorid;2,iOS;3,MacOS;4,Windows"
+        name="platform"
+    ></form-button>
 
-    <input data-fn="form-input" data-label="游戏名称:" name="gameName" style="width: 200px">
-    
+    <form-input data-label="游戏名称:" name="gameName" style="width: 200px"></form-input>
+
     <button type="reset" class="ant-btn ant-btn-waring">重置</button>
 
     <button type="submit" class="ant-btn ant-btn-primary">提交</button>
-    
+
 </form>
 
 // 表格组件
-<div data-fn="data-table" 
-     data-from="game-list"			// 需要关联的表单ID
-     >
+<div data-fn="data-table"
+     data-from="game-list"            // 需要关联的表单ID
+>
 </div>
 ~~~
 
-
 ## 字体图标
-
 
 使用示例
 
 ```html
-<icon type="AppleOutlined" color="#f0f00f" size="18" />
+
+<icon type="AppleOutlined" color="#f0f00f" size="18"/>
 ```
 
 | 属性  |                             说明                             |     示例      | 是否必填 |

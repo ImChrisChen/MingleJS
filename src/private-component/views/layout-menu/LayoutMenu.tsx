@@ -5,19 +5,15 @@
  * Time: 11:38 上午
  */
 import * as React from 'react';
-// import axios from 'axios';
 import { Button, Menu } from 'antd';
 import {
-    IdcardOutlined,
-    MailOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
     LeftOutlined,
     RightOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import style from './LayoutMenu.scss';
+import { Inject } from 'typescript-ioc';
+import { FormatDataService } from '@src/services';
 
 const { SubMenu } = Menu;
 
@@ -29,12 +25,6 @@ interface IMenuItem {
     children?: Array<IMenuItem>
 
     [key: string]: any
-}
-
-interface IMenuState<T> {
-    theme?: string,
-    // data?: Array<T>
-    collapsed: boolean,
 }
 
 interface ILayoutMenu {
@@ -52,14 +42,28 @@ interface ILayoutMenu {
 
 export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
 
-    state: IMenuState<IMenuItem> = {
-        theme    : 'light',
-        collapsed: !(this.props.open ?? true),
+    @Inject public readonly formatDataService: FormatDataService;
+
+    state = {
+        theme      : 'light',
+        collapsed  : !(this.props.open ?? true),
+        defaultKeys: this.getDefaultKeys(),
     };
-    pathfield = this.props.pathfield;
+    pathfield = this.props.pathfield ?? '';
+    isEnd = false;
 
     constructor(props) {
         super(props);
+    }
+
+    getDefaultKeys() {
+        let menuStr = localStorage.getItem('menu_active') || '{}';
+        let menuActive = JSON.parse(menuStr);
+        let { selectedKeys, openKeys } = menuActive;
+        return {
+            defaultOpenKeys    : openKeys,
+            defaultSelectedKeys: selectedKeys,
+        };
     }
 
     toggleCollapsed = (e) => {
@@ -68,9 +72,14 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
         });
     };
 
-    handleSelectMenu(e) {
-
-    }
+    handleSelectMenu = (e) => {
+        let openKeys = e.item.props.openKeys;
+        let selectedKeys = e.selectedKeys;
+        localStorage.setItem('menu_active', JSON.stringify({
+            openKeys,
+            selectedKeys,
+        }));
+    };
 
     getCurrentMenu() {
         let [ , currentRoute ] = window.location.hash.split('#');
@@ -80,6 +89,7 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
     collapsedButton() {
         return this.props.layout !== 'horizontal'
             ? <Button
+                hidden
                 type="primary"
                 className={ `layout-menu-toggle-btn ${ style.layoutMenuToggleBtn }` }
                 onClick={ this.toggleCollapsed.bind(this) }
@@ -87,75 +97,69 @@ export default class LayoutMenu extends React.Component<ILayoutMenu, any> {
                 { this.state.collapsed ? <RightOutlined/> : <LeftOutlined/> }
             </Button>
             : '';
+    }
 
-        return this.props.layout !== 'horizontal'
-            ? <Button type="primary"
-                      className="layout-menu-toggle-btn"
-                      onClick={ this.toggleCollapsed.bind(this) }
-                      style={ { marginBottom: 16 } }>
-                { React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined) }
-            </Button>
-            : '';
+    renderMenuItem(item, id, parentIndex, index) {
+        const renderMenuChild = item => {
+            if (item?.[this.pathfield]) {
+                // return <p>{ item.label }</p>;
+                return <a href={ item?.[this.pathfield] }>{ item.label }</a>;
+            } else if (item?.path) {
+                // return <p> { item.label } </p>;
+                return <Link to={ item.path ?? '/' }> { item.label } </Link>;
+            } else {
+                return item.label;
+            }
+        };
+        return <Menu.Item mode={ 'horizontal' }
+                          key={ id }
+                          data-path={ item.path }
+        >
+            { renderMenuChild(item) }
+        </Menu.Item>;
+    }
+
+    renderMenuChildren(data, parentIndex = 0) {
+        return data.map((item, index) => {
+            let children = item.children;
+            let id = item.id || item.path || item.value || index;
+            if (children && children.length > 0) {
+                return <SubMenu className={ style.layoutSubmenu }
+                                data-path={ item.path }
+                                key={ id }
+                                title={ item.label }>
+                    { this.renderMenuChildren(children, ++parentIndex) }
+                </SubMenu>;
+            } else {
+                return this.renderMenuItem(item, id, parentIndex, index);
+            }
+        });
     }
 
     render() {
-        let width = this.props.layout === 'horizontal' ? '100%' : '200px';
+        let width = this.props.layout === 'horizontal' ? '100%' : '160px';
         let height = this.props.layout === 'horizontal' ? 'inherit' : '100vh';
+        let { defaultKeys } = this.state;
         return (
             <div style={ {
-                width             : (this.state.collapsed ? 80 : width),
-                height, background: '#fff',
-                position          : 'relative',
+                width     : (this.state.collapsed ? 60 : width),
+                height,
+                background: '#fff',
+                position  : 'relative',
             } }>
 
                 {/* 菜单为Nav时不显示伸缩按钮 */ }
                 {/*{ this.collapsedButton() }*/ }
                 <Menu
+                    defaultOpenKeys={ defaultKeys.defaultOpenKeys }
+                    defaultSelectedKeys={ defaultKeys.defaultSelectedKeys }
                     style={ { position: 'relative' } }
                     mode={ this.props.layout || 'inline' }       /* 'vertical' : 'inline': 'horizontal */
                     theme={ 'light' }
                     inlineCollapsed={ this.state.collapsed }
+                    onSelect={ this.handleSelectMenu }
                 >
-                    {
-                        this.props.data.map((item, index) => {
-                            let children = item.children;
-                            let key = item.id || item.path || item.value || index;
-                            if (children && children.length > 0) {
-                                return <SubMenu data-path={ item.path }
-                                                key={ key }
-                                                icon={ <MailOutlined/> }
-                                                title={ item.label }>
-                                    { children.map(((child, i) => {
-                                        let k = child.id || child.path || child.value || i;
-                                        return <Menu.Item data-path={ child.path }
-                                                          key={ k }
-                                                          icon={ <IdcardOutlined/> }>
-                                            {/* TODO path 是react里面的，input调用使用a链接*/ }
-                                            { child[this.pathfield] ?
-                                                <a href={ child[this.pathfield] }>{ child.label }</a> : child.label }
-                                            { child.path ?
-                                                <Link to={ child.path ?? '/' }> { child.label } </Link> : child.label }
-                                        </Menu.Item>;
-                                    })) }
-                                </SubMenu>;
-                            } else {
-                                return <Menu.Item mode={ 'horizontal' }
-                                                  key={ key }
-                                                  data-path={ item.path }
-                                                  icon={ <PieChartOutlined/> }>
-                                    {
-                                        item[this.pathfield]
-                                            ? <a href={ item[this.pathfield] }>{ item.label }</a>
-                                            : item.label
-                                    }
-                                    { item.path
-                                        ? <Link to={ item.path ?? '/' }> { item.label } </Link>
-                                        : item.label
-                                    }
-                                </Menu.Item>;
-                            }
-                        })
-                    }
+                    { this.renderMenuChildren(this.props.data) }
                 </Menu>
                 { this.collapsedButton() }
             </div>

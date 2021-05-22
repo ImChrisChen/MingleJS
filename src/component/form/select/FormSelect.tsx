@@ -5,39 +5,18 @@
  * Time: 11:56 下午
  */
 
-import { Button, Checkbox, Form, Select, Typography } from 'antd';
-import { formatEnumOptions, formatList2AntdOptions, formatList2Group } from '@utils/format-data';
-import { trigger } from '@utils/trigger';
+import { Button, Checkbox, Divider, Form, Select } from 'antd';
+import { strParseDOM, trigger } from '@src/utils';
 import { IComponentProps } from '@interface/common/component';
-import { Divider } from 'antd/es';
-import { strParseDOM } from '@utils/parser-dom';
 import React, { Component } from 'react';
-import { FormSmartIcon } from '@component/form/form-action/FormAction';
+import { FormExecIcon, FormSmartIcon } from '@src/private-component/form-component';
 import { Inject } from 'typescript-ioc';
-import { HttpClientService } from '@services/HttpClient.service';
-// import axios from 'axios'
-
-const { Option, OptGroup } = Select;
-const { Title } = Typography;
-
-interface ISelectState<T> {
-    // selectProps?: T
-    selectProps: any
-    checkedAll: boolean
-
-    [key: string]: any
-}
-
-interface ISelectProps {
-    // theme: string
-    // options: Array<any>
-    // value?: any
-
-    [key: string]: any
-}
+import { FormatDataService, HttpClientService } from '@src/services';
+import { data } from 'autoprefixer';
 
 export default class FormSelect extends Component<IComponentProps, any> {
     @Inject private readonly httpClientService: HttpClientService;
+    @Inject private readonly formatDataService: FormatDataService;
 
     state = {
         checkedAll : false,
@@ -49,7 +28,6 @@ export default class FormSelect extends Component<IComponentProps, any> {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
         this.getData(this.props.dataset.url).then(options => {
             this.setState({ options, loading: false });
         });
@@ -61,24 +39,24 @@ export default class FormSelect extends Component<IComponentProps, any> {
             let { data } = await this.httpClientService.jsonp(url);
 
             if (groupby) {
-                return formatList2Group(data, {
+                return this.formatDataService.list2Group(data, {
                     id  : key,
                     name: value,
                     pid : groupby,
                 });
             } else {
-                return formatList2AntdOptions(data, key, value);
+                return this.formatDataService.list2AntdOptions(data, key, value);
             }
 
         } else if (enumList) {
 
-            return formatEnumOptions(enumList);
+            return this.formatDataService.enum2AntdOptions(enumList);
 
         }
     }
 
     render() {
-        let { smart, ...dataset } = this.props.dataset;
+        let { smart, required, exec, label, group, groupBy, value: _, ...dataset } = this.props.dataset;
         delete dataset.enum;
         let value: any = this.props.value;
         if (dataset.mode === 'multiple') {
@@ -89,9 +67,11 @@ export default class FormSelect extends Component<IComponentProps, any> {
             }
         }
         return <>
-            <Form.Item label={ dataset.label } style={ { display: 'flex', ...this.props.style } }
-                       required={ this.props.dataset.required }>
+            <Form.Item label={ label }
+                       style={ { display: 'flex', ...this.props.style } }
+                       required={ required }>
                 { smart ? <FormSmartIcon/> : '' }
+                { exec ? <FormExecIcon/> : '' }
                 <Select
                     // menuItemSelectedIcon={ menuItemSelectedIcon }
                     { ...dataset }
