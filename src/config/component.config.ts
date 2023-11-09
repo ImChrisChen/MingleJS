@@ -1885,7 +1885,7 @@ export const componentConfig: IConfig = {
                         url      : {
                             el: 'input',
                             // value: 'http://192.168.20.121:9001/mgm/menlist/',
-                            // value: 'http://mingle-test.local.aidalan.com/server/mock/menulist/menu.json',
+                            // value: '/api/server/mock/menulist/menu.json',
                             value: domain + '/server/mock/tree.json',
                             parse: 'null',
                             desc : '数据源',

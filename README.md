@@ -210,7 +210,7 @@ http://mingle.local.aidalan.com/report.html
 
 例如：
 
-数据地址为 http://mingle.local.aidalan.com/server/mock/table/tableContent.json
+数据地址为 /api/server/mock/table/tableContent.json
 
 对应的目录结构就是项目更目录 `/server/mock/table/tableContent.json`
 

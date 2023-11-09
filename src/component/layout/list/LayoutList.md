@@ -18,7 +18,7 @@
 <div data-fn="layout-list" data-space="20,20" data-cols="2">
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="/api/server/mock/chart/funnel.json"
                data-type="bar"
                data-key="key"
                data-value="value"
@@ -29,7 +29,7 @@
     </div>
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="/api/server/mock/chart/funnel.json"
                data-type="pie"
                data-key="key"
                data-value="value"
@@ -40,7 +40,7 @@
     </div>
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="/api/server/mock/chart/funnel.json"
                data-type="bar"
                data-key="key"
                data-value="value"
@@ -51,7 +51,7 @@
     </div>
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="/api/server/mock/chart/funnel.json"
                data-type="hbar"
                data-key="key"
                data-value="value"
@@ -62,7 +62,7 @@
     </div>
     <div>
         <input data-fn="data-chart"
-               data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+               data-url="/api/server/mock/chart/funnel.json"
                data-type="line"
                data-key="key"
                data-value="value"
@@ -71,7 +71,7 @@
         />
     </div>
     <div><input data-fn="data-chart"
-                data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+                data-url="/api/server/mock/chart/funnel.json"
                 data-type="rect"
                 data-key="key"
                 data-value="value"
@@ -89,11 +89,11 @@
 ### 结合 data-panel 以及模版引擎使用
 
 ```html
-<div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json">
+<div data-fn="data-panel" data-url="/api/server/mock/chart/funnel.json">
     <div data-fn="layout-list" data-cols="2" data-space="20,20">
         <div w-foreach="data as item">
             <div data-fn="data-chart"
-                 data-url="http://mingle-test.local.aidalan.com/server/mock/chart/funnel.json"
+                 data-url="/api/server/mock/chart/funnel.json"
                  data-type="hbar"
                  data-key="key"
                  data-groupby="value"
@@ -103,8 +103,8 @@
             >
             </div>
             <div data-fn="data-table"
-                 data-headerurl="http://mingle-test.local.aidalan.com/server/mock/table/tableHeader.json"
-                 data-url="http://mingle-test.local.aidalan.com/server/mock/table/tableContent.json"
+                 data-headerurl="/api/server/mock/table/tableHeader.json"
+                 data-url="/api/server/mock/table/tableContent.json"
                  data-pagesize="50"
                  data-currentpage="1"
                  data-pages="50,100,200"
@@ -125,14 +125,14 @@
 
 ```html
 <form data-fn="form-action">
-    <div data-fn="data-panel" data-url="http://mingle.local.aidalan.com/server/mock/chart/funnel.json">
+    <div data-fn="data-panel" data-url="/api/server/mock/chart/funnel.json">
         <div data-fn="layout-list" data-cols="4" data-space="20,20" data-selectable="true" data-single="false"
              name="server">
             <div w-foreach="data as (item,index)" value="<{item.value}>">
                 <button data-fn="layout-window" data-content="编辑 <{item.key}>" data-title="<{item.key}>"
                         class="ant-btn-primary ant-btn">
                     <div data-fn="data-chart"
-                         data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                         data-url="/api/server/mock/table/tableContent.json"
                          data-type="line"
                          data-title="<{ii}>"
                          data-key="location"
@@ -142,7 +142,7 @@
                     ></div>
                 </button>
                 <div data-fn="data-chart"
-                     data-url="http://mingle.local.aidalan.com/server/mock/table/tableContent.json"
+                     data-url="/api/server/mock/table/tableContent.json"
                      data-type="line"
                      data-title="<{ii}>"
                      data-key="location"

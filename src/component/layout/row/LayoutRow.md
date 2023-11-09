@@ -23,7 +23,7 @@
     <div data-grid="18">
         <!-- 自定义内容 -->
         <div data-fn="data-chart"
-             data-url="http://mingle-test.local.aidalan.com/server/mock/chart/areauser.json"
+             data-url="/api/server/mock/chart/areauser.json"
              data-type="bar"
              data-key="location"
              data-value="count,count2"
@@ -40,7 +40,7 @@
     <div data-grid="6">
         <!-- 自定义内容 -->
         <div data-fn="data-chart"
-             data-url="http://mingle-test.local.aidalan.com/server/mock/chart/areauser.json"
+             data-url="/api/server/mock/chart/areauser.json"
              data-type="bar"
              data-key="location"
              data-value="count,count2"
